@@ -1,6 +1,6 @@
-export default {
+export const en = {
   common: {
-    tagline: 'Revolutionizing charitable giving through blockchain technology.',
+    tagline: 'Hacking Homelessness with Technology.',
     cta: {
       becomeDonor: 'Become a Donor',
       partnerWithUs: 'Partner with Us',
@@ -251,19 +251,15 @@ export default {
     }
   },
   footer: {
+    tagline: 'Hacking Homelessness with Technology.',
     quickLinks: 'Quick Links',
     resources: 'Resources',
     connect: 'Connect',
-    links: {
-      howItWorks: 'How It Works',
-      solutions: 'Solutions',
-      scanDonate: 'Scan & Donate',
-      blog: 'Blog',
-      privacy: 'Privacy Policy',
-      terms: 'Terms of Service',
-      whitepaper: 'Project Whitepaper'
-    },
-    copyright: '© {year} SHELTR. All rights reserved.'
+    blog: 'Blog',
+    privacy: 'Privacy Policy',
+    terms: 'Terms of Service',
+    language: 'Français',
+    rights: 'All rights reserved.',
   },
   whitepaper: {
     title: 'SHELTR Whitepaper: Revolutionizing Charitable Giving for Homelessness',

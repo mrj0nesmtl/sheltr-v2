@@ -1,6 +1,6 @@
-export default {
+export const fr = {
   common: {
-    tagline: 'Révolutionner les dons caritatifs grâce à la technologie blockchain.',
+    tagline: 'Pirater l\'itinérance avec la technologie.',
     cta: {
       becomeDonor: 'Devenir Donateur',
       partnerWithUs: 'Devenir Partenaire',
@@ -229,19 +229,15 @@ export default {
     }
   },
   footer: {
+    tagline: 'Pirater l\'itinérance avec la technologie.',
     quickLinks: 'Liens Rapides',
     resources: 'Ressources',
-    connect: 'Connexion',
-    links: {
-      howItWorks: 'Comment ça Marche',
-      solutions: 'Solutions',
-      scanDonate: 'Scanner & Donner',
-      blog: 'Blog',
-      privacy: 'Politique de Confidentialité',
-      terms: 'Conditions d\'Utilisation',
-      whitepaper: 'Livre Blanc du Projet'
-    },
-    copyright: '© {year} SHELTR. Tous droits réservés.'
+    connect: 'Connecter',
+    blog: 'Blog',
+    privacy: 'Politique de Confidentialité',
+    terms: 'Conditions d\'Utilisation',
+    language: 'English',
+    rights: 'Tous droits réservés.',
   },
   whitepaper: {
     title: 'SHELTR Livre blanc : Révolutionner les dons de charité pour les sans-abris',
