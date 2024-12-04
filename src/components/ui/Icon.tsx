@@ -12,7 +12,12 @@ import {
   FileText,
   File,
   ScrollText,
-  Newspaper
+  Newspaper,
+  Loader,
+  MessageCircle,
+  ArrowUp,
+  ArrowDown,
+  MessageSquare
 } from 'lucide-react';
 
 const Icons = {
@@ -67,7 +72,12 @@ const Icons = {
   fileText: FileText,
   file: File,
   scrollText: ScrollText,
-  newspaper: Newspaper
+  newspaper: Newspaper,
+  loader: Loader,
+  messageCircle: MessageCircle,
+  arrowUp: ArrowUp,
+  arrowDown: ArrowDown,
+  messageSquare: MessageSquare
 } as const;
 
 export type IconName = keyof typeof Icons;

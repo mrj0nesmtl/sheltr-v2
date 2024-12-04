@@ -352,5 +352,21 @@ export const en = {
       title: 'White Paper',
       content: 'In-depth technical documentation of the SHELTR platform.'
     }
+  },
+  transaction: {
+    status: {
+      completed: 'Completed',
+      pending: 'Pending',
+      failed: 'Failed'
+    }
+  },
+  support: {
+    needHelp: 'Need Help?',
+    description: 'Our support team is here to help you 24/7',
+    callUs: 'Call Us',
+    callDescription: 'Speak with a support representative',
+    chatWithUs: 'Chat With Us',
+    chatDescription: 'Get instant help from our AI assistant',
+    startChat: 'Start Chat'
   }
 };
