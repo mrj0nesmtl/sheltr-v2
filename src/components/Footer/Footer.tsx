@@ -38,6 +38,20 @@ const socialLinks = [
   },
 ] as const;
 
+const footerLinks = {
+  quickLinks: [
+    { key: 'howItWorks', path: '/how-it-works', label: 'nav.howItWorks' },
+    { key: 'solutions', path: '/solutions', label: 'nav.solutions' },
+    { key: 'scanDonate', path: '/scan', label: 'nav.scanDonate' },
+    { key: 'about', path: '/about', label: 'nav.about' }
+  ],
+  resources: [
+    { key: 'blog', path: '/blog', label: 'footer.blog' },
+    { key: 'privacy', path: '/privacy', label: 'footer.privacy' },
+    { key: 'terms', path: '/terms', label: 'footer.terms' }
+  ]
+};
+
 export function Footer() {
   const { t, i18n } = useTranslation();
   const currentYear = new Date().getFullYear();
@@ -63,10 +77,16 @@ export function Footer() {
           <div>
             <h3 className="text-white font-medium mb-4">{t('footer.quickLinks')}</h3>
             <ul className="space-y-2">
-              <li><Link to="/how-it-works" className="text-gray-400 hover:text-white transition-colors">{t('nav.howItWorks')}</Link></li>
-              <li><Link to="/solutions" className="text-gray-400 hover:text-white transition-colors">{t('nav.solutions')}</Link></li>
-              <li><Link to="/scan" className="text-gray-400 hover:text-white transition-colors">{t('nav.scanDonate')}</Link></li>
-              <li><Link to="/about" className="text-gray-400 hover:text-white transition-colors">{t('nav.about')}</Link></li>
+              {footerLinks.quickLinks.map((link) => (
+                <li key={link.key}>
+                  <Link 
+                    to={link.path} 
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    {t(link.label)}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -74,9 +94,16 @@ export function Footer() {
           <div>
             <h3 className="text-white font-medium mb-4">{t('footer.resources')}</h3>
             <ul className="space-y-2">
-              <li><Link to="/blog" className="text-gray-400 hover:text-white transition-colors">{t('footer.blog')}</Link></li>
-              <li><Link to="/privacy" className="text-gray-400 hover:text-white transition-colors">{t('footer.privacy')}</Link></li>
-              <li><Link to="/terms" className="text-gray-400 hover:text-white transition-colors">{t('footer.terms')}</Link></li>
+              {footerLinks.resources.map((link) => (
+                <li key={link.key}>
+                  <Link 
+                    to={link.path} 
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    {t(link.label)}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 

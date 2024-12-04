@@ -267,6 +267,14 @@ export const en = {
       tiktok: 'Follow us on TikTok',
       linkedin: 'Connect on LinkedIn',
       website: 'Visit Arcana Concept Website'
+    },
+    links: {
+      howItWorks: 'footer.links.howItWorks',
+      solutions: 'footer.links.solutions',
+      scanDonate: 'footer.links.scanDonate',
+      blog: 'footer.links.blog',
+      privacy: 'footer.links.privacy',
+      terms: 'footer.links.terms'
     }
   },
   whitepaper: {
@@ -384,5 +392,13 @@ export const en = {
       date: 'Released',
       showName: 'Tomes of Arcana'
     }
+  },
+  dashboard: {
+    donor: {
+      title: 'Donor Dashboard'
+    },
+    totalDonated: 'Total Donated',
+    impactScore: 'Impact Score',
+    totalDonations: 'Total Donations'
   }
 };
