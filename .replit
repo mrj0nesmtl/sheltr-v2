@@ -1,9 +1,35 @@
-run = "npm run start"
+run = "npm install && npm run dev"
 entrypoint = "src/App.tsx"
 
 [env]
 VITE_SUPABASE_URL = "$VITE_SUPABASE_URL"
 VITE_SUPABASE_ANON_KEY = "$VITE_SUPABASE_ANON_KEY"
+NODE_ENV = "development"
 
 [nix]
-channel = "stable-22_11" 
+channel = "stable-22_11"
+
+[languages]
+typescript = "nodejs-18"
+
+[languages.typescript]
+pattern = "**/{*.ts,*.js,*.tsx,*.jsx}"
+syntax = "typescript"
+
+[languages.typescript.languageServer]
+start = [ "typescript-language-server", "--stdio" ]
+
+[packager]
+language = "nodejs"
+
+[packager.features]
+enabledForHosting = false
+packageSearch = true
+guessImports = true
+
+[env]
+XDG_CONFIG_HOME = "/home/runner/.config"
+
+[gitHubImport]
+requiredFiles = [".replit", "replit.nix", ".config"]
+  
