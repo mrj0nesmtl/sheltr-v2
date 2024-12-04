@@ -1,18 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { Icon } from '@/components/ui/Icon';
 import { NavigationItems } from './Navigation/NavigationItems';
 import { MobileMenu } from './Navigation/MobileMenu';
-import { LanguageSwitcher } from './LanguageSwitcher';
-import { Logo } from './Logo';
+import { Footer } from './Footer/Footer';
 
 export function Layout() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { t } = useTranslation();
-
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="min-h-screen flex flex-col bg-gray-900">
       <nav className="bg-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
@@ -31,9 +25,11 @@ export function Layout() {
         </div>
       </nav>
 
-      <main>
+      <main className="flex-grow">
         <Outlet />
       </main>
+
+      <Footer />
     </div>
   );
 }
