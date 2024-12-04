@@ -4,7 +4,6 @@ Last Updated: December 4, 2024
 ## Current State
 
 ### Active Development
-- Implementing multilingual support
 - Setting up database schema and security
 - Fixing layout and navigation issues
 - Resolving markdown rendering problems
