@@ -6,7 +6,10 @@ import {
   BarChart, Shield, Heart, Wallet, ArrowRight, Mail, Lock, MapPin,
   DollarSign, AlertCircle, Users, Phone, Send, CheckCircle, Trophy,
   Calendar, XCircle, Tag, Save, Camera, UserCog, Globe, AlertTriangle,
-  Activity
+  Activity,
+  Book,
+  Code,
+  FileText
 } from 'lucide-react';
 
 const Icons = {
@@ -55,7 +58,10 @@ const Icons = {
   userCog: UserCog,
   globe: Globe,
   alertTriangle: AlertTriangle,
-  activity: Activity
+  activity: Activity,
+  book: Book,
+  code: Code,
+  fileText: FileText
 } as const;
 
 export type IconName = keyof typeof Icons;

@@ -49,21 +49,21 @@ export function AboutPage() {
       id: 'readme',
       title: t('about.readme.title'),
       content: markdownContent['README'] || t('about.readme.content'),
-      icon: 'book' as const,
+      icon: 'file' as const,
       mdFile: 'README'
     },
     {
       id: 'techstack',
       title: t('about.techstack.title'),
       content: markdownContent['TECH_STACK'] || t('about.techstack.content'),
-      icon: 'code' as const,
+      icon: 'settings' as const,
       mdFile: 'TECH_STACK'
     },
     {
       id: 'whitepaper',
       title: t('about.whitepaper.title'),
       content: markdownContent['WHITE_PAPER'] || t('about.whitepaper.content'),
-      icon: 'fileText' as const,
+      icon: 'file' as const,
       mdFile: 'WHITE_PAPER'
     }
   ];
