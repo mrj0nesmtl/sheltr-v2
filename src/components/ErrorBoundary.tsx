@@ -1,8 +1,9 @@
-import React, { Component, ErrorInfo } from 'react';
+import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { AlertTriangle } from 'lucide-react';
 
 interface Props {
-  children: React.ReactNode;
+  children: ReactNode;
+  fallback?: ReactNode;
 }
 
 interface State {
@@ -26,6 +27,10 @@ export class ErrorBoundary extends Component<Props, State> {
 
   public render() {
     if (this.state.hasError) {
+      if (this.props.fallback) {
+        return this.props.fallback;
+      }
+
       return (
         <div className="min-h-screen bg-gray-900 flex items-center justify-center">
           <div className="max-w-md w-full mx-auto px-4">
@@ -49,4 +54,26 @@ export class ErrorBoundary extends Component<Props, State> {
 
     return this.props.children;
   }
+}
+
+export function DashboardErrorBoundary({ children }: { children: ReactNode }) {
+  const fallback = (
+    <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+      <div className="text-white">
+        <h2>Something went wrong loading the dashboard.</h2>
+        <button 
+          onClick={() => window.location.reload()}
+          className="mt-4 px-4 py-2 bg-indigo-600 rounded-md"
+        >
+          Retry
+        </button>
+      </div>
+    </div>
+  );
+
+  return (
+    <ErrorBoundary fallback={fallback}>
+      {children}
+    </ErrorBoundary>
+  );
 }

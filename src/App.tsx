@@ -21,7 +21,7 @@ import { ContactForm } from './components/Contact/ContactForm';
 import { BlogList } from './components/Blog/BlogList';
 import { BlogPost } from './components/Blog/BlogPost';
 import { BlogEditor } from './components/Blog/BlogEditor';
-import { UserProfile } from './components/Profile/UserProfile';
+import { UserProfile as UserProfileComponent } from './components/Profile/UserProfile';
 import { ParticipantDashboard } from './components/Dashboard/ParticipantDashboard';
 import { DonorDashboard } from './components/Dashboard/DonorDashboard';
 import { PublicDashboard } from './components/Analytics/PublicDashboard';
@@ -29,6 +29,12 @@ import { PrivacyPolicy } from './components/Legal/PrivacyPolicy';
 import { TermsOfService } from './components/Legal/TermsOfService';
 import { WhitepaperPage } from './components/Whitepaper/WhitepaperPage';
 import { useAuthStore, getDashboardPath } from './stores/authStore';
+import type { UserProfile } from './lib/types/auth';
+
+interface ProtectedRouteProps {
+  children: React.ReactNode | ((props: { user: UserProfile }) => React.ReactNode);
+  allowedRoles?: string[];
+}
 
 function App() {
   const { checkUser } = useAuthStore();
@@ -57,6 +63,7 @@ function App() {
             <Route path="solutions" element={<Solutions />} />
             <Route path="contact" element={<ContactForm />} />
             <Route path="scan" element={<QRScanner />} />
+            <Route path="impact" element={<PublicDashboard />} />
             <Route path="donate/:id" element={<DonationForm />} />
             <Route path="thank-you" element={<ThankYou />} />
             <Route path="blog" element={<BlogList posts={[]} />} />
@@ -75,43 +82,46 @@ function App() {
             {/* Protected Routes */}
             <Route path="profile/:id" element={
               <ProtectedRoute>
-                <UserProfile />
+                <UserProfileComponent />
               </ProtectedRoute>
             } />
             
-            <Route path="donor/dashboard" element={
+            <Route path="/donor/dashboard" element={
               <ProtectedRoute allowedRoles={['donor']}>
                 <DonorDashboard />
               </ProtectedRoute>
             } />
             
-            <Route path="participant/dashboard" element={
+            <Route path="/participant/dashboard" element={
               <ProtectedRoute allowedRoles={['participant']}>
                 <ParticipantDashboard />
               </ProtectedRoute>
             } />
             
-            <Route path="admin/dashboard" element={
-              <ProtectedRoute allowedRoles={['shelter_admin', 'admin']}>
+            <Route path="/admin/dashboard" element={
+              <ProtectedRoute allowedRoles={['admin', 'shelter_admin']}>
                 <AdminDashboard />
               </ProtectedRoute>
             } />
             
-            <Route path="super-admin/dashboard" element={
+            <Route path="/super-admin/dashboard" element={
               <ProtectedRoute allowedRoles={['super_admin']}>
                 <SuperAdminDashboard />
               </ProtectedRoute>
             } />
 
             {/* Default dashboard redirect */}
-            <Route path="dashboard" element={
+            <Route path="/dashboard" element={
               <ProtectedRoute>
                 {({ user }) => {
-                  const path = getDashboardPath(user?.role);
+                  const path = getDashboardPath(user.role);
                   return <Navigate to={path} replace />;
                 }}
               </ProtectedRoute>
             } />
+
+            {/* Add this route to handle logout redirects */}
+            <Route path="/logout" element={<Navigate to="/login" replace />} />
           </Route>
         </Routes>
       </Router>

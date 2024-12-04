@@ -35,16 +35,23 @@ export function Solutions() {
     }
   ];
 
-  const benefits = [
-    {
-      title: t('solutions.benefits.technology.title'),
-      features: t('solutions.benefits.technology.features', { returnObjects: true })
-    },
-    {
-      title: t('solutions.benefits.support.title'),
-      features: t('solutions.benefits.support.features', { returnObjects: true })
-    }
-  ];
+  const partnershipBenefits = {
+    title: t('solutions.partnership.title'),
+    sections: [
+      {
+        title: t('solutions.partnership.technology.title'),
+        features: t('solutions.partnership.technology.features', { returnObjects: true })
+      },
+      {
+        title: t('solutions.partnership.support.title'),
+        features: t('solutions.partnership.support.features', { returnObjects: true })
+      },
+      {
+        title: t('solutions.partnership.engagement.title'),
+        features: t('solutions.partnership.engagement.features', { returnObjects: true })
+      }
+    ]
+  };
 
   return (
     <div className="flex flex-col min-h-[calc(100vh-4rem)]">
@@ -79,9 +86,11 @@ export function Solutions() {
           </div>
 
           <div className="bg-white/10 backdrop-blur-lg rounded-xl p-8 mb-16">
-            <h2 className="text-2xl font-bold text-white mb-8">Partnership Benefits</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {benefits.map(({ title, features }) => (
+            <h2 className="text-2xl font-bold text-white mb-8">
+              {partnershipBenefits.title}
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {partnershipBenefits.sections.map(({ title, features }) => (
                 <div key={title}>
                   <h3 className="text-xl font-semibold text-white mb-4">{title}</h3>
                   {renderFeatureList(features as string[])}
