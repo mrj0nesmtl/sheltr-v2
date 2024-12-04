@@ -9,7 +9,10 @@ import {
   Activity,
   Book,
   Code,
-  FileText
+  FileText,
+  File,
+  ScrollText,
+  Newspaper
 } from 'lucide-react';
 
 const Icons = {
@@ -61,7 +64,10 @@ const Icons = {
   activity: Activity,
   book: Book,
   code: Code,
-  fileText: FileText
+  fileText: FileText,
+  file: File,
+  scrollText: ScrollText,
+  newspaper: Newspaper
 } as const;
 
 export type IconName = keyof typeof Icons;
