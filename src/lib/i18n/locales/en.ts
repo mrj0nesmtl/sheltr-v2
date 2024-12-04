@@ -19,7 +19,8 @@ export const en = {
     login: 'Login',
     profile: 'Profile',
     dashboard: 'Dashboard',
-    signOut: 'Sign Out'
+    signOut: 'Sign Out',
+    about: 'About SHELTR'
   },
   hero: {
     title: 'Hacking Homelessness',
@@ -331,6 +332,25 @@ export const en = {
         invalidCredentials: "Invalid email or password",
         serverError: "Unable to connect to server"
       }
+    }
+  },
+  about: {
+    title: 'About SHELTR',
+    intro: {
+      title: 'Introduction to SHELTR',
+      content: 'Learn about our mission to hack homelessness through technology.'
+    },
+    readme: {
+      title: 'Project Overview',
+      content: 'Technical overview and setup instructions for developers.'
+    },
+    techstack: {
+      title: 'Technology Stack',
+      content: 'Detailed breakdown of our technology infrastructure.'
+    },
+    whitepaper: {
+      title: 'White Paper',
+      content: 'In-depth technical documentation of the SHELTR platform.'
     }
   }
 };

@@ -1,38 +1,67 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Accordion } from '@/components/ui/Accordion';
 import { Card } from '@/components/ui/Card';
 import { Icon } from '@/components/ui/Icon';
+import ReactMarkdown from 'react-markdown';
 
 export function AboutPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const [markdownContent, setMarkdownContent] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    const loadMarkdownFiles = async () => {
+      const files = {
+        'SHELTR_INTRO': '/docs/SHELTR_INTRO.md',
+        'README': '/docs/README.md',
+        'TECH_STACK': '/docs/TECH_STACK.md',
+        'WHITE_PAPER': '/docs/WHITE_PAPER.md'
+      };
+
+      const content: Record<string, string> = {};
+      
+      for (const [key, path] of Object.entries(files)) {
+        try {
+          const response = await fetch(path);
+          content[key] = await response.text();
+        } catch (error) {
+          console.error(`Error loading ${key}:`, error);
+          content[key] = 'Error loading content';
+        }
+      }
+
+      setMarkdownContent(content);
+    };
+
+    loadMarkdownFiles();
+  }, [i18n.language]);
 
   const documents = [
     {
       id: 'intro',
       title: t('about.intro.title'),
-      content: t('about.intro.content'),
+      content: markdownContent['SHELTR_INTRO'] || t('about.intro.content'),
       icon: 'info' as const,
       mdFile: 'SHELTR_INTRO'
     },
     {
       id: 'readme',
       title: t('about.readme.title'),
-      content: t('about.readme.content'),
+      content: markdownContent['README'] || t('about.readme.content'),
       icon: 'book' as const,
       mdFile: 'README'
     },
     {
       id: 'techstack',
       title: t('about.techstack.title'),
-      content: t('about.techstack.content'),
+      content: markdownContent['TECH_STACK'] || t('about.techstack.content'),
       icon: 'code' as const,
       mdFile: 'TECH_STACK'
     },
     {
       id: 'whitepaper',
       title: t('about.whitepaper.title'),
-      content: t('about.whitepaper.content'),
+      content: markdownContent['WHITE_PAPER'] || t('about.whitepaper.content'),
       icon: 'fileText' as const,
       mdFile: 'WHITE_PAPER'
     }
@@ -61,7 +90,7 @@ export function AboutPage() {
                   </Accordion.Trigger>
                   <Accordion.Content className="p-4 text-gray-300">
                     <div className="prose prose-invert max-w-none">
-                      {doc.content}
+                      <ReactMarkdown>{doc.content}</ReactMarkdown>
                     </div>
                   </Accordion.Content>
                 </Accordion.Item>

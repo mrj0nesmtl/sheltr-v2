@@ -19,7 +19,8 @@ export const fr = {
     login: 'Connexion',
     profile: 'Profil',
     dashboard: 'Tableau de Bord',
-    signOut: 'Déconnexion'
+    signOut: 'Déconnexion',
+    about: 'À propos de SHELTR'
   },
   hero: {
     title: 'Pirater l\'itinérance',
@@ -309,6 +310,25 @@ export const fr = {
         invalidCredentials: "Email ou mot de passe invalide",
         serverError: "Impossible de se connecter au serveur"
       }
+    }
+  },
+  about: {
+    title: 'À propos de SHELTR',
+    intro: {
+      title: 'Introduction à SHELTR',
+      content: 'Découvrez notre mission de pirater l\'itinérance grâce à la technologie.'
+    },
+    readme: {
+      title: 'Aperçu du Projet',
+      content: 'Aperçu technique et instructions de configuration pour les développeurs.'
+    },
+    techstack: {
+      title: 'Stack Technologique',
+      content: 'Analyse détaillée de notre infrastructure technologique.'
+    },
+    whitepaper: {
+      title: 'Livre Blanc',
+      content: 'Documentation technique approfondie de la plateforme SHELTR.'
     }
   }
 };
