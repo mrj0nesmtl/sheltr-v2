@@ -7,6 +7,7 @@ import {
 } from '../lib/auth/sessionService';
 import { getUserProfile, createUserProfile } from '../lib/auth/profileService';
 import { UserProfile, UserRole, SignUpData } from '../lib/types/auth';
+import { supabase } from '@/lib/supabase';
 
 interface AuthState {
   user: UserProfile | null;
@@ -88,24 +89,15 @@ export const useAuthStore = create<AuthState>((set) => ({
   },
 
   signOut: async () => {
-    set({ isLoading: true, error: null });
     try {
-      await signOutUser();
-      // Clear all auth state
-      set({ 
-        user: null, 
-        isLoading: false, 
-        error: null 
-      });
-      // Clear any local storage or session storage if used
-      localStorage.removeItem('supabase.auth.token');
-      sessionStorage.clear();
-      // Redirect to home
-      window.location.href = '/';
+      await supabase.auth.signOut();
+      set({ user: null });
+      // Clear any other auth-related state
+      localStorage.removeItem('sheltr-user');
+      return { success: true };
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Sign out failed';
-      set({ error: message, isLoading: false });
-      throw error;
+      console.error('Error signing out:', error);
+      return { success: false, error };
     }
   },
 

@@ -1,113 +1,131 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, Navigate } from 'react-router-dom';
-import { Mail, Link as LinkIcon, DollarSign, Calendar } from 'lucide-react';
-import { useAuthStore } from '../../stores/authStore';
-import { ImageUpload } from './ImageUpload';
-import { UserBadge } from '../UserBadge/UserBadge';
-import { cn } from '../../lib/utils';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useAuthStore } from '@/stores/authStore';
+import { Icon } from '@/components/ui/Icon';
+import { TransactionList } from '@/components/Transactions/TransactionList';
+import { CustomerSupport } from '@/components/CustomerSupport';
+import { ImageUpload } from '@/components/ui/ImageUpload';
 
 export function UserProfile() {
-  const { id } = useParams();
+  const { t } = useTranslation();
   const { user } = useAuthStore();
   const [isEditing, setIsEditing] = useState(false);
-  const [editData, setEditData] = useState<Partial<typeof user>>({});
-
-  const isOwnProfile = user?.id === id;
-
-  // Redirect if not logged in
-  if (!user) {
-    return <Navigate to="/login" replace />;
-  }
-
-  // Show 404 if trying to view someone else's profile
-  if (!isOwnProfile) {
-    return (
-      <div className="min-h-screen pt-16 bg-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="text-center">
-            <h1 className="text-4xl font-bold text-white mb-4">Profile Not Found</h1>
-            <p className="text-gray-300">The requested profile does not exist or you don't have permission to view it.</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  const handleSave = async () => {
+  
+  // Profile image handling
+  const handleProfileImageSave = async (file: File) => {
     try {
-      // TODO: Implement profile update
-      setIsEditing(false);
+      const formData = new FormData();
+      formData.append('profile_image', file);
+      
+      const response = await fetch(`/api/users/${user?.id}/profile-image`, {
+        method: 'POST',
+        body: formData
+      });
+      
+      if (!response.ok) throw new Error('Failed to upload image');
+      
+      // Update local user state with new image URL
+      const { imageUrl } = await response.json();
+      // Update user profile image in state
     } catch (error) {
-      console.error('Failed to save profile:', error);
+      console.error('Error uploading profile image:', error);
     }
   };
 
   return (
-    <div className="min-h-screen pt-16 bg-gray-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white/10 backdrop-blur-lg rounded-xl overflow-hidden">
-          {/* Cover Image */}
-          <div className="h-32 bg-gradient-to-r from-indigo-500 to-purple-600"></div>
+    <div className="min-h-screen bg-gray-900">
+      {/* Hero Banner */}
+      <div className="relative h-48 md:h-64 bg-gradient-to-r from-indigo-600 to-purple-600">
+        <button 
+          className="absolute bottom-4 right-4 bg-black/50 text-white p-2 rounded-full hover:bg-black/70"
+          onClick={() => setIsEditing(true)}
+        >
+          <Icon name="camera" className="h-5 w-5" />
+        </button>
+      </div>
 
-          {/* Profile Section */}
-          <div className="px-8 pb-8">
-            <div className="flex flex-col sm:flex-row items-center sm:items-end -mt-16 mb-6">
-              {/* Profile Image */}
+      {/* Profile Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12">
+        <div className="relative">
+          {/* Profile Image */}
+          <div className="absolute -top-16 left-4">
+            <div className="relative">
               <ImageUpload
-                currentImage={user.profileImage}
-                onUpload={async (file) => {
-                  // TODO: Implement image upload
-                  console.log('Upload image:', file);
-                }}
-                className="mb-4 sm:mb-0"
+                currentImage={user?.profileImage}
+                onSave={handleProfileImageSave}
+                className="h-32 w-32 rounded-full border-4 border-gray-900 bg-gray-800"
               />
+            </div>
+          </div>
 
-              {/* Profile Info */}
-              <div className="sm:ml-6 text-center sm:text-left">
-                <div className="flex flex-col sm:flex-row items-center gap-3 mb-2">
-                  <h1 className="text-3xl font-bold text-white">{user.name}</h1>
-                  <UserBadge 
-                    role={user.role} 
-                    verified={user.role === 'shelter_admin' && user.verified}
-                  />
-                </div>
-                <div className="flex items-center justify-center sm:justify-start mt-2 text-gray-300">
-                  <Mail className="h-4 w-4 mr-2" />
-                  <span>{user.email}</span>
-                </div>
-              </div>
+          {/* Profile Info */}
+          <div className="ml-40 pt-4">
+            <h1 className="text-2xl font-bold text-white">
+              {user?.name || 'Anonymous User'}
+            </h1>
+            <p className="text-gray-400">{user?.email}</p>
+            <div className="mt-2 flex items-center space-x-4">
+              <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-500/10 text-indigo-400">
+                {t(`roles.${user?.role}`)}
+              </span>
+              {user?.verified && (
+                <span className="inline-flex items-center text-green-400">
+                  <Icon name="checkCircle" className="h-4 w-4 mr-1" />
+                  {t('profile.verified')}
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
 
-              {/* Edit Button */}
-              <div className="sm:ml-auto mt-4 sm:mt-0">
-                {isEditing ? (
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => setIsEditing(false)}
-                      className="px-4 py-2 border border-gray-600 rounded-md text-gray-300 hover:bg-gray-800"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      onClick={handleSave}
-                      className="px-4 py-2 bg-indigo-600 rounded-md text-white hover:bg-indigo-700"
-                    >
-                      Save Changes
-                    </button>
-                  </div>
-                ) : (
-                  <button
-                    onClick={() => setIsEditing(true)}
-                    className="px-4 py-2 bg-indigo-600 rounded-md text-white hover:bg-indigo-700"
-                  >
-                    Edit Profile
-                  </button>
-                )}
-              </div>
+        {/* Profile Sections */}
+        <div className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Main Content */}
+          <div className="lg:col-span-2 space-y-8">
+            {/* Recent Transactions */}
+            <div className="bg-gray-800 rounded-xl p-6">
+              <h2 className="text-xl font-semibold text-white mb-4">
+                {t('profile.recentTransactions')}
+              </h2>
+              <TransactionList userId={user?.id} limit={5} />
             </div>
 
-            {/* Rest of profile content remains the same */}
-            {/* ... */}
+            {/* Activity Feed or Other Sections */}
+            {/* Add more sections as needed */}
           </div>
+
+          {/* Sidebar */}
+          <div className="space-y-8">
+            {/* Stats Card */}
+            <div className="bg-gray-800 rounded-xl p-6">
+              <h3 className="text-lg font-medium text-white mb-4">
+                {t('profile.stats')}
+              </h3>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-white">
+                    {user?.totalDonations || 0}
+                  </p>
+                  <p className="text-sm text-gray-400">
+                    {t('profile.totalDonations')}
+                  </p>
+                </div>
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-white">
+                    ${user?.totalAmount || 0}
+                  </p>
+                  <p className="text-sm text-gray-400">
+                    {t('profile.totalAmount')}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Customer Support CTA */}
+        <div className="mt-12 mb-8">
+          <CustomerSupport />
         </div>
       </div>
     </div>

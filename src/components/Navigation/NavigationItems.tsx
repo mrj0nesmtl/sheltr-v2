@@ -33,13 +33,8 @@ export function NavigationItems({ mobile, onItemClick }: NavigationItemsProps) {
   ];
 
   const handleSignOut = async () => {
-    try {
-      await signOut();
-      navigate('/');
-      window.location.reload();
-    } catch (error) {
-      console.error('Sign out failed:', error);
-    }
+    await signOut();
+    navigate('/');
   };
 
   return (
@@ -87,7 +82,7 @@ export function NavigationItems({ mobile, onItemClick }: NavigationItemsProps) {
             </Link>
             <button
               onClick={handleSignOut}
-              className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
             >
               {t('nav.signOut')}
             </button>
