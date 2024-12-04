@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { LogIn, User } from 'lucide-react';
+import { Icon } from '@/components/ui/Icon';
 import { useAuthStore } from '../../stores/authStore';
 import { cn } from '../../lib/utils';
 
@@ -20,7 +20,7 @@ export function LoginButton() {
           "rounded-md hover:bg-indigo-700 transition-colors"
         )}
       >
-        <User className="h-4 w-4" />
+        <Icon name="user" className="h-4 w-4" />
         <span>Dashboard</span>
       </Link>
     );
@@ -34,7 +34,7 @@ export function LoginButton() {
         "px-3 py-2 rounded-md text-sm font-medium"
       )}
     >
-      <LogIn className="h-5 w-5" />
+      <Icon name="login" className="h-5 w-5" />
       <span>Login</span>
     </Link>
   );

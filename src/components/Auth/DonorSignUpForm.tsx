@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Mail, Lock, MapPin, DollarSign, AlertCircle } from 'lucide-react';
+import { Icon } from '@/components/ui/Icon';
 import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '../../stores/authStore';
 import { donorSignUpSchema, type DonorSignUpFormData } from '../../lib/validation/authValidation';
@@ -19,7 +19,7 @@ export function DonorSignUpForm() {
     city: '',
     address: '',
     taxReceiptRequired: false,
-    defaultDonation: '10',
+    defaultDonation: 10,
     socialLinks: {
       twitter: '',
       facebook: '',
@@ -34,11 +34,13 @@ export function DonorSignUpForm() {
 
     try {
       const validatedData = donorSignUpSchema.parse(formData);
-      await signUp({
+      const profile = await signUp({
         ...validatedData,
         role: 'donor'
       });
-      navigate('/dashboard');
+      if (profile) {
+        navigate('/dashboard');
+      }
     } catch (error: any) {
       if (error.errors) {
         const errors: Record<string, string> = {};
@@ -62,7 +64,7 @@ export function DonorSignUpForm() {
           {authError && (
             <div className="mb-6 p-4 bg-red-500/20 border border-red-500 rounded-md">
               <div className="flex items-center gap-2 text-red-200">
-                <AlertCircle className="h-5 w-5" />
+                <Icon name="alertCircle" className="h-5 w-5" />
                 <p>{authError}</p>
               </div>
             </div>
@@ -76,7 +78,7 @@ export function DonorSignUpForm() {
               </label>
               <div className="mt-1 relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
-                  <Mail className="h-5 w-5 text-gray-400" />
+                  <Icon name="mail" className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
                   type="email"
@@ -105,7 +107,7 @@ export function DonorSignUpForm() {
                 </label>
                 <div className="mt-1 relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
-                    <Lock className="h-5 w-5 text-gray-400" />
+                    <Icon name="lock" className="h-5 w-5 text-gray-400" />
                   </div>
                   <input
                     type="password"
@@ -132,7 +134,7 @@ export function DonorSignUpForm() {
                 </label>
                 <div className="mt-1 relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
-                    <Lock className="h-5 w-5 text-gray-400" />
+                    <Icon name="lock" className="h-5 w-5 text-gray-400" />
                   </div>
                   <input
                     type="password"
@@ -162,7 +164,7 @@ export function DonorSignUpForm() {
                 </label>
                 <div className="mt-1 relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
-                    <MapPin className="h-5 w-5 text-gray-400" />
+                    <Icon name="mapPin" className="h-5 w-5 text-gray-400" />
                   </div>
                   <input
                     type="text"
@@ -191,7 +193,7 @@ export function DonorSignUpForm() {
               </label>
               <div className="mt-1 relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
-                  <DollarSign className="h-5 w-5 text-gray-400" />
+                  <Icon name="dollarSign" className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
                   type="number"
@@ -199,7 +201,7 @@ export function DonorSignUpForm() {
                   min="1"
                   step="1"
                   value={formData.defaultDonation}
-                  onChange={(e) => setFormData({ ...formData, defaultDonation: e.target.value })}
+                  onChange={(e) => setFormData({ ...formData, defaultDonation: parseInt(e.target.value) || 0 })}
                   className={cn(
                     "bg-white/5 border text-white block w-full pl-10 pr-3 py-2 rounded-md",
                     "focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900",

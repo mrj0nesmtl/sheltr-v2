@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
 import { NavigationItems } from '../Navigation/NavigationItems';
 import { MobileMenu } from '../Navigation/MobileMenu';
 import { LanguageSwitcher } from '../LanguageSwitcher';
 import { Logo } from '../Logo';
+import { Icon } from '@/components/ui/Icon';
 
 export function AuthLayout() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
@@ -107,16 +107,16 @@ export function AuthLayout() {
               </h3>
               <div className="flex space-x-4 mb-4">
                 <a href="#" className="text-gray-300 hover:text-white">
-                  <Facebook className="h-6 w-6" />
+                  <Icon name="facebook" className="h-6 w-6" />
                 </a>
                 <a href="#" className="text-gray-300 hover:text-white">
-                  <Twitter className="h-6 w-6" />
+                  <Icon name="twitter" className="h-6 w-6" />
                 </a>
                 <a href="#" className="text-gray-300 hover:text-white">
-                  <Instagram className="h-6 w-6" />
+                  <Icon name="instagram" className="h-6 w-6" />
                 </a>
                 <a href="#" className="text-gray-300 hover:text-white">
-                  <Linkedin className="h-6 w-6" />
+                  <Icon name="linkedin" className="h-6 w-6" />
                 </a>
               </div>
               <a href="mailto:support@arcanaconcept.com" className="text-gray-300 hover:text-white">

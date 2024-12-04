@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Building2, Heart, ArrowRight } from 'lucide-react';
+import { Icon } from '@/components/ui/Icon';
 import { useTranslation } from 'react-i18next';
 import { cn } from '../../lib/utils';
 
@@ -29,7 +29,7 @@ export function SignUpSelector() {
               "flex flex-col items-center text-center"
             )}
           >
-            <Heart className="h-16 w-16 text-indigo-400 mb-6" />
+            <Icon name="heart" className="h-16 w-16 text-indigo-400 mb-6" />
             <h2 className="text-2xl font-bold text-white mb-4">
               {t('signUp.donor.title')}
             </h2>
@@ -37,7 +37,7 @@ export function SignUpSelector() {
               {t('signUp.donor.description')}
             </p>
             <span className="inline-flex items-center text-indigo-400">
-              {t('common.cta.getStarted')} <ArrowRight className="ml-2 h-5 w-5" />
+              {t('common.cta.getStarted')} <Icon name="arrowRight" className="ml-2 h-5 w-5" />
             </span>
           </Link>
 
@@ -50,7 +50,7 @@ export function SignUpSelector() {
               "flex flex-col items-center text-center"
             )}
           >
-            <Building2 className="h-16 w-16 text-indigo-400 mb-6" />
+            <Icon name="building2" className="h-16 w-16 text-indigo-400 mb-6" />
             <h2 className="text-2xl font-bold text-white mb-4">
               {t('signUp.shelter.title')}
             </h2>
@@ -58,7 +58,7 @@ export function SignUpSelector() {
               {t('signUp.shelter.description')}
             </p>
             <span className="inline-flex items-center text-indigo-400">
-              {t('common.cta.partnerNow')} <ArrowRight className="ml-2 h-5 w-5" />
+              {t('common.cta.partnerNow')} <Icon name="arrowRight" className="ml-2 h-5 w-5" />
             </span>
           </Link>
         </div>

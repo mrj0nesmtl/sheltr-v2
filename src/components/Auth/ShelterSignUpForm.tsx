@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Mail, Lock, MapPin, Building2, Phone, Users, AlertCircle } from 'lucide-react';
+import { Icon } from '@/components/ui/Icon';
 import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '../../stores/authStore';
 import { shelterAdminSignUpSchema, type ShelterAdminSignUpFormData } from '../../lib/validation/authValidation';
@@ -78,7 +78,7 @@ export function ShelterSignUpForm() {
           {authError && (
             <div className="mb-6 p-4 bg-red-500/20 border border-red-500 rounded-md">
               <div className="flex items-center gap-2 text-red-200">
-                <AlertCircle className="h-5 w-5" />
+                <Icon name="alertCircle" className="h-5 w-5" />
                 <p>{authError}</p>
               </div>
             </div>
@@ -93,7 +93,7 @@ export function ShelterSignUpForm() {
                 </label>
                 <div className="mt-1 relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
-                    <Building2 className="h-5 w-5 text-gray-400" />
+                    <Icon name="building2" className="h-5 w-5 text-gray-400" />
                   </div>
                   <input
                     type="text"
@@ -147,7 +147,7 @@ export function ShelterSignUpForm() {
                 </label>
                 <div className="mt-1 relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
-                    <Mail className="h-5 w-5 text-gray-400" />
+                    <Icon name="mail" className="h-5 w-5 text-gray-400" />
                   </div>
                   <input
                     type="email"
@@ -174,7 +174,7 @@ export function ShelterSignUpForm() {
                 </label>
                 <div className="mt-1 relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
-                    <Phone className="h-5 w-5 text-gray-400" />
+                    <Icon name="phone" className="h-5 w-5 text-gray-400" />
                   </div>
                   <input
                     type="tel"
@@ -204,7 +204,7 @@ export function ShelterSignUpForm() {
                 </label>
                 <div className="mt-1 relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
-                    <MapPin className="h-5 w-5 text-gray-400" />
+                    <Icon name="mapPin" className="h-5 w-5 text-gray-400" />
                   </div>
                   <input
                     type="text"
@@ -257,7 +257,7 @@ export function ShelterSignUpForm() {
               </label>
               <div className="mt-1 relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
-                  <Users className="h-5 w-5 text-gray-400" />
+                  <Icon name="users" className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
                   type="number"
@@ -318,7 +318,7 @@ export function ShelterSignUpForm() {
                 </label>
                 <div className="mt-1 relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
-                    <Lock className="h-5 w-5 text-gray-400" />
+                    <Icon name="lock" className="h-5 w-5 text-gray-400" />
                   </div>
                   <input
                     type="password"
@@ -345,7 +345,7 @@ export function ShelterSignUpForm() {
                 </label>
                 <div className="mt-1 relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
-                    <Lock className="h-5 w-5 text-gray-400" />
+                    <Icon name="lock" className="h-5 w-5 text-gray-400" />
                   </div>
                   <input
                     type="password"

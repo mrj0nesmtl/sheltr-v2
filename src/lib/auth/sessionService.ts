@@ -16,25 +16,18 @@ export async function getCurrentSession() {
 
 export async function signInWithEmail(email: string, password: string) {
   try {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: email.toLowerCase().trim(),
-      password
+    console.log('Calling Supabase signInWithPassword'); // Debug log
+    const { data: { user }, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
     });
 
-    if (error) {
-      if (error.message.includes('Invalid login credentials')) {
-        throw new Error('Invalid email or password');
-      }
-      throw error;
-    }
+    console.log('Supabase response:', { user, error }); // Debug log
 
-    if (!data.user) {
-      throw new Error('No user data returned');
-    }
-
-    return data.user;
+    if (error) throw error;
+    return user;
   } catch (error) {
-    console.error('Sign in error:', error);
+    console.error('Supabase sign in error:', error); // Debug log
     throw error;
   }
 }

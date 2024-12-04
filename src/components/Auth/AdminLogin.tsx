@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Lock } from 'lucide-react';
+import { Icon } from '@/components/ui/Icon';
 import { useAuthStore, getDashboardPath } from '../../stores/authStore';
 
 export function AdminLogin() {
@@ -28,7 +28,7 @@ export function AdminLogin() {
       <div className="max-w-md w-full mx-auto px-4">
         <div className="bg-white/10 backdrop-blur-lg rounded-xl p-8">
           <div className="text-center mb-8">
-            <Lock className="h-12 w-12 text-indigo-500 mx-auto mb-4" />
+            <Icon name="lock" className="h-12 w-12 text-indigo-500 mx-auto mb-4" />
             <h2 className="text-2xl font-bold text-white">Admin Login</h2>
           </div>
 

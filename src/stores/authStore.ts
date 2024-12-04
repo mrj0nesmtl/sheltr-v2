@@ -6,26 +6,19 @@ import {
   signUpWithEmail
 } from '../lib/auth/sessionService';
 import { getUserProfile, createUserProfile } from '../lib/auth/profileService';
-import type { AuthState, UserRole } from '../lib/types/auth';
+import { UserProfile, UserRole, SignUpData } from '../lib/types/auth';
 
-interface SignUpData {
-  email: string;
-  password: string;
-  name: string;
-  role?: UserRole;
-  profileImage?: string;
-  defaultDonation?: number;
-  socialLinks?: {
-    twitter?: string;
-    facebook?: string;
-    instagram?: string;
-    linkedin?: string;
-  };
+interface AuthState {
+  user: UserProfile | null;
+  error: string | null;
+  isLoading: boolean;
+  checkUser: () => Promise<void>;
+  signIn: (email: string, password: string) => Promise<UserProfile | null>;
+  signUp: (data: SignUpData) => Promise<UserProfile | null>;
+  signOut: () => Promise<void>;
 }
 
-export const useAuthStore = create<AuthState & {
-  signUp: (data: SignUpData) => Promise<void>;
-}>((set) => ({
+export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   isLoading: false,
   error: null,
@@ -43,11 +36,8 @@ export const useAuthStore = create<AuthState & {
           // Try to create profile if it doesn't exist
           const newProfile = await createUserProfile(session.user.id, {
             email: session.user.email!,
-            name: session.user.user_metadata?.name || session.user.email!.split('@')[0],
             role: session.user.user_metadata?.role || 'user',
-            profileImage: session.user.user_metadata?.profileImage,
-            defaultDonation: session.user.user_metadata?.defaultDonation,
-            socialLinks: session.user.user_metadata?.socialLinks
+            name: session.user.user_metadata?.name || session.user.email!.split('@')[0],
           });
           
           if (newProfile) {
@@ -72,19 +62,25 @@ export const useAuthStore = create<AuthState & {
   signIn: async (email: string, password: string) => {
     set({ isLoading: true, error: null });
     try {
+      console.log('Starting sign in process');
       const user = await signInWithEmail(email, password);
+      console.log('SignInWithEmail response:', user);
+      
       if (user) {
         const profile = await getUserProfile(user.id);
+        console.log('User profile:', profile);
+        
         if (profile) {
           set({ user: profile, isLoading: false, error: null });
           return profile;
         } else {
           set({ user: null, isLoading: false, error: 'Unable to load user profile' });
-          throw new Error('Unable to load user profile');
+          return null;
         }
       }
-      throw new Error('Sign in failed');
+      return null;
     } catch (error) {
+      console.error('Sign in error:', error);
       const message = error instanceof Error ? error.message : 'Sign in failed';
       set({ error: message, isLoading: false, user: null });
       throw error;
@@ -95,7 +91,17 @@ export const useAuthStore = create<AuthState & {
     set({ isLoading: true, error: null });
     try {
       await signOutUser();
-      set({ user: null, isLoading: false, error: null });
+      // Clear all auth state
+      set({ 
+        user: null, 
+        isLoading: false, 
+        error: null 
+      });
+      // Clear any local storage or session storage if used
+      localStorage.removeItem('supabase.auth.token');
+      sessionStorage.clear();
+      // Redirect to home
+      window.location.href = '/';
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Sign out failed';
       set({ error: message, isLoading: false });
@@ -107,29 +113,23 @@ export const useAuthStore = create<AuthState & {
     set({ isLoading: true, error: null });
     try {
       const user = await signUpWithEmail(data.email, data.password, {
-        name: data.name,
-        role: data.role || 'user',
-        profileImage: data.profileImage,
-        defaultDonation: data.defaultDonation,
-        socialLinks: data.socialLinks
+        name: data.name || '',
+        role: data.role,
       });
       
       if (user) {
         const profile = await createUserProfile(user.id, {
           email: data.email,
-          name: data.name,
-          role: data.role || 'user',
-          profileImage: data.profileImage,
-          defaultDonation: data.defaultDonation,
-          socialLinks: data.socialLinks
+          name: data.name || '',
+          role: data.role,
         });
         
         if (profile) {
           set({ user: profile, isLoading: false, error: null });
-          return;
+          return profile;
         }
       }
-      throw new Error('Sign up failed');
+      return null;
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Sign up failed';
       set({ error: message, isLoading: false, user: null });
@@ -143,7 +143,6 @@ export function getDashboardPath(role?: UserRole): string {
     case 'super_admin':
       return '/super-admin/dashboard';
     case 'admin':
-      return '/admin/dashboard';
     case 'shelter_admin':
       return '/admin/dashboard';
     case 'donor':
@@ -151,6 +150,6 @@ export function getDashboardPath(role?: UserRole): string {
     case 'participant':
       return '/participant/dashboard';
     default:
-      return '/dashboard';
+      return '/login';
   }
 }

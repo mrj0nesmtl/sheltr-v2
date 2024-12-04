@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { LogIn, Mail, Lock } from 'lucide-react';
+import { Icon } from '@/components/ui/Icon';
 import { useAuthStore, getDashboardPath } from '../../stores/authStore';
 import { cn } from '../../lib/utils';
+import { useTranslation } from 'react-i18next';
+
+interface UserProfile {
+  id: string;
+  role: string;
+  // Add other profile properties as needed
+}
 
 export function LoginPage() {
   const [email, setEmail] = useState('');
@@ -10,14 +17,21 @@ export function LoginPage() {
   const { signIn, error, isLoading } = useAuthStore();
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useTranslation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      console.log('Attempting sign in with:', email);
       const profile = await signIn(email, password);
+      console.log('Sign in response:', profile);
+      
       if (profile) {
         const from = location.state?.from?.pathname || getDashboardPath(profile.role);
+        console.log('Redirecting to:', from);
         navigate(from, { replace: true });
+      } else {
+        console.log('No profile returned from signIn');
       }
     } catch (error) {
       console.error('Login attempt failed:', error);
@@ -29,24 +43,24 @@ export function LoginPage() {
       <div className="max-w-md mx-auto px-4 py-8">
         <div className="bg-white/10 backdrop-blur-lg rounded-xl p-8">
           <div className="text-center mb-8">
-            <LogIn className="h-12 w-12 text-indigo-500 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-white">Sign In to SHELTR</h2>
+            <Icon name="login" className="h-12 w-12 text-indigo-500 mx-auto mb-4" />
+            <h2 className="text-2xl font-bold text-white">{t('auth.login.title')}</h2>
           </div>
 
           {error && (
             <div className="mb-6 p-4 bg-red-500/20 border border-red-500 rounded-md text-red-200">
-              {error}
+              {t(`auth.login.errors.${error}`)}
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-300">
-                Email
+                {t('auth.login.email')}
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Mail className="h-5 w-5 text-gray-400" />
+                  <Icon name="mail" className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
                   type="email"
@@ -65,11 +79,11 @@ export function LoginPage() {
 
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-300">
-                Password
+                {t('auth.login.password')}
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-gray-400" />
+                  <Icon name="lock" className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
                   type="password"
@@ -97,7 +111,7 @@ export function LoginPage() {
                 "disabled:opacity-50 disabled:cursor-not-allowed"
               )}
             >
-              {isLoading ? 'Signing in...' : 'Sign In'}
+              {isLoading ? t('auth.login.signingIn') : t('auth.login.signIn')}
             </button>
 
             <div className="text-center">
@@ -105,7 +119,7 @@ export function LoginPage() {
                 to="/signup"
                 className="text-sm text-indigo-400 hover:text-indigo-300"
               >
-                Don't have an account? Sign up
+                {t('auth.login.noAccount')} {t('auth.login.signUp')}
               </Link>
             </div>
           </form>
