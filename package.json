@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview --port 5173 --host",
-    "start": "vite preview --port 5173 --host"
+    "start": "vite preview --port 5173 --host",
+    "test": "jest",
+    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "format": "prettier --write \"src/**/*.{ts,tsx,css,md}\""
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.1",
