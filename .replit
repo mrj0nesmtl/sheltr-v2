@@ -6,7 +6,6 @@ modules = ["nodejs-18:v18-20230807-322e88b"]
 VITE_SUPABASE_URL = "$VITE_SUPABASE_URL"
 VITE_SUPABASE_ANON_KEY = "$VITE_SUPABASE_ANON_KEY"
 NODE_ENV = "development"
-XDG_CONFIG_HOME = "/home/runner/.config"
 
 [nix]
 channel = "stable-22_11"
@@ -25,15 +24,6 @@ start = ["typescript-language-server", "--stdio"]
 language = "nodejs"
 
 [packager.features]
-enabledForHosting = false
 packageSearch = true
 guessImports = true
-
-[deployment]
-build = ["npm", "run", "build"]
-run = ["npm", "start"]
-deploymentTarget = "cloudrun"
-
-[gitHubImport]
-requiredFiles = [".replit", "replit.nix", ".config"]
   
