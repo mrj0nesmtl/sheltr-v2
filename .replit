@@ -1,5 +1,6 @@
 run = "npm install && npm run dev"
 entrypoint = "src/App.tsx"
+modules = ["nodejs-18:v18-20230807-322e88b"]
 
 [env]
 VITE_SUPABASE_URL = "$VITE_SUPABASE_URL"
@@ -27,6 +28,11 @@ language = "nodejs"
 enabledForHosting = false
 packageSearch = true
 guessImports = true
+
+[deployment]
+build = ["npm", "run", "build"]
+run = ["npm", "start"]
+deploymentTarget = "cloudrun"
 
 [gitHubImport]
 requiredFiles = [".replit", "replit.nix", ".config"]
