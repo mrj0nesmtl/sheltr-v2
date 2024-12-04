@@ -27,7 +27,9 @@ export default {
     backgroundAlt: 'Personne dormant sur un banc',
     cta: {
       scan: 'Scanner & Donner',
-      learnMore: 'En Savoir Plus'
+      learnMore: 'En Savoir Plus',
+      title: "Rejoignez le Mouvement pour Mettre Fin à l'Itinérance",
+      description: "Faites un impact direct grâce à des dons sécurisés et transparents qui créent un changement durable."
     },
     features: {
       impact: {
@@ -133,6 +135,43 @@ export default {
           'Engagement communautaire'
         ]
       }
+    },
+    partnership: {
+      title: 'Avantages du Partenariat',
+      technology: {
+        title: 'Avantages Technologiques',
+        features: [
+          'Sécurité blockchain',
+          'Automatisation des contrats intelligents',
+          'Suivi en temps réel',
+          'Analyse des données',
+          'Accessibilité mobile'
+        ]
+      },
+      support: {
+        title: 'Support et Ressources',
+        features: [
+          'Support technique 24/7',
+          'Matériel de formation',
+          'Guide d\'implémentation',
+          'Forums communautaires',
+          'Mises à jour régulières'
+        ]
+      },
+      engagement: {
+        title: 'Impact Communautaire',
+        features: [
+          'Gestion des relations donateurs',
+          'Outils de narration d\'impact',
+          'Suivi des succès des participants',
+          'Réseautage communautaire',
+          'Intégration des médias sociaux'
+        ]
+      }
+    },
+    cta: {
+      title: 'Rejoignez la Révolution',
+      description: 'Faites partie de la solution pour mettre fin à l\'itinérance grâce à la technologie innovante.'
     }
   },
   signUp: {
@@ -238,6 +277,41 @@ export default {
             operations: '5% pour les frais opérationnels : Pour assurer la croissance'
           }
         }
+      }
+    }
+  },
+  impact: {
+    title: "Créer un Impact Mesurable",
+    subtitle: "Suivez en temps réel l'impact des contributions de notre communauté dans la transformation des vies grâce à la technologie blockchain transparente.",
+    cta: {
+      title: "Participez à l'Impact",
+      description: "Rejoignez notre communauté grandissante de donateurs et partenaires qui font une différence mesurable pour mettre fin à l'itinérance."
+    }
+  },
+  qrScanner: {
+    title: "Scanner le Code QR pour Faire un Don",
+    instructions: "Positionnez le code QR dans le cadre pour le scanner",
+    scannerActive: "Le scanner est actif et prêt",
+    retryButton: "Réessayer",
+    errors: {
+      cameraPermission: "Veuillez autoriser l'accès à la caméra pour scanner les codes QR",
+      noCamera: "Aucune caméra trouvée sur votre appareil",
+      cameraInUse: "La caméra est utilisée par une autre application",
+      initialization: "Impossible d'initialiser le scanner QR"
+    }
+  },
+  auth: {
+    login: {
+      title: "Connexion à SHELTR",
+      email: "Adresse e-mail",
+      password: "Mot de passe",
+      signIn: "Se connecter",
+      signingIn: "Connexion en cours...",
+      noAccount: "Vous n'avez pas de compte ?",
+      signUp: "S'inscrire",
+      errors: {
+        invalidCredentials: "Email ou mot de passe invalide",
+        serverError: "Impossible de se connecter au serveur"
       }
     }
   }

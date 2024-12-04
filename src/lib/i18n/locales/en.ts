@@ -27,7 +27,9 @@ export default {
     backgroundAlt: 'Person sleeping on bench',
     cta: {
       scan: 'Scan & Donate',
-      learnMore: 'Learn More'
+      learnMore: 'Learn More',
+      title: "Join the Movement to End Homelessness",
+      description: "Make a direct impact through secure, transparent donations that create lasting change."
     },
     features: {
       impact: {
@@ -156,9 +158,42 @@ export default {
         ]
       }
     },
+    partnership: {
+      title: "Partnership Benefits",
+      technology: {
+        title: "Technology Benefits",
+        features: [
+          "Blockchain security",
+          "Smart contract automation",
+          "Real-time tracking",
+          "Data analytics",
+          "Mobile accessibility"
+        ]
+      },
+      support: {
+        title: "Support & Resources",
+        features: [
+          "24/7 technical support",
+          "Training materials",
+          "Implementation guidance",
+          "Community forums",
+          "Regular updates"
+        ]
+      },
+      engagement: {
+        title: "Community Impact",
+        features: [
+          "Donor relationship management",
+          "Impact storytelling tools",
+          "Participant success tracking",
+          "Community networking",
+          "Social media integration"
+        ]
+      }
+    },
     cta: {
-      title: 'Join the Revolution',
-      description: 'Be part of the solution to end homelessness through innovative technology.'
+      title: "Join the Revolution",
+      description: "Be part of the solution to end homelessness through innovative technology."
     }
   },
   signUp: {
@@ -264,6 +299,41 @@ export default {
             operations: '5% for Operational Costs: To sustain SHELTR\'s growth'
           }
         }
+      }
+    }
+  },
+  impact: {
+    title: "Making a Measurable Difference",
+    subtitle: "Track the real-time impact of our community's contributions in transforming lives through transparent blockchain technology.",
+    cta: {
+      title: "Be Part of the Impact",
+      description: "Join our growing community of donors and partners making a measurable difference in ending homelessness."
+    }
+  },
+  qrScanner: {
+    title: "Scan QR Code to Donate",
+    instructions: "Position the QR code within the frame to scan",
+    scannerActive: "Scanner is active and ready",
+    retryButton: "Try Again",
+    errors: {
+      cameraPermission: "Please allow camera access to scan QR codes",
+      noCamera: "No camera found on your device",
+      cameraInUse: "Camera is being used by another application",
+      initialization: "Unable to initialize QR scanner"
+    }
+  },
+  auth: {
+    login: {
+      title: "Sign In to SHELTR",
+      email: "Email",
+      password: "Password",
+      signIn: "Sign In",
+      signingIn: "Signing in...",
+      noAccount: "Don't have an account?",
+      signUp: "Sign up",
+      errors: {
+        invalidCredentials: "Invalid email or password",
+        serverError: "Unable to connect to server"
       }
     }
   }
