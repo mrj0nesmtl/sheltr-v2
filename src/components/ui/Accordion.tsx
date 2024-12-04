@@ -1,9 +1,9 @@
 import React from 'react';
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import { cn } from '@/lib/utils';
-import { Icon } from './Icon';
 
-const Accordion = AccordionPrimitive.Root;
+// Create a compound component
+const AccordionRoot = AccordionPrimitive.Root;
 
 const AccordionItem = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Item>,
@@ -53,4 +53,11 @@ const AccordionContent = React.forwardRef<
 ));
 AccordionContent.displayName = 'AccordionContent';
 
-export { Accordion, AccordionItem, AccordionTrigger, AccordionContent }; 
+// Create compound component
+const Accordion = Object.assign(AccordionRoot, {
+  Item: AccordionItem,
+  Trigger: AccordionTrigger,
+  Content: AccordionContent,
+});
+
+export { Accordion }; 

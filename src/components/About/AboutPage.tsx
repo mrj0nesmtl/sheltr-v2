@@ -48,11 +48,7 @@ export function AboutPage() {
         <div className="grid grid-cols-1 gap-6">
           {documents.map((doc) => (
             <Card key={doc.id} className="bg-gray-800 border-gray-700">
-              <Accordion
-                type="single"
-                collapsible
-                className="w-full"
-              >
+              <Accordion type="single" collapsible className="w-full">
                 <Accordion.Item value={doc.id}>
                   <Accordion.Trigger className="flex items-center justify-between w-full p-4 text-left">
                     <div className="flex items-center space-x-3">
@@ -61,7 +57,7 @@ export function AboutPage() {
                         {doc.title}
                       </span>
                     </div>
-                    <Icon name="chevron-down" className="h-5 w-5 text-gray-400 transform transition-transform" />
+                    <Icon name="chevronDown" className="h-5 w-5 text-gray-400 transform transition-transform" />
                   </Accordion.Trigger>
                   <Accordion.Content className="p-4 text-gray-300">
                     <div className="prose prose-invert max-w-none">
