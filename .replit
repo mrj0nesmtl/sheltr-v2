@@ -5,6 +5,7 @@ entrypoint = "src/App.tsx"
 VITE_SUPABASE_URL = "$VITE_SUPABASE_URL"
 VITE_SUPABASE_ANON_KEY = "$VITE_SUPABASE_ANON_KEY"
 NODE_ENV = "development"
+XDG_CONFIG_HOME = "/home/runner/.config"
 
 [nix]
 channel = "stable-22_11"
@@ -17,7 +18,7 @@ pattern = "**/{*.ts,*.js,*.tsx,*.jsx}"
 syntax = "typescript"
 
 [languages.typescript.languageServer]
-start = [ "typescript-language-server", "--stdio" ]
+start = ["typescript-language-server", "--stdio"]
 
 [packager]
 language = "nodejs"
@@ -26,9 +27,6 @@ language = "nodejs"
 enabledForHosting = false
 packageSearch = true
 guessImports = true
-
-[env]
-XDG_CONFIG_HOME = "/home/runner/.config"
 
 [gitHubImport]
 requiredFiles = [".replit", "replit.nix", ".config"]
