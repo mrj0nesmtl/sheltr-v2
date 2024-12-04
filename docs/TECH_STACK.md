@@ -1,4 +1,43 @@
 # SHELTR Technical Stack Documentation
+Last Updated: December 3, 2024
+
+## Recent Updates
+
+### Internationalization
+```typescript
+// Enhanced i18n Configuration
+const i18nConfig = {
+  languages: ['en', 'fr'],
+  namespaces: ['common', 'auth', 'qrScanner'],
+  fallbackLng: 'en',
+  defaultNS: 'common'
+};
+```
+
+### Icon System
+```typescript
+// Centralized Icon Management
+import { Icons } from '@/lib/icons';
+interface IconProps {
+  name: IconName;
+  className?: string;
+}
+```
+
+### Component Architecture
+```typescript
+// Enhanced Component Types
+interface TranslatedComponent {
+  t: TFunction;
+  i18n: i18n;
+}
+
+// Standardized Props Interface
+interface BaseComponentProps {
+  className?: string;
+  children?: React.ReactNode;
+}
+```
 
 ## Core Technologies
 
