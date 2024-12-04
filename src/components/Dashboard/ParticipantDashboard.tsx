@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MapPin, DollarSign, QrCode, Calendar, TrendingUp } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { cn } from '../../lib/utils';
+import { useAuthStore } from '../../stores/authStore';
+import { useNavigate } from 'react-router-dom';
 
 interface DonationData {
   id: string;
@@ -16,6 +18,8 @@ interface DonationData {
 }
 
 export function ParticipantDashboard() {
+  const { user } = useAuthStore();
+  const navigate = useNavigate();
   const [donations, setDonations] = React.useState<DonationData[]>([]);
   const [qrCode, setQrCode] = React.useState<string>('');
   const [stats, setStats] = React.useState({
@@ -23,6 +27,21 @@ export function ParticipantDashboard() {
     housingFund: 0,
     donationCount: 0
   });
+
+  useEffect(() => {
+    if (!user || user.role !== 'participant') {
+      navigate('/login');
+      return;
+    }
+  }, [user, navigate]);
+
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+        <div className="text-white">Loading...</div>
+      </div>
+    );
+  }
 
   React.useEffect(() => {
     // TODO: Fetch participant data from Supabase

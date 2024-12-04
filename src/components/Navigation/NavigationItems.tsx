@@ -1,19 +1,8 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { 
-  QrCode, 
-  Info, 
-  Building,
-  UserPlus,
-  LogIn,
-  LayoutDashboard,
-  User,
-  BarChart,
-  LogOut,
-  Shield
-} from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useAuthStore, getDashboardPath } from '../../stores/authStore';
+import { Icon } from '@/components/ui/Icon';
+import { useAuthStore } from '../../stores/authStore';
 import { LanguageSwitcher } from '../LanguageSwitcher';
 import { cn } from '../../lib/utils';
 
@@ -22,93 +11,104 @@ interface NavigationItemsProps {
   onItemClick?: () => void;
 }
 
-export function NavigationItems({ mobile = false, onItemClick = () => {} }: NavigationItemsProps) {
-  const location = useLocation();
+export function NavigationItems({ mobile, onItemClick }: NavigationItemsProps) {
   const { t } = useTranslation();
   const { user, signOut } = useAuthStore();
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const mainLinks = [
-    { to: "/how-it-works", icon: Info, label: t('nav.howItWorks') },
-    { to: "/solutions", icon: Building, label: t('nav.solutions') },
-    { to: "/scan", icon: QrCode, label: t('nav.scanDonate') },
-    { to: "/analytics", icon: BarChart, label: t('nav.impact') }
+  const navItems = [
+    { path: '/how-it-works', label: t('nav.howItWorks') },
+    { path: '/solutions', label: t('nav.solutions') },
+    { path: '/scan', label: t('nav.scanDonate') },
+    { path: '/impact', label: t('nav.impact') },
   ];
 
-  const authLinks = user ? [
-    { to: `/profile/${user.id}`, icon: User, label: t('nav.profile') },
-    { 
-      to: getDashboardPath(user.role),
-      icon: user.role === 'super_admin' ? Shield : LayoutDashboard,
-      label: user.role === 'super_admin' ? 'Admin Dashboard' : t('nav.dashboard')
-    },
-    { 
-      to: "/login", 
-      icon: LogOut, 
-      label: t('nav.signOut'),
-      onClick: async (e: React.MouseEvent) => {
-        e.preventDefault();
-        try {
-          await signOut();
-          onItemClick();
-        } catch (error) {
-          console.error('Sign out failed:', error);
-        }
-      }
-    }
+  const authItems = user ? [
+    { path: '/dashboard', label: t('nav.dashboard') },
+    { path: `/profile/${user.id}`, label: t('nav.profile') }
   ] : [
-    { to: "/signup", icon: UserPlus, label: t('nav.signUp') },
-    { to: "/login", icon: LogIn, label: t('nav.login') }
+    { path: '/signup', label: t('nav.signUp') },
+    { path: '/login', label: t('nav.login'), id: 'main-login' }
   ];
 
-  const renderLink = ({ to, icon: Icon, label, onClick }: { 
-    to: string; 
-    icon: any; 
-    label: string;
-    onClick?: (e: React.MouseEvent) => Promise<void>;
-  }) => (
-    <Link
-      key={to}
-      to={to}
-      onClick={async (e) => {
-        if (onClick) {
-          await onClick(e);
-        }
-        onItemClick();
-      }}
-      className={cn(
-        mobile 
-          ? "block px-3 py-2 rounded-md text-base font-medium w-full" 
-          : "inline-flex items-center px-3 py-2 rounded-md text-sm font-medium",
-        "text-gray-300 hover:bg-gray-700 hover:text-white transition-colors",
-        location.pathname === to && "bg-gray-700 text-white"
-      )}
-    >
-      <Icon className="h-5 w-5 mr-2" />
-      <span>{label}</span>
-    </Link>
-  );
-
-  if (mobile) {
-    return (
-      <div className="flex flex-col space-y-1">
-        {mainLinks.map(renderLink)}
-        <div className="my-2 border-t border-gray-700" />
-        {authLinks.map(renderLink)}
-        <div className="my-2 border-t border-gray-700" />
-        <LanguageSwitcher className="w-full" />
-      </div>
-    );
-  }
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      navigate('/');
+      window.location.reload();
+    } catch (error) {
+      console.error('Sign out failed:', error);
+    }
+  };
 
   return (
-    <>
-      <div className="hidden lg:flex lg:items-center lg:space-x-1">
-        {mainLinks.map(renderLink)}
+    <div className={cn(
+      "w-full",
+      mobile ? "flex flex-col space-y-4" : "flex items-center justify-between"
+    )}>
+      {/* Center Nav Links */}
+      <div className={cn(
+        mobile ? "flex flex-col space-y-4" : "flex-1 flex justify-center space-x-8"
+      )}>
+        {navItems.map((item) => (
+          <Link
+            key={item.path}
+            to={item.path}
+            className={cn(
+              "text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium",
+              location.pathname === item.path && "bg-gray-900 text-white"
+            )}
+            onClick={onItemClick}
+          >
+            {item.label}
+          </Link>
+        ))}
       </div>
-      <div className="hidden lg:flex lg:items-center lg:space-x-1 lg:ml-4">
-        {authLinks.map(renderLink)}
-        <LanguageSwitcher className="ml-2" />
+
+      {/* Auth Buttons */}
+      <div className={cn(
+        "flex items-center",
+        mobile ? "flex-col space-y-4" : "space-x-4"
+      )}>
+        {user ? (
+          <>
+            <Link
+              to={`/profile/${user.id}`}
+              className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+            >
+              {t('nav.profile')}
+            </Link>
+            <Link
+              to="/dashboard"
+              className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+            >
+              {t('nav.dashboard')}
+            </Link>
+            <button
+              onClick={handleSignOut}
+              className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+            >
+              {t('nav.signOut')}
+            </button>
+          </>
+        ) : (
+          <>
+            <Link
+              to="/signup"
+              className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+            >
+              {t('nav.signUp')}
+            </Link>
+            <Link
+              to="/login"
+              className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
+            >
+              {t('nav.login')}
+            </Link>
+          </>
+        )}
       </div>
-    </>
+    </div>
   );
 }

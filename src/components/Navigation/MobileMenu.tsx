@@ -1,67 +1,46 @@
-import React from 'react';
-import { Menu, X } from 'lucide-react';
-import { cn } from '../../lib/utils';
+import React, { useState } from 'react';
+import { Icon } from '@/components/ui/Icon';
+import { NavigationItems } from './NavigationItems';
+import { cn } from '@/lib/utils';
 
-interface MobileMenuProps {
-  isOpen: boolean;
-  onToggle: () => void;
-  children: React.ReactNode;
-}
+export function MobileMenu() {
+  const [isOpen, setIsOpen] = useState(false);
 
-export function MobileMenu({ isOpen, onToggle, children }: MobileMenuProps) {
   return (
-    <>
-      {/* Mobile menu button */}
+    <div className="lg:hidden">
+      {/* Hamburger Button */}
       <button
-        type="button"
-        onClick={onToggle}
-        className="lg:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-300 hover:text-white focus:outline-none"
-        aria-expanded={isOpen}
+        onClick={() => setIsOpen(!isOpen)}
+        className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
       >
-        <span className="sr-only">
-          {isOpen ? 'Close menu' : 'Open menu'}
-        </span>
-        {isOpen ? (
-          <X className="block h-6 w-6" />
-        ) : (
-          <Menu className="block h-6 w-6" />
-        )}
+        <span className="sr-only">Open main menu</span>
+        <Icon name={isOpen ? 'close' : 'menu'} className="h-6 w-6" />
       </button>
 
-      {/* Mobile menu panel */}
+      {/* Mobile Menu Dropdown */}
       <div
         className={cn(
-          "lg:hidden fixed inset-0 z-50 transform transition-transform duration-300 ease-in-out",
+          "fixed inset-0 z-50 transform transition-transform duration-300 ease-in-out",
           isOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
-        {/* Backdrop */}
-        <div 
-          className="fixed inset-0 bg-gray-900/95 backdrop-blur-sm"
-          onClick={onToggle}
-          aria-hidden="true"
-        />
-
-        {/* Menu content */}
-        <div className="relative min-h-screen w-full max-w-xs bg-gray-900 overflow-y-auto">
-          <div className="sticky top-0 z-10 bg-gray-900 px-4 pt-5 pb-4 border-b border-gray-800">
-            <div className="flex items-center justify-between">
-              <div className="text-xl font-bold text-white">Menu</div>
-              <button
-                type="button"
-                onClick={onToggle}
-                className="rounded-md text-gray-300 hover:text-white focus:outline-none"
-                aria-label="Close menu"
-              >
-                <X className="h-6 w-6" />
-              </button>
-            </div>
+        <div className="relative min-h-screen bg-gray-900 px-4 pt-5 pb-4 sm:px-6">
+          <div className="absolute right-4 top-4">
+            <button
+              onClick={() => setIsOpen(false)}
+              className="rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
+            >
+              <Icon name="close" className="h-6 w-6" />
+            </button>
           </div>
-          <div className="px-4 py-6">
-            {children}
+          <div className="mt-16">
+            <NavigationItems 
+              mobile 
+              onItemClick={() => setIsOpen(false)} 
+            />
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
