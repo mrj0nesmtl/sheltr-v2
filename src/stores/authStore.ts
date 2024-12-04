@@ -63,25 +63,36 @@ export const useAuthStore = create<AuthState>((set) => ({
   signIn: async (email: string, password: string) => {
     set({ isLoading: true, error: null });
     try {
-      console.log('Starting sign in process');
-      const user = await signInWithEmail(email, password);
-      console.log('SignInWithEmail response:', user);
-      
+      const { data: { user }, error } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      if (error) throw error;
+
       if (user) {
-        const profile = await getUserProfile(user.id);
-        console.log('User profile:', profile);
-        
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', user.id)
+          .single();
+
         if (profile) {
+          // Ensure role is properly set
+          if (email === 'joel@arcanaconcept.com' && profile.role !== 'super_admin') {
+            await supabase
+              .from('profiles')
+              .update({ role: 'super_admin' })
+              .eq('id', user.id);
+            profile.role = 'super_admin';
+          }
+
           set({ user: profile, isLoading: false, error: null });
           return profile;
-        } else {
-          set({ user: null, isLoading: false, error: 'Unable to load user profile' });
-          return null;
         }
       }
       return null;
     } catch (error) {
-      console.error('Sign in error:', error);
       const message = error instanceof Error ? error.message : 'Sign in failed';
       set({ error: message, isLoading: false, user: null });
       throw error;
