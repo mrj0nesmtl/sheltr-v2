@@ -1,17 +1,16 @@
-run = "npm install && npm run dev"
+run = "npm run dev"
 entrypoint = "src/App.tsx"
-modules = ["nodejs-18:v18-20230807-322e88b"]
-
-[env]
-VITE_SUPABASE_URL = "$VITE_SUPABASE_URL"
-VITE_SUPABASE_ANON_KEY = "$VITE_SUPABASE_ANON_KEY"
-NODE_ENV = "development"
 
 [nix]
-channel = "stable-22_11"
+channel = "stable-23_11"
 
-[languages]
-typescript = "nodejs-18"
+[deployment]
+run = ["sh", "-c", "npm run build && npm run preview"]
+deploymentTarget = "cloudrun"
+
+[[ports]]
+localPort = 5173
+externalPort = 80
 
 [languages.typescript]
 pattern = "**/{*.ts,*.js,*.tsx,*.jsx}"
@@ -24,6 +23,10 @@ start = ["typescript-language-server", "--stdio"]
 language = "nodejs"
 
 [packager.features]
+enabledForHosting = true
 packageSearch = true
-guessImports = true
-  
+
+[env]
+VITE_ENVIRONMENT = "development"
+VITE_SUPABASE_URL = "$VITE_SUPABASE_URL"
+VITE_SUPABASE_ANON_KEY = "$VITE_SUPABASE_ANON_KEY"
