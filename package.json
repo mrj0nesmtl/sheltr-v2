@@ -6,17 +6,17 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint .",
     "preview": "vite preview",
-    "backup": "node -e \"import('./scripts/backup.js').then(({createBackup}) => createBackup(process.argv[1]))\"",
-    "restore": "node -e \"import('./scripts/backup.js').then(({restoreBackup}) => restoreBackup(process.argv[1]))\""
+    "start": "vite --host 0.0.0.0"
   },
   "dependencies": {
+    "@stripe/stripe-js": "^3.0.10",
     "@supabase/auth-ui-react": "^0.4.7",
     "@supabase/auth-ui-shared": "^0.1.8",
     "@supabase/supabase-js": "^2.39.8",
     "@tanstack/react-table": "^8.13.2",
-    "@stripe/stripe-js": "^3.0.10",
+    "@types/qrcode": "^1.5.5",
+    "browser-image-compression": "^2.0.2",
     "clsx": "^2.1.0",
     "date-fns": "^3.3.1",
     "html5-qrcode": "^2.3.8",
@@ -24,6 +24,7 @@
     "i18next-browser-languagedetector": "^7.2.1",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.344.0",
+    "qrcode": "^1.5.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-i18next": "^14.1.3",

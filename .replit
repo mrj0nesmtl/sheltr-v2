@@ -1,0 +1,9 @@
+run = "npm run start"
+entrypoint = "src/App.tsx"
+
+[env]
+VITE_SUPABASE_URL = "$VITE_SUPABASE_URL"
+VITE_SUPABASE_ANON_KEY = "$VITE_SUPABASE_ANON_KEY"
+
+[nix]
+channel = "stable-22_11" 
