@@ -4,6 +4,7 @@ import { Accordion } from '@/components/ui/Accordion';
 import { Card } from '@/components/ui/Card';
 import { Icon } from '@/components/ui/Icon';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 export function AboutPage() {
   const { t, i18n } = useTranslation();
@@ -77,7 +78,12 @@ export function AboutPage() {
         <div className="grid grid-cols-1 gap-6">
           {documents.map((doc) => (
             <Card key={doc.id} className="bg-gray-800 border-gray-700">
-              <Accordion type="single" collapsible className="w-full">
+              <Accordion 
+                type="single" 
+                collapsible 
+                className="w-full"
+                defaultValue={undefined}
+              >
                 <Accordion.Item value={doc.id}>
                   <Accordion.Trigger className="flex items-center justify-between w-full p-4 text-left">
                     <div className="flex items-center space-x-3">
@@ -90,7 +96,19 @@ export function AboutPage() {
                   </Accordion.Trigger>
                   <Accordion.Content className="p-4 text-gray-300">
                     <div className="prose prose-invert max-w-none">
-                      <ReactMarkdown>{doc.content}</ReactMarkdown>
+                      <ReactMarkdown 
+                        remarkPlugins={[remarkGfm]}
+                        components={{
+                          h1: ({node, ...props}) => <h1 className="text-2xl font-bold mb-4" {...props} />,
+                          h2: ({node, ...props}) => <h2 className="text-xl font-bold mb-3" {...props} />,
+                          p: ({node, ...props}) => <p className="mb-4" {...props} />,
+                          ul: ({node, ...props}) => <ul className="list-disc ml-4 mb-4" {...props} />,
+                          ol: ({node, ...props}) => <ol className="list-decimal ml-4 mb-4" {...props} />,
+                          a: ({node, ...props}) => <a className="text-blue-400 hover:text-blue-300" {...props} />
+                        }}
+                      >
+                        {doc.content}
+                      </ReactMarkdown>
                     </div>
                   </Accordion.Content>
                 </Accordion.Item>
