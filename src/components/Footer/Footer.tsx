@@ -1,7 +1,42 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { Icon } from '@/components/ui/Icon';
+import { PodcastPreview } from '@/components/PodcastPreview/PodcastPreview';
+
+const socialLinks = [
+  {
+    name: 'YouTube',
+    url: 'https://www.youtube.com/@ArcanaConcept',
+    icon: 'youtube',
+    ariaLabel: 'footer.social.youtube'
+  },
+  {
+    name: 'Podcast',
+    url: 'https://open.spotify.com/playlist/2OOwTrX6t82bCjAB0dSGYs',
+    rss: '',
+    icon: 'headphones',
+    ariaLabel: 'footer.social.podcast'
+  },
+  {
+    name: 'TikTok',
+    url: 'https://www.tiktok.com/@arcanaconcept',
+    icon: 'tiktok',
+    ariaLabel: 'footer.social.tiktok'
+  },
+  {
+    name: 'LinkedIn',
+    url: 'https://www.linkedin.com/company/arcana-concept',
+    icon: 'linkedin',
+    ariaLabel: 'footer.social.linkedin'
+  },
+  {
+    name: 'Arcana Concept',
+    url: 'https://www.arcanaconcept.com/concepts/sheltr',
+    icon: 'globe2',
+    ariaLabel: 'footer.social.website'
+  },
+] as const;
 
 export function Footer() {
   const { t, i18n } = useTranslation();
@@ -28,9 +63,10 @@ export function Footer() {
           <div>
             <h3 className="text-white font-medium mb-4">{t('footer.quickLinks')}</h3>
             <ul className="space-y-2">
-              <li><Link to="/how-it-works" className="text-gray-400 hover:text-white">{t('nav.howItWorks')}</Link></li>
-              <li><Link to="/solutions" className="text-gray-400 hover:text-white">{t('nav.solutions')}</Link></li>
-              <li><Link to="/scan" className="text-gray-400 hover:text-white">{t('nav.scanDonate')}</Link></li>
+              <li><Link to="/how-it-works" className="text-gray-400 hover:text-white transition-colors">{t('nav.howItWorks')}</Link></li>
+              <li><Link to="/solutions" className="text-gray-400 hover:text-white transition-colors">{t('nav.solutions')}</Link></li>
+              <li><Link to="/scan" className="text-gray-400 hover:text-white transition-colors">{t('nav.scanDonate')}</Link></li>
+              <li><Link to="/about" className="text-gray-400 hover:text-white transition-colors">{t('nav.about')}</Link></li>
             </ul>
           </div>
 
@@ -38,31 +74,40 @@ export function Footer() {
           <div>
             <h3 className="text-white font-medium mb-4">{t('footer.resources')}</h3>
             <ul className="space-y-2">
-              <li><Link to="/blog" className="text-gray-400 hover:text-white">{t('footer.blog')}</Link></li>
-              <li><Link to="/privacy" className="text-gray-400 hover:text-white">{t('footer.privacy')}</Link></li>
-              <li><Link to="/terms" className="text-gray-400 hover:text-white">{t('footer.terms')}</Link></li>
+              <li><Link to="/blog" className="text-gray-400 hover:text-white transition-colors">{t('footer.blog')}</Link></li>
+              <li><Link to="/privacy" className="text-gray-400 hover:text-white transition-colors">{t('footer.privacy')}</Link></li>
+              <li><Link to="/terms" className="text-gray-400 hover:text-white transition-colors">{t('footer.terms')}</Link></li>
             </ul>
           </div>
 
           {/* Connect */}
           <div>
             <h3 className="text-white font-medium mb-4">{t('footer.connect')}</h3>
-            <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-white">
-                <Icon name="facebook" className="h-6 w-6" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white">
-                <Icon name="twitter" className="h-6 w-6" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white">
-                <Icon name="instagram" className="h-6 w-6" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white">
-                <Icon name="linkedin" className="h-6 w-6" />
-              </a>
+            <div className="flex flex-wrap gap-4">
+              {socialLinks.map((link) => (
+                <div key={link.name} className="relative group">
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-400 hover:text-white transition-all transform hover:scale-110"
+                    aria-label={t(link.ariaLabel)}
+                  >
+                    <Icon 
+                      name={link.icon} 
+                      className="h-6 w-6" 
+                    />
+                  </a>
+                  {link.name === 'Podcast' && <PodcastPreview />}
+                </div>
+              ))}
             </div>
             <div className="mt-4">
-              <a href="mailto:support@arcanaconcept.com" className="text-gray-400 hover:text-white text-sm">
+              <a 
+                href="mailto:support@arcanaconcept.com" 
+                className="text-gray-400 hover:text-white transition-colors text-sm inline-flex items-center"
+              >
+                <Icon name="mail" className="h-4 w-4 mr-2" />
                 support@arcanaconcept.com
               </a>
             </div>
@@ -77,7 +122,7 @@ export function Footer() {
               className="text-gray-400 hover:text-white flex items-center transition-colors"
             >
               <Icon name="globe" className="h-5 w-5 mr-2" />
-              {i18n.language === 'en' ? 'Français' : 'English'}
+              {t('footer.language')}
             </button>
           </div>
           <p className="text-gray-400 text-sm mt-4 md:mt-0">

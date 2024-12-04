@@ -17,7 +17,14 @@ import {
   MessageCircle,
   ArrowUp,
   ArrowDown,
-  MessageSquare
+  MessageSquare,
+  Youtube,
+  Music,
+  Video,
+  Headphones,
+  Globe2,
+  Clock,
+  Play
 } from 'lucide-react';
 
 const Icons = {
@@ -77,7 +84,13 @@ const Icons = {
   messageCircle: MessageCircle,
   arrowUp: ArrowUp,
   arrowDown: ArrowDown,
-  messageSquare: MessageSquare
+  messageSquare: MessageSquare,
+  youtube: Youtube,
+  headphones: Headphones,
+  tiktok: Video,
+  globe2: Globe2,
+  clock: Clock,
+  play: Play
 } as const;
 
 export type IconName = keyof typeof Icons;
