@@ -7,12 +7,12 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { PageMeta } from '@/components/Meta/PageMeta';
 
-// Import markdown files directly
-import introEng from '@/docs/sheltr_intro_eng.md';
-import introFr from '@/docs/shelter_inro_fr.md';
-import techStack from '@/docs/tech_stack.md';
-import whitepaperEng from '@/docs/whitepaper_eng.md';
-import whitepaperFr from '@/docs/whitepaper_fr.md';
+// Import markdown files with explicit type assertion
+import introEng from '../../../docs/sheltr_intro_eng.md?raw';
+import introFr from '../../../docs/shelter_inro_fr.md?raw';
+import techStack from '../../../docs/tech_stack.md?raw';
+import whitepaperEng from '../../../docs/whitepaper_eng.md?raw';
+import whitepaperFr from '../../../docs/whitepaper_fr.md?raw';
 
 export function AboutPage() {
   const { t, i18n } = useTranslation();

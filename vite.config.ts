@@ -1,13 +1,18 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
+import mdx from '@mdx-js/rollup';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    mdx()
+  ],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src'),
+      '@': path.resolve(__dirname, './src'),
     },
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.md', '.mdx']
   },
   optimizeDeps: {
     include: ['lucide-react'],
