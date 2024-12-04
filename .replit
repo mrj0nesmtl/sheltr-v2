@@ -1,4 +1,4 @@
-run = "npm run dev"
+run = "npm run start"
 entrypoint = "src/App.tsx"
 modules = [
     "nodejs-20:v20-20230824-3b6d9ec",
@@ -11,7 +11,7 @@ modules = [
 channel = "stable-23_11"
 
 [deployment]
-run = ["sh", "-c", "npm run build && npm run preview"]
+run = ["sh", "-c", "npm run build && npm run start"]
 deploymentTarget = "cloudrun"
 
 [[ports]]
@@ -33,6 +33,6 @@ enabledForHosting = true
 packageSearch = true
 
 [env]
-VITE_ENVIRONMENT = "development"
+VITE_ENVIRONMENT = "production"
 VITE_SUPABASE_URL = "$VITE_SUPABASE_URL"
 VITE_SUPABASE_ANON_KEY = "$VITE_SUPABASE_ANON_KEY"
