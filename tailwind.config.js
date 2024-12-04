@@ -17,6 +17,15 @@ export default {
           900: '#0c4a6e',
         },
       },
+      animation: {
+        'social-bounce': 'social-bounce 1s ease-in-out infinite',
+      },
+      keyframes: {
+        'social-bounce': {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-5px)' },
+        }
+      }
     },
   },
   plugins: [

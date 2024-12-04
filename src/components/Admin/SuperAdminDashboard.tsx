@@ -10,6 +10,7 @@ import {
   ScatterChart, Scatter, ZAxis
 } from 'recharts';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 const COLORS = {
   primary: '#6366F1',    // Indigo
@@ -66,6 +67,7 @@ export function SuperAdminDashboard() {
   const { user, signOut } = useAuthStore();
   const navigate = useNavigate();
   const { shelters, isLoading, fetchShelters } = useShelterStore();
+  const { t } = useTranslation();
 
   const [stats, setStats] = useState<SuperAdminStats>({
     totalShelters: 0,
@@ -134,16 +136,12 @@ export function SuperAdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="min-h-screen bg-gray-900 p-8">
+      <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-white">Super Admin Dashboard</h1>
-          <button
-            onClick={signOut}
-            className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
-          >
-            Sign Out
-          </button>
+          <h1 className="text-3xl font-bold text-white">
+            {t('admin.superAdmin.title')}
+          </h1>
         </div>
 
         {/* Stats Grid */}

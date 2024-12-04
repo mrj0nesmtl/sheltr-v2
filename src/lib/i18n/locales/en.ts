@@ -261,6 +261,13 @@ export const en = {
     terms: 'Terms of Service',
     language: 'Français',
     rights: 'All rights reserved.',
+    social: {
+      youtube: 'Follow us on YouTube',
+      podcast: 'Listen to our Podcast',
+      tiktok: 'Follow us on TikTok',
+      linkedin: 'Connect on LinkedIn',
+      website: 'Visit Arcana Concept Website'
+    }
   },
   whitepaper: {
     title: 'SHELTR Whitepaper: Revolutionizing Charitable Giving for Homelessness',
@@ -368,5 +375,14 @@ export const en = {
     chatWithUs: 'Chat With Us',
     chatDescription: 'Get instant help from our AI assistant',
     startChat: 'Start Chat'
+  },
+  podcast: {
+    preview: {
+      listen: 'Listen on Spotify',
+      latest: 'Latest Episode',
+      duration: 'Duration',
+      date: 'Released',
+      showName: 'Tomes of Arcana'
+    }
   }
 };

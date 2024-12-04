@@ -30,6 +30,7 @@ import { TermsOfService } from './components/Legal/TermsOfService';
 import { WhitepaperPage } from './components/Whitepaper/WhitepaperPage';
 import { useAuthStore, getDashboardPath } from './stores/authStore';
 import type { UserProfile } from './lib/types/auth';
+import { AboutPage } from './components/About/AboutPage';
 
 interface ProtectedRouteProps {
   children: React.ReactNode | ((props: { user: UserProfile }) => React.ReactNode);
@@ -78,6 +79,7 @@ function App() {
             <Route path="terms" element={<TermsOfService />} />
             <Route path="whitepaper" element={<WhitepaperPage />} />
             <Route path="analytics" element={<PublicDashboard />} />
+            <Route path="about" element={<AboutPage />} />
             
             {/* Protected Routes */}
             <Route path="profile/:id" element={
