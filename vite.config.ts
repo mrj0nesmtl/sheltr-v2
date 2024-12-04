@@ -18,10 +18,14 @@ export default defineConfig({
     include: ['lucide-react'],
   },
   server: {
-    port: 3001,
+    port: 5173,
     host: true,
     watch: {
       usePolling: true,
     },
   },
+  preview: {
+    port: 5173,
+    host: true
+  }
 });
