@@ -1,5 +1,11 @@
 run = "npm run dev"
 entrypoint = "src/App.tsx"
+modules = [
+    "nodejs-20:v20-20230824-3b6d9ec",
+    "typescript-language-server@0.9.7",
+    "prettier@3.3.3",
+    "web-tools@4.3"
+]
 
 [nix]
 channel = "stable-23_11"
