@@ -7,8 +7,9 @@ export interface UserProfile {
   role: UserRole;
   verified?: boolean;
   profileImage?: string;
+  totalDonated?: number;
   totalDonations?: number;
-  totalAmount?: number;
+  impactScore?: number;
   createdAt: string;
   updatedAt: string;
 }
