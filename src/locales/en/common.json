@@ -1,0 +1,35 @@
+{
+  "nav": {
+    "menu": "Menu",
+    "howItWorks": "How It Works",
+    "solutions": "Solutions",
+    "scanDonate": "Scan & Donate",
+    "impact": "Impact",
+    "about": "About",
+    "blog": "Blog",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "verifyDonation": "Verify Donation",
+    "dashboard": "Dashboard",
+    "signOut": "Sign Out",
+    "login": "Login",
+    "signUp": "Sign Up",
+    "profile": "Profile"
+  },
+  "footer": {
+    "quickLinks": "Quick Links",
+    "resources": "Resources",
+    "blockchain": "Blockchain",
+    "tagline": "Hacking Homelessness with Technology.",
+    "allRightsReserved": "All rights reserved.",
+    "language": "Language",
+    "email": "support@arcanaconcept.com",
+    "social": {
+      "youtube": "YouTube Channel",
+      "podcast": "Listen to Podcast",
+      "tiktok": "Follow on TikTok",
+      "linkedin": "Connect on LinkedIn",
+      "website": "Visit Website"
+    }
+  }
+}

@@ -1,31 +1,16 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
-import mdx from '@mdx-js/rollup';
 
 export default defineConfig({
-  plugins: [
-    react(),
-    mdx()
-  ],
+  plugins: [react()],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
     },
-    extensions: ['.js', '.jsx', '.ts', '.tsx', '.md', '.mdx']
   },
+  assetsInclude: ['**/*.md'],
   optimizeDeps: {
-    include: ['lucide-react'],
+    include: ['react', 'react-dom'],
   },
-  server: {
-    port: 5173,
-    host: true,
-    watch: {
-      usePolling: true,
-    },
-  },
-  preview: {
-    port: 5173,
-    host: true
-  }
 });

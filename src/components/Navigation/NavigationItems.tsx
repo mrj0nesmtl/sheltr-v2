@@ -9,9 +9,10 @@ import { cn } from '../../lib/utils';
 interface NavigationItemsProps {
   mobile?: boolean;
   onItemClick?: () => void;
+  isDark?: boolean;
 }
 
-export function NavigationItems({ mobile, onItemClick }: NavigationItemsProps) {
+export function NavigationItems({ mobile, onItemClick, isDark = true }: NavigationItemsProps) {
   const { t } = useTranslation();
   const { user, signOut } = useAuthStore();
   const location = useLocation();
@@ -51,8 +52,13 @@ export function NavigationItems({ mobile, onItemClick }: NavigationItemsProps) {
             key={item.path}
             to={item.path}
             className={cn(
-              "text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium",
-              location.pathname === item.path && "bg-gray-900 text-white"
+              "px-3 py-2 rounded-md text-sm font-medium",
+              isDark 
+                ? "text-gray-300 hover:text-white" 
+                : "text-gray-600 hover:text-gray-900",
+              location.pathname === item.path && (isDark 
+                ? "bg-gray-900 text-white"
+                : "bg-gray-100 text-gray-900")
             )}
             onClick={onItemClick}
           >

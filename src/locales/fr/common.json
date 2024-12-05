@@ -1,0 +1,71 @@
+{
+  "nav": {
+    "menu": "Menu",
+    "howItWorks": "Comment ça marche",
+    "solutions": "Solutions",
+    "scanDonate": "Scanner & Donner",
+    "impact": "Impact",
+    "about": "À propos",
+    "blog": "Blog",
+    "privacy": "Politique de Confidentialité",
+    "terms": "Conditions d'Utilisation",
+    "verifyDonation": "Vérifier le don",
+    "dashboard": "Tableau de bord",
+    "signOut": "Déconnexion",
+    "login": "Connexion",
+    "signUp": "S'inscrire",
+    "profile": "Profil"
+  },
+  "footer": {
+    "quickLinks": "Liens rapides",
+    "resources": "Ressources",
+    "blockchain": "Blockchain",
+    "tagline": "Combattre l'itinérance avec la technologie.",
+    "allRightsReserved": "Tous droits réservés.",
+    "language": "Langue",
+    "email": "support@arcanaconcept.com",
+    "blog": "Dernières Actualités",
+    "privacy": "Politique de Confidentialité",
+    "terms": "Conditions d'Utilisation",
+    "connect": "Connecter",
+    "language": "Français",
+    "rights": "Tous droits réservés.",
+    "social": {
+      "youtube": "Chaîne YouTube",
+      "podcast": "Écouter le Podcast",
+      "tiktok": "Suivre sur TikTok",
+      "linkedin": "Connecter sur LinkedIn",
+      "website": "Visiter le site"
+    }
+  },
+  "hero": {
+    "title": "Favoriser le changement par la technologie",
+    "subtitle": "Une façon transparente et sécurisée d'avoir un impact direct dans la vie des personnes en situation d'itinérance.",
+    "scanDonate": "Scanner & Donner",
+    "learnMore": "En savoir plus",
+    "qrTechnology": "Scannez des codes QR uniques pour faire des dons instantanés et sécurisés à des personnes spécifiques dans le besoin.",
+    "directImpact": "Vos dons vont directement aux bénéficiaires vérifiés, assurant un impact maximal.",
+    "smartAllocation": "Les contrats intelligents garantissent que les fonds sont alloués selon les besoins des bénéficiaires.",
+    "housingFocus": "Prioriser les solutions de logement stable comme fondement d'un changement durable.",
+    "blockchainSecurity": "Chaque transaction est sécurisée et vérifiée par la technologie blockchain.",
+    "impactTracking": "Suivez vos contributions et voyez l'impact réel de vos dons en temps réel.",
+    "joinMovement": "Rejoignez le mouvement pour mettre fin à l'itinérance",
+    "joinDescription": "Faites un impact direct grâce à des dons sécurisés et transparents qui créent un changement durable.",
+    "becomeDonor": "Devenir donateur",
+    "partnerWithUs": "Devenir partenaire"
+  },
+  "verify": {
+    "title": "Vérifier votre don",
+    "description": "Suivez l'impact de votre contribution en utilisant le hash de transaction.",
+    "transactionHash": "Hash de transaction",
+    "verifyButton": "Vérifier la transaction",
+    "results": "Résultats de vérification",
+    "howItWorks": "Comment fonctionne la vérification",
+    "step1Title": "Entrer le hash",
+    "step1Desc": "Saisissez le hash de transaction de votre reçu de don.",
+    "step2Title": "Vérifier",
+    "step2Desc": "Notre système vérifie la transaction sur la blockchain.",
+    "step3Title": "Suivre l'impact",
+    "step3Desc": "Voyez comment votre don fait une différence."
+  }
+} 

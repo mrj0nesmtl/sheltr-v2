@@ -8,7 +8,14 @@ Built by **Arcana Concept**, SHELTR V2 operates as a **SaaS platform**, availabl
 
 ## Key Features in Development
 
-### 1. Blockchain Transparency & Public Ledger
+### 1. QR Code-Driven Donations
+
+Each homeless participant receives a **unique QR code** linked to their digital wallet, making donations easy, personalized, and traceable.
+
+- **Multi-Platform Payment Options**: Support for **Stripe**, **PayPal**, **Apple Pay**, and even **cryptocurrency wallets**.
+- **Instant Donations**: Quick and secure payments, giving donors confidence in their contributions.
+
+### 2. Blockchain Transparency & Public Ledger
 
 - **Hybrid Approach**: While donations are processed via traditional payment gateways (e.g., **Stripe**, **PayPal**), **blockchain technology** is leveraged to serve as a **public ledger**, ensuring complete transparency.
 - **Smart Contracts**: Automatic allocation of funds into three categories:
@@ -16,12 +23,6 @@ Built by **Arcana Concept**, SHELTR V2 operates as a **SaaS platform**, availabl
   - **15%** for a **housing fund**, invested in a high-yield ETF.
   - **5%** for **operational costs**, ensuring platform sustainability.
 
-### 2. QR Code-Driven Donations
-
-Each homeless participant receives a **unique QR code** linked to their digital wallet, making donations easy, personalized, and traceable.
-
-- **Multi-Platform Payment Options**: Support for **Stripe**, **PayPal**, **Apple Pay**, and even **cryptocurrency wallets**.
-- **Instant Donations**: Quick and secure payments, giving donors confidence in their contributions.
 
 ### 3. Financial Empowerment with AI
 
