@@ -39,7 +39,25 @@
     "company_menu": {
       "title": "Entreprise",
       "desc": "À propos et ressources"
-    }
+    },
+    "userManagement": "Gestion des utilisateurs",
+    "userManagementDesc": "Gérer les comptes et les rôles des utilisateurs",
+    "systemSettings": "Paramètres système",
+    "systemSettingsDesc": "Configurer les paramètres de la plateforme",
+    "shelterDashboard": "Tableau de bord du refuge",
+    "shelterDashboardDesc": "Gérer les opérations du refuge",
+    "residentManagement": "Gestion des résidents",
+    "residentManagementDesc": "Gérer les résidents du refuge",
+    "donations": "Mes dons",
+    "donationHistory": "Historique des dons",
+    "donationHistoryDesc": "Voir l'historique de vos dons",
+    "personalImpact": "Mon impact",
+    "personalImpactDesc": "Voir l'impact de vos contributions",
+    "services": "Services",
+    "availableServices": "Services disponibles",
+    "availableServicesDesc": "Trouver les services disponibles",
+    "serviceHistory": "Historique des services",
+    "serviceHistoryDesc": "Voir votre historique de services"
   },
   "footer": {
     "tagline": "Combattre le sans-abrisme avec la technologie.",
