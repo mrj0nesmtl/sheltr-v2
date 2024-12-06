@@ -11,8 +11,15 @@ export function LanguageSwitcher({ className }: LanguageSwitcherProps) {
   const { i18n } = useTranslation();
 
   const toggleLanguage = () => {
-    const newLang = i18n.language === 'en' ? 'fr' : 'en';
-    i18n.changeLanguage(newLang);
+    const currentLang = i18n.language;
+    const newLang = currentLang.startsWith('en') ? 'fr' : 'en-US';
+    
+    i18n.changeLanguage(newLang).then(() => {
+      localStorage.setItem('i18nextLng', newLang);
+      window.location.reload();
+    }).catch(error => {
+      console.error('Failed to switch language:', error);
+    });
   };
 
   return (
@@ -27,7 +34,7 @@ export function LanguageSwitcher({ className }: LanguageSwitcherProps) {
     >
       <Globe className="h-5 w-5" />
       <span className="text-sm font-medium">
-        {i18n.language === 'en' ? 'Français' : 'English'}
+        {i18n.language.startsWith('en') ? 'Français' : 'English'}
       </span>
     </button>
   );

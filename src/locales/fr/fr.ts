@@ -136,8 +136,7 @@ export const fr = {
         ]
       }
     },
-    partnership: {
-      title: 'Avantages du Partenariat',
+    benefits: {
       technology: {
         title: 'Avantages Technologiques',
         features: [
@@ -149,7 +148,7 @@ export const fr = {
         ]
       },
       support: {
-        title: 'Support et Ressources',
+        title: 'Support & Ressources',
         features: [
           'Support technique 24/7',
           'Matériel de formation',
@@ -157,21 +156,66 @@ export const fr = {
           'Forums communautaires',
           'Mises à jour régulières'
         ]
+      }
+    },
+    partnership: {
+      title: "Avantages du Partenariat",
+      technology: {
+        title: "Avantages Technologiques",
+        features: [
+          "Sécurité blockchain",
+          "Automatisation des contrats intelligents",
+          "Suivi en temps réel",
+          "Analyse des données",
+          "Accessibilité mobile"
+        ]
+      },
+      support: {
+        title: "Support & Ressources",
+        features: [
+          "Support technique 24/7",
+          "Matériel de formation",
+          "Guide d'implémentation",
+          "Forums communautaires",
+          "Mises à jour régulières"
+        ]
       },
       engagement: {
-        title: 'Impact Communautaire',
+        title: "Impact Communautaire",
         features: [
-          'Gestion des relations donateurs',
-          'Outils de narration d\'impact',
-          'Suivi des succès des participants',
-          'Réseautage communautaire',
-          'Intégration des médias sociaux'
+          "Gestion des relations donateurs",
+          "Outils de narration d'impact",
+          "Suivi des succès des participants",
+          "Réseautage communautaire",
+          "Intégration des médias sociaux"
         ]
       }
     },
     cta: {
-      title: 'Rejoignez la Révolution',
-      description: 'Faites partie de la solution pour mettre fin à l\'itinérance grâce à la technologie innovante.'
+      title: "Rejoignez la Révolution",
+      description: "Faites partie de la solution pour mettre fin à l'itinérance grâce à la technologie innovante."
+    }
+  },
+  footer: {
+    tagline: 'Pirater l\'itinérance avec la technologie.',
+    quickLinks: 'LIENS RAPIDES',
+    blockchain: 'FOOTER.BLOCKCHAIN',
+    resources: 'RESSOURCES',
+    listenPodcast: 'Dernier Épisode',
+    rights: '© 2024 SHELTR. Tous droits réservés.',
+    links: {
+      about: 'À propos de SHELTR',
+      verify: 'Vérifier un Don',
+      blog: 'Blog',
+      privacy: 'Politique de Confidentialité',
+      terms: 'Conditions d\'Utilisation'
+    },
+    social: {
+      youtube: 'YouTube',
+      headphones: 'Podcast',
+      video: 'TikTok',
+      linkedin: 'LinkedIn',
+      globe: 'Site Web'
     }
   },
   signUp: {
@@ -226,35 +270,6 @@ export const fr = {
         submit: 'Enregistrer le refuge',
         submitting: 'Création du compte...'
       }
-    }
-  },
-  footer: {
-    tagline: 'Pirater l\'itinérance avec la technologie.',
-    quickLinks: 'LIENS RAPIDES',
-    resources: 'RESSOURCES',
-    blockchain: 'BLOCKCHAIN',
-    blog: 'Blog',
-    privacy: 'Confidentialité',
-    terms: 'Conditions',
-    connect: 'Connecter',
-    language: 'English',
-    rights: 'Tous droits réservés.',
-    social: {
-      youtube: 'Suivez-nous sur YouTube',
-      podcast: 'Écoutez notre Podcast',
-      tiktok: 'Suivez-nous sur TikTok',
-      linkedin: 'Connectez sur LinkedIn',
-      website: 'Visitez Arcana Concept'
-    },
-    links: {
-      howItWorks: 'Comment ça Marche',
-      solutions: 'Solutions',
-      scanDonate: 'Scanner & Donner',
-      blog: 'Blog',
-      privacy: 'Confidentialité',
-      terms: 'Conditions',
-      about: 'À Propos',
-      verify: 'Vérifier un Don'
     }
   },
   whitepaper: {
@@ -347,5 +362,38 @@ export const fr = {
       title: 'Livre Blanc',
       content: 'Documentation technique approfondie de la plateforme SHELTR.'
     }
+  },
+  transaction: {
+    status: {
+      completed: 'Complété',
+      pending: 'En attente',
+      failed: 'Échoué'
+    }
+  },
+  support: {
+    needHelp: 'Besoin d\'aide ?',
+    description: 'Notre équipe de support est là pour vous aider 24/7',
+    callUs: 'Appelez-nous',
+    callDescription: 'Parlez avec un représentant du support',
+    chatWithUs: 'Chattez avec nous',
+    chatDescription: 'Obtenez de l\'aide instantanée de notre assistant IA',
+    startChat: 'Démarrer le chat'
+  },
+  podcast: {
+    preview: {
+      listen: 'Écouter sur Spotify',
+      latest: 'Dernier Épisode',
+      duration: 'Durée',
+      date: 'Publié le',
+      showName: 'Tomes d\'Arcana'
+    }
+  },
+  dashboard: {
+    donor: {
+      title: 'Tableau de Bord Donateur'
+    },
+    totalDonated: 'Total des dons',
+    impactScore: 'Score d\'impact',
+    totalDonations: 'Nombre total de dons'
   }
 };

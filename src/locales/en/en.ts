@@ -59,8 +59,6 @@ export const en = {
       }
     }
   },
-  // Rest of the English translations remain unchanged...
-  // Keeping all existing translations exactly as they were
   howItWorks: {
     title: 'How SHELTR Works',
     subtitle: 'Our innovative platform combines blockchain technology with direct support to create lasting change in the lives of homeless individuals.',
@@ -197,6 +195,28 @@ export const en = {
       description: "Be part of the solution to end homelessness through innovative technology."
     }
   },
+  footer: {
+    tagline: 'Hacking Homelessness with Technology.',
+    quickLinks: 'QUICK LINKS',
+    blockchain: 'FOOTER.BLOCKCHAIN',
+    resources: 'RESOURCES',
+    listenPodcast: 'Latest Episode',
+    rights: '© 2024 SHELTR. All rights reserved.',
+    links: {
+      about: 'footer.links.about',
+      verify: 'footer.links.verify',
+      blog: 'footer.links.blog',
+      privacy: 'footer.links.privacy',
+      terms: 'footer.links.terms'
+    },
+    social: {
+      youtube: 'YouTube',
+      headphones: 'Podcast',
+      video: 'TikTok',
+      linkedin: 'LinkedIn',
+      globe: 'Website'
+    }
+  },
   signUp: {
     title: 'Join the SHELTR Community',
     subtitle: 'Choose how you want to make a difference',
@@ -249,35 +269,6 @@ export const en = {
         submit: 'Register Shelter',
         submitting: 'Creating Account...'
       }
-    }
-  },
-  footer: {
-    tagline: 'Hacking Homelessness with Technology.',
-    quickLinks: 'QUICK LINKS',
-    resources: 'RESOURCES',
-    blockchain: 'BLOCKCHAIN',
-    blog: 'Blog',
-    privacy: 'Privacy',
-    terms: 'Terms',
-    connect: 'Connect',
-    language: 'Français',
-    rights: 'All rights reserved.',
-    social: {
-      youtube: 'Follow us on YouTube',
-      podcast: 'Listen to our Podcast',
-      tiktok: 'Follow us on TikTok',
-      linkedin: 'Connect on LinkedIn',
-      website: 'Visit Arcana Concept Website'
-    },
-    links: {
-      howItWorks: 'How It Works',
-      solutions: 'Solutions',
-      scanDonate: 'Scan & Donate',
-      blog: 'Blog',
-      privacy: 'Privacy',
-      terms: 'Terms',
-      about: 'About SHELTR',
-      verify: 'Verify Donation'
     }
   },
   whitepaper: {
