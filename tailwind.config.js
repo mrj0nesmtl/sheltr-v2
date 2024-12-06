@@ -4,28 +4,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        'primary': {
-          50: '#f0f9ff',
-          100: '#e0f2fe',
-          200: '#bae6fd',
-          300: '#7dd3fc',
-          400: '#38bdf8',
-          500: '#0ea5e9',
-          600: '#0284c7',
-          700: '#0369a1',
-          800: '#075985',
-          900: '#0c4a6e',
-        },
+        primary: 'var(--bg-primary)',
+        secondary: 'var(--bg-secondary)',
+        'text-primary': 'var(--text-primary)',
+        'text-secondary': 'var(--text-secondary)',
+        'accent-primary': 'var(--accent-primary)',
+        'christmas-red': 'var(--christmas-red)',
+        'christmas-green': 'var(--christmas-green)',
+        'christmas-gold': 'var(--christmas-gold)',
       },
-      animation: {
-        'social-bounce': 'social-bounce 1s ease-in-out infinite',
-      },
-      keyframes: {
-        'social-bounce': {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-5px)' },
-        }
-      }
     },
   },
   plugins: [

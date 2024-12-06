@@ -1,0 +1,88 @@
+:root[data-theme="light"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f3f4f6;
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --accent-primary: #3b82f6;
+  --button-hover: #e5e7eb;
+}
+
+:root[data-theme="dark"] {
+  --bg-primary: #111827;
+  --bg-secondary: #1f2937;
+  --text-primary: #f9fafb;
+  --text-secondary: #d1d5db;
+  --accent-primary: #60a5fa;
+  --button-hover: #374151;
+}
+
+:root[data-theme="christmas"] {
+  --bg-primary: #1a2f38;
+  --bg-secondary: #2c4a54;
+  --text-primary: #f9fafb;
+  --text-secondary: #d1d5db;
+  --accent-primary: #e63946;
+  --christmas-green: #2a9d8f;
+  --christmas-red: #e63946;
+  --christmas-gold: #f4a261;
+  --snow-white: #f8f9fa;
+  --button-hover: #34626c;
+}
+
+@keyframes snowfall {
+  0% {
+    transform: translateY(-100%) translateX(-50%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%) translateX(50%);
+    opacity: 0;
+  }
+}
+
+[data-theme="christmas"] .snow-particle {
+  position: fixed;
+  width: 4px;
+  height: 4px;
+  background: var(--snow-white);
+  border-radius: 50%;
+  animation: var(--snow-animation);
+  pointer-events: none;
+}
+
+.theme-transition {
+  transition: background-color 0.3s ease,
+              color 0.3s ease,
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
+}
+
+[data-theme="christmas"] {
+  /* Subtle gradient background */
+  .bg-primary {
+    background: linear-gradient(
+      to bottom,
+      var(--bg-primary),
+      color-mix(in srgb, var(--bg-primary) 95%, var(--christmas-green))
+    );
+  }
+  
+  /* Festive accents */
+  .accent-border {
+    border-color: var(--christmas-gold);
+  }
+  
+  /* Special text effects */
+  .festive-text {
+    background: linear-gradient(
+      45deg,
+      var(--christmas-red),
+      var(--christmas-gold)
+    );
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+} 

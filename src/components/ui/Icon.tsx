@@ -63,8 +63,14 @@ import {
   BarChart3,
   Handshake,
   UserPlus,
-  QrCode
+  QrCode,
+  Pine,
+  Gift,
+  Sun,
+  Moon,
+  Building
 } from 'lucide-react';
+import { ChristmasTreeIcon } from './CustomIcons';
 
 export type IconName = 
   | 'user'
@@ -135,7 +141,12 @@ export type IconName =
   | 'verified'
   | 'login'
   | 'logout'
-  | 'helpCircle';
+  | 'helpCircle'
+  | 'christmas-tree'
+  | 'gift'
+  | 'sun'
+  | 'moon'
+  | 'building';
 
 interface IconProps {
   name: IconName;
@@ -212,7 +223,12 @@ export function Icon({ name, className }: IconProps) {
     verified: CheckCircle,
     login: LogIn,
     logout: LogOut,
-    helpCircle: AlertCircle
+    helpCircle: AlertCircle,
+    'christmas-tree': ChristmasTreeIcon,
+    'gift': Gift,
+    sun: Sun,
+    moon: Moon,
+    building: Building
   };
 
   const IconComponent = icons[name];

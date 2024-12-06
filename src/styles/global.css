@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity;
+  }
+
+  .card {
+    @apply bg-secondary border border-gray-700 rounded-lg p-4;
+  }
+
+  .input {
+    @apply bg-secondary border border-gray-700 rounded-lg p-2;
+  }
+}
+
+/* Base theme styles */
+:root[data-theme="light"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f3f4f6;
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --accent-primary: #3b82f6;
+}
+
+:root[data-theme="dark"] {
+  --bg-primary: #111827;
+  --bg-secondary: #1f2937;
+  --text-primary: #f9fafb;
+  --text-secondary: #d1d5db;
+  --accent-primary: #60a5fa;
+}
+
+:root[data-theme="christmas"] {
+  --bg-primary: #1a2f38;
+  --bg-secondary: #2c4a54;
+  --text-primary: #f9fafb;
+  --text-secondary: #d1d5db;
+  --accent-primary: #e63946;
+  --christmas-green: #2a9d8f;
+  --christmas-red: #e63946;
+  --christmas-gold: #f4a261;
+}
+
+/* Apply theme to root and body */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease,
+              color 0.3s ease;
+}
+
+/* Theme-aware utility classes */
+.bg-primary {
+  background-color: var(--bg-primary);
+}
+
+.bg-secondary {
+  background-color: var(--bg-secondary);
+}
+
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+/* Christmas theme specific */
+[data-theme="christmas"] .festive-text {
+  background: linear-gradient(45deg, var(--christmas-red), var(--christmas-gold));
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Add to existing styles */
+[data-theme] {
+  transition: background-color 0.3s ease,
+              color 0.3s ease,
+              border-color 0.3s ease;
+}
+
+[data-theme="light"] {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+[data-theme="christmas"] {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+} 
