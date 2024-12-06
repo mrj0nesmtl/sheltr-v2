@@ -6,6 +6,9 @@ import { useAuthStore } from '../../stores/authStore';
 import { LanguageSwitcher } from '../LanguageSwitcher';
 import { cn } from '../../lib/utils';
 import { Menu } from '@headlessui/react';
+import { UserRole } from '@/lib/types/auth';
+import { Avatar } from '@/components/ui/Avatar';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
 
 interface NavigationItemsProps {
   mobile?: boolean;
@@ -20,9 +23,11 @@ interface NavItem {
     label: string;
     icon?: string;
     description?: string;
+    roles?: UserRole[];
   }[];
   path?: string;
   highlight?: boolean;
+  roles?: UserRole[];
 }
 
 export function NavigationItems({ mobile, onItemClick, isDark = true }: NavigationItemsProps) {
@@ -31,94 +36,172 @@ export function NavigationItems({ mobile, onItemClick, isDark = true }: Navigati
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Main navigation items with dropdown menus
-  const navItems: NavItem[] = [
-    // Primary Actions - Direct links for core functionality
-    {
-      label: "Scan & Donate",
-      path: '/scan',
-      highlight: true
-    },
-    // Solutions - How the platform works
-    {
-      label: "Solutions",
-      items: [
-        { 
-          path: '/how-it-works', 
-          label: "How It Works",
-          icon: 'helpCircle',
-          description: "Learn about our innovative approach to helping the homeless"
-        },
-        { 
-          path: '/solutions', 
-          label: "Solutions",
-          icon: 'settings',
-          description: "Discover our comprehensive platform features"
-        },
-        { 
-          path: '/impact', 
-          label: "Impact",
-          icon: 'trendingUp',
-          description: "See the real-world difference we're making together"
-        }
-      ]
-    },
-    // Platform - Technical and verification features
-    {
-      label: "Platform",
-      items: [
-        { 
-          path: '/verify', 
-          label: "Verify Donation",
-          icon: 'shield',
-          description: "Track and verify your contributions"
-        },
-        { 
-          path: '/token', 
-          label: "$SHELTR",
-          icon: 'wallet',
-          description: "Learn about our blockchain token"
-        },
-        { 
-          path: '/analytics', 
-          label: "Analytics",
-          icon: 'barChart',
-          description: "Real-time impact metrics and statistics"
-        }
-      ]
-    },
-    // Company - About and resources
-    {
-      label: "Company",
-      items: [
-        { 
-          path: '/about', 
-          label: "About",
-          icon: 'info',
-          description: "Our mission and the team behind SHELTR"
-        },
-        { 
-          path: '/blog', 
-          label: "Blog",
-          icon: 'fileText',
-          description: "Latest news, updates, and success stories"
-        },
-        { 
-          path: '/whitepaper', 
-          label: "Whitepaper",
-          icon: 'book',
-          description: "Technical details and vision"
-        }
-      ]
+  console.log('Translation test:', {
+    solutionsTitle: t('nav.solutions_menu.title'),
+    companyTitle: t('nav.company_menu.title')
+  });
+
+  // Define role-based navigation items
+  const getNavItems = (): NavItem[] => {
+    const items: NavItem[] = [
+      // Public items - available to all
+      {
+        label: t('nav.scanDonate'),
+        path: '/scan',
+        highlight: true
+      },
+      // Solutions menu - available to all
+      {
+        label: t('nav.solutions_menu.title'),
+        items: [
+          { 
+            path: '/how-it-works', 
+            label: t('nav.solutions_menu.howItWorks'),
+            icon: 'helpCircle',
+            description: t('nav.solutions_menu.howItWorksDesc')
+          },
+          { 
+            path: '/solutions', 
+            label: t('nav.solutions_menu.solutions'),
+            icon: 'settings',
+            description: t('nav.solutions_menu.solutionsDesc')
+          },
+          { 
+            path: '/impact', 
+            label: t('nav.solutions_menu.impact'),
+            icon: 'trendingUp',
+            description: t('nav.solutions_menu.impactDesc')
+          }
+        ]
+      },
+      // Company menu - available to all
+      {
+        label: t('nav.company_menu.title'),
+        items: [
+          {
+            path: '/about',
+            label: t('nav.company_menu.about'),
+            icon: 'info',
+            description: t('nav.company_menu.aboutDesc')
+          },
+          {
+            path: '/blog',
+            label: t('nav.company_menu.blog'),
+            icon: 'fileText',
+            description: t('nav.company_menu.blogDesc')
+          },
+          {
+            path: '/whitepaper',
+            label: t('nav.company_menu.whitepaper'),
+            icon: 'book',
+            description: t('nav.company_menu.whitepaperDesc')
+          }
+        ]
+      }
+    ];
+
+    // Add role-specific items only when authenticated
+    if (user) {
+      switch (user.role) {
+        case 'super_admin':
+          items.push({
+            label: t('nav.platform_menu.title'),
+            items: [
+              {
+                path: '/admin/dashboard',
+                label: t('nav.platform_menu.dashboard'),
+                icon: 'layoutDashboard',
+                description: t('nav.platform_menu.dashboardDesc'),
+                roles: ['super_admin']
+              },
+              {
+                path: '/admin/users',
+                label: t('nav.platform_menu.userManagement'),
+                icon: 'users',
+                description: t('nav.platform_menu.userManagementDesc'),
+                roles: ['super_admin']
+              },
+              {
+                path: '/admin/settings',
+                label: t('nav.platform_menu.systemSettings'),
+                icon: 'settings',
+                description: t('nav.platform_menu.systemSettingsDesc'),
+                roles: ['super_admin']
+              }
+            ]
+          });
+          break;
+        case 'admin':
+          items.push({
+            label: t('nav.platform_menu.title'),
+            items: [
+              {
+                path: '/shelter/dashboard',
+                label: t('nav.platform_menu.shelterDashboard'),
+                icon: 'home',
+                description: t('nav.platform_menu.shelterDashboardDesc')
+              },
+              {
+                path: '/shelter/residents',
+                label: t('nav.platform_menu.residentManagement'),
+                icon: 'users',
+                description: t('nav.platform_menu.residentManagementDesc')
+              }
+            ]
+          });
+          break;
+        case 'donor':
+          items.push({
+            label: t('nav.donor_menu.title'),
+            items: [
+              {
+                path: '/donations/history',
+                label: t('nav.donor_menu.donationHistory'),
+                icon: 'history',
+                description: t('nav.donor_menu.donationHistoryDesc')
+              },
+              {
+                path: '/impact/personal',
+                label: t('nav.donor_menu.personalImpact'),
+                icon: 'chartBar',
+                description: t('nav.donor_menu.personalImpactDesc')
+              }
+            ]
+          });
+          break;
+        case 'participant':
+          items.push({
+            label: t('nav.participant_menu.title'),
+            items: [
+              {
+                path: '/services/available',
+                label: t('nav.participant_menu.availableServices'),
+                icon: 'helpingHand',
+                description: t('nav.participant_menu.availableServicesDesc')
+              },
+              {
+                path: '/services/history',
+                label: t('nav.participant_menu.serviceHistory'),
+                icon: 'history',
+                description: t('nav.participant_menu.serviceHistoryDesc')
+              }
+            ]
+          });
+          break;
+      }
     }
-  ];
+
+    return items;
+  };
+
+  const navItems = getNavItems();
 
   const authItems = user ? [
     { path: '/dashboard', label: t('nav.dashboard') },
     { path: `/profile/${user.id}`, label: t('nav.profile') }
   ] : [
-    { path: '/signup', label: "Sign Up" },
-    { path: '/login', label: "Login", id: 'main-login' }
+    { path: '/signup', label: t('nav.signUp') },
+    { path: '/login', label: t('nav.login'), id: 'main-login' }
   ];
 
   const handleSignOut = async () => {
@@ -218,63 +301,148 @@ export function NavigationItems({ mobile, onItemClick, isDark = true }: Navigati
     );
   };
 
+  // Add user profile section for mobile
+  const renderMobileUserProfile = () => {
+    if (!user) return null;
+
+    return (
+      <div className="px-4 py-5 border-b border-gray-700">
+        <div className="flex items-center space-x-4">
+          <Avatar
+            src={user.profileImage}
+            fallback={user.name?.[0] || user.email[0]}
+            size="lg"
+            className="ring-2 ring-green-500"
+          />
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-medium text-white truncate">
+              {user.name || user.email}
+            </p>
+            <p className="text-sm text-gray-400 truncate">
+              {user.role.charAt(0).toUpperCase() + user.role.slice(1).replace('_', ' ')}
+            </p>
+          </div>
+          <Link
+            to={`/profile/${user.id}`}
+            className="inline-flex items-center p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-md"
+            onClick={onItemClick}
+          >
+            <Icon name="settings" className="h-5 w-5" />
+          </Link>
+        </div>
+      </div>
+    );
+  };
+
   // Render mobile menu items
   const renderMobileItems = () => (
-    <div className="space-y-6">
-      {/* Primary Action */}
-      {navItems.filter(item => item.highlight).map((item) => (
-        <Link
-          key={item.path}
-          to={item.path!}
-          className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700"
-          onClick={onItemClick}
-        >
-          <Icon name="qrCode" className="h-4 w-4 mr-2" />
-          {item.label}
-        </Link>
-      ))}
+    <div className="flex flex-col h-full">
+      {/* User Profile Section */}
+      {renderMobileUserProfile()}
 
-      {/* Navigation Groups */}
-      {navItems.filter(item => !item.highlight).map((item) => (
-        <div key={item.label} className="space-y-2">
-          <div className={cn(
-            "px-3 py-2 text-sm font-medium",
-            isDark ? "text-white" : "text-gray-900"
-          )}>
+      {/* Main Navigation */}
+      <div className="flex-1 px-2 py-4 space-y-6 overflow-y-auto">
+        {/* Primary Action */}
+        {navItems.filter(item => item.highlight).map((item) => (
+          <Link
+            key={item.path}
+            to={item.path!}
+            className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700"
+            onClick={onItemClick}
+          >
+            <Icon name="qrCode" className="h-4 w-4 mr-2" />
             {item.label}
+          </Link>
+        ))}
+
+        {/* Navigation Groups */}
+        {navItems.filter(item => !item.highlight).map((item) => {
+          // Skip items that don't match user's role
+          if (item.roles && (!user || !item.roles.includes(user.role))) {
+            return null;
+          }
+
+          return (
+            <div key={item.label} className="space-y-2">
+              <div className="px-3 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                {item.label}
+              </div>
+              <div className="space-y-1">
+                {item.items?.map((subItem) => {
+                  // Skip sub-items that don't match user's role
+                  if (subItem.roles && (!user || !subItem.roles.includes(user.role))) {
+                    return null;
+                  }
+
+                  return (
+                    <Link
+                      key={subItem.path}
+                      to={subItem.path}
+                      className="flex items-center px-3 py-2 rounded-md text-sm group text-gray-300 hover:bg-gray-700 hover:text-white"
+                      onClick={onItemClick}
+                    >
+                      {subItem.icon && (
+                        <Icon 
+                          name={subItem.icon as any} 
+                          className="h-5 w-5 mr-3 text-gray-400 group-hover:text-gray-300" 
+                        />
+                      )}
+                      <div>
+                        <div className="font-medium">{subItem.label}</div>
+                        {subItem.description && (
+                          <p className="text-xs text-gray-400 group-hover:text-gray-300">
+                            {subItem.description}
+                          </p>
+                        )}
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Bottom Actions */}
+      <div className="border-t border-gray-700 p-4">
+        {user ? (
+          <button
+            onClick={async () => {
+              await handleSignOut();
+              onItemClick?.();
+            }}
+            className="flex items-center w-full px-4 py-2 text-sm text-red-500 hover:bg-red-500/10 rounded-md"
+          >
+            <Icon name="logOut" className="h-4 w-4 mr-2" />
+            {t('nav.signOut')}
+          </button>
+        ) : (
+          <div className="space-y-2">
+            <Link
+              to="/signup"
+              className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700"
+              onClick={onItemClick}
+            >
+              <Icon name="userPlus" className="h-4 w-4 mr-2" />
+              {t('nav.signUp')}
+            </Link>
+            <Link
+              to="/login"
+              className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700"
+              onClick={onItemClick}
+            >
+              <Icon name="logIn" className="h-4 w-4 mr-2" />
+              {t('nav.login')}
+            </Link>
           </div>
-          <div className="pl-4 space-y-1">
-            {item.items?.map((subItem) => (
-              <Link
-                key={subItem.path}
-                to={subItem.path}
-                className={cn(
-                  "flex items-center px-3 py-2 rounded-md text-sm group",
-                  isDark
-                    ? "text-gray-300 hover:bg-gray-800 hover:text-white"
-                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
-                )}
-                onClick={onItemClick}
-              >
-                {subItem.icon && (
-                  <Icon 
-                    name={subItem.icon as any} 
-                    className="h-4 w-4 mr-2 opacity-75" 
-                  />
-                )}
-                <div>
-                  <div>{subItem.label}</div>
-                  {subItem.description && (
-                    <p className="text-xs mt-0.5 opacity-75">
-                      {subItem.description}
-                    </p>
-                  )}
-                </div>
-              </Link>
-            ))}
-          </div>
+        )}
+
+        {/* Language Switcher */}
+        <div className="mt-4">
+          <LanguageSwitcher />
         </div>
-      ))}
+      </div>
     </div>
   );
 
@@ -290,58 +458,76 @@ export function NavigationItems({ mobile, onItemClick, isDark = true }: Navigati
         {mobile ? renderMobileItems() : navItems.map(renderDropdown)}
       </div>
 
-      {/* Auth Buttons */}
-      <div className={cn(
-        "flex items-center",
-        mobile ? "flex-col space-y-4 mt-6" : "space-x-4"
-      )}>
-        {user ? (
-          <>
-            <Link
-              to={`/profile/${user.id}`}
-              className={cn(
-                "text-sm font-medium",
-                isDark ? "text-gray-300 hover:text-white" : "text-gray-600 hover:text-gray-900"
-              )}
-            >
-              Profile
-            </Link>
-            <Link
-              to="/dashboard"
-              className={cn(
-                "text-sm font-medium",
-                isDark ? "text-gray-300 hover:text-white" : "text-gray-600 hover:text-gray-900"
-              )}
-            >
-              Dashboard
-            </Link>
-            <button
-              onClick={handleSignOut}
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-            >
-              Sign Out
-            </button>
-          </>
-        ) : (
-          <>
-            <Link
-              to="/signup"
-              className={cn(
-                "text-sm font-medium",
-                isDark ? "text-gray-300 hover:text-white" : "text-gray-600 hover:text-gray-900"
-              )}
-            >
-              Sign Up
-            </Link>
-            <Link
-              to="/login"
-              className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
-            >
-              Login
-            </Link>
-          </>
-        )}
-      </div>
+      {/* Desktop Auth Buttons */}
+      {!mobile && (
+        <div className="flex items-center space-x-4">
+          {user ? (
+            <>
+              <Menu as="div" className="relative">
+                <Menu.Button className={cn(
+                  "flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium",
+                  isDark ? "text-gray-300 hover:text-white" : "text-gray-600 hover:text-gray-900"
+                )}>
+                  <Icon name="user" className="h-4 w-4" />
+                  <span>{user.name || user.email}</span>
+                  <Icon name="chevronDown" className="h-4 w-4" />
+                </Menu.Button>
+                <Menu.Items className={cn(
+                  "absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 z-50",
+                  isDark
+                    ? "bg-gray-800 ring-1 ring-black ring-opacity-5"
+                    : "bg-white ring-1 ring-black ring-opacity-5"
+                )}>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <Link
+                        to={`/profile/${user.id}`}
+                        className={cn(
+                          "block px-4 py-2 text-sm",
+                          active ? "bg-gray-100" : "",
+                          isDark ? "text-white" : "text-gray-700"
+                        )}
+                      >
+                        {t('nav.profile')}
+                      </Link>
+                    )}
+                  </Menu.Item>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <button
+                        onClick={handleSignOut}
+                        className={cn(
+                          "block w-full text-left px-4 py-2 text-sm",
+                          active ? "bg-gray-100" : "",
+                          "text-red-600"
+                        )}
+                      >
+                        {t('nav.signOut')}
+                      </button>
+                    )}
+                  </Menu.Item>
+                </Menu.Items>
+              </Menu>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/signup"
+                className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700"
+              >
+                {t('nav.signUp')}
+              </Link>
+              <Link
+                to="/login"
+                className="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700"
+              >
+                {t('nav.login')}
+              </Link>
+            </>
+          )}
+          <LanguageSwitcher />
+        </div>
+      )}
     </div>
   );
 }
