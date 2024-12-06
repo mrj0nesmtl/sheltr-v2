@@ -7,7 +7,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { PageMeta } from '@/components/Meta/PageMeta';
 
-// Import markdown files with explicit type assertion
+// Import markdown files
 import introEng from '../../../docs/sheltr_intro_eng.md?raw';
 import introFr from '../../../docs/shelter_inro_fr.md?raw';
 import techStack from '../../../docs/tech_stack.md?raw';
@@ -17,16 +17,23 @@ import whitepaperFr from '../../../docs/whitepaper_fr.md?raw';
 export function AboutPage() {
   const { t, i18n } = useTranslation();
   const [markdownContent, setMarkdownContent] = useState<Record<string, string>>({});
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Load markdown content based on language
-    const content = {
-      'SHELTR_INTRO': i18n.language === 'fr' ? introFr : introEng,
-      'TECH_STACK': techStack,
-      'WHITE_PAPER': i18n.language === 'fr' ? whitepaperFr : whitepaperEng
-    };
+    try {
+      // Load markdown content based on language
+      const content = {
+        'SHELTR_INTRO': i18n.language === 'fr' ? introFr : introEng,
+        'TECH_STACK': techStack,
+        'WHITE_PAPER': i18n.language === 'fr' ? whitepaperFr : whitepaperEng
+      };
 
-    setMarkdownContent(content);
+      setMarkdownContent(content);
+    } catch (error) {
+      console.error('Error loading markdown content:', error);
+    } finally {
+      setIsLoading(false);
+    }
   }, [i18n.language]);
 
   const documents = [
@@ -49,6 +56,14 @@ export function AboutPage() {
       icon: 'fileText' as const
     }
   ];
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-900 py-12 flex items-center justify-center">
+        <Icon name="loader" className="h-8 w-8 text-indigo-400 animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <>
