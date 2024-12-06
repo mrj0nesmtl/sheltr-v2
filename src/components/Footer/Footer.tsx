@@ -4,10 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { Icon } from '@/components/ui/Icon';
 import { PodcastPreview } from '@/components/PodcastPreview/PodcastPreview';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
+import { useTheme } from '@/contexts/ThemeContext';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 export function Footer() {
   const { t } = useTranslation();
   const [showPodcast, setShowPodcast] = useState(false);
+  const { theme, activateChristmasTheme } = useTheme();
 
   const podcastInfo = {
     title: "SHELTR: Tech for Good",
@@ -20,7 +23,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="bg-gray-900 sticky bottom-0 w-full z-50 border-t border-gray-800">
+    <footer className="bg-secondary relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="flex flex-col items-center md:flex-row md:justify-between">
           {/* Brand and Podcast */}
@@ -152,6 +155,43 @@ export function Footer() {
           </div>
         </div>
       )}
+
+      {/* Theme Controls */}
+      <div className="fixed bottom-4 right-4 flex items-center gap-4 z-50">
+        <ThemeToggle />
+        
+        {/* Christmas Easter Egg */}
+        <div className={`opacity-0 hover:opacity-100 transition-all duration-300 ${
+          theme === 'christmas' ? 'opacity-100' : ''
+        }`}>
+          <button 
+            onClick={activateChristmasTheme}
+            className={`p-2 rounded-full transition-all flex items-center gap-2 ${
+              theme === 'christmas' 
+                ? 'bg-gray-800/50 hover:bg-gray-700/50' 
+                : 'hover:bg-gray-800/30'
+            }`}
+            aria-label="Activate Christmas Theme"
+          >
+            <Icon 
+              name="christmas-tree" 
+              className={`w-6 h-6 transition-colors ${
+                theme === 'christmas' 
+                  ? 'text-christmas-green' 
+                  : 'text-gray-400 group-hover:text-christmas-green'
+              }`}
+            />
+            <Icon 
+              name="gift" 
+              className={`w-5 h-5 transition-colors ${
+                theme === 'christmas' 
+                  ? 'text-christmas-red' 
+                  : 'text-gray-400 group-hover:text-christmas-red'
+              }`}
+            />
+          </button>
+        </div>
+      </div>
     </footer>
   );
 } 

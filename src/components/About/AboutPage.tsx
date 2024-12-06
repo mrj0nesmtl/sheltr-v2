@@ -1,111 +1,61 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Accordion } from '@/components/ui/Accordion';
-import { Card } from '@/components/ui/Card';
 import { Icon } from '@/components/ui/Icon';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import { PageMeta } from '@/components/Meta/PageMeta';
-
-// Import markdown files
-import introEng from '../../../docs/sheltr_intro_eng.md?raw';
-import introFr from '../../../docs/shelter_inro_fr.md?raw';
-import techStack from '../../../docs/tech_stack.md?raw';
-import whitepaperEng from '../../../docs/whitepaper_eng.md?raw';
-import whitepaperFr from '../../../docs/whitepaper_fr.md?raw';
 
 export function AboutPage() {
-  const { t, i18n } = useTranslation();
-  const [markdownContent, setMarkdownContent] = useState<Record<string, string>>({});
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    try {
-      // Load markdown content based on language
-      const content = {
-        'SHELTR_INTRO': i18n.language === 'fr' ? introFr : introEng,
-        'TECH_STACK': techStack,
-        'WHITE_PAPER': i18n.language === 'fr' ? whitepaperFr : whitepaperEng
-      };
-
-      setMarkdownContent(content);
-    } catch (error) {
-      console.error('Error loading markdown content:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [i18n.language]);
-
-  const documents = [
-    {
-      id: 'intro',
-      title: t('about.intro.title'),
-      content: markdownContent['SHELTR_INTRO'] || t('about.intro.content'),
-      icon: 'info' as const
-    },
-    {
-      id: 'techstack',
-      title: t('about.techstack.title'),
-      content: markdownContent['TECH_STACK'] || t('about.techstack.content'),
-      icon: 'code' as const
-    },
-    {
-      id: 'whitepaper',
-      title: t('about.whitepaper.title'),
-      content: markdownContent['WHITE_PAPER'] || t('about.whitepaper.content'),
-      icon: 'fileText' as const
-    }
-  ];
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gray-900 py-12 flex items-center justify-center">
-        <Icon name="loader" className="h-8 w-8 text-indigo-400 animate-spin" />
-      </div>
-    );
-  }
+  const { t } = useTranslation();
 
   return (
-    <>
-      <PageMeta 
-        title={t('about.title')}
-        description={t('about.intro.content')}
-      />
-      
-      <div className="min-h-screen bg-gray-900 py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold text-white mb-8">
-            {t('about.title')}
-          </h1>
-          
-          <div className="grid grid-cols-1 gap-6">
-            {documents.map((doc) => (
-              <Card key={doc.id} className="bg-gray-800 border-gray-700">
-                <Accordion type="single" collapsible className="w-full">
-                  <Accordion.Item value={doc.id}>
-                    <Accordion.Trigger className="flex items-center justify-between w-full p-4 text-left">
-                      <div className="flex items-center space-x-3">
-                        <Icon name={doc.icon} className="h-5 w-5 text-indigo-400" />
-                        <span className="text-lg font-medium text-white">
-                          {doc.title}
-                        </span>
-                      </div>
-                      <Icon name="chevronDown" className="h-5 w-5 text-gray-400 transform transition-transform" />
-                    </Accordion.Trigger>
-                    <Accordion.Content className="p-4 text-gray-300">
-                      <div className="prose prose-invert max-w-none">
-                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                          {doc.content}
-                        </ReactMarkdown>
-                      </div>
-                    </Accordion.Content>
-                  </Accordion.Item>
-                </Accordion>
-              </Card>
-            ))}
+    <div className="min-h-screen bg-gray-900 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 className="text-3xl font-bold text-white mb-8">
+          {t('about.title')}
+        </h1>
+
+        {/* Introduction Accordion */}
+        <div className="mb-4">
+          <button className="flex items-center w-full p-4 bg-gray-800/50 hover:bg-gray-800 rounded-lg text-white">
+            <Icon name="info" className="mr-2 text-gray-400" />
+            <span>Introduction to SHELTR</span>
+            <Icon name="chevronDown" className="ml-auto text-gray-400" />
+          </button>
+        </div>
+
+        {/* Technology Stack Accordion */}
+        <div className="mb-4">
+          <button className="flex items-center w-full p-4 bg-gray-800/50 hover:bg-gray-800 rounded-lg text-white">
+            <Icon name="code" className="mr-2 text-gray-400" />
+            <span>Technology Stack</span>
+            <Icon name="chevronDown" className="ml-auto text-gray-400" />
+          </button>
+        </div>
+
+        {/* White Paper Accordion */}
+        <div className="mb-4">
+          <button className="flex items-center w-full p-4 bg-gray-800/50 hover:bg-gray-800 rounded-lg text-white">
+            <Icon name="fileText" className="mr-2 text-gray-400" />
+            <span>White Paper</span>
+            <Icon name="chevronDown" className="ml-auto text-gray-400" />
+          </button>
+          <div className="p-4 bg-gray-800/30 rounded-lg mt-2 text-white">
+            <h2 className="text-2xl font-bold mb-4">SHELTR V2: Technical White Paper</h2>
+            
+            <h3 className="text-xl mb-4">Table of Contents</h3>
+            <ul className="space-y-2 mb-6 text-gray-300">
+              <li>Overview</li>
+              <li>Vision and Mission</li>
+              <li>Core Features
+                <ul className="ml-4 mt-2 space-y-2">
+                  <li>QR Scan and Give</li>
+                  <li>Blockchain Transparency & Public Ledger</li>
+                  <li>Multi-Auth User Roles</li>
+                  <li>Homeless Depot: Shopify Integration</li>
+                </ul>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 } 

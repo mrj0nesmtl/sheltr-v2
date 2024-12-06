@@ -102,7 +102,14 @@ export const en = {
         title: 'Impact Tracking',
         description: 'Monitor your contributions and see the real impact of your donations in real-time.'
       }
-    }
+    },
+    title: "Transform Charitable Giving",
+    qrTechnology: "Scan & Give Instantly",
+    directImpact: "Direct Impact on Lives",
+    smartAllocation: "Smart Fund Allocation",
+    housingFocus: "Housing First Approach",
+    blockchainSecurity: "Secure Blockchain Tech",
+    impactTracking: "Track Your Impact"
   },
   // Rest of the English translations remain unchanged...
   // Keeping all existing translations exactly as they were
