@@ -11,16 +11,54 @@ export const fr = {
     }
   },
   nav: {
-    howItWorks: 'Comment ça Marche',
-    solutions: 'Solutions',
+    solutions_menu: {
+      title: 'Solutions',
+      howItWorks: 'Comment ça Marche',
+      howItWorksDesc: 'Découvrez comment notre plateforme transforme les dons',
+      solutions: 'Solutions',
+      solutionsDesc: 'Découvrez nos solutions innovantes pour donateurs et refuges',
+      impact: 'Impact',
+      impactDesc: 'Suivez et mesurez l\'impact réel de vos contributions'
+    },
+    company_menu: {
+      title: 'Entreprise',
+      about: 'À Propos',
+      aboutDesc: 'Notre mission de révolutionner les dons caritatifs',
+      blog: 'Blogue',
+      blogDesc: 'Dernières nouvelles et mises à jour de SHELTR',
+      whitepaper: 'Livre Blanc',
+      whitepaperDesc: 'Détails techniques et architecture de la plateforme'
+    },
     scanDonate: 'Scanner & Donner',
-    impact: 'Impact',
-    signUp: 'Inscription',
+    signUp: 'S\'inscrire',
     login: 'Connexion',
-    profile: 'Profil',
-    dashboard: 'Tableau de Bord',
-    signOut: 'Déconnexion',
-    about: 'À propos de SHELTR'
+    platform_menu: {
+      title: 'Plateforme',
+      dashboard: 'Tableau de Bord',
+      dashboardDesc: 'Voir les analyses et métriques du système',
+      userManagement: 'Gestion des Utilisateurs',
+      userManagementDesc: 'Gérer les utilisateurs et les permissions',
+      systemSettings: 'Paramètres Système',
+      systemSettingsDesc: 'Configurer les paramètres de la plateforme',
+      shelterDashboard: 'Tableau de Bord du Refuge',
+      shelterDashboardDesc: 'Gérer les opérations du refuge',
+      residentManagement: 'Gestion des Résidents',
+      residentManagementDesc: 'Suivre et soutenir les résidents du refuge'
+    },
+    donor_menu: {
+      title: 'Mes Dons',
+      donationHistory: 'Historique des Dons',
+      donationHistoryDesc: 'Consultez vos contributions et leur impact',
+      personalImpact: 'Impact Personnel',
+      personalImpactDesc: 'Voyez comment vos dons font la différence'
+    },
+    participant_menu: {
+      title: 'Services',
+      availableServices: 'Services Disponibles',
+      availableServicesDesc: 'Parcourir les options de services et de soutien',
+      serviceHistory: 'Historique des Services',
+      serviceHistoryDesc: 'Suivez votre utilisation des services et vos progrès'
+    }
   },
   hero: {
     title: 'Pirater l\'itinérance',
@@ -104,7 +142,7 @@ export const fr = {
   },
   solutions: {
     title: 'Solutions pour Tous',
-    subtitle: 'Des outils et fonctionnalités complets conçus pour maximiser l\'impact et assurer la transparence.',
+    subtitle: 'Des outils et fonctionnalit��s complets conçus pour maximiser l\'impact et assurer la transparence.',
     sections: {
       shelters: {
         title: 'Pour les Refuges & Organisations',

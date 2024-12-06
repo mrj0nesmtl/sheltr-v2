@@ -20,7 +20,52 @@ export const en = {
     profile: 'Profile',
     dashboard: 'Dashboard',
     signOut: 'Sign Out',
-    about: 'About SHELTR'
+    about: 'About SHELTR',
+    solutions_menu: {
+      title: 'Solutions',
+      howItWorks: 'How It Works',
+      howItWorksDesc: 'Learn how our platform transforms charitable giving',
+      solutions: 'Solutions',
+      solutionsDesc: 'Discover our innovative solutions for donors and shelters',
+      impact: 'Impact',
+      impactDesc: 'Track and measure the real impact of your contributions'
+    },
+    company_menu: {
+      title: 'Company',
+      about: 'About',
+      aboutDesc: 'Our mission to revolutionize charitable giving',
+      blog: 'Blog',
+      blogDesc: 'Latest news and updates from SHELTR',
+      whitepaper: 'Whitepaper',
+      whitepaperDesc: 'Technical details and platform architecture'
+    },
+    platform_menu: {
+      title: 'Platform',
+      dashboard: 'Dashboard',
+      dashboardDesc: 'View system-wide analytics and metrics',
+      userManagement: 'User Management',
+      userManagementDesc: 'Manage platform users and permissions',
+      systemSettings: 'System Settings',
+      systemSettingsDesc: 'Configure platform settings and preferences',
+      shelterDashboard: 'Shelter Dashboard',
+      shelterDashboardDesc: 'Manage your shelter operations',
+      residentManagement: 'Resident Management',
+      residentManagementDesc: 'Track and support shelter residents'
+    },
+    donor_menu: {
+      title: 'My Donations',
+      donationHistory: 'Donation History',
+      donationHistoryDesc: 'View your past contributions and impact',
+      personalImpact: 'Personal Impact',
+      personalImpactDesc: 'See how your donations make a difference'
+    },
+    participant_menu: {
+      title: 'Services',
+      availableServices: 'Available Services',
+      availableServicesDesc: 'Browse services and support options',
+      serviceHistory: 'Service History',
+      serviceHistoryDesc: 'Track your service usage and progress'
+    }
   },
   hero: {
     title: 'Hacking Homelessness',
