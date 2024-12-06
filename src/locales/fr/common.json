@@ -2,70 +2,64 @@
   "nav": {
     "menu": "Menu",
     "howItWorks": "Comment ça marche",
+    "howItWorksDesc": "Découvrez notre approche innovante pour aider les sans-abri",
     "solutions": "Solutions",
+    "solutionsDesc": "Découvrez les fonctionnalités de notre plateforme",
     "scanDonate": "Scanner & Donner",
     "impact": "Impact",
+    "impactDesc": "Voyez la différence réelle que nous faisons ensemble",
     "about": "À propos",
+    "aboutDesc": "Notre mission et l'équipe derrière SHELTR",
     "blog": "Blog",
-    "privacy": "Politique de Confidentialité",
-    "terms": "Conditions d'Utilisation",
+    "blogDesc": "Actualités, mises à jour et histoires de réussite",
+    "privacy": "Confidentialité",
+    "terms": "Conditions d'utilisation",
     "verifyDonation": "Vérifier le don",
+    "verifyDesc": "Suivez et vérifiez vos contributions",
     "dashboard": "Tableau de bord",
     "signOut": "Déconnexion",
     "login": "Connexion",
     "signUp": "S'inscrire",
-    "profile": "Profil"
+    "profile": "Profil",
+    "platform": "Plateforme",
+    "company": "Entreprise",
+    "analytics": "Analytiques",
+    "analyticsDesc": "Métriques d'impact en temps réel",
+    "whitepaper": "Livre blanc",
+    "whitepaperDesc": "Détails techniques et vision",
+    "tokenDesc": "Découvrez notre token blockchain",
+    "solutions_menu": {
+      "title": "Solutions",
+      "desc": "Nos solutions complètes"
+    },
+    "platform_menu": {
+      "title": "Plateforme",
+      "desc": "Fonctionnalités techniques"
+    },
+    "company_menu": {
+      "title": "Entreprise",
+      "desc": "À propos et ressources"
+    }
   },
   "footer": {
-    "quickLinks": "Liens rapides",
-    "resources": "Ressources",
-    "blockchain": "Blockchain",
-    "tagline": "Combattre l'itinérance avec la technologie.",
-    "allRightsReserved": "Tous droits réservés.",
+    "tagline": "Combattre le sans-abrisme avec la technologie.",
+    "allRightsReserved": "© 2024 SHELTR. Tous droits réservés.",
     "language": "Langue",
     "email": "support@arcanaconcept.com",
-    "blog": "Dernières Actualités",
-    "privacy": "Politique de Confidentialité",
-    "terms": "Conditions d'Utilisation",
-    "connect": "Connecter",
-    "language": "Français",
-    "rights": "Tous droits réservés.",
+    "listenPodcast": "Écouter le dernier épisode",
+    "links": {
+      "about": "À propos de SHELTR",
+      "verify": "Vérifier le don",
+      "blog": "Actualités",
+      "privacy": "Confidentialité",
+      "terms": "Conditions d'utilisation"
+    },
     "social": {
       "youtube": "Chaîne YouTube",
       "podcast": "Écouter le Podcast",
       "tiktok": "Suivre sur TikTok",
       "linkedin": "Connecter sur LinkedIn",
-      "website": "Visiter le site"
+      "website": "Visiter le site web"
     }
-  },
-  "hero": {
-    "title": "Favoriser le changement par la technologie",
-    "subtitle": "Une façon transparente et sécurisée d'avoir un impact direct dans la vie des personnes en situation d'itinérance.",
-    "scanDonate": "Scanner & Donner",
-    "learnMore": "En savoir plus",
-    "qrTechnology": "Scannez des codes QR uniques pour faire des dons instantanés et sécurisés à des personnes spécifiques dans le besoin.",
-    "directImpact": "Vos dons vont directement aux bénéficiaires vérifiés, assurant un impact maximal.",
-    "smartAllocation": "Les contrats intelligents garantissent que les fonds sont alloués selon les besoins des bénéficiaires.",
-    "housingFocus": "Prioriser les solutions de logement stable comme fondement d'un changement durable.",
-    "blockchainSecurity": "Chaque transaction est sécurisée et vérifiée par la technologie blockchain.",
-    "impactTracking": "Suivez vos contributions et voyez l'impact réel de vos dons en temps réel.",
-    "joinMovement": "Rejoignez le mouvement pour mettre fin à l'itinérance",
-    "joinDescription": "Faites un impact direct grâce à des dons sécurisés et transparents qui créent un changement durable.",
-    "becomeDonor": "Devenir donateur",
-    "partnerWithUs": "Devenir partenaire"
-  },
-  "verify": {
-    "title": "Vérifier votre don",
-    "description": "Suivez l'impact de votre contribution en utilisant le hash de transaction.",
-    "transactionHash": "Hash de transaction",
-    "verifyButton": "Vérifier la transaction",
-    "results": "Résultats de vérification",
-    "howItWorks": "Comment fonctionne la vérification",
-    "step1Title": "Entrer le hash",
-    "step1Desc": "Saisissez le hash de transaction de votre reçu de don.",
-    "step2Title": "Vérifier",
-    "step2Desc": "Notre système vérifie la transaction sur la blockchain.",
-    "step3Title": "Suivre l'impact",
-    "step3Desc": "Voyez comment votre don fait une différence."
   }
 } 

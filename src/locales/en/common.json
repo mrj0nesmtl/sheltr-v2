@@ -2,28 +2,58 @@
   "nav": {
     "menu": "Menu",
     "howItWorks": "How It Works",
+    "howItWorksDesc": "Learn about our innovative approach to helping the homeless",
     "solutions": "Solutions",
+    "solutionsDesc": "Discover our comprehensive platform features",
     "scanDonate": "Scan & Donate",
     "impact": "Impact",
+    "impactDesc": "See the real-world difference we're making together",
     "about": "About",
+    "aboutDesc": "Our mission and the team behind SHELTR",
     "blog": "Blog",
+    "blogDesc": "Latest news, updates, and success stories",
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
     "verifyDonation": "Verify Donation",
+    "verifyDesc": "Track and verify your contributions",
     "dashboard": "Dashboard",
     "signOut": "Sign Out",
     "login": "Login",
     "signUp": "Sign Up",
-    "profile": "Profile"
+    "profile": "Profile",
+    "platform": "Platform",
+    "company": "Company",
+    "analytics": "Analytics",
+    "analyticsDesc": "Real-time impact metrics and statistics",
+    "whitepaper": "Whitepaper",
+    "whitepaperDesc": "Technical details and vision",
+    "tokenDesc": "Learn about our blockchain token",
+    "solutions_menu": {
+      "title": "Solutions",
+      "desc": "Our comprehensive platform features"
+    },
+    "platform_menu": {
+      "title": "Platform",
+      "desc": "Technical features and tools"
+    },
+    "company_menu": {
+      "title": "Company",
+      "desc": "About us and resources"
+    }
   },
   "footer": {
-    "quickLinks": "Quick Links",
-    "resources": "Resources",
-    "blockchain": "Blockchain",
     "tagline": "Hacking Homelessness with Technology.",
-    "allRightsReserved": "All rights reserved.",
+    "allRightsReserved": "© 2024 SHELTR. All rights reserved.",
     "language": "Language",
     "email": "support@arcanaconcept.com",
+    "listenPodcast": "Listen to Latest Episode",
+    "links": {
+      "about": "About SHELTR",
+      "verify": "Verify Donation",
+      "blog": "Latest News",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service"
+    },
     "social": {
       "youtube": "YouTube Channel",
       "podcast": "Listen to Podcast",
