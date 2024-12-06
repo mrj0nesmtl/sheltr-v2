@@ -63,36 +63,58 @@ export const useAuthStore = create<AuthState>((set) => ({
   signIn: async (email: string, password: string) => {
     set({ isLoading: true, error: null });
     try {
-      const { data: { user }, error } = await supabase.auth.signInWithPassword({
+      // Step 1: Basic auth
+      const { data: { user }, error: authError } = await supabase.auth.signInWithPassword({
         email,
         password
       });
 
-      if (error) throw error;
+      if (authError) {
+        console.error('Authentication error:', authError);
+        throw new Error('Invalid email or password');
+      }
 
-      if (user) {
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('id', user.id)
-          .single();
+      if (!user) {
+        throw new Error('No user found');
+      }
 
-        if (profile) {
-          // Ensure role is properly set
-          if (email === 'joel@arcanaconcept.com' && profile.role !== 'super_admin') {
-            await supabase
-              .from('profiles')
-              .update({ role: 'super_admin' })
-              .eq('id', user.id);
-            profile.role = 'super_admin';
-          }
+      // Step 2: Get user profile
+      const { data: profile, error: profileError } = await supabase
+        .from('user_profiles')
+        .select('*')
+        .eq('id', user.id)
+        .single();
 
-          set({ user: profile, isLoading: false, error: null });
-          return profile;
+      if (profileError) {
+        console.error('Profile fetch error:', profileError);
+        throw new Error('Unable to load user profile');
+      }
+
+      if (!profile) {
+        throw new Error('User profile not found');
+      }
+
+      // Step 3: Handle super admin verification
+      if (profile.role === 'super_admin') {
+        const { data: verified, error: verifyError } = await supabase
+          .rpc('verify_super_admin_role', { user_id: user.id });
+
+        if (verifyError) {
+          console.error('Super admin verification failed:', verifyError);
+          throw new Error('Failed to verify admin status');
+        }
+
+        if (!verified) {
+          throw new Error('Unauthorized access attempt');
         }
       }
-      return null;
+
+      // Step 4: Set user state and return
+      set({ user: profile, isLoading: false, error: null });
+      return profile;
+
     } catch (error) {
+      console.error('Sign in error:', error);
       const message = error instanceof Error ? error.message : 'Sign in failed';
       set({ error: message, isLoading: false, user: null });
       throw error;
