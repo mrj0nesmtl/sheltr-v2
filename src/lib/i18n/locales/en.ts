@@ -68,7 +68,7 @@ export const en = {
     }
   },
   hero: {
-    title: 'Hacking Homelessness',
+    mainTitle: "Transform Charitable Giving",
     subtitle: 'Transform donations into meaningful actions using blockchain technology and smart contracts to directly support homeless individuals with transparency and accountability.',
     backgroundAlt: 'Person sleeping on bench',
     cta: {
