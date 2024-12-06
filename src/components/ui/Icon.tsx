@@ -64,7 +64,6 @@ import {
   Handshake,
   UserPlus,
   QrCode,
-  Pine,
   Gift,
   Sun,
   Moon,
