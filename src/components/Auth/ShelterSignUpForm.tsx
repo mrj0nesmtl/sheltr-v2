@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '@/components/ui/Icon';
 import { useTranslation } from 'react-i18next';
+import type { TranslationKey } from '@/lib/i18n';
 import { useAuthStore } from '../../stores/authStore';
 import { shelterAdminSignUpSchema, type ShelterAdminSignUpFormData } from '../../lib/validation/authValidation';
 import { cn } from '../../lib/utils';
@@ -72,7 +73,7 @@ export function ShelterSignUpForm() {
       <div className="max-w-2xl mx-auto px-4 py-8">
         <div className="bg-white/10 backdrop-blur-lg rounded-xl p-8">
           <h2 className="text-2xl font-bold text-white text-center mb-6">
-            {t('signUp.shelter.form.title')}
+            {t('signUp.shelter.form.title' as TranslationKey)}
           </h2>
 
           {authError && (
@@ -89,7 +90,7 @@ export function ShelterSignUpForm() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="organization" className="block text-sm font-medium text-gray-300">
-                  {t('signUp.shelter.form.organization')}
+                  {t('signUp.shelter.form.organization' as TranslationKey)}
                 </label>
                 <div className="mt-1 relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
@@ -110,13 +111,13 @@ export function ShelterSignUpForm() {
                   />
                 </div>
                 {validationErrors.organization && (
-                  <p className="mt-1 text-sm text-red-400">{t(validationErrors.organization)}</p>
+                  <p className="mt-1 text-sm text-red-400">{t(validationErrors.organization as TranslationKey)}</p>
                 )}
               </div>
 
               <div>
                 <label htmlFor="registrationNumber" className="block text-sm font-medium text-gray-300">
-                  {t('signUp.shelter.form.registrationNumber')}
+                  {t('signUp.shelter.form.registrationNumber' as TranslationKey)}
                 </label>
                 <div className="mt-1 relative">
                   <input
@@ -134,7 +135,7 @@ export function ShelterSignUpForm() {
                   />
                 </div>
                 {validationErrors.registrationNumber && (
-                  <p className="mt-1 text-sm text-red-400">{t(validationErrors.registrationNumber)}</p>
+                  <p className="mt-1 text-sm text-red-400">{t(validationErrors.registrationNumber as TranslationKey)}</p>
                 )}
               </div>
             </div>
@@ -143,7 +144,7 @@ export function ShelterSignUpForm() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-300">
-                  {t('signUp.shelter.form.email')}
+                  {t('signUp.shelter.form.email' as TranslationKey)}
                 </label>
                 <div className="mt-1 relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
@@ -164,13 +165,13 @@ export function ShelterSignUpForm() {
                   />
                 </div>
                 {validationErrors.email && (
-                  <p className="mt-1 text-sm text-red-400">{t(validationErrors.email)}</p>
+                  <p className="mt-1 text-sm text-red-400">{t(validationErrors.email as TranslationKey)}</p>
                 )}
               </div>
 
               <div>
                 <label htmlFor="contactPhone" className="block text-sm font-medium text-gray-300">
-                  {t('signUp.shelter.form.contactPhone')}
+                  {t('signUp.shelter.form.contactPhone' as TranslationKey)}
                 </label>
                 <div className="mt-1 relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
@@ -191,7 +192,7 @@ export function ShelterSignUpForm() {
                   />
                 </div>
                 {validationErrors.contactPhone && (
-                  <p className="mt-1 text-sm text-red-400">{t(validationErrors.contactPhone)}</p>
+                  <p className="mt-1 text-sm text-red-400">{t(validationErrors.contactPhone as TranslationKey)}</p>
                 )}
               </div>
             </div>
@@ -200,7 +201,7 @@ export function ShelterSignUpForm() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="city" className="block text-sm font-medium text-gray-300">
-                  {t('signUp.shelter.form.city')}
+                  {t('signUp.shelter.form.city' as TranslationKey)}
                 </label>
                 <div className="mt-1 relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
@@ -221,13 +222,13 @@ export function ShelterSignUpForm() {
                   />
                 </div>
                 {validationErrors.city && (
-                  <p className="mt-1 text-sm text-red-400">{t(validationErrors.city)}</p>
+                  <p className="mt-1 text-sm text-red-400">{t(validationErrors.city as TranslationKey)}</p>
                 )}
               </div>
 
               <div>
                 <label htmlFor="address" className="block text-sm font-medium text-gray-300">
-                  {t('signUp.shelter.form.address')}
+                  {t('signUp.shelter.form.address' as TranslationKey)}
                 </label>
                 <div className="mt-1">
                   <input
@@ -245,7 +246,7 @@ export function ShelterSignUpForm() {
                   />
                 </div>
                 {validationErrors.address && (
-                  <p className="mt-1 text-sm text-red-400">{t(validationErrors.address)}</p>
+                  <p className="mt-1 text-sm text-red-400">{t(validationErrors.address as TranslationKey)}</p>
                 )}
               </div>
             </div>
@@ -253,7 +254,7 @@ export function ShelterSignUpForm() {
             {/* Capacity */}
             <div>
               <label htmlFor="capacity" className="block text-sm font-medium text-gray-300">
-                {t('signUp.shelter.form.capacity')}
+                {t('signUp.shelter.form.capacity' as TranslationKey)}
               </label>
               <div className="mt-1 relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
@@ -275,14 +276,14 @@ export function ShelterSignUpForm() {
                 />
               </div>
               {validationErrors.capacity && (
-                <p className="mt-1 text-sm text-red-400">{t(validationErrors.capacity)}</p>
+                <p className="mt-1 text-sm text-red-400">{t(validationErrors.capacity as TranslationKey)}</p>
               )}
             </div>
 
             {/* Services */}
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">
-                {t('signUp.shelter.form.services.title')}
+                {t('signUp.shelter.form.services.title' as TranslationKey)}
               </label>
               <div className="grid grid-cols-2 gap-4">
                 {availableServices.map(({ value, label }) => (
@@ -306,7 +307,7 @@ export function ShelterSignUpForm() {
                 ))}
               </div>
               {validationErrors.services && (
-                <p className="mt-1 text-sm text-red-400">{t(validationErrors.services)}</p>
+                <p className="mt-1 text-sm text-red-400">{t(validationErrors.services as TranslationKey)}</p>
               )}
             </div>
 
@@ -314,7 +315,7 @@ export function ShelterSignUpForm() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="password" className="block text-sm font-medium text-gray-300">
-                  {t('signUp.shelter.form.password')}
+                  {t('signUp.shelter.form.password' as TranslationKey)}
                 </label>
                 <div className="mt-1 relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
@@ -335,13 +336,13 @@ export function ShelterSignUpForm() {
                   />
                 </div>
                 {validationErrors.password && (
-                  <p className="mt-1 text-sm text-red-400">{t(validationErrors.password)}</p>
+                  <p className="mt-1 text-sm text-red-400">{t(validationErrors.password as TranslationKey)}</p>
                 )}
               </div>
 
               <div>
                 <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-300">
-                  {t('signUp.shelter.form.confirmPassword')}
+                  {t('signUp.shelter.form.confirmPassword' as TranslationKey)}
                 </label>
                 <div className="mt-1 relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
@@ -362,7 +363,7 @@ export function ShelterSignUpForm() {
                   />
                 </div>
                 {validationErrors.confirmPassword && (
-                  <p className="mt-1 text-sm text-red-400">{t(validationErrors.confirmPassword)}</p>
+                  <p className="mt-1 text-sm text-red-400">{t(validationErrors.confirmPassword as TranslationKey)}</p>
                 )}
               </div>
             </div>
@@ -377,7 +378,7 @@ export function ShelterSignUpForm() {
                 "disabled:opacity-50 disabled:cursor-not-allowed"
               )}
             >
-              {isLoading ? t('signUp.shelter.form.submitting') : t('signUp.shelter.form.submit')}
+              {isLoading ? t('signUp.shelter.form.submitting' as TranslationKey) : t('signUp.shelter.form.submit' as TranslationKey)}
             </button>
           </form>
         </div>
