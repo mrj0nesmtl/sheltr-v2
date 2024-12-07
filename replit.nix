@@ -1,6 +1,6 @@
 { pkgs }: {
   deps = [
-    pkgs.nodejs_20
+    pkgs.nodejs-20_x
     pkgs.nodePackages.typescript-language-server
     pkgs.yarn
     pkgs.nodePackages.npm
