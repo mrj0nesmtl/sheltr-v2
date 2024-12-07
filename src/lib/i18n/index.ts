@@ -4,14 +4,15 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import { en } from './locales/en';
 import { fr } from './locales/fr';
 
-// Create a type that includes all possible nested keys
-type DotPrefix<T extends string> = T extends '' ? '' : `.${T}`
-type DotNestedKeys<T> = (T extends object ?
-  { [K in Exclude<keyof T, symbol>]: `${K}${DotPrefix<DotNestedKeys<T[K]>>}` }[Exclude<keyof T, symbol>]
-  : '') extends infer D ? Extract<D, string> : never;
+// More precise type definition for nested translations
+type RecursiveKeyOf<TObj extends object> = {
+  [TKey in keyof TObj & (string | number)]: TObj[TKey] extends object
+    ? `${TKey}` | `${TKey}.${RecursiveKeyOf<TObj[TKey]>}`
+    : `${TKey}`
+}[keyof TObj & (string | number)];
 
-// Export the type for use in components
-export type TranslationKey = DotNestedKeys<typeof en>;
+// Make the type more strict by removing the `| string` union
+export type TranslationKey = RecursiveKeyOf<typeof en>;
 
 i18n
   .use(LanguageDetector)
@@ -24,7 +25,8 @@ i18n
     fallbackLng: 'en',
     interpolation: {
       escapeValue: false
-    }
+    },
+    debug: process.env.NODE_ENV === 'development'
   });
 
 export default i18n;

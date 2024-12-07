@@ -5,15 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 5173",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build --mode production",
     "preview": "vite preview --port 5173 --host",
-    "start": "vite preview --port 5173 --host",
+    "start": "vite preview --port ${PORT:-5173} --host",
     "test": "jest",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "format": "prettier --write \"src/**/*.{ts,tsx,css,md}\""
   },
   "dependencies": {
-    "@headlessui/react": "^2.2.0",
     "@radix-ui/react-accordion": "^1.2.1",
     "@stripe/stripe-js": "^3.0.10",
     "@supabase/auth-ui-react": "^0.4.7",

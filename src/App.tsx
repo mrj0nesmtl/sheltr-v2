@@ -1,22 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { Layout } from './components/Layout';
 import { AuthLayout } from './components/Auth/AuthLayout';
 import { ProtectedRoute } from './components/Auth/ProtectedRoute';
 import { Hero } from './components/Hero';
-import { HowItWorks } from './components/HowItWorks';
-import { Solutions } from './components/Solutions';
-import { QRScanner } from './components/QRScanner/QRScanner';
-import { DonationForm } from './components/DonationForm/DonationForm';
-import { ThankYou } from './components/ThankYou/ThankYou';
-import { LoginPage } from './components/Auth/LoginPage';
-import { SignUpSelector } from './components/Auth/SignUpSelector';
-import { DonorSignUpForm } from './components/Auth/DonorSignUpForm';
-import { ShelterSignUpForm } from './components/Auth/ShelterSignUpForm';
+import { LoadingSpinner } from './components/ui/LoadingSpinner';
 import { AdminLogin } from './components/Admin/AdminLogin';
-import { AdminDashboard } from './components/Admin/AdminDashboard';
-import { SuperAdminDashboard } from './components/Admin/SuperAdminDashboard';
 import { ContactForm } from './components/Contact/ContactForm';
 import { BlogList } from './components/Blog/BlogList';
 import { BlogPost } from './components/Blog/BlogPost';
@@ -39,6 +29,19 @@ interface ProtectedRouteProps {
   allowedRoles?: string[];
 }
 
+// Lazy loaded components
+const HowItWorks = lazy(() => import('./components/HowItWorks').then(module => ({ default: module.HowItWorks })));
+const Solutions = lazy(() => import('./components/Solutions').then(module => ({ default: module.Solutions })));
+const QRScanner = lazy(() => import('./components/QRScanner/QRScanner').then(module => ({ default: module.QRScanner })));
+const DonationForm = lazy(() => import('./components/DonationForm/DonationForm').then(module => ({ default: module.DonationForm })));
+const ThankYou = lazy(() => import('./components/ThankYou/ThankYou').then(module => ({ default: module.ThankYou })));
+const LoginPage = lazy(() => import('./components/Auth/LoginPage').then(module => ({ default: module.LoginPage })));
+const SignUpSelector = lazy(() => import('./components/Auth/SignUpSelector').then(module => ({ default: module.SignUpSelector })));
+const DonorSignUpForm = lazy(() => import('./components/Auth/DonorSignUpForm').then(module => ({ default: module.DonorSignUpForm })));
+const ShelterSignUpForm = lazy(() => import('./components/Auth/ShelterSignUpForm').then(module => ({ default: module.ShelterSignUpForm })));
+const AdminDashboard = lazy(() => import('./components/Admin/AdminDashboard').then(module => ({ default: module.AdminDashboard })));
+const SuperAdminDashboard = lazy(() => import('./components/Admin/SuperAdminDashboard').then(module => ({ default: module.SuperAdminDashboard })));
+
 function App() {
   const { checkUser } = useAuthStore();
   const { i18n } = useTranslation();
@@ -49,7 +52,9 @@ function App() {
 
   return (
     <ThemeProvider>
-      <ThemedApp />
+      <Suspense fallback={<LoadingSpinner />}>
+        <ThemedApp />
+      </Suspense>
     </ThemeProvider>
   );
 }
