@@ -8,8 +8,8 @@ import { Hero } from './components/Hero';
 import { LoadingSpinner } from './components/ui/LoadingSpinner';
 import { AdminLogin } from './components/Admin/AdminLogin';
 import { ContactForm } from './components/Contact/ContactForm';
-import { BlogList } from './components/Blog/BlogList';
-import { BlogPost } from './components/Blog/BlogPost';
+import { BlogList } from '@/components/Blog/BlogList';
+import { BlogPost } from '@/components/Blog/BlogPost';
 import { BlogEditor } from './components/Blog/BlogEditor';
 import { UserProfile as UserProfileComponent } from './components/Profile/UserProfile';
 import { ParticipantDashboard } from './components/Dashboard/ParticipantDashboard';
@@ -88,14 +88,8 @@ function ThemedApp() {
                 <Route path="impact" element={<PublicDashboard />} />
                 <Route path="donate/:id" element={<DonationForm />} />
                 <Route path="thank-you" element={<ThankYou />} />
-                <Route path="blog" element={<BlogList posts={[]} />} />
-                <Route path="blog/:slug" element={<BlogPost 
-                  title=""
-                  content=""
-                  publishedAt=""
-                  author={{ name: "" }}
-                  categories={[]}
-                />} />
+                <Route path="blog" element={<BlogList />} />
+                <Route path="blog/:slug" element={<BlogPost />} />
                 <Route path="privacy" element={<PrivacyPolicy />} />
                 <Route path="terms" element={<TermsOfService />} />
                 <Route path="about" element={<AboutPage />} />
