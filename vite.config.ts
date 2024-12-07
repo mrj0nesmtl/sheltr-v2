@@ -4,45 +4,30 @@ import path from 'path';
 
 export default defineConfig({
   plugins: [react()],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
   build: {
+    outDir: 'dist',
+    sourcemap: true,
     rollupOptions: {
       output: {
         manualChunks: {
-          'vendor': [
-            'react',
-            'react-dom',
-            'react-router-dom',
-            'i18next',
-            'react-i18next'
-          ],
-          'ui': [
-            '@radix-ui/react-accordion',
-            'lucide-react',
-            'recharts'
-          ],
-          'auth': [
-            '@supabase/auth-ui-react',
-            '@supabase/auth-ui-shared',
-            '@supabase/supabase-js'
-          ]
+          'vendor': ['react', 'react-dom', 'react-router-dom'],
+          'ui': ['@headlessui/react', 'lucide-react'],
+          'charts': ['recharts'],
+          'i18n': ['i18next', 'react-i18next']
         }
       }
-    },
-    chunkSizeWarningLimit: 1000,
-    outDir: 'dist',
-    assetsDir: 'assets'
+    }
   },
   server: {
-    port: 5173,
-    host: true
-  },
-  preview: {
-    port: 5173,
-    host: true
-  },
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src')
+    host: '0.0.0.0',
+    port: process.env.PORT ? parseInt(process.env.PORT) : 5173,
+    hmr: {
+      clientPort: 443
     }
   }
 });

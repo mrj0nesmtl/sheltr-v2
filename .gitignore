@@ -18,6 +18,8 @@
 .env.development.local
 .env.test.local
 .env.production.local
+.env.staging
+.env.production
 *.local
 
 # logs
@@ -44,3 +46,13 @@ lerna-debug.log*
 
 # typescript
 *.tsbuildinfo
+
+# replit specific
+.config
+.upm
+.breakpoints
+replit.nix
+.replit
+
+# environment templates should be committed
+!.env.*.template

@@ -8,13 +8,17 @@
     "npm": ">=8.19.2"
   },
   "scripts": {
-    "dev": "vite --port 5173",
+    "dev": "vite",
     "build": "tsc && vite build --mode production",
+    "build:staging": "tsc && vite build --mode staging",
     "preview": "vite preview --port 5173 --host",
-    "start": "vite --port ${PORT:-5173} --host",
+    "start": "vite",
     "test": "jest",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "format": "prettier --write \"src/**/*.{ts,tsx,css,md}\""
+    "format": "prettier --write \"src/**/*.{ts,tsx,css,md}\"",
+    "deploy:staging": "npm run build:staging && npm run test",
+    "deploy:prod": "npm run build && npm run test",
+    "analyze": "vite build --mode production --analyze"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.19",
