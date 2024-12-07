@@ -3,11 +3,15 @@
   "private": true,
   "version": "1.2.0",
   "type": "module",
+  "engines": {
+    "node": ">=20.9.0",
+    "npm": ">=8.19.2"
+  },
   "scripts": {
     "dev": "vite --port 5173",
     "build": "tsc && vite build --mode production",
-    "preview": "vite preview --port 5173 --host",
-    "start": "vite preview --port ${PORT:-5173} --host",
+    "preview": "vite preview --port 5173 --host 0.0.0.0",
+    "start": "vite preview --port ${PORT:-5173} --host 0.0.0.0",
     "test": "jest",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "format": "prettier --write \"src/**/*.{ts,tsx,css,md}\""

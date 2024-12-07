@@ -17,6 +17,7 @@ deploymentTarget = "cloudrun"
 [[ports]]
 localPort = 5173
 externalPort = 80
+protocol = "http"
 
 [languages.typescript]
 pattern = "**/{*.ts,*.js,*.tsx,*.jsx}"
