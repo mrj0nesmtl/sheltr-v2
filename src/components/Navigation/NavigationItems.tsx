@@ -36,10 +36,61 @@ export function NavigationItems({ mobile, onItemClick, isDark = true }: Navigati
   const location = useLocation();
   const navigate = useNavigate();
 
-  console.log('Translation test:', {
-    solutionsTitle: t('nav.solutions_menu.title'),
-    companyTitle: t('nav.company_menu.title')
-  });
+  // Move navigationItems inside the component to access t
+  const navigationItems = [
+    // Primary navigation items
+    {
+      label: t('nav.solutions_menu.title'),
+      items: [
+        { 
+          path: '/how-it-works', 
+          label: t('nav.solutions_menu.howItWorks'),
+          icon: 'helpCircle',
+          description: t('nav.solutions_menu.howItWorksDesc')
+        },
+        { 
+          path: '/solutions', 
+          label: t('nav.solutions_menu.solutions'),
+          icon: 'settings',
+          description: t('nav.solutions_menu.solutionsDesc')
+        }
+      ]
+    },
+    {
+      label: t('nav.company_menu.title'),
+      items: [
+        {
+          path: '/about',
+          label: t('nav.company_menu.about'),
+          icon: 'info',
+          description: t('nav.company_menu.aboutDesc')
+        },
+        {
+          path: '/whitepaper',
+          label: t('nav.company_menu.whitepaper'),
+          icon: 'book',
+          description: t('nav.company_menu.whitepaperDesc')
+        }
+      ]
+    },
+    // Top level items
+    {
+      path: '/scan',
+      label: t('nav.scanDonate'),
+      icon: 'qrCode',
+      highlight: true
+    },
+    {
+      path: '/impact',
+      label: t('nav.impact'),
+      icon: 'trendingUp'
+    },
+    {
+      path: '/blog',
+      label: t('nav.blog'),
+      icon: 'fileText'
+    }
+  ];
 
   // Define role-based navigation items
   const getNavItems = (): NavItem[] => {
@@ -83,12 +134,6 @@ export function NavigationItems({ mobile, onItemClick, isDark = true }: Navigati
             label: t('nav.company_menu.about'),
             icon: 'info',
             description: t('nav.company_menu.aboutDesc')
-          },
-          {
-            path: '/blog',
-            label: t('nav.company_menu.blog'),
-            icon: 'fileText',
-            description: t('nav.company_menu.blogDesc')
           },
           {
             path: '/whitepaper',
@@ -446,6 +491,41 @@ export function NavigationItems({ mobile, onItemClick, isDark = true }: Navigati
     </div>
   );
 
+  // Render desktop navigation
+  const renderDesktopNav = () => (
+    <div className="hidden lg:flex items-center space-x-4">
+      {/* Primary Action - Scan & Donate */}
+      {navigationItems.filter(item => item.highlight).map(item => (
+        <Link
+          key={item.path}
+          to={item.path!}
+          className="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700 flex items-center"
+        >
+          {item.icon && <Icon name={item.icon} className="h-4 w-4 mr-2" />}
+          {item.label}
+        </Link>
+      ))}
+
+      {/* Dropdown Menus */}
+      {navigationItems.filter(item => item.items).map(renderDropdown)}
+
+      {/* Impact - Top Level */}
+      {navigationItems.filter(item => !item.highlight && !item.items).map(item => (
+        <Link
+          key={item.path}
+          to={item.path!}
+          className={cn(
+            "px-3 py-2 rounded-md text-sm font-medium flex items-center",
+            isDark ? "text-gray-300 hover:text-white" : "text-gray-700 hover:text-gray-900"
+          )}
+        >
+          {item.icon && <Icon name={item.icon} className="h-4 w-4 mr-2" />}
+          {item.label}
+        </Link>
+      ))}
+    </div>
+  );
+
   return (
     <div className={cn(
       "w-full",
@@ -455,7 +535,7 @@ export function NavigationItems({ mobile, onItemClick, isDark = true }: Navigati
       <div className={cn(
         mobile ? "flex flex-col" : "flex-1 flex justify-center space-x-8"
       )}>
-        {mobile ? renderMobileItems() : navItems.map(renderDropdown)}
+        {mobile ? renderMobileItems() : renderDesktopNav()}
       </div>
 
       {/* Desktop Auth Buttons */}

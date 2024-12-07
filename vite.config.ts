@@ -24,15 +24,21 @@ export default defineConfig({
             '@supabase/auth-ui-react',
             '@supabase/auth-ui-shared',
             '@supabase/supabase-js'
-          ],
-          'maps': [
-            'leaflet',
-            'react-leaflet'
           ]
         }
       }
     },
-    chunkSizeWarningLimit: 1000
+    chunkSizeWarningLimit: 1000,
+    outDir: 'dist',
+    assetsDir: 'assets'
+  },
+  server: {
+    port: 5173,
+    host: true
+  },
+  preview: {
+    port: 5173,
+    host: true
   },
   resolve: {
     alias: {
