@@ -54,7 +54,6 @@ const socialLinks = [
 
 export function MobileMenu({ isOpen, onClose, isDark = true }: MobileMenuProps) {
   const { t } = useTranslation();
-  const { user, signOut } = useAuthStore();
 
   return (
     <div
