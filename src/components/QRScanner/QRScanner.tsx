@@ -9,7 +9,6 @@ export function QRScanner() {
   const { t } = useTranslation();
   const [error, setError] = useState<string | null>(null);
   const [isScanning, setIsScanning] = useState(false);
-  const [hasPermission, setHasPermission] = useState<boolean | null>(null);
   const scannerRef = useRef<Html5QrcodeScanner | null>(null);
   const navigate = useNavigate();
 
@@ -17,11 +16,9 @@ export function QRScanner() {
     // Check camera permissions first
     navigator.mediaDevices.getUserMedia({ video: true })
       .then(() => {
-        setHasPermission(true);
         initializeScanner();
       })
       .catch((err) => {
-        setHasPermission(false);
         setError(t('qrScanner.errors.cameraPermission'));
         console.error('Camera permission error:', err);
       });
@@ -42,11 +39,9 @@ export function QRScanner() {
       scannerRef.current = new Html5QrcodeScanner('qr-reader', {
         fps: 10,
         qrbox: { width: 250, height: 250 },
-        aspectRatio: 1,
-        showTorchButtonIfSupported: true,
-        showZoomSliderIfSupported: true,
+        aspectRatio: 1.0,
         defaultZoomValueIfSupported: 2
-      });
+      }, false);
 
       scannerRef.current.render(
         (decodedText) => {
@@ -80,7 +75,6 @@ export function QRScanner() {
 
   const retryScanner = () => {
     setError(null);
-    setHasPermission(null);
     initializeScanner();
   };
 

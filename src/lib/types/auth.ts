@@ -40,3 +40,16 @@ export interface AuthState {
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
 }
+
+export interface ShelterProfile extends UserProfile {
+  organization?: string;
+  registrationNumber?: string;
+  contactPhone?: string;
+  city?: string;
+  address?: string;
+  capacity?: number;
+  services?: string[];
+  verified?: boolean;
+  emergencyContact?: string;
+  participantCount?: number;
+}

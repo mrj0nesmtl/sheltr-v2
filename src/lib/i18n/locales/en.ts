@@ -377,15 +377,15 @@ export const en = {
     }
   },
   qrScanner: {
-    title: "Scan QR Code to Donate",
-    instructions: "Position the QR code within the frame to scan",
-    scannerActive: "Scanner is active and ready",
-    retryButton: "Try Again",
+    title: 'Scan QR Code to Donate',
+    instructions: 'Position the QR code within the frame to scan',
+    scannerActive: 'Scanner is active and ready',
+    retryButton: 'Try Again',
     errors: {
-      cameraPermission: "Please allow camera access to scan QR codes",
-      noCamera: "No camera found on your device",
-      cameraInUse: "Camera is being used by another application",
-      initialization: "Unable to initialize QR scanner"
+      cameraPermission: 'Please allow camera access to scan QR codes',
+      noCamera: 'No camera found on your device',
+      cameraInUse: 'Camera is being used by another application',
+      initialization: 'Unable to initialize QR scanner'
     }
   },
   auth: {

@@ -14,6 +14,15 @@ type RecursiveKeyOf<TObj extends object> = {
 // Make the type more strict by removing the `| string` union
 export type TranslationKey = RecursiveKeyOf<typeof en>;
 
+declare module 'i18next' {
+  interface CustomTypeOptions {
+    defaultNS: 'translation';
+    resources: {
+      translation: typeof en;
+    };
+  }
+}
+
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
