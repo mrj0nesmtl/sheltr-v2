@@ -65,7 +65,9 @@ export const en = {
       availableServicesDesc: 'Browse services and support options',
       serviceHistory: 'Service History',
       serviceHistoryDesc: 'Track your service usage and progress'
-    }
+    },
+    menu: 'Menu',
+    blog: 'Blog'
   },
   hero: {
     mainTitle: "Transform Charitable Giving",

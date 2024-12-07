@@ -58,7 +58,8 @@ export const fr = {
       availableServicesDesc: 'Parcourir les options de services et de soutien',
       serviceHistory: 'Historique des Services',
       serviceHistoryDesc: 'Suivez votre utilisation des services et vos progrès'
-    }
+    },
+    blog: 'Blog'
   },
   hero: {
     title: 'Pirater l\'itinérance',
@@ -142,7 +143,7 @@ export const fr = {
   },
   solutions: {
     title: 'Solutions pour Tous',
-    subtitle: 'Des outils et fonctionnalit��s complets conçus pour maximiser l\'impact et assurer la transparence.',
+    subtitle: 'Des outils et fonctionnalités complets conçus pour maximiser l\'impact et assurer la transparence.',
     sections: {
       shelters: {
         title: 'Pour les Refuges & Organisations',
