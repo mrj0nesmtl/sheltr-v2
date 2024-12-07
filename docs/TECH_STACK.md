@@ -272,3 +272,153 @@ const MONITORING_CONFIG = {
   }
 };
 ```
+
+## Blockchain Integration
+
+### Chain Selection
+```typescript
+interface ChainConfig {
+  mainnet: {
+    primary: 'polygon',    // Low fees, high throughput
+    fallback: 'arbitrum'   // L2 with Ethereum security
+  },
+  testnet: {
+    primary: 'mumbai',     // Polygon testnet
+    fallback: 'sepolia'    // Ethereum testnet
+  },
+  requirements: {
+    tps: '> 500/second',
+    fees: '< $0.01/tx',
+    finality: '< 5 seconds',
+    security: 'Ethereum L2'
+  }
+}
+```
+
+### Smart Contract Architecture
+```solidity
+// Core Contracts
+contract SHELTRToken is ERC20, ERC20Permit, Ownable2Step {
+    // Token Configuration
+    string public constant NAME = "SHELTR Impact Token";
+    string public constant SYMBOL = "SHELTR";
+    uint8 public constant DECIMALS = 18;
+    uint256 public constant INITIAL_SUPPLY = 1_000_000_000 * 10**18;
+
+    // Access Control
+    bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
+    bytes32 public constant BURNER_ROLE = keccak256("BURNER_ROLE");
+    
+    // Vesting & Distribution
+    uint256 public constant VESTING_DURATION = 720 days;
+    uint256 public constant CLIFF_PERIOD = 180 days;
+}
+
+// Donation Management
+contract SHELTRDonations is ReentrancyGuard, Pausable {
+    // Allocation Percentages
+    uint8 public constant DIRECT_SUPPORT = 80;
+    uint8 public constant HOUSING_FUND = 15;
+    uint8 public constant OPERATIONS = 5;
+
+    // Minimum Donation
+    uint256 public constant MIN_DONATION = 1e16; // 0.01 ETH
+
+    // Reward Mechanism
+    uint256 public constant REWARD_RATE = 100; // 100 SHELTR per 1 ETH
+}
+
+// Governance
+contract SHELTRGovernance is IGovernor, GovernorCompatibilityBravo {
+    // Voting Configuration
+    uint256 public constant VOTING_DELAY = 1 days;
+    uint256 public constant VOTING_PERIOD = 5 days;
+    uint256 public constant PROPOSAL_THRESHOLD = 100_000 * 10**18;
+    
+    // Quorum
+    function quorum() public pure returns (uint256) {
+        return TOTAL_SUPPLY * 4 / 100; // 4% quorum
+    }
+}
+```
+
+### Token Economics
+```typescript
+interface TokenEconomics {
+  distribution: {
+    participants: '30%',  // Direct aid recipients
+    donors: '25%',       // Contribution rewards
+    operations: '20%',   // Platform maintenance
+    treasury: '15%',     // DAO governance
+    team: '10%'          // Development team
+  },
+  vesting: {
+    team: {
+      cliff: '6 months',
+      duration: '24 months',
+      schedule: 'linear'
+    },
+    treasury: {
+      cliff: '12 months',
+      duration: '48 months',
+      schedule: 'linear'
+    }
+  },
+  mechanics: {
+    staking: {
+      enabled: true,
+      rewards: '12% APY',
+      lockPeriods: ['3m', '6m', '12m']
+    },
+    burning: {
+      enabled: true,
+      rate: '2% of fees',
+      frequency: 'monthly'
+    }
+  }
+}
+```
+
+### Web3 Integration
+```typescript
+// Chain Configuration
+const CHAIN_CONFIG = {
+  polygon: {
+    chainId: '0x89',
+    rpcUrls: ['https://polygon-rpc.com'],
+    blockExplorer: 'https://polygonscan.com',
+    nativeCurrency: {
+      name: 'MATIC',
+      symbol: 'MATIC',
+      decimals: 18
+    }
+  },
+  arbitrum: {
+    chainId: '0xa4b1',
+    rpcUrls: ['https://arb1.arbitrum.io/rpc'],
+    blockExplorer: 'https://arbiscan.io',
+    nativeCurrency: {
+      name: 'Ethereum',
+      symbol: 'ETH',
+      decimals: 18
+    }
+  }
+};
+
+// Contract Interfaces
+interface Web3Config {
+  contracts: {
+    token: `0x${string}`,
+    donations: `0x${string}`,
+    governance: `0x${string}`
+  },
+  providers: {
+    default: 'polygon',
+    fallback: 'arbitrum',
+    rpc: {
+      polygon: string[],
+      arbitrum: string[]
+    }
+  }
+}
+```
