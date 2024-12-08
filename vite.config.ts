@@ -9,26 +9,8 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  build: {
-    outDir: 'dist',
-    sourcemap: true,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          'vendor': ['react', 'react-dom', 'react-router-dom'],
-          'ui': ['@headlessui/react', 'lucide-react'],
-          'charts': ['recharts'],
-          'i18n': ['i18next', 'react-i18next']
-        }
-      }
-    }
-  },
-  server: {
-    host: '0.0.0.0',
-    port: 5173,
-    hmr: {
-      host: 'localhost',
-      port: 5173
-    }
-  }
+  // Ensure markdown files are handled correctly
+  assetsInclude: ['**/*.md'],
+  // Make sure the docs directory is served
+  publicDir: 'public',
 });

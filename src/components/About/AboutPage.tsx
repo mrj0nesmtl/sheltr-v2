@@ -1,81 +1,154 @@
-import React, { useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Icon } from '@/components/ui/Icon';
-import { cn } from '@/lib/utils';
 
-interface AccordionItemProps {
-  title: string;
-  icon: string;
+// Individual section components
+import { Introduction } from './sections/Introduction';
+import { Roadmap } from './sections/Roadmap';
+import { Checkpoint } from './sections/Checkpoint';
+import { TechStack } from './sections/TechStack';
+import { Whitepaper } from './sections/Whitepaper';
+
+interface NavBubbleProps {
+  href: string;
+  isActive: boolean;
+  onClick: () => void;
   children: React.ReactNode;
 }
 
-function AccordionItem({ title, icon, children }: AccordionItemProps) {
-  const [isOpen, setIsOpen] = useState(false);
-
+function NavBubble({ href, isActive, onClick, children }: NavBubbleProps) {
   return (
-    <div className="mb-4">
-      <button 
-        onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center w-full p-4 bg-gray-800/50 hover:bg-gray-800 rounded-lg text-white transition-colors"
-      >
-        <Icon name={icon} className="mr-2 text-gray-400" />
-        <span>{title}</span>
-        <Icon 
-          name="chevron-down" 
-          className={cn(
-            "ml-auto text-gray-400 transition-transform duration-200",
-            isOpen && "transform rotate-180"
-          )} 
-        />
-      </button>
-      
-      {isOpen && (
-        <div className="p-4 bg-gray-800/30 rounded-lg mt-2 text-white animate-slideDown">
-          {children}
-        </div>
-      )}
-    </div>
+    <a
+      href={href}
+      onClick={(e) => {
+        e.preventDefault();
+        onClick();
+      }}
+      className={`
+        px-4 py-2 rounded-full transition-all duration-300
+        ${isActive 
+          ? 'bg-indigo-600 text-white shadow-lg scale-105' 
+          : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+        }
+      `}
+    >
+      {children}
+    </a>
   );
 }
 
 export function AboutPage() {
   const { t } = useTranslation();
+  const [activeSection, setActiveSection] = React.useState('introduction');
+  const sectionRefs = {
+    introduction: useRef<HTMLElement>(null),
+    roadmap: useRef<HTMLElement>(null),
+    checkpoint: useRef<HTMLElement>(null),
+    techstack: useRef<HTMLElement>(null),
+    whitepaper: useRef<HTMLElement>(null),
+  };
+
+  // Intersection Observer for active section
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    Object.values(sectionRefs).forEach(
+      (ref) => ref.current && observer.observe(ref.current)
+    );
+
+    return () => observer.disconnect();
+  }, []);
+
+  const scrollToSection = (sectionId: string) => {
+    sectionRefs[sectionId]?.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  };
 
   return (
     <div className="min-h-screen bg-gray-900 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-3xl font-bold text-white mb-8">
-          {t('about.title')}
-        </h1>
+        {/* Hero Section */}
+        <div className="text-center mb-16">
+          <h1 className="text-4xl font-bold text-white mb-4">
+            {t('about.title')}
+          </h1>
+          <p className="text-xl text-gray-300 mb-12">
+            {t('about.subtitle')}
+          </p>
 
-        <AccordionItem title={t('about.intro.title')} icon="info">
-          <div className="prose prose-invert">
-            <p>{t('about.intro.content')}</p>
-            <ul>
-              <li>{t('about.intro.features.blockchain')}</li>
-              <li>{t('about.intro.features.ai')}</li>
-              <li>{t('about.intro.features.qr')}</li>
-            </ul>
+          {/* Navigation Bubbles */}
+          <div className="flex flex-wrap justify-center gap-3 mb-16">
+            <NavBubble
+              href="#introduction"
+              isActive={activeSection === 'introduction'}
+              onClick={() => scrollToSection('introduction')}
+            >
+              {t('about.intro.title')}
+            </NavBubble>
+            <NavBubble
+              href="#roadmap"
+              isActive={activeSection === 'roadmap'}
+              onClick={() => scrollToSection('roadmap')}
+            >
+              {t('about.roadmap.title')}
+            </NavBubble>
+            <NavBubble
+              href="#checkpoint"
+              isActive={activeSection === 'checkpoint'}
+              onClick={() => scrollToSection('checkpoint')}
+            >
+              {t('about.checkpoint.title')}
+            </NavBubble>
+            <NavBubble
+              href="#techstack"
+              isActive={activeSection === 'techstack'}
+              onClick={() => scrollToSection('techstack')}
+            >
+              {t('about.techStack.title')}
+            </NavBubble>
+            <NavBubble
+              href="#whitepaper"
+              isActive={activeSection === 'whitepaper'}
+              onClick={() => scrollToSection('whitepaper')}
+            >
+              {t('about.whitepaper.title')}
+            </NavBubble>
           </div>
-        </AccordionItem>
+        </div>
 
-        <AccordionItem title={t('about.tech.title')} icon="code">
-          <div className="prose prose-invert">
-            <h3>{t('about.tech.stack.title')}</h3>
-            <ul>
-              <li>React 18 + TypeScript</li>
-              <li>Tailwind CSS</li>
-              <li>Supabase</li>
-              <li>Blockchain Integration</li>
-            </ul>
-          </div>
-        </AccordionItem>
+        {/* Content Sections */}
+        <div className="space-y-24">
+          <section id="introduction" ref={sectionRefs.introduction} className="scroll-mt-32">
+            <Introduction />
+          </section>
 
-        <AccordionItem title={t('about.team.title')} icon="users">
-          <div className="prose prose-invert">
-            <p>{t('about.team.content')}</p>
-          </div>
-        </AccordionItem>
+          <section id="roadmap" ref={sectionRefs.roadmap} className="scroll-mt-32">
+            <Roadmap />
+          </section>
+
+          <section id="checkpoint" ref={sectionRefs.checkpoint} className="scroll-mt-32">
+            <Checkpoint />
+          </section>
+
+          <section id="tech-stack" ref={sectionRefs.techstack} className="scroll-mt-32">
+            <TechStack />
+          </section>
+
+          <section id="whitepaper" ref={sectionRefs.whitepaper} className="scroll-mt-32">
+            <Whitepaper />
+          </section>
+        </div>
       </div>
     </div>
   );

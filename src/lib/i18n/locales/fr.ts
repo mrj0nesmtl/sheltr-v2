@@ -294,38 +294,22 @@ export const fr = {
     rights: 'Tous droits réservés.',
   },
   whitepaper: {
-    title: 'SHELTR Livre blanc : Révolutionner les dons de charité pour les sans-abris',
-    toc: {
-      title: 'Table des matières',
-      introduction: 'Introduction',
-      technology: 'Technologie de base & Architecture',
-      userflow: 'Flux utilisateur & Intégration',
-      depot: 'Homeless Depot',
-      financial: 'Autonomisation financière',
-      social: 'Intégration des médias sociaux',
-      operations: 'Opérations d\'arrière-plan',
-      legal: 'Légal & Conformité',
-      marketing: 'Marketing & Sensibilisation',
-      conclusion: 'Conclusion'
-    },
+    title: "Document Technique",
     sections: {
-      introduction: {
-        title: 'Introduction',
-        vision: {
-          title: 'Vision et Mission',
-          content: 'La vision de SHELTR est de redéfinir les dons de charité en utilisant des technologies avancées pour créer une plateforme sécurisée, intelligente et évolutive qui soutient directement les personnes sans-abri. En utilisant des technologies comme la blockchain, l\'IA et des outils financiers, SHELTR autonomise les participants, promeut la responsabilisation et offre des solutions durables.'
-        }
+      overview: {
+        title: "Aperçu",
+        content: "SHELTR V2 est une plateforme révolutionnaire..."
       },
-      technology: {
-        title: 'Technologie de base & Architecture',
-        blockchain: {
-          title: 'Transparence Blockchain & Contrats intelligents',
-          content: 'SHELTR utilise la technologie blockchain pour la vérification publique et le suivi des fonds, créant un registre transparent des dons. Les contrats intelligents automatisent l\'allocation de chaque don en trois catégories.',
-          allocation: {
-            direct: '80% au portefeuille du participant : Pour l\'achat de biens essentiels',
-            housing: '15% pour le Fonds de loyer : Pour soutenir le parcours de logement',
-            operations: '5% pour les frais opérationnels : Pour assurer la croissance'
-          }
+      vision: {
+        title: "Vision et Mission",
+        content: "La vision de SHELTR est de redéfinir..."
+      },
+      blockchain: {
+        title: "Architecture Blockchain",
+        sections: {
+          smartContracts: "Infrastructure des Contrats Intelligents",
+          tokenomics: "Économie des Jetons",
+          verification: "Vérification des Transactions"
         }
       }
     }

@@ -39,16 +39,15 @@ export function MobileMenu({ isOpen, onClose, isDark = true }: MobileMenuProps) 
     );
   };
 
-  // Define all navigation items including dropdowns
-  const navigationItems: NavItem[] = [
+  // Use the same navigation items as MainNav
+  const navigationItems = [
     {
-      path: '/scan',
-      label: t('nav.scanDonate'),
-      icon: 'qr-code',
-      highlight: true
+      path: '/about',
+      label: t('nav.about'),
+      icon: 'info'
     },
     {
-      label: t('nav.solutions_menu.title'),
+      label: t('nav.solutions'),
       icon: 'settings',
       items: [
         {
@@ -62,24 +61,6 @@ export function MobileMenu({ isOpen, onClose, isDark = true }: MobileMenuProps) 
           label: t('nav.solutions_menu.solutions'),
           icon: 'settings',
           description: t('nav.solutions_menu.solutionsDesc')
-        }
-      ]
-    },
-    {
-      label: t('nav.company_menu.title'),
-      icon: 'building',
-      items: [
-        {
-          path: '/about',
-          label: t('nav.company_menu.about'),
-          icon: 'info',
-          description: t('nav.company_menu.aboutDesc')
-        },
-        {
-          path: '/blog',
-          label: t('nav.company_menu.blog'),
-          icon: 'file-text',
-          description: t('nav.company_menu.blogDesc')
         }
       ]
     },
@@ -117,6 +98,11 @@ export function MobileMenu({ isOpen, onClose, isDark = true }: MobileMenuProps) 
           description: t('nav.blockchain.menu.depotDesc')
         }
       ]
+    },
+    {
+      path: '/blog',
+      label: t('nav.blog'),
+      icon: 'file-text'
     }
   ];
 

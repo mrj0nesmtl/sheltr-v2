@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Icon, IconName } from '@/components/ui/Icon';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/Button';
 
 interface Feature {
   title: string;
@@ -59,6 +60,16 @@ export function Hero() {
         <h1 className="text-4xl font-bold mb-4">
           {t('hero.title')}
         </h1>
+        <Button
+          variant="outline"
+          size="lg"
+          asChild
+        >
+          <Link to="/blockchain/whitepaper">
+            <Icon name="file-text" className="mr-2 h-5 w-5" />
+            {t('hero.readWhitepaper')}
+          </Link>
+        </Button>
         {/* Rest of hero content */}
       </div>
     </div>

@@ -73,7 +73,7 @@ export const en = {
       desc: "Explore blockchain features",
       menu: {
         whitepaper: "White Paper",
-        whitepaperDesc: "Technical documentation and vision",
+        whitepaperDesc: "Technical details and platform architecture",
         token: "$SHELTER Token",
         tokenDesc: "Token economics and utilities",
         transactions: "Transactions",
@@ -396,20 +396,34 @@ export const en = {
   impact: {
     title: "Making a Measurable Difference",
     subtitle: "Track the real-time impact of our community's contributions in transforming lives through transparent blockchain technology.",
+    metrics: {
+      participantsHoused: "Participants Housed",
+      citiesAndTowns: "Cities & Towns",
+      donationIncrease: "Increase in Donations",
+      trends: {
+        title: "Donation Trends",
+        total: "Total Donations",
+        housing: "Housing Fund",
+        direct: "Direct Support",
+        operations: "Operations"
+      },
+      allocation: {
+        title: "Fund Allocation",
+        direct: "Direct Support",
+        housing: "Housing Fund",
+        operations: "Operations"
+      },
+      impact: {
+        title: "Impact Metrics",
+        housingSuccess: "Housing Success Rate",
+        communityEngagement: "Community Engagement",
+        resourceUtilization: "Resource Utilization"
+      }
+    },
     cta: {
       title: "Be Part of the Impact",
-      description: "Join our growing community of donors and partners making a measurable difference in ending homelessness."
-    },
-    metrics: {
-      title: "Impact Distribution Analytics",
-      subtitle: "Real-time breakdown of fund allocation and social impact",
-      directSupport: "Direct Support",
-      housingFund: "Housing Fund",
-      operations: "Operations",
-      tooltip: {
-        percentage: "Percentage",
-        amount: "Amount"
-      }
+      description: "Join our growing community of donors and partners making a measurable difference in ending homelessness.",
+      button: "Get Started"
     }
   },
   qrScanner: {
@@ -440,22 +454,50 @@ export const en = {
     }
   },
   about: {
-    title: 'About SHELTR',
+    title: "About SHELTR",
+    subtitle: "Revolutionizing charitable giving through technology",
     intro: {
-      title: 'Introduction to SHELTR',
-      content: 'Learn about our mission to hack homelessness through technology.'
+      title: "Introduction",
+      expand: "Read More",
+      collapse: "Show Less",
+      abstract: "SHELTR is revolutionizing charitable giving through blockchain technology, creating direct connections between donors and individuals experiencing homelessness."
     },
-    readme: {
-      title: 'Project Overview',
-      content: 'Technical overview and setup instructions for developers.'
+    roadmap: {
+      title: "Project Roadmap",
+      subtitle: "Our development journey and milestones"
     },
-    techstack: {
-      title: 'Technology Stack',
-      content: 'Detailed breakdown of our technology infrastructure.'
+    checkpoint: {
+      title: "Development Status",
+      subtitle: "Current progress and metrics"
+    },
+    techStack: {
+      title: "Technology Stack",
+      subtitle: "Powering SHELTR's Innovation",
+      sections: {
+        frontend: "Frontend Technologies",
+        backend: "Backend Infrastructure",
+        blockchain: "Blockchain Integration",
+        auth: "Authentication & Security",
+        mobile: "Mobile & PWA",
+        devops: "DevOps & Deployment"
+      }
     },
     whitepaper: {
-      title: 'White Paper',
-      content: 'In-depth technical documentation of the SHELTR platform.'
+      title: "White Paper & Tokenomics",
+      subtitle: "Technical Documentation",
+      abstract: "A comprehensive overview of SHELTR's blockchain-based charitable giving platform, detailing our technical architecture, tokenomics, and implementation strategy.",
+      readMore: "Read Full White Paper",
+      toc: {
+        title: "Table of Contents",
+        sections: {
+          intro: "Introduction",
+          tech: "Technical Architecture",
+          tokenomics: "Tokenomics & Economics",
+          implementation: "Implementation Strategy",
+          roadmap: "Development Roadmap",
+          conclusion: "Conclusion"
+        }
+      }
     }
   },
   transaction: {

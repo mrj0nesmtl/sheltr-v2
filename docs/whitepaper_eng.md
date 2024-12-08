@@ -58,6 +58,32 @@ All donations in SHELTR are processed through **traditional payment gateways** s
   - **15%** for a **housing fund**.
   - **5%** for **operational costs**.
 
+# SHELTR Whitepaper
+*Version 2.1.0 - March 2024*
+
+[Previous content remains the same...]
+
+## 🔗 Blockchain Architecture
+
+### Smart Contract Infrastructure
+```solidity
+// Core donation contract
+contract SheltrDonation is ERC20, Ownable, ReentrancyGuard {
+    using SafeMath for uint256;
+    
+    // Fund allocation percentages
+    uint256 public constant DIRECT_SUPPORT = 80;
+    uint256 public constant HOUSING_FUND = 15;
+    uint256 public constant OPERATIONS = 5;
+    
+    event DonationProcessed(
+        address indexed donor,
+        address indexed recipient,
+        uint256 amount,
+        uint256 timestamp
+    );
+}
+
 ### 3. Multi-Auth User Roles
 
 SHELTR V2 features a robust **multi-auth system** to manage different types of users, enhancing security and usability:

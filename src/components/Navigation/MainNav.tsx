@@ -1,21 +1,21 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Icon } from '@/components/ui/Icon';
 import { cn } from '@/lib/utils';
 
 export function MainNav() {
   const { t } = useTranslation();
-  
-  const navigationItems = [
+
+  // Primary navigation items
+  const mainNavItems = [
     {
-      path: '/scan',
-      label: t('nav.scanDonate'),
-      icon: 'qr-code',
-      highlight: true
+      path: '/about',
+      label: t('nav.about'),
+      icon: 'info'
     },
     {
-      label: t('nav.solutions_menu.title'),
+      label: t('nav.solutions'),
       icon: 'settings',
       items: [
         {
@@ -33,9 +33,9 @@ export function MainNav() {
       ]
     },
     {
-      path: '/about',
-      label: t('nav.about'),
-      icon: 'info'
+      path: '/impact',
+      label: t('nav.impact'),
+      icon: 'trending-up'
     },
     {
       label: t('nav.blockchain.title'),
@@ -58,49 +58,67 @@ export function MainNav() {
           label: t('nav.blockchain.menu.transactions'),
           icon: 'activity',
           description: t('nav.blockchain.menu.transactionsDesc')
+        },
+        {
+          path: '/blockchain/depot',
+          label: t('nav.blockchain.menu.depot'),
+          icon: 'shopping-bag',
+          description: t('nav.blockchain.menu.depotDesc')
         }
       ]
     },
     {
-      path: '/impact',
-      label: t('nav.impact'),
-      icon: 'trending-up'
+      path: '/blog',
+      label: t('nav.blog'),
+      icon: 'file-text'
     }
   ];
 
   return (
-    <div className="space-y-4">
-      <h2 className="text-lg font-semibold text-white px-3">
-        {t('nav.blockchain.title')}
-      </h2>
-      <p className="text-sm text-gray-400 px-3 mb-4">
-        {t('nav.blockchain.desc')}
-      </p>
-      
-      <nav className="space-y-1">
-        {navigationItems.map((item) => (
-          <NavLink
+    <nav className="hidden lg:flex items-center space-x-8">
+      {mainNavItems.map((item) => (
+        item.items ? (
+          <div key={item.label} className="relative group">
+            <button className="flex items-center space-x-1 text-gray-300 hover:text-white">
+              <span>{item.label}</span>
+              <Icon name="chevron-down" className="h-4 w-4" />
+            </button>
+            <div className="absolute left-0 mt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-in-out">
+              <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
+                <div className="relative grid gap-6 bg-gray-800 px-5 py-6">
+                  {item.items.map((subItem) => (
+                    <Link
+                      key={subItem.path}
+                      to={subItem.path}
+                      className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-700"
+                    >
+                      <Icon name={subItem.icon} className="h-5 w-5 text-indigo-400" />
+                      <div className="ml-4">
+                        <p className="text-sm font-medium text-white">
+                          {subItem.label}
+                        </p>
+                        {subItem.description && (
+                          <p className="text-xs text-gray-400">
+                            {subItem.description}
+                          </p>
+                        )}
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <Link
             key={item.path}
             to={item.path}
-            className={({ isActive }) =>
-              cn(
-                'flex flex-col px-3 py-2 rounded-md transition-colors',
-                isActive
-                  ? 'bg-gray-800 text-white'
-                  : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-              )
-            }
+            className="text-gray-300 hover:text-white transition-colors"
           >
-            <div className="flex items-center">
-              <Icon name={item.icon} className="mr-3 h-5 w-5" />
-              <span className="font-medium">{item.label}</span>
-            </div>
-            <span className="text-sm text-gray-400 ml-8">
-              {item.description}
-            </span>
-          </NavLink>
-        ))}
-      </nav>
-    </div>
+            {item.label}
+          </Link>
+        )
+      ))}
+    </nav>
   );
 } 

@@ -23,6 +23,8 @@ import type { UserProfile } from './lib/types/auth';
 import { useTranslation } from 'react-i18next';
 import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider, useTheme } from '@/contexts/ThemeContext';
+import { WhitepaperPage } from './routes/blockchain/WhitepaperPage';
+import { ImpactPage } from '@/components/Impact/ImpactPage';
 
 interface ProtectedRouteProps {
   children: React.ReactNode | ((props: { user: UserProfile }) => React.ReactNode);
@@ -85,7 +87,7 @@ function ThemedApp() {
                 <Route path="solutions" element={<Solutions />} />
                 <Route path="contact" element={<ContactForm />} />
                 <Route path="scan" element={<QRScanner />} />
-                <Route path="impact" element={<PublicDashboard />} />
+                <Route path="impact" element={<ImpactPage />} />
                 <Route path="donate/:id" element={<DonationForm />} />
                 <Route path="thank-you" element={<ThankYou />} />
                 <Route path="blog" element={<BlogList />} />
@@ -93,6 +95,9 @@ function ThemedApp() {
                 <Route path="privacy" element={<PrivacyPolicy />} />
                 <Route path="terms" element={<TermsOfService />} />
                 <Route path="about" element={<AboutPage />} />
+                <Route path="/whitepaper" element={<Navigate to="/blockchain/whitepaper" replace />} />
+                <Route path="/blockchain/whitepaper" element={<WhitepaperPage />} />
+                <Route path="/docs/whitepaper" element={<Navigate to="/blockchain/whitepaper" replace />} />
                 
                 {/* Protected Routes */}
                 <Route path="profile/:id" element={
