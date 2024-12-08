@@ -1,241 +1,108 @@
 import React from 'react';
-import {
-  User,
-  Search,
-  Loader,
-  Menu,
-  Code,
-  FileText,
-  Info,
-  ChevronDown,
-  ChevronRight,
-  X,
-  Globe,
-  Headphones,
-  Youtube,
-  Linkedin,
-  Video,
-  Link,
-  TrendingUp,
-  Fingerprint,
-  Home,
-  Settings,
-  LogOut,
-  LogIn,
-  LayoutDashboard,
-  BarChart,
-  Shield,
-  Heart,
-  Wallet,
-  ArrowRight,
-  Mail,
-  Lock,
-  MapPin,
-  DollarSign,
-  AlertCircle,
-  Users,
-  Phone,
-  Send,
-  CheckCircle,
-  Trophy,
-  Calendar,
-  XCircle,
-  Tag,
-  Save,
-  Camera,
-  UserCog,
-  AlertTriangle,
-  Activity,
-  Book,
-  File,
-  ScrollText,
-  Newspaper,
-  MessageCircle,
-  ArrowUp,
-  ArrowDown,
-  MessageSquare,
-  Globe2,
-  Clock,
-  Play,
-  Pause,
-  Check,
-  Coins,
-  BarChart3,
-  Handshake,
-  UserPlus,
-  QrCode,
-  Gift,
-  Sun,
-  Moon,
-  Building
-} from 'lucide-react';
-import { ChristmasTreeIcon } from './CustomIcons';
+import * as Icons from 'lucide-react';
+import type { LucideProps } from 'lucide-react';
 
-export type IconName = 
-  | 'arrowLeft'
-  | 'arrowRight'
-  | 'building'
-  | 'building2'
-  | 'chevronDown'
-  | 'chevronRight'
-  | 'facebook'
-  | 'twitter'
-  | 'instagram'
-  | 'lineChart'
-  | 'tiktok'
-  | 'youtube'
-  | 'linkedin'
-  | 'globe'
-  | 'helpCircle'
-  | 'settings'
-  | 'qrCode'
-  | 'trendingUp'
+// Define all available icon names
+export type IconName =
   | 'info'
-  | 'x'
-  | 'logIn'
-  | 'logOut'
-  | 'userPlus'
-  | 'user'
-  | 'search'
-  | 'loader'
-  | 'menu'
   | 'code'
-  | 'fileText'
+  | 'users'
+  | 'file-text'
+  | 'coins'
+  | 'activity'
+  | 'shopping-bag'
+  | 'blocks'
+  | 'chevron-down'
+  | 'chevron-up'
+  | 'globe'
+  | 'loader'
+  | 'help-circle'
+  | 'settings'
+  | 'qr-code'
+  | 'trending-up'
+  | 'book'
+  | 'layout-dashboard'
+  | 'home'
+  | 'history'
+  | 'bar-chart'
+  | 'youtube'
   | 'headphones'
+  | 'video'
+  | 'linkedin'
   | 'mail'
   | 'lock'
-  | 'mapPin'
-  | 'dollarSign'
-  | 'alertCircle'
-  | 'users'
-  | 'phone'
-  | 'send'
-  | 'checkCircle'
-  | 'trophy'
-  | 'calendar'
-  | 'xCircle'
-  | 'tag'
-  | 'save'
-  | 'camera'
-  | 'userCog'
-  | 'alertTriangle'
-  | 'activity'
-  | 'book'
-  | 'file'
-  | 'scrollText'
-  | 'newspaper'
-  | 'messageCircle'
-  | 'messageSquare'
-  | 'video'
-  | 'globe2'
-  | 'clock'
-  | 'play'
-  | 'pause'
+  | 'user'
+  | 'log-in'
+  | 'log-out'
+  | 'menu'
+  | 'x'
+  | 'user-plus'
+  | 'building'
+  | 'landmark'
+  | 'list'
+  | 'dollar'
   | 'check'
-  | 'coins'
-  | 'barChart3'
-  | 'handshake'
-  | 'userPlus'
-  | 'qrCode'
-  | 'verified'
-  | 'login'
-  | 'logout'
-  | 'helpCircle'
-  | 'christmas-tree'
-  | 'gift'
-  | 'sun'
-  | 'moon'
-  | 'building';
+  | 'chart-bar'
+  | 'check-circle';
 
-interface IconProps {
+// Define the icon component props
+export interface IconProps extends Omit<LucideProps, 'ref'> {
   name: IconName;
-  className?: string;
 }
 
-export function Icon({ name, className }: IconProps) {
-  const icons: Record<IconName, React.ElementType> = {
-    user: User,
-    search: Search,
-    loader: Loader,
-    menu: Menu,
-    code: Code,
-    fileText: FileText,
-    info: Info,
-    chevronDown: ChevronDown,
-    chevronRight: ChevronRight,
-    x: X,
-    globe: Globe,
-    headphones: Headphones,
-    youtube: Youtube,
-    linkedin: Linkedin,
-    tiktok: Video,
-    link: Link,
-    trendingUp: TrendingUp,
-    fingerprint: Fingerprint,
-    home: Home,
-    settings: Settings,
-    logOut: LogOut,
-    logIn: LogIn,
-    layoutDashboard: LayoutDashboard,
-    barChart: BarChart,
-    shield: Shield,
-    heart: Heart,
-    wallet: Wallet,
-    arrowRight: ArrowRight,
-    mail: Mail,
-    lock: Lock,
-    mapPin: MapPin,
-    dollarSign: DollarSign,
-    alertCircle: AlertCircle,
-    users: Users,
-    phone: Phone,
-    send: Send,
-    checkCircle: CheckCircle,
-    trophy: Trophy,
-    calendar: Calendar,
-    xCircle: XCircle,
-    tag: Tag,
-    save: Save,
-    camera: Camera,
-    userCog: UserCog,
-    alertTriangle: AlertTriangle,
-    activity: Activity,
-    book: Book,
-    file: File,
-    scrollText: ScrollText,
-    newspaper: Newspaper,
-    messageCircle: MessageCircle,
-    arrowUp: ArrowUp,
-    arrowDown: ArrowDown,
-    messageSquare: MessageSquare,
-    video: Video,
-    globe2: Globe2,
-    clock: Clock,
-    play: Play,
-    pause: Pause,
-    check: Check,
-    coins: Coins,
-    barChart3: BarChart3,
-    handshake: Handshake,
-    userPlus: UserPlus,
-    qrCode: QrCode,
-    verified: CheckCircle,
-    login: LogIn,
-    logout: LogOut,
-    helpCircle: AlertCircle,
-    'christmas-tree': ChristmasTreeIcon,
-    'gift': Gift,
-    sun: Sun,
-    moon: Moon,
-    building: Building
-  };
+// Direct import of icons we use
+const iconComponents = {
+  'info': Icons.Info,
+  'code': Icons.Code,
+  'users': Icons.Users,
+  'file-text': Icons.FileText,
+  'coins': Icons.Coins,
+  'activity': Icons.Activity,
+  'shopping-bag': Icons.ShoppingBag,
+  'blocks': Icons.Blocks,
+  'chevron-down': Icons.ChevronDown,
+  'chevron-up': Icons.ChevronUp,
+  'globe': Icons.Globe,
+  'loader': Icons.Loader,
+  'help-circle': Icons.HelpCircle,
+  'settings': Icons.Settings,
+  'qr-code': Icons.QrCode,
+  'trending-up': Icons.TrendingUp,
+  'book': Icons.Book,
+  'layout-dashboard': Icons.LayoutDashboard,
+  'home': Icons.Home,
+  'history': Icons.History,
+  'bar-chart': Icons.BarChart,
+  'youtube': Icons.Youtube,
+  'headphones': Icons.Headphones,
+  'video': Icons.Video,
+  'linkedin': Icons.Linkedin,
+  'mail': Icons.Mail,
+  'lock': Icons.Lock,
+  'user': Icons.User,
+  'log-in': Icons.LogIn,
+  'log-out': Icons.LogOut,
+  'menu': Icons.Menu,
+  'x': Icons.X,
+  'user-plus': Icons.UserPlus,
+  'building': Icons.Building2,
+  'landmark': Icons.Landmark,
+  'list': Icons.List,
+  'dollar': Icons.DollarSign,
+  'check': Icons.Check,
+  'chart-bar': Icons.BarChart,
+  'check-circle': Icons.CheckCircle
+} as const;
 
-  const IconComponent = icons[name];
-
-  if (!IconComponent) {
-    console.warn(`Icon "${name}" not found`);
-    return null;
+export const Icon = React.forwardRef<SVGSVGElement, IconProps>(
+  ({ name, ...props }, ref) => {
+    const IconComponent = iconComponents[name];
+    if (!IconComponent) {
+      console.warn(`Icon "${name}" not found`);
+      return null;
+    }
+    return <IconComponent ref={ref} {...props} />;
   }
+);
 
-  return <IconComponent className={className} />;
-} 
+Icon.displayName = 'Icon'; 

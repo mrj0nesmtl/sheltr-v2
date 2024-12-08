@@ -4,6 +4,7 @@ import { NavigationItems } from './Navigation/NavigationItems';
 import { MobileMenu } from './Navigation/MobileMenu';
 import { Footer } from './Footer/Footer';
 import { Icon } from '@/components/ui/Icon';
+import { Logo } from '@/components/ui/Logo';
 
 export function Layout() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -22,8 +23,8 @@ export function Layout() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex-shrink-0">
-              <Link to="/" className={`font-bold text-xl ${isDarkTheme ? 'text-white' : 'text-gray-900'}`}>
-                SHELTR
+              <Link to="/" className="flex items-center">
+                <Logo className="h-8 w-auto" />
               </Link>
             </div>
 

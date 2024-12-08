@@ -42,7 +42,7 @@ const ShelterSignUpForm = lazy(() => import('./components/Auth/ShelterSignUpForm
 const AdminDashboard = lazy(() => import('./components/Admin/AdminDashboard').then(module => ({ default: module.AdminDashboard })));
 const SuperAdminDashboard = lazy(() => import('./components/Admin/SuperAdminDashboard').then(module => ({ default: module.SuperAdminDashboard })));
 
-function App() {
+export function App() {
   const { checkUser } = useAuthStore();
   const { i18n } = useTranslation();
 

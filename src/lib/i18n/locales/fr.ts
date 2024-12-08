@@ -59,7 +59,21 @@ export const fr = {
       serviceHistory: 'Historique des Services',
       serviceHistoryDesc: 'Suivez votre utilisation des services et vos progrès'
     },
-    blog: 'Blog'
+    blog: 'Blog',
+    blockchain: {
+      title: "Blockchain",
+      desc: "Explorer les fonctionnalités blockchain",
+      menu: {
+        whitepaper: "Livre Blanc",
+        whitepaperDesc: "Documentation technique et vision",
+        token: "Jeton $SHELTER",
+        tokenDesc: "Économie et utilités du jeton",
+        transactions: "Transactions",
+        transactionsDesc: "Voir les transactions blockchain",
+        depot: "Dépôt Sans-Abri",
+        depotDesc: "Accéder aux ressources des participants"
+      }
+    }
   },
   hero: {
     title: 'Pirater l\'itinérance',
@@ -322,6 +336,17 @@ export const fr = {
     cta: {
       title: "Participez à l'Impact",
       description: "Rejoignez notre communauté grandissante de donateurs et partenaires qui font une différence mesurable pour mettre fin à l'itinérance."
+    },
+    metrics: {
+      title: "Analyse de la Distribution d'Impact",
+      subtitle: "Répartition en temps réel des fonds et de l'impact social",
+      directSupport: "Soutien Direct",
+      housingFund: "Fonds de Logement",
+      operations: "Opérations",
+      tooltip: {
+        percentage: "Pourcentage",
+        amount: "Montant"
+      }
     }
   },
   qrScanner: {

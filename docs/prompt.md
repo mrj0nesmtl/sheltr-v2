@@ -26,11 +26,11 @@ SHELTR is revolutionizing charitable giving for homelessness through:
 │   ├── Add narrative & preamble
 │   ├── Implement translations
 │   └── Add visualization components
-└── New Blockchain Section
+└── New Blockchain Menu Tree and Pages
     ├── $SHELTER Token page
     ├── Transactions view
     └── Homeless Depot interface
-```
+    └── Whitepaper page
 
 ### 2. Technical Improvements
 ```typescript

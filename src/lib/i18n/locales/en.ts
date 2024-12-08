@@ -67,7 +67,31 @@ export const en = {
       serviceHistoryDesc: 'Track your service usage and progress'
     },
     menu: 'Menu',
-    blog: 'Blog'
+    blog: 'Blog',
+    blockchain: {
+      title: "Blockchain",
+      desc: "Explore blockchain features",
+      menu: {
+        whitepaper: "White Paper",
+        whitepaperDesc: "Technical documentation and vision",
+        token: "$SHELTER Token",
+        tokenDesc: "Token economics and utilities",
+        transactions: "Transactions",
+        transactionsDesc: "View blockchain transactions",
+        depot: "Homeless Depot",
+        depotDesc: "Access participant resources"
+      }
+    },
+    home: 'Home',
+    adminDashboard: 'Admin Dashboard',
+    myDonations: 'My Donations',
+    profile_menu: {
+      title: "Profile",
+      profile: "My Profile",
+      profileDesc: "View and edit your profile information",
+      settings: "Settings",
+      settingsDesc: "Manage your account settings and preferences"
+    }
   },
   hero: {
     mainTitle: "Transform Charitable Giving",
@@ -329,7 +353,8 @@ export const en = {
       blog: 'footer.links.blog',
       privacy: 'footer.links.privacy',
       terms: 'footer.links.terms'
-    }
+    },
+    copyright: "© 2024 SHELTR. All rights reserved."
   },
   whitepaper: {
     title: 'SHELTR Whitepaper: Revolutionizing Charitable Giving for Homelessness',
@@ -374,6 +399,17 @@ export const en = {
     cta: {
       title: "Be Part of the Impact",
       description: "Join our growing community of donors and partners making a measurable difference in ending homelessness."
+    },
+    metrics: {
+      title: "Impact Distribution Analytics",
+      subtitle: "Real-time breakdown of fund allocation and social impact",
+      directSupport: "Direct Support",
+      housingFund: "Housing Fund",
+      operations: "Operations",
+      tooltip: {
+        percentage: "Percentage",
+        amount: "Amount"
+      }
     }
   },
   qrScanner: {
@@ -454,5 +490,85 @@ export const en = {
     totalDonated: 'Total Donated',
     impactScore: 'Impact Score',
     totalDonations: 'Total Donations'
+  },
+  admin: {
+    superAdmin: {
+      title: "Super Admin Dashboard",
+      subtitle: "Platform-wide analytics and management",
+      userDistribution: {
+        title: "User Distribution",
+        subtitle: "Breakdown of platform users by role"
+      },
+      servicePerformance: {
+        title: "Service Performance",
+        subtitle: "Analysis of service utilization and impact"
+      },
+      shelterPerformance: {
+        title: "Shelter Performance Analysis",
+        subtitle: "Comparative analysis of shelter operations"
+      },
+      fundAllocation: {
+        title: "Fund Allocation Analysis",
+        subtitle: "Comparison of funds raised and allocated across user types"
+      }
+    },
+    userTypes: {
+      donor: "Donors",
+      participant: "Participants",
+      shelterAdmin: "Shelter Admins",
+      superAdmin: "Super Admins",
+      guest: "Guests"
+    },
+    stats: {
+      totalShelters: "Total Shelters",
+      activeParticipants: "Active Participants",
+      totalDonations: "Total Donations",
+      successRate: "Success Rate",
+      verifiedShelters: "verified shelters",
+      avgPerShelter: "avg. per shelter",
+      perParticipant: "per participant",
+      aboveAverage: "Above industry average"
+    },
+    dashboard: {
+      title: "Admin Dashboard",
+      welcome: "Welcome back to your dashboard"
+    }
+  },
+  home: {
+    title: "Home",
+    welcome: "Welcome to SHELTR"
+  },
+  profile: {
+    transactions: {
+      title: "Recent Transactions",
+      empty: "No transactions yet",
+      monthly: "Monthly donation",
+      oneTime: "One-time donation",
+      completed: "Completed",
+      pending: "Pending",
+      failed: "Failed"
+    },
+    stats: {
+      title: "Your Stats",
+      totalDonations: "Total Donations",
+      totalAmount: "Total Amount",
+      impactScore: "Impact Score",
+      donationsCount: "Number of Donations"
+    },
+    friends: {
+      title: "Friends",
+      empty: "No friends yet",
+      add: "Add Friend",
+      pending: "Pending Requests",
+      activities: "Friend Activities"
+    },
+    activity: {
+      title: "Recent Activity",
+      empty: "No recent activity",
+      donation: "made a donation",
+      referral: "referred a friend",
+      post: "shared a post",
+      impact: "reached impact milestone"
+    }
   }
 };

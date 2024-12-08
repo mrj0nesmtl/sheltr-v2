@@ -1,6 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Icon } from '@/components/ui/Icon';
+import { cn } from '@/lib/utils';
+
+interface AccordionItemProps {
+  title: string;
+  icon: string;
+  children: React.ReactNode;
+}
+
+function AccordionItem({ title, icon, children }: AccordionItemProps) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="mb-4">
+      <button 
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center w-full p-4 bg-gray-800/50 hover:bg-gray-800 rounded-lg text-white transition-colors"
+      >
+        <Icon name={icon} className="mr-2 text-gray-400" />
+        <span>{title}</span>
+        <Icon 
+          name="chevron-down" 
+          className={cn(
+            "ml-auto text-gray-400 transition-transform duration-200",
+            isOpen && "transform rotate-180"
+          )} 
+        />
+      </button>
+      
+      {isOpen && (
+        <div className="p-4 bg-gray-800/30 rounded-lg mt-2 text-white animate-slideDown">
+          {children}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export function AboutPage() {
   const { t } = useTranslation();
@@ -12,49 +48,34 @@ export function AboutPage() {
           {t('about.title')}
         </h1>
 
-        {/* Introduction Accordion */}
-        <div className="mb-4">
-          <button className="flex items-center w-full p-4 bg-gray-800/50 hover:bg-gray-800 rounded-lg text-white">
-            <Icon name="info" className="mr-2 text-gray-400" />
-            <span>Introduction to SHELTR</span>
-            <Icon name="chevronDown" className="ml-auto text-gray-400" />
-          </button>
-        </div>
-
-        {/* Technology Stack Accordion */}
-        <div className="mb-4">
-          <button className="flex items-center w-full p-4 bg-gray-800/50 hover:bg-gray-800 rounded-lg text-white">
-            <Icon name="code" className="mr-2 text-gray-400" />
-            <span>Technology Stack</span>
-            <Icon name="chevronDown" className="ml-auto text-gray-400" />
-          </button>
-        </div>
-
-        {/* White Paper Accordion */}
-        <div className="mb-4">
-          <button className="flex items-center w-full p-4 bg-gray-800/50 hover:bg-gray-800 rounded-lg text-white">
-            <Icon name="fileText" className="mr-2 text-gray-400" />
-            <span>White Paper</span>
-            <Icon name="chevronDown" className="ml-auto text-gray-400" />
-          </button>
-          <div className="p-4 bg-gray-800/30 rounded-lg mt-2 text-white">
-            <h2 className="text-2xl font-bold mb-4">SHELTR V2: Technical White Paper</h2>
-            
-            <h3 className="text-xl mb-4">Table of Contents</h3>
-            <ul className="space-y-2 mb-6 text-gray-300">
-              <li>Overview</li>
-              <li>Vision and Mission</li>
-              <li>Core Features
-                <ul className="ml-4 mt-2 space-y-2">
-                  <li>QR Scan and Give</li>
-                  <li>Blockchain Transparency & Public Ledger</li>
-                  <li>Multi-Auth User Roles</li>
-                  <li>Homeless Depot: Shopify Integration</li>
-                </ul>
-              </li>
+        <AccordionItem title={t('about.intro.title')} icon="info">
+          <div className="prose prose-invert">
+            <p>{t('about.intro.content')}</p>
+            <ul>
+              <li>{t('about.intro.features.blockchain')}</li>
+              <li>{t('about.intro.features.ai')}</li>
+              <li>{t('about.intro.features.qr')}</li>
             </ul>
           </div>
-        </div>
+        </AccordionItem>
+
+        <AccordionItem title={t('about.tech.title')} icon="code">
+          <div className="prose prose-invert">
+            <h3>{t('about.tech.stack.title')}</h3>
+            <ul>
+              <li>React 18 + TypeScript</li>
+              <li>Tailwind CSS</li>
+              <li>Supabase</li>
+              <li>Blockchain Integration</li>
+            </ul>
+          </div>
+        </AccordionItem>
+
+        <AccordionItem title={t('about.team.title')} icon="users">
+          <div className="prose prose-invert">
+            <p>{t('about.team.content')}</p>
+          </div>
+        </AccordionItem>
       </div>
     </div>
   );

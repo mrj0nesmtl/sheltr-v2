@@ -3,26 +3,9 @@ import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { en } from './locales/en';
 import { fr } from './locales/fr';
+import type { TranslationKey } from './types';
 
-// More precise type definition for nested translations
-type RecursiveKeyOf<TObj extends object> = {
-  [TKey in keyof TObj & (string | number)]: TObj[TKey] extends object
-    ? `${TKey}` | `${TKey}.${RecursiveKeyOf<TObj[TKey]>}`
-    : `${TKey}`
-}[keyof TObj & (string | number)];
-
-// Make the type more strict by removing the `| string` union
-export type TranslationKey = RecursiveKeyOf<typeof en>;
-
-declare module 'i18next' {
-  interface CustomTypeOptions {
-    defaultNS: 'translation';
-    resources: {
-      translation: typeof en;
-    };
-  }
-}
-
+// Initialize i18next
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
@@ -32,10 +15,18 @@ i18n
       fr: { translation: fr }
     },
     fallbackLng: 'en',
-    debug: false,
+    debug: process.env.NODE_ENV === 'development',
+    
     interpolation: {
       escapeValue: false
+    },
+
+    // Detect from browser
+    detection: {
+      order: ['localStorage', 'navigator'],
+      caches: ['localStorage']
     }
   });
 
+export type { TranslationKey };
 export default i18n;

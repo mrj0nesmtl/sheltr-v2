@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '@/stores/authStore';
 import { Icon } from '@/components/ui/Icon';
+import { SignOutButton } from '@/components/ui/SignOutButton';
 
 export function DonorDashboard() {
   const { t } = useTranslation();
@@ -18,8 +19,9 @@ export function DonorDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 p-8">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-gray-900 py-8">
+      <SignOutButton />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-white">
             {t('dashboard.donor.title')}

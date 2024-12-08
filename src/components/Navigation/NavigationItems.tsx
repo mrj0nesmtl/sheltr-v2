@@ -8,7 +8,7 @@ import { cn } from '../../lib/utils';
 import { Menu } from '@headlessui/react';
 import { UserRole } from '@/lib/types/auth';
 import { Avatar } from '@/components/ui/Avatar';
-import { ChevronDownIcon } from '@heroicons/react/20/solid';
+import { IconName } from '@/components/ui/Icon';
 
 interface NavigationItemsProps {
   mobile?: boolean;
@@ -21,18 +21,19 @@ interface NavItem {
   items?: {
     path: string;
     label: string;
-    icon?: string;
+    icon?: IconName;
     description?: string;
     roles?: UserRole[];
   }[];
   path?: string;
+  icon?: IconName;
   highlight?: boolean;
   roles?: UserRole[];
 }
 
 export function NavigationItems({ mobile, onItemClick, isDark = true }: NavigationItemsProps) {
   const { t } = useTranslation();
-  const { user, signOut } = useAuthStore();
+  const { user, signOut, canAccessFeature } = useAuthStore();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -45,7 +46,7 @@ export function NavigationItems({ mobile, onItemClick, isDark = true }: Navigati
         { 
           path: '/how-it-works', 
           label: t('nav.solutions_menu.howItWorks'),
-          icon: 'helpCircle',
+          icon: 'help-circle',
           description: t('nav.solutions_menu.howItWorksDesc')
         },
         { 
@@ -77,18 +78,47 @@ export function NavigationItems({ mobile, onItemClick, isDark = true }: Navigati
     {
       path: '/scan',
       label: t('nav.scanDonate'),
-      icon: 'qrCode',
+      icon: 'qr-code',
       highlight: true
     },
     {
       path: '/impact',
       label: t('nav.impact'),
-      icon: 'trendingUp'
+      icon: 'trending-up'
     },
     {
       path: '/blog',
       label: t('nav.blog'),
-      icon: 'fileText'
+      icon: 'file-text'
+    },
+    {
+      label: t('nav.blockchain.title'),
+      items: [
+        {
+          path: '/blockchain/whitepaper',
+          label: t('nav.blockchain.menu.whitepaper'),
+          icon: 'file-text',
+          description: t('nav.blockchain.menu.whitepaperDesc')
+        },
+        {
+          path: '/blockchain/token',
+          label: t('nav.blockchain.menu.token'),
+          icon: 'coins',
+          description: t('nav.blockchain.menu.tokenDesc')
+        },
+        {
+          path: '/blockchain/transactions',
+          label: t('nav.blockchain.menu.transactions'),
+          icon: 'activity',
+          description: t('nav.blockchain.menu.transactionsDesc')
+        },
+        {
+          path: '/blockchain/depot',
+          label: t('nav.blockchain.menu.depot'),
+          icon: 'shopping-bag',
+          description: t('nav.blockchain.menu.depotDesc')
+        }
+      ]
     }
   ];
 
@@ -108,7 +138,7 @@ export function NavigationItems({ mobile, onItemClick, isDark = true }: Navigati
           { 
             path: '/how-it-works', 
             label: t('nav.solutions_menu.howItWorks'),
-            icon: 'helpCircle',
+            icon: 'help-circle',
             description: t('nav.solutions_menu.howItWorksDesc')
           },
           { 
@@ -120,7 +150,7 @@ export function NavigationItems({ mobile, onItemClick, isDark = true }: Navigati
           { 
             path: '/impact', 
             label: t('nav.solutions_menu.impact'),
-            icon: 'trendingUp',
+            icon: 'trending-up',
             description: t('nav.solutions_menu.impactDesc')
           }
         ]
@@ -142,6 +172,36 @@ export function NavigationItems({ mobile, onItemClick, isDark = true }: Navigati
             description: t('nav.company_menu.whitepaperDesc')
           }
         ]
+      },
+      // Add Blockchain menu
+      {
+        label: t('nav.blockchain.title'),
+        items: [
+          {
+            path: '/blockchain/whitepaper',
+            label: t('nav.blockchain.menu.whitepaper'),
+            icon: 'file-text',
+            description: t('nav.blockchain.menu.whitepaperDesc')
+          },
+          {
+            path: '/blockchain/token',
+            label: t('nav.blockchain.menu.token'),
+            icon: 'coins',
+            description: t('nav.blockchain.menu.tokenDesc')
+          },
+          {
+            path: '/blockchain/transactions',
+            label: t('nav.blockchain.menu.transactions'),
+            icon: 'activity',
+            description: t('nav.blockchain.menu.transactionsDesc')
+          },
+          {
+            path: '/blockchain/depot',
+            label: t('nav.blockchain.menu.depot'),
+            icon: 'shopping-bag',
+            description: t('nav.blockchain.menu.depotDesc')
+          }
+        ]
       }
     ];
 
@@ -155,7 +215,7 @@ export function NavigationItems({ mobile, onItemClick, isDark = true }: Navigati
               {
                 path: '/admin/dashboard',
                 label: t('nav.platform_menu.dashboard'),
-                icon: 'layoutDashboard',
+                icon: 'layout-dashboard',
                 description: t('nav.platform_menu.dashboardDesc'),
                 roles: ['super_admin']
               },
@@ -208,7 +268,7 @@ export function NavigationItems({ mobile, onItemClick, isDark = true }: Navigati
               {
                 path: '/impact/personal',
                 label: t('nav.donor_menu.personalImpact'),
-                icon: 'chartBar',
+                icon: 'bar-chart',
                 description: t('nav.donor_menu.personalImpactDesc')
               }
             ]
@@ -221,7 +281,7 @@ export function NavigationItems({ mobile, onItemClick, isDark = true }: Navigati
               {
                 path: '/services/available',
                 label: t('nav.participant_menu.availableServices'),
-                icon: 'helpingHand',
+                icon: 'helping-hand',
                 description: t('nav.participant_menu.availableServicesDesc')
               },
               {
@@ -287,7 +347,7 @@ export function NavigationItems({ mobile, onItemClick, isDark = true }: Navigati
           )}
         >
           {item.label}
-          <Icon name="chevronDown" className="ml-1 h-4 w-4" />
+          <Icon name="chevron-down" className="ml-1 h-4 w-4" />
         </Menu.Button>
         <Menu.Items
           className={cn(
@@ -395,7 +455,7 @@ export function NavigationItems({ mobile, onItemClick, isDark = true }: Navigati
             className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700"
             onClick={onItemClick}
           >
-            <Icon name="qrCode" className="h-4 w-4 mr-2" />
+            <Icon name="qr-code" className="h-4 w-4 mr-2" />
             {item.label}
           </Link>
         ))}
@@ -459,7 +519,7 @@ export function NavigationItems({ mobile, onItemClick, isDark = true }: Navigati
             }}
             className="flex items-center w-full px-4 py-2 text-sm text-red-500 hover:bg-red-500/10 rounded-md"
           >
-            <Icon name="logOut" className="h-4 w-4 mr-2" />
+            <Icon name="log-out" className="h-4 w-4 mr-2" />
             {t('nav.signOut')}
           </button>
         ) : (
@@ -469,7 +529,7 @@ export function NavigationItems({ mobile, onItemClick, isDark = true }: Navigati
               className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700"
               onClick={onItemClick}
             >
-              <Icon name="userPlus" className="h-4 w-4 mr-2" />
+              <Icon name="user-plus" className="h-4 w-4 mr-2" />
               {t('nav.signUp')}
             </Link>
             <Link
@@ -477,7 +537,7 @@ export function NavigationItems({ mobile, onItemClick, isDark = true }: Navigati
               className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700"
               onClick={onItemClick}
             >
-              <Icon name="logIn" className="h-4 w-4 mr-2" />
+              <Icon name="log-in" className="h-4 w-4 mr-2" />
               {t('nav.login')}
             </Link>
           </div>
@@ -550,7 +610,7 @@ export function NavigationItems({ mobile, onItemClick, isDark = true }: Navigati
                 )}>
                   <Icon name="user" className="h-4 w-4" />
                   <span>{user.name || user.email}</span>
-                  <Icon name="chevronDown" className="h-4 w-4" />
+                  <Icon name="chevron-down" className="h-4 w-4" />
                 </Menu.Button>
                 <Menu.Items className={cn(
                   "absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 z-50",

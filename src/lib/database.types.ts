@@ -5,7 +5,7 @@ export interface Database {
         Row: {
           id: string
           email: string
-          role: 'super_admin' | 'admin' | 'user' | 'participant'
+          role: 'super_admin' | 'shelter_admin' | 'donor' | 'participant' | 'guest'
           name: string
           organization?: string
           profile_image?: string
@@ -21,7 +21,7 @@ export interface Database {
         Insert: {
           id: string
           email: string
-          role: 'super_admin' | 'admin' | 'user' | 'participant'
+          role: 'super_admin' | 'shelter_admin' | 'donor' | 'participant' | 'guest'
           name: string
           organization?: string
           profile_image?: string
@@ -35,7 +35,7 @@ export interface Database {
         }
         Update: {
           email?: string
-          role?: 'super_admin' | 'admin' | 'user' | 'participant'
+          role?: 'super_admin' | 'shelter_admin' | 'donor' | 'participant' | 'guest'
           name?: string
           organization?: string
           profile_image?: string

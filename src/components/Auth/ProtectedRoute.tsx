@@ -1,23 +1,20 @@
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { useAuthStore, getDashboardPath } from '../../stores/authStore';
-import type { UserProfile } from '../../lib/types/auth';
+import { useAuthStore, getDashboardPath } from '@/stores/authStore';
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
+import type { UserRole } from '@/lib/types/auth';
 
 interface ProtectedRouteProps {
-  children: React.ReactNode | ((props: { user: UserProfile }) => React.ReactNode);
-  allowedRoles?: string[];
+  children: React.ReactNode;
+  allowedRoles?: UserRole[];
 }
 
 export function ProtectedRoute({ children, allowedRoles }: ProtectedRouteProps) {
-  const { user, isLoading } = useAuthStore();
+  const { user, isLoading, initialized } = useAuthStore();
   const location = useLocation();
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-        <div className="text-white">Loading...</div>
-      </div>
-    );
+  if (!initialized || isLoading) {
+    return <LoadingSpinner />;
   }
 
   if (!user) {
@@ -28,11 +25,5 @@ export function ProtectedRoute({ children, allowedRoles }: ProtectedRouteProps) 
     return <Navigate to={getDashboardPath(user.role)} replace />;
   }
 
-  // Handle function children
-  if (typeof children === 'function') {
-    return <>{children({ user })}</>;
-  }
-
-  // Handle regular children
   return <>{children}</>;
 }

@@ -3,27 +3,25 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../../stores/authStore';
 import { useShelterStore } from '../../stores/shelterStore';
 import { Icon } from '@/components/ui/Icon';
+import { useTranslation } from 'react-i18next';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-  LineChart, Line, PieChart, Pie, Cell, AreaChart, Area,
-  RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
+  LineChart, Line, PieChart, Pie, Cell, AreaChart, Area, Legend,
   ScatterChart, Scatter, ZAxis
 } from 'recharts';
 import { cn } from '@/lib/utils';
-import { useTranslation } from 'react-i18next';
+import { SignOutButton } from '@/components/ui/SignOutButton';
 
-const COLORS = {
-  primary: '#6366F1',    // Indigo
-  success: '#10B981',    // Green
-  warning: '#F59E0B',    // Yellow
-  error: '#EF4444',      // Red
-  purple: '#8B5CF6',     // Purple
-  blue: '#3B82F6',       // Blue
-  pink: '#EC4899',       // Pink
-  orange: '#F97316',     // Orange
-  teal: '#14B8A6',       // Teal
-  violet: '#8B5CF6'      // Violet
-};
+// Update IconName type to include all used icons
+type IconName = 
+  | 'trending-up'
+  | 'dollar'
+  | 'bar-chart'
+  | 'check'
+  | 'building'
+  | 'users'
+  | 'chart-bar'
+  | 'check-circle';
 
 interface SuperAdminStats {
   totalShelters: number;
@@ -63,11 +61,294 @@ interface SuperAdminStats {
   }>;
 }
 
+const getWelcomeMessage = (): string => {
+  const messages = [
+    "Welcome back, Chief! Ready to make a difference today? 🌟",
+    "Hey there, Super Admin! The world's a better place with you in charge! 🌍",
+    "Mission Control is all yours! Let's create some positive impact today! 🚀",
+    "Welcome to the command center! Your dedication inspires us all! ✨",
+    "The change-maker has arrived! Ready to transform more lives today? 💫",
+    "Welcome back to your impact headquarters! Let's make today count! 🎯",
+    "The force for good has returned! Ready to make magic happen? ✨",
+    "Command center activated! Your leadership makes all this possible! 🌟"
+  ];
+  return messages[Math.floor(Math.random() * messages.length)];
+};
+
+interface UserDistributionData {
+  donorCount: number;
+  participantCount: number;
+  shelterAdminCount: number;
+  superAdminCount: number;
+  guestCount: number;
+}
+
+const UserDistributionChart = ({ data }: { data: UserDistributionData }) => {
+  const { t } = useTranslation();
+
+  const COLORS = {
+    donor: '#6366F1',      // Indigo
+    participant: '#10B981', // Green
+    shelterAdmin: '#F59E0B',// Yellow
+    superAdmin: '#8B5CF6',  // Purple
+    guest: '#3B82F6'       // Blue
+  };
+
+  const userData = [
+    { name: t('admin.userTypes.donor'), value: data.donorCount, color: COLORS.donor },
+    { name: t('admin.userTypes.participant'), value: data.participantCount, color: COLORS.participant },
+    { name: t('admin.userTypes.shelterAdmin'), value: data.shelterAdminCount, color: COLORS.shelterAdmin },
+    { name: t('admin.userTypes.superAdmin'), value: data.superAdminCount, color: COLORS.superAdmin },
+    { name: t('admin.userTypes.guest'), value: data.guestCount, color: COLORS.guest }
+  ];
+
+  // Custom label renderer with smart positioning
+  const renderCustomizedLabel = ({
+    cx,
+    cy,
+    midAngle,
+    innerRadius,
+    outerRadius,
+    percent,
+    index,
+    name
+  }: any) => {
+    const RADIAN = Math.PI / 180;
+    // Extend the radius for labels
+    const radius = outerRadius * 1.2;
+    
+    // Calculate positioning
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+    // Determine text anchor based on position
+    const textAnchor = x > cx ? 'start' : 'end';
+
+    // Don't render tiny slices' labels (less than 5%)
+    if (percent < 0.05) return null;
+
+    return (
+      <g>
+        {/* Draw line from slice to label */}
+        <path
+          d={`M${cx + outerRadius * Math.cos(-midAngle * RADIAN)},${
+            cy + outerRadius * Math.sin(-midAngle * RADIAN)
+          }L${x},${y}`}
+          stroke={userData[index].color}
+          fill="none"
+          strokeWidth={1}
+          opacity={0.6}
+        />
+        {/* Label background for better readability */}
+        <rect
+          x={x + (textAnchor === 'start' ? 5 : -85)}
+          y={y - 12}
+          width={80}
+          height={24}
+          fill="rgba(0,0,0,0.5)"
+          rx={4}
+        />
+        {/* Label text */}
+        <text
+          x={x + (textAnchor === 'start' ? 10 : -10)}
+          y={y}
+          textAnchor={textAnchor}
+          fill="#fff"
+          dominantBaseline="central"
+          fontSize={12}
+        >
+          {`${name}: ${(percent * 100).toFixed(0)}%`}
+        </text>
+      </g>
+    );
+  };
+
+  return (
+    <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6">
+      <h3 className="text-lg font-medium text-white mb-2">
+        {t('admin.superAdmin.userDistribution.title')}
+      </h3>
+      <p className="text-sm text-gray-400 mb-4">
+        {t('admin.superAdmin.userDistribution.subtitle')}
+      </p>
+      <div className="h-80">
+        <ResponsiveContainer width="100%" height="100%">
+          <PieChart>
+            <Pie
+              data={userData}
+              cx="50%"
+              cy="50%"
+              labelLine={false}
+              outerRadius={100}
+              fill="#8884d8"
+              dataKey="value"
+              label={renderCustomizedLabel}
+              paddingAngle={2}
+            >
+              {userData.map((entry, index) => (
+                <Cell 
+                  key={`cell-${index}`} 
+                  fill={entry.color}
+                  strokeWidth={0}
+                />
+              ))}
+            </Pie>
+            <Tooltip
+              contentStyle={{
+                backgroundColor: 'rgba(17, 24, 39, 0.8)',
+                border: 'none',
+                borderRadius: '0.5rem',
+                color: '#fff'
+              }}
+              formatter={(value: number) => [`${value} users`, '']}
+            />
+            <Legend 
+              verticalAlign="bottom"
+              height={36}
+              formatter={(value: string) => (
+                <span className="text-gray-300">{value}</span>
+              )}
+            />
+          </PieChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
+  );
+};
+
+// Add these color constants at the top of the file
+const CHART_COLORS = {
+  primary: '#6366F1',    // Indigo
+  success: '#10B981',    // Green
+  warning: '#F59E0B',    // Yellow
+  error: '#EF4444',      // Red
+  purple: '#8B5CF6',     // Purple
+  blue: '#3B82F6',       // Blue
+  pink: '#EC4899',       // Pink
+  orange: '#F97316',     // Orange
+  teal: '#14B8A6',       // Teal
+  violet: '#8B5CF6'      // Violet
+};
+
+// Add this new component for the fund allocation chart
+const FundAllocationChart = () => {
+  const { t } = useTranslation();
+
+  const fundData = [
+    {
+      type: 'Donors',
+      raised: 850000,
+      allocated: 750000,
+      color: '#6366F1' // Indigo
+    },
+    {
+      type: 'Participants',
+      raised: 0,
+      allocated: 680000,
+      color: '#10B981' // Green
+    },
+    {
+      type: 'Shelter Admins',
+      raised: 150000,
+      allocated: 120000,
+      color: '#F59E0B' // Yellow
+    },
+    {
+      type: 'Operations',
+      raised: 200000,
+      allocated: 180000,
+      color: '#8B5CF6' // Purple
+    }
+  ];
+
+  return (
+    <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6">
+      <h3 className="text-lg font-medium text-white mb-2">
+        {t('admin.superAdmin.fundAllocation.title')}
+      </h3>
+      <p className="text-sm text-gray-400 mb-4">
+        {t('admin.superAdmin.fundAllocation.subtitle')}
+      </p>
+      <div className="h-80">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart
+            data={fundData}
+            layout="vertical"
+            margin={{ top: 20, right: 30, left: 40, bottom: 5 }}
+          >
+            <CartesianGrid 
+              strokeDasharray="3 3" 
+              stroke="#374151" 
+              horizontal={false}
+            />
+            <XAxis 
+              type="number" 
+              stroke="#9CA3AF"
+              tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`}
+            />
+            <YAxis 
+              dataKey="type" 
+              type="category" 
+              stroke="#9CA3AF"
+              width={100}
+            />
+            <Tooltip
+              contentStyle={{
+                backgroundColor: 'rgba(17, 24, 39, 0.8)',
+                border: 'none',
+                borderRadius: '0.5rem',
+                color: '#fff'
+              }}
+              formatter={(value: number) => [`$${(value / 1000).toFixed(0)}k`, '']}
+              cursor={{ fill: 'rgba(255, 255, 255, 0.05)' }}
+            />
+            <Legend 
+              verticalAlign="top"
+              formatter={(value) => (
+                <span className="text-gray-300">
+                  {value === 'raised' ? 'Funds Raised' : 'Funds Allocated'}
+                </span>
+              )}
+            />
+            <Bar 
+              dataKey="raised" 
+              name="Funds Raised"
+              radius={[0, 4, 4, 0]}
+            >
+              {fundData.map((entry, index) => (
+                <Cell 
+                  key={`raised-${index}`}
+                  fill={entry.color}
+                  fillOpacity={0.8}
+                />
+              ))}
+            </Bar>
+            <Bar 
+              dataKey="allocated" 
+              name="Funds Allocated"
+              radius={[0, 4, 4, 0]}
+            >
+              {fundData.map((entry, index) => (
+                <Cell 
+                  key={`allocated-${index}`}
+                  fill={entry.color}
+                  fillOpacity={0.4}
+                />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
+  );
+};
+
 export function SuperAdminDashboard() {
   const { user, signOut } = useAuthStore();
   const navigate = useNavigate();
   const { shelters, isLoading, fetchShelters } = useShelterStore();
   const { t } = useTranslation();
+  const welcomeMessage = getWelcomeMessage();
 
   const [stats, setStats] = useState<SuperAdminStats>({
     totalShelters: 0,
@@ -136,256 +417,186 @@ export function SuperAdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 p-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-white">
-            {t('admin.superAdmin.title')}
-          </h1>
-        </div>
+    <div className="min-h-screen bg-gray-900 py-8">
+      <SignOutButton />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 className="text-3xl font-bold text-white mb-2">
+          {t('admin.superAdmin.title')}
+        </h1>
+        <p className="text-xl text-gray-400 mb-8">{welcomeMessage}</p>
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          {/* ... Stat cards similar to AdminDashboard */}
-        </div>
-
-        {/* Advanced Visualizations Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          {/* Service Performance Radar Chart */}
-          <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6">
-            <h3 className="text-lg font-medium text-white mb-4">Service Performance Matrix</h3>
-            <div className="h-80">
-              <ResponsiveContainer width="100%" height="100%">
-                <RadarChart cx="50%" cy="50%" outerRadius="80%" data={stats.serviceMetrics}>
-                  <PolarGrid stroke="#374151" />
-                  <PolarAngleAxis dataKey="service" stroke="#9CA3AF" />
-                  <PolarRadiusAxis stroke="#9CA3AF" />
-                  <Radar
-                    name="Usage"
-                    dataKey="usage"
-                    stroke={COLORS.primary}
-                    fill={COLORS.primary}
-                    fillOpacity={0.5}
-                  />
-                  <Radar
-                    name="Success"
-                    dataKey="success"
-                    stroke={COLORS.success}
-                    fill={COLORS.success}
-                    fillOpacity={0.5}
-                  />
-                  <Radar
-                    name="Impact"
-                    dataKey="impact"
-                    stroke={COLORS.warning}
-                    fill={COLORS.warning}
-                    fillOpacity={0.5}
-                  />
-                  <Tooltip
-                    contentStyle={{
-                      backgroundColor: '#1F2937',
-                      border: 'none',
-                      borderRadius: '0.5rem'
-                    }}
-                  />
-                </RadarChart>
-              </ResponsiveContainer>
-            </div>
+        <div className="max-w-7xl mx-auto">
+          {/* Stats Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            {/* ... Stat cards similar to AdminDashboard */}
           </div>
 
-          {/* Shelter Performance Scatter Plot */}
-          <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6">
-            <h3 className="text-lg font-medium text-white mb-4">Shelter Performance Analysis</h3>
-            <div className="h-80">
-              <ResponsiveContainer width="100%" height="100%">
-                <ScatterChart>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-                  <XAxis 
-                    dataKey="participants" 
-                    name="Participants" 
-                    stroke="#9CA3AF"
-                    label={{ value: 'Participants', position: 'bottom', fill: '#9CA3AF' }}
-                  />
-                  <YAxis 
-                    dataKey="donations" 
-                    name="Donations" 
-                    stroke="#9CA3AF"
-                    label={{ value: 'Donations ($)', angle: -90, position: 'left', fill: '#9CA3AF' }}
-                  />
-                  <ZAxis 
-                    dataKey="efficiency" 
-                    range={[50, 400]} 
-                    name="Efficiency"
-                  />
-                  <Tooltip
-                    contentStyle={{
-                      backgroundColor: '#1F2937',
-                      border: 'none',
-                      borderRadius: '0.5rem'
-                    }}
-                    cursor={{ strokeDasharray: '3 3' }}
-                  />
-                  <Scatter
-                    data={stats.shelterPerformance}
-                    fill={COLORS.purple}
-                  />
-                </ScatterChart>
-              </ResponsiveContainer>
-            </div>
+          {/* Advanced Visualizations Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <UserDistributionChart 
+              data={{
+                donorCount: 450,
+                participantCount: 320,
+                shelterAdminCount: 45,
+                superAdminCount: 5,
+                guestCount: 180
+              }} 
+            />
+            <FundAllocationChart />
           </div>
-        </div>
 
-        {/* Regional Performance Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          {/* Add more visualizations */}
-        </div>
+          {/* Regional Performance Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            {/* Add more visualizations */}
+          </div>
 
-        {/* Quick Stats Quadrant */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {/* Total Shelters Card */}
-          <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-indigo-500/20 rounded-lg">
-                <Icon name="building" className="h-6 w-6 text-indigo-400" />
-              </div>
-              <div>
-                <p className="text-sm text-gray-400">Total Shelters</p>
-                <div className="flex items-baseline gap-2">
-                  <p className="text-2xl font-bold text-white">{stats.totalShelters}</p>
-                  <span className="text-sm text-green-400">+12%</span>
+          {/* Quick Stats Quadrant */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            {/* Total Shelters Card */}
+            <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6">
+              <div className="flex items-center gap-4">
+                <div className="p-3 bg-indigo-500/20 rounded-lg">
+                  <Icon name="building" className="h-6 w-6 text-indigo-400" />
+                </div>
+                <div>
+                  <p className="text-sm text-gray-400">Total Shelters</p>
+                  <div className="flex items-baseline gap-2">
+                    <p className="text-2xl font-bold text-white">{stats.totalShelters}</p>
+                    <span className="text-sm text-green-400">+12%</span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="mt-4 h-2 bg-gray-700 rounded-full overflow-hidden">
-              <div 
-                className="h-full bg-indigo-500 rounded-full" 
-                style={{ width: `${(stats.verifiedShelters / stats.totalShelters) * 100}%` }}
-              />
-            </div>
-            <p className="mt-2 text-xs text-gray-400">
-              {stats.verifiedShelters} verified shelters
-            </p>
-          </div>
-
-          {/* Active Participants Card */}
-          <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-green-500/20 rounded-lg">
-                <Icon name="users" className="h-6 w-6 text-green-400" />
+              <div className="mt-4 h-2 bg-gray-700 rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-indigo-500 rounded-full" 
+                  style={{ width: `${(stats.verifiedShelters / stats.totalShelters) * 100}%` }}
+                />
               </div>
-              <div>
-                <p className="text-sm text-gray-400">Active Participants</p>
-                <div className="flex items-baseline gap-2">
-                  <p className="text-2xl font-bold text-white">{stats.totalParticipants}</p>
-                  <span className="text-sm text-green-400">+8%</span>
+              <p className="mt-2 text-xs text-gray-400">
+                {stats.verifiedShelters} verified shelters
+              </p>
+            </div>
+
+            {/* Active Participants Card */}
+            <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6">
+              <div className="flex items-center gap-4">
+                <div className="p-3 bg-green-500/20 rounded-lg">
+                  <Icon name="users" className="h-6 w-6 text-green-400" />
+                </div>
+                <div>
+                  <p className="text-sm text-gray-400">Active Participants</p>
+                  <div className="flex items-baseline gap-2">
+                    <p className="text-2xl font-bold text-white">{stats.totalParticipants}</p>
+                    <span className="text-sm text-green-400">+8%</span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="mt-4 flex items-center gap-2">
-              <Icon name="trendingUp" className="h-4 w-4 text-green-400" />
-              <span className="text-sm text-gray-400">
-                {Math.round((stats.totalParticipants / stats.totalShelters))} avg. per shelter
-              </span>
-            </div>
-          </div>
-
-          {/* Total Donations Card */}
-          <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-blue-500/20 rounded-lg">
-                <Icon name="dollarSign" className="h-6 w-6 text-blue-400" />
+              <div className="mt-4 flex items-center gap-2">
+                <Icon name="trending-up" className="h-4 w-4 text-green-400" />
+                <span className="text-sm text-gray-400">
+                  {Math.round((stats.totalParticipants / stats.totalShelters))} avg. per shelter
+                </span>
               </div>
-              <div>
-                <p className="text-sm text-gray-400">Total Donations</p>
-                <div className="flex items-baseline gap-2">
-                  <p className="text-2xl font-bold text-white">
-                    ${(stats.totalDonations / 1000000).toFixed(1)}M
-                  </p>
-                  <span className="text-sm text-green-400">+15%</span>
+            </div>
+
+            {/* Total Donations Card */}
+            <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6">
+              <div className="flex items-center gap-4">
+                <div className="p-3 bg-blue-500/20 rounded-lg">
+                  <Icon name="dollar" className="h-6 w-6 text-blue-400" />
+                </div>
+                <div>
+                  <p className="text-sm text-gray-400">Total Donations</p>
+                  <div className="flex items-baseline gap-2">
+                    <p className="text-2xl font-bold text-white">
+                      ${(stats.totalDonations / 1000000).toFixed(1)}M
+                    </p>
+                    <span className="text-sm text-green-400">+15%</span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="mt-4 flex items-center gap-2">
-              <Icon name="barChart" className="h-4 w-4 text-blue-400" />
-              <span className="text-sm text-gray-400">
-                ${Math.round(stats.totalDonations / stats.totalParticipants)} per participant
-              </span>
-            </div>
-          </div>
-
-          {/* Success Rate Card */}
-          <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-purple-500/20 rounded-lg">
-                <Icon name="barChart" className="h-6 w-6 text-purple-400" />
+              <div className="mt-4 flex items-center gap-2">
+                <Icon name="bar-chart" className="h-4 w-4 text-blue-400" />
+                <span className="text-sm text-gray-400">
+                  ${Math.round(stats.totalDonations / stats.totalParticipants)} per participant
+                </span>
               </div>
-              <div>
-                <p className="text-sm text-gray-400">Success Rate</p>
-                <div className="flex items-baseline gap-2">
-                  <p className="text-2xl font-bold text-white">78%</p>
-                  <span className="text-sm text-green-400">+5%</span>
+            </div>
+
+            {/* Success Rate Card */}
+            <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6">
+              <div className="flex items-center gap-4">
+                <div className="p-3 bg-purple-500/20 rounded-lg">
+                  <Icon name="chart-bar" className="h-6 w-6 text-purple-400" />
+                </div>
+                <div>
+                  <p className="text-sm text-gray-400">Success Rate</p>
+                  <div className="flex items-baseline gap-2">
+                    <p className="text-2xl font-bold text-white">78%</p>
+                    <span className="text-sm text-green-400">+5%</span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="mt-4 flex items-center gap-2">
-              <Icon name="checkCircle" className="h-4 w-4 text-purple-400" />
-              <span className="text-sm text-gray-400">
-                Above industry average
-              </span>
+              <div className="mt-4 flex items-center gap-2">
+                <Icon name="check-circle" className="h-4 w-4 text-purple-400" />
+                <span className="text-sm text-gray-400">
+                  Above industry average
+                </span>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Top Performing Shelters Leaderboard */}
-        <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 mb-8">
-          <h3 className="text-lg font-medium text-white mb-6">Top Performing Shelters</h3>
-          <div className="overflow-x-auto">
-            <table className="min-w-full">
-              <thead>
-                <tr className="border-b border-gray-700">
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Rank</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Shelter</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Total Raised</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Participants</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Avg. Donation</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Growth</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-700">
-                {stats.topShelters.map((shelter, index) => (
-                  <tr key={shelter.name} className="hover:bg-white/5">
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={cn(
-                        "px-2 py-1 rounded text-xs font-medium",
-                        index === 0 && "bg-yellow-500/20 text-yellow-300",
-                        index === 1 && "bg-gray-400/20 text-gray-300",
-                        index === 2 && "bg-orange-500/20 text-orange-300"
-                      )}>
-                        #{index + 1}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-white font-medium">
-                      {shelter.name}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
-                      ${shelter.totalRaised.toLocaleString()}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
-                      {shelter.participantCount}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
-                      ${shelter.avgDonationSize}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="text-green-400 text-sm flex items-center gap-1">
-                        <Icon name="trendingUp" className="h-4 w-4" />
-                        {shelter.growthRate}%
-                      </span>
-                    </td>
+          {/* Top Performing Shelters Leaderboard */}
+          <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 mb-8">
+            <h3 className="text-lg font-medium text-white mb-6">Top Performing Shelters</h3>
+            <div className="overflow-x-auto">
+              <table className="min-w-full">
+                <thead>
+                  <tr className="border-b border-gray-700">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Rank</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Shelter</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Total Raised</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Participants</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Avg. Donation</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Growth</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y divide-gray-700">
+                  {stats.topShelters.map((shelter, index) => (
+                    <tr key={shelter.name} className="hover:bg-white/5">
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className={cn(
+                          "px-2 py-1 rounded text-xs font-medium",
+                          index === 0 && "bg-yellow-500/20 text-yellow-300",
+                          index === 1 && "bg-gray-400/20 text-gray-300",
+                          index === 2 && "bg-orange-500/20 text-orange-300"
+                        )}>
+                          #{index + 1}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-white font-medium">
+                        {shelter.name}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                        ${shelter.totalRaised.toLocaleString()}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                        {shelter.participantCount}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                        ${shelter.avgDonationSize}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className="text-green-400 text-sm flex items-center gap-1">
+                          <Icon name="trending-up" className="h-4 w-4" />
+                          {shelter.growthRate}%
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
