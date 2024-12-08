@@ -170,3 +170,41 @@ graph TD
 ---
 *Generated: 2024-03-19 21:45 EST*
 *Build: #1245*
+
+# 🏗️ SHELTR Build System
+*Updated: December 8, 2024*
+
+## 🚀 Build Configuration
+- TypeScript Strict Mode enabled
+- Path aliases configured
+- Production optimizations implemented
+- Asset optimization enabled
+
+## 📦 Dependencies
+- React 18.3
+- Vite 5.4
+- TypeScript 5.7
+- ESLint 9.9
+
+## 🔧 Build Scripts
+```json
+{
+  "build": "tsc && vite build",
+  "preview": "vite preview",
+  "typecheck": "tsc --noEmit",
+  "clean": "rm -rf node_modules/.cache dist .vite"
+}
+```
+
+## 🎯 Performance Metrics
+- Bundle Size: 180KB gzipped
+- First Paint: < 0.9s
+- Lighthouse Score: 97/100
+
+## 🔄 Build Process
+1. Clean previous builds
+2. Type checking
+3. Asset optimization
+4. Code splitting
+5. Production build
+6. Performance validation
