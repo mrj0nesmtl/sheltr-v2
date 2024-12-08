@@ -1,14 +1,25 @@
-import React from 'react';
-import { cn } from '@/lib/utils';
+import { Link } from 'react-router-dom';
 
 interface LogoProps {
   className?: string;
 }
 
-export function Logo({ className }: LogoProps) {
+export function Logo({ className = 'h-8 w-auto' }: LogoProps) {
+  const handleError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    console.error('Logo failed to load:', e);
+  };
+
+  const handleLoad = () => {
+    console.log('Logo loaded successfully');
+  };
+
   return (
-    <div className={cn("flex items-center", className)}>
-      <span className="text-2xl font-bold text-white">SHELTR</span>
-    </div>
+    <img
+      src="/images/logo.svg"
+      alt="SHELTR"
+      className={className}
+      onError={handleError}
+      onLoad={handleLoad}
+    />
   );
 } 

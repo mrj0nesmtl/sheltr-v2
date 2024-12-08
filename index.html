@@ -1,24 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/images/icon.svg" />
+    <link rel="alternate icon" type="image/png" href="/images/icon-blk.svg" />
+    <link rel="apple-touch-icon" href="/images/icon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SHELTR - Hacking Homelessness with Technology</title>
-    <script>
-      // Check for saved theme
-      const theme = localStorage.getItem('theme') || 'dark';
-      document.documentElement.setAttribute('data-theme', theme);
-    </script>
-    <script>
-      window.addEventListener('error', function(e) {
-        if (e.message.includes('Receiving end does not exist') || 
-            e.message.includes('MessageNotSentError')) {
-          e.stopPropagation();
-          return;
-        }
-      }, true);
-    </script>
+    <title>SHELTR</title>
   </head>
   <body>
     <div id="root"></div>

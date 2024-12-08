@@ -20,7 +20,7 @@ export const en = {
     profile: 'Profile',
     dashboard: 'Dashboard',
     signOut: 'Sign Out',
-    about: 'About SHELTR',
+    about: 'About',
     solutions_menu: {
       title: 'Solutions',
       howItWorks: 'How It Works',
@@ -333,28 +333,26 @@ export const en = {
     tagline: 'Hacking Homelessness with Technology.',
     quickLinks: 'Quick Links',
     resources: 'Resources',
-    connect: 'Connect',
-    blog: 'Blog',
-    privacy: 'Privacy Policy',
-    terms: 'Terms of Service',
-    language: 'Français',
-    rights: 'All rights reserved.',
-    social: {
-      youtube: 'Follow us on YouTube',
-      podcast: 'Listen to our Podcast',
-      tiktok: 'Follow us on TikTok',
-      linkedin: 'Connect on LinkedIn',
-      website: 'Visit Arcana Concept Website'
-    },
+    connect: 'Connect With Us',
     links: {
-      howItWorks: 'footer.links.howItWorks',
-      solutions: 'footer.links.solutions',
-      scanDonate: 'footer.links.scanDonate',
-      blog: 'footer.links.blog',
-      privacy: 'footer.links.privacy',
-      terms: 'footer.links.terms'
+      howItWorks: 'How It Works',
+      solutions: 'Our Solutions',
+      scanDonate: 'Scan & Donate',
+      blog: 'Blog',
+      privacy: 'Privacy Policy',
+      terms: 'Terms of Service'
     },
-    copyright: "© 2024 SHELTR. All rights reserved."
+    social: {
+      linkedin: 'Connect on LinkedIn',
+      website: 'Visit Arcana Concept Website',
+      youtube: 'Watch on YouTube',
+      tiktok: 'Follow on TikTok',
+      spotify: 'Listen on Spotify',
+      substack: 'Read our Substack',
+      email: 'Email Us'
+    },
+    copyright: '© {{year}} SHELTR. All rights reserved.',
+    allRightsReserved: 'All rights reserved.'
   },
   whitepaper: {
     title: 'SHELTR Whitepaper: Revolutionizing Charitable Giving for Homelessness',

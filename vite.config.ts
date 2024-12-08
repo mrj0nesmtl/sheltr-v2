@@ -13,4 +13,12 @@ export default defineConfig({
   assetsInclude: ['**/*.md'],
   // Make sure the docs directory is served
   publicDir: 'public',
+  build: {
+    assetsDir: 'assets',
+    rollupOptions: {
+      output: {
+        assetFileNames: 'assets/[name][extname]'
+      }
+    }
+  }
 });

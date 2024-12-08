@@ -7,24 +7,17 @@ import type { TranslationKey } from './types';
 
 // Initialize i18next
 i18n
-  .use(LanguageDetector)
   .use(initReactI18next)
+  .use(LanguageDetector)
   .init({
+    debug: true,
     resources: {
       en: { translation: en },
       fr: { translation: fr }
     },
     fallbackLng: 'en',
-    debug: process.env.NODE_ENV === 'development',
-    
     interpolation: {
       escapeValue: false
-    },
-
-    // Detect from browser
-    detection: {
-      order: ['localStorage', 'navigator'],
-      caches: ['localStorage']
     }
   });
 

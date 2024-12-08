@@ -10,26 +10,15 @@ import { AdminLogin } from './components/Admin/AdminLogin';
 import { ContactForm } from './components/Contact/ContactForm';
 import { BlogList } from '@/components/Blog/BlogList';
 import { BlogPost } from '@/components/Blog/BlogPost';
-import { BlogEditor } from './components/Blog/BlogEditor';
 import { UserProfile as UserProfileComponent } from './components/Profile/UserProfile';
 import { ParticipantDashboard } from './components/Dashboard/ParticipantDashboard';
 import { DonorDashboard } from './components/Dashboard/DonorDashboard';
-import { PublicDashboard } from './components/Analytics/PublicDashboard';
-import { PrivacyPolicy } from './components/Legal/PrivacyPolicy';
-import { TermsOfService } from './components/Legal/TermsOfService';
-import { AboutPage } from './components/About/AboutPage';
 import { useAuthStore, getDashboardPath } from './stores/authStore';
 import type { UserProfile } from './lib/types/auth';
 import { useTranslation } from 'react-i18next';
 import { HelmetProvider } from 'react-helmet-async';
-import { ThemeProvider, useTheme } from '@/contexts/ThemeContext';
-import { WhitepaperPage } from './routes/blockchain/WhitepaperPage';
-import { ImpactPage } from '@/components/Impact/ImpactPage';
-
-interface ProtectedRouteProps {
-  children: React.ReactNode | ((props: { user: UserProfile }) => React.ReactNode);
-  allowedRoles?: string[];
-}
+import { ThemeProvider } from '@/contexts/ThemeContext';
+import { MetaTags } from '@/components/SEO/MetaTags';
 
 // Lazy loaded components
 const HowItWorks = lazy(() => import('./components/HowItWorks').then(module => ({ default: module.HowItWorks })));
@@ -43,6 +32,16 @@ const DonorSignUpForm = lazy(() => import('./components/Auth/DonorSignUpForm').t
 const ShelterSignUpForm = lazy(() => import('./components/Auth/ShelterSignUpForm').then(module => ({ default: module.ShelterSignUpForm })));
 const AdminDashboard = lazy(() => import('./components/Admin/AdminDashboard').then(module => ({ default: module.AdminDashboard })));
 const SuperAdminDashboard = lazy(() => import('./components/Admin/SuperAdminDashboard').then(module => ({ default: module.SuperAdminDashboard })));
+const WhitepaperPage = lazy(() => import('./routes/blockchain/WhitepaperPage').then(module => ({ default: module.WhitepaperPage })));
+const AboutPage = lazy(() => import('./components/About/AboutPage').then(module => ({ default: module.AboutPage })));
+const ImpactPage = lazy(() => import('./components/Impact/ImpactPage').then(module => ({ default: module.ImpactPage })));
+const PrivacyPolicy = lazy(() => import('./components/Legal/PrivacyPolicy').then(module => ({ default: module.PrivacyPolicy })));
+const TermsOfService = lazy(() => import('./components/Legal/TermsOfService').then(module => ({ default: module.TermsOfService })));
+
+interface ProtectedRouteProps {
+  children: React.ReactNode | ((props: { user: UserProfile }) => React.ReactNode);
+  allowedRoles?: string[];
+}
 
 export function App() {
   const { checkUser } = useAuthStore();
@@ -54,49 +53,85 @@ export function App() {
 
   return (
     <ThemeProvider>
-      <Suspense fallback={<LoadingSpinner />}>
-        <ThemedApp />
-      </Suspense>
-    </ThemeProvider>
-  );
-}
-
-// Separate component to use theme after provider is initialized
-function ThemedApp() {
-  const { theme } = useTheme();
-  
-  return (
-    <div data-theme={theme} className="min-h-screen bg-primary">
       <HelmetProvider>
         <ErrorBoundary>
+          <MetaTags />
           <Router>
             <Routes>
               {/* Auth Layout Routes */}
-              <Route element={<AuthLayout />}>
-                <Route path="/signup" element={<SignUpSelector />} />
-                <Route path="/signup/donor" element={<DonorSignUpForm />} />
-                <Route path="/signup/shelter" element={<ShelterSignUpForm />} />
-                <Route path="/login" element={<LoginPage />} />
+              <Route element={<Layout />}>
+                <Route path="/signup" element={
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <SignUpSelector />
+                  </Suspense>
+                } />
+                <Route path="/signup/donor" element={
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <DonorSignUpForm />
+                  </Suspense>
+                } />
+                <Route path="/signup/shelter" element={
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <ShelterSignUpForm />
+                  </Suspense>
+                } />
+                <Route path="/login" element={
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <LoginPage />
+                  </Suspense>
+                } />
                 <Route path="/admin/login" element={<AdminLogin />} />
               </Route>
 
               {/* Main Layout Routes */}
               <Route path="/" element={<Layout />}>
                 <Route index element={<Hero />} />
-                <Route path="how-it-works" element={<HowItWorks />} />
-                <Route path="solutions" element={<Solutions />} />
+                <Route path="how-it-works" element={
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <HowItWorks />
+                  </Suspense>
+                } />
+                <Route path="solutions" element={
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <Solutions />
+                  </Suspense>
+                } />
                 <Route path="contact" element={<ContactForm />} />
-                <Route path="scan" element={<QRScanner />} />
-                <Route path="impact" element={<ImpactPage />} />
+                <Route path="scan" element={
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <QRScanner />
+                  </Suspense>
+                } />
+                <Route path="impact" element={
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <ImpactPage />
+                  </Suspense>
+                } />
                 <Route path="donate/:id" element={<DonationForm />} />
                 <Route path="thank-you" element={<ThankYou />} />
                 <Route path="blog" element={<BlogList />} />
                 <Route path="blog/:slug" element={<BlogPost />} />
-                <Route path="privacy" element={<PrivacyPolicy />} />
-                <Route path="terms" element={<TermsOfService />} />
-                <Route path="about" element={<AboutPage />} />
+                <Route path="privacy" element={
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <PrivacyPolicy />
+                  </Suspense>
+                } />
+                <Route path="terms" element={
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <TermsOfService />
+                  </Suspense>
+                } />
+                <Route path="about" element={
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <AboutPage />
+                  </Suspense>
+                } />
                 <Route path="/whitepaper" element={<Navigate to="/blockchain/whitepaper" replace />} />
-                <Route path="/blockchain/whitepaper" element={<WhitepaperPage />} />
+                <Route path="/blockchain/whitepaper" element={
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <WhitepaperPage />
+                  </Suspense>
+                } />
                 <Route path="/docs/whitepaper" element={<Navigate to="/blockchain/whitepaper" replace />} />
                 
                 {/* Protected Routes */}
@@ -119,15 +154,19 @@ function ThemedApp() {
                 } />
                 
                 <Route path="/admin/dashboard" element={
-                  <ProtectedRoute allowedRoles={['admin', 'shelter_admin']}>
-                    <AdminDashboard />
-                  </ProtectedRoute>
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <ProtectedRoute allowedRoles={['admin', 'shelter_admin']}>
+                      <AdminDashboard />
+                    </ProtectedRoute>
+                  </Suspense>
                 } />
                 
                 <Route path="/super-admin/dashboard" element={
-                  <ProtectedRoute allowedRoles={['super_admin']}>
-                    <SuperAdminDashboard />
-                  </ProtectedRoute>
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <ProtectedRoute allowedRoles={['super_admin']}>
+                      <SuperAdminDashboard />
+                    </ProtectedRoute>
+                  </Suspense>
                 } />
 
                 {/* Default dashboard redirect */}
@@ -147,7 +186,7 @@ function ThemedApp() {
           </Router>
         </ErrorBoundary>
       </HelmetProvider>
-    </div>
+    </ThemeProvider>
   );
 }
 
