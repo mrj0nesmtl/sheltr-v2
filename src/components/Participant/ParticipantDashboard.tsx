@@ -1,14 +1,18 @@
 import { SignOutButton } from '@/components/ui/SignOutButton';
+import { DashboardLayout } from '@/components/Layout/DashboardLayout';
+import { useTranslation } from 'react-i18next';
 
 export function ParticipantDashboard() {
-  // ... existing code ...
+  const { t } = useTranslation();
 
   return (
-    <div className="min-h-screen bg-gray-900 py-8">
-      <SignOutButton />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* ... rest of the dashboard content ... */}
+    <DashboardLayout title={t('dashboard.participant.title')}>
+      {/* Stats Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        {/* ... existing stat cards ... */}
       </div>
-    </div>
+      
+      {/* ... rest of the dashboard content ... */}
+    </DashboardLayout>
   );
 } 

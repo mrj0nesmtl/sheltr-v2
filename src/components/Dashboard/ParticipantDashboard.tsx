@@ -4,6 +4,8 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { cn } from '../../lib/utils';
 import { useAuthStore } from '../../stores/authStore';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { Button } from '@/components/ui/Button';
 
 interface DonationData {
   id: string;
@@ -18,7 +20,8 @@ interface DonationData {
 }
 
 export function ParticipantDashboard() {
-  const { user } = useAuthStore();
+  const { user, signOut } = useAuthStore();
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [donations, setDonations] = React.useState<DonationData[]>([]);
   const [qrCode, setQrCode] = React.useState<string>('');
@@ -48,9 +51,27 @@ export function ParticipantDashboard() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-900">
-      <div className="pt-20 pb-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="p-8">
+      <div className="flex justify-between items-center mb-6 max-w-7xl mx-auto">
+        <div>
+          <h1 className="text-3xl font-bold text-white">
+            {t('dashboard.participant.title', { name: user?.name })}
+          </h1>
+          <p className="text-gray-400">
+            {t('dashboard.participant.subtitle')}
+          </p>
+        </div>
+        <Button
+          variant="default"
+          onClick={signOut}
+          className="bg-red-600 hover:bg-red-700 text-white"
+        >
+          Sign Out
+        </Button>
+      </div>
+      
+      <div className="min-h-screen bg-gray-900">
+        <div className="pt-20 pb-8 max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Stats Cards */}
             <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6">
