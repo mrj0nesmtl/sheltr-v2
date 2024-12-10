@@ -3,14 +3,13 @@ import type { UserProfile } from '../types/auth';
 
 export async function getUserProfile(userId: string): Promise<UserProfile | null> {
   try {
-    const { data, error } = await supabase
+    const { data: profile, error: profileError } = await supabase
       .from('user_profiles')
       .select(`
         id,
         email,
         name,
         role,
-        organization,
         profile_image,
         default_donation,
         social_links,
@@ -27,35 +26,26 @@ export async function getUserProfile(userId: string): Promise<UserProfile | null
       .eq('id', userId)
       .single();
 
-    if (error) throw error;
+    if (profileError) throw profileError;
 
-    let role = data.role;
-    if (data.email.includes('+admin')) {
-      role = 'admin';
-    } else if (data.email.includes('+donor')) {
-      role = 'donor';
-    } else if (data.email.includes('+participant')) {
-      role = 'participant';
+    // Get organization info separately if needed
+    let organizationId = null;
+    if (profile.role === 'admin') {
+      const { data: orgStaff } = await supabase
+        .from('organization_staff')
+        .select('organization_id')
+        .eq('user_id', userId)
+        .single();
+      organizationId = orgStaff?.organization_id;
     }
 
     return {
-      id: data.id,
-      email: data.email,
-      name: data.name,
-      role: role,
-      organization: data.organization,
-      profileImage: data.profile_image,
-      defaultDonation: data.default_donation,
-      socialLinks: data.social_links,
-      createdAt: data.created_at,
-      contactPhone: data.contact_phone,
-      city: data.city,
-      address: data.address,
-      registrationNumber: data.registration_number,
-      capacity: data.capacity,
-      services: data.services,
-      verified: data.verified,
-      emergencyContact: data.emergency_contact
+      id: profile.id,
+      email: profile.email,
+      name: profile.name,
+      role: profile.role,
+      organization: organizationId,
+      created_at: profile.created_at
     };
   } catch (error) {
     console.error('Error fetching user profile:', error);
@@ -76,22 +66,13 @@ export async function createUserProfile(userId: string, data: {
   services?: string[];
 }) {
   try {
-    let role = data.role;
-    if (data.email.includes('+admin')) {
-      role = 'admin';
-    } else if (data.email.includes('+donor')) {
-      role = 'donor';
-    } else if (data.email.includes('+participant')) {
-      role = 'participant';
-    }
-
     const { data: profile, error } = await supabase
       .from('user_profiles')
       .insert([{
         id: userId,
         email: data.email,
         name: data.name,
-        role: role,
+        role: data.role,
         city: data.city,
         address: data.address,
         contact_phone: data.contactPhone,
@@ -106,6 +87,21 @@ export async function createUserProfile(userId: string, data: {
       .single();
 
     if (error) throw error;
+
+    // If creating a participant, also create participant record
+    if (data.role === 'participant') {
+      const { error: participantError } = await supabase
+        .from('participants')
+        .insert({
+          user_id: userId,
+          name: data.name,
+          qr_code: `SHELTR-${userId.slice(0, 8)}`,
+          status: 'active'
+        });
+
+      if (participantError) throw participantError;
+    }
+
     return profile;
   } catch (error) {
     console.error('Error creating user profile:', error);

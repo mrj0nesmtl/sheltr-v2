@@ -1,23 +1,14 @@
-export type UserRole = 
-  | 'super_admin'
-  | 'shelter_admin'
-  | 'donor'
-  | 'participant'
-  | 'guest';
+export type UserRole = 'super_admin' | 'admin' | 'donor' | 'participant';
 
 export interface UserProfile {
   id: string;
   email: string;
-  name?: string;
-  avatar?: string | null;
+  name: string;
   role: UserRole;
-  verified?: boolean;
-  profileImage?: string;
-  totalDonated?: number;
-  totalDonations?: number;
-  impactScore?: number;
-  createdAt: string;
-  updatedAt: string;
+  organization?: string | null;
+  created_at: string;
+  last_sign_in_at?: string;
+  profile_image?: string;
 }
 
 export interface SignUpData {

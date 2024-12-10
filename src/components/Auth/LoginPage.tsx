@@ -1,41 +1,42 @@
 import React, { useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Icon } from '@/components/ui/Icon';
-import { useAuthStore, getDashboardPath } from '../../stores/authStore';
-import { cn } from '../../lib/utils';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-
-interface UserProfile {
-  id: string;
-  role: string;
-  // Add other profile properties as needed
-}
+import { Icon } from '@/components/ui/Icon';
+import { useAuthStore, getDashboardPath } from '@/stores/authStore';
+import { cn } from '@/lib/utils';
 
 export function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { signIn, error, isLoading } = useAuthStore();
+  const { signIn, error } = useAuthStore();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useTranslation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
     try {
-      console.log('Attempting sign in with:', email);
+      setIsSubmitting(true);
       const profile = await signIn(email, password);
-      console.log('Sign in response:', profile);
       
-      if (profile) {
-        const from = location.state?.from?.pathname || getDashboardPath(profile.role);
-        console.log('Redirecting to:', from);
-        navigate(from, { replace: true });
-      } else {
-        console.log('No profile returned from signIn');
+      if (profile && profile.role) {
+        const dashboardPath = getDashboardPath(profile.role);
+        console.log('Redirecting to dashboard:', dashboardPath);
+        navigate(dashboardPath, { replace: true });
       }
     } catch (error) {
-      console.error('Login attempt failed:', error);
+      console.error('Login failed:', error);
+    } finally {
+      setIsSubmitting(false);
     }
+  };
+
+  const handleClearSession = () => {
+    localStorage.clear();
+    console.log('Local storage cleared');
+    window.location.reload();
   };
 
   return (
@@ -43,7 +44,7 @@ export function LoginPage() {
       <div className="max-w-md mx-auto px-4 py-8">
         <div className="bg-white/10 backdrop-blur-lg rounded-xl p-8">
           <div className="text-center mb-8">
-            <Icon name="login" className="h-12 w-12 text-indigo-500 mx-auto mb-4" />
+            <Icon name="log-in" className="h-12 w-12 text-indigo-500 mx-auto mb-4" />
             <h2 className="text-2xl font-bold text-white">{t('auth.login.title')}</h2>
           </div>
 
@@ -73,6 +74,7 @@ export function LoginPage() {
                   )}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  disabled={isSubmitting}
                 />
               </div>
             </div>
@@ -96,13 +98,14 @@ export function LoginPage() {
                   )}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  disabled={isSubmitting}
                 />
               </div>
             </div>
 
             <button
               type="submit"
-              disabled={isLoading || !email || !password}
+              disabled={isSubmitting || !email || !password}
               className={cn(
                 "w-full flex justify-center py-2 px-4 border border-transparent",
                 "rounded-md shadow-sm text-sm font-medium text-white",
@@ -111,18 +114,16 @@ export function LoginPage() {
                 "disabled:opacity-50 disabled:cursor-not-allowed"
               )}
             >
-              {isLoading ? t('auth.login.signingIn') : t('auth.login.signIn')}
+              {isSubmitting ? t('auth.login.signingIn') : t('auth.login.signIn')}
             </button>
-
-            <div className="text-center">
-              <Link
-                to="/signup"
-                className="text-sm text-indigo-400 hover:text-indigo-300"
-              >
-                {t('auth.login.noAccount')} {t('auth.login.signUp')}
-              </Link>
-            </div>
           </form>
+
+          <button 
+            onClick={handleClearSession}
+            className="text-sm text-gray-400 hover:text-white"
+          >
+            Clear Session
+          </button>
         </div>
       </div>
     </div>
