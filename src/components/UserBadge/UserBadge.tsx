@@ -20,8 +20,8 @@ export function UserBadge({ role, verified, className }: UserBadgeProps) {
         };
       case 'admin':
         return {
-          icon: Shield,
-          label: 'Admin',
+          icon: Building2,
+          label: 'Shelter Admin',
           colors: 'bg-purple-500/20 text-purple-300 border-purple-500/50'
         };
       case 'shelter_admin':
