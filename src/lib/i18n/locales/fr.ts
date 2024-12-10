@@ -8,7 +8,16 @@ export const fr = {
       learnMore: 'En Savoir Plus',
       getStarted: 'Commencer',
       partnerNow: 'Devenir Partenaire'
-    }
+    },
+    signOut: "Déconnexion",
+    loading: "Chargement...",
+    actions: {
+      edit: "Modifier",
+      delete: "Supprimer",
+      save: "Enregistrer",
+      cancel: "Annuler"
+    },
+    refresh: "Actualiser",
   },
   nav: {
     solutions_menu: {
@@ -274,7 +283,7 @@ export const fr = {
             mentalhealthservices: 'Services de santé mentale',
             jobtraining: 'Formation professionnelle',
             casemanagement: 'Gestion de cas',
-            substanceabusetreatment: 'Traitement des dépendances'
+            substanceabusetreatment: 'Traitement des dpendances'
           }
         },
         submit: 'Enregistrer le refuge',
@@ -317,20 +326,67 @@ export const fr = {
   impact: {
     title: "Créer un Impact Mesurable",
     subtitle: "Suivez en temps réel l'impact des contributions de notre communauté dans la transformation des vies grâce à la technologie blockchain transparente.",
-    cta: {
-      title: "Participez à l'Impact",
-      description: "Rejoignez notre communauté grandissante de donateurs et partenaires qui font une différence mesurable pour mettre fin à l'itinérance."
-    },
     metrics: {
-      title: "Analyse de la Distribution d'Impact",
-      subtitle: "Répartition en temps réel des fonds et de l'impact social",
-      directSupport: "Soutien Direct",
-      housingFund: "Fonds de Logement",
-      operations: "Opérations",
-      tooltip: {
-        percentage: "Pourcentage",
-        amount: "Montant"
+      monthlyGrowth: "Tendances de Croissance Mensuelle",
+      successRates: "Métriques de Réussite",
+      communityImpact: "Impact Communautaire",
+      participantsHoused: "Participants Logés",
+      citiesAndTowns: "Villes et Communes",
+      donationIncrease: "Augmentation des Dons",
+      categories: {
+        housingPlacement: "Placement en Logement",
+        jobPlacement: "Placement Professionnel",
+        financialStability: "Stabilité Financière",
+        healthcareAccess: "Accès aux Soins"
+      },
+      livesImpacted: "Vies Impactées",
+      titles: {
+        impactMetrics: "Métriques de Réussite du Programme",
+        fundAllocation: "Allocation des Fonds",
+        donationTrends: "Tendances des Dons"
+      },
+      labels: {
+        housingSuccess: "Taux de Réussite du Logement",
+        communityEngagement: "Engagement Communautaire",
+        resourceUtilization: "Utilisation des Ressources"
+      },
+      title: "Métriques de Succès",
+      description: "Suivez nos progrès dans les domaines clés",
+      timeframe: "30 derniers jours"
+    },
+    cta: {
+      title: "Faites Partie de l'Impact",
+      description: "Rejoignez notre communauté grandissante de donateurs et de partenaires qui font une différence mesurable pour mettre fin à l'itinérance.",
+      getStarted: "Commencer"
+    },
+    donationTrends: "Tendances des Dons",
+    realtimeDonations: "Dons en Temps Réel",
+    fundAllocation: "Allocation des Fonds",
+    impactMetrics: "Métriques d'Impact",
+    transactions: {
+      title: "Transactions Blockchain",
+      viewAll: "Voir Tout",
+      timestamp: "Horodatage",
+      type: "Type",
+      amount: "Montant",
+      status: "Statut",
+      hash: "Hash de Transaction",
+      types: {
+        direct: "Support Direct",
+        housing: "Fonds de Logement",
+        operations: "Opérations"
+      },
+      statuses: {
+        completed: "Complété",
+        pending: "En Cours",
+        failed: "Échoué"
       }
+    },
+    charts: {
+      title: "Analyses d'Impact",
+      monthlyGrowth: "Croissance Mensuelle",
+      fundAllocation: "Allocation des Fonds",
+      impactMetrics: "Métriques d'Impact"
     }
   },
   qrScanner: {
@@ -377,6 +433,269 @@ export const fr = {
     whitepaper: {
       title: 'Livre Blanc',
       content: 'Documentation technique approfondie de la plateforme SHELTR.'
+    }
+  },
+  dashboard: {
+    participant: {
+      title: "Bienvenue, {{name}}",
+      subtitle: "Tableau de Bord du Participant",
+      totalReceived: "Total Reçu",
+      housingFund: "Fonds de Logement",
+      totalDonations: "Dons Totaux",
+      qrCode: "Votre Code QR",
+      qrCodeShare: "Partagez ce code QR pour recevoir des dons",
+      recentActivity: "Activité Récente",
+      donationHistory: "Historique des Dons"
+    },
+    admin: {
+      title: "Tableau de Bord Administrateur",
+      subtitle: "Gérez votre refuge",
+      totalParticipants: "Participants Totaux",
+      activeParticipants: "Participants Actifs",
+      totalDonations: "Dons Totaux",
+      averageDonation: "Don Moyen"
+    },
+    donor: {
+      title: "Tableau de Bord Donateur",
+      subtitle: "Suivez votre impact",
+      welcome: "Bienvenue sur votre tableau de bord donateur",
+      stats: {
+        totalDonated: "Total des Dons",
+        impactScore: "Score d'Impact",
+        donationCount: "Nombre de Dons",
+        beneficiariesHelped: "Bénéficiaires Aidés",
+        monthlyDonation: "Don Mensuel",
+        yearlyContribution: "Contribution Annuelle",
+        recentDonations: "Dons Récents"
+      },
+      impact: {
+        title: "Votre Impact",
+        subtitle: "Voyez la différence que vous faites",
+        metrics: {
+          peopleHelped: "Personnes Aidées",
+          servicesProvided: "Services Fournis",
+          communitiesServed: "Communautés Servies"
+        }
+      }
+    },
+    welcome: "Bienvenue, {{name}}",
+    loading: "Chargement...",
+    title: "Tableau de Bord",
+    lastLogin: "Dernière Connexion",
+    never: "Jamais",
+    participant: {
+      title: "Tableau de Bord Participant",
+      subtitle: "Suivez vos avantages et services",
+      welcome: "Bienvenue sur votre tableau de bord participant",
+      stats: {
+        totalReceived: "Total Reçu",
+        housingFund: "Fonds de Logement",
+        totalDonations: "Total des Dons",
+        activeServices: "Services Actifs",
+        nextAppointment: "Prochain Rendez-vous",
+        programProgress: "Progression du Programme"
+      },
+      qrCode: {
+        title: "Votre Code QR",
+        subtitle: "Partagez ce code pour recevoir des dons",
+        shareText: "Partager votre code QR de don",
+        downloadText: "Télécharger le code QR",
+        qrCodeShare: "Partagez ce code QR pour recevoir des dons",
+        recentActivity: "Activité Récente",
+        donationHistory: "Historique des Dons"
+      }
+    },
+    admin: {
+      title: "Tableau de Bord Administrateur",
+      subtitle: "Gérez votre refuge",
+      welcome: "Bienvenue, {{name}}",
+      stats: {
+        totalDonations: "Total des Dons",
+        totalParticipants: "Total des Participants",
+        activeParticipants: "Participants Actifs",
+        totalTransactions: "Total des Transactions",
+        participantGrowth: "Croissance des Participants",
+        averageDonation: "Don Moyen",
+        monthlyTrends: "Tendances Mensuelles",
+        serviceDistribution: "Distribution des Services",
+        recentActivity: "Activité Récente"
+      },
+      charts: {
+        monthlyTitle: "Statistiques Mensuelles",
+        distributionTitle: "Distribution des Services",
+        trendingTitle: "Métriques Tendances"
+      }
+    }
+  },
+  transaction: {
+    status: {
+      completed: 'Terminé',
+      pending: 'En attente',
+      failed: 'Échoué'
+    }
+  },
+  support: {
+    needHelp: 'Besoin d\'aide ?',
+    description: 'Notre équipe de support est là pour vous 24/7',
+    callUs: 'Appelez-nous',
+    callDescription: 'Parlez à un représentant du support',
+    chatWithUs: 'Chattez avec nous',
+    chatDescription: 'Obtenez de l\'aide instantanée de notre assistant IA',
+    startChat: 'Démarrer le chat'
+  },
+  podcast: {
+    preview: {
+      listen: 'Écouter sur Spotify',
+      latest: 'Dernier épisode',
+      duration: 'Durée',
+      date: 'Publié le',
+      showName: 'Tomes of Arcana'
+    }
+  },
+  home: {
+    title: "Accueil",
+    welcome: "Bienvenue sur SHELTR"
+  },
+  profile: {
+    transactions: {
+      title: "Transactions Récentes",
+      empty: "Aucune transaction",
+      monthly: "Don mensuel",
+      oneTime: "Don unique",
+      completed: "Terminé",
+      pending: "En attente",
+      failed: "Échoué"
+    },
+    stats: {
+      title: "Vos Statistiques",
+      totalDonations: "Total des Dons",
+      totalAmount: "Montant Total",
+      impactScore: "Score d'Impact",
+      donationsCount: "Nombre de Dons"
+    },
+    friends: {
+      title: "Amis",
+      empty: "Aucun ami pour l'instant",
+      add: "Ajouter un Ami",
+      pending: "Demandes en Attente",
+      activities: "Activités des Amis"
+    },
+    activity: {
+      title: "Activité Récente",
+      empty: "Aucune activité récente",
+      donation: "a fait un don",
+      referral: "a parrainé un ami",
+      post: "a partagé une publication",
+      impact: "a atteint un jalon d'impact"
+    }
+  },
+  admin: {
+    superAdmin: {
+      title: "Tableau de Bord Super Admin",
+      subtitle: "Analyses et gestion de la plateforme",
+      userDistribution: {
+        title: "Distribution des Utilisateurs",
+        subtitle: "Répartition des utilisateurs par rle"
+      },
+      servicePerformance: {
+        title: "Performance des Services",
+        subtitle: "Analyse de l'utilisation et de l'impact des services"
+      },
+      shelterPerformance: {
+        title: "Analyse de Performance des Refuges",
+        subtitle: "Analyse comparative des opérations des refuges"
+      },
+      fundAllocation: {
+        title: "Analyse de l'Attribution des Fonds",
+        subtitle: "Comparaison des fonds levés et attribués par type d'utilisateur"
+      }
+    },
+    userTypes: {
+      donor: "Donateurs",
+      participant: "Participants",
+      shelterAdmin: "Administrateurs de Refuge",
+      superAdmin: "Super Administrateurs",
+      guest: "Invités"
+    },
+    stats: {
+      totalShelters: "Total des Refuges",
+      activeParticipants: "Participants Actifs",
+      totalDonations: "Total des Dons",
+      successRate: "Taux de Réussite",
+      verifiedShelters: "refuges vérifiés",
+      avgPerShelter: "moyenne par refuge",
+      perParticipant: "par participant",
+      aboveAverage: "Au-dessus de la moyenne du secteur"
+    },
+    dashboard: {
+      title: "Tableau de Bord Admin",
+      welcome: "Bienvenue sur votre tableau de bord"
+    },
+    shelter: {
+      title: "Tableau de Bord Administrateur",
+      welcome: "Bienvenue, {{name}}",
+      participants: {
+        title: "Liste des Participants",
+        add: "Ajouter un Participant",
+        name: "Nom",
+        status: "Statut",
+        joinDate: "Date d'inscription",
+        totalReceived: "Total Reçu",
+        qrCode: "Code QR",
+        loginToken: "Jeton de Connexion",
+        viewDetails: "Voir les Détails",
+        statuses: {
+          active: "Actif",
+          inactive: "Inactif",
+          pending: "En Attente"
+        },
+        services: {
+          housing: "Logement",
+          jobTraining: "Formation Professionnelle",
+          foodServices: "Services Alimentaires",
+          medicalCare: "Soins Médicaux"
+        }
+      },
+      donors: {
+        title: "Liste des Donateurs",
+        export: "Exporter",
+        name: "Nom",
+        totalDonated: "Total des Dons",
+        lastDonation: "Dernier Don",
+        frequency: "Fréquence",
+        status: "Statut",
+        viewDetails: "Voir les Détails",
+        frequencies: {
+          oneTime: "Unique",
+          monthly: "Mensuel",
+          quarterly: "Trimestriel"
+        },
+        statuses: {
+          active: "Actif",
+          inactive: "Inactif"
+        }
+      },
+      alerts: {
+        title: "Alertes Système",
+        dismiss: "Fermer",
+        types: {
+          info: "Information",
+          success: "Succès",
+          warning: "Avertissement",
+          error: "Erreur"
+        }
+      },
+      stats: {
+        totalDonations: "Total des Dons",
+        totalParticipants: "Total des Participants",
+        totalTransactions: "Total des Transactions",
+        participantGrowth: "Croissance des Participants"
+      },
+      charts: {
+        monthlyTrends: "Tendances Mensuelles",
+        serviceDistribution: "Distribution des Services",
+        recentDonations: "Dons Récents"
+      }
     }
   }
 };

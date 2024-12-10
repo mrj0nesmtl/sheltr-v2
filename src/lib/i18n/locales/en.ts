@@ -8,7 +8,16 @@ export const en = {
       learnMore: 'Learn More',
       getStarted: 'Get Started',
       partnerNow: 'Partner Now'
-    }
+    },
+    signOut: "Sign Out",
+    loading: "Loading...",
+    actions: {
+      edit: "Edit",
+      delete: "Delete",
+      save: "Save",
+      cancel: "Cancel"
+    },
+    refresh: "Refresh"
   },
   nav: {
     howItWorks: 'How It Works',
@@ -395,33 +404,60 @@ export const en = {
     title: "Making a Measurable Difference",
     subtitle: "Track the real-time impact of our community's contributions in transforming lives through transparent blockchain technology.",
     metrics: {
+      monthlyGrowth: "Monthly Growth Trends",
+      successRates: "Success Metrics",
+      communityImpact: "Community Impact",
       participantsHoused: "Participants Housed",
       citiesAndTowns: "Cities & Towns",
       donationIncrease: "Increase in Donations",
-      trends: {
-        title: "Donation Trends",
-        total: "Total Donations",
-        housing: "Housing Fund",
-        direct: "Direct Support",
-        operations: "Operations"
+      categories: {
+        housingPlacement: "Housing Placement",
+        jobPlacement: "Job Placement",
+        financialStability: "Financial Stability",
+        healthcareAccess: "Healthcare Access"
       },
-      allocation: {
-        title: "Fund Allocation",
-        direct: "Direct Support",
-        housing: "Housing Fund",
-        operations: "Operations"
-      },
-      impact: {
-        title: "Impact Metrics",
-        housingSuccess: "Housing Success Rate",
-        communityEngagement: "Community Engagement",
-        resourceUtilization: "Resource Utilization"
-      }
+      livesImpacted: "Lives Impacted"
     },
     cta: {
       title: "Be Part of the Impact",
       description: "Join our growing community of donors and partners making a measurable difference in ending homelessness.",
-      button: "Get Started"
+      getStarted: "Get Started"
+    },
+    transactions: {
+      title: "Blockchain Transactions",
+      viewAll: "View All",
+      timestamp: "Timestamp",
+      type: "Type",
+      amount: "Amount",
+      status: "Status",
+      hash: "Transaction Hash",
+      types: {
+        direct: "Direct Support",
+        housing: "Housing Fund",
+        operations: "Operations"
+      },
+      statuses: {
+        completed: "Completed",
+        pending: "Pending",
+        failed: "Failed"
+      }
+    },
+    donationTrends: "Donation Trends",
+    charts: {
+      title: "Impact Analytics",
+      monthlyGrowth: "Monthly Growth",
+      fundAllocation: "Fund Allocation",
+      impactMetrics: "Program Success Metrics"
+    },
+    titles: {
+      impactMetrics: "Program Success Metrics",
+      fundAllocation: "Fund Allocation",
+      donationTrends: "Donation Trends"
+    },
+    labels: {
+      housingSuccess: "Housing Success Rate",
+      communityEngagement: "Community Engagement",
+      resourceUtilization: "Resource Utilization"
     }
   },
   qrScanner: {
@@ -453,7 +489,7 @@ export const en = {
   },
   about: {
     title: "About SHELTR",
-    subtitle: "Revolutionizing charitable giving through technology",
+    subtitle: "Hacking Homelessness with Tech-4-Good",
     intro: {
       title: "Introduction",
       expand: "Read More",
@@ -525,11 +561,74 @@ export const en = {
   },
   dashboard: {
     donor: {
-      title: 'Donor Dashboard'
+      title: 'Donor Dashboard',
+      subtitle: 'Track your impact',
+      welcome: 'Welcome to your donor dashboard',
+      stats: {
+        totalDonated: 'Total Donated',
+        impactScore: 'Impact Score',
+        donationCount: 'Number of Donations',
+        beneficiariesHelped: 'Beneficiaries Helped',
+        monthlyDonation: 'Monthly Donation',
+        yearlyContribution: 'Yearly Contribution',
+        recentDonations: 'Recent Donations'
+      },
+      impact: {
+        title: 'Your Impact',
+        subtitle: 'See how you are making a difference',
+        metrics: {
+          peopleHelped: 'People Helped',
+          servicesProvided: 'Services Provided',
+          communitiesServed: 'Communities Served'
+        }
+      }
     },
     totalDonated: 'Total Donated',
     impactScore: 'Impact Score',
-    totalDonations: 'Total Donations'
+    totalDonations: 'Total Donations',
+    participant: {
+      title: 'Participant Dashboard',
+      subtitle: 'Track your benefits and services',
+      welcome: 'Welcome to your participant dashboard',
+      stats: {
+        totalReceived: 'Total Received',
+        housingFund: 'Housing Fund',
+        totalDonations: 'Total Donations',
+        activeServices: 'Active Services',
+        nextAppointment: 'Next Appointment',
+        programProgress: 'Program Progress'
+      },
+      qrCode: {
+        title: 'Your QR Code',
+        subtitle: 'Share this code to receive donations',
+        shareText: 'Share your donation QR code',
+        downloadText: 'Download QR code',
+        qrCodeShare: 'Share this QR code to receive donations',
+        recentActivity: 'Recent Activity',
+        donationHistory: 'Donation History'
+      }
+    },
+    admin: {
+      title: 'Shelter Admin Dashboard',
+      subtitle: 'Manage your shelter',
+      welcome: 'Welcome, {{name}}',
+      stats: {
+        totalDonations: 'Total Donations',
+        totalParticipants: 'Total Participants',
+        activeParticipants: 'Active Participants',
+        totalTransactions: 'Total Transactions',
+        participantGrowth: 'Participant Growth',
+        averageDonation: 'Average Donation',
+        monthlyTrends: 'Monthly Trends',
+        serviceDistribution: 'Service Distribution',
+        recentActivity: 'Recent Activity'
+      },
+      charts: {
+        monthlyTitle: 'Monthly Statistics',
+        distributionTitle: 'Service Distribution',
+        trendingTitle: 'Trending Metrics'
+      }
+    }
   },
   admin: {
     superAdmin: {

@@ -30,11 +30,24 @@ const LoginPage = lazy(() => import('./components/Auth/LoginPage').then(module =
 const SignUpSelector = lazy(() => import('./components/Auth/SignUpSelector').then(module => ({ default: module.SignUpSelector })));
 const DonorSignUpForm = lazy(() => import('./components/Auth/DonorSignUpForm').then(module => ({ default: module.DonorSignUpForm })));
 const ShelterSignUpForm = lazy(() => import('./components/Auth/ShelterSignUpForm').then(module => ({ default: module.ShelterSignUpForm })));
-const AdminDashboard = lazy(() => import('./components/Admin/AdminDashboard').then(module => ({ default: module.AdminDashboard })));
-const SuperAdminDashboard = lazy(() => import('./components/Admin/SuperAdminDashboard').then(module => ({ default: module.SuperAdminDashboard })));
+const ShelterDashboard = lazy(() => 
+  import("./components/Admin/ShelterDashboard").then(module => ({ 
+    default: module.ShelterDashboard 
+  }))
+);
+const SuperAdminDashboard = lazy(() => 
+  import("./components/Admin/SuperAdminDashboard").then(module => ({ 
+    default: module.SuperAdminDashboard 
+  }))
+);
 const WhitepaperPage = lazy(() => import('./routes/blockchain/WhitepaperPage').then(module => ({ default: module.WhitepaperPage })));
 const AboutPage = lazy(() => import('./components/About/AboutPage').then(module => ({ default: module.AboutPage })));
-const ImpactPage = lazy(() => import('./components/Impact/ImpactPage').then(module => ({ default: module.ImpactPage })));
+const ImpactPage = lazy(() => 
+  import('@/pages/ImpactPage')
+    .then(module => ({ 
+      default: module.ImpactPage 
+    }))
+);
 const PrivacyPolicy = lazy(() => import('./components/Legal/PrivacyPolicy').then(module => ({ default: module.PrivacyPolicy })));
 const TermsOfService = lazy(() => import('./components/Legal/TermsOfService').then(module => ({ default: module.TermsOfService })));
 
@@ -44,12 +57,26 @@ interface ProtectedRouteProps {
 }
 
 export function App() {
-  const { checkUser } = useAuthStore();
+  const { checkUser, initialized } = useAuthStore();
   const { i18n } = useTranslation();
 
   useEffect(() => {
-    checkUser();
-  }, [checkUser]);
+    const initializeApp = async () => {
+      try {
+        await checkUser();
+      } catch (error) {
+        console.error('Failed to initialize app:', error);
+      }
+    };
+
+    if (!initialized) {
+      initializeApp();
+    }
+  }, [checkUser, initialized]);
+
+  if (!initialized) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <ThemeProvider>
@@ -156,7 +183,7 @@ export function App() {
                 <Route path="/admin/dashboard" element={
                   <Suspense fallback={<LoadingSpinner />}>
                     <ProtectedRoute allowedRoles={['admin', 'shelter_admin']}>
-                      <AdminDashboard />
+                      <ShelterDashboard />
                     </ProtectedRoute>
                   </Suspense>
                 } />

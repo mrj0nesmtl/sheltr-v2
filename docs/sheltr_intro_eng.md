@@ -1,10 +1,13 @@
 # SHELTR: Hacking Homelessness with Tech-4-Good
+*Report Generated: December 9, 2024 22:00 EST*
+*Status: On Track* 🟢
+*APP Deployment Version: 1.3*
 
 ## Introduction
 
 ### Vision and Mission
 
-SHELTR aims to revolutionize charitable giving by harnessing advanced technology. Our platform leverages **blockchain transparency**, **QR code-driven donations**, and **AI-powered financial tools** to create a secure, scalable, and intelligent solution to address homelessness. SHELTR focuses on meeting immediate needs while equipping individuals with the tools for long-term financial independence. Our core values include **empowerment**, **automation**, and **sustainability**.
+SHELTR aims to revolutionize charitable giving by harnessing advanced technology. Our platform leverages **QR code-driven donations**, **blockchain transparency**, and **AI-powered financial tools** to create a secure, scalable, and intelligent solution to address homelessness. SHELTR focuses on meeting immediate needs while equipping individuals with the tools for long-term financial independence. Our core values include **empowerment**, **automation**, and **sustainability**.
 
 This initiative is led by **Arcana Concept**, a not-for-profit organization that utilizes a unique **Lab-Studio-Fund** model to develop and launch transformative community projects. All services are provided at **no cost** to shelters or participants, allowing these organizations to focus on what they do best—supporting their communities.
 
