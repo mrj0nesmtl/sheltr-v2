@@ -41,7 +41,7 @@ const SuperAdminDashboard = lazy(() =>
   }))
 );
 const WhitepaperPage = lazy(() => import('./routes/blockchain/WhitepaperPage').then(module => ({ default: module.WhitepaperPage })));
-const AboutPage = lazy(() => import('./components/About/AboutPage').then(module => ({ default: module.AboutPage })));
+const AboutPage = lazy(() => import('./pages/About').then(module => ({ default: module.About })));
 const ImpactPage = lazy(() => 
   import('@/pages/ImpactPage')
     .then(module => ({ 

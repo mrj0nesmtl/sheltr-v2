@@ -12,7 +12,7 @@ and ensuring robust security.
 - Authentication system improved
 
 ## Today's Focus Areas 🎯
-1. Analytics Dashboard
+1. User Login Flow & Dashboards
    - Real-time metrics
    - Data visualization
    - Performance tracking

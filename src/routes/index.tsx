@@ -8,9 +8,9 @@ import { ParticipantDashboard } from '@/pages/ParticipantDashboard';
 import { ImpactPage } from '@/pages/ImpactPage';
 import { ShelterDashboard } from '@/components/Admin/ShelterDashboard';
 import { SuperAdminDashboard } from '@/components/Admin/SuperAdminDashboard';
-import { DocumentHub } from '@/components/Docs/DocumentHub';
-import { DocumentViewer } from '@/components/Docs/DocumentViewer';
-import { AboutPage } from '@/components/About/AboutPage';
+import { DocumentHub } from '@/components/Documentation/components/DocumentHub';
+import { DocumentViewer } from '@/components/Documentation/components/DocumentViewer';
+import { About } from '@/pages/About';
 
 export function AppRoutes() {
   return (
@@ -20,7 +20,7 @@ export function AppRoutes() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignUpPage />} />
       <Route path="/impact" element={<ImpactPage />} />
-      <Route path="/about" element={<AboutPage />} />
+      <Route path="/about" element={<About />} />
 
       {/* Super Admin Routes */}
       <Route
@@ -66,10 +66,6 @@ export function AppRoutes() {
           </ProtectedRoute>
         }
       />
-
-      {/* Documentation Routes - Make sure these come before the catch-all */}
-      <Route path="/docs" element={<DocumentHub />} />
-      <Route path="/docs/:docId" element={<DocumentViewer />} />
 
       {/* Redirect unknown routes to home */}
       <Route path="*" element={<Navigate to="/" replace />} />

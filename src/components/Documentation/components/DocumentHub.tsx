@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from '@/components/ui/Icon';
 import { useTranslation } from 'react-i18next';
+
+import type { IconName } from '@/components/ui/Icon';
 
 interface DocSection {
   title: string;
@@ -22,7 +24,7 @@ const documents: DocSection[] = [
       {
         title: "Technical White Paper",
         description: "Detailed technical overview of SHELTR's architecture and features",
-        path: "/docs/whitepaper",
+        path: "whitepaper",
         language: "en"
       },
       {
@@ -76,6 +78,27 @@ const documents: DocSection[] = [
 
 export function DocumentHub() {
   const { t } = useTranslation();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    console.log('DocumentHub mounted');
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+      console.log('DocumentHub loaded');
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  console.log('DocumentHub rendering, isLoading:', isLoading);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-900 py-12 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">

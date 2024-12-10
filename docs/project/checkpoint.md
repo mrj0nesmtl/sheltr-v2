@@ -40,4 +40,4 @@
 - [ ] TypeScript linting errors in some components
 - [ ] Icon system needs type definitions
 - [ ] Some missing page components
-- [ ] Documentation navigation needs improvement
+- [ ] Documentation navigation needs improvement https://sheltr-ops.replit.app/docs

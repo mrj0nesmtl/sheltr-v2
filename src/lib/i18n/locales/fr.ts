@@ -294,6 +294,7 @@ export const fr = {
   footer: {
     tagline: 'Pirater l\'itinérance avec la technologie.',
     quickLinks: 'Liens Rapides',
+    documentHub: 'Centre de Documentation',
     resources: 'Ressources',
     connect: 'Connecter',
     blog: 'Blog',
@@ -301,6 +302,20 @@ export const fr = {
     terms: 'Conditions d\'Utilisation',
     language: 'English',
     rights: 'Tous droits réservés.',
+    podcast: {
+      listen: 'Écouter le dernier épisode',
+      listenOn: 'Écouter sur Spotify',
+      latest: 'Dernier épisode',
+      duration: 'Durée',
+      showName: 'Tomes of Arcana',
+      description: 'Découvrez notre dernier épisode'
+    },
+    social: {
+      youtube: 'Chaîne YouTube',
+      linkedin: 'LinkedIn',
+      website: 'Site Web',
+      tiktok: 'TikTok'
+    }
   },
   whitepaper: {
     title: "Document Technique",
@@ -524,6 +539,16 @@ export const fr = {
         monthlyTitle: "Statistiques Mensuelles",
         distributionTitle: "Distribution des Services",
         trendingTitle: "Métriques Tendances"
+      }
+    },
+    roles: {
+      participant: {
+        title: "Tableau de Bord Participant",
+        subtitle: "Suivez vos avantages et services",
+      },
+      admin: {
+        title: "Tableau de Bord Administrateur",
+        subtitle: "Gérez votre refuge",
       }
     }
   },

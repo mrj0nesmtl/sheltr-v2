@@ -1,6 +1,6 @@
 import React from 'react';
 import * as Icons from 'lucide-react';
-import type { LucideProps } from 'lucide-react';
+import type { LucideProps, LucideIcon } from 'lucide-react';
 
 // Define all available icon names
 export type IconName =
@@ -82,7 +82,8 @@ export type IconName =
   | 'filter'
   | 'search'
   | 'chevron-right'
-  | 'shield-lock';
+  | 'shield-lock'
+  | 'arrow-left';
 
 // Direct import of icons we use
 const iconComponents: Record<IconName, LucideIcon> = {
@@ -145,16 +146,16 @@ const iconComponents: Record<IconName, LucideIcon> = {
   'pin': Icons.Pin,
   'location': Icons.MapPin,
   'heart': Icons.Heart,
-  'heart-filled': Icons.HeartFilled,
+  'heart-filled': Icons.Heart,
   'heart-off': Icons.HeartOff,
   'star': Icons.Star,
-  'star-filled': Icons.StarFilled,
+  'star-filled': Icons.Star,
   'star-off': Icons.StarOff,
   'thumbs-up': Icons.ThumbsUp,
   'thumbs-down': Icons.ThumbsDown,
   'share': Icons.Share2,
   'send': Icons.Send,
-  'alert': Icons.Alert,
+  'alert': Icons.AlertTriangle,
   'alert-circle': Icons.AlertCircle,
   'alert-triangle': Icons.AlertTriangle,
   'bell': Icons.Bell,
@@ -164,7 +165,8 @@ const iconComponents: Record<IconName, LucideIcon> = {
   'filter': Icons.Filter,
   'search': Icons.Search,
   'chevron-right': Icons.ChevronRight,
-  'shield-lock': Icons.Lock
+  'shield-lock': Icons.Lock,
+  'arrow-left': Icons.ArrowLeft
 };
 
 export interface IconProps extends Omit<LucideProps, 'ref'> {
@@ -188,16 +190,19 @@ export const Icon = React.forwardRef<SVGSVGElement, IconProps>(
       'secure': 'lock-keyhole'
     };
 
+    let IconComponent: LucideIcon;
+
     if (commonMistakes[name]) {
-      console.warn(`Icon "${name}" not found. Did you mean "${commonMistakes[name]}"?`);
-      return <IconComponent name={commonMistakes[name]} {...props} ref={ref} />;
+      IconComponent = iconComponents[commonMistakes[name]];
+    } else {
+      IconComponent = iconComponents[name as IconName];
     }
 
-    const IconComponent = iconComponents[name as IconName];
     if (!IconComponent) {
       console.warn(`Icon "${name}" not found`);
       return null;
     }
+    
     return <IconComponent ref={ref} {...props} />;
   }
 );
