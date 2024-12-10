@@ -2,7 +2,15 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Icon } from '@/components/ui/Icon';
+import { Logo } from '@/components/Logo';
 import { cn } from '@/lib/utils';
+import type { IconName } from '@/components/ui/Icon';
+
+interface NavItem {
+  label: string;
+  icon: IconName;
+  href: string;
+}
 
 export function MainNav() {
   const { t } = useTranslation();
@@ -12,22 +20,22 @@ export function MainNav() {
     {
       path: '/about',
       label: t('nav.about'),
-      icon: 'info'
+      icon: 'info' as IconName
     },
     {
       label: t('nav.solutions'),
-      icon: 'settings',
+      icon: 'settings' as IconName,
       items: [
         {
           path: '/how-it-works',
           label: t('nav.solutions_menu.howItWorks'),
-          icon: 'help-circle',
+          icon: 'help-circle' as IconName,
           description: t('nav.solutions_menu.howItWorksDesc')
         },
         {
           path: '/solutions',
           label: t('nav.solutions_menu.solutions'),
-          icon: 'settings',
+          icon: 'settings' as IconName,
           description: t('nav.solutions_menu.solutionsDesc')
         }
       ]
@@ -36,36 +44,6 @@ export function MainNav() {
       path: '/impact',
       label: t('nav.impact'),
       icon: 'trending-up'
-    },
-    {
-      label: t('nav.blockchain.title'),
-      icon: 'blocks',
-      items: [
-        {
-          path: '/blockchain/whitepaper',
-          label: t('nav.blockchain.menu.whitepaper'),
-          icon: 'file-text',
-          description: t('nav.blockchain.menu.whitepaperDesc')
-        },
-        {
-          path: '/blockchain/token',
-          label: t('nav.blockchain.menu.token'),
-          icon: 'coins',
-          description: t('nav.blockchain.menu.tokenDesc')
-        },
-        {
-          path: '/blockchain/transactions',
-          label: t('nav.blockchain.menu.transactions'),
-          icon: 'activity',
-          description: t('nav.blockchain.menu.transactionsDesc')
-        },
-        {
-          path: '/blockchain/depot',
-          label: t('nav.blockchain.menu.depot'),
-          icon: 'shopping-bag',
-          description: t('nav.blockchain.menu.depotDesc')
-        }
-      ]
     },
     {
       path: '/blog',
