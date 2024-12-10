@@ -4,9 +4,10 @@ import { Icon } from '@/components/ui/Icon';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Link } from 'react-router-dom';
+import { IconName } from '@/components/ui/Icon';
 
 interface ConceptCardProps {
-  icon: string;
+  icon: IconName;
   title: string;
   description: string;
   highlight?: string;
@@ -164,7 +165,7 @@ export function Introduction() {
     }
   }, [showFullContent]);
 
-  const keyConcepts = [
+  const keyConcepts: { icon: IconName; title: string; description: string; highlight?: string; }[] = [
     {
       icon: 'blocks',
       title: 'Blockchain Transparency',
@@ -245,20 +246,20 @@ export function Introduction() {
 
       {/* Know it All Button */}
       <div className="flex justify-center mt-12">
-        <button
-          onClick={() => setShowFullContent(true)}
+        <Link 
+          to="/docs"
           className="group relative inline-flex items-center px-8 py-4 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition-colors"
         >
           <span className="relative">
             <span className="flex items-center">
-              <Icon name="book-open" className="h-5 w-5 mr-2" />
+              <Icon name="book" className="h-5 w-5 mr-2" />
               Know it All
             </span>
           </span>
           <span className="absolute right-4 transition-transform duration-300 group-hover:translate-x-1">
-            <Icon name="arrow-right" className="h-5 w-5" />
+            <Icon name="chevron-right" className="h-5 w-5" />
           </span>
-        </button>
+        </Link>
       </div>
 
       {/* Full Content Modal */}

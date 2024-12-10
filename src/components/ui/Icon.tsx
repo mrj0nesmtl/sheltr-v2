@@ -4,9 +4,23 @@ import type { LucideProps } from 'lucide-react';
 
 // Define all available icon names
 export type IconName =
+  | 'home'
+  | 'user'
+  | 'settings'
+  | 'shield'
+  | 'shield-check'
+  | 'shield-alert'
+  | 'lock-keyhole'
+  | 'brain'
+  | 'brain-circuit'
+  | 'lock'
+  | 'refresh'
+  | 'map-pin'
+  | 'trending-up'
+  | 'users'
+  | 'circle'
   | 'info'
   | 'code'
-  | 'users'
   | 'file-text'
   | 'coins'
   | 'activity'
@@ -17,12 +31,9 @@ export type IconName =
   | 'globe'
   | 'loader'
   | 'help-circle'
-  | 'settings'
   | 'qr-code'
-  | 'trending-up'
   | 'book'
   | 'layout-dashboard'
-  | 'home'
   | 'history'
   | 'bar-chart'
   | 'youtube'
@@ -30,8 +41,6 @@ export type IconName =
   | 'video'
   | 'linkedin'
   | 'mail'
-  | 'lock'
-  | 'user'
   | 'log-in'
   | 'log-out'
   | 'menu'
@@ -40,21 +49,60 @@ export type IconName =
   | 'building'
   | 'landmark'
   | 'list'
-  | 'dollar'
+  | 'dollar-sign'
   | 'check'
   | 'chart-bar'
-  | 'check-circle';
-
-// Define the icon component props
-export interface IconProps extends Omit<LucideProps, 'ref'> {
-  name: IconName;
-}
+  | 'check-circle'
+  | 'credit-card'
+  | 'user-check'
+  | 'external-link'
+  | 'wallet-cards'
+  | 'wallet'
+  | 'scan'
+  | 'map'
+  | 'pin'
+  | 'location'
+  | 'heart'
+  | 'heart-filled'
+  | 'heart-off'
+  | 'star'
+  | 'star-filled'
+  | 'star-off'
+  | 'thumbs-up'
+  | 'thumbs-down'
+  | 'share'
+  | 'send'
+  | 'alert'
+  | 'alert-circle'
+  | 'alert-triangle'
+  | 'bell'
+  | 'bell-off'
+  | 'calendar'
+  | 'clock'
+  | 'filter'
+  | 'search'
+  | 'chevron-right'
+  | 'shield-lock';
 
 // Direct import of icons we use
-const iconComponents = {
+const iconComponents: Record<IconName, LucideIcon> = {
+  'home': Icons.Home,
+  'user': Icons.User,
+  'settings': Icons.Settings,
+  'shield': Icons.Shield,
+  'shield-check': Icons.ShieldCheck,
+  'shield-alert': Icons.ShieldAlert,
+  'lock-keyhole': Icons.LockKeyhole,
+  'brain': Icons.Brain,
+  'brain-circuit': Icons.CircuitBoard,
+  'lock': Icons.Lock,
+  'refresh': Icons.RefreshCw,
+  'map-pin': Icons.MapPin,
+  'trending-up': Icons.TrendingUp,
+  'users': Icons.Users,
+  'circle': Icons.Circle,
   'info': Icons.Info,
   'code': Icons.Code,
-  'users': Icons.Users,
   'file-text': Icons.FileText,
   'coins': Icons.Coins,
   'activity': Icons.Activity,
@@ -65,12 +113,9 @@ const iconComponents = {
   'globe': Icons.Globe,
   'loader': Icons.Loader,
   'help-circle': Icons.HelpCircle,
-  'settings': Icons.Settings,
   'qr-code': Icons.QrCode,
-  'trending-up': Icons.TrendingUp,
   'book': Icons.Book,
   'layout-dashboard': Icons.LayoutDashboard,
-  'home': Icons.Home,
   'history': Icons.History,
   'bar-chart': Icons.BarChart,
   'youtube': Icons.Youtube,
@@ -78,8 +123,6 @@ const iconComponents = {
   'video': Icons.Video,
   'linkedin': Icons.Linkedin,
   'mail': Icons.Mail,
-  'lock': Icons.Lock,
-  'user': Icons.User,
   'log-in': Icons.LogIn,
   'log-out': Icons.LogOut,
   'menu': Icons.Menu,
@@ -88,15 +131,69 @@ const iconComponents = {
   'building': Icons.Building2,
   'landmark': Icons.Landmark,
   'list': Icons.List,
-  'dollar': Icons.DollarSign,
+  'dollar-sign': Icons.DollarSign,
   'check': Icons.Check,
   'chart-bar': Icons.BarChart,
-  'check-circle': Icons.CheckCircle
-} as const;
+  'check-circle': Icons.CheckCircle,
+  'credit-card': Icons.CreditCard,
+  'user-check': Icons.UserCheck,
+  'external-link': Icons.ExternalLink,
+  'wallet-cards': Icons.Wallet,
+  'wallet': Icons.Wallet,
+  'scan': Icons.Scan,
+  'map': Icons.Map,
+  'pin': Icons.Pin,
+  'location': Icons.MapPin,
+  'heart': Icons.Heart,
+  'heart-filled': Icons.HeartFilled,
+  'heart-off': Icons.HeartOff,
+  'star': Icons.Star,
+  'star-filled': Icons.StarFilled,
+  'star-off': Icons.StarOff,
+  'thumbs-up': Icons.ThumbsUp,
+  'thumbs-down': Icons.ThumbsDown,
+  'share': Icons.Share2,
+  'send': Icons.Send,
+  'alert': Icons.Alert,
+  'alert-circle': Icons.AlertCircle,
+  'alert-triangle': Icons.AlertTriangle,
+  'bell': Icons.Bell,
+  'bell-off': Icons.BellOff,
+  'calendar': Icons.Calendar,
+  'clock': Icons.Clock,
+  'filter': Icons.Filter,
+  'search': Icons.Search,
+  'chevron-right': Icons.ChevronRight,
+  'shield-lock': Icons.Lock
+};
+
+export interface IconProps extends Omit<LucideProps, 'ref'> {
+  name: IconName;
+  className?: string;
+}
 
 export const Icon = React.forwardRef<SVGSVGElement, IconProps>(
   ({ name, ...props }, ref) => {
-    const IconComponent = iconComponents[name];
+    // Add warning for common mistakes
+    const commonMistakes: Record<string, IconName> = {
+      'login': 'log-in',
+      'logout': 'log-out',
+      'email': 'mail',
+      'warning': 'alert-triangle',
+      'error': 'alert-circle',
+      'success': 'check-circle',
+      'ai': 'brain-circuit',
+      'security': 'lock-keyhole',
+      'circuit': 'brain-circuit',
+      'secure': 'lock-keyhole'
+    };
+
+    if (commonMistakes[name]) {
+      console.warn(`Icon "${name}" not found. Did you mean "${commonMistakes[name]}"?`);
+      return <IconComponent name={commonMistakes[name]} {...props} ref={ref} />;
+    }
+
+    const IconComponent = iconComponents[name as IconName];
     if (!IconComponent) {
       console.warn(`Icon "${name}" not found`);
       return null;
@@ -105,4 +202,4 @@ export const Icon = React.forwardRef<SVGSVGElement, IconProps>(
   }
 );
 
-Icon.displayName = 'Icon'; 
+Icon.displayName = 'Icon';

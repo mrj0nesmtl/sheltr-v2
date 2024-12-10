@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Icon } from '@/components/ui/Icon';
+import { Link } from 'react-router-dom';
 
 // Individual section components
 import { Introduction } from './sections/Introduction';
@@ -128,7 +129,7 @@ export function AboutPage() {
         </div>
 
         {/* Content Sections */}
-        <div className="space-y-24">
+        <div className="space-y-24 mb-12">
           <section id="introduction" ref={sectionRefs.introduction} className="scroll-mt-32">
             <Introduction />
           </section>
@@ -148,6 +149,17 @@ export function AboutPage() {
           <section id="whitepaper" ref={sectionRefs.whitepaper} className="scroll-mt-32">
             <Whitepaper />
           </section>
+        </div>
+
+        {/* Know It All Button - Centered */}
+        <div className="flex justify-center mt-16">
+          <Link 
+            to="/docs" 
+            className="inline-flex items-center px-6 py-3 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg transition-colors"
+          >
+            <Icon name="book" className="h-5 w-5 mr-2" />
+            <span className="font-medium">Know It All</span>
+          </Link>
         </div>
       </div>
     </div>
