@@ -1,0 +1,20 @@
+{
+  "auth": {
+    "login": {
+      "title": "Sign In to SHELTR",
+      "email": "Email",
+      "password": "Password",
+      "signIn": "Sign In",
+      "signingIn": "Signing in...",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign up",
+      "errors": {
+        "Failed to check auth status": "Unable to verify your account. Please try again.",
+        "Invalid login credentials": "Invalid email or password",
+        "Email not confirmed": "Please verify your email address",
+        "No user returned": "Login failed. Please try again.",
+        "No profile found": "User profile not found. Please contact support."
+      }
+    }
+  }
+} 
