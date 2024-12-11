@@ -1,33 +1,55 @@
 import { create } from 'zustand';
-import { User, UserRole } from '@/types/auth';
+import type { UserRole } from '@/lib/i18n/types';
+import { supabase } from '@/lib/supabase';
+import { getDefaultRoute } from '@/lib/navigation/roleNavigation';
+
+interface User {
+  id: string;
+  email: string;
+  role: UserRole;
+  name?: string;
+  avatar?: string;
+}
 
 interface AuthState {
   user: User | null;
-  isAuthenticated: boolean;
   isLoading: boolean;
   initialized: boolean;
   error: string | null;
   checkUser: () => Promise<void>;
   signIn: (email: string, password: string) => Promise<User | null>;
   signOut: () => Promise<void>;
-  getDefaultRoute: (role: UserRole) => string;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
   user: null,
-  isAuthenticated: false,
-  isLoading: false,
+  isLoading: true,
   initialized: false,
   error: null,
 
   checkUser: async () => {
-    set({ isLoading: true });
     try {
-      // Check local storage or session for existing auth
-      const storedUser = localStorage.getItem('user');
-      if (storedUser) {
-        const user = JSON.parse(storedUser);
-        set({ user, isAuthenticated: true });
+      set({ isLoading: true });
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (session?.user) {
+        const { data: profile } = await supabase
+          .from('user_profiles')
+          .select('*')
+          .eq('id', session.user.id)
+          .single();
+
+        if (profile) {
+          set({
+            user: {
+              id: session.user.id,
+              email: session.user.email!,
+              role: profile.role,
+              name: profile.name,
+              avatar: profile.avatar
+            }
+          });
+        }
       }
     } catch (error) {
       console.error('Auth check failed:', error);
@@ -37,53 +59,70 @@ export const useAuthStore = create<AuthState>((set) => ({
   },
 
   signIn: async (email, password) => {
-    set({ isLoading: true, error: null });
     try {
-      // Your sign in logic here
-      const user = { id: '1', email, role: 'super_admin' as UserRole, name: 'Admin' };
-      set({ user, isAuthenticated: true, error: null });
+      set({ isLoading: true, error: null });
+      
+      const { data: { user: authUser }, error: signInError } = 
+        await supabase.auth.signInWithPassword({ email, password });
+
+      if (signInError) throw signInError;
+      if (!authUser) throw new Error('No user returned after sign in');
+
+      const { data: profile } = await supabase
+        .from('user_profiles')
+        .select('*')
+        .eq('id', authUser.id)
+        .single();
+
+      if (!profile) throw new Error('No profile found');
+
+      const user = {
+        id: authUser.id,
+        email: authUser.email!,
+        role: profile.role as UserRole,
+        name: profile.name,
+        avatar: profile.avatar
+      };
+
+      set({ user, error: null });
+      
+      const dashboardPath = getDashboardPath(user.role);
+      console.log('Redirecting to:', dashboardPath);
+      window.location.href = dashboardPath;
+      
       return user;
-    } catch (error) {
-      set({ error: 'Authentication failed' });
+    } catch (error: any) {
+      set({ error: error.message });
       return null;
     } finally {
-      set({ isLoading: false, initialized: true });
+      set({ isLoading: false });
     }
   },
 
   signOut: async () => {
-    set({ user: null, isAuthenticated: false });
-  },
-
-  getDefaultRoute: (role: UserRole) => {
-    switch (role) {
-      case 'super_admin':
-        return '/super-admin/dashboard';
-      case 'shelter_admin':
-        return '/shelter/dashboard';
-      case 'donor':
-        return '/donor/dashboard';
-      case 'participant':
-        return '/participant/dashboard';
-      default:
-        return '/';
+    try {
+      set({ isLoading: true });
+      await supabase.auth.signOut();
+      set({ user: null });
+    } catch (error) {
+      console.error('Sign out error:', error);
+    } finally {
+      set({ isLoading: false });
     }
   }
 }));
 
-// Export the dashboard path helper function
-export function getDashboardPath(role: UserRole): string {
+export const getDashboardPath = (role: UserRole): string => {
   switch (role) {
     case 'super_admin':
       return '/super-admin/dashboard';
-    case 'shelter_admin':
     case 'admin':
-      return '/shelter/dashboard';
+      return '/admin/dashboard';
     case 'donor':
       return '/donor/dashboard';
     case 'participant':
       return '/participant/dashboard';
     default:
-      return '/';
+      return '/login';
   }
-}
+};

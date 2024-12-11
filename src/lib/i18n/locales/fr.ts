@@ -1,4 +1,6 @@
-export const fr = {
+import type { Translations } from '../types';
+
+export const fr: Translations = {
   common: {
     tagline: 'Pirater l\'itinérance avec la technologie.',
     cta: {
@@ -82,7 +84,21 @@ export const fr = {
         depot: "Dépôt Sans-Abri",
         depotDesc: "Accéder aux ressources des participants"
       }
-    }
+    },
+    footer: {
+      about: 'À Propos',
+      contact: 'Contact',
+      privacy: 'Confidentialité',
+      terms: 'Conditions',
+      copyright: '© {{year}} SHELTR. Tous droits réservés.'
+    },
+    language: 'Langue',
+    closeMenu: 'Fermer le menu',
+    profile: 'Profil',
+    dashboard: 'Tableau de Bord',
+    signOut: 'Déconnexion',
+    about: 'À Propos',
+    menu: 'Menu'
   },
   hero: {
     title: 'Pirater l\'itinérance',
@@ -294,28 +310,34 @@ export const fr = {
   footer: {
     tagline: 'Pirater l\'itinérance avec la technologie.',
     quickLinks: 'Liens Rapides',
-    documentHub: 'Centre de Documentation',
     resources: 'Ressources',
     connect: 'Connecter',
-    blog: 'Blog',
-    privacy: 'Politique de Confidentialité',
-    terms: 'Conditions d\'Utilisation',
-    language: 'English',
-    rights: 'Tous droits réservés.',
-    podcast: {
-      listen: 'Écouter le dernier épisode',
-      listenOn: 'Écouter sur Spotify',
-      latest: 'Dernier épisode',
-      duration: 'Durée',
-      showName: 'Tomes of Arcana',
-      description: 'Découvrez notre dernier épisode'
+    links: {
+      howItWorks: 'Comment ça Marche',
+      solutions: 'Nos Solutions',
+      scanDonate: 'Scanner & Donner',
+      blog: 'Blog',
+      privacy: 'Confidentialité',
+      terms: 'Conditions d\'Utilisation'
     },
     social: {
-      youtube: 'Chaîne YouTube',
-      linkedin: 'LinkedIn',
-      website: 'Site Web',
-      tiktok: 'TikTok'
-    }
+      linkedin: 'Suivez-nous sur LinkedIn',
+      youtube: 'Regardez sur YouTube',
+      tiktok: 'Suivez sur TikTok',
+      website: 'Visitez notre site web',
+      substack: 'Lisez notre Substack'
+    },
+    podcast: {
+      latest: 'Dernier Épisode',
+      listen: 'Écouter',
+      listenOn: 'Écouter sur Spotify',
+      duration: 'Durée',
+      showName: 'SHELTR Podcast',
+      description: 'Découvrez notre dernier épisode sur les solutions technologiques pour l\'itinérance'
+    },
+    copyright: '© {{year}} SHELTR.',
+    rights: 'Tous droits réservés.',
+    language: 'English'
   },
   whitepaper: {
     title: "Document Technique",
@@ -451,104 +473,58 @@ export const fr = {
     }
   },
   dashboard: {
-    participant: {
-      title: "Bienvenue, {{name}}",
-      subtitle: "Tableau de Bord du Participant",
-      totalReceived: "Total Reçu",
-      housingFund: "Fonds de Logement",
-      totalDonations: "Dons Totaux",
-      qrCode: "Votre Code QR",
-      qrCodeShare: "Partagez ce code QR pour recevoir des dons",
-      recentActivity: "Activité Récente",
-      donationHistory: "Historique des Dons"
-    },
-    admin: {
-      title: "Tableau de Bord Administrateur",
-      subtitle: "Gérez votre refuge",
-      totalParticipants: "Participants Totaux",
-      activeParticipants: "Participants Actifs",
-      totalDonations: "Dons Totaux",
-      averageDonation: "Don Moyen"
-    },
-    donor: {
-      title: "Tableau de Bord Donateur",
-      subtitle: "Suivez votre impact",
-      welcome: "Bienvenue sur votre tableau de bord donateur",
-      stats: {
-        totalDonated: "Total des Dons",
-        impactScore: "Score d'Impact",
-        donationCount: "Nombre de Dons",
-        beneficiariesHelped: "Bénéficiaires Aidés",
-        monthlyDonation: "Don Mensuel",
-        yearlyContribution: "Contribution Annuelle",
-        recentDonations: "Dons Récents"
-      },
-      impact: {
-        title: "Votre Impact",
-        subtitle: "Voyez la différence que vous faites",
-        metrics: {
-          peopleHelped: "Personnes Aidées",
-          servicesProvided: "Services Fournis",
-          communitiesServed: "Communautés Servies"
-        }
-      }
-    },
-    welcome: "Bienvenue, {{name}}",
-    loading: "Chargement...",
     title: "Tableau de Bord",
     lastLogin: "Dernière Connexion",
     never: "Jamais",
-    participant: {
-      title: "Tableau de Bord Participant",
-      subtitle: "Suivez vos avantages et services",
-      welcome: "Bienvenue sur votre tableau de bord participant",
-      stats: {
-        totalReceived: "Total Reçu",
-        housingFund: "Fonds de Logement",
-        totalDonations: "Total des Dons",
-        activeServices: "Services Actifs",
-        nextAppointment: "Prochain Rendez-vous",
-        programProgress: "Progression du Programme"
-      },
-      qrCode: {
-        title: "Votre Code QR",
-        subtitle: "Partagez ce code pour recevoir des dons",
-        shareText: "Partager votre code QR de don",
-        downloadText: "Télécharger le code QR",
-        qrCodeShare: "Partagez ce code QR pour recevoir des dons",
-        recentActivity: "Activité Récente",
-        donationHistory: "Historique des Dons"
-      }
-    },
-    admin: {
-      title: "Tableau de Bord Administrateur",
-      subtitle: "Gérez votre refuge",
-      welcome: "Bienvenue, {{name}}",
-      stats: {
-        totalDonations: "Total des Dons",
-        totalParticipants: "Total des Participants",
-        activeParticipants: "Participants Actifs",
-        totalTransactions: "Total des Transactions",
-        participantGrowth: "Croissance des Participants",
-        averageDonation: "Don Moyen",
-        monthlyTrends: "Tendances Mensuelles",
-        serviceDistribution: "Distribution des Services",
-        recentActivity: "Activité Récente"
-      },
-      charts: {
-        monthlyTitle: "Statistiques Mensuelles",
-        distributionTitle: "Distribution des Services",
-        trendingTitle: "Métriques Tendances"
-      }
-    },
+    loading: "Chargement...",
     roles: {
       participant: {
         title: "Tableau de Bord Participant",
         subtitle: "Suivez vos avantages et services",
+        welcome: "Bienvenue sur votre tableau de bord participant",
+        stats: {
+          totalReceived: "Total Reçu",
+          housingFund: "Fonds de Logement",
+          totalDonations: "Total des Dons",
+          activeServices: "Services Actifs",
+          nextAppointment: "Prochain Rendez-vous",
+          programProgress: "Progression du Programme"
+        },
+        qrCode: {
+          title: "Votre Code QR",
+          subtitle: "Partagez ce code pour recevoir des dons",
+          shareText: "Partager votre code QR de don",
+          downloadText: "Télécharger le code QR"
+        }
       },
       admin: {
         title: "Tableau de Bord Administrateur",
         subtitle: "Gérez votre refuge",
+        welcome: "Bienvenue, {{name}}",
+        stats: {
+          totalDonations: "Total des Dons",
+          totalParticipants: "Total des Participants",
+          activeParticipants: "Participants Actifs",
+          totalTransactions: "Total des Transactions",
+          participantGrowth: "Croissance des Participants",
+          averageDonation: "Don Moyen",
+          monthlyTrends: "Tendances Mensuelles",
+          serviceDistribution: "Distribution des Services",
+          recentActivity: "Activité Récente"
+        }
+      },
+      donor: {
+        title: "Tableau de Bord Donateur",
+        subtitle: "Suivez votre impact",
+        welcome: "Bienvenue sur votre tableau de bord donateur",
+        stats: {
+          totalDonated: "Total des Dons",
+          impactScore: "Score d'Impact",
+          donationCount: "Nombre de Dons",
+          beneficiariesHelped: "Bénéficiaires Aidés",
+          monthlyDonation: "Don Mensuel",
+          yearlyContribution: "Contribution Annuelle"
+        }
       }
     }
   },
@@ -657,10 +633,20 @@ export const fr = {
       welcome: "Bienvenue sur votre tableau de bord"
     },
     shelter: {
-      title: "Tableau de Bord Administrateur",
+      title: "Tableau de Bord du Refuge",
+      subtitle: "Gérez votre refuge",
       welcome: "Bienvenue, {{name}}",
+      donors: {
+        title: "Donateurs",
+        export: "Exporter",
+        name: "Nom",
+        totalDonated: "Total des Dons",
+        lastDonation: "Dernier Don",
+        frequency: "Fréquence",
+        status: "Statut"
+      },
       participants: {
-        title: "Liste des Participants",
+        title: "Participants",
         add: "Ajouter un Participant",
         name: "Nom",
         status: "Statut",
@@ -673,53 +659,61 @@ export const fr = {
           active: "Actif",
           inactive: "Inactif",
           pending: "En Attente"
+        }
+      }
+    },
+    participant: {
+      registration: {
+        title: 'Inscrire un Nouveau Participant',
+        steps: {
+          personal: 'Informations Personnelles',
+          contact: 'Contact',
+          needs: 'Évaluation des Besoins',
+          verification: 'Vérification'
         },
-        services: {
-          housing: "Logement",
-          jobTraining: "Formation Professionnelle",
-          foodServices: "Services Alimentaires",
-          medicalCare: "Soins Médicaux"
+        form: {
+          firstName: 'Prénom',
+          lastName: 'Nom',
+          dateOfBirth: 'Date de Naissance',
+          gender: {
+            label: 'Genre',
+            options: {
+              male: 'Homme',
+              female: 'Femme',
+              other: 'Autre',
+              preferNotToSay: 'Préfère ne pas dire'
+            }
+          },
+          email: 'Adresse Email',
+          phone: 'Numéro de Téléphone',
+          emergency: {
+            title: 'Contact d\'Urgence',
+            name: 'Nom du Contact',
+            phone: 'Téléphone du Contact',
+            relationship: 'Relation'
+          },
+          housing: {
+            label: 'Situation de Logement',
+            options: {
+              emergency: 'Refuge d\'Urgence',
+              transitional: 'Logement de Transition',
+              atRisk: 'À Risque',
+              permanent: 'Logement Permanent',
+              street: 'Sans Abri'
+            }
+          },
+          employment: {
+            label: 'Situation Professionnelle',
+            options: {
+              unemployed: 'Sans Emploi',
+              partTime: 'Temps Partiel',
+              fullTime: 'Temps Plein',
+              selfEmployed: 'Travailleur Indépendant',
+              unableToWork: 'Incapable de Travailler',
+              retired: 'Retraité'
+            }
+          }
         }
-      },
-      donors: {
-        title: "Liste des Donateurs",
-        export: "Exporter",
-        name: "Nom",
-        totalDonated: "Total des Dons",
-        lastDonation: "Dernier Don",
-        frequency: "Fréquence",
-        status: "Statut",
-        viewDetails: "Voir les Détails",
-        frequencies: {
-          oneTime: "Unique",
-          monthly: "Mensuel",
-          quarterly: "Trimestriel"
-        },
-        statuses: {
-          active: "Actif",
-          inactive: "Inactif"
-        }
-      },
-      alerts: {
-        title: "Alertes Système",
-        dismiss: "Fermer",
-        types: {
-          info: "Information",
-          success: "Succès",
-          warning: "Avertissement",
-          error: "Erreur"
-        }
-      },
-      stats: {
-        totalDonations: "Total des Dons",
-        totalParticipants: "Total des Participants",
-        totalTransactions: "Total des Transactions",
-        participantGrowth: "Croissance des Participants"
-      },
-      charts: {
-        monthlyTrends: "Tendances Mensuelles",
-        serviceDistribution: "Distribution des Services",
-        recentDonations: "Dons Récents"
       }
     }
   }

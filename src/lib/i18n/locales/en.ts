@@ -1,4 +1,6 @@
-export const en = {
+import type { Translations } from '../types';
+
+export const en: Translations = {
   common: {
     tagline: 'Hacking Homelessness with Technology.',
     cta: {
@@ -100,7 +102,9 @@ export const en = {
       profileDesc: "View and edit your profile information",
       settings: "Settings",
       settingsDesc: "Manage your account settings and preferences"
-    }
+    },
+    language: 'Language',
+    closeMenu: 'Close menu'
   },
   hero: {
     mainTitle: "Transform Charitable Giving",
@@ -342,7 +346,7 @@ export const en = {
     tagline: 'Hacking Homelessness with Technology.',
     quickLinks: 'Quick Links',
     resources: 'Resources',
-    connect: 'Connect With Us',
+    connect: 'Connect',
     links: {
       howItWorks: 'How It Works',
       solutions: 'Our Solutions',
@@ -352,16 +356,23 @@ export const en = {
       terms: 'Terms of Service'
     },
     social: {
-      linkedin: 'Connect on LinkedIn',
-      website: 'Visit Arcana Concept Website',
+      linkedin: 'Follow on LinkedIn',
       youtube: 'Watch on YouTube',
       tiktok: 'Follow on TikTok',
-      spotify: 'Listen on Spotify',
-      substack: 'Read our Substack',
-      email: 'Email Us'
+      website: 'Visit Website',
+      substack: 'Read on Substack'
     },
-    copyright: '© {{year}} SHELTR. All rights reserved.',
-    allRightsReserved: 'All rights reserved.'
+    podcast: {
+      latest: 'Latest Episode',
+      listen: 'Listen',
+      listenOn: 'Listen on Spotify',
+      duration: 'Duration',
+      showName: 'SHELTR Podcast',
+      description: 'Discover our latest episode about tech solutions for homelessness'
+    },
+    copyright: '© {{year}} SHELTR.',
+    rights: 'All rights reserved.',
+    language: 'Français'
   },
   whitepaper: {
     title: 'SHELTR Whitepaper: Revolutionizing Charitable Giving for Homelessness',
@@ -461,15 +472,15 @@ export const en = {
     }
   },
   qrScanner: {
-    title: 'Scan QR Code to Donate',
-    instructions: 'Position the QR code within the frame to scan',
-    scannerActive: 'Scanner is active and ready',
+    title: 'Scan QR Code',
+    instructions: 'Point your camera at a participant\'s QR code',
+    scannerActive: 'Scanner is active',
     retryButton: 'Try Again',
     errors: {
-      cameraPermission: 'Please allow camera access to scan QR codes',
-      noCamera: 'No camera found on your device',
-      cameraInUse: 'Camera is being used by another application',
-      initialization: 'Unable to initialize QR scanner'
+      cameraPermission: 'Camera access denied. Please enable camera access to scan QR codes.',
+      initialization: 'Failed to initialize scanner. Please try again.',
+      invalidCode: 'Invalid QR Code',
+      invalidCodeDesc: 'This QR code is not valid or has expired. Please try scanning a valid participant QR code.'
     }
   },
   auth: {
@@ -671,6 +682,121 @@ export const en = {
     dashboard: {
       title: "Admin Dashboard",
       welcome: "Welcome back to your dashboard"
+    },
+    shelter: {
+      title: 'Shelter Dashboard',
+      subtitle: 'Manage your shelter',
+      welcome: 'Welcome, {{name}}',
+      donors: {
+        title: 'Donors',
+        export: 'Export',
+        name: 'Name',
+        totalDonated: 'Total Donated',
+        lastDonation: 'Last Donation',
+        frequency: 'Frequency',
+        status: 'Status'
+      },
+      participants: {
+        title: 'Participants',
+        add: 'Add Participant',
+        name: 'Name',
+        status: 'Status',
+        joinDate: 'Join Date',
+        totalReceived: 'Total Received',
+        qrCode: 'QR Code',
+        loginToken: 'Login Token',
+        viewDetails: 'View Details',
+        statuses: {
+          active: 'Active',
+          inactive: 'Inactive',
+          pending: 'Pending'
+        }
+      }
+    },
+    participant: {
+      registration: {
+        title: 'Register New Participant',
+        steps: {
+          personal: 'Personal Info',
+          contact: 'Contact',
+          needs: 'Needs Assessment',
+          verification: 'Verification'
+        },
+        form: {
+          firstName: 'First Name',
+          lastName: 'Last Name',
+          dateOfBirth: 'Date of Birth',
+          gender: {
+            label: 'Gender',
+            options: {
+              male: 'Male',
+              female: 'Female',
+              other: 'Other',
+              preferNotToSay: 'Prefer not to say'
+            }
+          },
+          email: 'Email Address',
+          phone: 'Phone Number',
+          emergency: {
+            title: 'Emergency Contact',
+            name: 'Contact Name',
+            phone: 'Contact Phone',
+            relationship: 'Relationship'
+          },
+          housing: {
+            label: 'Housing Status',
+            options: {
+              emergency: 'Emergency Shelter',
+              transitional: 'Transitional Housing',
+              atRisk: 'At Risk',
+              permanent: 'Permanent Housing',
+              street: 'Street'
+            }
+          },
+          employment: {
+            label: 'Employment Status',
+            options: {
+              unemployed: 'Unemployed',
+              partTime: 'Part-Time',
+              fullTime: 'Full-Time',
+              selfEmployed: 'Self-Employed',
+              unableToWork: 'Unable to Work',
+              retired: 'Retired'
+            }
+          },
+          specialNeeds: 'Special Needs or Requirements',
+          identification: {
+            title: 'Identity Verification',
+            type: 'ID Type',
+            number: 'ID Number',
+            expiry: 'Expiry Date',
+            issuer: 'Issuing Authority'
+          }
+        },
+        buttons: {
+          next: 'Next',
+          back: 'Back',
+          submit: 'Complete Registration',
+          cancel: 'Cancel'
+        },
+        validation: {
+          required: 'This field is required',
+          invalidEmail: 'Please enter a valid email address',
+          invalidPhone: 'Please enter a valid phone number',
+          minAge: 'Participant must be at least 18 years old',
+          invalidName: 'Please enter a valid name'
+        }
+      },
+      housing: {
+        emergency: 'Emergency Shelter',
+        transitional: 'Transitional Housing',
+        atRisk: 'At Risk of Homelessness'
+      },
+      employment: {
+        unemployed: 'Unemployed',
+        partTime: 'Part-Time',
+        fullTime: 'Full-Time'
+      }
     }
   },
   home: {
@@ -708,6 +834,35 @@ export const en = {
       referral: "referred a friend",
       post: "shared a post",
       impact: "reached impact milestone"
+    },
+    title: 'Profile',
+    editProfile: 'Edit Profile',
+    sections: {
+      personalInfo: 'Personal Information',
+      preferences: 'Preferences',
+      socialLinks: 'Social Links',
+      activity: 'Recent Activity'
+    },
+    fields: {
+      name: 'Name',
+      email: 'Email',
+      bio: 'Bio',
+      notifications: 'Email Notifications',
+      theme: 'Theme',
+      language: 'Language'
+    },
+    buttons: {
+      save: 'Save Changes',
+      cancel: 'Cancel',
+      uploadImage: 'Upload Image',
+      removeImage: 'Remove Image'
+    },
+    activityFeed: {
+      empty: 'No recent activity',
+      donation: 'made a donation',
+      referral: 'referred a participant',
+      impact: 'achieved an impact milestone',
+      title: 'Recent Activity'
     }
   }
 };

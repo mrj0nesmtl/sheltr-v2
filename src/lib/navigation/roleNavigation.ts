@@ -1,63 +1,80 @@
-import type { UserRole } from '@/lib/types/auth';
-import type { IconName } from '@/components/ui/Icon';
+import type { UserRole } from '@/lib/i18n/types';
 
-interface NavItem {
-  path: string;
-  label: string;
-  icon: IconName;
-  roles?: UserRole[];
+interface RoleRouteConfig {
+  defaultRoute: string;
+  allowedRoutes: string[];
 }
 
-export const getNavigation = (role: UserRole): NavItem[] => {
-  const baseNavigation: NavItem[] = [
-    {
-      path: '/',
-      label: 'Home',
-      icon: 'home'
+export const ROLE_ROUTES: Record<string, RoleRouteConfig> = {
+  super_admin: {
+    defaultRoute: '/super-admin/dashboard',
+    allowedRoutes: [
+      '/super-admin/dashboard',
+      '/admin/*',
+      '/shelter/*',
+      '/donor/*',
+      '/participant/*'
+    ]
+  },
+  admin: {
+    defaultRoute: '/admin/dashboard',
+    allowedRoutes: [
+      '/admin/dashboard',
+      '/admin/participants',
+      '/admin/analytics'
+    ]
+  },
+  shelter_admin: {
+    defaultRoute: '/admin/dashboard',
+    allowedRoutes: [
+      '/admin/dashboard',
+      '/admin/participants',
+      '/admin/analytics'
+    ]
+  },
+  donor: {
+    defaultRoute: '/donor/dashboard',
+    allowedRoutes: [
+      '/donor/dashboard',
+      '/donor/donations',
+      '/donor/impact'
+    ]
+  },
+  participant: {
+    defaultRoute: '/participant/dashboard',
+    allowedRoutes: [
+      '/participant/dashboard',
+      '/participant/services',
+      '/participant/qr-code'
+    ]
+  }
+};
+
+export const getDashboardPath = (role: UserRole): string => {
+  switch (role) {
+    case 'super_admin':
+      return '/super-admin/dashboard';
+    case 'admin':
+      return '/admin/dashboard';
+    case 'donor':
+      return '/donor/dashboard';
+    case 'participant':
+      return '/participant/dashboard';
+    default:
+      return '/login';
+  }
+};
+
+export const isRouteAllowed = (role: UserRole, route: string): boolean => {
+  const effectiveRole = role === 'admin' ? 'shelter_admin' : role;
+  const config = ROLE_ROUTES[effectiveRole];
+  if (!config) return false;
+  
+  return config.allowedRoutes.some(allowedRoute => {
+    if (allowedRoute.endsWith('/*')) {
+      const basePath = allowedRoute.slice(0, -2);
+      return route.startsWith(basePath);
     }
-  ];
-
-  const roleNavigation: Record<UserRole, NavItem[]> = {
-    super_admin: [
-      {
-        path: '/admin/dashboard',
-        label: 'Admin Dashboard',
-        icon: 'layout-dashboard',
-        roles: ['super_admin']
-      }
-    ],
-    donor: [
-      {
-        path: '/scan',
-        label: 'Scan & Donate',
-        icon: 'qr-code',
-        roles: ['donor']
-      },
-      {
-        path: '/donations',
-        label: 'My Donations',
-        icon: 'history',
-        roles: ['donor']
-      }
-    ],
-    shelter_admin: [
-      {
-        path: '/shelter/dashboard',
-        label: 'Shelter Dashboard',
-        icon: 'layout-dashboard',
-        roles: ['shelter_admin']
-      }
-    ],
-    participant: [
-      {
-        path: '/services',
-        label: 'Available Services',
-        icon: 'list',
-        roles: ['participant']
-      }
-    ],
-    guest: []
-  };
-
-  return [...baseNavigation, ...roleNavigation[role]];
+    return route === allowedRoute;
+  });
 }; 
