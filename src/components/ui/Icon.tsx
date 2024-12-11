@@ -1,208 +1,190 @@
 import React from 'react';
 import * as Icons from 'lucide-react';
-import type { LucideProps, LucideIcon } from 'lucide-react';
+import type { LucideProps } from 'lucide-react';
 
-// Define all available icon names
-export type IconName =
-  | 'home'
-  | 'user'
-  | 'settings'
-  | 'shield'
-  | 'shield-check'
-  | 'shield-alert'
-  | 'lock-keyhole'
-  | 'brain'
-  | 'brain-circuit'
-  | 'lock'
-  | 'refresh'
-  | 'map-pin'
-  | 'trending-up'
-  | 'users'
-  | 'circle'
-  | 'info'
-  | 'code'
-  | 'file-text'
-  | 'coins'
-  | 'activity'
-  | 'shopping-bag'
-  | 'blocks'
-  | 'chevron-down'
-  | 'chevron-up'
-  | 'globe'
-  | 'loader'
-  | 'help-circle'
-  | 'qr-code'
-  | 'book'
-  | 'layout-dashboard'
-  | 'history'
-  | 'bar-chart'
-  | 'youtube'
-  | 'headphones'
-  | 'video'
-  | 'linkedin'
-  | 'mail'
-  | 'log-in'
-  | 'log-out'
-  | 'menu'
-  | 'x'
-  | 'user-plus'
-  | 'building'
-  | 'landmark'
-  | 'list'
-  | 'dollar-sign'
-  | 'check'
-  | 'chart-bar'
-  | 'check-circle'
-  | 'credit-card'
-  | 'user-check'
-  | 'external-link'
-  | 'wallet-cards'
-  | 'wallet'
-  | 'scan'
-  | 'map'
-  | 'pin'
-  | 'location'
-  | 'heart'
-  | 'heart-filled'
-  | 'heart-off'
-  | 'star'
-  | 'star-filled'
-  | 'star-off'
-  | 'thumbs-up'
-  | 'thumbs-down'
-  | 'share'
-  | 'send'
-  | 'alert'
-  | 'alert-circle'
-  | 'alert-triangle'
-  | 'bell'
-  | 'bell-off'
-  | 'calendar'
-  | 'clock'
-  | 'filter'
-  | 'search'
-  | 'chevron-right'
-  | 'shield-lock'
-  | 'arrow-left';
-
-// Direct import of icons we use
-const iconComponents: Record<IconName, LucideIcon> = {
-  'home': Icons.Home,
-  'user': Icons.User,
-  'settings': Icons.Settings,
-  'shield': Icons.Shield,
-  'shield-check': Icons.ShieldCheck,
-  'shield-alert': Icons.ShieldAlert,
-  'lock-keyhole': Icons.LockKeyhole,
-  'brain': Icons.Brain,
-  'brain-circuit': Icons.CircuitBoard,
-  'lock': Icons.Lock,
-  'refresh': Icons.RefreshCw,
-  'map-pin': Icons.MapPin,
-  'trending-up': Icons.TrendingUp,
-  'users': Icons.Users,
-  'circle': Icons.Circle,
-  'info': Icons.Info,
-  'code': Icons.Code,
-  'file-text': Icons.FileText,
-  'coins': Icons.Coins,
-  'activity': Icons.Activity,
-  'shopping-bag': Icons.ShoppingBag,
-  'blocks': Icons.Blocks,
+// Define all available icons
+const iconMap = {
+  // Navigation & Arrows
+  menu: Icons.Menu,
   'chevron-down': Icons.ChevronDown,
+  'chevron-right': Icons.ChevronRight,
   'chevron-up': Icons.ChevronUp,
-  'globe': Icons.Globe,
-  'loader': Icons.Loader,
-  'help-circle': Icons.HelpCircle,
-  'qr-code': Icons.QrCode,
-  'book': Icons.Book,
-  'layout-dashboard': Icons.LayoutDashboard,
-  'history': Icons.History,
-  'bar-chart': Icons.BarChart,
-  'youtube': Icons.Youtube,
-  'headphones': Icons.Headphones,
-  'video': Icons.Video,
-  'linkedin': Icons.Linkedin,
-  'mail': Icons.Mail,
-  'log-in': Icons.LogIn,
-  'log-out': Icons.LogOut,
-  'menu': Icons.Menu,
-  'x': Icons.X,
-  'user-plus': Icons.UserPlus,
-  'building': Icons.Building2,
-  'landmark': Icons.Landmark,
-  'list': Icons.List,
-  'dollar-sign': Icons.DollarSign,
-  'check': Icons.Check,
-  'chart-bar': Icons.BarChart,
-  'check-circle': Icons.CheckCircle,
-  'credit-card': Icons.CreditCard,
-  'user-check': Icons.UserCheck,
+  'arrow-right': Icons.ArrowRight,
+  'arrow-left': Icons.ArrowLeft,
   'external-link': Icons.ExternalLink,
-  'wallet-cards': Icons.Wallet,
-  'wallet': Icons.Wallet,
-  'scan': Icons.Scan,
-  'map': Icons.Map,
-  'pin': Icons.Pin,
-  'location': Icons.MapPin,
-  'heart': Icons.Heart,
-  'heart-filled': Icons.Heart,
-  'heart-off': Icons.HeartOff,
-  'star': Icons.Star,
-  'star-filled': Icons.Star,
-  'star-off': Icons.StarOff,
-  'thumbs-up': Icons.ThumbsUp,
-  'thumbs-down': Icons.ThumbsDown,
-  'share': Icons.Share2,
-  'send': Icons.Send,
-  'alert': Icons.AlertTriangle,
+  'x': Icons.X,
+  
+  // User & Profile
+  user: Icons.User,
+  'user-plus': Icons.UserPlus,
+  'user-check': Icons.UserCheck,
+  users: Icons.Users,
+  settings: Icons.Settings,
+  camera: Icons.Camera,
+  edit: Icons.Edit2,
+  trash: Icons.Trash2,
+  
+  // Status & Notifications
+  bell: Icons.Bell,
+  alert: Icons.AlertTriangle,
   'alert-circle': Icons.AlertCircle,
   'alert-triangle': Icons.AlertTriangle,
-  'bell': Icons.Bell,
-  'bell-off': Icons.BellOff,
-  'calendar': Icons.Calendar,
-  'clock': Icons.Clock,
-  'filter': Icons.Filter,
-  'search': Icons.Search,
-  'chevron-right': Icons.ChevronRight,
-  'shield-lock': Icons.Lock,
-  'arrow-left': Icons.ArrowLeft
-};
+  'alert-octagon': Icons.AlertOctagon,
+  info: Icons.Info,
+  loader: Icons.Loader2,
+  'check-circle': Icons.CheckCircle,
+  'x-circle': Icons.XCircle,
+  check: Icons.Check,
+  'help-circle': Icons.HelpCircle,
+  
+  // Analytics & Charts
+  'bar-chart': Icons.BarChart2,
+  'line-chart': Icons.LineChart,
+  'pie-chart': Icons.PieChart,
+  'trending-up': Icons.TrendingUp,
+  'trending-down': Icons.TrendingDown,
+  activity: Icons.Activity,
+  
+  // System & Monitoring
+  cpu: Icons.Cpu,
+  database: Icons.Database,
+  'hard-drive': Icons.HardDrive,
+  server: Icons.Server,
+  terminal: Icons.Terminal,
+  wifi: Icons.Wifi,
+  shield: Icons.Shield,
+  
+  // Media & Communication
+  'video-camera': Icons.Video,
+  linkedin: Icons.Linkedin,
+  youtube: Icons.Youtube,
+  video: Icons.Video,
+  headphones: Icons.Headphones,
+  mail: Icons.Mail,
+  
+  // Finance & Business
+  'dollar-sign': Icons.DollarSign,
+  'credit-card': Icons.CreditCard,
+  wallet: Icons.Wallet,
+  building: Icons.Building2,
+  'bar-chart': Icons.BarChart2,
+  'pie-chart': Icons.PieChart,
+  'trending-up': Icons.TrendingUp,
+  briefcase: Icons.Briefcase,
+  activity: Icons.Activity,
+  
+  // Files & Documents
+  'file-text': Icons.FileText,
+  download: Icons.Download,
+  book: Icons.BookOpen,
+  
+  // Misc UI Elements
+  globe: Icons.Globe,
+  home: Icons.Home,
+  'log-out': Icons.LogOut,
+  'log-in': Icons.LogIn,
+  calendar: Icons.Calendar,
+  clock: Icons.Clock,
+  target: Icons.Target,
+  'qr-code': Icons.QrCode,
+  scan: Icons.Scan,
+  
+  // Shopping & Commerce
+  'shopping-bag': Icons.ShoppingBag,
+  'shopping-cart': Icons.ShoppingCart,
+  package: Icons.Package,
+  gift: Icons.Gift,
+  
+  // Blockchain & Crypto
+  coins: Icons.Coins,
+  layers: Icons.Layers,
+  'bar-chart-2': Icons.BarChart2,
+  trending: Icons.TrendingUp,
+  
+  // Social & Sharing
+  share: Icons.Share2,
+  'message-circle': Icons.MessageCircle,
+  'message-square': Icons.MessageSquare,
+  heart: Icons.Heart,
+  
+  // Device & Hardware
+  smartphone: Icons.Smartphone,
+  tablet: Icons.Tablet,
+  laptop: Icons.Laptop,
+  server: Icons.Server,
+  
+  // Security & Access
+  lock: Icons.Lock,
+  unlock: Icons.Unlock,
+  shield: Icons.Shield,
+  key: Icons.Key,
+  
+  // Weather & Environment
+  sun: Icons.Sun,
+  moon: Icons.Moon,
+  cloud: Icons.Cloud,
+  'cloud-rain': Icons.CloudRain,
+  
+  // Misc Actions
+  plus: Icons.Plus,
+  minus: Icons.Minus,
+  'zoom-in': Icons.ZoomIn,
+  'zoom-out': Icons.ZoomOut,
+  refresh: Icons.RefreshCw,
+  filter: Icons.Filter,
+  search: Icons.Search,
+  more: Icons.MoreHorizontal,
+  
+  // Alert & Status Icons
+  'alert-triangle': Icons.AlertTriangle,
+  'alert-circle': Icons.AlertCircle,
+  'alert-octagon': Icons.AlertOctagon,
+  'check-circle': Icons.CheckCircle,
+  'x-circle': Icons.XCircle,
+  'alert': Icons.AlertTriangle,
+  
+  // System & Monitoring
+  'activity': Icons.Activity,
+  'cpu': Icons.Cpu,
+  'database': Icons.Database,
+  'hard-drive': Icons.HardDrive,
+  'server': Icons.Server,
+  'settings': Icons.Settings,
+  'shield': Icons.Shield,
+  'terminal': Icons.Terminal,
+  'wifi': Icons.Wifi,
+  
+  // Analytics & Charts
+  'bar-chart': Icons.BarChart2,
+  'line-chart': Icons.LineChart,
+  'pie-chart': Icons.PieChart,
+  'trending-up': Icons.TrendingUp,
+  'trending-down': Icons.TrendingDown,
+  'activity': Icons.Activity,
+  
+  // Status Indicators
+  'loader': Icons.Loader2,
+  'refresh': Icons.RefreshCw,
+  'power': Icons.Power,
+  'zap': Icons.Zap,
+} as const;
 
-export interface IconProps extends Omit<LucideProps, 'ref'> {
+export type IconName = keyof typeof iconMap;
+
+interface IconProps extends Omit<LucideProps, 'ref'> {
   name: IconName;
   className?: string;
 }
 
 export const Icon = React.forwardRef<SVGSVGElement, IconProps>(
   ({ name, ...props }, ref) => {
-    // Add warning for common mistakes
-    const commonMistakes: Record<string, IconName> = {
-      'login': 'log-in',
-      'logout': 'log-out',
-      'email': 'mail',
-      'warning': 'alert-triangle',
-      'error': 'alert-circle',
-      'success': 'check-circle',
-      'ai': 'brain-circuit',
-      'security': 'lock-keyhole',
-      'circuit': 'brain-circuit',
-      'secure': 'lock-keyhole'
-    };
-
-    let IconComponent: LucideIcon;
-
-    if (commonMistakes[name]) {
-      IconComponent = iconComponents[commonMistakes[name]];
-    } else {
-      IconComponent = iconComponents[name as IconName];
-    }
+    const IconComponent = iconMap[name];
 
     if (!IconComponent) {
       console.warn(`Icon "${name}" not found`);
       return null;
     }
-    
+
     return <IconComponent ref={ref} {...props} />;
   }
 );

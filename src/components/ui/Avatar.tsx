@@ -3,33 +3,31 @@ import { cn } from '@/lib/utils';
 
 interface AvatarProps {
   src?: string | null;
-  alt?: string;
-  size?: 'sm' | 'md' | 'lg';
-  name?: string;
+  fallback?: string;
+  className?: string;
+  onClick?: () => void;
 }
 
-export function Avatar({ src, alt, size = 'md', name }: AvatarProps) {
-  const initials = name
-    ?.split(' ')
-    .map(n => n[0])
-    .join('')
-    .toUpperCase();
-
+export function Avatar({ src, fallback, className, onClick }: AvatarProps) {
   return (
     <div
+      onClick={onClick}
       className={cn(
-        'rounded-full bg-indigo-500/20 flex items-center justify-center overflow-hidden',
-        {
-          'w-8 h-8': size === 'sm',
-          'w-10 h-10': size === 'md',
-          'w-12 h-12': size === 'lg',
-        }
+        "relative inline-block rounded-full overflow-hidden bg-gray-700",
+        onClick && "cursor-pointer",
+        className
       )}
     >
       {src ? (
-        <img src={src} alt={alt || name || 'Avatar'} className="w-full h-full object-cover" />
+        <img
+          src={src}
+          alt="Avatar"
+          className="w-full h-full object-cover"
+        />
       ) : (
-        <span className="text-indigo-200 font-medium">{initials}</span>
+        <div className="w-full h-full flex items-center justify-center text-gray-400">
+          {fallback}
+        </div>
       )}
     </div>
   );
