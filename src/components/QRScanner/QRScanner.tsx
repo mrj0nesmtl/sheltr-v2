@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { Camera, AlertCircle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { cn } from '../../lib/utils';
+import { validateQRCode } from '@/lib/services/qrService';
+import { toast } from '@/components/ui/Toast';
 
 export function QRScanner() {
   const { t } = useTranslation();
@@ -33,7 +35,23 @@ export function QRScanner() {
               if (scannerRef.current) {
                 await scannerRef.current.stop();
                 setIsScanning(false);
-                navigate(`/donate/${encodeURIComponent(decodedText)}`);
+                
+                // Validate QR code
+                const validatedData = await validateQRCode(decodedText);
+                
+                if (validatedData) {
+                  // Valid participant QR code
+                  navigate(`/donate/${validatedData.participantId}`);
+                } else {
+                  // Invalid QR code
+                  toast({
+                    title: t('qrScanner.errors.invalidCode'),
+                    description: t('qrScanner.errors.invalidCodeDesc'),
+                    variant: 'destructive'
+                  });
+                  // Restart scanning
+                  handleRetry();
+                }
               }
             },
             (errorMessage) => {
