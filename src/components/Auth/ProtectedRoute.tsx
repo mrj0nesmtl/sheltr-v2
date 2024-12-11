@@ -1,19 +1,18 @@
-import React, { useEffect } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { useAuthStore, getDashboardPath } from '@/stores/authStore';
+import { useAuthStore } from '@/stores/authStore';
+import type { UserRole } from '@/lib/i18n/types';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
-import type { UserRole } from '@/types/auth';
 
 interface ProtectedRouteProps {
-  children: React.ReactNode | ((props: { user: User }) => React.ReactNode);
-  allowedRoles?: UserRole[];
+  children: React.ReactNode;
+  allowedRoles?: string[];
 }
 
 export function ProtectedRoute({ children, allowedRoles }: ProtectedRouteProps) {
-  const { user, isLoading, initialized } = useAuthStore();
+  const { user, isLoading } = useAuthStore();
   const location = useLocation();
 
-  if (isLoading || !initialized) {
+  if (isLoading) {
     return <LoadingSpinner />;
   }
 
@@ -21,12 +20,8 @@ export function ProtectedRoute({ children, allowedRoles }: ProtectedRouteProps) 
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  if (typeof children === 'function') {
-    return <>{children({ user })}</>;
-  }
-
   if (allowedRoles && !allowedRoles.includes(user.role)) {
-    return <Navigate to={getDashboardPath(user.role)} replace />;
+    return <Navigate to="/unauthorized" replace />;
   }
 
   return <>{children}</>;

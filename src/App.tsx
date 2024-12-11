@@ -19,6 +19,8 @@ import { useTranslation } from 'react-i18next';
 import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { MetaTags } from '@/components/SEO/MetaTags';
+import { getDefaultRoute } from '@/lib/navigation/roleNavigation';
+import { SuperAdminDashboard } from '@/pages/SuperAdmin';
 
 // Lazy loaded components
 const HowItWorks = lazy(() => import('./components/HowItWorks').then(module => ({ default: module.HowItWorks })));
@@ -33,11 +35,6 @@ const ShelterSignUpForm = lazy(() => import('./components/Auth/ShelterSignUpForm
 const ShelterDashboard = lazy(() => 
   import("./components/Admin/ShelterDashboard").then(module => ({ 
     default: module.ShelterDashboard 
-  }))
-);
-const SuperAdminDashboard = lazy(() => 
-  import("./components/Admin/SuperAdminDashboard").then(module => ({ 
-    default: module.SuperAdminDashboard 
   }))
 );
 const WhitepaperPage = lazy(() => import('./routes/blockchain/WhitepaperPage').then(module => ({ default: module.WhitepaperPage })));
@@ -57,20 +54,20 @@ interface ProtectedRouteProps {
 }
 
 export function App() {
-  const { checkUser, initialized } = useAuthStore();
   const { i18n } = useTranslation();
+  const { checkUser, initialized } = useAuthStore();
 
   useEffect(() => {
-    const initializeApp = async () => {
-      try {
-        await checkUser();
-      } catch (error) {
-        console.error('Failed to initialize app:', error);
-      }
-    };
+    // Load saved language preference
+    const savedLanguage = localStorage.getItem('preferred-language');
+    if (savedLanguage) {
+      i18n.changeLanguage(savedLanguage);
+    }
+  }, [i18n]);
 
+  useEffect(() => {
     if (!initialized) {
-      initializeApp();
+      checkUser();
     }
   }, [checkUser, initialized]);
 
@@ -180,21 +177,30 @@ export function App() {
                   </ProtectedRoute>
                 } />
                 
-                <Route path="/admin/dashboard" element={
-                  <Suspense fallback={<LoadingSpinner />}>
-                    <ProtectedRoute allowedRoles={['admin', 'shelter_admin']}>
-                      <ShelterDashboard />
-                    </ProtectedRoute>
-                  </Suspense>
-                } />
+                <Route 
+                  path="/admin/dashboard" 
+                  element={
+                    <Suspense fallback={<LoadingSpinner />}>
+                      <ProtectedRoute requiredRoles={['admin']}>
+                        <ShelterDashboard />
+                      </ProtectedRoute>
+                    </Suspense>
+                  } 
+                />
                 
-                <Route path="/super-admin/dashboard" element={
-                  <Suspense fallback={<LoadingSpinner />}>
+                <Route 
+                  path="/super-admin/*" 
+                  element={
                     <ProtectedRoute allowedRoles={['super_admin']}>
-                      <SuperAdminDashboard />
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <Routes>
+                          <Route path="dashboard" element={<SuperAdminDashboard />} />
+                          <Route path="" element={<Navigate to="dashboard" replace />} />
+                        </Routes>
+                      </Suspense>
                     </ProtectedRoute>
-                  </Suspense>
-                } />
+                  } 
+                />
 
                 {/* Default dashboard redirect */}
                 <Route path="/dashboard" element={
