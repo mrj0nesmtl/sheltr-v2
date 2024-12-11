@@ -1,5 +1,5 @@
 # 🛠️ SHELTR Technical Stack
-*Updated: December 9, 2024*
+*Updated: December 10, 2024*
 
 ## Frontend Technologies
 - React 18
@@ -7,15 +7,25 @@
 - Tailwind CSS
 - Vite
 - React Router DOM
-- Zustand (State Management)
-- i18next (Internationalization)
-- React-Markdown
+- Zustand
+- i18next
+- Recharts
+- MapboxGL
+- Lucide Icons
 
 ## Backend Services
 - Supabase
+  - Real-time Subscriptions
+  - Row Level Security
+  - Edge Functions
 - PostgreSQL
-- Edge Functions
-- Real-time Subscriptions
+- Real-time Analytics
+
+## Monitoring & Analytics
+- System Health Monitoring
+- Real-time Metrics
+- Performance Analytics
+- User Activity Tracking
 
 ## Documentation
 - Markdown
