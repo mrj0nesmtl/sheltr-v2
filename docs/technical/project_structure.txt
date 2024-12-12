@@ -19,6 +19,7 @@
 │   ├── prompt.md
 │   ├── technical
 │   │   ├── build_tract.md
+│   │   ├── changelog.md
 │   │   ├── tech_stack.md
 │   │   └── user_flow_testing.md
 │   ├── testing
@@ -57,6 +58,8 @@
 │   │   ├── About
 │   │   │   ├── Features.tsx
 │   │   │   ├── MarkdownContent.tsx
+│   │   │   ├── ProjectStatus.tsx
+│   │   │   ├── StatusCard.tsx
 │   │   │   └── sections
 │   │   │       ├── Checkpoint.tsx
 │   │   │       ├── Introduction.tsx
@@ -65,7 +68,6 @@
 │   │   │       ├── Whitepaper.tsx
 │   │   │       └── index.ts
 │   │   ├── Admin
-│   │   │   ├── AdminLogin.tsx
 │   │   │   ├── Analytics
 │   │   │   │   ├── ShelterMap.tsx
 │   │   │   │   ├── ShelterOverview.tsx
@@ -90,13 +92,11 @@
 │   │   │   ├── ImpactMetrics.tsx
 │   │   │   └── TransactionTable.tsx
 │   │   ├── Auth
-│   │   │   ├── AdminLogin.tsx
 │   │   │   ├── AuthLayout.tsx
 │   │   │   ├── AuthProvider.tsx
 │   │   │   ├── DonorSignUpForm.tsx
 │   │   │   ├── LoginButton.tsx
 │   │   │   ├── LoginForm.tsx
-│   │   │   ├── LoginPage.tsx
 │   │   │   ├── ProtectedRoute.tsx
 │   │   │   ├── ShelterRegistrationForm.tsx
 │   │   │   ├── ShelterSignUpForm.tsx
@@ -144,8 +144,10 @@
 │   │   ├── Hero
 │   │   │   └── Hero.tsx
 │   │   ├── Hero.tsx
+│   │   ├── HowItWorks
+│   │   │   ├── HowItWorksSection.tsx
+│   │   │   └── index.ts
 │   │   ├── HowItWorks.tsx
-│   │   ├── LanguageSwitcher
 │   │   ├── Layout
 │   │   │   ├── DashboardLayout
 │   │   │   │   ├── DashboardHeader.tsx
@@ -174,6 +176,7 @@
 │   │   ├── Navigation
 │   │   │   ├── MainNav.tsx
 │   │   │   ├── MobileMenu.tsx
+│   │   │   ├── MobileNav.tsx
 │   │   │   ├── Navigation.tsx
 │   │   │   ├── NavigationItems.tsx
 │   │   │   ├── UserMenu.tsx
@@ -232,6 +235,7 @@
 │   │       ├── Button.tsx
 │   │       ├── Card.tsx
 │   │       ├── CustomIcons.tsx
+│   │       ├── FeatureCard.tsx
 │   │       ├── FullContentModal.tsx
 │   │       ├── Icon.tsx
 │   │       ├── ImageUpload.tsx
@@ -261,6 +265,15 @@
 │   │       └── fr.md
 │   ├── contexts
 │   │   └── ThemeContext.tsx
+│   ├── features
+│   │   └── donor
+│   │       ├── components
+│   │       │   ├── DonorDashboard.tsx
+│   │       │   └── DonorSignUpForm.tsx
+│   │       ├── types
+│   │       │   └── donor.ts
+│   │       └── validation
+│   │           └── donorValidation.ts
 │   ├── hooks
 │   │   ├── useAuth.ts
 │   │   ├── useMarkdownContent.ts
@@ -288,7 +301,8 @@
 │   │   ├── auth-schema.sql
 │   │   ├── complete-schema.sql
 │   │   ├── config
-│   │   │   └── constants.ts
+│   │   │   ├── constants.ts
+│   │   │   └── navigation.ts
 │   │   ├── content
 │   │   │   └── blog
 │   │   │       └── posts.ts
@@ -310,6 +324,7 @@
 │   │   │   └── types.ts
 │   │   ├── icons.ts
 │   │   ├── navigation
+│   │   │   ├── config.ts
 │   │   │   └── roleNavigation.ts
 │   │   ├── schema.sql
 │   │   ├── scripts
@@ -320,6 +335,7 @@
 │   │   │   ├── create-donor-stats-table.sql
 │   │   │   ├── create-super-admins.sql
 │   │   │   ├── create-test-accounts.sql
+│   │   │   ├── export-auth-schema.sql
 │   │   │   ├── export-schema-simple.sql
 │   │   │   ├── export-schema.sql
 │   │   │   ├── fix-admin-password.sql
@@ -362,12 +378,15 @@
 │   │   ├── types
 │   │   │   ├── auth.ts
 │   │   │   ├── blog.ts
+│   │   │   ├── database.ts
 │   │   │   ├── icon.ts
 │   │   │   ├── icons.ts
 │   │   │   ├── organization.ts
 │   │   │   └── shelter.ts
 │   │   ├── utils
+│   │   │   ├── docs-parser.ts
 │   │   │   ├── iconMapping.ts
+│   │   │   ├── navigation.ts
 │   │   │   ├── qrCode.ts
 │   │   │   └── token.ts
 │   │   ├── utils.ts
@@ -384,8 +403,10 @@
 │   │   │   ├── DonorProfile.tsx
 │   │   │   └── Settings.tsx
 │   │   ├── DonorDashboard.tsx
+│   │   ├── DonorSignUp.tsx
 │   │   ├── HomePage.tsx
 │   │   ├── HowItWorks.tsx
+│   │   ├── Impact.tsx
 │   │   ├── ImpactPage.tsx
 │   │   ├── LoginPage.tsx
 │   │   ├── Participant
@@ -395,6 +416,7 @@
 │   │   │   ├── ParticipantManagement.tsx
 │   │   │   ├── ParticipantProfile.tsx
 │   │   │   └── Settings.tsx
+│   │   ├── ScanDonatePage.tsx
 │   │   ├── ShelterAdmin
 │   │   │   ├── Profile.tsx
 │   │   │   ├── Settings.tsx
@@ -404,6 +426,8 @@
 │   │   │   ├── ShelterDonorAnalytics.tsx
 │   │   │   ├── ShelterManagement.tsx
 │   │   │   └── ShelterParticipantAnalytics.tsx
+│   │   ├── ShelterSignUp.tsx
+│   │   ├── SignUp.tsx
 │   │   ├── SignUpPage.tsx
 │   │   ├── Solutions.tsx
 │   │   ├── SuperAdmin
@@ -426,6 +450,7 @@
 │   │   │   │   ├── DonorDetailAnalytics.tsx
 │   │   │   │   └── DonorManagement.tsx
 │   │   │   └── index.ts
+│   │   ├── auth
 │   │   └── blockchain
 │   │       └── whitepaper.tsx
 │   ├── router.tsx
@@ -470,4 +495,4 @@
 ├── vercel.json
 └── vite.config.ts
 
-104 directories, 367 files
+110 directories, 386 files
