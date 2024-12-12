@@ -4,8 +4,12 @@ import { HomePage } from './pages/HomePage';
 import { AboutPage } from './pages/About';
 import { HowItWorksPage } from './pages/HowItWorks';
 import { SolutionsPage } from './pages/Solutions';
-import { LoginPage } from '@/pages/Login';
-import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { LoginPage } from './pages/LoginPage';
+import { SignUpPage } from './pages/SignUpPage';
+import { ScanDonatePage } from './pages/ScanDonatePage';
+import { ImpactPage } from './pages/Impact';
+import { ErrorBoundary } from './components/ErrorBoundary';
+import { AppRoutes } from './routes/AppRoutes';
 
 export const router = createBrowserRouter([
   {
@@ -36,8 +40,24 @@ export const router = createBrowserRouter([
             path: 'login',
             element: <LoginPage />,
           },
+          {
+            path: 'signup',
+            element: <SignUpPage />,
+          },
+          {
+            path: 'scan-donate',
+            element: <ScanDonatePage />,
+          },
+          {
+            path: 'impact',
+            element: <ImpactPage />,
+          }
         ],
       },
     ],
   },
+  {
+    path: '/protected/*',
+    element: <AppRoutes />
+  }
 ]); 
