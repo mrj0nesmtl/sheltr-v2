@@ -1,21 +1,14 @@
-import { useTheme } from '@/contexts/ThemeContext';
-import { Navigation } from '../Navigation/Navigation';
-import { Footer } from '../Footer/Footer';
+import React from 'react';
+import { Outlet } from 'react-router-dom';
+import { Navigation } from '@/components/Navigation/Navigation';
 
-export function Layout({ children }: { children: React.ReactNode }) {
-  const { theme } = useTheme();
-  
+export function Layout() {
   return (
-    <div className="min-h-screen theme-transition">
-      <div className="bg-primary min-h-screen">
-        <Navigation className="bg-secondary border-b border-text-secondary" />
-        
-        <main className="container mx-auto px-4 py-8 text-primary">
-          {children}
-        </main>
-        
-        <Footer className="bg-secondary border-t border-text-secondary" />
-      </div>
+    <div className="min-h-screen bg-gray-900">
+      <Navigation />
+      <main className="pt-16">
+        <Outlet />
+      </main>
     </div>
   );
 } 

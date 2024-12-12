@@ -1,128 +1,102 @@
 import { create } from 'zustand';
-import type { UserRole } from '@/lib/i18n/types';
 import { supabase } from '@/lib/supabase';
-import { getDefaultRoute } from '@/lib/navigation/roleNavigation';
-
-interface User {
-  id: string;
-  email: string;
-  role: UserRole;
-  name?: string;
-  avatar?: string;
-}
+import type { UserProfile, UserRole } from '@/lib/types/auth';
 
 interface AuthState {
-  user: User | null;
+  user: UserProfile | null;
   isLoading: boolean;
-  initialized: boolean;
   error: string | null;
-  checkUser: () => Promise<void>;
-  signIn: (email: string, password: string) => Promise<User | null>;
+  signIn: (email: string, password: string) => Promise<UserProfile | null>;
+  signUp: (data: SignUpData) => Promise<UserProfile | null>;
   signOut: () => Promise<void>;
+  checkRole: (allowedRoles: UserRole[]) => boolean;
 }
 
-export const useAuthStore = create<AuthState>((set) => ({
+interface SignUpData {
+  email: string;
+  password: string;
+  role: UserRole;
+  first_name?: string;
+  last_name?: string;
+  organization_id?: string;
+}
+
+export const useAuthStore = create<AuthState>((set, get) => ({
   user: null,
   isLoading: true,
-  initialized: false,
   error: null,
 
-  checkUser: async () => {
-    try {
-      set({ isLoading: true });
-      const { data: { session } } = await supabase.auth.getSession();
-      
-      if (session?.user) {
-        const { data: profile } = await supabase
-          .from('user_profiles')
-          .select('*')
-          .eq('id', session.user.id)
-          .single();
-
-        if (profile) {
-          set({
-            user: {
-              id: session.user.id,
-              email: session.user.email!,
-              role: profile.role,
-              name: profile.name,
-              avatar: profile.avatar
-            }
-          });
-        }
-      }
-    } catch (error) {
-      console.error('Auth check failed:', error);
-    } finally {
-      set({ isLoading: false, initialized: true });
-    }
-  },
-
-  signIn: async (email, password) => {
+  signIn: async (email: string, password: string) => {
     try {
       set({ isLoading: true, error: null });
       
-      const { data: { user: authUser }, error: signInError } = 
-        await supabase.auth.signInWithPassword({ email, password });
+      const { data: authData, error: authError } = await supabase.auth
+        .signInWithPassword({ email, password });
 
-      if (signInError) throw signInError;
-      if (!authUser) throw new Error('No user returned after sign in');
+      if (authError) throw authError;
 
-      const { data: profile } = await supabase
+      const { data: profile, error: profileError } = await supabase
         .from('user_profiles')
         .select('*')
-        .eq('id', authUser.id)
+        .eq('id', authData.user.id)
         .single();
 
-      if (!profile) throw new Error('No profile found');
+      if (profileError) throw profileError;
 
-      const user = {
-        id: authUser.id,
-        email: authUser.email!,
-        role: profile.role as UserRole,
-        name: profile.name,
-        avatar: profile.avatar
+      set({ user: profile, isLoading: false });
+      return profile;
+    } catch (error) {
+      set({ error: error.message, isLoading: false });
+      return null;
+    }
+  },
+
+  signUp: async (data: SignUpData) => {
+    try {
+      set({ isLoading: true, error: null });
+
+      const { data: authData, error: authError } = await supabase.auth
+        .signUp({ email: data.email, password: data.password });
+
+      if (authError) throw authError;
+
+      const profile = {
+        id: authData.user!.id,
+        email: data.email,
+        role: data.role,
+        first_name: data.first_name,
+        last_name: data.last_name,
+        organization_id: data.organization_id,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
       };
 
-      set({ user, error: null });
-      
-      const dashboardPath = getDashboardPath(user.role);
-      console.log('Redirecting to:', dashboardPath);
-      window.location.href = dashboardPath;
-      
-      return user;
-    } catch (error: any) {
-      set({ error: error.message });
+      const { error: profileError } = await supabase
+        .from('user_profiles')
+        .insert([profile]);
+
+      if (profileError) throw profileError;
+
+      set({ user: profile, isLoading: false });
+      return profile;
+    } catch (error) {
+      set({ error: error.message, isLoading: false });
       return null;
-    } finally {
-      set({ isLoading: false });
     }
   },
 
   signOut: async () => {
     try {
-      set({ isLoading: true });
+      set({ isLoading: true, error: null });
       await supabase.auth.signOut();
-      set({ user: null });
+      set({ user: null, isLoading: false });
     } catch (error) {
-      console.error('Sign out error:', error);
-    } finally {
-      set({ isLoading: false });
+      set({ error: error.message, isLoading: false });
     }
+  },
+
+  checkRole: (allowedRoles: UserRole[]) => {
+    const { user } = get();
+    return user ? allowedRoles.includes(user.role) : false;
   }
 }));
-
-export const getDashboardPath = (role: UserRole): string => {
-  switch (role) {
-    case 'super_admin':
-      return '/super-admin/dashboard';
-    case 'admin':
-      return '/admin/dashboard';
-    case 'donor':
-      return '/donor/dashboard';
-    case 'participant':
-      return '/participant/dashboard';
-    default:
-      return '/login';
-  }
-};

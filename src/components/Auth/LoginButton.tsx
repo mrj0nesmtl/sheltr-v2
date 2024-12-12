@@ -39,7 +39,6 @@ export function LoginButton() {
     </Link>
   );
 }
-
 function getDashboardPath(role: string): string {
   switch (role) {
     case 'super_admin':

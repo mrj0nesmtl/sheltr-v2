@@ -93,9 +93,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const signOut = async () => {
     try {
       setIsLoading(true);
-      await supabase.auth.signOut();
+      
+      // Sign out from Supabase
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+
+      // Clear user state
       setUser(null);
-      navigate('/login');
+      
+      // Force clear any cached auth state
+      localStorage.removeItem('supabase.auth.token');
+      
+      // Navigate to login page
+      navigate('/login', { replace: true });
     } catch (error) {
       console.error('Sign out error:', error);
     } finally {

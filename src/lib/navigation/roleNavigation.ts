@@ -5,31 +5,34 @@ interface RoleRouteConfig {
   allowedRoutes: string[];
 }
 
-export const ROLE_ROUTES: Record<string, RoleRouteConfig> = {
+export const ROLE_ROUTES: Record<UserRole, RoleRouteConfig> = {
   super_admin: {
     defaultRoute: '/super-admin/dashboard',
     allowedRoutes: [
-      '/super-admin/dashboard',
-      '/admin/*',
-      '/shelter/*',
+      '/super-admin/*',
+      '/shelter-admin/*',
       '/donor/*',
       '/participant/*'
     ]
   },
   admin: {
-    defaultRoute: '/admin/dashboard',
+    defaultRoute: '/shelter-admin/dashboard',
     allowedRoutes: [
-      '/admin/dashboard',
-      '/admin/participants',
-      '/admin/analytics'
+      '/shelter-admin/dashboard',
+      '/shelter-admin/participants',
+      '/shelter-admin/analytics',
+      '/shelter-admin/map',
+      '/shelter-admin/reports'
     ]
   },
   shelter_admin: {
-    defaultRoute: '/admin/dashboard',
+    defaultRoute: '/shelter-admin/dashboard',
     allowedRoutes: [
-      '/admin/dashboard',
-      '/admin/participants',
-      '/admin/analytics'
+      '/shelter-admin/dashboard',
+      '/shelter-admin/participants',
+      '/shelter-admin/analytics',
+      '/shelter-admin/map',
+      '/shelter-admin/reports'
     ]
   },
   donor: {
@@ -37,37 +40,28 @@ export const ROLE_ROUTES: Record<string, RoleRouteConfig> = {
     allowedRoutes: [
       '/donor/dashboard',
       '/donor/donations',
-      '/donor/impact'
+      '/donor/leaderboard',
+      '/donor/achievements'
     ]
   },
   participant: {
     defaultRoute: '/participant/dashboard',
     allowedRoutes: [
       '/participant/dashboard',
+      '/participant/profile',
       '/participant/services',
-      '/participant/qr-code'
+      '/participant/history'
     ]
   }
 };
 
 export const getDashboardPath = (role: UserRole): string => {
-  switch (role) {
-    case 'super_admin':
-      return '/super-admin/dashboard';
-    case 'admin':
-      return '/admin/dashboard';
-    case 'donor':
-      return '/donor/dashboard';
-    case 'participant':
-      return '/participant/dashboard';
-    default:
-      return '/login';
-  }
+  const config = ROLE_ROUTES[role];
+  return config ? config.defaultRoute : '/login';
 };
 
 export const isRouteAllowed = (role: UserRole, route: string): boolean => {
-  const effectiveRole = role === 'admin' ? 'shelter_admin' : role;
-  const config = ROLE_ROUTES[effectiveRole];
+  const config = ROLE_ROUTES[role];
   if (!config) return false;
   
   return config.allowedRoutes.some(allowedRoute => {

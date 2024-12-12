@@ -472,15 +472,15 @@ export const en: Translations = {
     }
   },
   qrScanner: {
-    title: 'Scan QR Code',
-    instructions: 'Point your camera at a participant\'s QR code',
-    scannerActive: 'Scanner is active',
-    retryButton: 'Try Again',
+    title: "Scan QR Code",
+    instructions: "Point your camera at a participant's QR code",
+    scannerActive: "Scanner is active",
+    retryButton: "Try Again",
     errors: {
-      cameraPermission: 'Camera access denied. Please enable camera access to scan QR codes.',
-      initialization: 'Failed to initialize scanner. Please try again.',
-      invalidCode: 'Invalid QR Code',
-      invalidCodeDesc: 'This QR code is not valid or has expired. Please try scanning a valid participant QR code.'
+      invalidCode: "Invalid QR Code",
+      invalidCodeDesc: "This QR code is not valid for the system",
+      cameraPermission: "Please allow camera access",
+      initialization: "Could not initialize scanner"
     }
   },
   auth: {
@@ -864,5 +864,18 @@ export const en: Translations = {
       impact: 'achieved an impact milestone',
       title: 'Recent Activity'
     }
+  },
+  roles: {
+    admin: "Shelter Admin",
+    donor: "Donor",
+    participant: "Participant",
+    super_admin: "Super Admin",
+    shelter_admin: "Shelter Admin"
+  },
+  services: {
+    emergency_shelter: "Emergency Shelter",
+    food_services: "Food Services",
+    medical_care: "Medical Care",
+    job_training: "Job Training"
   }
 };

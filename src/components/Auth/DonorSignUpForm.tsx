@@ -1,250 +1,187 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Icon } from '@/components/ui/Icon';
 import { useTranslation } from 'react-i18next';
-import { useAuthStore } from '../../stores/authStore';
-import { donorSignUpSchema, type DonorSignUpFormData } from '../../lib/validation/authValidation';
-import { cn } from '../../lib/utils';
+import { useAuthStore } from '@/stores/authStore';
+import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
+import { Checkbox } from '@/components/ui/Checkbox';
+import { Card } from '@/components/ui/Card';
+import { Icon } from '@/components/ui/Icon';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+
+const donorSignUpSchema = z.object({
+  email: z.string().email(t('auth.validation.email')),
+  password: z.string()
+    .min(8, t('auth.validation.passwordLength'))
+    .regex(/[A-Z]/, t('auth.validation.passwordUppercase'))
+    .regex(/[a-z]/, t('auth.validation.passwordLowercase'))
+    .regex(/[0-9]/, t('auth.validation.passwordNumber')),
+  confirmPassword: z.string(),
+  name: z.string().min(2, t('auth.validation.nameLength')),
+  city: z.string().optional(),
+  defaultDonation: z.number().min(1).default(10),
+  taxReceiptRequired: z.boolean().default(false)
+}).refine(data => data.password === data.confirmPassword, {
+  message: t('auth.validation.passwordsMatch'),
+  path: ['confirmPassword']
+});
+
+type DonorSignUpFormData = z.infer<typeof donorSignUpSchema>;
 
 export function DonorSignUpForm() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { signUp, error: authError, isLoading } = useAuthStore();
-  const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
-  const [formData, setFormData] = useState<Partial<DonorSignUpFormData>>({
-    email: '',
-    password: '',
-    confirmPassword: '',
-    name: '',
-    city: '',
-    address: '',
-    taxReceiptRequired: false,
-    defaultDonation: 10,
-    socialLinks: {
-      twitter: '',
-      facebook: '',
-      instagram: '',
-      linkedin: ''
+  const { signUp, error: authError } = useAuthStore();
+  
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting }
+  } = useForm<DonorSignUpFormData>({
+    resolver: zodResolver(donorSignUpSchema),
+    defaultValues: {
+      defaultDonation: 10,
+      taxReceiptRequired: false
     }
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setValidationErrors({});
-
+  const onSubmit = async (data: DonorSignUpFormData) => {
     try {
-      const validatedData = donorSignUpSchema.parse(formData);
       const profile = await signUp({
-        ...validatedData,
+        ...data,
         role: 'donor'
       });
+      
       if (profile) {
         navigate('/dashboard');
       }
-    } catch (error: any) {
-      if (error.errors) {
-        const errors: Record<string, string> = {};
-        error.errors.forEach((err: any) => {
-          const path = err.path.join('.');
-          errors[path] = err.message;
-        });
-        setValidationErrors(errors);
-      }
+    } catch (error) {
+      console.error('Signup error:', error);
     }
   };
 
   return (
-    <div className="min-h-screen pt-16 bg-gray-900">
-      <div className="max-w-md mx-auto px-4 py-8">
-        <div className="bg-white/10 backdrop-blur-lg rounded-xl p-8">
-          <h2 className="text-2xl font-bold text-white text-center mb-6">
-            {t('signUp.donor.form.title')}
-          </h2>
-
-          {authError && (
-            <div className="mb-6 p-4 bg-red-500/20 border border-red-500 rounded-md">
-              <div className="flex items-center gap-2 text-red-200">
-                <Icon name="alertCircle" className="h-5 w-5" />
-                <p>{authError}</p>
-              </div>
-            </div>
-          )}
-
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Email Field */}
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-300">
-                {t('signUp.donor.form.email')}
-              </label>
-              <div className="mt-1 relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
-                  <Icon name="mail" className="h-5 w-5 text-gray-400" />
-                </div>
-                <input
-                  type="email"
-                  id="email"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className={cn(
-                    "bg-white/5 border text-white block w-full pl-10 pr-3 py-2 rounded-md",
-                    "focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900",
-                    validationErrors.email
-                      ? "border-red-500 focus:ring-red-500"
-                      : "border-gray-600 focus:ring-indigo-500"
-                  )}
-                />
-              </div>
-              {validationErrors.email && (
-                <p className="mt-1 text-sm text-red-400">{t(validationErrors.email)}</p>
-              )}
-            </div>
-
-            {/* Password Fields */}
-            <div className="grid grid-cols-1 gap-6">
-              <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-300">
-                  {t('signUp.donor.form.password')}
-                </label>
-                <div className="mt-1 relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
-                    <Icon name="lock" className="h-5 w-5 text-gray-400" />
-                  </div>
-                  <input
-                    type="password"
-                    id="password"
-                    value={formData.password}
-                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                    className={cn(
-                      "bg-white/5 border text-white block w-full pl-10 pr-3 py-2 rounded-md",
-                      "focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900",
-                      validationErrors.password
-                        ? "border-red-500 focus:ring-red-500"
-                        : "border-gray-600 focus:ring-indigo-500"
-                    )}
-                  />
-                </div>
-                {validationErrors.password && (
-                  <p className="mt-1 text-sm text-red-400">{t(validationErrors.password)}</p>
-                )}
-              </div>
-
-              <div>
-                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-300">
-                  {t('signUp.donor.form.confirmPassword')}
-                </label>
-                <div className="mt-1 relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
-                    <Icon name="lock" className="h-5 w-5 text-gray-400" />
-                  </div>
-                  <input
-                    type="password"
-                    id="confirmPassword"
-                    value={formData.confirmPassword}
-                    onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                    className={cn(
-                      "bg-white/5 border text-white block w-full pl-10 pr-3 py-2 rounded-md",
-                      "focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900",
-                      validationErrors.confirmPassword
-                        ? "border-red-500 focus:ring-red-500"
-                        : "border-gray-600 focus:ring-indigo-500"
-                    )}
-                  />
-                </div>
-                {validationErrors.confirmPassword && (
-                  <p className="mt-1 text-sm text-red-400">{t(validationErrors.confirmPassword)}</p>
-                )}
-              </div>
-            </div>
-
-            {/* Location Fields */}
-            <div className="grid grid-cols-1 gap-6">
-              <div>
-                <label htmlFor="city" className="block text-sm font-medium text-gray-300">
-                  {t('signUp.donor.form.city')}
-                </label>
-                <div className="mt-1 relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
-                    <Icon name="mapPin" className="h-5 w-5 text-gray-400" />
-                  </div>
-                  <input
-                    type="text"
-                    id="city"
-                    value={formData.city}
-                    onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                    className={cn(
-                      "bg-white/5 border text-white block w-full pl-10 pr-3 py-2 rounded-md",
-                      "focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900",
-                      validationErrors.city
-                        ? "border-red-500 focus:ring-red-500"
-                        : "border-gray-600 focus:ring-indigo-500"
-                    )}
-                  />
-                </div>
-                {validationErrors.city && (
-                  <p className="mt-1 text-sm text-red-400">{t(validationErrors.city)}</p>
-                )}
-              </div>
-            </div>
-
-            {/* Default Donation */}
-            <div>
-              <label htmlFor="defaultDonation" className="block text-sm font-medium text-gray-300">
-                {t('signUp.donor.form.defaultDonation')}
-              </label>
-              <div className="mt-1 relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
-                  <Icon name="dollarSign" className="h-5 w-5 text-gray-400" />
-                </div>
-                <input
-                  type="number"
-                  id="defaultDonation"
-                  min="1"
-                  step="1"
-                  value={formData.defaultDonation}
-                  onChange={(e) => setFormData({ ...formData, defaultDonation: parseInt(e.target.value) || 0 })}
-                  className={cn(
-                    "bg-white/5 border text-white block w-full pl-10 pr-3 py-2 rounded-md",
-                    "focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900",
-                    validationErrors.defaultDonation
-                      ? "border-red-500 focus:ring-red-500"
-                      : "border-gray-600 focus:ring-indigo-500"
-                  )}
-                />
-              </div>
-              {validationErrors.defaultDonation && (
-                <p className="mt-1 text-sm text-red-400">{t(validationErrors.defaultDonation)}</p>
-              )}
-            </div>
-
-            {/* Tax Receipt Checkbox */}
-            <div className="flex items-center">
-              <input
-                type="checkbox"
-                id="taxReceiptRequired"
-                checked={formData.taxReceiptRequired}
-                onChange={(e) => setFormData({ ...formData, taxReceiptRequired: e.target.checked })}
-                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-600 rounded bg-white/5"
-              />
-              <label htmlFor="taxReceiptRequired" className="ml-2 block text-sm text-gray-300">
-                {t('signUp.donor.form.taxReceipt')}
-              </label>
-            </div>
-
-            <button
-              type="submit"
-              disabled={isLoading}
-              className={cn(
-                "w-full flex justify-center py-2 px-4 border border-transparent rounded-md",
-                "text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700",
-                "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
-                "disabled:opacity-50 disabled:cursor-not-allowed"
-              )}
-            >
-              {isLoading ? t('signUp.donor.form.submitting') : t('signUp.donor.form.submit')}
-            </button>
-          </form>
+    <Card className="bg-gray-800/50 backdrop-blur-lg p-8">
+      <div className="text-center mb-8">
+        <div className="bg-indigo-500/10 p-3 rounded-full w-fit mx-auto mb-4">
+          <Icon name="heart" className="h-8 w-8 text-indigo-400" />
         </div>
+        <h2 className="text-2xl font-bold text-white">
+          {t('auth.donor.signup.title')}
+        </h2>
+        <p className="text-gray-400 mt-2">
+          {t('auth.donor.signup.subtitle')}
+        </p>
       </div>
-    </div>
+
+      {authError && (
+        <div className="mb-6 p-4 bg-red-500/20 border border-red-500 rounded-lg">
+          <div className="flex items-center gap-2 text-red-200">
+            <Icon name="alert-circle" className="h-5 w-5" />
+            <p>{t(`auth.errors.${authError}`)}</p>
+          </div>
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        {/* Name Field */}
+        <div>
+          <Input
+            label={t('auth.fields.name')}
+            {...register('name')}
+            error={errors.name?.message}
+            icon="user"
+          />
+        </div>
+
+        {/* Email Field */}
+        <div>
+          <Input
+            label={t('auth.fields.email')}
+            type="email"
+            {...register('email')}
+            error={errors.email?.message}
+            icon="mail"
+          />
+        </div>
+
+        {/* Password Fields */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Input
+            label={t('auth.fields.password')}
+            type="password"
+            {...register('password')}
+            error={errors.password?.message}
+            icon="lock"
+          />
+          <Input
+            label={t('auth.fields.confirmPassword')}
+            type="password"
+            {...register('confirmPassword')}
+            error={errors.confirmPassword?.message}
+            icon="lock"
+          />
+        </div>
+
+        {/* City Field */}
+        <div>
+          <Input
+            label={t('auth.fields.city')}
+            {...register('city')}
+            error={errors.city?.message}
+            icon="map-pin"
+          />
+        </div>
+
+        {/* Default Donation */}
+        <div>
+          <Input
+            label={t('auth.fields.defaultDonation')}
+            type="number"
+            min={1}
+            step={1}
+            {...register('defaultDonation', { valueAsNumber: true })}
+            error={errors.defaultDonation?.message}
+            icon="dollar-sign"
+            leftAddon="$"
+          />
+        </div>
+
+        {/* Tax Receipt Checkbox */}
+        <div>
+          <Checkbox
+            label={t('auth.fields.taxReceipt')}
+            {...register('taxReceiptRequired')}
+          />
+        </div>
+
+        <Button
+          type="submit"
+          className="w-full"
+          isLoading={isSubmitting}
+          disabled={isSubmitting}
+        >
+          {isSubmitting 
+            ? t('auth.donor.signup.submitting')
+            : t('auth.donor.signup.submit')
+          }
+        </Button>
+
+        <div className="text-center">
+          <p className="text-sm text-gray-400">
+            {t('auth.donor.signup.haveAccount')}{' '}
+            <Button
+              variant="link"
+              onClick={() => navigate('/login')}
+              className="text-indigo-400 hover:text-indigo-300"
+            >
+              {t('auth.donor.signup.login')}
+            </Button>
+          </p>
+        </div>
+      </form>
+    </Card>
   );
 }

@@ -1,50 +1,51 @@
-import { forwardRef } from 'react';
+import React from 'react';
 import { cn } from '@/lib/utils';
+import { Loader2 } from 'lucide-react';
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'default' | 'outline' | 'ghost';
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children: React.ReactNode;
+  variant?: 'default' | 'outline' | 'ghost' | 'link';
   size?: 'sm' | 'md' | 'lg';
   isLoading?: boolean;
+  asChild?: boolean;
 }
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
+export function Button({
+  children,
   className,
   variant = 'default',
   size = 'md',
-  isLoading,
-  children,
+  isLoading = false,
+  disabled,
+  asChild = false,
   ...props
-}, ref) => {
-  const variants = {
-    default: 'bg-indigo-600 text-white hover:bg-indigo-700',
-    outline: 'border border-gray-600 text-gray-300 hover:bg-gray-800',
-    ghost: 'text-gray-300 hover:bg-gray-800'
-  };
-
-  const sizes = {
-    sm: 'px-3 py-1.5 text-sm',
-    md: 'px-4 py-2',
-    lg: 'px-6 py-3 text-lg'
-  };
-
+}: ButtonProps) {
+  const Comp = asChild ? 'span' : 'button';
+  
   return (
-    <button
-      ref={ref}
+    <Comp
       className={cn(
-        'inline-flex items-center justify-center rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none',
-        variants[variant],
-        sizes[size],
+        'inline-flex items-center justify-center rounded-md font-medium transition-colors',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500',
+        'disabled:pointer-events-none disabled:opacity-50',
+        {
+          'bg-indigo-600 text-white hover:bg-indigo-700': variant === 'default',
+          'border border-gray-700 bg-transparent hover:bg-gray-700/50': variant === 'outline',
+          'hover:bg-gray-700/50': variant === 'ghost',
+          'text-indigo-500 hover:text-indigo-600 p-0 bg-transparent': variant === 'link',
+          'h-9 px-4 py-2': size === 'md',
+          'h-8 px-3 text-sm': size === 'sm',
+          'h-10 px-6': size === 'lg',
+        },
         className
       )}
-      disabled={isLoading}
+      disabled={isLoading || disabled}
       {...props}
     >
-      {isLoading ? (
-        <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-gray-300 border-t-white" />
-      ) : null}
+      {isLoading && (
+        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+      )}
       {children}
-    </button>
+    </Comp>
   );
-});
-
-Button.displayName = 'Button'; 
+} 

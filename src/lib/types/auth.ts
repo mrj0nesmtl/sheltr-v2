@@ -1,62 +1,32 @@
-export type UserRole = 'super_admin' | 'admin' | 'donor' | 'participant';
+export type UserRole = 'super_admin' | 'admin' | 'shelter_admin' | 'donor' | 'participant' | 'authenticated';
 
-export interface UserProfile {
+export interface Profile {
   id: string;
   email: string;
-  name: string;
   role: UserRole;
-  organization?: string | null;
   created_at: string;
-  last_sign_in_at?: string;
-  profile_image?: string;
+  updated_at: string;
 }
 
-export interface SignUpData {
-  email: string;
-  password: string;
-  role: UserRole;
-  name?: string;
-  city?: string;
-  address?: string;
-  taxReceiptRequired?: boolean;
-  defaultDonation?: number;
-  socialLinks?: {
-    facebook?: string;
-    twitter?: string;
-    instagram?: string;
-    linkedin?: string;
-  };
-}
-
-export interface ShelterProfile extends UserProfile {
-  organization: string;
-  registrationNumber: string;
-  contactPhone: string;
-  city: string;
-  address: string;
-  capacity: number;
-  services: string[];
-  verified: boolean;
-  emergencyContact: {
-    name: string;
-    phone: string;
-    email: string;
-  };
-  participantCount: number;
+export interface UserProfile extends Profile {
+  first_name?: string;
+  last_name?: string;
+  avatar_url?: string;
+  organization_id?: string;
 }
 
 export interface DonorProfile extends UserProfile {
-  taxReceiptRequired: boolean;
-  defaultDonation: number;
-  totalDonated: number;
-  donationCount: number;
-  impactScore: number;
+  total_donated: number;
+  donation_count: number;
+  last_donation_date?: string;
+  preferred_causes?: string[];
+  tax_receipt_email?: string;
 }
 
-export interface ParticipantProfile extends UserProfile {
-  servicesReceived: string[];
-  activeServices: string[];
-  totalReceived: number;
-  lastServiceDate: string;
-  status: 'active' | 'inactive';
+export interface DonorStats {
+  donor_id: string;
+  total_donated: number;
+  donation_count: number;
+  impact_score: number;
+  last_donation_date: string;
 }

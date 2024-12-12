@@ -1,14 +1,21 @@
+import { useEffect, useState } from 'react';
 import { Card } from '@/components/ui/Card';
 import { Icon } from '@/components/ui/Icon';
+import { SystemMonitor, SystemMetric } from '@/lib/services/monitoring';
 
 export function SystemHealthMonitor() {
-  const metrics = [
-    { name: 'API Response Time', value: '45ms', status: 'good' },
-    { name: 'Database Load', value: '32%', status: 'good' },
-    { name: 'Memory Usage', value: '68%', status: 'warning' },
-    { name: 'Storage Space', value: '42%', status: 'good' },
-    { name: 'Active Users', value: '1.2k', status: 'good' }
-  ];
+  const [metrics, setMetrics] = useState<SystemMetric[]>([]);
+  
+  useEffect(() => {
+    const monitor = new SystemMonitor();
+    monitor.initializeMonitoring();
+    
+    const subscription = monitor.subscribe(newMetrics => {
+      setMetrics(newMetrics);
+    });
+    
+    return () => subscription.unsubscribe();
+  }, []);
 
   return (
     <Card>

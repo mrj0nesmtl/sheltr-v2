@@ -1,62 +1,75 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Button } from '@/components/ui/Button';
 import { Icon } from '@/components/ui/Icon';
-import { MobileMenu } from './MobileMenu';
-import { Logo } from '@/components/ui/Logo';
+import { useAuthStore } from '@/stores/authStore';
+import { MainNav } from './MainNav';
+import { MobileNav } from './MobileNav';
 
-export function Navigation({ className }: { className?: string }) {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+export function Navigation() {
   const { t } = useTranslation();
+  const { user } = useAuthStore();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <>
-      <nav className={`text-primary ${className}`}>
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center">
-              <Link to="/" className="flex-shrink-0">
-                <Logo className="h-8 w-auto" />
-              </Link>
-            </div>
+    <nav className="bg-gray-900/50 backdrop-blur-sm fixed w-full z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <Link to="/" className="flex items-center">
+            <span className="text-2xl font-bold text-white">SHELTR</span>
+          </Link>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex md:items-center md:space-x-8">
-              <Link to="/how-it-works" className="text-gray-300 hover:text-white">
-                {t('nav.howItWorks')}
-              </Link>
-              <Link to="/solutions" className="text-gray-300 hover:text-white">
-                {t('nav.solutions')}
-              </Link>
-              <Link to="/scan" className="text-gray-300 hover:text-white">
-                {t('nav.scanDonate')}
-              </Link>
-              <Link to="/impact" className="text-gray-300 hover:text-white">
-                {t('nav.impact')}
-              </Link>
-              <Link to="/about" className="text-gray-300 hover:text-white">
-                {t('nav.about')}
-              </Link>
-            </div>
+          {/* Desktop Navigation */}
+          <MainNav />
 
-            {/* Mobile menu button */}
-            <div className="md:hidden flex items-center">
-              <button
-                onClick={() => setIsMobileMenuOpen(true)}
-                className="text-gray-400 hover:text-white p-2"
+          {/* Auth Buttons */}
+          <div className="flex items-center space-x-4">
+            {user ? (
+              <Button
+                variant="ghost"
+                onClick={() => useAuthStore.getState().signOut()}
+                className="text-gray-300"
               >
-                <Icon name="menu" className="h-6 w-6" />
-              </button>
-            </div>
+                <Icon name="log-out" className="w-4 h-4 mr-2" />
+                {t('auth.signOut')}
+              </Button>
+            ) : (
+              <>
+                <Link to="/login">
+                  <Button variant="ghost" className="text-gray-300">
+                    {t('auth.login')}
+                  </Button>
+                </Link>
+                <Link to="/signup">
+                  <Button className="bg-indigo-600 text-white hover:bg-indigo-700">
+                    {t('auth.signUp')}
+                  </Button>
+                </Link>
+              </>
+            )}
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden">
+            <Button
+              variant="ghost"
+              className="text-gray-300"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              <Icon name="menu" className="w-6 h-6" />
+            </Button>
           </div>
         </div>
-      </nav>
+      </div>
 
       {/* Mobile Menu */}
-      <MobileMenu
-        isOpen={isMobileMenuOpen}
-        onClose={() => setIsMobileMenuOpen(false)}
-      />
-    </>
+      {isMobileMenuOpen && (
+        <div className="md:hidden">
+          <MobileNav />
+        </div>
+      )}
+    </nav>
   );
 } 

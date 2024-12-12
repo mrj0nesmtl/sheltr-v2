@@ -1,9 +1,9 @@
 import React from 'react';
 import * as Icons from 'lucide-react';
-import type { LucideProps } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 // Define all available icons
-const iconMap = {
+const icons = {
   // Navigation & Arrows
   menu: Icons.Menu,
   'chevron-down': Icons.ChevronDown,
@@ -67,11 +67,7 @@ const iconMap = {
   'credit-card': Icons.CreditCard,
   wallet: Icons.Wallet,
   building: Icons.Building2,
-  'bar-chart': Icons.BarChart2,
-  'pie-chart': Icons.PieChart,
-  'trending-up': Icons.TrendingUp,
   briefcase: Icons.Briefcase,
-  activity: Icons.Activity,
   
   // Files & Documents
   'file-text': Icons.FileText,
@@ -98,8 +94,6 @@ const iconMap = {
   // Blockchain & Crypto
   coins: Icons.Coins,
   layers: Icons.Layers,
-  'bar-chart-2': Icons.BarChart2,
-  trending: Icons.TrendingUp,
   
   // Social & Sharing
   share: Icons.Share2,
@@ -111,12 +105,10 @@ const iconMap = {
   smartphone: Icons.Smartphone,
   tablet: Icons.Tablet,
   laptop: Icons.Laptop,
-  server: Icons.Server,
   
   // Security & Access
   lock: Icons.Lock,
   unlock: Icons.Unlock,
-  shield: Icons.Shield,
   key: Icons.Key,
   
   // Weather & Environment
@@ -134,59 +126,28 @@ const iconMap = {
   filter: Icons.Filter,
   search: Icons.Search,
   more: Icons.MoreHorizontal,
-  
-  // Alert & Status Icons
-  'alert-triangle': Icons.AlertTriangle,
-  'alert-circle': Icons.AlertCircle,
-  'alert-octagon': Icons.AlertOctagon,
-  'check-circle': Icons.CheckCircle,
-  'x-circle': Icons.XCircle,
-  'alert': Icons.AlertTriangle,
-  
-  // System & Monitoring
-  'activity': Icons.Activity,
-  'cpu': Icons.Cpu,
-  'database': Icons.Database,
-  'hard-drive': Icons.HardDrive,
-  'server': Icons.Server,
-  'settings': Icons.Settings,
-  'shield': Icons.Shield,
-  'terminal': Icons.Terminal,
-  'wifi': Icons.Wifi,
-  
-  // Analytics & Charts
-  'bar-chart': Icons.BarChart2,
-  'line-chart': Icons.LineChart,
-  'pie-chart': Icons.PieChart,
-  'trending-up': Icons.TrendingUp,
-  'trending-down': Icons.TrendingDown,
-  'activity': Icons.Activity,
-  
-  // Status Indicators
-  'loader': Icons.Loader2,
-  'refresh': Icons.RefreshCw,
-  'power': Icons.Power,
-  'zap': Icons.Zap,
+  power: Icons.Power,
+  zap: Icons.Zap
 } as const;
 
-export type IconName = keyof typeof iconMap;
+export type IconName = keyof typeof icons;
 
-interface IconProps extends Omit<LucideProps, 'ref'> {
+interface IconProps extends React.HTMLAttributes<HTMLDivElement> {
   name: IconName;
   className?: string;
 }
 
-export const Icon = React.forwardRef<SVGSVGElement, IconProps>(
-  ({ name, ...props }, ref) => {
-    const IconComponent = iconMap[name];
+export function Icon({ name, className, ...props }: IconProps) {
+  const IconComponent = icons[name];
 
-    if (!IconComponent) {
-      console.warn(`Icon "${name}" not found`);
-      return null;
-    }
-
-    return <IconComponent ref={ref} {...props} />;
+  if (!IconComponent) {
+    console.warn(`Icon "${name}" not found`);
+    return null;
   }
-);
 
-Icon.displayName = 'Icon';
+  return (
+    <div className={cn('flex items-center justify-center', className)} {...props}>
+      <IconComponent className="w-full h-full" />
+    </div>
+  );
+}
