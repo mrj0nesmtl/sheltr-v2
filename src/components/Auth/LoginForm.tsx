@@ -1,124 +1,131 @@
-import React from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '@/stores/authStore';
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
-import { Card } from '@/components/ui/Card';
 import { Icon } from '@/components/ui/Icon';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
+import { cn } from '@/lib/utils';
 
-const loginSchema = z.object({
-  email: z.string().email('auth.validation.email'),
-  password: z.string().min(1, 'auth.validation.required'),
-});
-
-type LoginFormData = z.infer<typeof loginSchema>;
-
-export function LoginForm() {
-  const { t } = useTranslation();
+export function LoginForm({ isAdminLogin = false }: { isAdminLogin?: boolean }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { login, error, clearError } = useAuthStore();
   const navigate = useNavigate();
-  const { signIn, error: authError } = useAuthStore();
-  
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting }
-  } = useForm<LoginFormData>({
-    resolver: zodResolver(loginSchema)
-  });
+  const { t } = useTranslation();
 
-  const onSubmit = async (data: LoginFormData) => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    clearError();
+
     try {
-      const profile = await signIn(data.email, data.password);
+      const profile = await login(email, password);
       
       if (profile) {
-        switch (profile.role) {
-          case 'super_admin':
-            navigate('/super-admin/dashboard');
-            break;
-          case 'shelter_admin':
-            navigate('/shelter/dashboard');
-            break;
-          case 'donor':
-            navigate('/donor/dashboard');
-            break;
-          default:
-            navigate('/dashboard');
+        // If admin login, verify role
+        if (isAdminLogin && !['super_admin', 'shelter_admin'].includes(profile.role)) {
+          throw new Error('insufficient_permissions');
         }
+
+        const dashboardRoutes = {
+          super_admin: '/super-admin/dashboard',
+          shelter_admin: '/shelter-admin/dashboard',
+          donor: '/donor/dashboard',
+          participant: '/participant/dashboard',
+          staff: '/staff/dashboard'
+        };
+
+        navigate(dashboardRoutes[profile.role] || '/dashboard', { replace: true });
       }
-    } catch (error) {
-      console.error('Login error:', error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
-    <Card className="bg-gray-800/50 backdrop-blur-lg p-8">
+    <div className="bg-white/10 backdrop-blur-lg rounded-xl p-8">
       <div className="text-center mb-8">
-        <div className="bg-indigo-500/10 p-3 rounded-full w-fit mx-auto mb-4">
-          <Icon name="log-in" className="h-8 w-8 text-indigo-400" />
-        </div>
+        <Icon 
+          name={isAdminLogin ? "lock" : "log-in"} 
+          className="h-12 w-12 text-indigo-500 mx-auto mb-4" 
+        />
         <h2 className="text-2xl font-bold text-white">
-          {t('auth.login.title')}
+          {t(isAdminLogin ? 'auth.login.adminTitle' : 'auth.login.title')}
         </h2>
-        <p className="text-gray-400 mt-2">
-          {t('auth.login.subtitle')}
-        </p>
       </div>
 
-      {authError && (
-        <div className="mb-6 p-4 bg-red-500/20 border border-red-500 rounded-lg">
-          <div className="flex items-center gap-2 text-red-200">
-            <Icon name="alert-circle" className="h-5 w-5" />
-            <p>{t(`auth.errors.${authError}`)}</p>
-          </div>
+      {error && (
+        <div className="mb-6 p-4 bg-red-500/20 border border-red-500 rounded-md text-red-200">
+          {t(`auth.errors.${error}`)}
         </div>
       )}
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        <Input
-          label={t('auth.fields.email')}
-          type="email"
-          {...register('email')}
-          error={errors.email?.message}
-          icon="mail"
-        />
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div>
+          <label htmlFor="email" className="block text-sm font-medium text-gray-300">
+            {t('auth.fields.email')}
+          </label>
+          <div className="mt-1 relative rounded-md shadow-sm">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <Icon name="mail" className="h-5 w-5 text-gray-400" />
+            </div>
+            <input
+              type="email"
+              id="email"
+              required
+              className={cn(
+                "bg-white/5 border border-gray-600 text-white block w-full",
+                "pl-10 pr-3 py-2 rounded-md",
+                "focus:ring-indigo-500 focus:border-indigo-500"
+              )}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              disabled={isSubmitting}
+            />
+          </div>
+        </div>
 
-        <Input
-          label={t('auth.fields.password')}
-          type="password"
-          {...register('password')}
-          error={errors.password?.message}
-          icon="lock"
-        />
+        <div>
+          <label htmlFor="password" className="block text-sm font-medium text-gray-300">
+            {t('auth.fields.password')}
+          </label>
+          <div className="mt-1 relative rounded-md shadow-sm">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <Icon name="lock" className="h-5 w-5 text-gray-400" />
+            </div>
+            <input
+              type="password"
+              id="password"
+              required
+              className={cn(
+                "bg-white/5 border border-gray-600 text-white block w-full",
+                "pl-10 pr-3 py-2 rounded-md",
+                "focus:ring-indigo-500 focus:border-indigo-500"
+              )}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              disabled={isSubmitting}
+            />
+          </div>
+        </div>
 
-        <Button
+        <button
           type="submit"
-          className="w-full"
-          isLoading={isSubmitting}
-          disabled={isSubmitting}
+          disabled={isSubmitting || !email || !password}
+          className={cn(
+            "w-full flex justify-center py-2 px-4 border border-transparent",
+            "rounded-md shadow-sm text-sm font-medium text-white",
+            "bg-indigo-600 hover:bg-indigo-700",
+            "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
+            "disabled:opacity-50 disabled:cursor-not-allowed"
+          )}
         >
           {isSubmitting 
             ? t('auth.login.signingIn')
             : t('auth.login.signIn')
           }
-        </Button>
-
-        <div className="text-center">
-          <p className="text-sm text-gray-400">
-            {t('auth.login.noAccount')}{' '}
-            <Button
-              variant="link"
-              onClick={() => navigate('/signup')}
-              className="text-indigo-400 hover:text-indigo-300"
-            >
-              {t('auth.login.signUp')}
-            </Button>
-          </p>
-        </div>
+        </button>
       </form>
-    </Card>
+    </div>
   );
 } 

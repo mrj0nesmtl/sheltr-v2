@@ -1,32 +1,42 @@
-import { create } from 'zustand';
+import { useAuthStore } from '../stores/authStore';
+import { UserRole } from '../lib/types/database';
 
-interface User {
-  id: string;
-  email: string;
-  name?: string;
-}
+export function useAuth() {
+  const {
+    user,
+    isLoading,
+    error,
+    isAuthenticated,
+    login,
+    logout,
+    clearError
+  } = useAuthStore();
 
-interface AuthState {
-  isAuthenticated: boolean;
-  user: User | null;
-  signIn: (email: string, password: string) => Promise<void>;
-  signOut: () => void;
-}
+  const hasRole = (roles: UserRole | UserRole[]) => {
+    if (!user) return false;
+    const allowedRoles = Array.isArray(roles) ? roles : [roles];
+    return allowedRoles.includes(user.role);
+  };
 
-// Create the store
-const useAuthStore = create<AuthState>((set) => ({
-  isAuthenticated: false,
-  user: null,
-  signIn: async (email: string, password: string) => {
-    set({ isAuthenticated: true, user: { id: '1', email } });
-  },
-  signOut: () => {
-    set({ isAuthenticated: false, user: null });
-  },
-}));
+  const isSuperAdmin = () => hasRole(UserRole.SUPER_ADMIN);
+  const isShelterAdmin = () => hasRole(UserRole.SHELTER_ADMIN);
+  const isDonor = () => hasRole(UserRole.DONOR);
+  const isParticipant = () => hasRole(UserRole.PARTICIPANT);
+  const isStaff = () => hasRole(UserRole.STAFF);
 
-// Export the hook
-export const useAuth = () => {
-  const { isAuthenticated, user, signIn, signOut } = useAuthStore();
-  return { isAuthenticated, user, signIn, signOut };
-}; 
+  return {
+    user,
+    isLoading,
+    error,
+    isAuthenticated,
+    login,
+    logout,
+    clearError,
+    hasRole,
+    isSuperAdmin,
+    isShelterAdmin,
+    isDonor,
+    isParticipant,
+    isStaff
+  };
+} 

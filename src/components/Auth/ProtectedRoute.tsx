@@ -1,47 +1,43 @@
 import { Navigate, useLocation } from 'react-router-dom';
-import { useAuthStore } from '@/stores/authStore';
+import { useAuthStore } from '../../stores/authStore';
+import { UserRole } from '../../lib/types/database';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
-  allowedRoles: string[];
+  allowedRoles: UserRole[];
 }
 
-export function ProtectedRoute({ children, allowedRoles = ['admin'] }: ProtectedRouteProps) {
+export function ProtectedRoute({ children, allowedRoles }: ProtectedRouteProps) {
   const location = useLocation();
-  const { user } = useAuthStore();
+  const { user, isLoading, isAuthenticated } = useAuthStore();
 
-  console.log('Protected Route:', { user, allowedRoles });
+  // Show loading state while auth is initializing
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
 
-  if (!user) {
-    console.log('No user, redirecting to login');
+  // Redirect to login if not authenticated
+  if (!isAuthenticated || !user) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  if (!allowedRoles || !Array.isArray(allowedRoles)) {
-    console.error('allowedRoles is not properly defined:', allowedRoles);
-    return <Navigate to="/login" replace />;
-  }
-
-  if (!user.role) {
-    console.error('User has no role:', user);
-    return <Navigate to="/login" replace />;
-  }
-
+  // Validate roles
   if (!allowedRoles.includes(user.role)) {
-    console.log('User role not allowed:', user.role);
     // Redirect to appropriate dashboard based on role
-    switch (user.role) {
-      case 'super_admin':
-        return <Navigate to="/super-admin/dashboard" replace />;
-      case 'shelter_admin':
-        return <Navigate to="/shelter-admin/dashboard" replace />;
-      case 'donor':
-        return <Navigate to="/donor/dashboard" replace />;
-      case 'participant':
-        return <Navigate to="/participant/dashboard" replace />;
-      default:
-        return <Navigate to="/login" replace />;
-    }
+    const dashboardRoutes: Record<UserRole, string> = {
+      [UserRole.SUPER_ADMIN]: '/super-admin/dashboard',
+      [UserRole.SHELTER_ADMIN]: '/shelter-admin/dashboard',
+      [UserRole.DONOR]: '/donor/dashboard',
+      [UserRole.PARTICIPANT]: '/participant/dashboard',
+      [UserRole.STAFF]: '/staff/dashboard'
+    };
+
+    const redirectPath = dashboardRoutes[user.role] || '/login';
+    return <Navigate to={redirectPath} replace />;
   }
 
   return <>{children}</>;
