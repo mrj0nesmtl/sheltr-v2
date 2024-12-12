@@ -25,17 +25,17 @@ export const getNavigationConfig = (t: (key: string) => string) => ({
     items: [
       { 
         label: t('nav.dashboard'), 
-        href: '/dashboard',
+        href: '/protected/dashboard',
         roles: ['super_admin', 'admin', 'shelter_admin', 'donor']
       },
       { 
         label: t('nav.profile'), 
-        href: '/profile',
+        href: '/protected/profile',
         roles: ['super_admin', 'admin', 'shelter_admin', 'donor', 'participant']
       },
       { 
         label: t('nav.settings'), 
-        href: '/settings',
+        href: '/protected/settings',
         roles: ['super_admin', 'admin', 'shelter_admin', 'donor', 'participant']
       }
     ]
