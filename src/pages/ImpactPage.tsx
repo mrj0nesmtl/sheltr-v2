@@ -30,7 +30,7 @@ const monthlyGrowthData = [
   { month: 'Jun', participants: 80, donations: 160, amount: 24500 }
 ];
 
-export function ImpactPage() {
+export default function ImpactPage() {
   const navigate = useNavigate();
   const { t } = useTranslation();
 

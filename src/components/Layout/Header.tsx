@@ -1,129 +1,109 @@
-import { useNavigate, Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuthStore } from '@/stores/authStore';
-import { Icon } from '@/components/ui/Icon';
 import { useTranslation } from 'react-i18next';
-import { 
-  Info, 
-  Lightbulb, 
-  QrCode, 
-  BarChart3, 
-  LogOut 
-} from 'lucide-react';
+import { Menu, X } from 'lucide-react';
+import { Button } from '@/components/ui/Button';
+import { Logo } from '@/components/ui/Logo';
+import { MainNav } from '@/components/Navigation/MainNav';
+import { MobileMenu } from '@/components/Navigation/MobileMenu';
+import { UserNav } from '@/components/Navigation/UserNav';
+import { navigationConfig } from '@/lib/navigation/config';
 
 export function Header() {
-  const navigate = useNavigate();
-  const { user, signOut } = useAuthStore();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user } = useAuthStore();
   const { t } = useTranslation();
 
-  const mainNavItems = [
-    { 
-      label: t('nav.howItWorks'), 
-      path: '/how-it-works',
-      icon: <Info className="w-4 h-4" />
-    },
-    { 
-      label: t('nav.solutions'), 
-      path: '/solutions',
-      icon: <Lightbulb className="w-4 h-4" />
-    },
-    { 
-      label: t('nav.scanDonate'), 
-      path: '/scan-donate',
-      icon: <QrCode className="w-4 h-4" />
-    },
-    { 
-      label: t('nav.impact'), 
-      path: '/impact',
-      icon: <BarChart3 className="w-4 h-4" />
-    },
-  ];
+  const navItems = navigationConfig.filter(item => 
+    !item.requiresAuth || (user && (!item.roles || item.roles.includes(user.role)))
+  );
 
   return (
-    <header className="fixed top-0 left-0 right-0 bg-gray-900/95 backdrop-blur border-b border-gray-800 z-50">
-      <div className="h-16 px-6 flex items-center justify-between max-w-7xl mx-auto">
-        {/* Logo with both text and icon */}
-        <Link 
-          to="/" 
-          className="flex-shrink-0 flex items-center space-x-2"
-          aria-label="SHELTR Home"
-        >
-          <img 
-            src="/images/icon.svg" 
-            alt="" 
-            className="h-8 w-8"
-            aria-hidden="true"
-          />
-          <img 
-            src="/images/logo.svg" 
-            alt="SHELTR" 
-            className="h-6 w-auto hidden sm:block"
-          />
-        </Link>
-
-        {/* Rest of the header remains the same */}
-        <nav className="hidden md:flex flex-1 justify-center">
-          <div className="flex space-x-1">
-            {mainNavItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                className="flex items-center space-x-2 px-4 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800 transition-colors"
-              >
-                {item.icon}
-                <span>{item.label}</span>
-              </Link>
-            ))}
+    <header className="fixed top-0 left-0 right-0 z-50 bg-gray-900 border-b border-gray-800">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <div className="flex-shrink-0">
+            <Link to="/" className="flex items-center">
+              <span className="text-white text-xl font-bold">SHELTR</span>
+            </Link>
           </div>
-        </nav>
 
-        <div className="flex items-center space-x-4">
-          {!user ? (
-            <>
-              <Link
-                to="/login"
-                className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium"
-              >
-                {t('nav.login')}
-              </Link>
-              <Link
-                to="/signup"
-                className="bg-purple-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-purple-700 transition-colors"
-              >
-                {t('nav.signUp')}
-              </Link>
-            </>
-          ) : (
-            <div className="flex items-center space-x-4">
-              <span className="text-gray-300 text-sm">
-                {user.name || user.email}
-              </span>
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex md:items-center md:space-x-8">
+            <MainNav items={navItems} />
+          </div>
+
+          {/* Auth Buttons / User Menu */}
+          <div className="flex items-center">
+            {user ? (
+              <UserNav user={user} />
+            ) : (
+              <div className="hidden md:flex items-center space-x-4">
+                <Button variant="ghost" className="text-gray-300 hover:text-white">
+                  <Link to="/login">Sign In</Link>
+                </Button>
+                <Button className="bg-indigo-600 hover:bg-indigo-700 text-white">
+                  <Link to="/signup">Sign Up</Link>
+                </Button>
+              </div>
+            )}
+
+            {/* Mobile menu button */}
+            <div className="flex md:hidden ml-4">
               <button
-                onClick={() => signOut()}
-                className="flex items-center space-x-2 text-gray-300 hover:text-white text-sm"
+                type="button"
+                className="text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               >
-                <LogOut className="w-4 h-4" />
-                <span>{t('common.signOut')}</span>
+                <span className="sr-only">Open main menu</span>
+                {isMobileMenuOpen ? (
+                  <X className="block h-6 w-6" />
+                ) : (
+                  <Menu className="block h-6 w-6" />
+                )}
               </button>
             </div>
-          )}
+          </div>
         </div>
       </div>
 
-      {/* Mobile Navigation */}
-      <nav className="md:hidden border-t border-gray-800">
-        <div className="flex justify-around px-2 py-3">
-          {mainNavItems.map((item) => (
+      {/* Mobile menu */}
+      <div className={`md:hidden ${isMobileMenuOpen ? 'block' : 'hidden'}`}>
+        <div className="px-2 pt-2 pb-3 space-y-1">
+          {navItems.map((item) => (
             <Link
               key={item.path}
               to={item.path}
-              className="flex flex-col items-center space-y-1 text-gray-300 hover:text-white"
+              className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+              onClick={() => setIsMobileMenuOpen(false)}
             >
-              {item.icon}
-              <span className="text-xs">{item.label}</span>
+              {item.label}
             </Link>
           ))}
         </div>
-      </nav>
+        {!user && (
+          <div className="pt-4 pb-3 border-t border-gray-700">
+            <div className="px-2 space-y-1">
+              <Link
+                to="/login"
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Sign In
+              </Link>
+              <Link
+                to="/signup"
+                className="block px-3 py-2 rounded-md text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Sign Up
+              </Link>
+            </div>
+          </div>
+        )}
+      </div>
     </header>
   );
 }

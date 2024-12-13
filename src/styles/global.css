@@ -14,12 +14,43 @@
   .input {
     @apply bg-secondary border border-gray-700 rounded-lg p-2;
   }
+
+  .nav-container {
+    @apply fixed top-0 left-0 right-0 bg-secondary border-b border-gray-700 z-50;
+    background-color: rgba(var(--bg-secondary-rgb), 0.95);
+    backdrop-filter: blur(8px);
+  }
+
+  .nav-link {
+    @apply text-sm font-medium transition-colors relative;
+    color: var(--text-secondary);
+  }
+
+  .nav-link:hover {
+    color: var(--text-primary);
+  }
+
+  .nav-link-active {
+    color: var(--accent-primary);
+  }
+
+  .nav-link-active::after {
+    @apply absolute bottom-0 left-0 w-full h-0.5;
+    content: '';
+    background-color: var(--accent-primary);
+  }
+
+  .mobile-nav {
+    @apply fixed inset-y-0 right-0 w-full max-w-sm shadow-xl;
+    background-color: var(--bg-secondary);
+  }
 }
 
 /* Base theme styles */
 :root[data-theme="light"] {
   --bg-primary: #ffffff;
   --bg-secondary: #f3f4f6;
+  --bg-secondary-rgb: 243, 244, 246;
   --text-primary: #111827;
   --text-secondary: #4b5563;
   --accent-primary: #3b82f6;
@@ -28,6 +59,7 @@
 :root[data-theme="dark"] {
   --bg-primary: #111827;
   --bg-secondary: #1f2937;
+  --bg-secondary-rgb: 31, 41, 55;
   --text-primary: #f9fafb;
   --text-secondary: #d1d5db;
   --accent-primary: #60a5fa;
@@ -36,6 +68,7 @@
 :root[data-theme="christmas"] {
   --bg-primary: #1a2f38;
   --bg-secondary: #2c4a54;
+  --bg-secondary-rgb: 44, 74, 84;
   --text-primary: #f9fafb;
   --text-secondary: #d1d5db;
   --accent-primary: #e63946;

@@ -1,30 +1,28 @@
-import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { cn } from '@/lib/utils';
-import { getMainNavItems } from '@/lib/config/navigation';
+import type { NavigationItem } from '@/lib/navigation/config';
 
-export function MainNav() {
-  const { t } = useTranslation();
+interface MainNavProps {
+  items: NavigationItem[];
+}
+
+export function MainNav({ items }: MainNavProps) {
   const location = useLocation();
-  const navItems = getMainNavItems(t);
 
   return (
-    <div className="hidden md:flex items-center space-x-8">
-      {navItems.map(({ label, href }) => (
+    <nav className="flex space-x-8">
+      {items.map((item) => (
         <Link
-          key={href}
-          to={href}
-          className={cn(
-            'text-sm font-medium transition-colors',
-            location.pathname === href
+          key={item.path}
+          to={item.path}
+          className={`text-sm font-medium transition-colors ${
+            location.pathname === item.path
               ? 'text-white'
               : 'text-gray-300 hover:text-white'
-          )}
+          }`}
         >
-          {label}
+          {item.label}
         </Link>
       ))}
-    </div>
+    </nav>
   );
 } 

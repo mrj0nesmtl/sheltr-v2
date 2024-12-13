@@ -1,137 +1,60 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '@/lib/supabase';
-import { getCurrentSession, getUserProfile } from '@/lib/auth/authService';
-import type { UserProfile } from '@/lib/types/auth';
+import { useAuthStore } from '../../stores/authStore';
 
 interface AuthContextType {
-  user: UserProfile | null;
-  isLoading: boolean;
-  initialized: boolean;
-  error: string | null;
-  signIn: (email: string, password: string) => Promise<UserProfile | null>;
-  signOut: () => Promise<void>;
+  isAuthenticated: boolean;
+  user: User | null;
+  role: UserRole;
+  login: (credentials: LoginCredentials) => Promise<void>;
+  logout: () => void;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext<AuthContextType | null>(null);
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<UserProfile | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [initialized, setInitialized] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+export function AuthProvider({ children }: { children: ReactNode }) {
   const navigate = useNavigate();
+  const { user, isAuthenticated, role, login, logout } = useAuthStore();
 
+  // Persist auth state
   useEffect(() => {
-    const initializeAuth = async () => {
-      try {
-        const session = await getCurrentSession();
-        if (session?.user) {
-          const profile = await getUserProfile(session.user.id);
-          setUser(profile);
-        }
-      } catch (error) {
-        console.error('Auth initialization error:', error);
-      } finally {
-        setIsLoading(false);
-        setInitialized(true);
+    const savedAuth = localStorage.getItem('auth');
+    if (savedAuth) {
+      const authData = JSON.parse(savedAuth);
+      // Validate and restore auth state
+      if (authData.user && authData.role) {
+        useAuthStore.setState(authData);
       }
-    };
-
-    initializeAuth();
-
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        setIsLoading(true);
-        if (session?.user) {
-          const profile = await getUserProfile(session.user.id);
-          setUser(profile);
-        } else {
-          setUser(null);
-        }
-        setIsLoading(false);
-      }
-    );
-
-    return () => {
-      subscription.unsubscribe();
-    };
+    }
   }, []);
 
-  const signIn = async (email: string, password: string) => {
-    try {
-      setIsLoading(true);
-      setError(null);
-      
-      console.log('Attempting sign in for:', email);
-      
-      const { data: { user: authUser }, error: signInError } = 
-        await supabase.auth.signInWithPassword({ email, password });
-
-      if (signInError) throw signInError;
-      if (!authUser) throw new Error('No user returned after sign in');
-
-      console.log('Auth user:', authUser);
-      
-      const profile = await getUserProfile(authUser.id);
-      console.log('User profile:', profile);
-      
-      if (!profile) throw new Error('No profile found');
-
-      setUser(profile);
-      return profile;
-    } catch (error: any) {
-      console.error('Sign in error:', error);
-      setError(error.message);
-      return null;
-    } finally {
-      setIsLoading(false);
+  // Save auth state changes
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      localStorage.setItem('auth', JSON.stringify({ user, role, isAuthenticated }));
+    } else {
+      localStorage.removeItem('auth');
     }
+  }, [isAuthenticated, user, role]);
+
+  const value = {
+    isAuthenticated,
+    user,
+    role,
+    login,
+    logout: () => {
+      logout();
+      navigate('/login');
+    },
   };
 
-  const signOut = async () => {
-    try {
-      setIsLoading(true);
-      
-      // Sign out from Supabase
-      const { error } = await supabase.auth.signOut();
-      if (error) throw error;
-
-      // Clear user state
-      setUser(null);
-      
-      // Force clear any cached auth state
-      localStorage.removeItem('supabase.auth.token');
-      
-      // Navigate to login page
-      navigate('/login', { replace: true });
-    } catch (error) {
-      console.error('Sign out error:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  return (
-    <AuthContext.Provider
-      value={{
-        user,
-        isLoading,
-        initialized,
-        error,
-        signIn,
-        signOut
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
+// Custom hook for using auth context
 export function useAuth() {
   const context = useContext(AuthContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;

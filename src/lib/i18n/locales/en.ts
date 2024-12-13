@@ -484,14 +484,17 @@ export const en: Translations = {
     }
   },
   auth: {
-    login: 'Login',
-    title: "Sign In to SHELTR",
-    email: "Email",
-    password: "Password",
-    signIn: "Sign In",
-    signingIn: "Signing in...",
-    noAccount: "Don't have an account?",
-    signUp: "Sign up",
+    login: {
+      title: "Sign In to SHELTR",
+      signIn: "Sign In",
+      signingIn: "Signing in...",
+      noAccount: "Don't have an account?",
+      signUp: "Sign up"
+    },
+    fields: {
+      email: "Email",
+      password: "Password"
+    },
     errors: {
       invalidCredentials: "Invalid email or password",
       serverError: "Unable to connect to server"

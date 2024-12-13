@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { SignUpForm } from '@/components/Auth/SignUpForm';
 
-export function SignUpPage() {
+export default function SignUpPage() {
   const { t } = useTranslation();
   
   return (

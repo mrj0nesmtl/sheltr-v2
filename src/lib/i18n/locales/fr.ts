@@ -439,18 +439,16 @@ export const fr: Translations = {
     }
   },
   auth: {
+    fields: {
+      email: "Adresse e-mail",
+      password: "Mot de passe"
+    },
     login: {
       title: "Connexion à SHELTR",
-      email: "Adresse e-mail",
-      password: "Mot de passe",
       signIn: "Se connecter",
       signingIn: "Connexion en cours...",
       noAccount: "Vous n'avez pas de compte ?",
-      signUp: "S'inscrire",
-      errors: {
-        invalidCredentials: "Email ou mot de passe invalide",
-        serverError: "Impossible de se connecter au serveur"
-      }
+      signUp: "S'inscrire"
     }
   },
   about: {

@@ -7,7 +7,7 @@ import {
 import { Button } from '@/components/ui/Button';
 import { FeatureCard } from '@/components/ui/FeatureCard';
 
-export function SolutionsPage() {
+export default function Solutions() {
   const { t } = useTranslation();
 
   const solutions = [

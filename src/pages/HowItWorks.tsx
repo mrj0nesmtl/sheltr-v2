@@ -12,7 +12,7 @@ import { motion } from 'framer-motion';
 import { FeatureCard } from '@/components/ui/FeatureCard';
 import { Button } from '@/components/ui/Button';
 
-export function HowItWorksPage() {
+export default function HowItWorks() {
   const { t } = useTranslation();
 
   const steps = [

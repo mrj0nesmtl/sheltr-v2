@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { LoginForm } from '@/components/Auth/LoginForm';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 
-export function LoginPage({ isAdminLogin = false }: { isAdminLogin?: boolean }) {
+export default function LoginPage() {
   const { t } = useTranslation();
   
   return (
@@ -15,7 +15,7 @@ export function LoginPage({ isAdminLogin = false }: { isAdminLogin?: boolean }) 
             animate={{ opacity: 1, y: 0 }}
             className="max-w-md mx-auto"
           >
-            <LoginForm isAdminLogin={isAdminLogin} />
+            <LoginForm />
           </motion.div>
         </div>
       </div>

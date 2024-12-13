@@ -5,6 +5,11 @@
   --text-secondary: #4b5563;
   --accent-primary: #3b82f6;
   --button-hover: #e5e7eb;
+  --nav-bg: rgba(255, 255, 255, 0.95);
+  --nav-border: #e5e7eb;
+  --nav-text: #4b5563;
+  --nav-text-hover: #111827;
+  --nav-shadow: rgba(0, 0, 0, 0.1);
 }
 
 :root[data-theme="dark"] {
@@ -14,6 +19,11 @@
   --text-secondary: #d1d5db;
   --accent-primary: #60a5fa;
   --button-hover: #374151;
+  --nav-bg: rgba(31, 41, 55, 0.95);
+  --nav-border: #374151;
+  --nav-text: #d1d5db;
+  --nav-text-hover: #f9fafb;
+  --nav-shadow: rgba(0, 0, 0, 0.25);
 }
 
 :root[data-theme="christmas"] {
@@ -27,6 +37,11 @@
   --christmas-gold: #f4a261;
   --snow-white: #f8f9fa;
   --button-hover: #34626c;
+  --nav-bg: rgba(26, 47, 56, 0.95);
+  --nav-border: #34626c;
+  --nav-text: #d1d5db;
+  --nav-text-hover: var(--christmas-gold);
+  --nav-shadow: rgba(0, 0, 0, 0.3);
 }
 
 @keyframes snowfall {
