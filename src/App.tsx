@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Header } from '@/components/Layout/Header';
+import { Layout } from '@/components/Layout';
 import HomePage from '@/pages/HomePage';
+import { AboutPage } from '@/pages/About';
 import HowItWorks from '@/pages/HowItWorks';
 import Solutions from '@/pages/Solutions';
 import ImpactPage from '@/pages/ImpactPage';
@@ -12,11 +13,11 @@ import './styles/globals.css';
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-gray-900">
-        <Header />
+      <Layout>
         <main className="pt-16">
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
             <Route path="/how-it-works" element={<HowItWorks />} />
             <Route path="/solutions" element={<Solutions />} />
             <Route path="/impact" element={<ImpactPage />} />
@@ -25,7 +26,7 @@ function App() {
             <Route path="/signup" element={<SignUpPage />} />
           </Routes>
         </main>
-      </div>
+      </Layout>
     </Router>
   );
 }

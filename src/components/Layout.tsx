@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
-import { Outlet } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import React from 'react';
 import { useAuthStore } from '@/stores/authStore';
 import { Header } from './Layout/Header';
 import { NavigationItems } from './Navigation/NavigationItems';
-import { Footer } from '@/components/ui/Footer';
+import { Footer } from './Footer/Footer';
 
-export function Layout() {
+interface LayoutProps {
+  children: React.ReactNode;
+}
+
+export function Layout({ children }: LayoutProps) {
   const { user } = useAuthStore();
 
   return (
@@ -15,14 +17,18 @@ export function Layout() {
       
       <div className="flex-1 pt-16">
         <div className="flex">
-          {user && <NavigationItems />}
-          <main className={`flex-1 ${user ? 'ml-64' : ''} p-6`}>
-            <Outlet />
+          {user && (
+            <aside className="hidden md:block fixed left-0 w-64 h-full bg-gray-800">
+              <NavigationItems />
+            </aside>
+          )}
+          <main className={`flex-1 ${user ? 'ml-0 md:ml-64' : ''} p-6`}>
+            {children}
           </main>
         </div>
       </div>
 
-      {!user && <Footer />}
+      <Footer />
     </div>
   );
 }

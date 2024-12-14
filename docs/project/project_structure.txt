@@ -5,7 +5,6 @@
 │       ├── en.json
 │       ├── en.ts
 │       └── fr.ts
-├── codebase_full_structure.txt
 ├── codebase_structure.txt
 ├── docs
 │   ├── about
@@ -15,12 +14,15 @@
 │   │   ├── buildout_implementation.md
 │   │   ├── checkpoint.md
 │   │   ├── roadmap.md
-│   │   └── status_report.md
+│   │   ├── status_report.md
+│   │   └── tech_stack.md
 │   ├── prompt.md
 │   ├── technical
 │   │   ├── build_tract.md
 │   │   ├── changelog.md
-│   │   ├── tech_stack.md
+│   │   ├── codebase_full_structure.txt
+│   │   ├── codebase_structure.txt
+│   │   ├── project_structure.txt
 │   │   └── user_flow_testing.md
 │   ├── testing
 │   │   └── user_flows.md
@@ -180,6 +182,7 @@
 │   │   │   ├── Navigation.tsx
 │   │   │   ├── NavigationItems.tsx
 │   │   │   ├── UserMenu.tsx
+│   │   │   ├── UserNav.tsx
 │   │   │   └── types.ts
 │   │   ├── Participant
 │   │   │   ├── ParticipantDashboard.tsx
@@ -234,6 +237,7 @@
 │   │       ├── Badge.tsx
 │   │       ├── Button.tsx
 │   │       ├── Card.tsx
+│   │       ├── Checkbox.tsx
 │   │       ├── CustomIcons.tsx
 │   │       ├── FeatureCard.tsx
 │   │       ├── FullContentModal.tsx
@@ -307,6 +311,7 @@
 │   │   │   └── blog
 │   │   │       └── posts.ts
 │   │   ├── database.types.ts
+│   │   ├── docs-parser.ts
 │   │   ├── email
 │   │   │   ├── templates
 │   │   │   │   ├── donationReceipt.ts
@@ -315,6 +320,7 @@
 │   │   │   └── templates.ts
 │   │   ├── i18n
 │   │   │   ├── config.ts
+│   │   │   ├── en.ts
 │   │   │   ├── index.ts
 │   │   │   ├── locales
 │   │   │   │   ├── en.json
@@ -372,8 +378,9 @@
 │   │   │   └── storageService.ts
 │   │   ├── supabase
 │   │   │   ├── client.ts
+│   │   │   ├── index.ts
+│   │   │   ├── migration.ts
 │   │   │   └── security.ts
-│   │   ├── supabase.ts
 │   │   ├── theme.ts
 │   │   ├── types
 │   │   │   ├── auth.ts
@@ -427,7 +434,6 @@
 │   │   │   ├── ShelterManagement.tsx
 │   │   │   └── ShelterParticipantAnalytics.tsx
 │   │   ├── ShelterSignUp.tsx
-│   │   ├── SignUp.tsx
 │   │   ├── SignUpPage.tsx
 │   │   ├── Solutions.tsx
 │   │   ├── SuperAdmin
@@ -450,7 +456,6 @@
 │   │   │   │   ├── DonorDetailAnalytics.tsx
 │   │   │   │   └── DonorManagement.tsx
 │   │   │   └── index.ts
-│   │   ├── auth
 │   │   └── blockchain
 │   │       └── whitepaper.tsx
 │   ├── router.tsx
@@ -495,4 +500,4 @@
 ├── vercel.json
 └── vite.config.ts
 
-110 directories, 386 files
+109 directories, 392 files

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Logo } from '../ui/Logo';
+import { LanguageToggle } from '../ui/LanguageToggle';
 
 export function Footer() {
   const { t } = useTranslation();
@@ -13,68 +14,72 @@ export function Footer() {
           {/* Logo & Tagline */}
           <div className="col-span-1">
             <Logo className="h-8 w-auto mb-4" />
-            <p className="text-gray-400">{t('footer.tagline')}</p>
+            <p className="text-gray-400">{t('common.tagline')}</p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-white font-semibold mb-4">{t('footer.quickLinks')}</h3>
+            <h3 className="text-white font-semibold mb-4">{t('nav.solutions_menu.title')}</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/how-it-works" className="text-gray-400 hover:text-white">
-                  {t('footer.links.howItWorks')}
+                <Link to="/how-it-works" className="footer-link text-gray-400 hover:text-white">
+                  {t('nav.solutions_menu.howItWorks')}
                 </Link>
               </li>
               <li>
-                <Link to="/solutions" className="text-gray-400 hover:text-white">
-                  {t('footer.links.solutions')}
+                <Link to="/solutions" className="footer-link text-gray-400 hover:text-white">
+                  {t('nav.solutions_menu.solutions')}
                 </Link>
               </li>
               <li>
-                <Link to="/scan-donate" className="text-gray-400 hover:text-white">
-                  {t('footer.links.scanDonate')}
+                <Link to="/scan-donate" className="footer-link text-gray-400 hover:text-white">
+                  {t('nav.scanDonate')}
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Resources */}
+          {/* Company */}
           <div>
-            <h3 className="text-white font-semibold mb-4">{t('footer.resources')}</h3>
+            <h3 className="text-white font-semibold mb-4">{t('nav.company_menu.title')}</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/blog" className="text-gray-400 hover:text-white">
-                  {t('footer.links.blog')}
+                <Link to="/about" className="footer-link text-gray-400 hover:text-white">
+                  {t('nav.company_menu.about')}
                 </Link>
               </li>
               <li>
-                <Link to="/privacy" className="text-gray-400 hover:text-white">
-                  {t('footer.links.privacy')}
+                <Link to="/blog" className="footer-link text-gray-400 hover:text-white">
+                  {t('nav.company_menu.blog')}
                 </Link>
               </li>
               <li>
-                <Link to="/terms" className="text-gray-400 hover:text-white">
-                  {t('footer.links.terms')}
-                </Link>
+                <LanguageToggle className="footer-link text-gray-400 hover:text-white" />
               </li>
             </ul>
           </div>
 
           {/* Connect */}
           <div>
-            <h3 className="text-white font-semibold mb-4">{t('footer.connect')}</h3>
-            <div className="space-y-4">
-              {/* Social Links */}
-              <div className="flex space-x-4">
-                {/* Add social icons/links here */}
-              </div>
-            </div>
+            <h3 className="text-white font-semibold mb-4">{t('nav.blockchain.title')}</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link to="/whitepaper" className="footer-link text-gray-400 hover:text-white">
+                  {t('nav.blockchain.menu.whitepaper')}
+                </Link>
+              </li>
+              <li>
+                <Link to="/transactions" className="footer-link text-gray-400 hover:text-white">
+                  {t('nav.blockchain.menu.transactions')}
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
 
         <div className="mt-8 pt-8 border-t border-gray-800">
           <p className="text-gray-400 text-sm text-center">
-            © {new Date().getFullYear()} SHELTR. {t('footer.rights')}
+            © {new Date().getFullYear()} SHELTR. {t('nav.footer.copyright', { year: new Date().getFullYear() })}
           </p>
         </div>
       </div>

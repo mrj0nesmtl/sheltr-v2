@@ -1,0 +1,20 @@
+name: Version Control
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Increment Version
+        run: |
+          node scripts/increment-version.js
+          
+      - name: Update Documentation
+        run: |
+          node scripts/update-docs.js 

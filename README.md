@@ -1,9 +1,9 @@
-# 🏠 SHELTR V2: Transforming Charitable Giving for Homelessness
 
 <div align="center">
 
 ![SHELTR](https://img.shields.io/badge/SHELTR-V2-blue)
-![Stage](https://img.shields.io/badge/Stage-Development-green)
+![Version](https://img.shields.io/badge/Version-0.9.2--beta-orange)
+![Stage](https://img.shields.io/badge/Stage-Beta-yellow)
 ![License](https://img.shields.io/badge/License-MIT-purple)
 [![Listen on Spotify](https://img.shields.io/badge/Listen_on-Spotify-1DB954?logo=spotify)](https://open.spotify.com/show/3Q2RpnzF9sUv26yPMP9tWI)
 
@@ -11,7 +11,7 @@
 
 ## 🌟 Overview
 
-**SHELTR V2** is a groundbreaking platform designed to revolutionize charitable giving for homelessness by leveraging the latest in **blockchain transparency**, **AI-driven insights**, **QR code donations**, and a **gamified engagement model**. Our mission is to empower homeless individuals, enhance donor confidence, and create a **sustainable pathway** to address homelessness at scale.
+**SHELTR V2** is a groundbreaking platform designed to revolutionize charitable giving for homelessness by leveraging the latest in **blockchain transparency**, **AI-driven insights**, **QR code donations**, and a **gamified engagement model**. Our mission is to empower homeless individuals, enhance donor confidence, and create a **sustainable pathway** to address homelessness at scale. Sheltr is an innovative platform leveraging modern web technologies to revolutionize charitable giving. Built with React 18, TypeScript, and Supabase, it implements role-based authentication, real-time analytics, and blockchain transparency to create a secure and efficient donation ecosystem.
 
 ## ⚡ Key Features in Development
 

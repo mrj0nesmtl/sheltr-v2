@@ -5,7 +5,6 @@
 │       ├── en.json
 │       ├── en.ts
 │       └── fr.ts
-├── codebase_full_structure.txt
 ├── codebase_structure.txt
 ├── docs
 │   ├── about
@@ -15,11 +14,15 @@
 │   │   ├── buildout_implementation.md
 │   │   ├── checkpoint.md
 │   │   ├── roadmap.md
-│   │   └── status_report.md
+│   │   ├── status_report.md
+│   │   └── tech_stack.md
 │   ├── prompt.md
 │   ├── technical
 │   │   ├── build_tract.md
-│   │   ├── tech_stack.md
+│   │   ├── changelog.md
+│   │   ├── codebase_full_structure.txt
+│   │   ├── codebase_structure.txt
+│   │   ├── project_structure.txt
 │   │   └── user_flow_testing.md
 │   ├── testing
 │   │   └── user_flows.md
@@ -67,6 +70,8 @@
 │   │   └── regexpp
 │   ├── @headlessui
 │   │   └── react
+│   ├── @hookform
+│   │   └── resolvers
 │   ├── @humanfs
 │   │   ├── core
 │   │   └── node
@@ -3495,12 +3500,8 @@
 │   ├── nanoid
 │   │   ├── LICENSE
 │   │   ├── README.md
-│   │   ├── async
 │   │   ├── bin
-│   │   ├── index.browser.cjs
 │   │   ├── index.browser.js
-│   │   ├── index.cjs
-│   │   ├── index.d.cts
 │   │   ├── index.d.ts
 │   │   ├── index.js
 │   │   ├── nanoid.js
@@ -3639,6 +3640,7 @@
 │   │   ├── LICENSE
 │   │   ├── README.md
 │   │   ├── lib
+│   │   ├── node_modules
 │   │   └── package.json
 │   ├── postcss-import
 │   │   ├── LICENSE
@@ -4592,7 +4594,6 @@
 ├── package-lock.json
 ├── package.json
 ├── postcss.config.js
-├── project_structure.txt
 ├── public
 │   ├── content
 │   │   └── whitepaper
@@ -4632,7 +4633,6 @@
 │   │   ├── Hero.tsx
 │   │   ├── HowItWorks
 │   │   ├── HowItWorks.tsx
-│   │   ├── LanguageSwitcher
 │   │   ├── Layout
 │   │   ├── Layout.tsx
 │   │   ├── Legal
@@ -4682,6 +4682,7 @@
 │   │   ├── config
 │   │   ├── content
 │   │   ├── database.types.ts
+│   │   ├── docs-parser.ts
 │   │   ├── email
 │   │   ├── i18n
 │   │   ├── icons.ts
@@ -4692,7 +4693,6 @@
 │   │   ├── services
 │   │   ├── storage
 │   │   ├── supabase
-│   │   ├── supabase.ts
 │   │   ├── theme.ts
 │   │   ├── types
 │   │   ├── utils
@@ -4709,12 +4709,11 @@
 │   │   ├── HowItWorks.tsx
 │   │   ├── Impact.tsx
 │   │   ├── ImpactPage.tsx
-│   │   ├── Login.tsx
 │   │   ├── LoginPage.tsx
 │   │   ├── Participant
+│   │   ├── ScanDonatePage.tsx
 │   │   ├── ShelterAdmin
 │   │   ├── ShelterSignUp.tsx
-│   │   ├── SignUp.tsx
 │   │   ├── SignUpPage.tsx
 │   │   ├── Solutions.tsx
 │   │   ├── SuperAdmin
@@ -4760,4 +4759,4 @@
 ├── vercel.json
 └── vite.config.ts
 
-1090 directories, 3671 files
+1091 directories, 3669 files

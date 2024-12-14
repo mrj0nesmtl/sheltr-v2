@@ -4,7 +4,7 @@
   }
   
   .footer-link {
-    @apply transition-all duration-200 ease-in-out relative;
+    @apply transition-all duration-200 ease-in-out relative inline-block;
   }
   
   .footer-link::after {
@@ -13,5 +13,9 @@
   
   .footer-link:hover::after {
     @apply w-full;
+  }
+  
+  .language-toggle {
+    @apply flex items-center gap-2 cursor-pointer;
   }
 } 
