@@ -1,7 +1,7 @@
 {
-  "name": "sheltr",
+  "name": "sheltr-v2",
   "private": true,
-  "version": "1.2.0",
+  "version": "0.9.2-beta",
   "type": "module",
   "engines": {
     "node": ">=18.18.0",
@@ -20,7 +20,9 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,css,md}\"",
     "deploy:staging": "npm run build:staging && npm run test",
     "deploy:prod": "npm run build && npm run test",
-    "analyze": "vite build --mode production --analyze"
+    "analyze": "vite build --mode production --analyze",
+    "increment-version": "node scripts/increment-version.js",
+    "update-docs": "node scripts/update-docs.js"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.19",
