@@ -1,75 +1,68 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Button } from '@/components/ui/Button';
-import { Icon } from '@/components/ui/Icon';
-import { useAuthStore } from '@/stores/authStore';
-import { MainNav } from './MainNav';
+import { Menu } from 'lucide-react';
+import { Logo } from '../ui/Logo';
 import { MobileNav } from './MobileNav';
 
 export function Navigation() {
   const { t } = useTranslation();
-  const { user } = useAuthStore();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-gray-900/50 backdrop-blur-sm fixed w-full z-50">
+    <nav className="bg-gray-800 border-b border-gray-700">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link to="/" className="flex items-center">
-            <span className="text-2xl font-bold text-white">SHELTR</span>
-          </Link>
-
-          {/* Desktop Navigation */}
-          <MainNav />
-
-          {/* Auth Buttons */}
-          <div className="flex items-center space-x-4">
-            {user ? (
-              <Button
-                variant="ghost"
-                onClick={() => useAuthStore.getState().signOut()}
-                className="text-gray-300"
-              >
-                <Icon name="log-out" className="w-4 h-4 mr-2" />
-                {t('auth.signOut')}
-              </Button>
-            ) : (
-              <>
-                <Link to="/login">
-                  <Button variant="ghost" className="text-gray-300">
-                    {t('auth.login')}
-                  </Button>
-                </Link>
-                <Link to="/signup">
-                  <Button className="bg-indigo-600 text-white hover:bg-indigo-700">
-                    {t('auth.signUp')}
-                  </Button>
-                </Link>
-              </>
-            )}
+          <div className="flex items-center gap-8">
+            <Link to="/" className="flex-shrink-0">
+              <Logo className="h-8 w-auto" />
+            </Link>
+            
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-6">
+              <Link to="/how-it-works" className="text-gray-300 hover:text-white">
+                {t('nav.solutions_menu.howItWorks')}
+              </Link>
+              <Link to="/solutions" className="text-gray-300 hover:text-white">
+                {t('nav.solutions_menu.solutions')}
+              </Link>
+              <Link to="/scan-donate" className="text-gray-300 hover:text-white">
+                {t('nav.scanDonate')}
+              </Link>
+              <Link to="/impact" className="text-gray-300 hover:text-white">
+                {t('nav.solutions_menu.impact')}
+              </Link>
+            </div>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
-            <Button
-              variant="ghost"
-              className="text-gray-300"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          {/* Mobile menu button */}
+          <button
+            className="md:hidden p-2 text-gray-400 hover:text-white"
+            onClick={() => setIsMobileMenuOpen(true)}
+          >
+            <Menu className="h-6 w-6" />
+          </button>
+
+          {/* Desktop Auth Buttons */}
+          <div className="hidden md:flex items-center gap-4">
+            <Link to="/login" className="text-gray-300 hover:text-white">
+              {t('nav.login')}
+            </Link>
+            <Link
+              to="/signup"
+              className="bg-indigo-600 px-4 py-2 rounded-md text-white hover:bg-indigo-700"
             >
-              <Icon name="menu" className="w-6 h-6" />
-            </Button>
+              {t('nav.signUp')}
+            </Link>
           </div>
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden">
-          <MobileNav />
-        </div>
-      )}
+      {/* Mobile Navigation */}
+      <MobileNav 
+        isOpen={isMobileMenuOpen} 
+        onClose={() => setIsMobileMenuOpen(false)} 
+      />
     </nav>
   );
-} 
+}

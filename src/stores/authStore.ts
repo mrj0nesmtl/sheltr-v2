@@ -1,103 +1,124 @@
 import { create } from 'zustand';
-import { AuthUser, UserRole } from '../lib/types/database';
-import { supabase } from '../lib/supabase/client';
+import { supabase } from '@/lib/supabase/client';
+import type { Profile, UserRole } from '@/lib/types/auth';
 
 interface AuthState {
-  user: AuthUser | null;
-  isLoading: boolean;
-  error: Error | null;
+  user: Profile | null;
+  role: UserRole | null;
   isAuthenticated: boolean;
-  
-  // Actions
-  login: (email: string, password: string) => Promise<void>;
+  loading: boolean;
+  error: string | null;
+  login: (credentials: { email: string; password: string }) => Promise<Profile | null>;
   logout: () => Promise<void>;
-  initialize: () => Promise<void>;
-  clearError: () => void;
+  clearAuth: () => void;
 }
 
-export const useAuthStore = create<AuthState>((set, get) => ({
+export const useAuthStore = create<AuthState>((set) => ({
   user: null,
-  isLoading: true,
-  error: null,
+  role: null,
   isAuthenticated: false,
+  loading: false,
+  error: null,
 
-  initialize: async () => {
+  login: async ({ email, password }) => {
+    set({ loading: true, error: null });
+    
     try {
-      const { data: { session }, error } = await supabase.auth.getSession();
+      // First clear any existing state
+      set({ user: null, role: null, isAuthenticated: false });
       
-      if (error) throw error;
-      
-      if (session?.user) {
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('id', session.user.id)
-          .single();
-
-        set({
-          user: {
-            id: session.user.id,
-            email: session.user.email!,
-            role: profile?.role as UserRole,
-            profile: profile!
-          },
-          isAuthenticated: true
-        });
-      }
-    } catch (error) {
-      set({ error: error as Error });
-    } finally {
-      set({ isLoading: false });
-    }
-  },
-
-  login: async (email: string, password: string) => {
-    try {
-      set({ isLoading: true, error: null });
-      
-      const { data: { session }, error } = await supabase.auth.signInWithPassword({
+      // 1. Authenticate with Supabase
+      const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
         email,
-        password
+        password,
       });
 
-      if (error) throw error;
+      if (authError) throw authError;
+      if (!authData?.user?.id) throw new Error('Authentication failed');
 
-      if (session?.user) {
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('id', session.user.id)
-          .single();
+      // 2. Fetch user profile with role
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', authData.user.id)
+        .maybeSingle();
 
-        set({
-          user: {
-            id: session.user.id,
-            email: session.user.email!,
-            role: profile?.role as UserRole,
-            profile: profile!
-          },
-          isAuthenticated: true
-        });
-      }
+      if (profileError) throw profileError;
+      if (!profile) throw new Error('Profile not found');
+      if (!profile.role) throw new Error('No role assigned to user');
+
+      set({
+        user: profile,
+        role: profile.role,
+        isAuthenticated: true,
+        loading: false,
+      });
+
+      return profile;
     } catch (error) {
-      set({ error: error as Error });
-    } finally {
-      set({ isLoading: false });
+      console.error('Login error:', error);
+      set({ 
+        error: error instanceof Error ? error.message : 'Login failed',
+        loading: false,
+        isAuthenticated: false,
+        user: null,
+        role: null
+      });
+      return null;
     }
   },
 
   logout: async () => {
     try {
-      set({ isLoading: true, error: null });
-      const { error } = await supabase.auth.signOut();
-      if (error) throw error;
-      set({ user: null, isAuthenticated: false });
+      await supabase.auth.signOut();
+      // Clear all auth state
+      set({
+        user: null,
+        role: null,
+        isAuthenticated: false,
+        loading: false,
+        error: null
+      });
+      // Clear local storage
+      localStorage.removeItem('supabase.auth.token');
+      localStorage.removeItem('sb-oinjrlzucizztdstagqg-auth-token');
     } catch (error) {
-      set({ error: error as Error });
-    } finally {
-      set({ isLoading: false });
+      console.error('Logout error:', error);
+      set({ error: (error as Error).message });
     }
   },
 
-  clearError: () => set({ error: null })
+  clearAuth: () => {
+    set({
+      user: null,
+      role: null,
+      isAuthenticated: false,
+      loading: false,
+      error: null
+    });
+  }
 }));
+
+// Add listener for auth state changes
+supabase.auth.onAuthStateChange((event, session) => {
+  if (event === 'SIGNED_OUT') {
+    useAuthStore.getState().clearAuth();
+  }
+  if (event === 'SIGNED_IN' && session) {
+    // Fetch and set user profile when session changes
+    supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', session.user.id)
+      .maybeSingle()
+      .then(({ data: profile, error }) => {
+        if (!error && profile) {
+          useAuthStore.setState({
+            user: profile,
+            role: profile.role,
+            isAuthenticated: true
+          });
+        }
+      });
+  }
+});

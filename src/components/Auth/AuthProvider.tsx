@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuthStore } from '../../stores/authStore';
+import { useAuthStore } from '@/stores/authStore';
+import { User, UserRole, LoginCredentials } from '@/types/auth';
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -8,32 +9,39 @@ interface AuthContextType {
   role: UserRole;
   login: (credentials: LoginCredentials) => Promise<void>;
   logout: () => void;
+  loading?: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const navigate = useNavigate();
-  const { user, isAuthenticated, role, login, logout } = useAuthStore();
+  const { user, isAuthenticated, role, login, logout, loading } = useAuthStore();
 
-  // Persist auth state
   useEffect(() => {
-    const savedAuth = localStorage.getItem('auth');
-    if (savedAuth) {
-      const authData = JSON.parse(savedAuth);
-      // Validate and restore auth state
-      if (authData.user && authData.role) {
-        useAuthStore.setState(authData);
+    try {
+      const savedAuth = localStorage.getItem('auth');
+      if (savedAuth) {
+        const authData = JSON.parse(savedAuth);
+        if (authData.user && authData.role) {
+          useAuthStore.setState(authData);
+        }
       }
+    } catch (error) {
+      console.error('Error restoring auth state:', error);
+      localStorage.removeItem('auth');
     }
   }, []);
 
-  // Save auth state changes
   useEffect(() => {
-    if (isAuthenticated && user) {
-      localStorage.setItem('auth', JSON.stringify({ user, role, isAuthenticated }));
-    } else {
-      localStorage.removeItem('auth');
+    try {
+      if (isAuthenticated && user) {
+        localStorage.setItem('auth', JSON.stringify({ user, role, isAuthenticated }));
+      } else {
+        localStorage.removeItem('auth');
+      }
+    } catch (error) {
+      console.error('Error saving auth state:', error);
     }
   }, [isAuthenticated, user, role]);
 
@@ -46,12 +54,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       logout();
       navigate('/login');
     },
+    loading
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
-// Custom hook for using auth context
 export function useAuth() {
   const context = useContext(AuthContext);
   if (!context) {

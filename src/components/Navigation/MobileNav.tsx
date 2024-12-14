@@ -1,63 +1,88 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { cn } from '@/lib/utils';
-import { Icon } from '@/components/ui/Icon';
-import { useAuthStore } from '@/stores/authStore';
-import { getMainNavItems, getUserNavItems } from '@/lib/config/navigation';
+import { X } from 'lucide-react';
+import { Logo } from '../ui/Logo';
+import { LanguageToggle } from '../ui/LanguageToggle';
 
-export function MobileNav() {
+interface MobileNavProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export function MobileNav({ isOpen, onClose }: MobileNavProps) {
   const { t } = useTranslation();
-  const location = useLocation();
-  const { user } = useAuthStore();
-  
-  const mainNavItems = getMainNavItems(t);
-  const userNavItems = getUserNavItems(t);
-
-  const isAllowed = (roles?: string[]) => {
-    if (!roles || !user) return true;
-    return roles.includes(user.role);
-  };
 
   return (
-    <div className="px-2 pt-2 pb-3 space-y-1">
-      {mainNavItems.map(({ label, href }) => (
-        <Link
-          key={href}
-          to={href}
-          className={cn(
-            'block px-3 py-2 text-base font-medium rounded-md transition-colors',
-            location.pathname === href
-              ? 'bg-gray-800 text-white'
-              : 'text-gray-300 hover:bg-gray-700'
-          )}
-        >
-          {label}
-        </Link>
-      ))}
+    <div
+      className={`fixed inset-0 bg-gray-900 z-50 transform transition-transform duration-300 ease-in-out ${
+        isOpen ? 'translate-x-0' : 'translate-x-full'
+      }`}
+    >
+      <div className="flex flex-col h-full">
+        <div className="flex items-center justify-between p-4 border-b border-gray-800">
+          <Logo className="h-8 w-auto" />
+          <button
+            onClick={onClose}
+            className="p-2 text-gray-400 hover:text-white"
+          >
+            <X className="h-6 w-6" />
+          </button>
+        </div>
 
-      {user && (
-        <>
-          <div className="border-t border-gray-700 my-2" />
-          {userNavItems
-            .filter(item => isAllowed(item.roles))
-            .map(({ label, href, icon }) => (
+        <nav className="flex-1 px-4 py-6 space-y-6">
+          <div className="space-y-4">
+            <Link
+              to="/how-it-works"
+              className="block text-lg text-gray-300 hover:text-white"
+              onClick={onClose}
+            >
+              {t('nav.solutions_menu.howItWorks')}
+            </Link>
+            <Link
+              to="/solutions"
+              className="block text-lg text-gray-300 hover:text-white"
+              onClick={onClose}
+            >
+              {t('nav.solutions_menu.solutions')}
+            </Link>
+            <Link
+              to="/scan-donate"
+              className="block text-lg text-gray-300 hover:text-white"
+              onClick={onClose}
+            >
+              {t('nav.scanDonate')}
+            </Link>
+            <Link
+              to="/impact"
+              className="block text-lg text-gray-300 hover:text-white"
+              onClick={onClose}
+            >
+              {t('nav.solutions_menu.impact')}
+            </Link>
+          </div>
+
+          <div className="pt-6 border-t border-gray-800">
+            <LanguageToggle className="mb-4" />
+            <div className="space-y-4">
               <Link
-                key={href}
-                to={href}
-                className={cn(
-                  'flex items-center px-3 py-2 text-base font-medium rounded-md transition-colors',
-                  location.pathname === href
-                    ? 'bg-gray-800 text-white'
-                    : 'text-gray-300 hover:bg-gray-700'
-                )}
+                to="/login"
+                className="block text-center w-full py-2 px-4 border border-transparent rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
+                onClick={onClose}
               >
-                {icon && <Icon name={icon} className="w-5 h-5 mr-3" />}
-                {label}
+                {t('nav.login')}
               </Link>
-            ))}
-        </>
-      )}
+              <Link
+                to="/signup"
+                className="block text-center w-full py-2 px-4 border border-gray-600 rounded-md text-gray-300 hover:text-white hover:border-gray-500"
+                onClick={onClose}
+              >
+                {t('nav.signUp')}
+              </Link>
+            </div>
+          </div>
+        </nav>
+      </div>
     </div>
   );
 } 

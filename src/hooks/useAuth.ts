@@ -1,10 +1,11 @@
-import { useAuthStore } from '../stores/authStore';
-import { UserRole } from '../lib/types/database';
+import { useAuthStore } from '@/stores/authStore';
+import { UserRole } from '@/lib/types/auth';
+import { getDashboardPath } from '@/lib/navigation/roleNavigation';
 
 export function useAuth() {
   const {
     user,
-    isLoading,
+    loading: isLoading,
     error,
     isAuthenticated,
     login,
@@ -13,16 +14,10 @@ export function useAuth() {
   } = useAuthStore();
 
   const hasRole = (roles: UserRole | UserRole[]) => {
-    if (!user) return false;
+    if (!user?.role) return false;
     const allowedRoles = Array.isArray(roles) ? roles : [roles];
-    return allowedRoles.includes(user.role);
+    return allowedRoles.includes(user.role as UserRole);
   };
-
-  const isSuperAdmin = () => hasRole(UserRole.SUPER_ADMIN);
-  const isShelterAdmin = () => hasRole(UserRole.SHELTER_ADMIN);
-  const isDonor = () => hasRole(UserRole.DONOR);
-  const isParticipant = () => hasRole(UserRole.PARTICIPANT);
-  const isStaff = () => hasRole(UserRole.STAFF);
 
   return {
     user,
@@ -33,10 +28,10 @@ export function useAuth() {
     logout,
     clearError,
     hasRole,
-    isSuperAdmin,
-    isShelterAdmin,
-    isDonor,
-    isParticipant,
-    isStaff
+    isSuperAdmin: () => hasRole(UserRole.SUPER_ADMIN),
+    isShelterAdmin: () => hasRole(UserRole.SHELTER_ADMIN),
+    isDonor: () => hasRole(UserRole.DONOR),
+    isParticipant: () => hasRole(UserRole.PARTICIPANT),
+    isStaff: () => hasRole(UserRole.STAFF)
   };
 } 

@@ -1,24 +1,32 @@
-import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
 import { LoginForm } from '@/components/Auth/LoginForm';
-import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { useAuth } from '@/hooks/useAuth';
+import { Navigate } from 'react-router-dom';
+import { getDashboardPath } from '@/lib/navigation/roleNavigation';
 
 export default function LoginPage() {
-  const { t } = useTranslation();
-  
+  const { isAuthenticated, user } = useAuth();
+
+  // Redirect if already logged in
+  if (isAuthenticated && user?.role) {
+    return <Navigate to={getDashboardPath(user.role)} replace />;
+  }
+
   return (
-    <ErrorBoundary>
-      <div className="min-h-screen bg-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="max-w-md mx-auto"
-          >
-            <LoginForm />
-          </motion.div>
+    <div className="container mx-auto px-4 min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center">
+      <div className="w-full max-w-md space-y-8">
+        <h1 className="text-3xl font-bold text-white text-center">
+          Sign In to SHELTR
+        </h1>
+        
+        <LoginForm />
+
+        <div className="text-center text-gray-400">
+          Don't have an account?{' '}
+          <a href="/signup" className="text-indigo-400 hover:text-indigo-300">
+            Sign up
+          </a>
         </div>
       </div>
-    </ErrorBoundary>
+    </div>
   );
 } 

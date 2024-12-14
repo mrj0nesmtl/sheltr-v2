@@ -1,4 +1,4 @@
-import type { UserRole } from '@/lib/i18n/types';
+import { UserRole } from '@/lib/types/auth';
 import type { NavigationItem } from './config';
 import {
   LayoutDashboard,
@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 
 export const ROLE_NAVIGATION: Record<UserRole, NavigationItem[]> = {
-  super_admin: [
+  [UserRole.SUPER_ADMIN]: [
     {
       path: '/super-admin/dashboard',
       label: 'nav.dashboard',
@@ -36,7 +36,7 @@ export const ROLE_NAVIGATION: Record<UserRole, NavigationItem[]> = {
     // ... other super admin items
   ],
   
-  shelter_admin: [
+  [UserRole.SHELTER_ADMIN]: [
     {
       path: '/shelter-admin/dashboard',
       label: 'nav.dashboard',
@@ -50,7 +50,7 @@ export const ROLE_NAVIGATION: Record<UserRole, NavigationItem[]> = {
     // ... other shelter admin items
   ],
 
-  donor: [
+  [UserRole.DONOR]: [
     {
       path: '/donor/dashboard',
       label: 'nav.dashboard',
@@ -68,7 +68,7 @@ export const ROLE_NAVIGATION: Record<UserRole, NavigationItem[]> = {
     }
   ],
 
-  participant: [
+  [UserRole.PARTICIPANT]: [
     {
       path: '/participant/dashboard',
       label: 'nav.dashboard',
@@ -80,6 +80,14 @@ export const ROLE_NAVIGATION: Record<UserRole, NavigationItem[]> = {
       icon: UserCircle
     }
     // ... other participant items
+  ],
+
+  [UserRole.STAFF]: [
+    {
+      path: '/staff/dashboard',
+      label: 'nav.dashboard',
+      icon: LayoutDashboard
+    }
   ]
 };
 

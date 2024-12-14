@@ -1,6 +1,13 @@
-export type UserRole = 'super_admin' | 'admin' | 'shelter_admin' | 'donor' | 'participant' | 'authenticated';
+// src/lib/types/auth.ts
+export enum UserRole {
+  SUPER_ADMIN = 'super_admin',
+  SHELTER_ADMIN = 'shelter_admin',
+  DONOR = 'donor',
+  PARTICIPANT = 'participant',
+  STAFF = 'staff'
+}
 
-export interface Profile {
+export interface User {
   id: string;
   email: string;
   role: UserRole;
@@ -8,25 +15,20 @@ export interface Profile {
   updated_at: string;
 }
 
-export interface UserProfile extends Profile {
-  first_name?: string;
-  last_name?: string;
+export interface Profile extends User {
+  name?: string;
   avatar_url?: string;
-  organization_id?: string;
+  bio?: string;
+  preferences?: {
+    notifications?: boolean;
+    theme?: 'light' | 'dark' | 'system';
+  };
 }
 
-export interface DonorProfile extends UserProfile {
-  total_donated: number;
-  donation_count: number;
-  last_donation_date?: string;
-  preferred_causes?: string[];
-  tax_receipt_email?: string;
-}
-
-export interface DonorStats {
-  donor_id: string;
-  total_donated: number;
-  donation_count: number;
-  impact_score: number;
-  last_donation_date: string;
+export interface AuthState {
+  user: Profile | null;
+  isAuthenticated: boolean;
+  role: UserRole | null;
+  error: string | null;
+  loading: boolean;
 }

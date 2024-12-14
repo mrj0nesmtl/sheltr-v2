@@ -8,7 +8,11 @@ const languages = [
   { code: 'fr', label: 'Français', flag: '🇫🇷' }
 ] as const;
 
-export function LanguageToggle() {
+interface LanguageToggleProps {
+  className?: string;
+}
+
+export function LanguageToggle({ className }: LanguageToggleProps) {
   const { i18n, t } = useTranslation();
 
   const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];

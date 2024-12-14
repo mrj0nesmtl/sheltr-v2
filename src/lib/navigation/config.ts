@@ -1,11 +1,13 @@
 import { 
-  Home,
   Info,
-  QrCode,
+  HelpCircle,
   BarChart3,
-  Users,
+  FileText,
+  Building2,
   Settings,
-  HelpCircle
+  Home,
+  User,
+  Users
 } from 'lucide-react';
 
 export interface NavigationItem {
@@ -20,45 +22,41 @@ export interface NavigationItem {
 
 export const navigationConfig: NavigationItem[] = [
   {
+    path: '/about',
+    label: 'About',
+    icon: FileText,
+    description: 'Learn about SHELTR'
+  },
+  {
     path: '/how-it-works',
     label: 'How It Works',
-    icon: Info
+    icon: Info,
+    description: 'Understanding our platform'
   },
   {
     path: '/solutions',
     label: 'Solutions',
-    icon: HelpCircle,
-    children: [
-      {
-        path: '/solutions/nonprofits',
-        label: 'For Nonprofits',
-        description: 'Solutions for charitable organizations'
-      },
-      {
-        path: '/solutions/donors',
-        label: 'For Donors',
-        description: 'Easy ways to make an impact'
-      }
-    ]
-  },
-  {
-    path: '/scan-donate',
-    label: 'Scan & Donate',
-    icon: QrCode,
-    requiresAuth: true
+    icon: Building2,
+    description: 'Our platform solutions'
   },
   {
     path: '/impact',
     label: 'Impact',
-    icon: BarChart3
+    icon: BarChart3,
+    description: 'See our impact'
   }
 ];
 
-export const ROLE_NAVIGATION = {
+export const userNavigation = {
   admin: [
     {
+      path: '/admin/dashboard',
+      label: 'Dashboard',
+      icon: Home
+    },
+    {
       path: '/admin/users',
-      label: 'User Management',
+      label: 'Users',
       icon: Users
     },
     {
@@ -72,6 +70,11 @@ export const ROLE_NAVIGATION = {
       path: '/dashboard',
       label: 'Dashboard',
       icon: Home
+    },
+    {
+      path: '/profile',
+      label: 'Profile',
+      icon: User
     },
     {
       path: '/settings',

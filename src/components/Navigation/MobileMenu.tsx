@@ -1,55 +1,88 @@
-import { Fragment } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Dialog, Transition } from '@headlessui/react';
-import { useAuthStore } from '@/stores/authStore';
-import { Button } from '@/components/ui/Button';
-import { Logo } from '@/components/ui/Logo';
 import { X } from 'lucide-react';
+import { Logo } from '../ui/Logo';
+import { LanguageToggle } from '../ui/LanguageToggle';
 
-interface MobileMenuProps {
+interface MobileNavProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
+export function MobileNav({ isOpen, onClose }: MobileNavProps) {
   const { t } = useTranslation();
-  const { user, signOut } = useAuthStore();
 
   return (
-    <Transition.Root show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-50" onClose={onClose}>
-        <Transition.Child
-          as={Fragment}
-          enter="ease-out duration-300"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="ease-in duration-200"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <div className="fixed inset-0 bg-gray-900/80 backdrop-blur-sm" />
-        </Transition.Child>
-
-        <div className="fixed inset-0 z-50 overflow-y-auto">
-          <div className="flex min-h-full">
-            <Transition.Child
-              as={Fragment}
-              enter="transform transition ease-in-out duration-300"
-              enterFrom="translate-x-full"
-              enterTo="translate-x-0"
-              leave="transform transition ease-in-out duration-300"
-              leaveFrom="translate-x-0"
-              leaveTo="translate-x-full"
-            >
-              <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-gray-900 py-4 pb-12 shadow-xl">
-                {/* Mobile menu content */}
-                {/* ... Implementation of the menu structure shown in the image */}
-              </Dialog.Panel>
-            </Transition.Child>
-          </div>
+    <div
+      className={`fixed inset-0 bg-gray-900 z-50 transform transition-transform duration-300 ease-in-out ${
+        isOpen ? 'translate-x-0' : 'translate-x-full'
+      }`}
+    >
+      <div className="flex flex-col h-full">
+        <div className="flex items-center justify-between p-4 border-b border-gray-800">
+          <Logo className="h-8 w-auto" />
+          <button
+            onClick={onClose}
+            className="p-2 text-gray-400 hover:text-white"
+          >
+            <X className="h-6 w-6" />
+          </button>
         </div>
-      </Dialog>
-    </Transition.Root>
+
+        <nav className="flex-1 px-4 py-6 space-y-6">
+          <div className="space-y-4">
+            <Link
+              to="/how-it-works"
+              className="block text-lg text-gray-300 hover:text-white"
+              onClick={onClose}
+            >
+              {t('nav.solutions_menu.howItWorks')}
+            </Link>
+            <Link
+              to="/solutions"
+              className="block text-lg text-gray-300 hover:text-white"
+              onClick={onClose}
+            >
+              {t('nav.solutions_menu.solutions')}
+            </Link>
+            <Link
+              to="/scan-donate"
+              className="block text-lg text-gray-300 hover:text-white"
+              onClick={onClose}
+            >
+              {t('nav.scanDonate')}
+            </Link>
+            <Link
+              to="/impact"
+              className="block text-lg text-gray-300 hover:text-white"
+              onClick={onClose}
+            >
+              {t('nav.solutions_menu.impact')}
+            </Link>
+          </div>
+
+          <div className="pt-6 border-t border-gray-800">
+            <LanguageToggle className="mb-4" />
+            <div className="space-y-4">
+              <Link
+                to="/login"
+                className="block text-center w-full py-2 px-4 border border-transparent rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
+                onClick={onClose}
+              >
+                {t('nav.login')}
+              </Link>
+              <Link
+                to="/signup"
+                className="block text-center w-full py-2 px-4 border border-gray-600 rounded-md text-gray-300 hover:text-white hover:border-gray-500"
+                onClick={onClose}
+              >
+                {t('nav.signUp')}
+              </Link>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
   );
-}
+} 

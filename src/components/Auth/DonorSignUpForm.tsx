@@ -11,29 +11,29 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
-const donorSignUpSchema = z.object({
-  email: z.string().email(t('auth.validation.email')),
-  password: z.string()
-    .min(8, t('auth.validation.passwordLength'))
-    .regex(/[A-Z]/, t('auth.validation.passwordUppercase'))
-    .regex(/[a-z]/, t('auth.validation.passwordLowercase'))
-    .regex(/[0-9]/, t('auth.validation.passwordNumber')),
-  confirmPassword: z.string(),
-  name: z.string().min(2, t('auth.validation.nameLength')),
-  city: z.string().optional(),
-  defaultDonation: z.number().min(1).default(10),
-  taxReceiptRequired: z.boolean().default(false)
-}).refine(data => data.password === data.confirmPassword, {
-  message: t('auth.validation.passwordsMatch'),
-  path: ['confirmPassword']
-});
-
-type DonorSignUpFormData = z.infer<typeof donorSignUpSchema>;
-
 export function DonorSignUpForm() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { signUp, error: authError } = useAuthStore();
+  const { signUp, error: authError, loading } = useAuthStore();
+  
+  const donorSignUpSchema = z.object({
+    email: z.string().email(t('auth.validation.email')),
+    password: z.string()
+      .min(8, t('auth.validation.passwordLength'))
+      .regex(/[A-Z]/, t('auth.validation.passwordUppercase'))
+      .regex(/[a-z]/, t('auth.validation.passwordLowercase'))
+      .regex(/[0-9]/, t('auth.validation.passwordNumber')),
+    confirmPassword: z.string(),
+    name: z.string().min(2, t('auth.validation.nameLength')),
+    city: z.string().optional(),
+    defaultDonation: z.number().min(1).default(10),
+    taxReceiptRequired: z.boolean().default(false)
+  }).refine(data => data.password === data.confirmPassword, {
+    message: t('auth.validation.passwordsMatch'),
+    path: ['confirmPassword']
+  });
+
+  type DonorSignUpFormData = z.infer<typeof donorSignUpSchema>;
   
   const {
     register,

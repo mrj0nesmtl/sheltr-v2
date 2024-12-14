@@ -1,17 +1,17 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from '@/components/ui/Icon';
-import { useAuthStore } from '../../stores/authStore';
-import { cn } from '../../lib/utils';
+import { useAuth } from '@/hooks/useAuth';
+import { getDashboardPath } from '@/lib/navigation/roleNavigation';
+import { cn } from '@/lib/utils';
 
 export function LoginButton() {
-  const { user, isLoading } = useAuthStore();
+  const { user, isLoading } = useAuth();
 
   if (isLoading) {
     return null;
   }
 
-  if (user) {
+  if (user?.role) {
     return (
       <Link
         to={getDashboardPath(user.role)}
@@ -38,17 +38,4 @@ export function LoginButton() {
       <span>Login</span>
     </Link>
   );
-}
-function getDashboardPath(role: string): string {
-  switch (role) {
-    case 'super_admin':
-    case 'admin':
-      return '/admin/dashboard';
-    case 'user':
-      return '/user/dashboard';
-    case 'participant':
-      return '/participant/dashboard';
-    default:
-      return '/';
-  }
 }
