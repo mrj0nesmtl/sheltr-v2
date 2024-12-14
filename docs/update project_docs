@@ -1,0 +1,32 @@
+@UpdateProjectDocs
+
+Please update all project documentation files based on the following session summary:
+
+Date: [Current Date]
+Version: [Current Version]
+
+## Session Accomplishments
+- [List of completed tasks]
+- [New features implemented]
+- [Bugs fixed]
+
+## Files to Update
+- docs/project/status_report.md
+- docs/project/checkpoint.md
+- docs/project/roadmap.md
+- docs/project/buildout_implementation.md
+- docs/project/tech_stack.md
+
+## Update Rules
+1. Add new content to the top
+2. Preserve historical content below
+3. Update version numbers
+4. Maintain consistent formatting
+5. Update all relevant dates to [Current Date]
+
+## Version Control
+- Current Version: [version number]
+- Build Status: [status]
+- Environment: [env]
+
+Please process each file systematically, maintaining the established structure and formatting while incorporating the latest developments.
