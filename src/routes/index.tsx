@@ -38,7 +38,7 @@ export function AppRoutes() {
 
       {/* Super Admin Routes */}
       <Route
-        path="/super-admin/*"
+        path="/super_admin/*"
         element={
           <ProtectedRoute allowedRoles={['super_admin']}>
             <Routes>
@@ -61,7 +61,7 @@ export function AppRoutes() {
 
       {/* Shelter Admin Routes */}
       <Route
-        path="/shelter-admin/*"
+        path="/shelter_admin/*"
         element={
           <ProtectedRoute allowedRoles={['shelter_admin']}>
             <DashboardLayout>

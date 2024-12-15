@@ -74,11 +74,11 @@ export type Enums<T extends keyof Database['public']['Enums']> = Database['publi
 
 // Role types based on the schema
 export enum UserRole {
-  SUPER_ADMIN = 'super_admin',
-  SHELTER_ADMIN = 'shelter_admin',
-  DONOR = 'donor',
-  PARTICIPANT = 'participant',
-  STAFF = 'staff'
+  shelter_admin = 'shelter_admin',
+  donor = 'donor',
+  participant = 'participant',
+  super_admin = 'super_admin',
+  staff = 'staff'
 }
 
 // Auth user type

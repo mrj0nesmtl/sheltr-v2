@@ -1,60 +1,53 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card } from '@/components/ui/Card';
 import { QRCode } from '@/components/ui/QRCode';
-import { BaseProfile } from '@/components/Profile/BaseProfile';
-import { useProfileStore } from '@/stores/profileStore';
 
-export function ParticipantProfile() {
+export function ParticipantProfile({ participant }) {
   const { t } = useTranslation();
-  const { profile } = useProfileStore();
 
-  const ParticipantSections = () => (
-    <>
-      <Card>
-        <Card.Header>
-          <h2 className="text-xl font-semibold text-white">
-            {t('participant.profile.qrCode')}
-          </h2>
-        </Card.Header>
-        <Card.Content>
-          <div className="flex justify-center">
-            <div className="w-48 h-48 bg-white p-4 rounded-lg shadow-lg">
+  return (
+    <div className="max-w-4xl mx-auto p-6">
+      <div className="bg-gray-800 rounded-xl shadow-xl overflow-hidden">
+        {/* Profile Header */}
+        <div className="p-6 bg-gradient-to-r from-indigo-600 to-purple-600">
+          <div className="flex items-center space-x-4">
+            <div className="flex-1">
+              <h1 className="text-2xl font-bold text-white">
+                {participant.firstName} {participant.lastName}
+              </h1>
+              <p className="text-indigo-200">ID: {participant.id}</p>
+            </div>
+            <div className="w-32 h-32 bg-white p-2 rounded-lg shadow-lg">
               <QRCode
-                value={profile?.qr_code}
-                size={168}
+                value={participant.qrCode}
+                size={112}
                 className="w-full h-full"
               />
             </div>
           </div>
-        </Card.Content>
-      </Card>
+        </div>
 
-      <Card>
-        <Card.Header>
-          <h2 className="text-xl font-semibold text-white">
-            {t('participant.profile.progress')}
-          </h2>
-        </Card.Header>
-        <Card.Content>
-          <div className="space-y-4">
-            <div>
-              <label className="text-sm text-gray-400">
-                {t('participant.profile.housingStatus')}
-              </label>
-              <p className="text-white">{profile?.housing_status}</p>
+        {/* Profile Content */}
+        <div className="p-6 space-y-6">
+          {/* Personal Information */}
+          <section>
+            <h2 className="text-xl font-semibold text-white mb-4">
+              {t('participant.profile.personalInfo')}
+            </h2>
+            <div className="grid grid-cols-2 gap-4">
+              {/* Add profile fields */}
             </div>
-            <div>
-              <label className="text-sm text-gray-400">
-                {t('participant.profile.employmentStatus')}
-              </label>
-              <p className="text-white">{profile?.employment_status}</p>
-            </div>
-          </div>
-        </Card.Content>
-      </Card>
-    </>
+          </section>
+
+          {/* Services & Progress */}
+          <section>
+            <h2 className="text-xl font-semibold text-white mb-4">
+              {t('participant.profile.services')}
+            </h2>
+            {/* Add services and progress information */}
+          </section>
+        </div>
+      </div>
+    </div>
   );
-
-  return <BaseProfile role="participant" additionalSections={<ParticipantSections />} />;
-} 
+}

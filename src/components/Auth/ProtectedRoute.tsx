@@ -1,43 +1,32 @@
 import { Navigate, useLocation } from 'react-router-dom';
-import { useAuthStore } from '../../stores/authStore';
-import { UserRole } from '../../lib/types/database';
+import { useAuthStore } from '@/stores/authStore';
+import { UserRole } from '@/lib/types/database';
 
 interface ProtectedRouteProps {
-  children: React.ReactNode;
   allowedRoles: UserRole[];
+  children: React.ReactNode;
 }
 
-export function ProtectedRoute({ children, allowedRoles }: ProtectedRouteProps) {
+export function ProtectedRoute({ allowedRoles, children }: ProtectedRouteProps) {
   const location = useLocation();
-  const { user, isLoading, isAuthenticated } = useAuthStore();
+  const { user, role, isAuthenticated } = useAuthStore();
 
-  // Show loading state while auth is initializing
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary"></div>
-      </div>
-    );
-  }
+  console.log('ProtectedRoute Check:', {
+    isAuthenticated,
+    role,
+    allowedRoles,
+    pathname: location.pathname,
+    user
+  });
 
-  // Redirect to login if not authenticated
-  if (!isAuthenticated || !user) {
+  if (!isAuthenticated) {
+    console.log('Not authenticated, redirecting to login');
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  // Validate roles
-  if (!allowedRoles.includes(user.role)) {
-    // Redirect to appropriate dashboard based on role
-    const dashboardRoutes: Record<UserRole, string> = {
-      [UserRole.SUPER_ADMIN]: '/super-admin/dashboard',
-      [UserRole.SHELTER_ADMIN]: '/shelter-admin/dashboard',
-      [UserRole.DONOR]: '/donor/dashboard',
-      [UserRole.PARTICIPANT]: '/participant/dashboard',
-      [UserRole.STAFF]: '/staff/dashboard'
-    };
-
-    const redirectPath = dashboardRoutes[user.role] || '/login';
-    return <Navigate to={redirectPath} replace />;
+  if (!allowedRoles.includes(role as UserRole)) {
+    console.log('Role not allowed:', { role, allowedRoles });
+    return <Navigate to="/" replace />;
   }
 
   return <>{children}</>;

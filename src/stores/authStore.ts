@@ -8,8 +8,9 @@ interface AuthState {
   isAuthenticated: boolean;
   loading: boolean;
   error: string | null;
+  profile: Profile | null;
   login: (credentials: { email: string; password: string }) => Promise<Profile | null>;
-  logout: () => Promise<void>;
+  signOut: () => Promise<void>;
   clearAuth: () => void;
 }
 
@@ -19,6 +20,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   isAuthenticated: false,
   loading: false,
   error: null,
+  profile: null,
 
   login: async ({ email, password }) => {
     set({ loading: true, error: null });
@@ -68,7 +70,7 @@ export const useAuthStore = create<AuthState>((set) => ({
     }
   },
 
-  logout: async () => {
+  signOut: async () => {
     try {
       await supabase.auth.signOut();
       // Clear all auth state
@@ -76,15 +78,14 @@ export const useAuthStore = create<AuthState>((set) => ({
         user: null,
         role: null,
         isAuthenticated: false,
-        loading: false,
-        error: null
+        profile: null
       });
-      // Clear local storage
-      localStorage.removeItem('supabase.auth.token');
-      localStorage.removeItem('sb-oinjrlzucizztdstagqg-auth-token');
+      // Force clear local storage
+      localStorage.clear();
+      // Force reload the page to clear any cached state
+      window.location.href = '/login';
     } catch (error) {
       console.error('Logout error:', error);
-      set({ error: (error as Error).message });
     }
   },
 

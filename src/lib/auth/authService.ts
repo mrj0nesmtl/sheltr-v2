@@ -13,17 +13,13 @@ export async function getCurrentSession() {
 export async function getUserProfile(userId: string): Promise<UserProfile | null> {
   try {
     const { data, error } = await supabase
-      .from('user_profiles')
+      .from('profiles')
       .select(`
         id,
         email,
         role,
         name,
-        organization,
         profile_image,
-        default_donation,
-        social_links,
-        created_at,
         verified,
         contact_phone,
         city,
@@ -31,7 +27,8 @@ export async function getUserProfile(userId: string): Promise<UserProfile | null
         registration_number,
         capacity,
         services,
-        emergency_contact
+        emergency_contact,
+        created_at
       `)
       .eq('id', userId)
       .single();
@@ -44,8 +41,6 @@ export async function getUserProfile(userId: string): Promise<UserProfile | null
     return data ? {
       ...data,
       profileImage: data.profile_image,
-      defaultDonation: data.default_donation,
-      socialLinks: data.social_links,
       createdAt: data.created_at,
       verified: data.verified || false
     } : null;

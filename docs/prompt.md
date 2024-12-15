@@ -1,8 +1,8 @@
 # 🚨 SHELTR Development Session
-*March 19, 2024 - Dashboard Integration & Page Organization*
+*December 15, 2024 - Dashboard Integration Problem & Page Organization*
 
 ## 📋 Session Context
-We're at a crucial midpoint in SHELTR's development. With the authentication system restored and role-based access implemented, we're now focusing on integrating our dashboards and organizing our page structure for better maintainability.
+Good afternoon, We're at a crucial midpoint in SHELTR's development. With the authentication system restored and role-based access implemented, we're now focusing on integrating our dashboards and organizing our page structure for better maintainability. Today we need to take a deep dive into the project structure.  We are having terrible problem with loading the appropriate dashboards and user profiles after logging in. First Please prepare a terminal command to list the project tree.  I think you cvan exclude the massive "node_modules" and the backups folder also the.vscode directory.   Give the a tree command that you will be able to examine and detect erroneous file/folder structures or duplicate contradicting folders.  You will use this tree to degug our issues so only include in thei connant the files and directories you need to accomplish this.
 
 ### 🎯 Previous Accomplishments
 1. **Authentication System**

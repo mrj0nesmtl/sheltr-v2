@@ -1,14 +1,16 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Icon, type IconName } from '@/components/ui/Icon';
 
 interface SidebarItemProps {
   icon: IconName;
   label: string;
   path: string;
-  isActive?: boolean;
 }
 
-export function SidebarItem({ icon, label, path, isActive }: SidebarItemProps) {
+export function SidebarItem({ icon, label, path }: SidebarItemProps) {
+  const location = useLocation();
+  const isActive = location.pathname === path;
+
   return (
     <Link
       to={path}

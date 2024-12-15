@@ -3,16 +3,16 @@ import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '@/stores/authStore';
 import { Icon } from '@/components/ui/Icon';
 import { Button } from '@/components/ui/Button';
-import { SystemAlerts } from './SystemAlerts';
-import { ParticipantManagementTable } from './ParticipantManagementTable';
-import { ParticipantLeaderboard } from './ParticipantLeaderboard';
-import { DonorList } from './DonorList';
-import { DonationMap } from './DonationMap';
+import { SystemAlerts } from '../../components/Admin/SystemAlerts';
+import { ParticipantManagementTable } from '../../components/Admin/ParticipantManagementTable';
+import { ParticipantLeaderboard } from '../../components/Admin/ParticipantLeaderboard';
+import { DonorList } from '../../components/Admin/DonorList';
+import { DonationMap } from '../../components/Admin/DonationMap';
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell, Legend
 } from 'recharts';
-import { ParticipantRegistrationModal } from './ParticipantRegistrationModal';
+import { ParticipantRegistrationModal } from '../../components/Admin/ParticipantRegistrationModal';
 
 // Enhanced color palette
 const COLORS = {

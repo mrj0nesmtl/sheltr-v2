@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '@/stores/authStore';
-import { getDashboardPath } from '@/lib/navigation/roleNavigation';
 import { Icon } from '@/components/ui/Icon';
 import { cn } from '@/lib/utils';
+import { getDashboardPath } from '@/lib/navigation/roleNavigation';
 
 export function LoginForm() {
   const [email, setEmail] = useState('');
@@ -22,14 +22,11 @@ export function LoginForm() {
     
     try {
       const profile = await login({ email, password });
-      console.log('Login response:', { 
-        success: !!profile,
-        role: profile?.role,
-      });
       
       if (profile?.role) {
-        const route = getDashboardPath(profile.role);
-        navigate(route, { replace: true });
+        const dashboardPath = getDashboardPath(profile.role);
+        console.log('Redirecting to:', dashboardPath);
+        navigate(dashboardPath, { replace: true });
       } else {
         throw new Error('No role assigned to user');
       }
