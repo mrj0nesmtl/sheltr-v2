@@ -1,9 +1,8 @@
-
 <div align="center">
 
 ![SHELTR](https://img.shields.io/badge/SHELTR-V2-blue)
-![Version](https://img.shields.io/badge/Version-0.9.2--beta-orange)
-![Stage](https://img.shields.io/badge/Stage-Beta-yellow)
+![Version](https://img.shields.io/badge/Version-0.4.0-orange)
+![Stage](https://img.shields.io/badge/Stage-Alpha-red)
 ![License](https://img.shields.io/badge/License-MIT-purple)
 [![Listen on Spotify](https://img.shields.io/badge/Listen_on-Spotify-1DB954?logo=spotify)](https://open.spotify.com/show/3Q2RpnzF9sUv26yPMP9tWI)
 
@@ -12,6 +11,26 @@
 ## 🌟 Overview
 
 **SHELTR V2** is a groundbreaking platform designed to revolutionize charitable giving for homelessness by leveraging the latest in **blockchain transparency**, **AI-driven insights**, **QR code donations**, and a **gamified engagement model**. Our mission is to empower homeless individuals, enhance donor confidence, and create a **sustainable pathway** to address homelessness at scale. Sheltr is an innovative platform leveraging modern web technologies to revolutionize charitable giving. Built with React 18, TypeScript, and Supabase, it implements role-based authentication, real-time analytics, and blockchain transparency to create a secure and efficient donation ecosystem.
+
+## ⚡ Current Implementation Status
+
+### 🔐 Authentication System (Stable)
+- ✅ Role-based access control
+- ✅ Session persistence
+- ✅ Profile management
+- ✅ Protected routes
+
+### 🧭 Navigation System (In Progress)
+- ✅ Basic routing framework
+- ✅ Desktop/Mobile navigation
+- ⚠️ Mobile responsiveness optimization needed
+- ✅ Role-based menu items
+
+### 📱 QR Scanner (In Development)
+- ❌ Camera permissions pending
+- ❌ HTML5-QRCode integration
+- ❌ Error handling
+- ❌ Loading states
 
 ## ⚡ Key Features in Development
 
@@ -59,50 +78,66 @@ Each homeless participant receives a **unique QR code** linked to their digital 
 - **Compliance**: Full compliance with **GDPR** and **Canadian privacy standards**.
 - **Decentralized Data Storage**: Potential future integration with **IPFS** for enhanced privacy.
 
-## 🛠️ Technology Stack
+## 🛠️ Technology Stack (Current Implementation)
 
-### 🎨 Frontend
-- **React 18 & TypeScript** for dynamic, responsive UIs.
-- **Vite** for optimized builds.
-- **Tailwind CSS** for UI design.
-- **React Router DOM** for efficient navigation.
+### 🎨 Frontend (Implemented)
+- ✅ React 18 & TypeScript
+- ✅ Tailwind CSS for styling
+- ✅ React Router DOM v6
+- ⚠️ Mobile responsiveness in progress
 
-### ⚙️ Backend
-- **Supabase**: Provides authentication, database management (PostgreSQL), real-time subscriptions, and storage.
-- **Payment Integrations**: **Stripe**, **PayPal**, **Apple Pay** for secure transactions.
-- **Blockchain**: Ethereum-based or similar public blockchain used for transparency.
+### ⚙️ Backend & Authentication (Partial)
+- ✅ Supabase Authentication
+- ✅ Role-based access control
+- ✅ PostgreSQL database setup
+- ❌ Payment integrations pending
+- ❌ Blockchain integration pending
 
-### 📦 State Management & Utility
-- **Zustand** for efficient state management.
-- **Zod** for type-safe data validation.
-- **HTML5-QRCode** for generating and tracking participant-specific QR codes.
-- **i18next** for internationalization (English & French).
+### 📦 State Management & Utilities (In Progress)
+- ✅ Zustand for state management
+- ✅ Zod for type validation
+- ❌ HTML5-QRCode implementation pending
+- ⚠️ i18next implementation started
 
-### 🧠 AI & Analytics Tools
-- **OpenAI API** for financial guidance and budgeting.
-- **Recharts** for the Impact Dashboard.
-- **TensorFlow.js** for in-browser machine learning.
+### 🧠 AI & Analytics (Planned)
+- ❌ OpenAI API integration pending
+- ❌ Impact Dashboard pending
+- ❌ TensorFlow.js integration planned
 
-## 🚀 Deployment & Scalability
+## 🚀 Current Development Status
 
-### 📈 Deployment Strategy
-- **CI/CD**: Leveraging **GitHub Actions** for continuous integration and deployment.
-- **Hosting**: Initial deployment via **Replit** for prototyping, with production deployment planned on **Netlify** or **Vercel**.
-- **Scalable Backend**: Using **Supabase** and **Stripe** for real-time data handling and payment scalability.
+### Completed Features (v0.4.0)
+- ✅ Authentication system with role-based access
+- ✅ Basic navigation framework
+- ✅ Component architecture foundation
+- ✅ Type safety improvements
+- ✅ Layout system structure
 
-## 🗺️ Roadmap
+### In Progress
+- 🔄 QR Scanner implementation
+- 🔄 Mobile responsive design
+- 🔄 Dashboard development
+- 🔄 Profile management features
 
-### 1️⃣ Expansion of AI Capabilities
-- **Advanced Budget Coaching**: Enhanced insights into spending patterns and housing fund allocation.
+### Upcoming Sprint Goals
+1. Complete QR scanner integration
+2. Implement role-specific dashboards
+3. Add real-time updates
+4. Enhance mobile experience
 
-### 2️⃣ More White-Label Options
-- **Partner Customization**: Allowing partner shelters to create branded versions of SHELTR, fully customized to their needs.
+## 🗺️ Immediate Roadmap
 
-### 3️⃣ Additional Payment Integrations
-- **Cryptocurrency**: Expand support for multiple cryptocurrencies, enhancing international donation options.
+### Phase 1 (Current - v0.4.0)
+- Complete core authentication and navigation
+- Implement QR scanner functionality
+- Establish dashboard framework
+- Optimize mobile experience
 
-### 4️⃣ Enhanced Data Privacy Features
-- **Decentralized Storage**: Further exploration into decentralized data storage with **IPFS** for enhanced privacy.
+### Phase 2 (Upcoming - v0.5.0)
+- Payment integration implementation
+- Initial analytics dashboard
+- Profile management enhancement
+- Real-time updates system
 
 ## 🤝 Contribution & Acknowledgements
 

@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.4.0] - 2024-12-15 16:45 EST
+### Added
+- Role-based analytics components structure
+- Hierarchical access control patterns
+- Component export organization
+- Analytics implementation foundation
+
+### Changed
+- Reorganized component structure by role
+- Updated file organization for analytics
+- Enhanced role-based architecture
+- Improved component exports
+
+### Technical Debt Addressed
+- Component duplication eliminated
+- File structure standardized
+- Export patterns established
+- Access control implemented
+
+[0.4.0]: https://github.com/username/sheltr/compare/v0.3.0...v0.4.0
+
+# Changelog
+
 ## [Unreleased]
 
 ## [0.3.0] - 2024-12-12
