@@ -1,19 +1,57 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { DonorSignUpForm } from '@/components/Auth/DonorSignUpForm';
-import { ShelterSignUpForm } from '@/components/Auth/ShelterSignUpForm';
+import { DonorSignUpForm } from '@/components/auth/forms/DonorSignUpForm';
+import { ShelterSignUpForm } from '@/components/auth/forms/ShelterSignUpForm';
 import { Heart, Building2 } from 'lucide-react';
+import type { DonorSignUpForm as DonorFormType, ShelterSignUpForm as ShelterFormType } from '@/types/auth/schemas';
 
 export default function SignUpPage() {
   const { t } = useTranslation();
   const [selectedForm, setSelectedForm] = useState<'donor' | 'shelter' | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleDonorSubmit = async (data: DonorFormType) => {
+    setIsSubmitting(true);
+    try {
+      // Handle donor signup
+      console.log('Donor signup:', data);
+    } catch (error) {
+      console.error('Signup error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleShelterSubmit = async (data: ShelterFormType) => {
+    setIsSubmitting(true);
+    try {
+      // Handle shelter signup
+      console.log('Shelter signup:', data);
+    } catch (error) {
+      console.error('Signup error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   if (selectedForm === 'donor') {
-    return <DonorSignUpForm onBack={() => setSelectedForm(null)} />;
+    return (
+      <DonorSignUpForm 
+        onSubmit={handleDonorSubmit} 
+        onBack={() => setSelectedForm(null)}
+        isSubmitting={isSubmitting}
+      />
+    );
   }
 
   if (selectedForm === 'shelter') {
-    return <ShelterSignUpForm onBack={() => setSelectedForm(null)} />;
+    return (
+      <ShelterSignUpForm 
+        onSubmit={handleShelterSubmit}
+        onBack={() => setSelectedForm(null)}
+        isSubmitting={isSubmitting}
+      />
+    );
   }
 
   return (

@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { supabase } from '@/lib/supabase/client';
 import type { Profile, UserRole } from '@/lib/types/auth';
+import type { DonorSignUpForm, ShelterSignUpForm } from '@/types/auth/schemas';
 
 interface AuthState {
   user: Profile | null;
@@ -12,9 +13,11 @@ interface AuthState {
   login: (credentials: { email: string; password: string }) => Promise<Profile | null>;
   signOut: () => Promise<void>;
   clearAuth: () => void;
+  signUpDonor: (data: DonorSignUpForm) => Promise<void>;
+  signUpShelter: (data: ShelterSignUpForm) => Promise<void>;
 }
 
-export const useAuthStore = create<AuthState>((set) => ({
+export const useAuthStore = create<AuthState>((set, get) => ({
   user: null,
   role: null,
   isAuthenticated: false,
@@ -97,7 +100,70 @@ export const useAuthStore = create<AuthState>((set) => ({
       loading: false,
       error: null
     });
-  }
+  },
+
+  signUpDonor: async (data: DonorSignUpForm) => {
+    const { data: authData, error: authError } = await supabase.auth.signUp({
+      email: data.email,
+      password: data.password,
+      options: {
+        data: {
+          role: 'donor',
+          name: data.name,
+          contact_phone: data.contact_phone,
+          city: data.city,
+          address: data.address,
+        }
+      }
+    })
+
+    if (authError) throw authError
+
+    // Use existing profileStore if available
+    const { error: profileError } = await supabase
+      .from('profiles')
+      .insert({
+        id: authData.user?.id,
+        email: data.email,
+        role: 'donor',
+        name: data.name,
+        contact_phone: data.contact_phone,
+        city: data.city,
+        address: data.address,
+        total_donated: 0,
+        total_donations: 0,
+        impact_score: 0
+      })
+
+    if (profileError) throw profileError
+  },
+
+  signUpShelter: async (data: ShelterSignUpForm) => {
+    const { data: authData, error: authError } = await supabase.auth.signUp({
+      email: data.email,
+      password: data.password,
+      options: {
+        data: {
+          role: 'shelter',
+          ...data
+        }
+      }
+    })
+
+    if (authError) throw authError
+
+    const { error: profileError } = await supabase
+      .from('profiles')
+      .insert({
+        id: authData.user?.id,
+        email: data.email,
+        role: 'shelter',
+        ...data,
+        verified: false
+      })
+
+    if (profileError) throw profileError
+  },
 }));
 
 // Add listener for auth state changes
