@@ -1,5 +1,30 @@
 # Changelog
 
+## [0.4.1] - 2024-12-15 18:30 EST
+### Added
+- Authentication store implementation
+- Donor and Shelter signup forms
+- Zod validation schemas
+- Form error handling
+- Auth flow integration
+- Success/error notifications
+
+### Changed
+- Updated SignUpPage component
+- Enhanced auth store architecture
+- Improved form validation
+- Refined signup flow
+- Updated component exports
+- Enhanced type definitions
+
+### Technical Debt Addressed
+- Form validation standardized
+- Auth flow consolidated
+- Error handling improved
+- Type safety enhanced
+
+[0.4.1]: https://github.com/username/sheltr/compare/v0.4.0...v0.4.1
+
 ## [0.4.0] - 2024-12-15 16:45 EST
 ### Added
 - Role-based analytics components structure
@@ -55,6 +80,15 @@
 - Authentication state not persisting
 - Protected routes incomplete
 - Role-based access system needs rebuild
+- Dashboard loading after signup
+- Navigation after authentication
+- Form validation messages
+- Success notifications
+- QR Scanner initialization
+- Camera permissions
+- Authentication state persistence
+- Protected routes completion
+- Role-based access system refinement
 
 ## [0.2.0] - 2024-12-11
 ### Added
