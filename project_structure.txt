@@ -189,10 +189,34 @@
 │   ├── contexts
 │   │   └── ThemeContext.tsx
 │   ├── features
-│   │   └── donor
+│   │   ├── auth
+│   │   │   ├── components
+│   │   │   ├── hooks
+│   │   │   ├── store
+│   │   │   ├── utils
+│   │   │   └── index.ts
+│   │   ├── dashboard
+│   │   │   ├── components
+│   │   │   ├── hooks
+│   │   │   ├── store
+│   │   │   ├── utils
+│   │   │   └── index.ts
+│   │   ├── donor
+│   │   │   ├── components
+│   │   │   ├── types
+│   │   │   └── validation
+│   │   ├── profile
+│   │   │   ├── components
+│   │   │   ├── hooks
+│   │   │   ├── store
+│   │   │   ├── utils
+│   │   │   └── index.ts
+│   │   └── shared
 │   │       ├── components
-│   │       ├── types
-│   │       └── validation
+│   │       ├── hooks
+│   │       ├── store
+│   │       ├── utils
+│   │       └── index.ts
 │   ├── hooks
 │   │   ├── useAuth.ts
 │   │   ├── useMarkdownContent.ts
@@ -346,6 +370,11 @@
 │   │   └── shelterStore.ts
 │   ├── styles
 │   ├── types
+│   │   ├── core
+│   │   │   ├── auth
+│   │   │   ├── dashboard
+│   │   │   ├── profile
+│   │   │   └── shared
 │   │   ├── auth.ts
 │   │   ├── docs.d.ts
 │   │   ├── i18next.d.ts
@@ -368,4 +397,4 @@
 ├── vercel.json
 └── vite.config.ts
 
-119 directories, 250 files
+144 directories, 254 files
