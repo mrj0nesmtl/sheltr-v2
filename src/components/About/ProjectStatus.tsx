@@ -1,139 +1,167 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
+import { marked } from 'marked';
 import { motion } from 'framer-motion';
-import { format } from 'date-fns';
-import { parseProjectDocs } from '@/lib/utils/docs-parser';
-import type { ProjectStatus as ProjectStatusType } from '@/lib/utils/docs-parser';
-import { 
-  Activity, 
-  CheckCircle2, 
-  AlertTriangle,
-  Server,
-  Gauge,
-  GitCommit
-} from 'lucide-react';
-import { StatusCard } from './StatusCard';
 
-interface ProjectStatusProps {
-  className?: string;
+interface ProjectDoc {
+  content: string;
+  title: string;
 }
 
-export function ProjectStatus({ className = '' }: ProjectStatusProps) {
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [status, setStatus] = React.useState<ProjectStatusType['status']>('inProgress');
-  const [projectStatus, setProjectStatus] = React.useState<ProjectStatusType | null>(null);
+export function ProjectStatus() {
+  const [docs, setDocs] = useState<ProjectDoc[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     async function loadStatus() {
       try {
-        const { status } = await parseProjectDocs();
-        setProjectStatus(status);
-        setStatus(status.status);
-      } catch (error) {
-        console.error('Failed to load project status:', error);
+        setLoading(true);
+        const files = [
+          'project/progress/status_report.md',
+          'project/technical/build_tract.md',
+          'project/progress/checkpoint.md'
+        ];
+
+        const responses = await Promise.all(
+          files.map(async (file) => {
+            const response = await fetch(`/docs/${file}`);
+            if (!response.ok) {
+              throw new Error(`Failed to load ${file}`);
+            }
+            const text = await response.text();
+            const html = marked(text);
+            return {
+              content: html,
+              title: file.split('/').pop()?.replace('.md', '') || ''
+            };
+          })
+        );
+
+        setDocs(responses);
+      } catch (err) {
+        setError('Failed to load project status');
+        console.error(err);
       } finally {
-        setIsLoading(false);
+        setLoading(false);
       }
     }
 
     loadStatus();
   }, []);
 
-  if (isLoading || !projectStatus) {
+  if (loading) {
     return (
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className={`bg-gray-800/10 rounded-lg p-4 ${className}`}
-      >
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {[...Array(4)].map((_, i) => (
-            <div key={i} className="bg-gray-800/30 rounded-lg p-3 animate-pulse">
-              <div className="h-6 bg-gray-700/50 rounded mb-3" />
-              <div className="space-y-2">
-                <div className="h-4 bg-gray-700/50 rounded w-3/4" />
-                <div className="h-4 bg-gray-700/50 rounded w-1/2" />
-              </div>
-            </div>
-          ))}
-        </div>
-      </motion.div>
+      <div className="text-center text-gray-400">
+        <p>Loading project status...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-center text-red-400">
+        <p>{error}</p>
+      </div>
+    );
+  }
+
+  if (!docs.length) {
+    return (
+      <div className="text-center text-gray-400">
+        <p>No status documents available</p>
+      </div>
     );
   }
 
   return (
-    <motion.div 
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className={`space-y-8 ${className}`}
-    >
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatusCard title="Status" icon={Activity} delay={0.1} variant="compact">
-          <div className="flex items-center justify-between">
-            <span className="text-gray-400 text-sm">Version {projectStatus.version}</span>
-            <StatusBadge status={status} />
+    <div className="max-w-7xl mx-auto px-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Status Report Column */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-gray-800/50 rounded-xl p-6 shadow-xl"
+        >
+          <div className="flex items-center gap-3 mb-6">
+            <div className="text-4xl">📊</div>
+            <h3 className="text-2xl font-bold text-white">Status Report</h3>
           </div>
-        </StatusCard>
+          
+          <div className="space-y-4">
+            <div className="flex items-center gap-2 text-gray-300">
+              <span>Version: 0.4.2</span>
+              <span className="px-2 py-1 rounded-full bg-yellow-500/20 text-yellow-300 text-sm">
+                Pivoting
+              </span>
+            </div>
+            
+            <div className="prose prose-invert">
+              <h4 className="text-xl font-semibold mb-2">System Overview</h4>
+              <ul className="list-none space-y-3">
+                <li className="flex items-center gap-2">
+                  <span className="text-yellow-400">⚠️</span>
+                  Authentication System (60%)
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-green-400">✅</span>
+                  Notification Backend (85%)
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-yellow-400">⚠️</span>
+                  Navigation System (45%)
+                </li>
+              </ul>
+            </div>
+          </div>
+        </motion.div>
 
-        <StatusCard title="Environment" icon={Server} delay={0.2} variant="compact">
-          <div className="space-y-1">
-            {Object.entries(projectStatus.environment).map(([env, status]) => (
-              <div key={env} className="flex justify-between items-center">
-                <span className="text-gray-400 text-sm capitalize">{env}</span>
-                <span>{status}</span>
+        {/* Development Checkpoint Column */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="bg-gray-800/50 rounded-xl p-6 shadow-xl"
+        >
+          <div className="flex items-center gap-3 mb-6">
+            <div className="text-4xl">🎯</div>
+            <h3 className="text-2xl font-bold text-white">Development Checkpoint</h3>
+          </div>
+
+          <div className="space-y-4">
+            <div className="prose prose-invert">
+              <h4 className="text-xl font-semibold mb-2">Today's Progress</h4>
+              <ul className="list-none space-y-3">
+                <li className="flex items-center gap-2">
+                  <span className="text-green-400">✅</span>
+                  Notification System Backend
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-green-400">✅</span>
+                  Database Schema Implementation
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-blue-400">🔄</span>
+                  Frontend Integration
+                </li>
+              </ul>
+            </div>
+
+            <div className="mt-6">
+              <h4 className="text-xl font-semibold mb-4">Next Actions</h4>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-gray-700/50 p-3 rounded-lg">
+                  <span className="text-sm text-gray-400">Priority</span>
+                  <p className="text-white">Complete Auth Flow</p>
+                </div>
+                <div className="bg-gray-700/50 p-3 rounded-lg">
+                  <span className="text-sm text-gray-400">In Progress</span>
+                  <p className="text-white">Dashboard UI</p>
+                </div>
               </div>
-            ))}
-          </div>
-        </StatusCard>
-
-        <StatusCard title="Performance" icon={Gauge} delay={0.3} variant="compact">
-          <div className="space-y-1">
-            <div className="flex justify-between items-center">
-              <span className="text-gray-400 text-sm">Bundle</span>
-              <span className="text-indigo-400">{projectStatus.metrics.bundleSize}</span>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className="text-gray-400 text-sm">Paint</span>
-              <span className="text-indigo-400">{projectStatus.metrics.firstPaint}</span>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className="text-gray-400 text-sm">Score</span>
-              <span className="text-indigo-400">{projectStatus.metrics.lighthouseScore}/100</span>
             </div>
           </div>
-        </StatusCard>
-
-        <StatusCard title="Build" icon={GitCommit} delay={0.4} variant="compact">
-          <div className="font-mono text-indigo-400 text-lg">
-            {projectStatus.buildNumber}
-          </div>
-          <div className="text-xs text-gray-500 mt-1">
-            Last updated: {format(projectStatus.lastUpdated, 'MMM d, yyyy')}
-          </div>
-        </StatusCard>
+        </motion.div>
       </div>
-    </motion.div>
-  );
-}
-
-function StatusBadge({ status }: { status: ProjectStatusType['status'] }) {
-  const colors = {
-    critical: 'bg-red-500/10 text-red-400',
-    stable: 'bg-green-500/10 text-green-400',
-    inProgress: 'bg-yellow-500/10 text-yellow-400'
-  };
-
-  const icons = {
-    critical: AlertTriangle,
-    stable: CheckCircle2,
-    inProgress: Activity
-  };
-
-  const Icon = icons[status];
-
-  return (
-    <span className={`px-2 py-0.5 rounded-md flex items-center text-xs ${colors[status]}`}>
-      <Icon className="w-3 h-3 mr-1" />
-      {status}
-    </span>
+    </div>
   );
 } 

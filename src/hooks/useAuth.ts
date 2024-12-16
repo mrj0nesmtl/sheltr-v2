@@ -1,4 +1,4 @@
-import { useAuthStore } from '@/stores/authStore';
+import { useAuthStore } from '@/auth/stores/authStore';
 import { UserRole } from '@/lib/types/auth';
 import { getDashboardPath } from '@/lib/navigation/roleNavigation';
 

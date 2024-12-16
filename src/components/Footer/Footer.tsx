@@ -8,13 +8,13 @@ export function Footer() {
   const { t } = useTranslation();
 
   return (
-    <footer className="bg-gray-900 border-t border-gray-800">
-      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <footer className="bg-gray-900 border-t border-gray-800 fixed bottom-0 w-full">
+      <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           {/* Logo & Tagline */}
           <div className="col-span-1">
-            <Logo className="h-8 w-auto mb-4" />
-            <p className="text-gray-400">{t('common.tagline')}</p>
+            <Logo className="h-6 w-auto mb-2" />
+            <p className="text-gray-400 text-sm">{t('common.tagline')}</p>
           </div>
 
           {/* Quick Links */}
@@ -77,8 +77,8 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-gray-800">
-          <p className="text-gray-400 text-sm text-center">
+        <div className="mt-6 pt-6 border-t border-gray-800">
+          <p className="text-gray-400 text-xs text-center">
             © {new Date().getFullYear()} SHELTR. {t('nav.footer.copyright', { year: new Date().getFullYear() })}
           </p>
         </div>

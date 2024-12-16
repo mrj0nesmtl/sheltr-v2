@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAuthStore } from '@/stores/authStore';
+import { useAuthStore } from '@/auth/stores/authStore';
 import { Header } from './Layout/Header';
 import { NavigationItems } from './Navigation/NavigationItems';
 import { Footer } from './Footer/Footer';

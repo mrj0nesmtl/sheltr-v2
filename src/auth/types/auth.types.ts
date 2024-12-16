@@ -1,8 +1,47 @@
 export enum UserRole {
-  super_admin = 'super_admin',
-  shelter_admin = 'shelter_admin',
-  donor = 'donor',
-  participant = 'participant'
+  SUPER_ADMIN = 'super_admin',
+  SHELTER_ADMIN = 'shelter_admin',
+  DONOR = 'donor',
+  PARTICIPANT = 'participant'
+}
+
+export interface AccessControl {
+  view: boolean;
+  edit: boolean;
+  delete: boolean;
+  manage: boolean;
+}
+
+export const RolePermissions: Record<UserRole, AccessControl> = {
+  [UserRole.SUPER_ADMIN]: {
+    view: true,
+    edit: true,
+    delete: true,
+    manage: true
+  },
+  [UserRole.SHELTER_ADMIN]: {
+    view: true,
+    edit: true,
+    delete: false,
+    manage: true
+  },
+  [UserRole.DONOR]: {
+    view: true,
+    edit: false,
+    delete: false,
+    manage: false
+  },
+  [UserRole.PARTICIPANT]: {
+    view: true,
+    edit: false,
+    delete: false,
+    manage: false
+  }
+};
+
+// Type guard for role validation
+export function isValidRole(role: string): role is UserRole {
+  return Object.values(UserRole).includes(role as UserRole);
 }
 
 export interface User {
@@ -62,35 +101,6 @@ export interface Session {
   token: string;
   expiresAt: number;
 }
-
-// Role-based permissions
-export interface RolePermissions {
-  [UserRole.super_admin]: string[];
-  [UserRole.shelter_admin]: string[];
-  [UserRole.donor]: string[];
-  [UserRole.participant]: string[];
-}
-
-export const DEFAULT_PERMISSIONS: RolePermissions = {
-  [UserRole.super_admin]: ['*'],
-  [UserRole.shelter_admin]: [
-    'manage_shelter',
-    'view_analytics',
-    'manage_participants',
-    'view_reports'
-  ],
-  [UserRole.donor]: [
-    'make_donations',
-    'view_history',
-    'view_impact',
-    'manage_profile'
-  ],
-  [UserRole.participant]: [
-    'view_services',
-    'manage_profile',
-    'view_history'
-  ]
-};
 
 // Auth action types for state management
 export enum AuthActionType {

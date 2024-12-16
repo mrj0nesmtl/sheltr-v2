@@ -714,5 +714,48 @@ export const fr: Translations = {
         }
       }
     }
+  },
+  analytics: {
+    common: {
+      timeRange: "Période",
+      compare: "Comparer à",
+      export: "Exporter les données",
+      refresh: "Actualiser les données"
+    },
+    metrics: {
+      donations: {
+        total: "Total des dons",
+        average: "Don moyen",
+        frequency: "Fréquence des dons",
+        retention: "Fidélisation des donateurs"
+      },
+      impact: {
+        peopleHelped: "Personnes aidées",
+        servicesProvided: "Services fournis",
+        successRate: "Taux de réussite",
+        communityEngagement: "Engagement communautaire"
+      },
+      shelters: {
+        occupancy: "Taux d'occupation",
+        turnover: "Rotation des résidents",
+        serviceUtilization: "Utilisation des services",
+        successMetrics: "Métriques de réussite"
+      }
+    },
+    reports: {
+      types: {
+        summary: "Rapport sommaire",
+        detailed: "Rapport détaillé",
+        impact: "Rapport d'impact",
+        financial: "Rapport financier"
+      },
+      frequency: {
+        daily: "Quotidien",
+        weekly: "Hebdomadaire",
+        monthly: "Mensuel",
+        quarterly: "Trimestriel",
+        annual: "Annuel"
+      }
+    }
   }
 };

@@ -7,8 +7,13 @@ import {
   Settings,
   Home,
   User,
-  Users
+  Users,
+  Heart,
+  Shield,
+  Calendar,
+  Trophy
 } from 'lucide-react';
+import { UserRole } from '@/types/auth.types';
 
 export interface NavigationItem {
   path: string;
@@ -17,9 +22,10 @@ export interface NavigationItem {
   description?: string;
   children?: NavigationItem[];
   requiresAuth?: boolean;
-  roles?: string[];
+  roles?: UserRole[];
 }
 
+// Public navigation
 export const navigationConfig: NavigationItem[] = [
   {
     path: '/about',
@@ -47,8 +53,9 @@ export const navigationConfig: NavigationItem[] = [
   }
 ];
 
+// Role-based navigation
 export const userNavigation = {
-  admin: [
+  [UserRole.SUPER_ADMIN]: [
     {
       path: '/admin/dashboard',
       label: 'Dashboard',
@@ -65,21 +72,68 @@ export const userNavigation = {
       icon: Settings
     }
   ],
-  user: [
+  [UserRole.SHELTER_ADMIN]: [
     {
-      path: '/dashboard',
+      path: '/shelter/dashboard',
       label: 'Dashboard',
       icon: Home
     },
     {
-      path: '/profile',
+      path: '/shelter/participants',
+      label: 'Participants',
+      icon: Users
+    },
+    {
+      path: '/shelter/settings',
+      label: 'Settings',
+      icon: Settings
+    }
+  ],
+  [UserRole.DONOR]: [
+    {
+      path: '/donor/dashboard',
+      label: 'Dashboard',
+      icon: Home
+    },
+    {
+      path: '/donor/donations',
+      label: 'My Donations',
+      icon: Heart
+    },
+    {
+      path: '/donor/impact',
+      label: 'Impact',
+      icon: Trophy
+    }
+  ],
+  [UserRole.PARTICIPANT]: [
+    {
+      path: '/participant/dashboard',
+      label: 'Dashboard',
+      icon: Home
+    },
+    {
+      path: '/participant/profile',
       label: 'Profile',
       icon: User
     },
     {
-      path: '/settings',
-      label: 'Settings',
-      icon: Settings
+      path: '/participant/services',
+      label: 'Services',
+      icon: Calendar
     }
   ]
-}; 
+};
+
+// Helper functions
+export function getNavigationByRole(role: UserRole) {
+  return userNavigation[role] || [];
+}
+
+export function isPathAccessibleByRole(path: string, role: UserRole): boolean {
+  const roleNavigation = getNavigationByRole(role);
+  return roleNavigation.some(item => 
+    item.path === path || 
+    item.children?.some(child => child.path === path)
+  );
+} 
