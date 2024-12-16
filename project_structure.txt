@@ -363,12 +363,20 @@
 │   │   │   └── UserBadge.tsx
 │   │   ├── Verify
 │   │   │   └── VerifyPage.tsx
+│   │   ├── layouts
+│   │   │   ├── PageLayout.tsx
+│   │   │   └── index.ts
 │   │   └── ui
 │   │       ├── Accordion.tsx
 │   │       ├── Avatar.tsx
 │   │       ├── Badge.tsx
 │   │       ├── Button.tsx
 │   │       ├── Card.tsx
+│   │       ├── Charts
+│   │       │   ├── AreaChart.tsx
+│   │       │   ├── BarChart.tsx
+│   │       │   ├── LineChart.tsx
+│   │       │   └── index.ts
 │   │       ├── Checkbox.tsx
 │   │       ├── CustomIcons.tsx
 │   │       ├── FeatureCard.tsx
@@ -469,7 +477,6 @@
 │   │   │   │   │   ├── ParticipantProfile.tsx
 │   │   │   │   │   ├── Settings.tsx
 │   │   │   │   │   ├── auth
-│   │   │   │   │   ├── components
 │   │   │   │   │   ├── index.ts
 │   │   │   │   │   ├── profile
 │   │   │   │   │   │   └── index.ts
@@ -659,6 +666,10 @@
 │   ├── main.tsx
 │   ├── pages
 │   │   ├── About
+│   │   │   ├── components
+│   │   │   │   ├── MetricCard.tsx
+│   │   │   │   ├── TechCard.tsx
+│   │   │   │   └── index.ts
 │   │   │   ├── index.tsx
 │   │   │   └── sections
 │   │   │       ├── Contact.tsx
@@ -668,7 +679,6 @@
 │   │   │       ├── Overview.tsx
 │   │   │       ├── Technology.tsx
 │   │   │       └── index.ts
-│   │   ├── About.tsx
 │   │   ├── Donor
 │   │   │   ├── Dashboard
 │   │   │   └── Settings.tsx
@@ -677,6 +687,8 @@
 │   │   ├── HowItWorks.tsx
 │   │   ├── Impact.tsx
 │   │   ├── ImpactPage.tsx
+│   │   ├── Login
+│   │   │   └── index.tsx
 │   │   ├── LoginPage.tsx
 │   │   ├── ScanDonatePage.tsx
 │   │   ├── ShelterAdmin
@@ -772,4 +784,4 @@
 ├── vercel.json
 └── vite.config.ts
 
-228 directories, 545 files
+231 directories, 554 files
