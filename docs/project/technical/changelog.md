@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.4.2] - 2024-12-16 20:00 EST
+### Added
+- Notification system database schema
+- SQL stored procedures for notifications
+- Engagement tracking system
+- Priority-based notification handling
+- Role-specific notification rules
+- Notification lifecycle management
+
+### Changed
+- Pivoted development focus to backend
+- Enhanced database architecture
+- Improved notification handling
+- Updated project documentation
+
+### Technical Debt Added
+- Frontend notification integration needed
+- Real-time updates implementation pending
+- Dashboard notification components required
+- Loading state implementation needed
+
+[0.4.2]: https://github.com/username/sheltr/compare/v0.4.1...v0.4.2
+
 ## [0.4.1] - 2024-12-15 18:30 EST
 ### Added
 - Authentication store implementation
