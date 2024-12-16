@@ -110,7 +110,6 @@ const ToastDescription = React.forwardRef<
 ToastDescription.displayName = ToastPrimitives.Description.displayName;
 
 type ToastProps = React.ComponentPropsWithoutRef<typeof Toast>;
-
 type ToastActionElement = React.ReactElement<typeof ToastAction>;
 
 export {
@@ -129,16 +128,34 @@ export {
 export function toast({ 
   title, 
   description, 
-  variant = "default" 
+  variant = "default",
+  action
 }: {
   title?: string;
   description?: string;
   variant?: "default" | "destructive";
+  action?: ToastActionElement;
 }) {
-  // For now, just console.log the messages
-  console.log({
-    title,
-    description,
-    variant
-  });
+  const id = Math.random().toString(36).substr(2, 9);
+  
+  // Create toast element
+  const toastElement = (
+    <Toast key={id} variant={variant}>
+      <div className="grid gap-1">
+        {title && <ToastTitle>{title}</ToastTitle>}
+        {description && <ToastDescription>{description}</ToastDescription>}
+      </div>
+      {action}
+      <ToastClose />
+    </Toast>
+  );
+
+  // Return the toast element and methods
+  return {
+    id,
+    element: toastElement,
+    dismiss: () => {
+      // Implement dismiss logic
+    }
+  };
 } 

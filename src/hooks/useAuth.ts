@@ -1,37 +1,59 @@
-import { useAuthStore } from '@/auth/stores/authStore';
-import { UserRole } from '@/lib/types/auth';
-import { getDashboardPath } from '@/lib/navigation/roleNavigation';
+import { supabase } from '@/lib/supabase/client';
+import { useState, useEffect } from 'react';
 
-export function useAuth() {
-  const {
-    user,
-    loading: isLoading,
-    error,
-    isAuthenticated,
-    login,
-    logout,
-    clearError
-  } = useAuthStore();
+export const useAuth = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  const [error, setError] = useState(null);
 
-  const hasRole = (roles: UserRole | UserRole[]) => {
-    if (!user?.role) return false;
-    const allowedRoles = Array.isArray(roles) ? roles : [roles];
-    return allowedRoles.includes(user.role as UserRole);
+  useEffect(() => {
+    // Check active sessions and sets the user
+    const getSession = async () => {
+      try {
+        const { data: { session }, error } = await supabase.auth.getSession();
+        if (error) throw error;
+        setUser(session?.user ?? null);
+      } catch (e) {
+        console.error('Error getting session:', e);
+        setError(e);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    getSession();
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+      setIsLoading(false);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const signIn = async (email: string, password: string) => {
+    try {
+      setIsLoading(true);
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+      if (error) throw error;
+      return data;
+    } catch (e) {
+      console.error('Error signing in:', e);
+      setError(e);
+      throw e;
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return {
+    signIn,
     user,
     isLoading,
-    error,
-    isAuthenticated,
-    login,
-    logout,
-    clearError,
-    hasRole,
-    isSuperAdmin: () => hasRole(UserRole.SUPER_ADMIN),
-    isShelterAdmin: () => hasRole(UserRole.SHELTER_ADMIN),
-    isDonor: () => hasRole(UserRole.DONOR),
-    isParticipant: () => hasRole(UserRole.PARTICIPANT),
-    isStaff: () => hasRole(UserRole.STAFF)
+    error
   };
-} 
+}; 

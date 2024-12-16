@@ -6,7 +6,7 @@ import {
   navigationConfig, 
   userNavigation 
 } from '@/lib/navigation/config';
-import { UserRole } from '@/types/auth.types';
+import { UserRole } from '@/auth/types/auth.types';
 import { IconName } from '@/components/ui/Icon';
 
 interface NavItem {

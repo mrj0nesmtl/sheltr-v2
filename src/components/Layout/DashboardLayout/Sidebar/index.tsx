@@ -1,4 +1,4 @@
-import { UserRole, isValidRole } from '@/types/auth.types';
+import { UserRole, isValidRole } from '@/auth/types/auth.types';
 import { useAuthStore } from '@/stores/authStore';
 import { ShelterAdminSidebar } from './ShelterAdminSidebar';
 import { DonorSidebar } from './DonorSidebar';

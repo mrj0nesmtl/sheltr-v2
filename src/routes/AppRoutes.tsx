@@ -1,7 +1,10 @@
+// Temporarily commented out for route consolidation
+/*
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { UserRole } from '../lib/types/database';
 import { ProtectedRoute } from '../auth/components/ProtectedRoute';
 import { ErrorBoundary } from '../components/ErrorBoundary';
+import { toast } from "@/components/ui/Toast";
 
 // Public Pages
 import { HomePage } from '../pages/HomePage';
@@ -13,7 +16,16 @@ import { SolutionsPage } from '../pages/Solutions';
 
 export function AppRoutes() {
   return (
-    <ErrorBoundary>
+    <ErrorBoundary
+      fallback={(error) => {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: error.message || "An unexpected error occurred"
+        });
+        return null;
+      }}
+    >
       <Routes>
         {/* Public Routes */}
         <Route index element={<HomePage />} />
@@ -30,3 +42,4 @@ export function AppRoutes() {
     </ErrorBoundary>
   );
 }
+*/

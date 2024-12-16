@@ -1,106 +1,101 @@
 import { useState } from 'react';
+import { supabase } from '@/lib/supabase/client';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { useAuthStore } from '@/auth/stores/authStore';
-import { Icon } from '@/components/ui/Icon';
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
-import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
-import { Toast } from '@/components/ui/Toast';
-import { cn } from '@/lib/utils';
-import { getDashboardPath } from '@/lib/navigation/roleNavigation';
-import { supabase } from '@/lib/supabase';
+import { toast } from "@/components/ui/Toast";
 
 export function LoginForm() {
+  const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const { login } = useAuthStore();
   const navigate = useNavigate();
-  const { t } = useTranslation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    setError(null);
+    setIsLoading(true);
     
     try {
-      // First, authenticate with Supabase
+      console.log('🔑 Step 1: Attempting authentication...');
       const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
-        email,
-        password
+        email: email.trim().toLowerCase(),
+        password,
       });
 
       if (authError) throw authError;
+      console.log('✅ Authentication successful:', authData.user?.id);
 
-      if (authData.user) {
-        // Get user profile with role
-        const { data: profile, error: profileError } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('id', authData.user.id)
-          .single();
+      console.log('👤 Step 2: Fetching profile data using function...');
+      const { data: profileData, error: profileError } = await supabase
+        .rpc('get_user_profile', { user_id: authData.user?.id })
+        .single();
 
-        if (profileError) throw profileError;
-
-        // Update auth store
-        await login({ user: authData.user, profile });
-        
-        // Navigate to appropriate dashboard
-        const dashboardPath = getDashboardPath(profile.role);
-        navigate(dashboardPath, { replace: true });
-
-        // Show success toast
-        Toast.success('Successfully logged in!');
+      if (profileError) {
+        console.error('❌ Profile fetch error:', profileError);
+        throw profileError;
       }
-    } catch (err) {
-      console.error('Login error:', err);
-      setError(err instanceof Error ? err.message : 'Login failed');
-      Toast.error('Login failed. Please try again.');
+      
+      console.log('📋 Profile data:', profileData);
+
+      if (profileData?.role === 'super_admin') {
+        console.log('🎯 Navigating to super admin dashboard...');
+        navigate('/super-admin/dashboard');
+      } else {
+        console.warn('⚠️ Not a super admin:', profileData?.role);
+        toast({
+          variant: "destructive",
+          title: "Access Denied",
+          description: "You don't have super admin privileges"
+        });
+      }
+      
+    } catch (error) {
+      console.error('❌ Login error:', error);
+      toast({
+        variant: "destructive",
+        title: "Login Failed",
+        description: error instanceof Error ? error.message : "Authentication failed"
+      });
     } finally {
-      setIsSubmitting(false);
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className="bg-white/10 backdrop-blur-lg rounded-xl p-8">
-      <form onSubmit={handleSubmit} className="space-y-6">
-        {error && (
-          <div className="p-3 text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg">
-            {error}
-          </div>
-        )}
-
-        <Input
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div>
+        <label htmlFor="email" className="block text-sm font-medium text-gray-200">
+          Email
+        </label>
+        <input
           id="email"
           type="email"
-          label="Email"
-          required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          disabled={isSubmitting}
+          className="mt-1 block w-full rounded-md bg-gray-800 border-gray-700 text-gray-200"
+          required
         />
-
-        <Input
+      </div>
+      
+      <div>
+        <label htmlFor="password" className="block text-sm font-medium text-gray-200">
+          Password
+        </label>
+        <input
           id="password"
           type="password"
-          label="Password"
-          required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          disabled={isSubmitting}
+          className="mt-1 block w-full rounded-md bg-gray-800 border-gray-700 text-gray-200"
+          required
         />
+      </div>
 
-        <Button
-          type="submit"
-          variant="primary"
-          disabled={isSubmitting}
-          loading={isSubmitting}
-        >
-          {isSubmitting ? 'Signing in...' : 'Sign In'}
-        </Button>
-      </form>
-    </div>
+      <button 
+        type="submit" 
+        disabled={isLoading}
+        className="w-full bg-primary text-white p-2 rounded hover:bg-primary/90 transition-colors"
+      >
+        {isLoading ? 'Signing in...' : 'Sign In'}
+      </button>
+    </form>
   );
 } 

@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { Database } from '../types/database';
 import { securityConfig } from './security';
-import type { Profile, UserRole } from '../types/auth';
+import type { User, UserRole } from '@/auth/types/auth.types';
 
 // Debug environment variables (only in development)
 if (import.meta.env.DEV) {
@@ -55,7 +55,7 @@ export const auth = supabase.auth;
 export const db = supabase.from;
 
 // Profile management
-export async function getUserProfile(userId: string): Promise<Profile | null> {
+export async function getUserProfile(userId: string): Promise<User | null> {
   try {
     const { data, error } = await db('profiles')
       .select('*')
@@ -63,7 +63,7 @@ export async function getUserProfile(userId: string): Promise<Profile | null> {
       .single();
     
     if (error) throw error;
-    return data as Profile;
+    return data as User;
   } catch (error) {
     console.error('[Supabase] Profile error:', error);
     return null;
@@ -90,4 +90,4 @@ export async function validateUserRole(userId: string, expectedRole: UserRole): 
 
 // Re-export types
 export type { Database } from '../types/database';
-export type { Profile, UserRole } from '../types/auth'; 
+export type { User, UserRole } from '@/auth/types/auth.types'; 

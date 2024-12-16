@@ -1,3 +1,5 @@
+// Temporarily commented out for route consolidation
+/*
 import { createBrowserRouter, Outlet, Navigate } from 'react-router-dom';
 import { UserRole } from '@/lib/types/database';
 import { ProtectedRoute } from '@/auth/components/ProtectedRoute';
@@ -193,3 +195,4 @@ const resolveRoute = (path: string) => {
 
 // Add to your router configuration
 window.__DEBUG_resolveRoute = resolveRoute; 
+*/

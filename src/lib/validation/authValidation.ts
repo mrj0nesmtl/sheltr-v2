@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import type { UserRole } from '../types/auth';
+import type { UserRole } from '@/auth/types/auth.types';
 
 export const donorSignUpSchema = z.object({
   email: z.string().email(),

@@ -1,4 +1,4 @@
-import { UserRole } from '@/types/auth.types';
+import { UserRole } from '@/auth/types/auth.types';
 import { Icon } from '@/components/ui/Icon';
 import { Button } from '@/components/ui/Button';
 import { LogOut } from 'lucide-react';

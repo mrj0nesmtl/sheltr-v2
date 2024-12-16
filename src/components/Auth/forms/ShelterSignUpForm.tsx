@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { shelterSignUpSchema, type ShelterSignUpForm as ShelterFormType } from '@/types/auth/schemas'
+import { shelterSignUpSchema, type ShelterSignUpForm as ShelterFormType } from '@/auth/schemas'
 import { useAuthStore } from '@/auth/stores/authStore'
 import { ArrowLeft } from 'lucide-react'
 

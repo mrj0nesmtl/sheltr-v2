@@ -2,7 +2,7 @@
 *Last Updated: December 16, 2024*
 
 ## Overview
-The SHELTR dashboard implements a role-based, modular architecture supporting three primary user types: Donors, Participants, and Shelter Administrators.
+The SHELTR dashboard implements a role-based, modular architecture supporting 4 primary user types: Donors, Participants, Shelter Administrators and Super Admins.
 
 ## Current Implementation Status
 ```typescript

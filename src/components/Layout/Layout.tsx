@@ -1,10 +1,14 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
-import { useAuthStore } from '@/stores/authStore';
+import { useAuthStore } from '@/auth/stores/authStore';
 import { Navigation } from '@/components/Navigation/Navigation';
 import { Footer } from '@/components/Footer/Footer';
+import { Toaster } from "@/components/ui/Toaster";
 
-export function Layout() {
+interface LayoutProps {
+  children: React.ReactNode;
+}
+
+export function Layout({ children }: LayoutProps) {
   const { user } = useAuthStore();
   
   return (
@@ -12,18 +16,11 @@ export function Layout() {
       <Navigation />
       
       <div className="flex-1">
-        {user ? (
-          <div className="flex">
-            <div className="flex-1 ml-0 md:ml-64">
-              <Outlet />
-            </div>
-          </div>
-        ) : (
-          <Outlet />
-        )}
+        {children}
       </div>
 
       <Footer />
+      <Toaster />
     </div>
   );
 } 

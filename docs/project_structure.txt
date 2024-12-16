@@ -1,0 +1,787 @@
+.
+├── README.md
+├── analyze.html
+├── backups
+│   └── Sheltr Translaions
+│       ├── en.json
+│       ├── en.ts
+│       └── fr.ts
+├── dist
+│   ├── assets
+│   │   ├── chart-core-BdqdLZaL.js
+│   │   ├── chart-core-BdqdLZaL.js.map
+│   │   ├── components-CRCgTPUd.js
+│   │   ├── components-CRCgTPUd.js.map
+│   │   ├── core-auth-N-Jd1657.js
+│   │   ├── core-auth-N-Jd1657.js.map
+│   │   ├── core-react-BQMDApJn.js
+│   │   ├── core-react-BQMDApJn.js.map
+│   │   ├── core-routing-DrvlPvdD.js
+│   │   ├── core-routing-DrvlPvdD.js.map
+│   │   ├── d3-array-D-1I76gX.js
+│   │   ├── d3-array-D-1I76gX.js.map
+│   │   ├── d3-core-BeOeAIcq.js
+│   │   ├── d3-core-BeOeAIcq.js.map
+│   │   ├── d3-scale-B5ryZyms.js
+│   │   ├── d3-scale-B5ryZyms.js.map
+│   │   ├── d3-shape-CLFruQI-.js
+│   │   ├── d3-shape-CLFruQI-.js.map
+│   │   ├── form-components-CmFY9gcG.js
+│   │   ├── form-components-CmFY9gcG.js.map
+│   │   ├── forms-core-BntrWzh-.js
+│   │   ├── forms-core-BntrWzh-.js.map
+│   │   ├── forms-validation-fsKJIc2i.js
+│   │   ├── forms-validation-fsKJIc2i.js.map
+│   │   ├── index-DaB3Ticp.css
+│   │   ├── index-Dg22y6o9.js
+│   │   ├── index-Dg22y6o9.js.map
+│   │   ├── page-public-B51kfCTJ.js
+│   │   ├── page-public-B51kfCTJ.js.map
+│   │   ├── state-management-Dq8DbGfp.js
+│   │   ├── state-management-Dq8DbGfp.js.map
+│   │   ├── ui-components-CzJ1-Jp8.js
+│   │   ├── ui-components-CzJ1-Jp8.js.map
+│   │   ├── utils-date-DCkx5Buc.js
+│   │   ├── utils-date-DCkx5Buc.js.map
+│   │   ├── utils-i18n-Dp2-q-Dt.js
+│   │   ├── utils-i18n-Dp2-q-Dt.js.map
+│   │   ├── vendors-C74ZnT8H.js
+│   │   └── vendors-C74ZnT8H.js.map
+│   ├── content
+│   │   └── whitepaper
+│   │       └── en.md
+│   ├── docs
+│   │   ├── whitepaper_eng.md
+│   │   └── whitepaper_fr.md
+│   ├── images
+│   │   ├── hero-bg.jpg
+│   │   ├── homeless-person-bench.jpg
+│   │   ├── icon-blk.svg
+│   │   ├── icon.svg
+│   │   └── logo.svg
+│   └── index.html
+├── docs
+│   ├── SHELTR Page Organization Refactor Plan.ini
+│   ├── about
+│   │   └── shelter_inro_fr.md
+│   ├── architecture
+│   │   ├── auth
+│   │   │   └── rbac.md
+│   │   ├── dashboard
+│   │   │   └── architecture.md
+│   │   ├── state
+│   │   │   └── dashboard.md
+│   │   └── structure
+│   │       └── pages.md
+│   ├── archive
+│   │   └── roadmap
+│   │       └── roadmap_20241215.md
+│   ├── doc_notes
+│   ├── documentation_map.md
+│   ├── project
+│   │   ├── implementation
+│   │   │   ├── buildout_implementation.md
+│   │   │   └── tech_stack.md
+│   │   ├── progress
+│   │   │   ├── checkpoint.md
+│   │   │   ├── dec15-restructure.md
+│   │   │   └── status_report.md
+│   │   ├── roadmap
+│   │   │   └── roadmap.md
+│   │   └── technical
+│   │       ├── build_tract.md
+│   │       └── changelog.md
+│   ├── project_structure.txt
+│   ├── sessions
+│   │   ├── prompt.md
+│   │   ├── prompt_2.md
+│   │   └── prompt_3.md
+│   ├── testing
+│   │   ├── flows
+│   │   │   └── user_flows.md
+│   │   └── user_flow_testing.md
+│   └── update project_docs
+├── eslint.config.js
+├── index.html
+├── package-lock.json
+├── package.json
+├── postcss.config.js
+├── project_structure.txt
+├── public
+│   ├── content
+│   │   └── whitepaper
+│   │       └── en.md
+│   ├── docs
+│   │   ├── SHELTR Page Organization Refactor Plan.ini
+│   │   ├── about
+│   │   │   ├── shelter_inro_fr.md
+│   │   │   └── sheltr_intro_eng.md
+│   │   ├── architecture
+│   │   │   ├── auth
+│   │   │   │   └── rbac.md
+│   │   │   ├── dashboard
+│   │   │   │   └── architecture.md
+│   │   │   ├── state
+│   │   │   │   └── dashboard.md
+│   │   │   └── structure
+│   │   │       └── pages.md
+│   │   ├── archive
+│   │   │   └── roadmap
+│   │   │       └── roadmap_20241215.md
+│   │   ├── doc_notes
+│   │   ├── documentation_map.md
+│   │   ├── project
+│   │   │   ├── implementation
+│   │   │   │   ├── buildout_implementation.md
+│   │   │   │   └── tech_stack.md
+│   │   │   ├── progress
+│   │   │   │   ├── checkpoint.md
+│   │   │   │   ├── dec15-restructure.md
+│   │   │   │   └── status_report.md
+│   │   │   ├── roadmap
+│   │   │   │   └── roadmap.md
+│   │   │   └── technical
+│   │   │       ├── build_tract.md
+│   │   │       └── changelog.md
+│   │   ├── project_structure.txt
+│   │   ├── sessions
+│   │   │   ├── prompt.md
+│   │   │   ├── prompt_2.md
+│   │   │   └── prompt_3.md
+│   │   ├── testing
+│   │   │   ├── flows
+│   │   │   │   └── user_flows.md
+│   │   │   └── user_flow_testing.md
+│   │   ├── translations
+│   │   │   ├── about
+│   │   │   │   └── sheltr_intro_eng.md
+│   │   │   └── whitepaper
+│   │   │       ├── whitepaper_eng.md
+│   │   │       └── whitepaper_fr.md
+│   │   ├── update project_docs
+│   │   ├── whitepaper_eng.md
+│   │   └── whitepaper_fr.md
+│   ├── images
+│   │   ├── hero-bg.jpg
+│   │   ├── homeless-person-bench.jpg
+│   │   ├── icon-blk.svg
+│   │   ├── icon.svg
+│   │   └── logo.svg
+│   └── index.html
+├── replit.dev.nix
+├── replit.nix
+├── scripts
+│   ├── backup.js
+│   ├── increment-version.js
+│   └── update-docs.ts
+├── server.js
+├── src
+│   ├── App.tsx
+│   ├── auth
+│   │   ├── components
+│   │   │   ├── AuthProvider.tsx
+│   │   │   └── ProtectedRoute.tsx
+│   │   ├── forms
+│   │   ├── hooks
+│   │   ├── schemas
+│   │   │   └── validation.ts
+│   │   ├── stores
+│   │   │   └── authStore.ts
+│   │   └── types
+│   │       └── auth.types.ts
+│   ├── components
+│   │   ├── About
+│   │   │   ├── CallToAction.tsx
+│   │   │   ├── Features.tsx
+│   │   │   ├── MarkdownContent.tsx
+│   │   │   ├── ProjectStatus.tsx
+│   │   │   ├── StatusCard.tsx
+│   │   │   └── sections
+│   │   │       ├── Checkpoint.tsx
+│   │   │       ├── Introduction.tsx
+│   │   │       ├── Roadmap.tsx
+│   │   │       ├── TechStack.tsx
+│   │   │       ├── Whitepaper.tsx
+│   │   │       └── index.ts
+│   │   ├── Admin
+│   │   │   ├── Analytics
+│   │   │   │   ├── ShelterMap.tsx
+│   │   │   │   ├── ShelterOverview.tsx
+│   │   │   │   ├── ShelterStats.tsx
+│   │   │   │   └── ShelterTable.tsx
+│   │   │   ├── DonationMap.tsx
+│   │   │   ├── DonorList.tsx
+│   │   │   ├── FundAllocationChart.tsx
+│   │   │   ├── ParticipantLeaderboard.tsx
+│   │   │   ├── ParticipantList.tsx
+│   │   │   ├── ParticipantManagementTable.tsx
+│   │   │   ├── ParticipantRegistration.tsx
+│   │   │   ├── ParticipantRegistrationModal.tsx
+│   │   │   ├── ParticipantRow.tsx
+│   │   │   ├── QRAnalytics.tsx
+│   │   │   ├── Shelters
+│   │   │   │   └── ShelterList.tsx
+│   │   │   └── SystemAlerts.tsx
+│   │   ├── Analytics
+│   │   │   ├── DonationTrends.tsx
+│   │   │   ├── ImpactMetrics.tsx
+│   │   │   └── TransactionTable.tsx
+│   │   ├── Auth
+│   │   │   ├── AuthLayout.tsx
+│   │   │   ├── LoginButton.tsx
+│   │   │   ├── LoginForm.tsx
+│   │   │   ├── ShelterRegistrationForm.tsx
+│   │   │   ├── SignUpForm.tsx
+│   │   │   ├── SignUpSelector.tsx
+│   │   │   └── forms
+│   │   │       ├── DonorSignUpForm.tsx
+│   │   │       ├── ShelterSignUpForm.tsx
+│   │   │       └── index.ts
+│   │   ├── Blockchain
+│   │   │   └── WhitepaperPage.tsx
+│   │   ├── Blog
+│   │   │   ├── BlogEditor.tsx
+│   │   │   ├── BlogList.tsx
+│   │   │   └── BlogPost.tsx
+│   │   ├── Contact
+│   │   │   └── ContactForm.tsx
+│   │   ├── CustomerSupport
+│   │   │   ├── CustomerSupport.tsx
+│   │   │   └── index.ts
+│   │   ├── Dashboard
+│   │   │   ├── Analytics
+│   │   │   │   ├── DonationHistory.tsx
+│   │   │   │   ├── DonorStats.tsx
+│   │   │   │   ├── ImpactMetrics.tsx
+│   │   │   │   └── StatCard.tsx
+│   │   │   ├── DonorLeaderboard.tsx
+│   │   │   └── ParticipantRow.tsx
+│   │   ├── Documentation
+│   │   │   ├── components
+│   │   │   │   ├── DocViewer.tsx
+│   │   │   │   ├── DocumentHub.tsx
+│   │   │   │   ├── DocumentViewer.tsx
+│   │   │   │   ├── TableOfContents.tsx
+│   │   │   │   ├── WhitepaperView.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── index.ts
+│   │   │   └── pages
+│   │   │       └── WhitepaperPage.tsx
+│   │   ├── DonationForm
+│   │   │   └── DonationForm.tsx
+│   │   ├── ErrorBoundary
+│   │   │   ├── BaseErrorBoundary.tsx
+│   │   │   ├── ParticipantErrorBoundary.tsx
+│   │   │   ├── ShelterAdminErrorBoundary.tsx
+│   │   │   └── index.ts
+│   │   ├── ErrorBoundary.tsx
+│   │   ├── Footer
+│   │   │   └── Footer.tsx
+│   │   ├── Hero
+│   │   │   └── Hero.tsx
+│   │   ├── Hero.tsx
+│   │   ├── HowItWorks
+│   │   │   ├── HowItWorksSection.tsx
+│   │   │   └── index.ts
+│   │   ├── HowItWorks.tsx
+│   │   ├── Layout
+│   │   │   ├── DashboardLayout
+│   │   │   │   ├── DashboardHeader.tsx
+│   │   │   │   ├── Sidebar
+│   │   │   │   │   ├── DebugSidebar.tsx
+│   │   │   │   │   ├── DonorSidebar.tsx
+│   │   │   │   │   ├── ParticipantSidebar.tsx
+│   │   │   │   │   ├── ShelterAdminSidebar.tsx
+│   │   │   │   │   ├── SidebarItem.tsx
+│   │   │   │   │   ├── SuperAdminSidebar.tsx
+│   │   │   │   │   └── index.tsx
+│   │   │   │   └── index.tsx
+│   │   │   ├── Header.tsx
+│   │   │   ├── Layout.tsx
+│   │   │   ├── MainNav.tsx
+│   │   │   └── index.tsx
+│   │   ├── Layout.tsx
+│   │   ├── Legal
+│   │   │   ├── PrivacyPolicy.tsx
+│   │   │   └── TermsOfService.tsx
+│   │   ├── Logo.tsx
+│   │   ├── Map
+│   │   │   └── DonationMap.tsx
+│   │   ├── Meta
+│   │   │   └── PageMeta.tsx
+│   │   ├── Navigation
+│   │   │   ├── MainNav.tsx
+│   │   │   ├── MobileMenu.tsx
+│   │   │   ├── MobileNav.tsx
+│   │   │   ├── Navigation.tsx
+│   │   │   ├── NavigationItems.tsx
+│   │   │   ├── UserMenu.tsx
+│   │   │   ├── UserNav.tsx
+│   │   │   └── types.ts
+│   │   ├── Participant
+│   │   ├── Podcast
+│   │   │   └── PodcastPreview.tsx
+│   │   ├── Profile
+│   │   │   ├── ActivityLog.tsx
+│   │   │   ├── AddFriend.tsx
+│   │   │   ├── AdminFeatures.tsx
+│   │   │   ├── BaseProfile.tsx
+│   │   │   ├── DonorFeatures.tsx
+│   │   │   ├── EditProfileModal.tsx
+│   │   │   ├── FriendActivity.tsx
+│   │   │   ├── ImageCropModal.tsx
+│   │   │   ├── ImageUpload.tsx
+│   │   │   ├── ParticipantFeatures.tsx
+│   │   │   ├── ProfileLayout.tsx
+│   │   │   ├── RoleSpecificInfo.tsx
+│   │   │   ├── SocialLinks.tsx
+│   │   │   └── UserProfile.tsx
+│   │   ├── QRScanner
+│   │   │   └── QRScanner.tsx
+│   │   ├── SEO
+│   │   │   └── MetaTags.tsx
+│   │   ├── Settings
+│   │   │   └── BaseSettings.tsx
+│   │   ├── Sidebar
+│   │   │   └── Sidebar.tsx
+│   │   ├── Solutions.tsx
+│   │   ├── SuperAdmin
+│   │   │   ├── AlertsAndIncidents.tsx
+│   │   │   ├── DonationAnalytics.tsx
+│   │   │   ├── NotificationCenter.tsx
+│   │   │   ├── QuickStatCard.tsx
+│   │   │   ├── ShelterPerformanceChart.tsx
+│   │   │   └── SystemHealthMonitor.tsx
+│   │   ├── ThankYou
+│   │   │   └── ThankYou.tsx
+│   │   ├── ThemeToggle.tsx
+│   │   ├── Token
+│   │   │   └── TokenPage.tsx
+│   │   ├── Transactions
+│   │   │   └── TransactionList.tsx
+│   │   ├── UserBadge
+│   │   │   └── UserBadge.tsx
+│   │   ├── Verify
+│   │   │   └── VerifyPage.tsx
+│   │   ├── layouts
+│   │   │   ├── PageLayout.tsx
+│   │   │   └── index.ts
+│   │   └── ui
+│   │       ├── Accordion.tsx
+│   │       ├── Avatar.tsx
+│   │       ├── Badge.tsx
+│   │       ├── Button.tsx
+│   │       ├── Card.tsx
+│   │       ├── Charts
+│   │       │   ├── AreaChart.tsx
+│   │       │   ├── BarChart.tsx
+│   │       │   ├── LineChart.tsx
+│   │       │   └── index.ts
+│   │       ├── Checkbox.tsx
+│   │       ├── CustomIcons.tsx
+│   │       ├── FeatureCard.tsx
+│   │       ├── FullContentModal.tsx
+│   │       ├── Icon.tsx
+│   │       ├── ImageUpload.tsx
+│   │       ├── Input.tsx
+│   │       ├── LanguageToggle.tsx
+│   │       ├── LoadingOverlay.tsx
+│   │       ├── LoadingSpinner.tsx
+│   │       ├── Logo.tsx
+│   │       ├── NavLink.tsx
+│   │       ├── ProfileMenu.tsx
+│   │       ├── QRCode.tsx
+│   │       ├── Select.tsx
+│   │       ├── SignOutButton.tsx
+│   │       ├── StatCard.tsx
+│   │       ├── Textarea.tsx
+│   │       ├── Toast.tsx
+│   │       └── index.ts
+│   ├── config
+│   │   ├── deployment.ts
+│   │   └── docs.ts
+│   ├── constants
+│   │   └── podcast.ts
+│   ├── content
+│   │   ├── intro
+│   │   │   └── en.md
+│   │   └── whitepaper
+│   │       ├── en.md
+│   │       └── fr.md
+│   ├── contexts
+│   │   └── ThemeContext.tsx
+│   ├── features
+│   │   ├── auth
+│   │   │   ├── components
+│   │   │   │   └── index.ts
+│   │   │   ├── hooks
+│   │   │   ├── index.ts
+│   │   │   ├── store
+│   │   │   └── utils
+│   │   ├── dashboard
+│   │   │   ├── components
+│   │   │   │   └── index.ts
+│   │   │   ├── hooks
+│   │   │   ├── index.ts
+│   │   │   ├── store
+│   │   │   └── utils
+│   │   ├── donor
+│   │   │   ├── components
+│   │   │   │   ├── DonorDashboard.tsx
+│   │   │   │   └── DonorSignUpForm.tsx
+│   │   │   ├── types
+│   │   │   │   └── donor.ts
+│   │   │   └── validation
+│   │   │       └── donorValidation.ts
+│   │   ├── profile
+│   │   │   ├── components
+│   │   │   │   └── index.ts
+│   │   │   ├── hooks
+│   │   │   ├── index.ts
+│   │   │   ├── store
+│   │   │   └── utils
+│   │   ├── roles
+│   │   │   ├── donor
+│   │   │   │   ├── components
+│   │   │   │   │   ├── DonorDashboard.tsx
+│   │   │   │   │   ├── auth
+│   │   │   │   │   │   ├── DonorSignUpForm.tsx
+│   │   │   │   │   │   └── index.ts
+│   │   │   │   │   ├── dashboard
+│   │   │   │   │   │   ├── DonorDashboard.tsx
+│   │   │   │   │   │   └── index.ts
+│   │   │   │   │   ├── index.ts
+│   │   │   │   │   └── profile
+│   │   │   │   │       ├── DonorProfile.tsx
+│   │   │   │   │       └── index.ts
+│   │   │   │   ├── hooks
+│   │   │   │   ├── index.ts
+│   │   │   │   ├── store
+│   │   │   │   └── utils
+│   │   │   ├── participant
+│   │   │   │   ├── ParticipantDashboard.tsx
+│   │   │   │   ├── components
+│   │   │   │   │   ├── Analytics
+│   │   │   │   │   │   ├── AchievementMetrics.tsx
+│   │   │   │   │   │   ├── DonorSupport.tsx
+│   │   │   │   │   │   ├── PersonalProgress.tsx
+│   │   │   │   │   │   ├── index.ts
+│   │   │   │   │   │   └── index.tsx
+│   │   │   │   │   ├── Dashboard
+│   │   │   │   │   │   ├── ParticipantDashboard.tsx
+│   │   │   │   │   │   ├── index.ts
+│   │   │   │   │   │   └── index.tsx
+│   │   │   │   │   ├── ParticipantAnalytics.tsx
+│   │   │   │   │   ├── ParticipantDetailAnalytics.tsx
+│   │   │   │   │   ├── ParticipantManagement.tsx
+│   │   │   │   │   ├── ParticipantProfile.tsx
+│   │   │   │   │   ├── Settings.tsx
+│   │   │   │   │   ├── auth
+│   │   │   │   │   ├── index.ts
+│   │   │   │   │   ├── profile
+│   │   │   │   │   │   └── index.ts
+│   │   │   │   │   └── types
+│   │   │   │   │       └── index.ts
+│   │   │   │   ├── hooks
+│   │   │   │   ├── index.ts
+│   │   │   │   ├── store
+│   │   │   │   └── utils
+│   │   │   ├── shelter-admin
+│   │   │   │   ├── components
+│   │   │   │   │   ├── analytics
+│   │   │   │   │   │   ├── DonorEngagement.tsx
+│   │   │   │   │   │   ├── ParticipantManagement.tsx
+│   │   │   │   │   │   ├── ShelterAnalytics.tsx
+│   │   │   │   │   │   └── index.ts
+│   │   │   │   │   ├── auth
+│   │   │   │   │   │   ├── ShelterSignUpForm.tsx
+│   │   │   │   │   │   └── index.ts
+│   │   │   │   │   ├── dashboard
+│   │   │   │   │   │   ├── ShelterDashboard.tsx
+│   │   │   │   │   │   └── index.ts
+│   │   │   │   │   ├── index.ts
+│   │   │   │   │   ├── profile
+│   │   │   │   │   │   ├── Profile.tsx
+│   │   │   │   │   │   └── index.ts
+│   │   │   │   │   └── settings
+│   │   │   │   │       ├── Settings.tsx
+│   │   │   │   │       └── index.ts
+│   │   │   │   ├── hooks
+│   │   │   │   ├── index.ts
+│   │   │   │   ├── store
+│   │   │   │   └── utils
+│   │   │   └── super-admin
+│   │   │       ├── components
+│   │   │       │   ├── analytics
+│   │   │       │   │   ├── GlobalAnalytics.tsx
+│   │   │       │   │   ├── NetworkPerformance.tsx
+│   │   │       │   │   ├── SystemMetrics.tsx
+│   │   │       │   │   └── index.ts
+│   │   │       │   ├── auth
+│   │   │       │   ├── dashboard
+│   │   │       │   ├── index.ts
+│   │   │       │   ├── profile
+│   │   │       │   │   ├── Profile.tsx
+│   │   │       │   │   └── index.ts
+│   │   │       │   └── settings
+│   │   │       │       ├── SystemSettings.tsx
+│   │   │       │       └── index.ts
+│   │   │       ├── hooks
+│   │   │       ├── index.ts
+│   │   │       ├── store
+│   │   │       └── utils
+│   │   └── shared
+│   │       ├── analytics
+│   │       ├── components
+│   │       │   └── index.ts
+│   │       ├── hooks
+│   │       ├── index.ts
+│   │       ├── store
+│   │       └── utils
+│   ├── hooks
+│   │   ├── useAuth.ts
+│   │   ├── useMarkdownContent.ts
+│   │   ├── useNavigation.ts
+│   │   └── useWhitepaper.ts
+│   ├── i18n.ts
+│   ├── index.css
+│   ├── lib
+│   │   ├── api
+│   │   │   ├── activityLogApi.ts
+│   │   │   ├── blogApi.ts
+│   │   │   ├── donations.ts
+│   │   │   ├── donorRankingsApi.ts
+│   │   │   ├── participantApi.ts
+│   │   │   ├── participants.ts
+│   │   │   ├── profileApi.ts
+│   │   │   ├── shelterApi.ts
+│   │   │   └── transactions.ts
+│   │   ├── auth
+│   │   │   ├── AuthProvider.tsx
+│   │   │   ├── authService.ts
+│   │   │   ├── full_schema.md
+│   │   │   ├── profileService.ts
+│   │   │   ├── sessionService.ts
+│   │   │   └── types.ts
+│   │   ├── auth-schema.sql
+│   │   ├── complete-schema.sql
+│   │   ├── config
+│   │   │   ├── constants.ts
+│   │   │   └── navigation.ts
+│   │   ├── content
+│   │   │   └── blog
+│   │   │       └── posts.ts
+│   │   ├── database.types.ts
+│   │   ├── docs-parser.ts
+│   │   ├── email
+│   │   │   ├── templates
+│   │   │   │   ├── donationReceipt.ts
+│   │   │   │   ├── serviceNotification.ts
+│   │   │   │   └── welcome.ts
+│   │   │   └── templates.ts
+│   │   ├── i18n
+│   │   │   ├── config.ts
+│   │   │   ├── index.ts
+│   │   │   ├── locales
+│   │   │   │   ├── en.json
+│   │   │   │   ├── en.ts
+│   │   │   │   └── fr.ts
+│   │   │   ├── migration.ts
+│   │   │   └── types.ts
+│   │   ├── icons.ts
+│   │   ├── navigation
+│   │   │   ├── config.ts
+│   │   │   └── roleNavigation.ts
+│   │   ├── schema.sql
+│   │   ├── scripts
+│   │   │   ├── add-activity-log.sql
+│   │   │   ├── add-sample-shelters.sql
+│   │   │   ├── auth-setup.sql
+│   │   │   ├── create-blog-tables.sql
+│   │   │   ├── create-donor-stats-table.sql
+│   │   │   ├── create-super-admins.sql
+│   │   │   ├── create-test-accounts.sql
+│   │   │   ├── export-auth-schema.sql
+│   │   │   ├── export-schema-simple.sql
+│   │   │   ├── export-schema.sql
+│   │   │   ├── fix-admin-password.sql
+│   │   │   ├── fix-auth-system.sql
+│   │   │   ├── fix-database-relationships.sql
+│   │   │   ├── fix-user-profiles.sql
+│   │   │   ├── reset-auth
+│   │   │   │   ├── 01-backup.sql
+│   │   │   │   ├── 02-disable-triggers.sql
+│   │   │   │   ├── 03-clear-tables.sql
+│   │   │   │   ├── 04-enable-triggers.sql
+│   │   │   │   ├── 05-create-admin.sql
+│   │   │   │   └── README.md
+│   │   │   ├── reset-auth-safe.sql
+│   │   │   ├── reset-auth-system.sql
+│   │   │   ├── setup-user-profiles.sql
+│   │   │   ├── update-participants-schema.sql
+│   │   │   ├── update-shelter-schema.sql
+│   │   │   ├── update-user-role.sql
+│   │   │   ├── verify-schema.sql
+│   │   │   └── verify-user-roles.ts
+│   │   ├── sentry
+│   │   │   └── index.ts
+│   │   ├── services
+│   │   │   ├── analyticsService.ts
+│   │   │   ├── donationService.ts
+│   │   │   ├── imageService.ts
+│   │   │   ├── organizationService.ts
+│   │   │   ├── participantService.ts
+│   │   │   ├── profileService.ts
+│   │   │   └── qrService.ts
+│   │   ├── storage
+│   │   │   ├── imageUtils.ts
+│   │   │   └── storageService.ts
+│   │   ├── supabase
+│   │   │   ├── client.ts
+│   │   │   ├── index.ts
+│   │   │   ├── migration.ts
+│   │   │   └── security.ts
+│   │   ├── theme.ts
+│   │   ├── types
+│   │   │   ├── auth.ts
+│   │   │   ├── blog.ts
+│   │   │   ├── database.ts
+│   │   │   ├── icon.ts
+│   │   │   ├── icons.ts
+│   │   │   ├── organization.ts
+│   │   │   └── shelter.ts
+│   │   ├── utils
+│   │   │   ├── docs-parser.ts
+│   │   │   ├── iconMapping.ts
+│   │   │   ├── navigation.ts
+│   │   │   ├── qrCode.ts
+│   │   │   ├── token.ts
+│   │   │   └── version.ts
+│   │   ├── utils.ts
+│   │   ├── validation
+│   │   │   └── authValidation.ts
+│   │   └── validations
+│   │       ├── participant.ts
+│   │       └── profile.ts
+│   ├── main.tsx
+│   ├── pages
+│   │   ├── About
+│   │   │   ├── components
+│   │   │   │   ├── MetricCard.tsx
+│   │   │   │   ├── TechCard.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── index.tsx
+│   │   │   └── sections
+│   │   │       ├── Contact.tsx
+│   │   │       ├── Documentation.tsx
+│   │   │       ├── Hero.tsx
+│   │   │       ├── Metrics.tsx
+│   │   │       ├── Overview.tsx
+│   │   │       ├── Technology.tsx
+│   │   │       └── index.ts
+│   │   ├── Donor
+│   │   │   ├── Dashboard
+│   │   │   └── Settings.tsx
+│   │   ├── DonorSignUp.tsx
+│   │   ├── HomePage.tsx
+│   │   ├── HowItWorks.tsx
+│   │   ├── Impact.tsx
+│   │   ├── ImpactPage.tsx
+│   │   ├── Login
+│   │   │   └── index.tsx
+│   │   ├── LoginPage.tsx
+│   │   ├── ScanDonatePage.tsx
+│   │   ├── ShelterAdmin
+│   │   │   ├── Dashboard
+│   │   │   │   └── index.tsx
+│   │   │   ├── Dashboard.tsx
+│   │   │   ├── ShelterDetailAnalytics.tsx
+│   │   │   ├── ShelterDonorAnalytics.tsx
+│   │   │   ├── ShelterManagement.tsx
+│   │   │   ├── ShelterParticipantAnalytics.tsx
+│   │   │   ├── components
+│   │   │   │   └── LoadingState.tsx
+│   │   │   └── types
+│   │   │       └── index.ts
+│   │   ├── ShelterSignUp.tsx
+│   │   ├── SignUpPage.tsx
+│   │   ├── Solutions.tsx
+│   │   ├── SuperAdmin
+│   │   │   ├── Analytics.tsx
+│   │   │   ├── Dashboard
+│   │   │   │   └── index.tsx
+│   │   │   ├── Settings.tsx
+│   │   │   ├── components
+│   │   │   │   ├── GlobalAnalytics.tsx
+│   │   │   │   ├── GlobalDonationMap.tsx
+│   │   │   │   ├── NotificationCenter.tsx
+│   │   │   │   ├── RealTimeAlerts.tsx
+│   │   │   │   ├── ShelterManagementTable.tsx
+│   │   │   │   ├── SystemAlerts.tsx
+│   │   │   │   ├── SystemMonitoring.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── donors
+│   │   │   │   ├── DonorDetailAnalytics.tsx
+│   │   │   │   └── DonorManagement.tsx
+│   │   │   └── index.ts
+│   │   ├── blockchain
+│   │   │   └── whitepaper.tsx
+│   │   └── dashboard
+│   │       └── donor
+│   │           └── DonorDashboard.tsx
+│   ├── router.tsx
+│   ├── routes
+│   │   ├── AppRoutes.tsx
+│   │   ├── blockchain
+│   │   │   └── WhitepaperPage.tsx
+│   │   └── index.tsx
+│   ├── services
+│   │   ├── docs.service.ts
+│   │   └── participantRegistration.ts
+│   ├── stores
+│   │   ├── donationStore.ts
+│   │   ├── profileStore.ts
+│   │   └── shelterStore.ts
+│   ├── styles
+│   │   ├── footer.css
+│   │   ├── global.css
+│   │   ├── globals.css
+│   │   ├── reset.css
+│   │   └── themes.css
+│   ├── types
+│   │   ├── auth
+│   │   │   └── schemas.ts
+│   │   ├── auth.ts
+│   │   ├── auth.types.ts
+│   │   ├── core
+│   │   │   ├── auth
+│   │   │   │   └── index.ts
+│   │   │   ├── dashboard
+│   │   │   │   └── index.ts
+│   │   │   ├── profile
+│   │   │   │   └── index.ts
+│   │   │   └── shared
+│   │   │       └── index.ts
+│   │   ├── docs.d.ts
+│   │   ├── i18next.d.ts
+│   │   └── markdown.d.ts
+│   ├── types.d.ts
+│   ├── utils
+│   │   └── markdown.ts
+│   └── vite-env.d.ts
+├── stats.html
+├── supabase
+│   ├── config.toml
+│   └── migrations
+│       ├── 20240304_create_tables.sql
+│       ├── 20240304_fix_search_path.sql
+│       ├── 20240304_fix_super_admin.sql
+│       └── 20240307_fix_super_admin_verification.sql
+├── tailwind.config.js
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+├── vercel.json
+└── vite.config.ts
+
+231 directories, 554 files

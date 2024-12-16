@@ -1,4 +1,4 @@
-import { UserRole } from '@/lib/types/auth';
+import { UserRole } from '@/auth/types/auth.types';
 
 export interface NavigationItem {
   label: string;
