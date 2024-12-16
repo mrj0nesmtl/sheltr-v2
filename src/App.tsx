@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from '@/auth/components/AuthProvider';
 import { Layout } from '@/components/Layout';
 import HomePage from '@/pages/HomePage';
 import { AboutPage } from '@/pages/About';
@@ -13,20 +14,22 @@ import './styles/globals.css';
 function App() {
   return (
     <Router>
-      <Layout>
-        <main className="pt-16">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/how-it-works" element={<HowItWorks />} />
-            <Route path="/solutions" element={<Solutions />} />
-            <Route path="/impact" element={<ImpactPage />} />
-            <Route path="/scan-donate" element={<ScanDonatePage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignUpPage />} />
-          </Routes>
-        </main>
-      </Layout>
+      <AuthProvider>
+        <Layout>
+          <main className="pt-16">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/how-it-works" element={<HowItWorks />} />
+              <Route path="/solutions" element={<Solutions />} />
+              <Route path="/impact" element={<ImpactPage />} />
+              <Route path="/scan-donate" element={<ScanDonatePage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/signup" element={<SignUpPage />} />
+            </Routes>
+          </main>
+        </Layout>
+      </AuthProvider>
     </Router>
   );
 }

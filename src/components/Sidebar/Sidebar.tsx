@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAuth } from '@/components/Auth/AuthProvider';
+import { useAuth } from '@/auth/components/AuthProvider';
 
 export function Sidebar() {
   const { user } = useAuth();

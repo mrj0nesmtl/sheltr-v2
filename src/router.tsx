@@ -1,6 +1,6 @@
 import { createBrowserRouter, Outlet, Navigate } from 'react-router-dom';
 import { UserRole } from '@/lib/types/database';
-import { ProtectedRoute } from '@/components/Auth/ProtectedRoute';
+import { ProtectedRoute } from '@/auth/components/ProtectedRoute';
 import { DashboardLayout } from '@/components/Layout/DashboardLayout';
 
 // Public Pages

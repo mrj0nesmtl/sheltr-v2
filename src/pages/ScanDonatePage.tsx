@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { QRScanner } from '../components/QRScanner/QRScanner';
 import { ErrorBoundary } from '../components/ErrorBoundary';
-import { useAuth } from '../components/Auth/AuthProvider';
+import { useAuth } from '../auth/components/AuthProvider';
 
 export default function ScanDonatePage() {
   const { isAuthenticated } = useAuth();

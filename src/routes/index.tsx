@@ -1,29 +1,36 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { ProtectedRoute } from '@/components/Auth/ProtectedRoute';
-import { DashboardLayout } from '@/components/Layout/DashboardLayout';
+import { ProtectedRoute } from '@/auth/components/ProtectedRoute';
+import { DashboardLayout } from '@/shared/layouts/DashboardLayout';
+import { UserRole } from '@/auth/types/auth.types';
+
+// Public Pages
 import { HomePage } from '@/pages/HomePage';
 import { LoginPage } from '@/pages/LoginPage';
 import { SignUpPage } from '@/pages/SignUpPage';
 import { ImpactPage } from '@/pages/ImpactPage';
 import { About } from '@/pages/About';
-// Import new Super Admin components
-import { ShelterManagement } from '@/pages/SuperAdmin/ShelterManagement/index.tsx';
-import { ParticipantManagement } from '@/pages/SuperAdmin/ParticipantManagement/index.tsx';
-import { DonorManagement } from '@/pages/SuperAdmin/DonorManagement';
-import { Analytics } from '@/pages/SuperAdmin/Analytics';
-import { SystemSettings } from '@/pages/SuperAdmin/SystemSettings';
-import { SuperAdminDashboard } from '@/pages/SuperAdmin/SuperAdminDashboard';
-import { GlobalAnalytics } from '@/pages/SuperAdmin/GlobalAnalytics';
-import { ShelterDetailAnalytics } from '@/pages/SuperAdmin/ShelterDetailAnalytics';
-import { DonorDetailAnalytics } from '@/pages/SuperAdmin/DonorDetailAnalytics';
-import { ParticipantDetailAnalytics } from '@/pages/SuperAdmin/ParticipantDetailAnalytics';
-import { ShelterAnalytics } from '@/pages/SuperAdmin/ShelterAnalytics';
-import { ShelterParticipantAnalytics } from '@/pages/SuperAdmin/ShelterParticipantAnalytics';
-import { ShelterDonorAnalytics } from '@/pages/SuperAdmin/ShelterDonorAnalytics';
-import { ParticipantAnalytics } from '@/pages/SuperAdmin/ParticipantAnalytics';
-import { DonorAnalytics } from '@/pages/SuperAdmin/DonorAnalytics';
-import { DonorLeaderboard } from '@/pages/SuperAdmin/DonorLeaderboard';
-import { DonorAchievements } from '@/pages/SuperAdmin/DonorAchievements';
+
+// Import Super Admin components
+import { 
+  ShelterManagement,
+  ParticipantManagement,
+  DonorManagement,
+  Analytics,
+  SystemSettings,
+  SuperAdminDashboard,
+  GlobalAnalytics,
+  ShelterDetailAnalytics,
+  DonorDetailAnalytics,
+  ParticipantDetailAnalytics,
+  ShelterAnalytics,
+  ShelterParticipantAnalytics,
+  ShelterDonorAnalytics,
+  ParticipantAnalytics,
+  DonorAnalytics,
+  DonorLeaderboard,
+  DonorAchievements
+} from '@/pages/SuperAdmin';
+
 import { QRScanner } from '@/components/QRScanner/QRScanner';
 
 export function AppRoutes() {
@@ -40,7 +47,7 @@ export function AppRoutes() {
       <Route
         path="/super_admin/*"
         element={
-          <ProtectedRoute allowedRoles={['super_admin']}>
+          <ProtectedRoute allowedRoles={[UserRole.super_admin]}>
             <Routes>
               <Route path="dashboard" element={<SuperAdminDashboard />} />
               <Route path="analytics">
@@ -63,7 +70,7 @@ export function AppRoutes() {
       <Route
         path="/shelter_admin/*"
         element={
-          <ProtectedRoute allowedRoles={['shelter_admin']}>
+          <ProtectedRoute allowedRoles={[UserRole.shelter_admin]}>
             <DashboardLayout>
               <Routes>
                 <Route path="dashboard" element={<ShelterDashboard />} />
@@ -82,7 +89,7 @@ export function AppRoutes() {
       <Route
         path="/participant/*"
         element={
-          <ProtectedRoute allowedRoles={['participant']}>
+          <ProtectedRoute allowedRoles={[UserRole.participant]}>
             <DashboardLayout>
               <Routes>
                 <Route path="dashboard" element={<ParticipantDashboard />} />
@@ -100,7 +107,7 @@ export function AppRoutes() {
       <Route
         path="/donor/*"
         element={
-          <ProtectedRoute allowedRoles={['donor']}>
+          <ProtectedRoute allowedRoles={[UserRole.donor]}>
             <Routes>
               <Route path="dashboard" element={<DonorDashboard />} />
               <Route path="donations" element={<MyDonations />} />
@@ -112,11 +119,11 @@ export function AppRoutes() {
         }
       />
 
-      {/* Redirect unknown routes to home */}
-      <Route path="*" element={<Navigate to="/" replace />} />
-
       {/* QR Scanner Route */}
       <Route path="/scan-donate" element={<QRScanner />} />
+
+      {/* Redirect unknown routes to home */}
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 } 
