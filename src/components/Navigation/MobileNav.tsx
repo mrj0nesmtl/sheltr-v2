@@ -1,9 +1,10 @@
-import React from 'react';
+import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Dialog, Transition } from '@headlessui/react';
 import { X } from 'lucide-react';
-import { Logo } from '../ui/Logo';
-import { LanguageToggle } from '../ui/LanguageToggle';
+import { useNavigation } from '@/hooks/useNavigation';
+import { cn } from '@/lib/utils';
 
 interface MobileNavProps {
   isOpen: boolean;
@@ -12,77 +13,89 @@ interface MobileNavProps {
 
 export function MobileNav({ isOpen, onClose }: MobileNavProps) {
   const { t } = useTranslation();
+  const { publicNavItems, roleNavItems, isAuthenticated, isActiveRoute } = useNavigation();
 
   return (
-    <div
-      className={`fixed inset-0 bg-gray-900 z-50 transform transition-transform duration-300 ease-in-out ${
-        isOpen ? 'translate-x-0' : 'translate-x-full'
-      }`}
-    >
-      <div className="flex flex-col h-full">
-        <div className="flex items-center justify-between p-4 border-b border-gray-800">
-          <Logo className="h-8 w-auto" />
-          <button
-            onClick={onClose}
-            className="p-2 text-gray-400 hover:text-white"
+    <Transition.Root show={isOpen} as={Fragment}>
+      <Dialog as="div" className="relative z-50" onClose={onClose}>
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-gray-900/80" />
+        </Transition.Child>
+
+        <div className="fixed inset-0 z-50 flex">
+          <Transition.Child
+            as={Fragment}
+            enter="transform transition ease-in-out duration-300"
+            enterFrom="-translate-x-full"
+            enterTo="translate-x-0"
+            leave="transform transition ease-in-out duration-300"
+            leaveFrom="translate-x-0"
+            leaveTo="-translate-x-full"
           >
-            <X className="h-6 w-6" />
-          </button>
+            <Dialog.Panel className="relative flex w-full max-w-xs flex-col overflow-y-auto bg-gray-900 pb-12 shadow-xl">
+              <div className="flex px-4 pb-2 pt-5">
+                <button
+                  type="button"
+                  className="relative -m-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:text-gray-500"
+                  onClick={onClose}
+                >
+                  <span className="absolute -inset-0.5" />
+                  <span className="sr-only">Close menu</span>
+                  <X className="h-6 w-6" aria-hidden="true" />
+                </button>
+              </div>
+
+              <div className="space-y-6 px-4 py-6">
+                {publicNavItems.map((item) => (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    className={cn(
+                      "flex items-center space-x-2 text-base font-medium",
+                      isActiveRoute(item.path)
+                        ? "text-white"
+                        : "text-gray-300 hover:text-white"
+                    )}
+                    onClick={onClose}
+                  >
+                    {item.icon && <item.icon className="h-5 w-5" />}
+                    <span>{t(item.label)}</span>
+                  </Link>
+                ))}
+
+                {isAuthenticated && (
+                  <div className="border-t border-gray-800 pt-6">
+                    {roleNavItems.map((item) => (
+                      <Link
+                        key={item.path}
+                        to={item.path}
+                        className={cn(
+                          "flex items-center space-x-2 text-base font-medium mb-4",
+                          isActiveRoute(item.path)
+                            ? "text-white"
+                            : "text-gray-300 hover:text-white"
+                        )}
+                        onClick={onClose}
+                      >
+                        {item.icon && <item.icon className="h-5 w-5" />}
+                        <span>{t(item.label)}</span>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </Dialog.Panel>
+          </Transition.Child>
         </div>
-
-        <nav className="flex-1 px-4 py-6 space-y-6">
-          <div className="space-y-4">
-            <Link
-              to="/how-it-works"
-              className="block text-lg text-gray-300 hover:text-white"
-              onClick={onClose}
-            >
-              {t('nav.solutions_menu.howItWorks')}
-            </Link>
-            <Link
-              to="/solutions"
-              className="block text-lg text-gray-300 hover:text-white"
-              onClick={onClose}
-            >
-              {t('nav.solutions_menu.solutions')}
-            </Link>
-            <Link
-              to="/scan-donate"
-              className="block text-lg text-gray-300 hover:text-white"
-              onClick={onClose}
-            >
-              {t('nav.scanDonate')}
-            </Link>
-            <Link
-              to="/impact"
-              className="block text-lg text-gray-300 hover:text-white"
-              onClick={onClose}
-            >
-              {t('nav.solutions_menu.impact')}
-            </Link>
-          </div>
-
-          <div className="pt-6 border-t border-gray-800">
-            <LanguageToggle className="mb-4" />
-            <div className="space-y-4">
-              <Link
-                to="/login"
-                className="block text-center w-full py-2 px-4 border border-transparent rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
-                onClick={onClose}
-              >
-                {t('nav.login')}
-              </Link>
-              <Link
-                to="/signup"
-                className="block text-center w-full py-2 px-4 border border-gray-600 rounded-md text-gray-300 hover:text-white hover:border-gray-500"
-                onClick={onClose}
-              >
-                {t('nav.signUp')}
-              </Link>
-            </div>
-          </div>
-        </nav>
-      </div>
-    </div>
+      </Dialog>
+    </Transition.Root>
   );
 } 

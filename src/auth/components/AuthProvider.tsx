@@ -1,14 +1,15 @@
 import React, { createContext, useContext, useEffect, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuthStore } from '@/auth/stores/authStore';
-import { User, UserRole, LoginCredentials, AuthState } from '@/auth/types/auth.types';
+import { useAuthStore } from '../stores/authStore';
+import { UserRole } from '../types/auth.types';
+import { supabase } from '@/lib/supabase';
 
 interface AuthContextType extends AuthState {
   isAuthenticated: boolean;
   user: User | null;
   role: UserRole;
   login: (credentials: LoginCredentials) => Promise<void>;
-  logout: () => void;
+  logout: () => Promise<void>;
   loading: boolean;
 }
 
@@ -18,56 +19,87 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const navigate = useNavigate();
   const { user, isAuthenticated, role, login, logout, loading } = useAuthStore();
 
+  // Session recovery and validation
   useEffect(() => {
-    try {
-      const savedAuth = localStorage.getItem('auth');
-      if (savedAuth) {
-        const authData = JSON.parse(savedAuth);
-        if (authData.user && authData.role) {
-          validateSession(authData).then(isValid => {
-            if (isValid) {
-              useAuthStore.setState(authData);
-            } else {
-              handleInvalidSession();
-            }
-          });
+    const initializeAuth = async () => {
+      useAuthStore.setState({ loading: true });
+      try {
+        // Check Supabase session
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session) {
+          // Get user profile with role
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('id', session.user.id)
+            .single();
+
+          if (profile) {
+            useAuthStore.setState({
+              user: session.user,
+              role: profile.role,
+              isAuthenticated: true,
+              loading: false
+            });
+          }
         }
+      } catch (error) {
+        console.error('Auth initialization error:', error);
+        handleInvalidSession();
+      } finally {
+        useAuthStore.setState({ loading: false });
       }
-    } catch (error) {
-      console.error('Error restoring auth state:', error);
-      handleInvalidSession();
-    }
+    };
+
+    initializeAuth();
   }, []);
 
+  // Real-time auth state monitoring
   useEffect(() => {
-    try {
-      if (isAuthenticated && user) {
-        localStorage.setItem('auth', JSON.stringify({ 
-          user, 
-          role, 
-          isAuthenticated,
-          lastActive: new Date().toISOString() 
-        }));
-      } else {
-        handleInvalidSession();
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        if (event === 'SIGNED_OUT') {
+          handleInvalidSession();
+        } else if (event === 'SIGNED_IN' && session) {
+          useAuthStore.setState({ loading: true });
+          try {
+            // Update auth store with new session data
+            const { data: profile } = await supabase
+              .from('profiles')
+              .select('*')
+              .eq('id', session.user.id)
+              .single();
+
+            if (profile) {
+              useAuthStore.setState({
+                user: session.user,
+                role: profile.role,
+                isAuthenticated: true,
+                loading: false
+              });
+            }
+          } catch (error) {
+            console.error('Profile fetch error:', error);
+            handleInvalidSession();
+          }
+        }
       }
-    } catch (error) {
-      console.error('Error saving auth state:', error);
-    }
-  }, [isAuthenticated, user, role]);
+    );
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
 
   const handleInvalidSession = () => {
     localStorage.removeItem('auth');
     useAuthStore.setState({ 
       user: null, 
       role: null, 
-      isAuthenticated: false 
+      isAuthenticated: false,
+      loading: false
     });
     navigate('/login');
-  };
-
-  const validateSession = async (authData: any): Promise<boolean> => {
-    return true;
   };
 
   const value: AuthContextType = {
@@ -75,9 +107,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     user,
     role,
     login,
-    logout: () => {
-      logout();
-      navigate('/login');
+    logout: async () => {
+      useAuthStore.setState({ loading: true });
+      try {
+        await supabase.auth.signOut();
+        logout();
+        navigate('/login');
+      } finally {
+        useAuthStore.setState({ loading: false });
+      }
     },
     loading,
   };

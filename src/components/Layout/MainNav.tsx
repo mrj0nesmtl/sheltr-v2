@@ -2,9 +2,13 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/Button';
 import { Logo } from '@/components/ui/Logo';
+import { useNavigation } from '@/hooks/useNavigation';
+import { cn } from '@/lib/utils';
+import { Icon } from '@/components/ui/Icon';
 
 export function MainNav() {
   const { t } = useTranslation();
+  const { publicNavItems, isActiveRoute } = useNavigation();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-gray-900/95 backdrop-blur-sm border-b border-gray-800">
@@ -17,30 +21,21 @@ export function MainNav() {
 
           {/* Main Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link 
-              to="/how-it-works" 
-              className="text-gray-300 hover:text-white transition-colors"
-            >
-              {t('nav.howItWorks')}
-            </Link>
-            <Link 
-              to="/solutions" 
-              className="text-gray-300 hover:text-white transition-colors"
-            >
-              {t('nav.solutions')}
-            </Link>
-            <Link 
-              to="/scan-donate" 
-              className="text-gray-300 hover:text-white transition-colors"
-            >
-              {t('nav.scanDonate')}
-            </Link>
-            <Link 
-              to="/impact" 
-              className="text-gray-300 hover:text-white transition-colors"
-            >
-              {t('nav.impact')}
-            </Link>
+            {publicNavItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={cn(
+                  "flex items-center space-x-2 text-sm font-medium transition-colors",
+                  isActiveRoute(item.path)
+                    ? "text-white"
+                    : "text-gray-300 hover:text-white"
+                )}
+              >
+                <Icon name={item.iconName} className="w-4 h-4" />
+                <span>{t(item.label)}</span>
+              </Link>
+            ))}
           </nav>
 
           {/* Auth Buttons */}

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { donorSignUpSchema, type DonorSignUpForm as DonorFormType } from '@/types/auth/schemas'
-import { useAuthStore } from '@/stores/authStore'
+import { useAuthStore } from '@/auth/stores/authStore'
 
 interface Props {
   onBack: () => void

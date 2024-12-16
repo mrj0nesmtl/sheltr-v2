@@ -9,7 +9,9 @@ export const en: Translations = {
       donateNow: 'Donate Now',
       learnMore: 'Learn More',
       getStarted: 'Get Started',
-      partnerNow: 'Partner Now'
+      partnerNow: 'Partner Now',
+      scanNow: 'Scan & Donate Now',
+      joinMovement: 'Join the Movement'
     },
     signOut: "Sign Out",
     loading: "Loading...",
@@ -17,10 +19,106 @@ export const en: Translations = {
       edit: "Edit",
       delete: "Delete",
       save: "Save",
-      cancel: "Cancel"
+      cancel: "Cancel",
+      confirm: "Confirm",
+      back: "Back",
+      next: "Next",
+      submit: "Submit",
+      close: "Close",
+      view: "View",
+      download: "Download",
+      share: "Share",
+      copy: "Copy",
+      generate: "Generate"
     },
-    refresh: "Refresh"
+    refresh: "Refresh",
+    status: {
+      active: "Active",
+      inactive: "Inactive",
+      pending: "Pending",
+      completed: "Completed",
+      failed: "Failed",
+      processing: "Processing",
+      verified: "Verified",
+      unverified: "Unverified"
+    },
+    errors: {
+      general: "Something went wrong. Please try again.",
+      notFound: "Resource not found.",
+      unauthorized: "You are not authorized to perform this action.",
+      validation: "Please check your input and try again.",
+      network: "Network error. Please check your connection.",
+      server: "Server error. Please try again later."
+    },
+    success: {
+      saved: "Successfully saved",
+      updated: "Successfully updated",
+      deleted: "Successfully deleted",
+      created: "Successfully created"
+    }
   },
+
+  auth: {
+    login: {
+      title: "Sign In to SHELTR",
+      email: "Email",
+      password: "Password",
+      signIn: "Sign In",
+      signingIn: "Signing in...",
+      noAccount: "Don't have an account?",
+      signUp: "Sign up",
+      forgotPassword: "Forgot password?",
+      rememberMe: "Remember me",
+      errors: {
+        "Failed to check auth status": "Unable to verify your account. Please try again.",
+        "Invalid login credentials": "Invalid email or password",
+        "Email not confirmed": "Please verify your email address",
+        "No user returned": "Login failed. Please try again.",
+        "No profile found": "User profile not found. Please contact support."
+      }
+    },
+    register: {
+      title: "Create Your SHELTR Account",
+      subtitle: "Join the movement to end homelessness",
+      firstName: "First Name",
+      lastName: "Last Name",
+      email: "Email",
+      password: "Password",
+      confirmPassword: "Confirm Password",
+      role: "I am a",
+      roles: {
+        donor: "Donor",
+        shelter: "Shelter Administrator",
+        participant: "Participant"
+      },
+      terms: "I agree to the Terms of Service and Privacy Policy",
+      createAccount: "Create Account",
+      alreadyHaveAccount: "Already have an account?",
+      signIn: "Sign in"
+    },
+    forgotPassword: {
+      title: "Reset Your Password",
+      subtitle: "Enter your email to receive reset instructions",
+      email: "Email",
+      submit: "Send Reset Link",
+      success: "If an account exists, you will receive an email shortly",
+      backToLogin: "Back to login"
+    },
+    resetPassword: {
+      title: "Create New Password",
+      newPassword: "New Password",
+      confirmPassword: "Confirm New Password",
+      submit: "Reset Password",
+      success: "Password successfully reset"
+    },
+    verification: {
+      title: "Verify Your Email",
+      subtitle: "Please check your email for verification link",
+      resend: "Resend verification email",
+      success: "Verification email sent"
+    }
+  },
+
   nav: {
     howItWorks: 'How It Works',
     solutions: 'Solutions',
@@ -68,17 +166,19 @@ export const en: Translations = {
       donationHistory: 'Donation History',
       donationHistoryDesc: 'View your past contributions and impact',
       personalImpact: 'Personal Impact',
-      personalImpactDesc: 'See how your donations make a difference'
+      personalImpactDesc: 'See how your donations make a difference',
+      recurringDonations: 'Recurring Donations',
+      recurringDonationsDesc: 'Manage your monthly contributions'
     },
     participant_menu: {
       title: 'Services',
       availableServices: 'Available Services',
       availableServicesDesc: 'Browse services and support options',
       serviceHistory: 'Service History',
-      serviceHistoryDesc: 'Track your service usage and progress'
+      serviceHistoryDesc: 'Track your service usage and progress',
+      resources: 'Resources',
+      resourcesDesc: 'Access helpful information and support'
     },
-    menu: 'Menu',
-    blog: 'Blog',
     blockchain: {
       title: "Blockchain",
       desc: "Explore blockchain features",
@@ -93,19 +193,11 @@ export const en: Translations = {
         depotDesc: "Access participant resources"
       }
     },
-    home: 'Home',
-    adminDashboard: 'Admin Dashboard',
-    myDonations: 'My Donations',
-    profile_menu: {
-      title: "Profile",
-      profile: "My Profile",
-      profileDesc: "View and edit your profile information",
-      settings: "Settings",
-      settingsDesc: "Manage your account settings and preferences"
-    },
-    language: 'Language',
-    closeMenu: 'Close menu'
+    footer: {
+      copyright: "© {{year}} SHELTR. All rights reserved."
+    }
   },
+
   hero: {
     mainTitle: "Transform Charitable Giving",
     subtitle: 'Transform donations into meaningful actions using blockchain technology and smart contracts to directly support homeless individuals with transparency and accountability.',
@@ -141,17 +233,9 @@ export const en: Translations = {
         title: 'Impact Tracking',
         description: 'Monitor your contributions and see the real impact of your donations in real-time.'
       }
-    },
-    title: "Transform Charitable Giving",
-    qrTechnology: "Scan & Give Instantly",
-    directImpact: "Direct Impact on Lives",
-    smartAllocation: "Smart Fund Allocation",
-    housingFocus: "Housing First Approach",
-    blockchainSecurity: "Secure Blockchain Tech",
-    impactTracking: "Track Your Impact"
+    }
   },
-  // Rest of the English translations remain unchanged...
-  // Keeping all existing translations exactly as they were
+
   howItWorks: {
     title: 'How SHELTR Works',
     subtitle: 'Our innovative platform combines blockchain technology with direct support to create lasting change in the lives of homeless individuals.',
@@ -193,691 +277,318 @@ export const en: Translations = {
       description: 'Join us in revolutionizing charitable giving and creating lasting impact.'
     }
   },
-  solutions: {
-    title: 'Solutions for Everyone',
-    subtitle: 'Comprehensive tools and features designed to maximize impact and ensure transparency.',
-    sections: {
-      shelters: {
-        title: 'For Shelters & Organizations',
-        features: [
-          'Participant management system',
-          'Fund allocation tracking',
-          'Impact reporting dashboard',
-          'QR code generation',
-          'Real-time analytics'
-        ]
-      },
-      residents: {
-        title: 'For Participants',
-        features: [
-          'Secure digital wallet',
-          'Housing fund tracking',
-          'Progress monitoring',
-          'Resource connections',
-          'Support network'
-        ]
-      },
-      tracking: {
-        title: 'For Donors',
-        features: [
-          'Transparent transactions',
-          'Impact visualization',
-          'Donation history',
-          'Tax receipts',
-          'Community engagement'
-        ]
-      }
-    },
-    benefits: {
-      technology: {
-        title: 'Technology Benefits',
-        features: [
-          'Blockchain security',
-          'Smart contract automation',
-          'Real-time tracking',
-          'Data analytics',
-          'Mobile accessibility'
-        ]
-      },
-      support: {
-        title: 'Support & Resources',
-        features: [
-          '24/7 technical support',
-          'Training materials',
-          'Implementation guidance',
-          'Community forums',
-          'Regular updates'
-        ]
-      }
-    },
-    partnership: {
-      title: "Partnership Benefits",
-      technology: {
-        title: "Technology Benefits",
-        features: [
-          "Blockchain security",
-          "Smart contract automation",
-          "Real-time tracking",
-          "Data analytics",
-          "Mobile accessibility"
-        ]
-      },
-      support: {
-        title: "Support & Resources",
-        features: [
-          "24/7 technical support",
-          "Training materials",
-          "Implementation guidance",
-          "Community forums",
-          "Regular updates"
-        ]
-      },
-      engagement: {
-        title: "Community Impact",
-        features: [
-          "Donor relationship management",
-          "Impact storytelling tools",
-          "Participant success tracking",
-          "Community networking",
-          "Social media integration"
-        ]
-      }
-    },
-    cta: {
-      title: "Join the Revolution",
-      description: "Be part of the solution to end homelessness through innovative technology."
-    }
-  },
-  signUp: {
-    title: 'Join the SHELTR Community',
-    subtitle: 'Choose how you want to make a difference',
-    haveAccount: 'Already have an account?',
-    signIn: 'Sign in',
-    donor: {
-      title: 'Become a Donor',
-      description: 'Support individuals directly and track your impact with our transparent donation system.',
-      form: {
-        title: 'Create Donor Account',
-        email: 'Email',
-        password: 'Password',
-        confirmPassword: 'Confirm Password',
-        name: 'Full Name',
-        city: 'City',
-        address: 'Address (Optional)',
-        defaultDonation: 'Default Donation Amount ($)',
-        taxReceipt: 'I would like to receive tax receipts for my donations',
-        submit: 'Create Account',
-        submitting: 'Creating Account...'
-      }
-    },
-    shelter: {
-      title: 'Register Your Shelter',
-      description: 'Partner with us to manage participants and track fund allocation effectively.',
-      form: {
-        title: 'Register Your Shelter',
-        organization: 'Organization Name',
-        registrationNumber: 'Registration Number',
-        email: 'Email',
-        password: 'Password',
-        confirmPassword: 'Confirm Password',
-        contactPhone: 'Contact Phone',
-        city: 'City',
-        address: 'Address',
-        capacity: 'Shelter Capacity',
-        services: {
-          title: 'Services Offered',
-          options: {
-            emergencyshelter: 'Emergency Shelter',
-            transitionalhousing: 'Transitional Housing',
-            foodservices: 'Food Services',
-            medicalcare: 'Medical Care',
-            mentalhealthservices: 'Mental Health Services',
-            jobtraining: 'Job Training',
-            casemanagement: 'Case Management',
-            substanceabusetreatment: 'Substance Abuse Treatment'
-          }
-        },
-        submit: 'Register Shelter',
-        submitting: 'Creating Account...'
-      }
-    }
-  },
-  footer: {
-    tagline: 'Hacking Homelessness with Technology.',
-    quickLinks: 'Quick Links',
-    resources: 'Resources',
-    connect: 'Connect',
-    links: {
-      howItWorks: 'How It Works',
-      solutions: 'Our Solutions',
-      scanDonate: 'Scan & Donate',
-      blog: 'Blog',
-      privacy: 'Privacy Policy',
-      terms: 'Terms of Service'
-    },
-    social: {
-      linkedin: 'Follow on LinkedIn',
-      youtube: 'Watch on YouTube',
-      tiktok: 'Follow on TikTok',
-      website: 'Visit Website',
-      substack: 'Read on Substack'
-    },
-    podcast: {
-      latest: 'Latest Episode',
-      listen: 'Listen',
-      listenOn: 'Listen on Spotify',
-      duration: 'Duration',
-      showName: 'SHELTR Podcast',
-      description: 'Discover our latest episode about tech solutions for homelessness'
-    },
-    copyright: '© {{year}} SHELTR.',
-    rights: 'All rights reserved.',
-    language: 'Français'
-  },
-  whitepaper: {
-    title: 'SHELTR Whitepaper: Revolutionizing Charitable Giving for Homelessness',
-    toc: {
-      title: 'Table of Contents',
-      introduction: 'Introduction',
-      technology: 'Core Technology & Architecture',
-      userflow: 'User Flow & Onboarding',
-      depot: 'Homeless Depot',
-      financial: 'Financial Empowerment',
-      social: 'Social Media Integration',
-      operations: 'Backend Operations',
-      legal: 'Legal & Compliance',
-      marketing: 'Marketing & Outreach',
-      conclusion: 'Conclusion'
-    },
-    sections: {
-      introduction: {
-        title: 'Introduction',
-        vision: {
-          title: 'Vision and Mission',
-          content: 'SHELTR\'s vision is to redefine charitable giving by leveraging advanced technology to create a secure, intelligent, and scalable platform that directly supports homeless individuals. By utilizing technologies like blockchain, AI, and financial tools, SHELTR empowers participants, promotes accountability, and drives long-term solutions to homelessness.'
-        }
-      },
-      technology: {
-        title: 'Core Technology & Architecture',
-        blockchain: {
-          title: 'Blockchain Transparency & Smart Contracts',
-          content: 'SHELTR uses blockchain technology for public verification and fund tracking, creating a transparent ledger for donations. Smart contracts automate the allocation of each donation into three categories.',
-          allocation: {
-            direct: '80% to Participant Wallet: For purchasing essentials like food, clothing, and hygiene items',
-            housing: '15% Rent Fund: To support participants in their housing journey',
-            operations: '5% for Operational Costs: To sustain SHELTR\'s growth'
-          }
-        }
-      }
-    }
-  },
-  impact: {
-    title: "Making a Measurable Difference",
-    subtitle: "Track the real-time impact of our community's contributions in transforming lives through transparent blockchain technology.",
-    metrics: {
-      monthlyGrowth: "Monthly Growth Trends",
-      successRates: "Success Metrics",
-      communityImpact: "Community Impact",
-      participantsHoused: "Participants Housed",
-      citiesAndTowns: "Cities & Towns",
-      donationIncrease: "Increase in Donations",
-      categories: {
-        housingPlacement: "Housing Placement",
-        jobPlacement: "Job Placement",
-        financialStability: "Financial Stability",
-        healthcareAccess: "Healthcare Access"
-      },
-      livesImpacted: "Lives Impacted"
-    },
-    cta: {
-      title: "Be Part of the Impact",
-      description: "Join our growing community of donors and partners making a measurable difference in ending homelessness.",
-      getStarted: "Get Started"
-    },
-    transactions: {
-      title: "Blockchain Transactions",
-      viewAll: "View All",
-      timestamp: "Timestamp",
-      type: "Type",
-      amount: "Amount",
-      status: "Status",
-      hash: "Transaction Hash",
-      types: {
-        direct: "Direct Support",
-        housing: "Housing Fund",
-        operations: "Operations"
-      },
-      statuses: {
-        completed: "Completed",
-        pending: "Pending",
-        failed: "Failed"
-      }
-    },
-    donationTrends: "Donation Trends",
-    charts: {
-      title: "Impact Analytics",
-      monthlyGrowth: "Monthly Growth",
-      fundAllocation: "Fund Allocation",
-      impactMetrics: "Program Success Metrics"
-    },
-    titles: {
-      impactMetrics: "Program Success Metrics",
-      fundAllocation: "Fund Allocation",
-      donationTrends: "Donation Trends"
-    },
-    labels: {
-      housingSuccess: "Housing Success Rate",
-      communityEngagement: "Community Engagement",
-      resourceUtilization: "Resource Utilization"
-    }
-  },
-  qrScanner: {
-    title: "Scan QR Code",
-    instructions: "Point your camera at a participant's QR code",
-    scannerActive: "Scanner is active",
-    retryButton: "Try Again",
-    errors: {
-      invalidCode: "Invalid QR Code",
-      invalidCodeDesc: "This QR code is not valid for the system",
-      cameraPermission: "Please allow camera access",
-      initialization: "Could not initialize scanner"
-    }
-  },
-  auth: {
-    login: {
-      title: "Sign In to SHELTR",
-      signIn: "Sign In",
-      signingIn: "Signing in...",
-      noAccount: "Don't have an account?",
-      signUp: "Sign up"
-    },
-    fields: {
-      email: "Email",
-      password: "Password"
-    },
-    errors: {
-      invalidCredentials: "Invalid email or password",
-      serverError: "Unable to connect to server"
-    }
-  },
-  about: {
-    title: "About SHELTR",
-    subtitle: "Hacking Homelessness with Tech-4-Good",
-    intro: {
-      title: "Introduction",
-      expand: "Read More",
-      collapse: "Show Less",
-      abstract: "SHELTR is revolutionizing charitable giving through blockchain technology, creating direct connections between donors and individuals experiencing homelessness."
-    },
-    roadmap: {
-      title: "Project Roadmap",
-      subtitle: "Our development journey and milestones"
-    },
-    checkpoint: {
-      title: "Development Status",
-      subtitle: "Current progress and metrics"
-    },
-    techStack: {
-      title: "Technology Stack",
-      subtitle: "Powering SHELTR's Innovation",
-      sections: {
-        frontend: "Frontend Technologies",
-        backend: "Backend Infrastructure",
-        blockchain: "Blockchain Integration",
-        auth: "Authentication & Security",
-        mobile: "Mobile & PWA",
-        devops: "DevOps & Deployment"
-      }
-    },
-    whitepaper: {
-      title: "White Paper & Tokenomics",
-      subtitle: "Technical Documentation",
-      abstract: "A comprehensive overview of SHELTR's blockchain-based charitable giving platform, detailing our technical architecture, tokenomics, and implementation strategy.",
-      readMore: "Read Full White Paper",
-      toc: {
-        title: "Table of Contents",
-        sections: {
-          intro: "Introduction",
-          tech: "Technical Architecture",
-          tokenomics: "Tokenomics & Economics",
-          implementation: "Implementation Strategy",
-          roadmap: "Development Roadmap",
-          conclusion: "Conclusion"
-        }
-      }
-    }
-  },
-  transaction: {
-    status: {
-      completed: 'Completed',
-      pending: 'Pending',
-      failed: 'Failed'
-    }
-  },
-  support: {
-    needHelp: 'Need Help?',
-    description: 'Our support team is here to help you 24/7',
-    callUs: 'Call Us',
-    callDescription: 'Speak with a support representative',
-    chatWithUs: 'Chat With Us',
-    chatDescription: 'Get instant help from our AI assistant',
-    startChat: 'Start Chat'
-  },
-  podcast: {
-    preview: {
-      listen: 'Listen on Spotify',
-      latest: 'Latest Episode',
-      duration: 'Duration',
-      date: 'Released',
-      showName: 'Tomes of Arcana'
-    }
-  },
+
   dashboard: {
-    donor: {
-      title: 'Donor Dashboard',
-      subtitle: 'Track your impact',
-      welcome: 'Welcome to your donor dashboard',
-      stats: {
-        totalDonated: 'Total Donated',
-        impactScore: 'Impact Score',
-        donationCount: 'Number of Donations',
-        beneficiariesHelped: 'Beneficiaries Helped',
-        monthlyDonation: 'Monthly Donation',
-        yearlyContribution: 'Yearly Contribution',
-        recentDonations: 'Recent Donations'
-      },
-      impact: {
-        title: 'Your Impact',
-        subtitle: 'See how you are making a difference',
-        metrics: {
-          peopleHelped: 'People Helped',
-          servicesProvided: 'Services Provided',
-          communitiesServed: 'Communities Served'
-        }
-      }
-    },
-    totalDonated: 'Total Donated',
-    impactScore: 'Impact Score',
-    totalDonations: 'Total Donations',
-    participant: {
-      title: 'Participant Dashboard',
-      subtitle: 'Track your benefits and services',
-      welcome: 'Welcome to your participant dashboard',
-      stats: {
-        totalReceived: 'Total Received',
-        housingFund: 'Housing Fund',
-        totalDonations: 'Total Donations',
-        activeServices: 'Active Services',
-        nextAppointment: 'Next Appointment',
-        programProgress: 'Program Progress'
-      },
-      qrCode: {
-        title: 'Your QR Code',
-        subtitle: 'Share this code to receive donations',
-        shareText: 'Share your donation QR code',
-        downloadText: 'Download QR code',
-        qrCodeShare: 'Share this QR code to receive donations',
-        recentActivity: 'Recent Activity',
-        donationHistory: 'Donation History'
-      }
+    common: {
+      welcome: "Welcome back, {{name}}",
+      summary: "Here's your overview",
+      quickActions: "Quick Actions",
+      recentActivity: "Recent Activity",
+      viewAll: "View All",
+      metrics: "Key Metrics",
+      notifications: "Notifications"
     },
     admin: {
-      title: 'Shelter Admin Dashboard',
-      subtitle: 'Manage your shelter',
-      welcome: 'Welcome, {{name}}',
-      stats: {
-        totalDonations: 'Total Donations',
-        totalParticipants: 'Total Participants',
-        activeParticipants: 'Active Participants',
-        totalTransactions: 'Total Transactions',
-        participantGrowth: 'Participant Growth',
-        averageDonation: 'Average Donation',
-        monthlyTrends: 'Monthly Trends',
-        serviceDistribution: 'Service Distribution',
-        recentActivity: 'Recent Activity'
-      },
-      charts: {
-        monthlyTitle: 'Monthly Statistics',
-        distributionTitle: 'Service Distribution',
-        trendingTitle: 'Trending Metrics'
-      }
-    }
-  },
-  admin: {
-    superAdmin: {
-      title: "Super Admin Dashboard",
-      subtitle: "Platform-wide analytics and management",
-      userDistribution: {
-        title: "User Distribution",
-        subtitle: "Breakdown of platform users by role"
-      },
-      servicePerformance: {
-        title: "Service Performance",
-        subtitle: "Analysis of service utilization and impact"
-      },
-      shelterPerformance: {
-        title: "Shelter Performance Analysis",
-        subtitle: "Comparative analysis of shelter operations"
-      },
-      fundAllocation: {
-        title: "Fund Allocation Analysis",
-        subtitle: "Comparison of funds raised and allocated across user types"
-      }
-    },
-    userTypes: {
-      donor: "Donors",
-      participant: "Participants",
-      shelterAdmin: "Shelter Admins",
-      superAdmin: "Super Admins",
-      guest: "Guests"
-    },
-    stats: {
-      totalShelters: "Total Shelters",
-      activeParticipants: "Active Participants",
-      totalDonations: "Total Donations",
-      successRate: "Success Rate",
-      verifiedShelters: "verified shelters",
-      avgPerShelter: "avg. per shelter",
-      perParticipant: "per participant",
-      aboveAverage: "Above industry average"
-    },
-    dashboard: {
       title: "Admin Dashboard",
-      welcome: "Welcome back to your dashboard"
+      metrics: {
+        totalUsers: "Total Users",
+        activeShelters: "Active Shelters",
+        totalDonations: "Total Donations",
+        activeParticipants: "Active Participants"
+      },
+      actions: {
+        manageUsers: "Manage Users",
+        approveShelters: "Approve Shelters",
+        systemSettings: "System Settings",
+        viewReports: "View Reports"
+      }
     },
     shelter: {
-      title: 'Shelter Dashboard',
-      subtitle: 'Manage your shelter',
-      welcome: 'Welcome, {{name}}',
-      donors: {
-        title: 'Donors',
-        export: 'Export',
-        name: 'Name',
-        totalDonated: 'Total Donated',
-        lastDonation: 'Last Donation',
-        frequency: 'Frequency',
-        status: 'Status'
+      title: "Shelter Dashboard",
+      metrics: {
+        occupancy: "Current Occupancy",
+        availableBeds: "Available Beds",
+        totalResidents: "Total Residents",
+        monthlyDonations: "Monthly Donations"
       },
-      participants: {
-        title: 'Participants',
-        add: 'Add Participant',
-        name: 'Name',
-        status: 'Status',
-        joinDate: 'Join Date',
-        totalReceived: 'Total Received',
-        qrCode: 'QR Code',
-        loginToken: 'Login Token',
-        viewDetails: 'View Details',
-        statuses: {
-          active: 'Active',
-          inactive: 'Inactive',
-          pending: 'Pending'
-        }
+      actions: {
+        addResident: "Add Resident",
+        generateReports: "Generate Reports",
+        updateAvailability: "Update Availability",
+        manageServices: "Manage Services"
+      }
+    },
+    donor: {
+      title: "Donor Dashboard",
+      metrics: {
+        totalDonated: "Total Donated",
+        impactScore: "Impact Score",
+        peopleHelped: "People Helped",
+        activeSubscriptions: "Active Subscriptions"
+      },
+      actions: {
+        makeDonation: "Make Donation",
+        manageSubscriptions: "Manage Subscriptions",
+        viewImpact: "View Impact",
+        downloadReceipts: "Download Receipts"
       }
     },
     participant: {
-      registration: {
-        title: 'Register New Participant',
-        steps: {
-          personal: 'Personal Info',
-          contact: 'Contact',
-          needs: 'Needs Assessment',
-          verification: 'Verification'
-        },
-        form: {
-          firstName: 'First Name',
-          lastName: 'Last Name',
-          dateOfBirth: 'Date of Birth',
-          gender: {
-            label: 'Gender',
-            options: {
-              male: 'Male',
-              female: 'Female',
-              other: 'Other',
-              preferNotToSay: 'Prefer not to say'
-            }
-          },
-          email: 'Email Address',
-          phone: 'Phone Number',
-          emergency: {
-            title: 'Emergency Contact',
-            name: 'Contact Name',
-            phone: 'Contact Phone',
-            relationship: 'Relationship'
-          },
-          housing: {
-            label: 'Housing Status',
-            options: {
-              emergency: 'Emergency Shelter',
-              transitional: 'Transitional Housing',
-              atRisk: 'At Risk',
-              permanent: 'Permanent Housing',
-              street: 'Street'
-            }
-          },
-          employment: {
-            label: 'Employment Status',
-            options: {
-              unemployed: 'Unemployed',
-              partTime: 'Part-Time',
-              fullTime: 'Full-Time',
-              selfEmployed: 'Self-Employed',
-              unableToWork: 'Unable to Work',
-              retired: 'Retired'
-            }
-          },
-          specialNeeds: 'Special Needs or Requirements',
-          identification: {
-            title: 'Identity Verification',
-            type: 'ID Type',
-            number: 'ID Number',
-            expiry: 'Expiry Date',
-            issuer: 'Issuing Authority'
-          }
-        },
-        buttons: {
-          next: 'Next',
-          back: 'Back',
-          submit: 'Complete Registration',
-          cancel: 'Cancel'
-        },
-        validation: {
-          required: 'This field is required',
-          invalidEmail: 'Please enter a valid email address',
-          invalidPhone: 'Please enter a valid phone number',
-          minAge: 'Participant must be at least 18 years old',
-          invalidName: 'Please enter a valid name'
-        }
+      title: "Participant Dashboard",
+      metrics: {
+        totalReceived: "Total Received",
+        servicesUsed: "Services Used",
+        upcomingAppointments: "Upcoming Appointments",
+        housingProgress: "Housing Progress"
       },
-      housing: {
-        emergency: 'Emergency Shelter',
-        transitional: 'Transitional Housing',
-        atRisk: 'At Risk of Homelessness'
-      },
-      employment: {
-        unemployed: 'Unemployed',
-        partTime: 'Part-Time',
-        fullTime: 'Full-Time'
+      actions: {
+        viewServices: "View Services",
+        scheduleAppointment: "Schedule Appointment",
+        updateProfile: "Update Profile",
+        contactSupport: "Contact Support"
       }
     }
   },
-  home: {
-    title: "Home",
-    welcome: "Welcome to SHELTR"
-  },
+
   profile: {
-    transactions: {
-      title: "Recent Transactions",
-      empty: "No transactions yet",
-      monthly: "Monthly donation",
-      oneTime: "One-time donation",
-      completed: "Completed",
-      pending: "Pending",
-      failed: "Failed"
+    common: {
+      title: "Profile",
+      editProfile: "Edit Profile",
+      saveChanges: "Save Changes",
+      cancelChanges: "Cancel Changes",
+      uploadPhoto: "Upload Photo",
+      removePhoto: "Remove Photo"
     },
-    stats: {
-      title: "Your Stats",
-      totalDonations: "Total Donations",
-      totalAmount: "Total Amount",
-      impactScore: "Impact Score",
-      donationsCount: "Number of Donations"
-    },
-    friends: {
-      title: "Friends",
-      empty: "No friends yet",
-      add: "Add Friend",
-      pending: "Pending Requests",
-      activities: "Friend Activities"
-    },
-    activity: {
-      title: "Recent Activity",
-      empty: "No recent activity",
-      donation: "made a donation",
-      referral: "referred a friend",
-      post: "shared a post",
-      impact: "reached impact milestone"
-    },
-    title: 'Profile',
-    editProfile: 'Edit Profile',
     sections: {
-      personalInfo: 'Personal Information',
-      preferences: 'Preferences',
-      socialLinks: 'Social Links',
-      activity: 'Recent Activity'
+      personalInfo: {
+        title: "Personal Information",
+        firstName: "First Name",
+        lastName: "Last Name",
+        email: "Email",
+        phone: "Phone",
+        dateOfBirth: "Date of Birth",
+        address: "Address"
+      },
+      preferences: {
+        title: "Preferences",
+        language: "Language",
+        timezone: "Timezone",
+        currency: "Currency",
+        notifications: "Notifications"
+      },
+      security: {
+        title: "Security",
+        changePassword: "Change Password",
+        twoFactor: "Two-Factor Authentication",
+        loginHistory: "Login History",
+        connectedDevices: "Connected Devices"
+      }
     },
-    fields: {
-      name: 'Name',
-      email: 'Email',
-      bio: 'Bio',
-      notifications: 'Email Notifications',
-      theme: 'Theme',
-      language: 'Language'
-    },
-    buttons: {
-      save: 'Save Changes',
-      cancel: 'Cancel',
-      uploadImage: 'Upload Image',
-      removeImage: 'Remove Image'
-    },
-    activityFeed: {
-      empty: 'No recent activity',
-      donation: 'made a donation',
-      referral: 'referred a participant',
-      impact: 'achieved an impact milestone',
-      title: 'Recent Activity'
+    notifications: {
+      email: {
+        donations: "Donation Receipts",
+        updates: "Platform Updates",
+        newsletter: "Newsletter",
+        marketing: "Marketing Communications"
+      },
+      push: {
+        newDonations: "New Donations",
+        milestones: "Achievement Milestones",
+        systemAlerts: "System Alerts"
+      }
     }
   },
-  roles: {
-    admin: "Shelter Admin",
-    donor: "Donor",
-    participant: "Participant",
-    super_admin: "Super Admin",
-    shelter_admin: "Shelter Admin"
+
+  donations: {
+    common: {
+      amount: "Amount",
+      date: "Date",
+      status: "Status",
+      recipient: "Recipient",
+      method: "Payment Method",
+      frequency: "Frequency"
+    },
+    types: {
+      oneTime: "One-time Donation",
+      monthly: "Monthly Donation",
+      annual: "Annual Donation",
+      custom: "Custom Donation"
+    },
+    status: {
+      processing: "Processing",
+      completed: "Completed",
+      failed: "Failed",
+      refunded: "Refunded",
+      pending: "Pending"
+    },
+    forms: {
+      amount: {
+        label: "Donation Amount",
+        placeholder: "Enter amount",
+        custom: "Custom Amount"
+      },
+      frequency: {
+        label: "Donation Frequency",
+        options: {
+          oneTime: "One-time",
+          monthly: "Monthly",
+          annual: "Annual"
+        }
+      },
+      payment: {
+        title: "Payment Information",
+        cardNumber: "Card Number",
+        expiry: "Expiry Date",
+        cvv: "CVV",
+        name: "Name on Card"
+      }
+    },
+    confirmation: {
+      title: "Thank You for Your Donation!",
+      receipt: "Donation Receipt",
+      impact: "Your Impact",
+      share: "Share Your Impact"
+    }
   },
+
   services: {
-    emergency_shelter: "Emergency Shelter",
-    food_services: "Food Services",
-    medical_care: "Medical Care",
-    job_training: "Job Training"
+    categories: {
+      housing: "Housing Services",
+      medical: "Medical Services",
+      food: "Food Services",
+      employment: "Employment Services",
+      education: "Education Services",
+      mental: "Mental Health Services"
+    },
+    status: {
+      available: "Available",
+      unavailable: "Unavailable",
+      limited: "Limited Availability",
+      scheduled: "Scheduled",
+      completed: "Completed"
+    },
+    booking: {
+      title: "Book Service",
+      date: "Select Date",
+      time: "Select Time",
+      notes: "Additional Notes",
+      confirm: "Confirm Booking"
+    }
+  },
+
+  analytics: {
+    common: {
+      timeRange: "Time Range",
+      compare: "Compare To",
+      export: "Export Data",
+      refresh: "Refresh Data"
+    },
+    metrics: {
+      donations: {
+        total: "Total Donations",
+        average: "Average Donation",
+        frequency: "Donation Frequency",
+        retention: "Donor Retention"
+      },
+      impact: {
+        peopleHelped: "People Helped",
+        servicesProvided: "Services Provided",
+        successRate: "Success Rate",
+        communityEngagement: "Community Engagement"
+      },
+      shelters: {
+        occupancy: "Occupancy Rate",
+        turnover: "Resident Turnover",
+        serviceUtilization: "Service Utilization",
+        successMetrics: "Success Metrics"
+      }
+    },
+    reports: {
+      types: {
+        summary: "Summary Report",
+        detailed: "Detailed Report",
+        impact: "Impact Report",
+        financial: "Financial Report"
+      },
+      frequency: {
+        daily: "Daily",
+        weekly: "Weekly",
+        monthly: "Monthly",
+        quarterly: "Quarterly",
+        annual: "Annual"
+      }
+    }
+  },
+
+  settings: {
+    general: {
+      title: "General Settings",
+      language: "Language",
+      timezone: "Timezone",
+      currency: "Currency",
+      dateFormat: "Date Format"
+    },
+    notifications: {
+      title: "Notification Settings",
+      email: "Email Notifications",
+      push: "Push Notifications",
+      sms: "SMS Notifications"
+    },
+    privacy: {
+      title: "Privacy Settings",
+      visibility: "Profile Visibility",
+      dataSharing: "Data Sharing",
+      activityTracking: "Activity Tracking"
+    },
+    security: {
+      title: "Security Settings",
+      password: "Password",
+      twoFactor: "Two-Factor Authentication",
+      sessions: "Active Sessions",
+      devices: "Connected Devices"
+    }
+  },
+
+  errors: {
+    validation: {
+      required: "This field is required",
+      email: "Please enter a valid email address",
+      password: "Password must be at least 8 characters",
+      match: "Passwords do not match",
+      phone: "Please enter a valid phone number",
+      amount: "Please enter a valid amount",
+      date: "Please enter a valid date"
+    },
+    auth: {
+      invalid: "Invalid credentials",
+      expired: "Session expired",
+      unauthorized: "Unauthorized access",
+      notFound: "User not found"
+    },
+    server: {
+      internal: "Internal server error",
+      network: "Network error",
+      timeout: "Request timeout",
+      maintenance: "System maintenance"
+    }
+  },
+
+  success: {
+    auth: {
+      login: "Successfully logged in",
+      register: "Account created successfully",
+      logout: "Successfully logged out",
+      passwordReset: "Password reset successfully"
+    },
+    profile: {
+      update: "Profile updated successfully",
+      photo: "Profile photo updated",
+      settings: "Settings saved successfully"
+    },
+    donation: {
+      complete: "Donation completed successfully",
+      recurring: "Recurring donation set up",
+      receipt: "Receipt sent to your email"
+    }
   }
 };
