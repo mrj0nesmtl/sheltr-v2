@@ -56,3 +56,5 @@ replit.nix
 
 # environment templates should be committed
 !.env.*.template
+analyze.html
+stats.html
