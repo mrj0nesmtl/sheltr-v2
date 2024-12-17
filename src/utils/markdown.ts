@@ -98,3 +98,11 @@ export async function loadProjectDocs(docType: keyof typeof markdownFiles.projec
     };
   }
 }
+
+type SupportedLanguages = 'en' | 'fr';
+type ContentLoaders = Record<SupportedLanguages, () => Promise<typeof import('*?raw')>>;
+
+const contentLoaders: ContentLoaders = {
+  en: () => import('*?raw'),
+  fr: () => import('*?raw')
+};

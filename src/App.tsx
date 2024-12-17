@@ -1,6 +1,6 @@
 import { BrowserRouter } from 'react-router-dom';
 import { Header } from '@/components/Layout/Header';
-import { AppRoutes } from './routes/AppRoutes';
+import AppRoutes from './routes/AppRoutes';
 
 export function App() {
   return (
