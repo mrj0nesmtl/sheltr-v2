@@ -1,8 +1,8 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { UserRole } from '@/auth/types/auth.types';
 import { ProtectedRoute } from '@/auth/components/ProtectedRoute';
 import { DashboardLayout } from '@/shared/layouts/DashboardLayout';
-import { UserRole } from '@/auth/types/auth.types';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 
@@ -48,7 +48,7 @@ const ParticipantPages = {
 
 // Donor Pages - Lazy loaded
 const DonorPages = {
-  Dashboard: lazy(() => import('@/pages/Donor/DonorDashboard')),
+  Dashboard: lazy(() => import('@/features/dashboard/components/donor/DonorDashboard')),
   Leaderboard: lazy(() => import('@/pages/Donor/DonorLeaderboard')),
   Achievements: lazy(() => import('@/pages/Donor/DonorAchievements'))
 };
@@ -65,60 +65,38 @@ const withSuspense = (Component: React.ComponentType) => (
   </ErrorBoundary>
 );
 
-const SuperAdminDashboard = lazy(() => {
-  console.log('🔄 Loading SuperAdminDashboard...');
-  return import('@/pages/SuperAdmin/Dashboard')
-    .then(module => {
-      console.log('✅ SuperAdminDashboard loaded:', module);
-      return module;
-    })
-    .catch(error => {
-      console.error('❌ Failed to load SuperAdminDashboard:', error);
-      throw error;
-    });
-});
-
 export function AppRoutes() {
   return (
     <Routes>
-      {/* Public routes */}
+      {/* Public Routes */}
       <Route path="/" element={withSuspense(HomePage)} />
       <Route path="/login" element={withSuspense(LoginPage)} />
       <Route path="/signup" element={withSuspense(SignUpPage)} />
-      <Route path="/impact" element={withSuspense(ImpactPage)} />
       <Route path="/about" element={withSuspense(About)} />
+      <Route path="/impact" element={withSuspense(ImpactPage)} />
 
       {/* Super Admin Routes */}
       <Route
-        path="/super-admin/*"
+        path="/super-admin"
         element={
-          <>
-            {console.log('🎯 Attempting to render SuperAdmin route')}
-            <ProtectedRoute allowedRoles={[UserRole.SUPER_ADMIN]}>
-              {console.log('🔒 Inside ProtectedRoute, role check passed')}
-              <DashboardLayout>
-                {console.log('📊 Inside DashboardLayout')}
-                <Routes>
-                  <Route 
-                    path="dashboard" 
-                    element={
-                      <>
-                        {console.log('📍 Dashboard route matched')}
-                        {withSuspense(SuperAdminPages.Dashboard)}
-                      </>
-                    } 
-                  />
-                  <Route path="analytics" element={withSuspense(SuperAdminPages.Analytics)} />
-                  <Route path="donors" element={withSuspense(SuperAdminPages.DonorManagement)} />
-                  <Route path="donor/:id" element={withSuspense(SuperAdminPages.DonorAnalytics)} />
-                  <Route path="settings" element={withSuspense(SuperAdminPages.SystemSettings)} />
-                  <Route path="" element={<Navigate to="dashboard" replace />} />
-                </Routes>
-              </DashboardLayout>
-            </ProtectedRoute>
-          </>
+          <ProtectedRoute allowedRoles={[UserRole.super_admin]}>
+            <DashboardLayout>
+              <Outlet />
+            </DashboardLayout>
+          </ProtectedRoute>
         }
-      />
+      >
+        <Route index element={<Navigate to="dashboard" replace />} />
+        <Route 
+          path="dashboard" 
+          element={withSuspense(SuperAdminPages.Dashboard)} 
+        />
+        <Route 
+          path="analytics" 
+          element={withSuspense(SuperAdminPages.Analytics)} 
+        />
+        {/* Add other super admin routes */}
+      </Route>
 
       {/* Shelter Admin Routes */}
       <Route

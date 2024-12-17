@@ -1,32 +1,28 @@
 import { Navigate, useLocation } from 'react-router-dom';
-import { useAuth } from './AuthProvider';
-import { UserRole } from '@/auth/types/auth.types';
-import { toast } from "@/components/ui/Toast";
+import { useAuthStore } from '@/auth/stores/authStore';
+import { UserRole } from '@/types/auth.types';
 
 interface ProtectedRouteProps {
-  allowedRoles: UserRole[];
+  allowedRoles?: UserRole[];
   children: React.ReactNode;
 }
 
-export function ProtectedRoute({ allowedRoles, children }: ProtectedRouteProps) {
+export function ProtectedRoute({ allowedRoles = [], children }: ProtectedRouteProps) {
   const location = useLocation();
-  const { user, role, isAuthenticated } = useAuth();
+  const { user, role } = useAuthStore();
 
-  if (!isAuthenticated) {
-    toast({
-      variant: "destructive",
-      title: "Authentication Required",
-      description: "Please log in to access this page"
-    });
+  console.log('ProtectedRoute Check:', {
+    user,
+    role,
+    allowedRoles,
+    currentPath: location.pathname
+  });
+
+  if (!user) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  if (!allowedRoles.includes(role as UserRole)) {
-    toast({
-      variant: "destructive",
-      title: "Access Denied",
-      description: "You don't have permission to access this page"
-    });
+  if (allowedRoles.length > 0 && !allowedRoles.includes(role as UserRole)) {
     return <Navigate to="/" replace />;
   }
 

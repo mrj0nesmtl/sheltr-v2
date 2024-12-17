@@ -1,9 +1,6 @@
-import React from 'react';
 import { useAuthStore } from '@/auth/stores/authStore';
 
-console.log('🚀 SuperAdminDashboard component loading...');
-
-export default function SuperAdminDashboard() {
+export function SuperAdminDashboard() {
   const { user } = useAuthStore();
 
   return (
@@ -30,12 +27,21 @@ export default function SuperAdminDashboard() {
         </div>
       </div>
 
-      <div className="mt-8">
-        <h2 className="text-xl font-semibold text-white mb-4">Recent Activity</h2>
-        <div className="bg-gray-800 rounded-lg p-6">
-          <p className="text-gray-400">No recent activity</p>
-        </div>
+      {/* Debug Info */}
+      <div className="mt-8 p-4 bg-gray-800 rounded-lg">
+        <h2 className="text-xl font-semibold text-white mb-4">Debug Info</h2>
+        <pre className="text-sm text-gray-300">
+          {JSON.stringify(
+            {
+              user,
+              path: window.location.pathname,
+              timestamp: new Date().toISOString()
+            },
+            null,
+            2
+          )}
+        </pre>
       </div>
     </div>
   );
-}
+} 

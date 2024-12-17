@@ -11,129 +11,120 @@ import {
   Heart,
   Shield,
   Calendar,
-  Trophy
+  Trophy,
+  QrCode
 } from 'lucide-react';
 import { UserRole } from '@/types/auth.types';
 
 export interface NavigationItem {
   path: string;
   label: string;
-  icon?: any;
-  description?: string;
-  children?: NavigationItem[];
+  icon?: string;
   requiresAuth?: boolean;
   roles?: UserRole[];
 }
 
 // Public navigation
-export const navigationConfig: NavigationItem[] = [
+export const mainNavigation: NavigationItem[] = [
   {
     path: '/about',
-    label: 'About',
-    icon: FileText,
-    description: 'Learn about SHELTR'
+    label: 'nav.about',
+    icon: 'info',
+    requiresAuth: false
   },
   {
     path: '/how-it-works',
-    label: 'How It Works',
-    icon: Info,
-    description: 'Understanding our platform'
+    label: 'nav.howItWorks',
+    icon: 'help-circle',
+    requiresAuth: false
   },
   {
     path: '/solutions',
-    label: 'Solutions',
-    icon: Building2,
-    description: 'Our platform solutions'
+    label: 'nav.solutions',
+    icon: 'lightbulb',
+    requiresAuth: false
+  },
+  {
+    path: '/scan-donate',
+    label: 'nav.scanDonate',
+    icon: 'qr-code',
+    requiresAuth: false
   },
   {
     path: '/impact',
-    label: 'Impact',
-    icon: BarChart3,
-    description: 'See our impact'
+    label: 'nav.impact',
+    icon: 'chart-bar',
+    requiresAuth: false
   }
 ];
 
-// Role-based navigation
-export const userNavigation = {
-  [UserRole.SUPER_ADMIN]: [
+// Role-based dashboard navigation
+export const dashboardNavigation = {
+  super_admin: [
     {
-      path: '/admin/dashboard',
-      label: 'Dashboard',
-      icon: Home
+      path: '/admin',
+      label: 'nav.dashboard',
+      icon: Shield,
     },
+    // ... existing super admin routes
+  ],
+  
+  shelter_admin: [
     {
-      path: '/admin/users',
-      label: 'Users',
-      icon: Users
+      path: '/shelter',
+      label: 'nav.shelterDashboard',
+      icon: Building2,
     },
+    // ... existing shelter admin routes
+  ],
+  
+  donor: [
     {
-      path: '/admin/settings',
-      label: 'Settings',
-      icon: Settings
+      path: '/donor',
+      label: 'nav.donorDashboard',
+      icon: Heart,
+      children: [
+        {
+          path: '/donor/donations',
+          label: 'nav.myDonations',
+          icon: Trophy
+        },
+        {
+          path: '/donor/impact',
+          label: 'nav.myImpact',
+          icon: BarChart3
+        },
+        {
+          path: '/donor/profile',
+          label: 'nav.profile',
+          icon: User
+        }
+      ]
     }
   ],
-  [UserRole.SHELTER_ADMIN]: [
+  
+  participant: [
     {
-      path: '/shelter/dashboard',
-      label: 'Dashboard',
-      icon: Home
-    },
-    {
-      path: '/shelter/participants',
-      label: 'Participants',
-      icon: Users
-    },
-    {
-      path: '/shelter/settings',
-      label: 'Settings',
-      icon: Settings
-    }
-  ],
-  [UserRole.DONOR]: [
-    {
-      path: '/donor/dashboard',
-      label: 'Dashboard',
-      icon: Home
-    },
-    {
-      path: '/donor/donations',
-      label: 'My Donations',
-      icon: Heart
-    },
-    {
-      path: '/donor/impact',
-      label: 'Impact',
-      icon: Trophy
-    }
-  ],
-  [UserRole.PARTICIPANT]: [
-    {
-      path: '/participant/dashboard',
-      label: 'Dashboard',
-      icon: Home
-    },
-    {
-      path: '/participant/profile',
-      label: 'Profile',
-      icon: User
-    },
-    {
-      path: '/participant/services',
-      label: 'Services',
-      icon: Calendar
+      path: '/participant',
+      label: 'nav.participantDashboard',
+      icon: User,
+      children: [
+        {
+          path: '/participant/qr-code',
+          label: 'nav.myQRCode',
+          icon: QrCode
+        },
+        {
+          path: '/participant/donations',
+          label: 'nav.receivedDonations',
+          icon: Heart
+        },
+        {
+          path: '/participant/profile',
+          label: 'nav.profile',
+          icon: User
+        }
+      ]
     }
   ]
-};
-
-// Helper functions
-export function getNavigationByRole(role: UserRole) {
-  return userNavigation[role] || [];
-}
-
-export function isPathAccessibleByRole(path: string, role: UserRole): boolean {
-  const roleNavigation = getNavigationByRole(role);
-  return roleNavigation.some(item => 
-    item.path === path || 
-    item.children?.some(child => child.path === path)
-  );
-} 
+}; 

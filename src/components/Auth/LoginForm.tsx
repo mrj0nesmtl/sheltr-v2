@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { supabase } from '@/lib/supabase/client';
 import { useNavigate } from 'react-router-dom';
+import { supabase } from '@/lib/supabase/client';
+import { useAuthStore } from '@/auth/stores/authStore';
 import { toast } from "@/components/ui/Toast";
 
 export function LoginForm() {
@@ -8,6 +9,7 @@ export function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { setUser, setRole } = useAuthStore();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,25 +30,28 @@ export function LoginForm() {
         .rpc('get_user_profile', { user_id: authData.user?.id })
         .single();
 
-      if (profileError) {
-        console.error('❌ Profile fetch error:', profileError);
-        throw profileError;
-      }
-      
+      if (profileError) throw profileError;
       console.log('📋 Profile data:', profileData);
 
-      if (profileData?.role === 'super_admin') {
-        console.log('🎯 Navigating to super admin dashboard...');
-        navigate('/super-admin/dashboard');
-      } else {
-        console.warn('⚠️ Not a super admin:', profileData?.role);
-        toast({
-          variant: "destructive",
-          title: "Access Denied",
-          description: "You don't have super admin privileges"
-        });
+      if (authData.user && profileData) {
+        await setUser(authData.user);
+        await setRole(profileData.role);
+        
+        console.log('🎯 Navigating based on role:', profileData.role);
+        switch (profileData.role) {
+          case 'super_admin':
+            navigate('/super-admin/dashboard');
+            break;
+          case 'shelter_admin':
+            navigate('/shelter-admin/dashboard', { replace: true });
+            break;
+          case 'donor':
+            navigate('/donor/dashboard');
+            break;
+          default:
+            throw new Error(`Invalid role: ${profileData.role}`);
+        }
       }
-      
     } catch (error) {
       console.error('❌ Login error:', error);
       toast({
@@ -60,42 +65,54 @@ export function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-6">
       <div>
         <label htmlFor="email" className="block text-sm font-medium text-gray-200">
           Email
         </label>
-        <input
-          id="email"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="mt-1 block w-full rounded-md bg-gray-800 border-gray-700 text-gray-200"
-          required
-        />
+        <div className="mt-1">
+          <input
+            id="email"
+            name="email"
+            type="email"
+            autoComplete="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="appearance-none block w-full px-3 py-2 border border-gray-700 rounded-md shadow-sm bg-gray-700/50 text-gray-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            placeholder="you@example.com"
+          />
+        </div>
       </div>
-      
+
       <div>
         <label htmlFor="password" className="block text-sm font-medium text-gray-200">
           Password
         </label>
-        <input
-          id="password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="mt-1 block w-full rounded-md bg-gray-800 border-gray-700 text-gray-200"
-          required
-        />
+        <div className="mt-1">
+          <input
+            id="password"
+            name="password"
+            type="password"
+            autoComplete="current-password"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="appearance-none block w-full px-3 py-2 border border-gray-700 rounded-md shadow-sm bg-gray-700/50 text-gray-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            placeholder="••••••••"
+          />
+        </div>
       </div>
 
-      <button 
-        type="submit" 
-        disabled={isLoading}
-        className="w-full bg-primary text-white p-2 rounded hover:bg-primary/90 transition-colors"
-      >
-        {isLoading ? 'Signing in...' : 'Sign In'}
-      </button>
+      <div>
+        <button
+          type="submit"
+          disabled={isLoading}
+          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {isLoading ? 'Signing in...' : 'Sign in'}
+        </button>
+      </div>
     </form>
   );
 } 

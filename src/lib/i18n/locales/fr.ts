@@ -98,7 +98,21 @@ export const fr: Translations = {
     dashboard: 'Tableau de Bord',
     signOut: 'Déconnexion',
     about: 'À Propos',
-    menu: 'Menu'
+    menu: 'Menu',
+    home: "Page d'accueil",
+    participants: "Participants",
+    settings: "Paramètres",
+    shelters: "Refuges",
+    users: "Utilisateurs",
+    history: "Historique",
+    shelter_admin: {
+      dashboard: "Tableau de bord du refuge",
+      participants: "Gestion des participants",
+      settings: "Paramètres du refuge",
+      overview: "Aperçu du refuge",
+      services: "Services",
+      staff: "Gestion du personnel"
+    }
   },
   hero: {
     title: 'Pirater l\'itinérance',

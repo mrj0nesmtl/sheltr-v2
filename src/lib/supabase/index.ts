@@ -55,15 +55,33 @@ export const auth = supabase.auth;
 export const db = supabase.from;
 
 // Profile management
-export async function getUserProfile(userId: string): Promise<SupabaseUser | null> {
+export async function getUserProfile(userId: string) {
+  if (!userId) {
+    console.error('[Supabase] getUserProfile called without userId');
+    return null;
+  }
+
   try {
+    console.log('[Supabase] Fetching profile for userId:', userId);
+    
     const { data, error } = await db('profiles')
-      .select('*')
+      .select(`
+        id,
+        email,
+        role,
+        name,
+        first_name,
+        last_name,
+        is_active,
+        profile_complete
+      `)
       .eq('id', userId)
       .single();
     
     if (error) throw error;
-    return data as SupabaseUser;
+    
+    console.log('[Supabase] Profile fetch result:', data);
+    return data;
   } catch (error) {
     console.error('[Supabase] Profile error:', error);
     return null;

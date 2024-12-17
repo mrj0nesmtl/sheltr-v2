@@ -120,82 +120,13 @@ export const en: Translations = {
   },
 
   nav: {
-    howItWorks: 'How It Works',
-    solutions: 'Solutions',
-    scanDonate: 'Scan & Donate',
-    impact: 'Impact',
-    signUp: 'Sign Up',
-    login: 'Login',
-    profile: 'Profile',
-    dashboard: 'Dashboard',
-    signOut: 'Sign Out',
-    about: 'About',
-    solutions_menu: {
-      title: 'Solutions',
-      howItWorks: 'How It Works',
-      howItWorksDesc: 'Learn how our platform transforms charitable giving',
-      solutions: 'Solutions',
-      solutionsDesc: 'Discover our innovative solutions for donors and shelters',
-      impact: 'Impact',
-      impactDesc: 'Track and measure the real impact of your contributions'
-    },
-    company_menu: {
-      title: 'Company',
-      about: 'About',
-      aboutDesc: 'Our mission to revolutionize charitable giving',
-      blog: 'Blog',
-      blogDesc: 'Latest news and updates from SHELTR',
-      whitepaper: 'Whitepaper',
-      whitepaperDesc: 'Technical details and platform architecture'
-    },
-    platform_menu: {
-      title: 'Platform',
-      dashboard: 'Dashboard',
-      dashboardDesc: 'View system-wide analytics and metrics',
-      userManagement: 'User Management',
-      userManagementDesc: 'Manage platform users and permissions',
-      systemSettings: 'System Settings',
-      systemSettingsDesc: 'Configure platform settings and preferences',
-      shelterDashboard: 'Shelter Dashboard',
-      shelterDashboardDesc: 'Manage your shelter operations',
-      residentManagement: 'Resident Management',
-      residentManagementDesc: 'Track and support shelter residents'
-    },
-    donor_menu: {
-      title: 'My Donations',
-      donationHistory: 'Donation History',
-      donationHistoryDesc: 'View your past contributions and impact',
-      personalImpact: 'Personal Impact',
-      personalImpactDesc: 'See how your donations make a difference',
-      recurringDonations: 'Recurring Donations',
-      recurringDonationsDesc: 'Manage your monthly contributions'
-    },
-    participant_menu: {
-      title: 'Services',
-      availableServices: 'Available Services',
-      availableServicesDesc: 'Browse services and support options',
-      serviceHistory: 'Service History',
-      serviceHistoryDesc: 'Track your service usage and progress',
-      resources: 'Resources',
-      resourcesDesc: 'Access helpful information and support'
-    },
-    blockchain: {
-      title: "Blockchain",
-      desc: "Explore blockchain features",
-      menu: {
-        whitepaper: "White Paper",
-        whitepaperDesc: "Technical details and platform architecture",
-        token: "$SHELTER Token",
-        tokenDesc: "Token economics and utilities",
-        transactions: "Transactions",
-        transactionsDesc: "View blockchain transactions",
-        depot: "Homeless Depot",
-        depotDesc: "Access participant resources"
-      }
-    },
-    footer: {
-      copyright: "© {{year}} SHELTR. All rights reserved."
-    }
+    about: "About",
+    howItWorks: "How It Works",
+    solutions: "Solutions",
+    scanDonate: "Scan + Donate",
+    impact: "Impact",
+    login: "Login",
+    signUp: "Sign Up"
   },
 
   hero: {
@@ -233,7 +164,9 @@ export const en: Translations = {
         title: 'Impact Tracking',
         description: 'Monitor your contributions and see the real impact of your donations in real-time.'
       }
-    }
+    },
+    title: "Transform Donations into Impact",
+    subtitle: "Createmeaningful actions using blockchain technology and smart contracts to directly support homeless individuals with transparency and accountability."
   },
 
   howItWorks: {
@@ -589,6 +522,19 @@ export const en: Translations = {
       complete: "Donation completed successfully",
       recurring: "Recurring donation set up",
       receipt: "Receipt sent to your email"
+    }
+  },
+
+  qrScanner: {
+    title: "Scan QR Code to Donate",
+    instructions: "Point your camera at a participant's QR code",
+    scannerActive: "Scanner is active",
+    retryButton: "Try Again",
+    errors: {
+      cameraPermission: "Camera access denied. Please enable camera permissions.",
+      initialization: "Failed to initialize camera. Please try again.",
+      invalidCode: "Invalid QR Code",
+      invalidCodeDesc: "This QR code is not associated with a SHELTR participant."
     }
   }
 };

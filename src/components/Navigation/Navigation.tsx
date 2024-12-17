@@ -1,68 +1,96 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Menu } from 'lucide-react';
 import { Logo } from '../ui/Logo';
-import { MobileNav } from './MobileNav';
+import { Button } from '../ui/Button';
+import { Icon } from '../ui/Icon';
+import { mainNavigation } from '@/lib/navigation/config';
+import { cn } from '@/lib/utils';
 
 export function Navigation() {
   const { t } = useTranslation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-gray-800 border-b border-gray-700">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-gray-900/95 backdrop-blur-sm border-b border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <div className="flex items-center gap-8">
-            <Link to="/" className="flex-shrink-0">
-              <Logo className="h-8 w-auto" />
+          {/* Logo */}
+          <Link to="/" className="flex-shrink-0">
+            <Logo className="h-8 w-auto" />
+          </Link>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-8">
+            {mainNavigation.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className="text-gray-300 hover:text-white text-sm font-medium"
+              >
+                {t(item.label)}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Auth Buttons */}
+          <div className="hidden md:flex items-center space-x-4">
+            <Link to="/login">
+              <Button variant="ghost" className="text-gray-300 hover:text-white">
+                {t('nav.login')}
+              </Button>
             </Link>
-            
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-6">
-              <Link to="/how-it-works" className="text-gray-300 hover:text-white">
-                {t('nav.solutions_menu.howItWorks')}
-              </Link>
-              <Link to="/solutions" className="text-gray-300 hover:text-white">
-                {t('nav.solutions_menu.solutions')}
-              </Link>
-              <Link to="/scan-donate" className="text-gray-300 hover:text-white">
-                {t('nav.scanDonate')}
-              </Link>
-              <Link to="/impact" className="text-gray-300 hover:text-white">
-                {t('nav.solutions_menu.impact')}
-              </Link>
-            </div>
+            <Link to="/signup">
+              <Button className="bg-indigo-600 hover:bg-indigo-700 text-white">
+                {t('nav.signUp')}
+              </Button>
+            </Link>
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile Menu Button */}
           <button
             className="md:hidden p-2 text-gray-400 hover:text-white"
-            onClick={() => setIsMobileMenuOpen(true)}
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             <Menu className="h-6 w-6" />
           </button>
-
-          {/* Desktop Auth Buttons */}
-          <div className="hidden md:flex items-center gap-4">
-            <Link to="/login" className="text-gray-300 hover:text-white">
-              {t('nav.login')}
-            </Link>
-            <Link
-              to="/signup"
-              className="bg-indigo-600 px-4 py-2 rounded-md text-white hover:bg-indigo-700"
-            >
-              {t('nav.signUp')}
-            </Link>
-          </div>
         </div>
       </div>
 
-      {/* Mobile Navigation */}
-      <MobileNav 
-        isOpen={isMobileMenuOpen} 
-        onClose={() => setIsMobileMenuOpen(false)} 
-      />
-    </nav>
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden">
+          <div className="px-2 pt-2 pb-3 space-y-1">
+            {mainNavigation.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 rounded-md"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {t(item.label)}
+              </Link>
+            ))}
+            <div className="pt-4 pb-3 border-t border-gray-700">
+              <Link
+                to="/login"
+                className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 rounded-md"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {t('nav.login')}
+              </Link>
+              <Link
+                to="/signup"
+                className="block px-3 py-2 mt-1 text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-md"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {t('nav.signUp')}
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+    </header>
   );
 }

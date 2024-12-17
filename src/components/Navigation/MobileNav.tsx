@@ -15,6 +15,10 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
   const { t } = useTranslation();
   const { publicNavItems, roleNavItems, isAuthenticated, isActiveRoute } = useNavigation();
 
+  const getLabel = (label: string) => {
+    return label === 'Home' ? label : t(label);
+  };
+
   return (
     <Transition.Root show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={onClose}>
@@ -67,7 +71,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
                     onClick={onClose}
                   >
                     {item.icon && <item.icon className="h-5 w-5" />}
-                    <span>{t(item.label)}</span>
+                    <span>{getLabel(item.label)}</span>
                   </Link>
                 ))}
 

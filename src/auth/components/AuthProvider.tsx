@@ -18,17 +18,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const initializeAuth = async () => {
       useAuthStore.setState({ loading: true });
       try {
-        const session = await auth.getSession();
-        if (session.data.session) {
-          const profile = await getUserProfile(session.data.session.user.id);
+        const { data: { session }, error } = await auth.getSession();
+        
+        // Only proceed if we have a valid session
+        if (session?.user?.id) {
+          console.log('Valid session found, fetching profile...');
+          const profile = await getUserProfile(session.user.id);
           if (profile) {
             useAuthStore.setState({
-              user: session.data.session.user,
+              user: session.user,
               role: profile.role as UserRole,
               isAuthenticated: true,
               loading: false
             });
+          } else {
+            // Profile not found, clear session
+            handleInvalidSession();
           }
+        } else {
+          // No valid session
+          handleInvalidSession();
         }
       } catch (error) {
         console.error('Auth initialization error:', error);

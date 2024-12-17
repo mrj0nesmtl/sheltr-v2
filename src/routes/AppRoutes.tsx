@@ -1,77 +1,131 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
-import { UserRole } from '@/lib/auth/types';
+import { Routes, Route } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
 import { ProtectedRoute } from '@/auth/components/ProtectedRoute';
-import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { toast } from "@/components/ui/Toast";
+import { UserRole } from '@/types/auth.types';
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 
-// Import from new dashboard structure
-import {
-  DonorDashboard,
-  ParticipantDashboard,
-  ShelterDashboard
-} from '@/features/dashboard';
+// Lazy load pages
+const HomePage = lazy(() => import('@/pages/HomePage'));
+const About = lazy(() => import('@/pages/About'));
+const LoginPage = lazy(() => import('@/pages/LoginPage'));
+const SignupPage = lazy(() => import('@/pages/SignupPage'));
+const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
 
-// Import pages
-import { 
-  HomePage,
-  AboutPage,
-  LoginPage,
-  SignUpPage,
-  HowItWorksPage,
-  SolutionsPage 
-} from '@/pages';
+// Lazy load dashboard pages
+const ScanDonatePage = lazy(() => import('@/pages/ScanDonatePage'));
+const DonorDashboard = lazy(() => import('@/features/dashboard/components/donor/DonorDashboard'));
+const ParticipantDashboard = lazy(() => import('@/features/roles/participant/ParticipantDashboard'));
+const ShelterDashboard = lazy(() => import('@/features/dashboard/components/shelter/ShelterDashboard'));
+const SuperAdminDashboard = lazy(() => import('@/pages/SuperAdmin/SuperAdminDashboard'));
 
 export function AppRoutes() {
   return (
-    <ErrorBoundary
-      fallback={(error) => {
-        toast({
-          variant: "destructive",
-          title: "Error",
-          description: error.message || "An unexpected error occurred"
-        });
-        return null;
-      }}
-    >
-      <Routes>
-        {/* Public Routes */}
-        <Route index element={<HomePage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/how-it-works" element={<HowItWorksPage />} />
-        <Route path="/solutions" element={<SolutionsPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/admin/login" element={<LoginPage isAdminLogin={true} />} />
-        <Route path="/signup" element={<SignUpPage />} />
+    <Routes>
+      {/* Public routes */}
+      <Route 
+        path="/" 
+        element={
+          <Suspense fallback={<LoadingSpinner />}>
+            <HomePage />
+          </Suspense>
+        } 
+      />
+      <Route 
+        path="/about" 
+        element={
+          <Suspense fallback={<LoadingSpinner />}>
+            <About />
+          </Suspense>
+        } 
+      />
+      <Route 
+        path="/login" 
+        element={
+          <Suspense fallback={<LoadingSpinner />}>
+            <LoginPage />
+          </Suspense>
+        } 
+      />
+      <Route 
+        path="/signup" 
+        element={
+          <Suspense fallback={<LoadingSpinner />}>
+            <SignupPage />
+          </Suspense>
+        } 
+      />
 
-        {/* Protected Routes */}
-        <Route
-          path="/donor/*"
-          element={
-            <ProtectedRoute allowedRoles={[UserRole.DONOR]}>
-              <DonorDashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/participant/*"
-          element={
-            <ProtectedRoute allowedRoles={[UserRole.PARTICIPANT]}>
-              <ParticipantDashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/shelter/*"
-          element={
-            <ProtectedRoute allowedRoles={[UserRole.SHELTER_ADMIN]}>
+      {/* Protected routes with role-based access */}
+      
+      {/* Admin routes */}
+      <Route
+        path="/admin/*"
+        element={
+          <ProtectedRoute allowedRoles={[UserRole.SUPER_ADMIN]}>
+            <Suspense fallback={<LoadingSpinner />}>
+              <SuperAdminDashboard />
+            </Suspense>
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Shelter routes */}
+      <Route
+        path="/shelter/*"
+        element={
+          <ProtectedRoute allowedRoles={[UserRole.SHELTER_ADMIN]}>
+            <Suspense fallback={<LoadingSpinner />}>
               <ShelterDashboard />
-            </ProtectedRoute>
-          }
-        />
+            </Suspense>
+          </ProtectedRoute>
+        }
+      />
 
-        {/* Fallback route */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </ErrorBoundary>
+      {/* Donor routes */}
+      <Route
+        path="/donor/*"
+        element={
+          <ProtectedRoute allowedRoles={[UserRole.DONOR]}>
+            <Suspense fallback={<LoadingSpinner />}>
+              <DonorDashboard />
+            </Suspense>
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Participant routes */}
+      <Route
+        path="/participant/*"
+        element={
+          <ProtectedRoute allowedRoles={[UserRole.PARTICIPANT]}>
+            <Suspense fallback={<LoadingSpinner />}>
+              <ParticipantDashboard />
+            </Suspense>
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Scan+Donate route - accessible to donors only */}
+      <Route
+        path="/scan-donate"
+        element={
+          <ProtectedRoute allowedRoles={[UserRole.DONOR]}>
+            <Suspense fallback={<LoadingSpinner />}>
+              <ScanDonatePage />
+            </Suspense>
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Catch-all route */}
+      <Route 
+        path="*" 
+        element={
+          <Suspense fallback={<LoadingSpinner />}>
+            <NotFoundPage />
+          </Suspense>
+        } 
+      />
+    </Routes>
   );
 }

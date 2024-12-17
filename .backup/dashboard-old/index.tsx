@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
 import { useNavigate, Outlet } from 'react-router-dom';
-import { useAuthStore } from '@/auth/stores/authStore';
+import { useAuthStore } from '@/stores/authStore';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/Button';
 import { LogOut } from 'lucide-react';
 import { ShelterAdminSidebar } from './Sidebar/ShelterAdminSidebar';
-import { supabase } from '@/lib/supabase/client';
 
 interface DashboardLayoutProps {
   title: string;
@@ -23,16 +22,6 @@ export function DashboardLayout({ title }: DashboardLayoutProps) {
       navigate('/login');
     }
   }, [isAuthenticated, navigate]);
-
-  const handleSignOut = async () => {
-    try {
-      await supabase.auth.signOut();
-      signOut();
-      navigate('/login');
-    } catch (error) {
-      console.error('Sign out error:', error);
-    }
-  };
 
   return (
     <div className="min-h-screen bg-gray-900">
@@ -59,7 +48,7 @@ export function DashboardLayout({ title }: DashboardLayoutProps) {
               </span>
               <Button 
                 variant="ghost" 
-                onClick={handleSignOut}
+                onClick={signOut}
                 className="text-gray-400 hover:text-white hover:bg-gray-700"
               >
                 <LogOut className="h-4 w-4 mr-2" />
