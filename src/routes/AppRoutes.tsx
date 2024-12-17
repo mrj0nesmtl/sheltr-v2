@@ -21,7 +21,7 @@ const ParticipantDashboard = lazy(() => import('@/features/roles/participant/Par
 const ShelterDashboard = lazy(() => import('@/features/dashboard/components/shelter/ShelterDashboard'));
 const SuperAdminDashboard = lazy(() => import('@/pages/SuperAdmin/SuperAdminDashboard'));
 
-export function AppRoutes() {
+const AppRoutes = () => {
   return (
     <Routes>
       {/* Public routes */}
@@ -144,4 +144,6 @@ export function AppRoutes() {
       />
     </Routes>
   );
-}
+};
+
+export default AppRoutes;
