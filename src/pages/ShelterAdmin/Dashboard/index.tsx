@@ -9,7 +9,7 @@ import { ParticipantLeaderboard } from '@/components/Admin/ParticipantLeaderboar
 import { DonorList } from '@/components/Admin/DonorList';
 import { DonationMap } from '@/components/Admin/DonationMap';
 import {
-  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
+  AreaChart, Area, XAxis, YAxis, ResponsiveContainer,
   PieChart, Pie, Cell, Legend
 } from 'recharts';
 import { ParticipantRegistrationModal } from '@/components/Admin/ParticipantRegistrationModal';
