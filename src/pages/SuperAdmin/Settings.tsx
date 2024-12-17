@@ -3,6 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { BaseSettings } from '@/components/Settings/BaseSettings';
 import { Card } from '@/components/ui/Card';
 
+interface CardProps {
+  title: string;
+  description?: string;
+  children: ReactNode;
+}
+
 export function SuperAdminSettings() {
   const { t } = useTranslation();
 
