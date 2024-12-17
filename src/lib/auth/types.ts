@@ -1,14 +1,23 @@
-interface UserRole {
+import type { User } from '@supabase/supabase-js';
+
+export enum UserRole {
   SUPER_ADMIN = 'super_admin',
   SHELTER_ADMIN = 'shelter_admin',
   DONOR = 'donor',
   PARTICIPANT = 'participant'
 }
 
-interface AuthState {
+export interface AuthState {
   user: User | null;
+  role: UserRole | null;
   isAuthenticated: boolean;
-  role: UserRole;
-  error: Error | null;
   loading: boolean;
+  error?: Error | null;
+  login: (credentials: LoginCredentials) => Promise<void>;
+  logout: () => Promise<void>;
+}
+
+export interface LoginCredentials {
+  email: string;
+  password: string;
 } 

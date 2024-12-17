@@ -1,18 +1,25 @@
-// Temporarily commented out for route consolidation
-/*
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { UserRole } from '../lib/types/database';
-import { ProtectedRoute } from '../auth/components/ProtectedRoute';
-import { ErrorBoundary } from '../components/ErrorBoundary';
+import { UserRole } from '@/lib/auth/types';
+import { ProtectedRoute } from '@/auth/components/ProtectedRoute';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { toast } from "@/components/ui/Toast";
 
-// Public Pages
-import { HomePage } from '../pages/HomePage';
-import { LoginPage } from '../pages/LoginPage';
-import { SignUpPage } from '../pages/SignUpPage';
-import { AboutPage } from '../pages/About';
-import { HowItWorksPage } from '../pages/HowItWorks';
-import { SolutionsPage } from '../pages/Solutions';
+// Import from new dashboard structure
+import {
+  DonorDashboard,
+  ParticipantDashboard,
+  ShelterDashboard
+} from '@/features/dashboard';
+
+// Import pages
+import { 
+  HomePage,
+  AboutPage,
+  LoginPage,
+  SignUpPage,
+  HowItWorksPage,
+  SolutionsPage 
+} from '@/pages';
 
 export function AppRoutes() {
   return (
@@ -37,9 +44,34 @@ export function AppRoutes() {
         <Route path="/signup" element={<SignUpPage />} />
 
         {/* Protected Routes */}
-        {/* ... rest of your routes ... */}
+        <Route
+          path="/donor/*"
+          element={
+            <ProtectedRoute allowedRoles={[UserRole.DONOR]}>
+              <DonorDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/participant/*"
+          element={
+            <ProtectedRoute allowedRoles={[UserRole.PARTICIPANT]}>
+              <ParticipantDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/shelter/*"
+          element={
+            <ProtectedRoute allowedRoles={[UserRole.SHELTER_ADMIN]}>
+              <ShelterDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Fallback route */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </ErrorBoundary>
   );
 }
-*/

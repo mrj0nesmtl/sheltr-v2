@@ -1,17 +1,11 @@
-import React, { createContext, useContext, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useEffect, type ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../stores/authStore';
-import { UserRole } from '@/auth/types/auth.types';
-import { supabase } from '@/lib/supabase';
+import { UserRole, type AuthState, type LoginCredentials } from '../../lib/auth/types';
+import { supabase, auth, getUserProfile } from '../../lib/supabase';
+import type { User } from '@supabase/supabase-js';
 
-interface AuthContextType extends AuthState {
-  isAuthenticated: boolean;
-  user: User | null;
-  role: UserRole;
-  login: (credentials: LoginCredentials) => Promise<void>;
-  logout: () => Promise<void>;
-  loading: boolean;
-}
+type AuthContextType = AuthState;
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
@@ -24,20 +18,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const initializeAuth = async () => {
       useAuthStore.setState({ loading: true });
       try {
-        // Check Supabase session
-        const { data: { session } } = await supabase.auth.getSession();
-        if (session) {
-          // Get user profile with role
-          const { data: profile } = await supabase
-            .from('profiles')
-            .select('*')
-            .eq('id', session.user.id)
-            .single();
-
+        const session = await auth.getSession();
+        if (session.data.session) {
+          const profile = await getUserProfile(session.data.session.user.id);
           if (profile) {
             useAuthStore.setState({
-              user: session.user,
-              role: profile.role,
+              user: session.data.session.user,
+              role: profile.role as UserRole,
               isAuthenticated: true,
               loading: false
             });
@@ -63,17 +50,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         } else if (event === 'SIGNED_IN' && session) {
           useAuthStore.setState({ loading: true });
           try {
-            // Update auth store with new session data
-            const { data: profile } = await supabase
-              .from('profiles')
-              .select('*')
-              .eq('id', session.user.id)
-              .single();
-
+            const profile = await getUserProfile(session.user.id);
             if (profile) {
               useAuthStore.setState({
                 user: session.user,
-                role: profile.role,
+                role: profile.role as UserRole,
                 isAuthenticated: true,
                 loading: false
               });
@@ -92,7 +73,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const handleInvalidSession = () => {
-    localStorage.removeItem('auth');
+    localStorage.removeItem('sheltr-auth-token');
     useAuthStore.setState({ 
       user: null, 
       role: null, 
@@ -110,7 +91,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     logout: async () => {
       useAuthStore.setState({ loading: true });
       try {
-        await supabase.auth.signOut();
+        await auth.signOut();
         logout();
         navigate('/login');
       } finally {

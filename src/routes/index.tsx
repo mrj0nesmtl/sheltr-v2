@@ -94,7 +94,7 @@ export function AppRoutes() {
         element={
           <>
             {console.log('🎯 Attempting to render SuperAdmin route')}
-            <ProtectedRoute allowedRoles={[UserRole.super_admin]}>
+            <ProtectedRoute allowedRoles={[UserRole.SUPER_ADMIN]}>
               {console.log('🔒 Inside ProtectedRoute, role check passed')}
               <DashboardLayout>
                 {console.log('📊 Inside DashboardLayout')}
