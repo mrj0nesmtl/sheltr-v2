@@ -28,6 +28,15 @@ export interface DonorAnalytics {
   donationTrends: TrendMetrics[];
 }
 
+// Make sure the type is properly defined
+interface PlatformStats {
+  // Add your type definitions here
+  // Example:
+  totalDonations?: number;
+  activeUsers?: number;
+  // ... other stats
+}
+
 export const analyticsService = {
   // Super Admin Level
   async getGlobalAnalytics(): Promise<GlobalAnalytics> {

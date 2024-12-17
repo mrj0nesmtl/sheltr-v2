@@ -166,7 +166,7 @@ export const en: Translations = {
       }
     },
     title: "Transform Donations into Impact",
-    subtitle: "Createmeaningful actions using blockchain technology and smart contracts to directly support homeless individuals with transparency and accountability."
+    description: "Create meaningful actions using blockchain technology and smart contracts to directly support homeless individuals with transparency and accountability."
   },
 
   howItWorks: {
