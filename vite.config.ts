@@ -152,5 +152,9 @@ export default defineConfig({
       mainFields: ['module', 'main'],
       format: 'esm'
     }
+  },
+  base: './',
+  commonjsOptions: {
+    transformMixedEsModules: true
   }
 });

@@ -10,7 +10,7 @@ import Impact from '@/pages/Impact';
 const HomePage = lazy(() => import('@/pages/HomePage'));
 const About = lazy(() => import('@/pages/About'));
 const LoginPage = lazy(() => import('@/pages/LoginPage'));
-const SignupPage = lazy(() => import('@/pages/SignupPage'));
+const SignupPage = lazy(() => import('@/pages/SignUpPage'));
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
 const HowItWorks = lazy(() => import('@/pages/HowItWorks'));
 const Solutions = lazy(() => import('@/pages/Solutions'));

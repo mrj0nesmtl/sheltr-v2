@@ -1,5 +1,36 @@
 # Changelog
 
+## [0.4.4] - 2024-12-17 04:38 EST
+### Added
+- Robust QR scanner implementation
+- Camera initialization checks
+- Proper cleanup procedures
+- Enhanced error handling
+- User feedback mechanisms
+- Permission handling system
+
+### Changed
+- Improved QR scanner reliability
+- Enhanced cleanup sequence
+- Better error messaging
+- Updated i18n translations
+- Streamlined component organization
+
+### Fixed
+- QR Scanner initialization issues
+- Camera cleanup procedures
+- Error state handling
+- Component organization
+- Route configurations
+
+### Technical Debt Added
+- Offline scanning mode needed
+- Multiple device support required
+- Success animations pending
+- Enhanced error messaging needed
+
+[0.4.4]: https://github.com/username/sheltr/compare/v0.4.3...v0.4.4
+
 ## [0.4.3] - 2024-12-17 03:45 EST
 ### Added
 - NotFoundPage component
