@@ -1,8 +1,10 @@
 import { Routes, Route } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import { ProtectedRoute } from '@/auth/components/ProtectedRoute';
-import { UserRole } from '@/types/auth.types';
+import { UserRole } from '@/auth/types/auth.types';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
+import ScanDonatePage from '@/pages/ScanDonatePage';
+import Impact from '@/pages/Impact';
 
 // Lazy load pages
 const HomePage = lazy(() => import('@/pages/HomePage'));
@@ -10,9 +12,10 @@ const About = lazy(() => import('@/pages/About'));
 const LoginPage = lazy(() => import('@/pages/LoginPage'));
 const SignupPage = lazy(() => import('@/pages/SignupPage'));
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
+const HowItWorks = lazy(() => import('@/pages/HowItWorks'));
+const Solutions = lazy(() => import('@/pages/Solutions'));
 
 // Lazy load dashboard pages
-const ScanDonatePage = lazy(() => import('@/pages/ScanDonatePage'));
 const DonorDashboard = lazy(() => import('@/features/dashboard/components/donor/DonorDashboard'));
 const ParticipantDashboard = lazy(() => import('@/features/roles/participant/ParticipantDashboard'));
 const ShelterDashboard = lazy(() => import('@/features/dashboard/components/shelter/ShelterDashboard'));
@@ -54,6 +57,31 @@ export function AppRoutes() {
           </Suspense>
         } 
       />
+      <Route 
+        path="/how-it-works" 
+        element={
+          <Suspense fallback={<LoadingSpinner />}>
+            <HowItWorks />
+          </Suspense>
+        } 
+      />
+      <Route 
+        path="/solutions" 
+        element={
+          <Suspense fallback={<LoadingSpinner />}>
+            <Solutions />
+          </Suspense>
+        } 
+      />
+      <Route 
+        path="/scan-donate" 
+        element={
+          <Suspense fallback={<LoadingSpinner />}>
+            <ScanDonatePage />
+          </Suspense>
+        } 
+      />
+      <Route path="/impact" element={<Impact />} />
 
       {/* Protected routes with role-based access */}
       
@@ -100,18 +128,6 @@ export function AppRoutes() {
           <ProtectedRoute allowedRoles={[UserRole.PARTICIPANT]}>
             <Suspense fallback={<LoadingSpinner />}>
               <ParticipantDashboard />
-            </Suspense>
-          </ProtectedRoute>
-        }
-      />
-
-      {/* Scan+Donate route - accessible to donors only */}
-      <Route
-        path="/scan-donate"
-        element={
-          <ProtectedRoute allowedRoles={[UserRole.DONOR]}>
-            <Suspense fallback={<LoadingSpinner />}>
-              <ScanDonatePage />
             </Suspense>
           </ProtectedRoute>
         }

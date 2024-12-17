@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.4.3] - 2024-12-17 03:45 EST
+### Added
+- NotFoundPage component
+- Protected route enhancements
+- Role-based route protection
+- Loading spinner implementation
+- Proper lazy loading setup
+
+### Changed
+- Reorganized project structure
+- Fixed routing configuration
+- Updated dashboard component locations
+- Enhanced navigation system
+- Improved role-based access control
+
+### Technical Debt Added
+- Core page implementations needed
+- Auth form creation required
+- Loading state management pending
+- Navigation flow enhancement needed
+
+[0.4.3]: https://github.com/username/sheltr/compare/v0.4.2...v0.4.3
+
 ## [0.4.2] - 2024-12-16 20:00 EST
 ### Added
 - Notification system database schema

@@ -117,4 +117,43 @@ export enum AuthActionType {
 export interface AuthAction {
   type: AuthActionType;
   payload?: any;
+}
+
+export interface UserMetadata {
+  last_updated: string;
+  update_count: number;
+  last_activity: string;
+  activity_score: number;
+  activity_status: string;
+  profile_created: string;
+  activity_metrics: {
+    status: string;
+    activity_history: Record<string, string>;
+    activity_threshold: number;
+    last_status_update: string;
+    days_since_last_activity: number;
+  };
+  engagement_level: string;
+  last_engagement_update: string;
+}
+
+export interface UserProfile extends User {
+  name: string;
+  verified: boolean;
+  profile_image: string | null;
+  total_donated: string;
+  total_donations: number;
+  impact_score: number;
+  contact_phone: string | null;
+  city: string | null;
+  address: string | null;
+  registration_number: string | null;
+  capacity: number | null;
+  services: string[];
+  emergency_contact: Record<string, any> | null;
+  metadata: UserMetadata;
+  settings: Record<string, any>;
+  activity_score: number;
+  last_activity_at: string;
+  engagement_score: number;
 } 

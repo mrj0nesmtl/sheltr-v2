@@ -5,12 +5,15 @@ import { ProtectedRoute } from '@/auth/components/ProtectedRoute';
 import { DashboardLayout } from '@/shared/layouts/DashboardLayout';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { Impact } from '@/pages/Impact';
+import { createBrowserRouter } from 'react-router-dom';
+import Impact from '@/pages/Impact';  // Update import path
+
 
 // Public Pages - Lazy loaded
 const HomePage = lazy(() => import('@/pages/HomePage'));
 const LoginPage = lazy(() => import('@/pages/LoginPage'));
 const SignUpPage = lazy(() => import('@/pages/SignUpPage'));
-const ImpactPage = lazy(() => import('@/pages/ImpactPage'));
 const About = lazy(() => import('@/pages/About'));
 
 // Super Admin Pages - Lazy loaded
@@ -65,6 +68,15 @@ const withSuspense = (Component: React.ComponentType) => (
   </ErrorBoundary>
 );
 
+export const router = createBrowserRouter([
+  // ... other routes
+  {
+    path: '/impact',
+    element: <ImpactPage />,
+  },
+  // ... other routes
+]);
+
 export function AppRoutes() {
   return (
     <Routes>
@@ -73,7 +85,7 @@ export function AppRoutes() {
       <Route path="/login" element={withSuspense(LoginPage)} />
       <Route path="/signup" element={withSuspense(SignUpPage)} />
       <Route path="/about" element={withSuspense(About)} />
-      <Route path="/impact" element={withSuspense(ImpactPage)} />
+      <Route path="/impact" element={<Impact />} />
 
       {/* Super Admin Routes */}
       <Route

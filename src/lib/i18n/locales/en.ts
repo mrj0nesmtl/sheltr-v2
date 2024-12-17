@@ -534,7 +534,12 @@ export const en: Translations = {
       cameraPermission: "Camera access denied. Please enable camera permissions.",
       initialization: "Failed to initialize camera. Please try again.",
       invalidCode: "Invalid QR Code",
-      invalidCodeDesc: "This QR code is not associated with a SHELTR participant."
-    }
+      invalidCodeDesc: "This QR code is not associated with a SHELTR participant.",
+      processing: "Error processing QR code. Please try again.",
+      noCamera: "No camera found on your device.",
+      notSupported: "QR scanning is not supported on this device."
+    },
+    instructionsDetail: "Position the QR code within the frame. The scanner will automatically detect and process it.",
+    startButton: "Start Scanner"
   }
 };
