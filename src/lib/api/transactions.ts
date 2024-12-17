@@ -24,3 +24,12 @@ export async function createTransaction(
   if (error) throw error;
   return data;
 }
+
+interface Database {
+  transactions: {
+    id: string;
+    amount: number;
+    // ... other transaction properties
+  }[];
+  // ... other database properties
+}

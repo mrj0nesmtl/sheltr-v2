@@ -13,6 +13,7 @@ import {
   PieChart, Pie, Cell, Legend
 } from 'recharts';
 import { ParticipantRegistrationModal } from '@/components/Admin/ParticipantRegistrationModal';
+import { UserRole } from '@/types/auth';
 
 // Enhanced color palette
 const COLORS = {
