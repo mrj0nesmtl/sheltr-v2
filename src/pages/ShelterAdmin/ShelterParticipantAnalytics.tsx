@@ -3,6 +3,7 @@ import { Card } from '@/components/ui/Card';
 import { Icon } from '@/components/ui/Icon';
 import { analyticsService } from '@/lib/services/analyticsService';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { Award } from 'lucide-react';
 
 interface ParticipantMetrics {
   totalParticipants: number;
@@ -67,7 +68,7 @@ export function ShelterParticipantAnalytics() {
         <Card>
           <Card.Content className="p-6">
             <div className="flex items-center gap-4">
-              <Icon name="award" className="w-8 h-8 text-green-500" />
+              <Icon name={Award} className="w-8 h-8 text-green-500" />
               <div>
                 <p className="text-sm text-gray-400">Successful Transitions</p>
                 <p className="text-2xl font-bold text-white">{metrics.successfulTransitions}</p>

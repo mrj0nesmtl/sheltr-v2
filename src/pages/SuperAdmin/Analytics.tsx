@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { BarChart, LineChart } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 
 export function Analytics() {
