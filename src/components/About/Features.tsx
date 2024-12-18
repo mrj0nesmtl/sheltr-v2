@@ -1,3 +1,10 @@
+import type { LucideIcon } from 'lucide-react';
+
+interface FeatureProps {
+  icon: LucideIcon;
+  // ...rest of the interface
+}
+
 export function Features() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

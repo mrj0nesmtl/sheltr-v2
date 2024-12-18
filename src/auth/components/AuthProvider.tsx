@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, type ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../stores/authStore';
-import { UserRole, type AuthState, type LoginCredentials } from '../../lib/auth/types';
+import { type AuthState, type UserRole } from '../types';
 import { supabase, auth, getUserProfile } from '../../lib/supabase';
 import type { User } from '@supabase/supabase-js';
 

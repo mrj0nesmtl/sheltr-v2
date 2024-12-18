@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Icon } from '@/components/ui/Icon';
+import { CheckCircle } from 'lucide-react';
 
 export function Checkpoint() {
   const { t } = useTranslation();
@@ -7,7 +7,7 @@ export function Checkpoint() {
   return (
     <div className="bg-gray-800/50 rounded-xl p-8">
       <div className="flex items-center mb-6">
-        <Icon name="check-circle-2" className="h-8 w-8 text-indigo-400 mr-3" />
+        <CheckCircle name="check-circle-2" className="h-8 w-8 text-indigo-400 mr-3" />
         <h2 className="text-2xl font-bold text-white">Development Checkpoint</h2>
       </div>
 

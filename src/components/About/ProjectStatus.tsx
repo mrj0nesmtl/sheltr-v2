@@ -37,7 +37,11 @@ export function ProjectStatus() {
           })
         );
 
-        setDocs(responses);
+        const docs = await Promise.all(responses.map(async doc => ({
+          ...doc,
+          content: await doc.content
+        })));
+        setDocs(docs);
       } catch (err) {
         setError('Failed to load project status');
         console.error(err);

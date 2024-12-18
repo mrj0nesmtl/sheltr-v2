@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { UserRole } from '@/auth/types/auth.types';
+import { AUTH_ROLES } from '../types';
 
 // Base schema for common fields
 const baseProfileSchema = z.object({
@@ -11,7 +11,7 @@ const baseProfileSchema = z.object({
 
 // Role-specific schemas
 export const donorSchema = baseProfileSchema.extend({
-  role: z.literal(UserRole.donor),
+  role: z.literal(AUTH_ROLES.DONOR),
   city: z.string().min(2, 'City is required'),
   profileImage: z.instanceof(File).optional(),
   totalDonated: z.number().min(0).default(0),
@@ -20,7 +20,7 @@ export const donorSchema = baseProfileSchema.extend({
 });
 
 export const shelterAdminSchema = baseProfileSchema.extend({
-  role: z.literal(UserRole.shelter_admin),
+  role: z.literal(AUTH_ROLES.SHELTER_ADMIN),
   registrationNumber: z.string().min(5, 'Valid registration number required'),
   capacity: z.number().min(1, 'Capacity must be at least 1'),
   address: z.string().min(5, 'Valid address required'),
@@ -30,7 +30,7 @@ export const shelterAdminSchema = baseProfileSchema.extend({
 });
 
 export const participantSchema = baseProfileSchema.extend({
-  role: z.literal(UserRole.participant),
+  role: z.literal(AUTH_ROLES.PARTICIPANT),
   emergencyContact: z.object({
     name: z.string().min(2, 'Contact name required'),
     phone: z.string().regex(/^\+?[1-9]\d{1,14}$/, 'Invalid phone number'),
