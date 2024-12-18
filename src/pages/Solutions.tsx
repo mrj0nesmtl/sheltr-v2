@@ -1,8 +1,6 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { 
-  Users, Shield, BarChart3, Cog, Headphones, 
-  QrCode, LineChart, Database, Network, Lock 
+  Users, Shield, BarChart3, Cog, Headphones 
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { FeatureCard } from '@/components/ui/FeatureCard';
