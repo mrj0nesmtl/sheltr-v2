@@ -1,5 +1,5 @@
 # 🔐 Role-Based Access Control & Page Structure
-*Last Updated: December 17, 2024 04:45 EST*
+*Last Updated: December 18, 2024 17:51 EST*
 
 ## Current Implementation Status
 ```typescript
@@ -11,12 +11,27 @@ interface PagesImplementationStatus {
       'Basic Routing',
       'LoginPage',
       'QRScanner',
-      'Button Components'
+      'Button Components',
+      'DonorSignUp',
+      'SignUpPage'
     ],
     pending: [
       'DashboardPage',
-      'Protected Routes',
-      'Form Components'
+      'Form Validation',
+      'Success Notifications'
+    ]
+  },
+  authSystem: {
+    implemented: [
+      'Donor signup flow',
+      'Form layout structure',
+      'Navigation flow',
+      'Component organization'
+    ],
+    pending: [
+      'Validation feedback',
+      'Success notifications',
+      'Loading states'
     ]
   },
   scannerSystem: {
@@ -87,8 +102,10 @@ interface PageStructure {
     home: '/',
     login: '/login',
     about: '/about',
-    register: '/register',
-    scanDonate: '/scan-donate'
+    register: '/signup',
+    donor: {
+      signup: '/donor/signup'
+    }
   },
   protected: {
     dashboard: '/dashboard',
@@ -158,6 +175,19 @@ interface PageStructure {
      Input: {
        // Coming soon
      };
+   }
+   ```
+
+4. **Signup Flow**
+   ```typescript
+   const SignUpPage: FC = () => {
+     const [selectedForm, setSelectedForm] = useState<'donor' | 'shelter' | null>(null);
+     
+     if (selectedForm === 'donor') {
+       return <DonorSignUpForm />;
+     }
+     
+     return <RoleSelection onSelect={setSelectedForm} />;
    }
    ```
 

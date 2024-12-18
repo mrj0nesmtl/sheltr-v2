@@ -1,5 +1,5 @@
 # 🔐 Role-Based Access Control
-*Last Updated: December 17, 2024 04:45 EST*
+*Last Updated: December 18, 2024 17:51 EST*
 
 ## Role Definitions
 ```typescript
@@ -8,6 +8,37 @@ enum UserRole {
   SHELTER_ADMIN = 'shelter_admin',
   DONOR = 'donor',
   PARTICIPANT = 'participant'
+}
+```
+
+## Authentication Flow Matrix
+| Action           | Public | Donor | Shelter Admin | Super Admin |
+|-----------------|--------|-------|---------------|-------------|
+| View Signup     | ✅    | ✅    | ✅           | ✅         |
+| Create Account  | ✅    | ✅    | ✅           | ✅         |
+| Access Form     | ❌    | ✅    | ✅           | ✅         |
+| Manage Profile  | ❌    | ✅    | ✅           | ✅         |
+| View Dashboard  | ❌    | ✅    | ✅           | ✅         |
+
+## Donor Authentication Implementation
+```typescript
+interface DonorAuthControl extends AccessControl {
+  createAccount: boolean;
+  accessDashboard: boolean;
+  manageProfile: boolean;
+}
+
+const donorPermissions: Record<UserRole, DonorAuthControl> = {
+  donor: {
+    createAccount: true,
+    accessDashboard: true,
+    manageProfile: true,
+    view: true,
+    edit: true,
+    delete: false,
+    manage: false
+  },
+  // ... other role permissions
 }
 ```
 

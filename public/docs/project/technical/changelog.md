@@ -1,5 +1,38 @@
 # Changelog
 
+## [0.4.6] - 2024-12-18 17:51 EST
+### Added
+- New DonorSignUp page component
+- Proper page layout structure
+- Enhanced form nesting
+- Improved navigation flow
+
+### Changed
+- Consolidated donor signup components
+- Improved form organization
+- Enhanced page structure
+- Updated routing configuration
+- Cleaned up component hierarchy
+
+### Removed
+- Duplicate DonorSignUpForm implementations
+- Redundant signup pages
+- Unused component files
+
+### Fixed
+- Form layout and nesting
+- Navigation between auth states
+- Component organization
+- Route configurations
+
+### Technical Debt Added
+- Form validation feedback needed
+- Loading states required
+- Success notifications pending
+- Dashboard refinements needed
+
+[0.4.6]: https://github.com/mrj0nesmtl/sheltr-v2
+
 ## [0.4.5] - 2024-12-17 05:15 EST
 ### Added
 - Enhanced TypeScript configuration
