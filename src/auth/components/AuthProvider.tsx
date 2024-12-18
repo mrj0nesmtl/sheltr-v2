@@ -1,22 +1,34 @@
-import { createContext, useContext, useEffect, type ReactNode } from 'react';
+import { createContext, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../stores/authStore';
 import { type AuthState, type UserRole } from '../types';
 import { supabase, auth, getUserProfile } from '../../lib/supabase';
 import type { User } from '@supabase/supabase-js';
 
-type AuthContextType = AuthState;
+interface AuthState {
+  user: User | null;
+  loading: boolean;
+  isAuthenticated: boolean;
+  login: (email: string, password: string) => Promise<void>;
+  logout: () => Promise<void>;
+}
 
-const AuthContext = createContext<AuthContextType | null>(null);
+export const AuthContext = createContext<AuthState | undefined>(undefined);
 
-export function AuthProvider({ children }: { children: ReactNode }) {
+export function AuthProvider({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();
-  const { user, isAuthenticated, role, login, logout, loading } = useAuthStore();
+  const [state, setState] = useState<AuthState>({
+    user: null,
+    loading: true,
+    isAuthenticated: false,
+    login: async () => {},
+    logout: async () => {}
+  });
 
   // Session recovery and validation
   useEffect(() => {
     const initializeAuth = async () => {
-      useAuthStore.setState({ loading: true });
+      setState({ loading: true });
       try {
         const { data: { session }, error } = await auth.getSession();
         
@@ -25,7 +37,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           console.log('Valid session found, fetching profile...');
           const profile = await getUserProfile(session.user.id);
           if (profile) {
-            useAuthStore.setState({
+            setState({
               user: session.user,
               role: profile.role as UserRole,
               isAuthenticated: true,
@@ -43,7 +55,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         console.error('Auth initialization error:', error);
         handleInvalidSession();
       } finally {
-        useAuthStore.setState({ loading: false });
+        setState({ loading: false });
       }
     };
 
@@ -57,11 +69,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (event === 'SIGNED_OUT') {
           handleInvalidSession();
         } else if (event === 'SIGNED_IN' && session) {
-          useAuthStore.setState({ loading: true });
+          setState({ loading: true });
           try {
             const profile = await getUserProfile(session.user.id);
             if (profile) {
-              useAuthStore.setState({
+              setState({
                 user: session.user,
                 role: profile.role as UserRole,
                 isAuthenticated: true,
@@ -83,7 +95,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const handleInvalidSession = () => {
     localStorage.removeItem('sheltr-auth-token');
-    useAuthStore.setState({ 
+    setState({ 
       user: null, 
       role: null, 
       isAuthenticated: false,
@@ -92,22 +104,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     navigate('/login');
   };
 
-  const value: AuthContextType = {
-    isAuthenticated,
-    user,
-    role,
-    login,
-    logout: async () => {
-      useAuthStore.setState({ loading: true });
+  const value: AuthState = {
+    isAuthenticated: state.isAuthenticated,
+    user: state.user,
+    role: state.role,
+    login: async (email: string, password: string) => {
+      setState({ loading: true });
       try {
-        await auth.signOut();
-        logout();
-        navigate('/login');
+        await auth.signIn({ email, password });
+        navigate('/');
       } finally {
-        useAuthStore.setState({ loading: false });
+        setState({ loading: false });
       }
     },
-    loading,
+    logout: async () => {
+      setState({ loading: true });
+      try {
+        await auth.signOut();
+        navigate('/login');
+      } finally {
+        setState({ loading: false });
+      }
+    },
+    loading: state.loading,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

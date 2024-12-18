@@ -5,6 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Link } from 'react-router-dom';
 import { IconName } from '@/components/ui/Icon';
+import { Wallet, Brain } from 'lucide-react';
 
 interface ConceptCardProps {
   icon: IconName;
@@ -179,13 +180,13 @@ export function Introduction() {
       highlight: 'Direct Donor-to-Participant Connection'
     },
     {
-      icon: 'wallet-cards',
+      icon: Wallet,
       title: 'Smart Fund Allocation',
       description: 'Automated distribution of funds through smart contracts for maximum impact.',
       highlight: '80% Direct Support | 15% Housing | 5% Operations'
     },
     {
-      icon: 'brain-circuit',
+      icon: Brain,
       title: 'AI-Powered Tools',
       description: 'Intelligent financial guidance and resource allocation for participants.',
       highlight: 'Personalized Support System'
