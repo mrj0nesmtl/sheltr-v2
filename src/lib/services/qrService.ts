@@ -1,4 +1,3 @@
-import { supabase } from '@/lib/supabase/client';
 
 interface QRData {
   type: 'SHELTR_PARTICIPANT';

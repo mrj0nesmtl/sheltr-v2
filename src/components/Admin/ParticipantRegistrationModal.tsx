@@ -1,13 +1,13 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { Dialog } from '@headlessui/react';
-import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/Button';
+import { Icon } from '@/components/ui/Icon';
 import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
 import { Textarea } from '@/components/ui/Textarea';
-import { Icon } from '@/components/ui/Icon';
 import { ParticipantRegistrationService } from '@/services/participantRegistration';
+import { Dialog } from '@headlessui/react';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 interface RegistrationModalProps {
   isOpen: boolean;

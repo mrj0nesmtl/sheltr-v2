@@ -1,18 +1,41 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Icon } from '@/components/ui/Icon';
-import { useTranslation } from 'react-i18next';
+import type { IconName } from '@/components/ui/Icon';
 import type { TranslationKey } from '@/lib/i18n';
-import { useAuthStore } from '../../stores/authStore';
-import { shelterAdminSignUpSchema, type ShelterAdminSignUpFormData } from '../../lib/validation/authValidation';
-import { cn } from '../../lib/utils';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import { cn } from '@/lib/utils';
+import { shelterAdminSignUpSchema } from '@/lib/validation/authValidation';
+import { useAuthStore } from '@/stores/authStore';
+import type { ShelterAdminSignUpFormData } from '@/types/core/auth';
+
+interface EmergencyContact {
+  name: string;
+  phone: string;
+  email: string;
+}
+
+interface FormData extends Partial<ShelterAdminSignUpFormData> {
+  email: string;
+  password: string;
+  confirmPassword: string;
+  name: string;
+  organization: string;
+  registrationNumber: string;
+  city: string;
+  address: string;
+  capacity: number;
+  services: string[];
+  contactPhone: string;
+  emergencyContact: EmergencyContact;
+}
 
 export function ShelterSignUpForm() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { signUp, error: authError, isLoading } = useAuthStore();
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
-  const [formData, setFormData] = useState<Partial<ShelterAdminSignUpFormData>>({
+  const [formData, setFormData] = useState<FormData>({
     email: '',
     password: '',
     confirmPassword: '',
@@ -79,7 +102,7 @@ export function ShelterSignUpForm() {
           {authError && (
             <div className="mb-6 p-4 bg-red-500/20 border border-red-500 rounded-md">
               <div className="flex items-center gap-2 text-red-200">
-                <Icon name="alertCircle" className="h-5 w-5" />
+                <Icon name="alert-circle" className="h-5 w-5 text-red-500" />
                 <p>{authError}</p>
               </div>
             </div>
@@ -94,7 +117,7 @@ export function ShelterSignUpForm() {
                 </label>
                 <div className="mt-1 relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
-                    <Icon name="building2" className="h-5 w-5 text-gray-400" />
+                    <Icon name="building" className="h-5 w-5 text-gray-400" />
                   </div>
                   <input
                     type="text"
@@ -205,7 +228,7 @@ export function ShelterSignUpForm() {
                 </label>
                 <div className="mt-1 relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
-                    <Icon name="mapPin" className="h-5 w-5 text-gray-400" />
+                    <Icon name="map-pin" className="h-5 w-5 text-gray-400" />
                   </div>
                   <input
                     type="text"

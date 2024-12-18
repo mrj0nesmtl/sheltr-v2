@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
 import { Card } from '@/components/ui/Card';
 import { Icon } from '@/components/ui/Icon';
 import { supabase } from '@/lib/supabase';
+import { useEffect, useState } from 'react';
 
 interface Alert {
   id: string;

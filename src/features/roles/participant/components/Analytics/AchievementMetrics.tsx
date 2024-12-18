@@ -1,5 +1,5 @@
-import React from 'react';
 import { BaseComponentProps } from '@/types/core/shared';
+import React from 'react';
 
 export interface AchievementMetricsProps extends BaseComponentProps {
   data?: any; // Replace with specific data type
@@ -7,10 +7,7 @@ export interface AchievementMetricsProps extends BaseComponentProps {
 }
 
 export const AchievementMetrics: React.FC<AchievementMetricsProps> = ({ 
-  className,
-  data,
-  onUpdate 
-}) => {
+  className}) => {
   return (
     <div className={className}>
       <h2>AchievementMetrics</h2>

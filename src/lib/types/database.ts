@@ -73,7 +73,7 @@ export type Tables<T extends keyof Database['public']['Tables']> = Database['pub
 export type Enums<T extends keyof Database['public']['Enums']> = Database['public']['Enums'][T]
 
 // Role types based on the schema
-export enum UserRole {
+export enum AUTH_ROLES {
   shelter_admin = 'shelter_admin',
   donor = 'donor',
   participant = 'participant',
@@ -85,6 +85,6 @@ export enum UserRole {
 export interface AuthUser {
   id: string
   email: string
-  role: UserRole
+  role: AUTH_ROLES
   profile: Tables<'profiles'>
 } 

@@ -1,8 +1,7 @@
 import { Card } from '@/components/ui/Card';
-import { Icon } from '@/components/ui/Icon';
-import { PieChart, Pie, LineChart, Line, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
+import { useEffect, useState } from 'react';
+import { Area, AreaChart, CartesianGrid, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 interface DonationTrend {
   month: string;

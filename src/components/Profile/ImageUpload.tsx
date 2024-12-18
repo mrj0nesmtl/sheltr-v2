@@ -1,7 +1,7 @@
-import React, { useRef, useState } from 'react';
 import { Icon } from '@/components/ui/Icon';
 import { uploadImage } from '@/lib/storage/storageService';
 import { cn } from '@/lib/utils';
+import React, { useRef, useState } from 'react';
 
 interface ImageUploadProps {
   currentImage?: string | null;

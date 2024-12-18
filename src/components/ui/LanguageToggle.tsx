@@ -1,6 +1,6 @@
-import { useTranslation } from 'react-i18next';
 import { Menu, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Icon } from './Icon';
 
 const languages = [
@@ -12,8 +12,8 @@ interface LanguageToggleProps {
   className?: string;
 }
 
-export function LanguageToggle({ className }: LanguageToggleProps) {
-  const { i18n, t } = useTranslation();
+export function LanguageToggle() {
+  const { i18n } = useTranslation();
 
   const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];
 

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Database, Code, Blocks } from 'lucide-react';
+import { Blocks, Code, Database } from 'lucide-react';
 import { TechCard } from '../components/TechCard';
 
 export function Technology() {

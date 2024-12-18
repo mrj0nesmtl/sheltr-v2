@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
 import { Icon } from '@/components/ui/Icon';
 import { useAuth } from '@/hooks/useAuth';
 import { getDashboardPath } from '@/lib/navigation/roleNavigation';
 import { cn } from '@/lib/utils';
+import { Link } from 'react-router-dom';
 
 export function LoginButton() {
   const { user, isLoading } = useAuth();

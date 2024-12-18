@@ -1,5 +1,5 @@
 // src/lib/types/auth.ts
-export enum UserRole {
+export enum AUTH_ROLES {
   SUPER_ADMIN = 'super_admin',
   SHELTER_ADMIN = 'shelter_admin',
   DONOR = 'donor',
@@ -10,7 +10,7 @@ export enum UserRole {
 export interface User {
   id: string;
   email: string;
-  role: UserRole;
+  role: AUTH_ROLES;
   created_at: string;
   updated_at: string;
 }
@@ -28,7 +28,7 @@ export interface Profile extends User {
 export interface AuthState {
   user: Profile | null;
   isAuthenticated: boolean;
-  role: UserRole | null;
+  role: AUTH_ROLES | null;
   error: string | null;
   loading: boolean;
 }

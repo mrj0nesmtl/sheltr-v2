@@ -29,7 +29,7 @@ export async function uploadImage(file: File, options: UploadOptions) {
 
     const filePath = `${options.folder}/${options.userId}/${options.fileName}`;
     
-    const { data, error } = await supabase.storage
+    const { error } = await supabase.storage
       .from(BUCKET_NAME)
       .upload(filePath, imageFile, {
         upsert: true,

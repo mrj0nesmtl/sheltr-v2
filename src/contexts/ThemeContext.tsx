@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
 import { applyTheme, getStoredTheme } from '@/lib/theme';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 type ThemeType = 'dark' | 'light' | 'christmas';
 

@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { supabase } from '@/lib/supabase/client';
 import { useAuthStore } from '@/auth/stores/authStore';
 import { toast } from "@/components/ui/Toast";
+import { supabase } from '@/lib/supabase/client';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);

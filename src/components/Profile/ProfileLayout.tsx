@@ -1,8 +1,6 @@
+import { useAuthStore } from '@/auth/stores/authStore';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAuthStore } from '@/auth/stores/authStore';
-import { Card } from '@/components/ui/Card';
-import { Icon } from '@/components/ui/Icon';
 
 export function ProfileLayout({ children }: { children: React.ReactNode }) {
   const { t } = useTranslation();

@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { marked } from 'marked';
 import { motion } from 'framer-motion';
+import { marked } from 'marked';
+import { useEffect, useState } from 'react';
 
 interface ProjectDoc {
   content: string;

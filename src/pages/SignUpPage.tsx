@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import type { DonorSignUpForm as DonorFormType, ShelterSignUpForm as ShelterFormType } from '@/auth/schemas';
 import { DonorSignUpForm } from '@/components/auth/forms/DonorSignUpForm';
 import { ShelterSignUpForm } from '@/components/auth/forms/ShelterSignUpForm';
-import { Heart, Building2 } from 'lucide-react';
-import type { DonorSignUpForm as DonorFormType, ShelterSignUpForm as ShelterFormType } from '@/auth/schemas';
+import { Building2, Heart } from 'lucide-react';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function SignUpPage() {
   const { t } = useTranslation();

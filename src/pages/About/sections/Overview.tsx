@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
-import { Shield, QrCode, Brain } from 'lucide-react';
 import { FeatureCard } from '@/components/ui/FeatureCard';
+import { motion } from 'framer-motion';
+import { Brain, QrCode, Shield } from 'lucide-react';
 
 export function Overview() {
   const features = [

@@ -1,9 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { X } from 'lucide-react';
-import { Logo } from '../ui/Logo';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { LanguageToggle } from '../ui/LanguageToggle';
+import { Logo } from '../ui/Logo';
 
 interface MobileNavProps {
   isOpen: boolean;

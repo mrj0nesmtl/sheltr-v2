@@ -1,9 +1,8 @@
-import React from 'react';
 import { Card } from '@/components/ui/Card';
 import { Icon } from '@/components/ui/Icon';
 import { analyticsService } from '@/lib/services/analyticsService';
-import { LineChart, Line, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { RefreshCw } from 'lucide-react';
+import React from 'react';
+import { Chart } from 'recharts';
 
 interface DonorMetrics {
   totalDonors: number;
@@ -119,21 +118,9 @@ export function ShelterDonorAnalytics() {
         </Card.Header>
         <Card.Content>
           <div className="h-[300px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={metrics.monthlyTrends}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-                <XAxis dataKey="month" stroke="#9CA3AF" />
-                <YAxis stroke="#9CA3AF" />
-                <Tooltip />
-                <Area
-                  type="monotone"
-                  dataKey="amount"
-                  stroke="#8B5CF6"
-                  fill="#8B5CF6"
-                  fillOpacity={0.2}
-                />
-              </AreaChart>
-            </ResponsiveContainer>
+            <Chart data={metrics.monthlyTrends}>
+              {/* Add your chart components here */}
+            </Chart>
           </div>
         </Card.Content>
       </Card>

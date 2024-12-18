@@ -1,9 +1,8 @@
-import React from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { Building2, Users, Phone } from 'lucide-react';
-import { UserBadge } from '../../UserBadge/UserBadge';
-import type { ShelterProfile } from '../../../lib/types/shelter';
 import 'leaflet/dist/leaflet.css';
+import { Building2, Phone, Users } from 'lucide-react';
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import type { ShelterProfile } from '../../../lib/types/shelter';
+import { UserBadge } from '../../UserBadge/UserBadge';
 
 interface ShelterMapProps {
   shelters: ShelterProfile[];

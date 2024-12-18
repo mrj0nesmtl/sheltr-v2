@@ -1,13 +1,13 @@
-import { useEffect } from 'react';
-import { useProfileStore } from '@/stores/profileStore';
+import { uploadProfileImage } from '@/lib/services/imageService';
 import { useAuthStore } from '@/stores/authStore';
+import { useProfileStore } from '@/stores/profileStore';
+import { useEffect } from 'react';
+import { AdminFeatures } from './AdminFeatures';
+import { DonorFeatures } from './DonorFeatures';
 import { FriendActivity } from './FriendActivity';
-import { SocialLinks } from './SocialLinks';
 import { ImageUpload } from './ImageUpload';
 import { ParticipantFeatures } from './ParticipantFeatures';
-import { DonorFeatures } from './DonorFeatures';
-import { AdminFeatures } from './AdminFeatures';
-import { uploadProfileImage } from '@/lib/services/imageService';
+import { SocialLinks } from './SocialLinks';
 
 export function UserProfile() {
   const { user } = useAuthStore();

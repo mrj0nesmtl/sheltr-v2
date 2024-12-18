@@ -13,11 +13,7 @@
  * - validateUserRole
  */
 
-export { 
-  supabase, 
-  auth, 
-  db, 
-  getUserProfile, 
-  getCurrentSession, 
-  validateUserRole 
-} from './index'; 
+export {
+    auth,
+    db, getCurrentSession, getUserProfile, supabase, validateUserRole
+} from './index';

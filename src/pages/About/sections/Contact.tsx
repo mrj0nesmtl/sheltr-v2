@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
-import { Mail, MessageCircle, Github } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
+import { motion } from 'framer-motion';
+import { Github, Mail, MessageCircle } from 'lucide-react';
 
 export function Contact() {
   const contacts = [

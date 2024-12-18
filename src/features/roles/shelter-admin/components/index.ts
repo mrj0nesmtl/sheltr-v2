@@ -6,6 +6,6 @@ export * from './profile/Profile';
 export * from './settings/Settings';
 
 // Shelter-specific analytics
-export * from './analytics/ShelterAnalytics';
-export * from './analytics/ParticipantManagement';
 export * from './analytics/DonorEngagement';
+export * from './analytics/ParticipantManagement';
+export * from './analytics/ShelterAnalytics';

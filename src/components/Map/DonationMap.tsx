@@ -1,8 +1,7 @@
-import React from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
 import { formatDistance } from 'date-fns';
+import 'leaflet/dist/leaflet.css';
 import { DollarSign, User } from 'lucide-react';
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import { cn } from '../../lib/utils';
 
 // Fix for default marker icons in React Leaflet
@@ -42,7 +41,6 @@ interface DonationMapProps {
 
 export function DonationMap({ markers = [], className }: DonationMapProps) {
   // Default center to North America if no markers
-  const defaultCenter: Location = { lat: 40.7128, lng: -74.0060 };
   
   // Calculate bounds from markers or use default
   const bounds = markers.length > 0 

@@ -1,5 +1,5 @@
 import { supabase } from '../supabase';
-import type { Organization, OrganizationStaff, ExtendedParticipant } from '../types/organization';
+import type { ExtendedParticipant, Organization, OrganizationStaff } from '../types/organization';
 
 export const organizationService = {
   // Organization Management

@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TableOfContents } from './TableOfContents';
-import { cn } from '../../lib/utils';
 
 export function WhitepaperPage() {
   const { t } = useTranslation();

@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
 import { Card } from '@/components/ui/Card';
 import { Icon } from '@/components/ui/Icon';
-import { SystemMonitor, SystemMetric } from '@/lib/services/monitoring';
+import { SystemMetric, SystemMonitor } from '@/lib/services/monitoring';
+import { useEffect, useState } from 'react';
 
 export function SystemHealthMonitor() {
   const [metrics, setMetrics] = useState<SystemMetric[]>([]);

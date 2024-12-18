@@ -1,7 +1,7 @@
-import { unified } from 'unified';
-import remarkParse from 'remark-parse';
-import remarkFrontmatter from 'remark-frontmatter';
 import { load } from 'js-yaml';
+import remarkFrontmatter from 'remark-frontmatter';
+import remarkParse from 'remark-parse';
+import { unified } from 'unified';
 
 export interface MarkdownData {
   content: string;

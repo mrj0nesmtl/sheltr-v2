@@ -1,23 +1,21 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { 
-  BarChart3, 
-  TrendingUp, 
-  Users, 
-  Home,
-  Building2,
-  ArrowUp,
-  LucideIcon
-} from 'lucide-react';
 import {
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer
+    ArrowUp,
+    Building2,
+    Home,
+    LucideIcon,
+    TrendingUp,
+    Users
+} from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import {
+    Area,
+    AreaChart,
+    CartesianGrid,
+    ResponsiveContainer,
+    Tooltip,
+    XAxis,
+    YAxis
 } from 'recharts';
 
 // Define types

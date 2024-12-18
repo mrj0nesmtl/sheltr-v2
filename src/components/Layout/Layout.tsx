@@ -1,8 +1,8 @@
-import React from 'react';
 import { useAuthStore } from '@/auth/stores/authStore';
-import { Navigation } from '@/components/Navigation/Navigation';
 import { Footer } from '@/components/Footer/Footer';
+import { Navigation } from '@/components/Navigation/Navigation';
 import { Toaster } from "@/components/ui/Toaster";
+import React from 'react';
 
 interface LayoutProps {
   children: React.ReactNode;

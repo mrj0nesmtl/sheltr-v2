@@ -1,5 +1,3 @@
-import { en as mainEn } from './locales/en';
-import { fr as mainFr } from './locales/fr';
 
 // Merge strategy for consolidating translations
 export const mergeTranslations = () => {

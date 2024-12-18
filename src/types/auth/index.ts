@@ -1,8 +1,7 @@
-import type { User } from '@supabase/supabase-js';
 import { AUTH_ROLES } from './constants';
 
 // Define the UserRole type from AUTH_ROLES
-export type UserRole = keyof typeof AUTH_ROLES;
+export type AUTH_ROLES = keyof typeof AUTH_ROLES;
 
 // Define the Transaction type
 export type Transaction = {
@@ -21,7 +20,7 @@ export type Transaction = {
 // Define the UserProfile interface
 export interface UserProfile {
   id: string;
-  role: UserRole;
+  role: AUTH_ROLES;
   email: string;
   firstName?: string;
   lastName?: string;
@@ -39,13 +38,10 @@ export interface UserProfile {
 }
 
 // Re-export auth types
-export type { 
-  AuthState,
-  LoginCredentials,
-  AuthUser,
-  AuthError,
-  AuthResponse,
-  AuthSession
+export type {
+    AuthError,
+    AuthResponse,
+    AuthSession, AuthState, AuthUser, LoginCredentials
 } from './auth.types';
 
 // Export auth roles constants

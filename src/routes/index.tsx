@@ -1,6 +1,6 @@
+import { AUTH_ROLES } from '@/types/auth';
 import { lazy } from 'react';
 import { RouteObject } from 'react-router-dom';
-import { AUTH_ROLES } from '@/types/auth';
 
 // Use lazy loading for page components
 const Impact = lazy(() => import('@/pages/Impact').then(mod => ({ 

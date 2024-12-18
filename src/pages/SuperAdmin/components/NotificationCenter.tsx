@@ -1,9 +1,8 @@
-import { Dialog } from '@headlessui/react';
 import { Button } from '@/components/ui/Button';
-import { Icon } from '@/components/ui/Icon';
 import { Input } from '@/components/ui/Input';
-import { Textarea } from '@/components/ui/Textarea';
 import { Select } from '@/components/ui/Select';
+import { Textarea } from '@/components/ui/Textarea';
+import { Dialog } from '@headlessui/react';
 
 interface NotificationCenterProps {
   isOpen: boolean;
@@ -11,7 +10,7 @@ interface NotificationCenterProps {
 }
 
 export function NotificationCenter({ isOpen, onClose }: NotificationCenterProps) {
-  const sendNotification = async (data: any) => {
+  const sendNotification = async () => {
     // Implement notification sending logic
   };
 

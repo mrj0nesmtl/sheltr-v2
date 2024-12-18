@@ -1,5 +1,5 @@
+import { Home, RefreshCw, XCircle } from 'lucide-react';
 import { Component, ErrorInfo, ReactNode } from 'react';
-import { XCircle, RefreshCw, Home } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface Props {

@@ -1,5 +1,5 @@
-import { useTranslation } from 'react-i18next';
 import { CheckCircle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export function Checkpoint() {
   const { t } = useTranslation();

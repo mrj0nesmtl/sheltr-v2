@@ -1,11 +1,11 @@
-import { Fragment } from 'react';
-import { Link } from 'react-router-dom';
-import { Menu, Transition } from '@headlessui/react';
-import { useTranslation } from 'react-i18next';
-import { User, LogOut, ChevronDown } from 'lucide-react';
 import { useAuthStore } from '@/auth/stores/authStore';
 import { useNavigation } from '@/hooks/useNavigation';
 import { cn } from '@/lib/utils';
+import { Menu, Transition } from '@headlessui/react';
+import { ChevronDown, LogOut, User } from 'lucide-react';
+import { Fragment } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 interface UserNavProps {
   user: {
@@ -18,7 +18,7 @@ interface UserNavProps {
 export function UserNav({ user }: UserNavProps) {
   const { t } = useTranslation();
   const { signOut } = useAuthStore();
-  const { roleNavItems, isActiveRoute } = useNavigation();
+  const { roleNavItems } = useNavigation();
 
   return (
     <Menu as="div" className="relative ml-3">

@@ -1,6 +1,5 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { Icon } from '@/components/ui/Icon';
+import { useTranslation } from 'react-i18next';
 
 export function CustomerSupport() {
   const { t } = useTranslation();

@@ -1,8 +1,21 @@
-import React from 'react';
-import * as Icons from 'lucide-react';
 import { cn } from '@/lib/utils';
+import * as Icons from 'lucide-react';
+import type { LucideIcon, LucideProps } from 'lucide-react';
+import React from 'react';
 
-// Define all available icons
+// Define icon type
+export type IconName = keyof typeof icons;
+export type IconComponent = LucideIcon;
+
+interface IconProps extends Omit<React.HTMLAttributes<HTMLDivElement>, keyof LucideProps> {
+  name: IconName;
+  className?: string;
+  size?: number | string;
+  color?: string;
+  strokeWidth?: number;
+}
+
+// Complete icons object with strict typing
 const icons = {
   // Navigation & Arrows
   menu: Icons.Menu,
@@ -45,99 +58,40 @@ const icons = {
   'trending-down': Icons.TrendingDown,
   activity: Icons.Activity,
   
-  // System & Monitoring
-  cpu: Icons.Cpu,
-  database: Icons.Database,
-  'hard-drive': Icons.HardDrive,
-  server: Icons.Server,
-  terminal: Icons.Terminal,
-  wifi: Icons.Wifi,
-  shield: Icons.Shield,
-  
-  // Media & Communication
-  'video-camera': Icons.Video,
-  linkedin: Icons.Linkedin,
-  youtube: Icons.Youtube,
-  video: Icons.Video,
-  headphones: Icons.Headphones,
-  mail: Icons.Mail,
-  
-  // Finance & Business
-  'dollar-sign': Icons.DollarSign,
-  'credit-card': Icons.CreditCard,
-  wallet: Icons.Wallet,
-  building: Icons.Building2,
-  briefcase: Icons.Briefcase,
-  
-  // Files & Documents
-  'file-text': Icons.FileText,
-  download: Icons.Download,
-  book: Icons.BookOpen,
-  
-  // Misc UI Elements
-  globe: Icons.Globe,
-  home: Icons.Home,
-  'log-out': Icons.LogOut,
-  'log-in': Icons.LogIn,
-  calendar: Icons.Calendar,
-  clock: Icons.Clock,
-  target: Icons.Target,
-  'qr-code': Icons.QrCode,
-  scan: Icons.Scan,
-  
-  // Shopping & Commerce
-  'shopping-bag': Icons.ShoppingBag,
-  'shopping-cart': Icons.ShoppingCart,
-  package: Icons.Package,
-  gift: Icons.Gift,
-  
-  // Blockchain & Crypto
-  coins: Icons.Coins,
-  layers: Icons.Layers,
-  
-  // Social & Sharing
-  share: Icons.Share2,
-  'message-circle': Icons.MessageCircle,
-  'message-square': Icons.MessageSquare,
-  heart: Icons.Heart,
-  
-  // Device & Hardware
-  smartphone: Icons.Smartphone,
-  tablet: Icons.Tablet,
-  laptop: Icons.Laptop,
-  
-  // Security & Access
+  // System & UI
+  search: Icons.Search,
+  filter: Icons.Filter,
+  key: Icons.Key,
   lock: Icons.Lock,
   unlock: Icons.Unlock,
-  key: Icons.Key,
+  'map-pin': Icons.MapPin,
+  phone: Icons.Phone,
+  mail: Icons.Mail,
+  'building2': Icons.Building2,
+  scan: Icons.Scan,
   
-  // Weather & Environment
-  sun: Icons.Sun,
-  moon: Icons.Moon,
-  cloud: Icons.Cloud,
-  'cloud-rain': Icons.CloudRain,
-  
-  // Misc Actions
-  plus: Icons.Plus,
-  minus: Icons.Minus,
-  'zoom-in': Icons.ZoomIn,
-  'zoom-out': Icons.ZoomOut,
-  refresh: Icons.RefreshCw,
-  filter: Icons.Filter,
-  search: Icons.Search,
-  more: Icons.MoreHorizontal,
-  power: Icons.Power,
-  zap: Icons.Zap
+  // Additional icons used in forms and UI
+  hash: Icons.Hash,
+  calendar: Icons.Calendar,
+  clock: Icons.Clock,
+  dollar: Icons.DollarSign,
+  heart: Icons.Heart,
+  star: Icons.Star,
+  shield: Icons.Shield,
+  'file-text': Icons.FileText,
+  home: Icons.Home,
+  'log-out': Icons.LogOut,
+  'phone-call': Icons.PhoneCall,
 } as const;
 
-export type IconName = keyof typeof icons;
-
-interface IconProps extends React.HTMLAttributes<HTMLDivElement> {
-  name: IconName;
-  className?: string;
-}
-
-export function Icon({ name, className, ...props }: IconProps) {
+export function Icon({ 
+  name, 
+  className, 
+  size = 24,
+  color,
+  strokeWidth = 2,
+  ...props 
+}: IconProps) {
   const IconComponent = icons[name];
 
   if (!IconComponent) {
@@ -147,7 +101,17 @@ export function Icon({ name, className, ...props }: IconProps) {
 
   return (
     <div className={cn('flex items-center justify-center', className)} {...props}>
-      <IconComponent className="w-full h-full" />
+      <IconComponent 
+        size={size} 
+        color={color} 
+        strokeWidth={strokeWidth}
+      />
     </div>
   );
 }
+
+// Export the icons object for type checking
+export { icons };
+
+// Export individual icon components for direct usage
+export const IconComponents = Icons;

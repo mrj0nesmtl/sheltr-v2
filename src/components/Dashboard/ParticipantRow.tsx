@@ -1,14 +1,12 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Icon } from '@/components/ui/Icon';
 import type { ExtendedParticipant } from '@/lib/types/organization';
+import { useNavigate } from 'react-router-dom';
 
 interface ParticipantRowProps {
   participant: ExtendedParticipant;
   onUpdate: () => void;
 }
 
-export function ParticipantRow({ participant, onUpdate }: ParticipantRowProps) {
+export function ParticipantRow({ participant }: ParticipantRowProps) {
   const navigate = useNavigate();
 
   return (

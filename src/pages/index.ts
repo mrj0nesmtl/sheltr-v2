@@ -10,4 +10,4 @@ export const Solutions = lazy(() => import('./Solutions'));
 export * from './auth';
 export * from './donor';
 export * from './participant';
-export * from './shelter'; 
+export * from './shelter';

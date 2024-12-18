@@ -1,9 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import { Icon } from '@/components/ui/Icon';
 import { blogPosts } from '@/lib/content/blog/posts';
 import { formatDate } from '@/lib/utils';
-import { Icon } from '@/components/ui/Icon';
+import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
 
 export function BlogList() {
   return (

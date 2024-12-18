@@ -1,6 +1,6 @@
-import { Icon } from '@/components/ui/Icon';
 import { Card } from '@/components/ui/Card';
 import type { IconName } from '@/components/ui/Icon';
+import { Icon } from '@/components/ui/Icon';
 
 interface QuickStatCardProps {
   icon: IconName;

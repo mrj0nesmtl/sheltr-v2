@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import path from 'path';
+import path from 'node:path';
 import { visualizer } from 'rollup-plugin-visualizer';
 
 // https://vitejs.dev/config/
@@ -17,14 +17,14 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src'),
       '@components': path.resolve(__dirname, './src/components'),
-      '@auth': path.resolve(__dirname, './src/auth'),
-      '@features': path.resolve(__dirname, './src/features'),
-      '@hooks': path.resolve(__dirname, './src/hooks'),
+      '@pages': path.resolve(__dirname, './src/pages'),
       '@lib': path.resolve(__dirname, './src/lib'),
-      '@stores': path.resolve(__dirname, './src/stores'),
-      '@styles': path.resolve(__dirname, './src/styles'),
+      '@features': path.resolve(__dirname, './src/features'),
+      '@auth': path.resolve(__dirname, './src/auth'),
+      '@utils': path.resolve(__dirname, './src/utils'),
       '@types': path.resolve(__dirname, './src/types'),
-      '@utils': path.resolve(__dirname, './src/utils')
+      '@hooks': path.resolve(__dirname, './src/hooks'),
+      '@services': path.resolve(__dirname, './src/services')
     }
   },
   server: {
@@ -47,92 +47,17 @@ export default defineConfig({
     minify: 'esbuild',
     chunkSizeWarningLimit: 300,
     rollupOptions: {
-      external: ['gray-matter'],
       output: {
-        manualChunks: (id) => {
-          // Core vendor dependencies
-          if (id.includes('node_modules')) {
-            // React Core
-            if (id.includes('react/') || id.includes('react-dom')) {
-              return 'vendor-react';
-            }
-            // Routing
-            if (id.includes('react-router')) {
-              return 'vendor-router';
-            }
-            // UI Components
-            if (id.includes('@headlessui')) {
-              return 'vendor-headless';
-            }
-            if (id.includes('lucide-react')) {
-              return 'vendor-icons';
-            }
-
-            // Charts - Split Recharts more granularly
-            if (id.includes('recharts')) {
-              if (id.includes('/lib/chart/')) {
-                const chartType = id.split('/lib/chart/')[1]?.split('.')[0];
-                return `chart-${chartType || 'base'}`;
-              }
-              if (id.includes('/lib/component/')) {
-                const component = id.split('/lib/component/')[1]?.split('.')[0];
-                return `chart-component-${component || 'base'}`;
-              }
-              if (id.includes('/lib/shape/')) {
-                return 'chart-shapes';
-              }
-              return 'chart-utils';
-            }
-
-            // D3 Libraries
-            if (id.includes('d3-scale')) return 'vendor-d3-scale';
-            if (id.includes('d3-shape')) return 'vendor-d3-shape';
-            if (id.includes('d3-array')) return 'vendor-d3-array';
-            if (id.includes('d3')) return 'vendor-d3-core';
-
-            // Forms and Validation
-            if (id.includes('react-hook-form')) return 'vendor-forms';
-            if (id.includes('zod')) return 'vendor-validation';
-            
-            // Auth and API
-            if (id.includes('@supabase')) return 'vendor-auth';
-            
-            // State Management
-            if (id.includes('zustand')) return 'vendor-state';
-            if (id.includes('@tanstack/query')) return 'vendor-query';
-
-            // Utils
-            if (id.includes('date-fns')) return 'vendor-date';
-            if (id.includes('i18next')) return 'vendor-i18n';
-            
-            // Third party utils
-            if (id.includes('lodash')) return 'vendor-lodash';
-            if (id.includes('uuid')) return 'vendor-uuid';
-            
-            return 'vendors-other';
-          }
-
-          // Application code
-          if (id.includes('/pages/')) {
-            const section = id.includes('/SuperAdmin/') ? 'admin' :
-                          id.includes('/ShelterAdmin/') ? 'shelter' :
-                          id.includes('/Participant/') ? 'participant' :
-                          id.includes('/Donor/') ? 'donor' : 'public';
-            return `page-${section}`;
-          }
-
-          if (id.includes('/features/')) {
-            const feature = id.split('/features/')[1].split('/')[0];
-            return `feature-${feature}`;
-          }
-
-          if (id.includes('/components/')) {
-            if (id.includes('/ui/')) return 'components-ui';
-            if (id.includes('/shared/')) return 'components-shared';
-            if (id.includes('/forms/')) return 'components-forms';
-            if (id.includes('/charts/')) return 'components-charts';
-            return 'components-other';
-          }
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom'],
+          'vendor-router': ['react-router-dom'],
+          'vendor-ui': ['@headlessui/react'],
+          'vendor-icons': ['lucide-react'],
+          'vendor-forms': ['react-hook-form', '@hookform/resolvers'],
+          'vendor-state': ['zustand'],
+          'vendor-query': ['@tanstack/react-query'],
+          'vendor-auth': ['@supabase/supabase-js'],
+          'vendor-utils': ['date-fns', 'i18next']
         }
       }
     }
@@ -145,16 +70,7 @@ export default defineConfig({
       '@headlessui/react',
       'lucide-react',
       'zustand',
-      '@supabase/supabase-js',
-      'gray-matter'
-    ],
-    esbuildOptions: {
-      mainFields: ['module', 'main'],
-      format: 'esm'
-    }
-  },
-  base: './',
-  commonjsOptions: {
-    transformMixedEsModules: true
+      '@supabase/supabase-js'
+    ]
   }
 });

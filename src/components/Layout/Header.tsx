@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useAuthStore } from '@/auth/stores/authStore';
-import { useTranslation } from 'react-i18next';
-import { Menu, X } from 'lucide-react';
+import { UserNav } from '@/components/Navigation/UserNav';
 import { Button } from '@/components/ui/Button';
 import { Logo } from '@/components/ui/Logo';
-import { UserNav } from '@/components/Navigation/UserNav';
 import { mainNavigation } from '@/lib/navigation/config';
+import { Menu, X } from 'lucide-react';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

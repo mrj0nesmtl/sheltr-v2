@@ -1,8 +1,7 @@
-import React from 'react';
+import { Building2, Check, MapPin, Phone, Shield, Users } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { Building2, Users, MapPin, Phone, Shield, Check, X } from 'lucide-react';
-import { useShelterStore } from '../../../stores/shelterStore';
 import { cn } from '../../../lib/utils';
+import { useShelterStore } from '../../../stores/shelterStore';
 
 interface ShelterListProps {
   className?: string;

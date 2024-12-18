@@ -1,19 +1,60 @@
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '@/auth/stores/authStore';
-import { Icon } from '@/components/ui/Icon';
-import { Button } from '@/components/ui/Button';
-import { SystemAlerts } from '@/components/Admin/SystemAlerts';
-import { ParticipantLeaderboard } from '@/components/Admin/ParticipantLeaderboard';
-import { DonorList } from '@/components/Admin/DonorList';
 import { DonationMap } from '@/components/Admin/DonationMap';
-import {
-  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-  PieChart, Pie, Cell, Legend
-} from 'recharts';
+import { DonorList } from '@/components/Admin/DonorList';
+import { ParticipantLeaderboard } from '@/components/Admin/ParticipantLeaderboard';
 import { ParticipantRegistrationModal } from '@/components/Admin/ParticipantRegistrationModal';
+import { SystemAlerts } from '@/components/Admin/SystemAlerts';
+import { Button } from '@/components/ui/Button';
+import { Icon, type IconName } from '@/components/ui/Icon';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import {
+    Area,
+    AreaChart,
+    CartesianGrid,
+    Cell, Legend,
+    Pie,
+    PieChart,
+    ResponsiveContainer,
+    Tooltip,
+    XAxis, YAxis
+} from 'recharts';
 
-// Enhanced color palette
+interface Alert {
+  id: string;
+  type: 'info' | 'warning' | 'error' | 'success';
+  message: string;
+  timestamp: Date;
+}
+
+interface DashboardStats {
+  totalDonations: number;
+  totalParticipants: number;
+  activeParticipants: number;
+  housingPlacements: number;
+  averageDonation: number;
+  monthlyGrowth: number;
+  successRate: number;
+  jobPlacements: number;
+  activeServices: number;
+}
+
+interface AllocationData {
+  name: string;
+  value: number;
+  category: keyof typeof COLORS;
+}
+
+interface DonationLocation {
+  id: string;
+  lat: number;
+  lng: number;
+  amount: number;
+  participant_name: string;
+  created_at: string;
+}
+
+// Enhanced color palette with proper typing
 const COLORS = {
   housing: {
     emergency: '#4F46E5',    // Indigo
@@ -35,24 +76,25 @@ const COLORS = {
     maintenance: '#F87171', // Light Red
     utilities: '#DC2626'    // Dark Red
   }
-};
+} as const;
 
 export function ShelterDashboard() {
   const { t } = useTranslation();
-  const { user } = useAuthStore();
+  const { user, clearAuth } = useAuthStore();
   
-  // Sample data - replace with actual data fetch
-  const [alerts] = useState([
+  const [alerts] = useState<Alert[]>([
     {
       id: '1',
-      type: 'info' as const,
+      type: 'info',
       message: 'System maintenance scheduled for tonight at 2 AM EST',
       timestamp: new Date()
     }
   ]);
 
-  // Sample stats
-  const stats = {
+  const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
+
+  // Sample stats with proper typing
+  const stats: DashboardStats = {
     totalDonations: 125000,
     totalParticipants: 48,
     activeParticipants: 42,
@@ -64,8 +106,8 @@ export function ShelterDashboard() {
     activeServices: 20
   };
 
-  // More granular allocation data
-  const allocationData = [
+  // More granular allocation data with proper typing
+  const allocationData: AllocationData[] = [
     // Housing Programs (70%)
     { name: 'Emergency Housing', value: 30, category: 'housing' },
     { name: 'Transitional Housing', value: 25, category: 'housing' },
@@ -87,7 +129,7 @@ export function ShelterDashboard() {
     { name: 'Utilities', value: 1, category: 'operations' }
   ];
 
-  // Sample monthly trends
+  // Sample monthly trends with proper typing
   const monthlyTrends = [
     { month: 'Jan', donations: 18000, participants: 35 },
     { month: 'Feb', donations: 22000, participants: 38 },
@@ -96,8 +138,8 @@ export function ShelterDashboard() {
     { month: 'May', donations: 35000, participants: 48 }
   ];
 
-  // Sample donation locations
-  const donationLocations = [
+  // Sample donation locations with proper typing
+  const donationLocations: DonationLocation[] = [
     {
       id: '1',
       lat: 40.7128,
@@ -106,10 +148,12 @@ export function ShelterDashboard() {
       participant_name: 'John Doe',
       created_at: new Date().toISOString()
     }
-    // Add more locations...
   ];
 
-  const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
+  const handleRegistrationSuccess = (data: unknown) => {
+    console.log('Registration successful:', data);
+    setIsRegistrationOpen(false);
+  };
 
   return (
     <div className="min-h-screen bg-gray-900 p-8">
@@ -118,7 +162,7 @@ export function ShelterDashboard() {
         <div>
           <h1 className="text-3xl font-bold text-white">
             {t('admin.shelter.welcome', { 
-              name: user?.displayName || user?.name?.split('+')[0] || 'Administrator'
+              name: user?.email?.split('@')[0] || 'Administrator'
             })}
           </h1>
           <p className="text-gray-400">
@@ -131,19 +175,19 @@ export function ShelterDashboard() {
             className="bg-indigo-600 hover:bg-indigo-700"
             onClick={() => setIsRegistrationOpen(true)}
           >
-            <Icon name="users" className="h-4 w-4 mr-2" />
+            <Icon name="user" className="h-4 w-4 mr-2" />
             {t('admin.shelter.participants.add')}
           </Button>
           <div className="px-4 py-2 bg-purple-500/20 rounded-lg text-purple-300">
-            <Icon name="building" className="inline-block mr-2" />
+            <Icon name="user" className="inline-block mr-2" />
             Shelter Admin
           </div>
           <Button 
             variant="outline" 
             className="text-red-400 border-red-400 hover:bg-red-500/10"
-            onClick={() => useAuthStore.getState().signOut()}
+            onClick={() => clearAuth()}
           >
-            <Icon name="log-out" className="h-4 w-4 mr-2" />
+            <Icon name="x" className="h-4 w-4 mr-2" />
             {t('common.signOut')}
           </Button>
         </div>
@@ -151,7 +195,7 @@ export function ShelterDashboard() {
 
       {/* System Alerts */}
       <div className="mb-8">
-        <SystemAlerts alerts={alerts} onDismiss={(id) => console.log('Dismiss:', id)} />
+        <SystemAlerts alerts={alerts} onDismiss={(id: string) => console.log('Dismiss:', id)} />
       </div>
 
       {/* Stats Grid */}
@@ -159,7 +203,7 @@ export function ShelterDashboard() {
         <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6">
           <div className="flex items-center gap-3">
             <div className="p-3 bg-indigo-500/20 rounded-lg">
-              <Icon name="dollar-sign" className="h-6 w-6 text-indigo-400" />
+              <Icon name="key" className="h-6 w-6 text-indigo-400" />
             </div>
             <div>
               <p className="text-sm text-gray-400">Total Donations</p>
@@ -173,7 +217,7 @@ export function ShelterDashboard() {
         <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6">
           <div className="flex items-center gap-3">
             <div className="p-3 bg-green-500/20 rounded-lg">
-              <Icon name="users" className="h-6 w-6 text-green-400" />
+              <Icon name="user" className="h-6 w-6 text-green-400" />
             </div>
             <div>
               <p className="text-sm text-gray-400">Active Participants</p>
@@ -187,7 +231,7 @@ export function ShelterDashboard() {
         <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6">
           <div className="flex items-center gap-3">
             <div className="p-3 bg-yellow-500/20 rounded-lg">
-              <Icon name="trending-up" className="h-6 w-6 text-yellow-400" />
+              <Icon name="search" className="h-6 w-6 text-yellow-400" />
             </div>
             <div>
               <p className="text-sm text-gray-400">Success Rate</p>
@@ -215,7 +259,7 @@ export function ShelterDashboard() {
         <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6">
           <div className="flex items-center gap-3">
             <div className="p-3 bg-blue-500/20 rounded-lg">
-              <Icon name="briefcase" className="h-6 w-6 text-blue-400" />
+              <Icon name="menu" className="h-6 w-6 text-blue-400" />
             </div>
             <div>
               <p className="text-sm text-gray-400">Job Placements</p>
@@ -344,18 +388,13 @@ export function ShelterDashboard() {
       {/* Participant Management */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <ParticipantLeaderboard participants={[]} />
-        <DonorList donors={[]} onViewDetails={(id) => console.log('View donor:', id)} />
+        <DonorList donors={[]} onViewDetails={(id: string) => console.log('View donor:', id)} />
       </div>
 
       <ParticipantRegistrationModal
         isOpen={isRegistrationOpen}
         onClose={() => setIsRegistrationOpen(false)}
-        onSuccess={(data) => {
-          // Handle successful registration
-          console.log('Registration successful:', data);
-          setIsRegistrationOpen(false);
-          // Refresh participant list
-        }}
+        onSuccess={handleRegistrationSuccess}
       />
     </div>
   );

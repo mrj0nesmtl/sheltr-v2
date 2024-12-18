@@ -1,5 +1,5 @@
-import { Icon } from '@/components/ui/Icon';
 import type { IconName } from '@/components/ui/Icon';
+import { Icon } from '@/components/ui/Icon';
 
 interface StatCardProps {
   title: string;

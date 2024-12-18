@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export function useMarkdownContent(path: string) {
   const [content, setContent] = useState<string>('');

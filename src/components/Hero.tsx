@@ -1,7 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Heart, Home, Wallet, QrCode, Shield, BarChart, ArrowRight } from 'lucide-react';
+import { ArrowRight, BarChart, Heart, Home, QrCode, Shield, Wallet } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 export function Hero() {
   const { t } = useTranslation();

@@ -1,5 +1,5 @@
-import { create } from 'zustand';
 import { getUserProfile, updateUserProfile } from '@/lib/services/profileService';
+import { create } from 'zustand';
 
 interface ProfileState {
   profile: any | null;

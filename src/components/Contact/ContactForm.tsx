@@ -1,5 +1,5 @@
+import { Building2, Mail, Phone, Send, Users } from 'lucide-react';
 import React, { useState } from 'react';
-import { Mail, Building2, Users, Phone, Send } from 'lucide-react';
 
 export function ContactForm() {
   const [formData, setFormData] = useState({

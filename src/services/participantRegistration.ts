@@ -1,19 +1,9 @@
+import { sendWelcomeEmail } from '@/lib/email/templates';
 import { supabase } from '@/lib/supabase';
 import { generateQRCode } from '@/lib/utils/qrCode';
 import { generateVerificationToken } from '@/lib/utils/token';
-import { sendWelcomeEmail } from '@/lib/email/templates';
 import type { NewParticipant } from '@/types/participant';
 
-interface ParticipantResponse {
-  id: string;
-  first_name: string;
-  last_name: string;
-  email: string;
-  phone: string;
-  date_of_birth: string;
-  status: 'pending' | 'active' | 'inactive';
-  created_at: string;
-}
 
 export class ParticipantRegistrationService {
   static async registerParticipant(participantData: NewParticipant, adminId: string): Promise<string> {

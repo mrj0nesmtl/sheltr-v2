@@ -1,8 +1,7 @@
-import React from 'react';
-import { Building2, MapPin, Phone, Users, CheckCircle, XCircle } from 'lucide-react';
-import { UserBadge } from '../../UserBadge/UserBadge';
-import { cn } from '../../../lib/utils';
+import { Building2, CheckCircle, MapPin, Phone, Users } from 'lucide-react';
 import type { ShelterProfile } from '../../../lib/types/shelter';
+import { cn } from '../../../lib/utils';
+import { UserBadge } from '../../UserBadge/UserBadge';
 
 interface ShelterTableProps {
   shelters: ShelterProfile[];

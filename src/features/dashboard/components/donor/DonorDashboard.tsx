@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuthStore } from '@/stores/authStore';
 import { Icon } from '@/components/ui/Icon';
-import { cn } from '@/lib/utils';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from 'recharts';
+import { useAuthStore } from '@/auth/stores/authStore';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { CartesianGrid, Cell, Line, LineChart, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 interface DonorStats {
   totalDonated: number;
@@ -45,7 +44,27 @@ export function DonorDashboard() {
       navigate('/login');
       return;
     }
-    // TODO: Fetch donor stats
+    // TODO: Fetch donor stats from API
+    // For now using mock data
+    setStats({
+      totalDonated: 5000,
+      donationCount: 12,
+      impactScore: 850,
+      recentDonations: [
+        {
+          id: '1',
+          amount: 100,
+          created_at: '2024-03-15',
+          participant: { name: 'John D.' },
+          location: { city: 'Montreal' }
+        }
+      ],
+      impactMetrics: {
+        directSupport: 2500,
+        housingFund: 1500,
+        operations: 1000
+      }
+    });
   }, [user, navigate]);
 
   // Sample data for charts
@@ -90,7 +109,7 @@ export function DonorDashboard() {
           <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6">
             <div className="flex items-center gap-4">
               <div className="p-3 bg-indigo-500/20 rounded-lg">
-                <Icon name="dollarSign" className="h-6 w-6 text-indigo-400" />
+                <Icon name="key" className="h-6 w-6 text-indigo-400" />
               </div>
               <div>
                 <p className="text-sm text-gray-400">Total Donated</p>
@@ -118,7 +137,7 @@ export function DonorDashboard() {
           <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6">
             <div className="flex items-center gap-4">
               <div className="p-3 bg-purple-500/20 rounded-lg">
-                <Icon name="barChart" className="h-6 w-6 text-purple-400" />
+                <Icon name="bar-chart" className="h-6 w-6 text-purple-400" />
               </div>
               <div>
                 <p className="text-sm text-gray-400">Total Donations</p>

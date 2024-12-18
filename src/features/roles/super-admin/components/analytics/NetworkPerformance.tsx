@@ -1,5 +1,5 @@
-import React from 'react';
 import { BaseComponentProps } from '@/types/core/shared';
+import React from 'react';
 
 export interface NetworkPerformanceProps extends BaseComponentProps {
   data?: any; // Replace with specific data type
@@ -7,10 +7,7 @@ export interface NetworkPerformanceProps extends BaseComponentProps {
 }
 
 export const NetworkPerformance: React.FC<NetworkPerformanceProps> = ({ 
-  className,
-  data,
-  onUpdate 
-}) => {
+  className}) => {
   return (
     <div className={className}>
       <h2>NetworkPerformance</h2>

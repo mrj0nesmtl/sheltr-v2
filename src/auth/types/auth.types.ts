@@ -1,4 +1,4 @@
-export enum UserRole {
+export enum AUTH_ROLES {
   SUPER_ADMIN = 'super_admin',
   SHELTER_ADMIN = 'shelter_admin',
   DONOR = 'donor',
@@ -12,26 +12,26 @@ export interface AccessControl {
   manage: boolean;
 }
 
-export const RolePermissions: Record<UserRole, AccessControl> = {
-  [UserRole.SUPER_ADMIN]: {
+export const RolePermissions: Record<AUTH_ROLES, AccessControl> = {
+  [AUTH_ROLES.SUPER_ADMIN]: {
     view: true,
     edit: true,
     delete: true,
     manage: true
   },
-  [UserRole.SHELTER_ADMIN]: {
+  [AUTH_ROLES.SHELTER_ADMIN]: {
     view: true,
     edit: true,
     delete: false,
     manage: true
   },
-  [UserRole.DONOR]: {
+  [AUTH_ROLES.DONOR]: {
     view: true,
     edit: false,
     delete: false,
     manage: false
   },
-  [UserRole.PARTICIPANT]: {
+  [AUTH_ROLES.PARTICIPANT]: {
     view: true,
     edit: false,
     delete: false,
@@ -39,15 +39,60 @@ export const RolePermissions: Record<UserRole, AccessControl> = {
   }
 };
 
-// Type guard for role validation
-export function isValidRole(role: string): role is UserRole {
-  return Object.values(UserRole).includes(role as UserRole);
+export function isValidRole(role: string): role is AUTH_ROLES {
+  return Object.values(AUTH_ROLES).includes(role as AUTH_ROLES);
+}
+
+export interface BaseProfile {
+  id: string;
+  userId: string;
+  createdAt: Date;
+  updatedAt: Date;
+  isActive: boolean;
+  metadata: UserMetadata;
+}
+
+export interface ShelterProfile extends BaseProfile {
+  name: string;
+  address: string;
+  city: string;
+  contact_phone: string;
+  registration_number: string;
+  capacity: number;
+  services: string[];
+  emergency_contact: {
+    name: string;
+    phone: string;
+    relationship: string;
+  };
+  current_occupancy: number;
+  verified: boolean;
+}
+
+export interface DonorProfile extends BaseProfile {
+  total_donated: number;
+  total_donations: number;
+  impact_score: number;
+  last_donation_at?: Date;
+  donation_frequency?: 'one-time' | 'monthly' | 'quarterly';
+  preferred_causes: string[];
+  anonymous: boolean;
+}
+
+export interface ParticipantProfile extends BaseProfile {
+  shelter_id: string;
+  program_type: string[];
+  status: 'active' | 'inactive' | 'graduated';
+  join_date: Date;
+  needs_assessment: string[];
+  goals: string[];
+  progress_metrics: Record<string, number>;
 }
 
 export interface User {
   id: string;
   email: string;
-  role: UserRole;
+  role: AUTH_ROLES;
   firstName?: string;
   lastName?: string;
   createdAt: Date;
@@ -55,68 +100,7 @@ export interface User {
   lastLogin?: Date;
   isActive: boolean;
   profileComplete: boolean;
-}
-
-export interface LoginCredentials {
-  email: string;
-  password: string;
-}
-
-export interface AuthState {
-  user: User | null;
-  role: UserRole | null;
-  isAuthenticated: boolean;
-  loading: boolean;
-  error?: string | null;
-}
-
-// Form-specific types
-export interface SignUpFormData {
-  email: string;
-  password: string;
-  confirmPassword: string;
-  role: UserRole;
-  firstName?: string;
-  lastName?: string;
-  terms: boolean;
-}
-
-// Response types
-export interface AuthResponse {
-  user: User;
-  token: string;
-  refreshToken: string;
-}
-
-// Error types
-export interface AuthError {
-  code: string;
-  message: string;
-  details?: Record<string, string[]>;
-}
-
-// Session types
-export interface Session {
-  user: User;
-  token: string;
-  expiresAt: number;
-}
-
-// Auth action types for state management
-export enum AuthActionType {
-  LOGIN_START = 'LOGIN_START',
-  LOGIN_SUCCESS = 'LOGIN_SUCCESS',
-  LOGIN_FAILURE = 'LOGIN_FAILURE',
-  LOGOUT = 'LOGOUT',
-  REFRESH_TOKEN = 'REFRESH_TOKEN',
-  UPDATE_USER = 'UPDATE_USER',
-  SET_ERROR = 'SET_ERROR',
-  CLEAR_ERROR = 'CLEAR_ERROR'
-}
-
-export interface AuthAction {
-  type: AuthActionType;
-  payload?: any;
+  profile?: ShelterProfile | DonorProfile | ParticipantProfile;
 }
 
 export interface UserMetadata {
@@ -156,4 +140,62 @@ export interface UserProfile extends User {
   activity_score: number;
   last_activity_at: string;
   engagement_score: number;
+}
+
+// Auth related interfaces
+export interface LoginCredentials {
+  email: string;
+  password: string;
+}
+
+export interface AuthState {
+  user: User | null;
+  role: AUTH_ROLES | null;
+  isAuthenticated: boolean;
+  loading: boolean;
+  error?: string | null;
+}
+
+export interface SignUpFormData {
+  email: string;
+  password: string;
+  confirmPassword: string;
+  role: AUTH_ROLES;
+  firstName?: string;
+  lastName?: string;
+  terms: boolean;
+}
+
+export interface AuthResponse {
+  user: User;
+  token: string;
+  refreshToken: string;
+}
+
+export interface AuthError {
+  code: string;
+  message: string;
+  details?: Record<string, string[]>;
+}
+
+export interface Session {
+  user: User;
+  token: string;
+  expiresAt: number;
+}
+
+export enum AuthActionType {
+  LOGIN_START = 'LOGIN_START',
+  LOGIN_SUCCESS = 'LOGIN_SUCCESS',
+  LOGIN_FAILURE = 'LOGIN_FAILURE',
+  LOGOUT = 'LOGOUT',
+  REFRESH_TOKEN = 'REFRESH_TOKEN',
+  UPDATE_USER = 'UPDATE_USER',
+  SET_ERROR = 'SET_ERROR',
+  CLEAR_ERROR = 'CLEAR_ERROR'
+}
+
+export interface AuthAction {
+  type: AuthActionType;
+  payload: unknown;
 } 

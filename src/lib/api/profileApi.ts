@@ -1,5 +1,5 @@
+import { deleteProfileImage, uploadProfileImage } from '../services/imageService';
 import { supabase } from '../supabase';
-import { uploadProfileImage, deleteProfileImage } from '../services/imageService';
 
 export async function updateProfile(userId: string, updates: {
   name?: string;

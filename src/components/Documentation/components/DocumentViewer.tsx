@@ -1,17 +1,16 @@
-import React from 'react';
-import { useParams, Link } from 'react-router-dom';
 import { Icon } from '@/components/ui/Icon';
 import ReactMarkdown from 'react-markdown';
+import { Link, useParams } from 'react-router-dom';
 import remarkGfm from 'remark-gfm';
 
 // Import markdown files
+import roadmap from '@/docs/roadmap.md';
+import shelter_intro_fr from '@/docs/shelter_inro_fr.md';
+import sheltr_intro_eng from '@/docs/sheltr_intro_eng.md';
+import status_report from '@/docs/status_report.md';
+import tech_stack from '@/docs/tech_stack.md';
 import whitepaper_eng from '@/docs/whitepaper_eng.md';
 import whitepaper_fr from '@/docs/whitepaper_fr.md';
-import tech_stack from '@/docs/tech_stack.md';
-import sheltr_intro_eng from '@/docs/sheltr_intro_eng.md';
-import shelter_intro_fr from '@/docs/shelter_inro_fr.md';
-import status_report from '@/docs/status_report.md';
-import roadmap from '@/docs/roadmap.md';
 
 const documents = {
   'whitepaper': {

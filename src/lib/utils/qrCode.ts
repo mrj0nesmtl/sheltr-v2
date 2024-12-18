@@ -1,5 +1,5 @@
-import QRCode from 'qrcode';
 import { nanoid } from 'nanoid';
+import QRCode from 'qrcode';
 
 export async function generateQRCode(participantId: string): Promise<string> {
   const uniqueId = nanoid(10);

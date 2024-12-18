@@ -1,5 +1,4 @@
-import React from 'react';
-import { DollarSign, TrendingUp, Calendar, Heart } from 'lucide-react';
+import { Calendar, DollarSign, Heart, TrendingUp } from 'lucide-react';
 import { cn } from '../../../lib/utils';
 
 interface DonorStats {

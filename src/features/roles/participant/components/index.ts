@@ -5,6 +5,6 @@ export * from './profile/ParticipantProfile';
 export * from './settings/Settings';
 
 // Analytics visible to participant
-export * from './analytics/PersonalProgress';
-export * from './analytics/DonorSupport';
 export * from './analytics/AchievementMetrics';
+export * from './analytics/DonorSupport';
+export * from './analytics/PersonalProgress';

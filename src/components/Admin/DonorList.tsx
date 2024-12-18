@@ -1,7 +1,6 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { Icon } from '@/components/ui/Icon';
 import { Button } from '@/components/ui/Button';
+import { Icon } from '@/components/ui/Icon';
+import { useTranslation } from 'react-i18next';
 
 interface Donor {
   id: string;

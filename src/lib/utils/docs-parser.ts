@@ -1,6 +1,6 @@
 // src/lib/utils/docs-parser.ts
-import matter from 'gray-matter';
 import fs from 'fs/promises';
+import matter from 'gray-matter';
 import path from 'path';
 
 export async function fetchMarkdownFile(filePath: string) {

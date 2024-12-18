@@ -1,5 +1,5 @@
-import React from 'react';
 import { BaseComponentProps } from '@/types/core/shared';
+import React from 'react';
 
 export interface ParticipantManagementProps extends BaseComponentProps {
   data?: any; // Replace with specific data type
@@ -7,10 +7,7 @@ export interface ParticipantManagementProps extends BaseComponentProps {
 }
 
 export const ParticipantManagement: React.FC<ParticipantManagementProps> = ({ 
-  className,
-  data,
-  onUpdate 
-}) => {
+  className}) => {
   return (
     <div className={className}>
       <h2>ParticipantManagement</h2>

@@ -1,6 +1,5 @@
 export const getDonationReceiptHTML = ({
   donorName,
-  donorEmail,
   amount,
   participantName,
   date,

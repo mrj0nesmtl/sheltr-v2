@@ -1,10 +1,9 @@
-import React from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
 import { Icon } from '@/components/ui/Icon';
 import { blogPosts } from '@/lib/content/blog/posts';
 import { formatDate } from '@/lib/utils';
+import { Helmet } from 'react-helmet-async';
 import ReactMarkdown from 'react-markdown';
+import { Link, useParams } from 'react-router-dom';
 import remarkGfm from 'remark-gfm';
 
 export function BlogPost() {

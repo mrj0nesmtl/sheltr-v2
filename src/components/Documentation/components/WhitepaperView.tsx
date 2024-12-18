@@ -1,15 +1,15 @@
+import { Button } from '@/components/ui/Button';
+import { useWhitepaper } from '@/hooks/useWhitepaper';
+import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
-import { useWhitepaper } from '@/hooks/useWhitepaper';
-import { Button } from '@/components/ui/Button';
-import { cn } from '@/lib/utils';
 
 interface WhitepaperViewProps {
   variant?: 'full' | 'accordion';
 }
 
 export function WhitepaperView({ variant = 'full' }: WhitepaperViewProps) {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const { content, isLoading } = useWhitepaper(i18n.language);
 
   const toggleLanguage = () => {

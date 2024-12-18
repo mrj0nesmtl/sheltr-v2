@@ -1,8 +1,7 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { Icon } from '@/components/ui/Icon';
 import { Button } from '@/components/ui/Button';
+import { Icon } from '@/components/ui/Icon';
 import { QRCode } from '@/components/ui/QRCode';
+import { useTranslation } from 'react-i18next';
 
 interface Participant {
   id: string;

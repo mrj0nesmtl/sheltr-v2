@@ -1,7 +1,7 @@
 import { createClient, type User as SupabaseUser } from '@supabase/supabase-js';
+import type { AUTH_ROLES } from '../auth/types';
 import { Database } from '../types/database';
 import { securityConfig } from './security';
-import type { UserRole } from '../auth/types';
 
 // Debug environment variables (only in development)
 if (import.meta.env.DEV) {
@@ -101,11 +101,11 @@ export async function getCurrentSession() {
 }
 
 // Role validation
-export async function validateUserRole(userId: string, expectedRole: UserRole): Promise<boolean> {
+export async function validateUserRole(userId: string, expectedRole: AUTH_ROLES): Promise<boolean> {
   const profile = await getUserProfile(userId);
   return profile?.role === expectedRole;
 }
 
 // Re-export types
 export type { Database } from '../types/database';
-export type { SupabaseUser as User, UserRole }; 
+export type { SupabaseUser as User, AUTH_ROLES };

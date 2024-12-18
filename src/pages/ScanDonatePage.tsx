@@ -1,8 +1,8 @@
-import { Suspense } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { QRScanner } from '@/components/QRScanner/QRScanner';
 import { QRScannerLoading } from '@/components/QRScanner/QRScannerLoading';
-import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { Suspense } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function ScanDonatePage() {
   const navigate = useNavigate();

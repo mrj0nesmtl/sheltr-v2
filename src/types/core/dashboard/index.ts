@@ -1,10 +1,10 @@
-import { UserRole } from '../auth';
+import { AUTH_ROLES } from '../auth';
 
 export interface DashboardLayoutProps {
   children: React.ReactNode;
   title?: string;
   subtitle?: string;
-  userRole?: UserRole;
+  userRole?: AUTH_ROLES;
 }
 
 export interface SidebarItemProps {
@@ -13,7 +13,7 @@ export interface SidebarItemProps {
   label: string;
   path: string;
   key?: string;
-  roles?: UserRole[];
+  roles?: AUTH_ROLES[];
 }
 
 export interface DashboardMetrics {

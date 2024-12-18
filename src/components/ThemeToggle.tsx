@@ -1,6 +1,5 @@
-import React from 'react';
-import { useTheme } from '@/contexts/ThemeContext';
 import { Icon } from '@/components/ui/Icon';
+import { useTheme } from '@/contexts/ThemeContext';
 
 export function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();

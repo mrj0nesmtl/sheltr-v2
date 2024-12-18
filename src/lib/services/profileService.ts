@@ -1,5 +1,4 @@
 import { supabase } from '@/lib/supabase/client';
-import type { User, UserRole } from '@/auth/types/auth.types';
 
 export async function getUserProfile(userId: string): Promise<Profile | null> {
   const { data, error } = await supabase

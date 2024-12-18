@@ -1,9 +1,9 @@
+import { Card } from '@/components/ui/Card';
+import { Icon } from '@/components/ui/Icon';
+import { useAuthStore } from '@/stores/authStore';
+import { useProfileStore } from '@/stores/profileStore';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card } from '@/components/ui/Card';
-import { useProfileStore } from '@/stores/profileStore';
-import { useAuthStore } from '@/stores/authStore';
-import { Icon } from '@/components/ui/Icon';
 
 export function BaseProfile({ 
   role,

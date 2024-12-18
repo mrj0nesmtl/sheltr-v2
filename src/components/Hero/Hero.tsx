@@ -1,9 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { Icon, IconName } from '@/components/ui/Icon';
-import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/Button';
+import { Icon, IconName } from '@/components/ui/Icon';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 interface Feature {
   title: string;
@@ -15,44 +13,6 @@ interface Feature {
 export function Hero() {
   const { t } = useTranslation();
 
-  const features: Feature[] = [
-    {
-      title: 'QR Technology',
-      description: t('hero.qrTechnology'),
-      icon: 'qrCode' as const,
-      color: 'bg-purple-500'
-    },
-    {
-      title: 'Direct Impact',
-      description: t('hero.directImpact'),
-      icon: 'heart' as const,
-      color: 'bg-rose-500'
-    },
-    {
-      title: 'Smart Allocation',
-      description: t('hero.smartAllocation'),
-      icon: 'wallet' as const,
-      color: 'bg-emerald-500'
-    },
-    {
-      title: 'Housing Focus',
-      description: t('hero.housingFocus'),
-      icon: 'home' as const,
-      color: 'bg-blue-500'
-    },
-    {
-      title: 'Blockchain Security',
-      description: t('hero.blockchainSecurity'),
-      icon: 'shield' as const,
-      color: 'bg-indigo-500'
-    },
-    {
-      title: 'Impact Tracking',
-      description: t('hero.impactTracking'),
-      icon: 'lineChart' as const,
-      color: 'bg-cyan-500'
-    },
-  ];
 
   return (
     <div className="bg-primary text-primary">

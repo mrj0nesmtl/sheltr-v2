@@ -68,7 +68,7 @@ export interface WithTranslation {
   };
 }
 
-export type UserRole = 
+export type AUTH_ROLES = 
   | 'super_admin'
   | 'admin'
   | 'shelter_admin'

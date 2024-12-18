@@ -1,19 +1,18 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
-import { Html5Qrcode } from 'html5-qrcode';
-import { useNavigate } from 'react-router-dom';
-import { Camera, AlertCircle, RefreshCw } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
-import { validateQRCode } from '@/lib/services/qrService';
-import { toast } from '@/components/ui/Toast';
 import { Button } from '@/components/ui/Button';
+import { validateQRCode } from '@/lib/services/qrService';
 import { cn } from '@/lib/utils';
+import { Html5Qrcode } from 'html5-qrcode';
+import { AlertCircle, Camera, RefreshCw } from 'lucide-react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 interface QRScannerProps {
   onSuccessfulDonation: () => void;
   className?: string;
 }
 
-export function QRScanner({ onSuccessfulDonation, className }: QRScannerProps) {
+export function QRScanner({ className }: QRScannerProps) {
   const { t } = useTranslation();
   const [error, setError] = useState<string | null>(null);
   const [isScanning, setIsScanning] = useState(false);
@@ -150,7 +149,7 @@ export function QRScanner({ onSuccessfulDonation, className }: QRScannerProps) {
           </p>
           <Button
             onClick={handleRetry}
-            variant="secondary"
+            variant="outline"
             className="flex items-center space-x-2 hover:bg-gray-700/50"
           >
             <RefreshCw className="w-4 h-4" />

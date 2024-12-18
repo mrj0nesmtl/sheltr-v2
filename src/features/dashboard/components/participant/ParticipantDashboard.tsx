@@ -1,6 +1,6 @@
-import { useTranslation } from 'react-i18next';
-import { useAuthStore } from '@/stores/authStore';
 import { DashboardHeader } from '@/components/Layout/DashboardLayout/DashboardHeader';
+import { useAuthStore } from '@/stores/authStore';
+import { useTranslation } from 'react-i18next';
 
 export function ParticipantDashboard() {
   const { t } = useTranslation();

@@ -1,6 +1,6 @@
-import React from 'react';
-import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import { cn } from '@/lib/utils';
+import * as AccordionPrimitive from '@radix-ui/react-accordion';
+import React from 'react';
 
 // Create a compound component
 const AccordionRoot = AccordionPrimitive.Root;
@@ -60,4 +60,4 @@ const Accordion = Object.assign(AccordionRoot, {
   Content: AccordionContent,
 });
 
-export { Accordion }; 
+export { Accordion };

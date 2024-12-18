@@ -1,7 +1,7 @@
 import { Card } from '@/components/ui/Card';
 import { Icon } from '@/components/ui/Icon';
-import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
+import { useEffect, useState } from 'react';
 
 interface SystemMetric {
   id: string;

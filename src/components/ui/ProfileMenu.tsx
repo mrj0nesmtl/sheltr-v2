@@ -1,8 +1,7 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Menu } from '@headlessui/react';
-import { Icon } from './Icon';
 import { useAuthStore } from '@/stores/authStore';
+import { Menu } from '@headlessui/react';
+import { useNavigate } from 'react-router-dom';
+import { Icon } from './Icon';
 
 export function ProfileMenu() {
   const navigate = useNavigate();

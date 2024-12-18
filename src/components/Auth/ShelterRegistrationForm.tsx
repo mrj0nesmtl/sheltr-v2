@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Icon } from '@/components/ui/Icon';
 import { supabase } from '@/lib/supabase/client';
 import { organizationService } from '@/services/organizationService';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export function ShelterRegistrationForm() {
   const { t } = useTranslation();
@@ -15,9 +15,9 @@ export function ShelterRegistrationForm() {
     setLogoFile(file);
   };
 
-  const handleSubmit = async (data: FormData) => {
+  const handleSubmit = async () => {
     if (logoFile) {
-      const { data: uploadData, error: uploadError } = await supabase.storage
+      const { error: uploadError } = await supabase.storage
         .from('shelter-logos')
         .upload(`${organizationId}/logo`, logoFile);
 

@@ -1,9 +1,11 @@
-import { useTranslation } from 'react-i18next';
-import { 
-  Users, Shield, BarChart3, Cog, Headphones 
-} from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { FeatureCard } from '@/components/ui/FeatureCard';
+import {
+    BarChart3, Cog, Headphones,
+    Shield,
+    Users
+} from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export default function Solutions() {
   const { t } = useTranslation();

@@ -1,10 +1,8 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { Dialog } from '@headlessui/react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Textarea } from '@/components/ui/Textarea';
-import { Icon } from '@/components/ui/Icon';
+import { Dialog } from '@headlessui/react';
+import { useForm } from 'react-hook-form';
 
 interface EditProfileModalProps {
   isOpen: boolean;

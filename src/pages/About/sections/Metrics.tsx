@@ -1,5 +1,5 @@
+import { AreaChart, BarChart, LineChart } from '@/components/ui/Charts';
 import { motion } from 'framer-motion';
-import { LineChart, BarChart, AreaChart } from '@/components/ui/Charts';
 import { MetricCard } from '../components/MetricCard';
 
 const sampleData = {

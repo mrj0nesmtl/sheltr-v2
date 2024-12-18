@@ -1,23 +1,22 @@
-import { 
-  Info,
-  HelpCircle,
-  BarChart3,
-  Building2,
-  Shield,
-  Home,
-  User,
-  Heart,
-  QrCode,
-  Trophy
+import type { AUTH_ROLES } from '@/types/auth';
+import {
+    BarChart3,
+    Building2,
+    Heart,
+    HelpCircle,
+    Info,
+    QrCode,
+    Shield,
+    Trophy,
+    User
 } from 'lucide-react';
-import type { UserRole } from '@/types/auth';
 
 export interface NavigationItem {
   path: string;
   label: string;
   icon?: any;
   requiresAuth?: boolean;
-  roles?: UserRole[];
+  roles?: AUTH_ROLES[];
   children?: NavigationItem[];
 }
 

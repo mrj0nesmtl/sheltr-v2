@@ -1,8 +1,7 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { Card } from '@/components/ui/Card';
 import { BaseProfile } from '@/components/Profile/BaseProfile';
+import { Card } from '@/components/ui/Card';
 import { useProfileStore } from '@/stores/profileStore';
+import { useTranslation } from 'react-i18next';
 
 export function DonorProfile() {
   const { t } = useTranslation();

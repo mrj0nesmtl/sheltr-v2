@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { UserRole } from '../types/auth.types';
+import { AUTH_ROLES } from '../types/auth.types';
 
 // Donor Sign Up Schema
 export const donorSignUpSchema = z.object({
@@ -8,7 +8,7 @@ export const donorSignUpSchema = z.object({
   confirmPassword: z.string(),
   firstName: z.string().min(2, 'First name is required'),
   lastName: z.string().min(2, 'Last name is required'),
-  role: z.literal(UserRole.DONOR),
+  role: z.literal(AUTH_ROLES.DONOR),
   terms: z.boolean().refine((val) => val === true, 'Terms must be accepted')
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
@@ -22,7 +22,7 @@ export const shelterSignUpSchema = z.object({
   confirmPassword: z.string(),
   firstName: z.string().min(2, 'First name is required'),
   lastName: z.string().min(2, 'Last name is required'),
-  role: z.literal(UserRole.SHELTER_ADMIN),
+  role: z.literal(AUTH_ROLES.SHELTER_ADMIN),
   terms: z.boolean().refine((val) => val === true, 'Terms must be accepted')
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",

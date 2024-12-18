@@ -1,6 +1,5 @@
-import React from 'react';
+import { Home, TrendingUp, Trophy } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { Trophy, TrendingUp, Home } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
 interface Participant {

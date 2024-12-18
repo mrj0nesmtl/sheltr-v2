@@ -1,6 +1,5 @@
-import React from 'react';
 import { formatDistance } from 'date-fns';
-import { QrCode, DollarSign, UserCog, LogIn } from 'lucide-react';
+import { DollarSign, LogIn, QrCode, UserCog } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
 interface Activity {

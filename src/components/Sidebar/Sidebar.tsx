@@ -1,4 +1,3 @@
-import React from 'react';
 import { useAuth } from '@/auth/components/AuthProvider';
 
 export function Sidebar() {

@@ -1,6 +1,5 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { Icon } from '@/components/ui/Icon';
+import { useTranslation } from 'react-i18next';
 
 interface Transaction {
   id: string;
@@ -16,7 +15,7 @@ interface TransactionListProps {
   limit?: number;
 }
 
-export function TransactionList({ userId, limit = 5 }: TransactionListProps) {
+export function TransactionList({ limit = 5 }: TransactionListProps) {
   const { t } = useTranslation();
 
   // Mock data - replace with real data fetching

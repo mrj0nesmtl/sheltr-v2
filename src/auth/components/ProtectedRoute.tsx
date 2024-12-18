@@ -1,9 +1,9 @@
-import { Navigate, useLocation } from 'react-router-dom';
 import { useAuthStore } from '@/auth/stores/authStore';
-import { UserRole } from '@/types/auth.types';
+import { AUTH_ROLES } from '@/types/auth.types';
+import { Navigate, useLocation } from 'react-router-dom';
 
 interface ProtectedRouteProps {
-  allowedRoles?: UserRole[];
+  allowedRoles?: AUTH_ROLES[];
   children: React.ReactNode;
 }
 
@@ -22,7 +22,7 @@ export function ProtectedRoute({ allowedRoles = [], children }: ProtectedRoutePr
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  if (allowedRoles.length > 0 && !allowedRoles.includes(role as UserRole)) {
+  if (allowedRoles.length > 0 && !allowedRoles.includes(role as AUTH_ROLES)) {
     return <Navigate to="/" replace />;
   }
 

@@ -1,5 +1,5 @@
-import { Link, useLocation } from 'react-router-dom';
 import { Icon, type IconName } from '@/components/ui/Icon';
+import { Link, useLocation } from 'react-router-dom';
 
 interface SidebarItemProps {
   icon: IconName;

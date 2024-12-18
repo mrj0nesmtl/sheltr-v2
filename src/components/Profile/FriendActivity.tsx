@@ -1,6 +1,5 @@
-import { useTranslation } from 'react-i18next';
-import { Icon } from '@/components/ui/Icon';
 import { Avatar } from '@/components/ui/Avatar';
+import { useTranslation } from 'react-i18next';
 
 interface Activity {
   id: string;

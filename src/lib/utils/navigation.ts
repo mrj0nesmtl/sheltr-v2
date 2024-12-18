@@ -1,15 +1,15 @@
-import { UserRole } from '@/lib/types/auth';
+import { AUTH_ROLES } from '@/lib/types/auth';
 
 export interface NavigationItem {
   label: string;
   href: string;
   icon?: string;
-  roles?: UserRole[];
+  roles?: AUTH_ROLES[];
 }
 
 export interface NavigationSection {
   items: NavigationItem[];
-  roles?: UserRole[];
+  roles?: AUTH_ROLES[];
 }
 
 export const getNavigationConfig = (t: (key: string) => string) => ({

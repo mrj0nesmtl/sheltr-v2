@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
+import { motion } from 'framer-motion';
 
 export function Hero() {
   return (

@@ -1,8 +1,8 @@
-import { UserRole, isValidRole } from '@/auth/types/auth.types';
+import { AUTH_ROLES, isValidRole } from '@/auth/types/auth.types';
 import { useAuthStore } from '@/stores/authStore';
-import { ShelterAdminSidebar } from './ShelterAdminSidebar';
 import { DonorSidebar } from './DonorSidebar';
 import { ParticipantSidebar } from './ParticipantSidebar';
+import { ShelterAdminSidebar } from './ShelterAdminSidebar';
 import { SuperAdminSidebar } from './SuperAdminSidebar';
 
 export function DashboardSidebar() {
@@ -13,10 +13,10 @@ export function DashboardSidebar() {
   }
 
   const sidebarMap = {
-    [UserRole.SUPER_ADMIN]: SuperAdminSidebar,
-    [UserRole.SHELTER_ADMIN]: ShelterAdminSidebar,
-    [UserRole.DONOR]: DonorSidebar,
-    [UserRole.PARTICIPANT]: ParticipantSidebar
+    [AUTH_ROLES.SUPER_ADMIN]: SuperAdminSidebar,
+    [AUTH_ROLES.SHELTER_ADMIN]: ShelterAdminSidebar,
+    [AUTH_ROLES.DONOR]: DonorSidebar,
+    [AUTH_ROLES.PARTICIPANT]: ParticipantSidebar
   };
 
   const SidebarComponent = sidebarMap[user.role];

@@ -1,9 +1,9 @@
-import { UserRole } from "../auth";
+import { AUTH_ROLES } from "../auth";
 
 export interface ProfileData {
   id: string;
   userId: string;
-  role: UserRole;
+  role: AUTH_ROLES;
   displayName: string;
   avatarUrl?: string;
   bio?: string;

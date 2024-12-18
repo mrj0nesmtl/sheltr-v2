@@ -1,8 +1,7 @@
-import React from 'react';
-import { Building2, Users, MapPin, Phone, DollarSign, TrendingUp } from 'lucide-react';
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
-import { cn } from '../../../lib/utils';
+import { Building2, MapPin, TrendingUp, Users } from 'lucide-react';
+import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
 import type { ShelterProfile } from '../../../lib/types/shelter';
+import { cn } from '../../../lib/utils';
 
 interface ShelterOverviewProps {
   shelters: ShelterProfile[];

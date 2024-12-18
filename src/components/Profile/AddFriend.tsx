@@ -1,6 +1,6 @@
+import { Icon } from '@/components/ui/Icon';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Icon } from '@/components/ui/Icon';
 
 export function AddFriend() {
   const { t } = useTranslation();

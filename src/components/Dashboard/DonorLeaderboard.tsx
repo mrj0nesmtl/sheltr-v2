@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Trophy, Heart, Calendar, TrendingUp } from 'lucide-react';
+import { Calendar, Heart, TrendingUp, Trophy } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { getDonorRankings } from '../../lib/api/donorRankingsApi';
 import { cn } from '../../lib/utils';
 

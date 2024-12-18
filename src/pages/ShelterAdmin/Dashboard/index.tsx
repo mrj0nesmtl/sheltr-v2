@@ -1,43 +1,20 @@
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useAuthStore } from '@/stores/authStore';
-import { Icon } from '@/components/ui/Icon';
-import { Button } from '@/components/ui/Button';
-import { SystemAlerts } from '@/components/Admin/SystemAlerts';
-import { ParticipantManagementTable } from '@/components/Admin/ParticipantManagementTable';
-import { ParticipantLeaderboard } from '@/components/Admin/ParticipantLeaderboard';
-import { DonorList } from '@/components/Admin/DonorList';
 import { DonationMap } from '@/components/Admin/DonationMap';
-import {
-  AreaChart, Area, XAxis, YAxis, ResponsiveContainer,
-  PieChart, Pie, Cell, Legend
-} from 'recharts';
+import { DonorList } from '@/components/Admin/DonorList';
+import { ParticipantLeaderboard } from '@/components/Admin/ParticipantLeaderboard';
 import { ParticipantRegistrationModal } from '@/components/Admin/ParticipantRegistrationModal';
-import { UserRole } from '@/types/auth';
+import { SystemAlerts } from '@/components/Admin/SystemAlerts';
+import { Button } from '@/components/ui/Button';
+import { Icon } from '@/components/ui/Icon';
+import { useAuthStore } from '@/stores/authStore';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import {
+    AreaChart,
+    PieChart,
+    ResponsiveContainer
+} from 'recharts';
 
 // Enhanced color palette
-const COLORS = {
-  housing: {
-    emergency: '#4F46E5',    // Indigo
-    transitional: '#818CF8', // Light Indigo
-    permanent: '#6366F1'     // Mid Indigo
-  },
-  support: {
-    medical: '#10B981',      // Emerald
-    mental: '#34D399',       // Light Emerald
-    addiction: '#059669'     // Dark Emerald
-  },
-  services: {
-    food: '#F59E0B',        // Amber
-    training: '#FBBF24',    // Light Amber
-    education: '#F97316'    // Orange
-  },
-  operations: {
-    admin: '#EF4444',       // Red
-    maintenance: '#F87171', // Light Red
-    utilities: '#DC2626'    // Dark Red
-  }
-};
 
 export function ShelterDashboard() {
   const { t } = useTranslation();
@@ -54,40 +31,8 @@ export function ShelterDashboard() {
   ]);
 
   // Sample stats
-  const stats = {
-    totalDonations: 125000,
-    totalParticipants: 48,
-    activeParticipants: 42,
-    housingPlacements: 15,
-    averageDonation: 250,
-    monthlyGrowth: 12.5,
-    successRate: 85,
-    jobPlacements: 30,
-    activeServices: 20
-  };
 
   // More granular allocation data
-  const allocationData = [
-    // Housing Programs (70%)
-    { name: 'Emergency Housing', value: 30, category: 'housing' },
-    { name: 'Transitional Housing', value: 25, category: 'housing' },
-    { name: 'Permanent Solutions', value: 15, category: 'housing' },
-    
-    // Support Services (15%)
-    { name: 'Medical Care', value: 6, category: 'support' },
-    { name: 'Mental Health', value: 5, category: 'support' },
-    { name: 'Addiction Recovery', value: 4, category: 'support' },
-    
-    // Essential Services (10%)
-    { name: 'Food Programs', value: 4, category: 'services' },
-    { name: 'Job Training', value: 3, category: 'services' },
-    { name: 'Education', value: 3, category: 'services' },
-    
-    // Operations (5%)
-    { name: 'Administration', value: 2, category: 'operations' },
-    { name: 'Maintenance', value: 2, category: 'operations' },
-    { name: 'Utilities', value: 1, category: 'operations' }
-  ];
 
   // Sample monthly trends
   const monthlyTrends = [

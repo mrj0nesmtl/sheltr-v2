@@ -1,7 +1,6 @@
-import React from 'react';
-import { Line, LineChart, XAxis, YAxis, Tooltip, ResponsiveContainer, Area, AreaChart, Legend } from 'recharts';
-import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import { Area, AreaChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 interface DonationData {
   date: string;

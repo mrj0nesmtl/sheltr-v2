@@ -1,16 +1,15 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { 
-  QrCode, 
-  Wallet, 
-  Shield, 
-  Home, 
-  Database, 
-  LineChart 
-} from 'lucide-react';
-import { motion } from 'framer-motion';
-import { FeatureCard } from '@/components/ui/FeatureCard';
 import { Button } from '@/components/ui/Button';
+import { FeatureCard } from '@/components/ui/FeatureCard';
+import { motion } from 'framer-motion';
+import {
+    Database,
+    Home,
+    LineChart,
+    QrCode,
+    Shield,
+    Wallet
+} from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export default function HowItWorks() {
   const { t } = useTranslation();

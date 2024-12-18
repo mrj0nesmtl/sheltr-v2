@@ -1,6 +1,6 @@
-import { UserRole } from '@/auth/types/auth.types';
-import { Icon } from '@/components/ui/Icon';
+import { AUTH_ROLES } from '@/auth/types/auth.types';
 import { Button } from '@/components/ui/Button';
+import { Icon } from '@/components/ui/Icon';
 import { LogOut } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -16,28 +16,28 @@ export function DashboardHeader({ name, role, title, onSignOut }: DashboardHeade
 
   const getRoleConfig = (role: UserRoleType) => {
     const configs = {
-      [UserRole.SUPER_ADMIN]: {
+      [AUTH_ROLES.SUPER_ADMIN]: {
         icon: 'shield',
         color: 'red',
         label: 'Super Admin'
       },
-      [UserRole.SHELTER_ADMIN]: {
+      [AUTH_ROLES.SHELTER_ADMIN]: {
         icon: 'building',
         color: 'purple',
         label: 'Shelter Admin'
       },
-      [UserRole.DONOR]: {
+      [AUTH_ROLES.DONOR]: {
         icon: 'heart',
         color: 'pink',
         label: 'Donor'
       },
-      [UserRole.PARTICIPANT]: {
+      [AUTH_ROLES.PARTICIPANT]: {
         icon: 'user',
         color: 'blue',
         label: 'Participant'
       }
     };
-    return configs[role] || configs[UserRole.PARTICIPANT];
+    return configs[role] || configs[AUTH_ROLES.PARTICIPANT];
   };
 
   const roleConfig = getRoleConfig(role);

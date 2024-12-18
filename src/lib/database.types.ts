@@ -1,3 +1,5 @@
+import { AUTH_ROLES } from '../auth/types/auth.types';
+
 export interface Database {
   public: {
     Tables: {
@@ -5,7 +7,7 @@ export interface Database {
         Row: {
           id: string
           email: string
-          role: 'super_admin' | 'shelter_admin' | 'donor' | 'participant'
+          role: AUTH_ROLES
           is_active?: boolean
           verified?: boolean
           profile_complete?: boolean
@@ -35,12 +37,12 @@ export interface Database {
         Insert: {
           id: string
           email: string
-          role: 'super_admin' | 'shelter_admin' | 'donor' | 'participant'
+          role: AUTH_ROLES
           [key: string]: any
         }
         Update: {
           email?: string
-          role?: 'super_admin' | 'shelter_admin' | 'donor' | 'participant'
+          role?: AUTH_ROLES
           [key: string]: any
         }
       }
@@ -48,30 +50,65 @@ export interface Database {
   }
 }
 
-export type UserRole = 'super_admin' | 'shelter_admin' | 'donor' | 'participant';
-
-export const enum UserRoleEnum {
-  SUPER_ADMIN = 'super_admin',
-  SHELTER_ADMIN = 'shelter_admin',
-  DONOR = 'donor',
-  PARTICIPANT = 'participant'
-}
-
 export interface ProfileMetadata {
-  // Add specific metadata fields
+  last_updated: string;
+  update_count: number;
+  last_activity: string;
+  activity_score: number;
+  activity_status: string;
+  profile_created: string;
+  activity_metrics: {
+    status: string;
+    activity_history: Record<string, string>;
+    activity_threshold: number;
+    last_status_update: string;
+    days_since_last_activity: number;
+  };
+  engagement_level: string;
+  last_engagement_update: string;
 }
 
 export interface ProfileSettings {
-  // Add specific settings fields
+  notifications: {
+    email: boolean;
+    push: boolean;
+    sms: boolean;
+  };
+  privacy: {
+    showProfile: boolean;
+    showDonations: boolean;
+    showActivity: boolean;
+  };
+  preferences: {
+    language: string;
+    theme: 'light' | 'dark' | 'system';
+    currency: string;
+  };
 }
 
 export interface ShelterServices {
-  // Add specific service fields
+  id: string;
+  name: string;
+  description: string;
+  availability: boolean;
+  capacity: number;
+  requirements?: string[];
+  schedule?: {
+    days: string[];
+    hours: string;
+  };
+  status: 'active' | 'inactive' | 'maintenance';
 }
 
 export interface EmergencyContact {
-  name: string
-  phone: string
-  relationship: string
-  // Add other emergency contact fields
+  name: string;
+  phone: string;
+  relationship: string;
+  email?: string;
+  address?: string;
+  isVerified: boolean;
+  lastVerified?: string;
+  notes?: string;
 }
+
+export type { AUTH_ROLES } from '../auth/types/auth.types';

@@ -1,5 +1,5 @@
-import { useTranslation } from 'react-i18next';
 import { Icon } from '@/components/ui/Icon';
+import { useTranslation } from 'react-i18next';
 
 export function Whitepaper() {
   const { t } = useTranslation();

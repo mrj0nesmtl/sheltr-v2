@@ -1,9 +1,9 @@
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-import { AUTH_ROLES } from '@/types/auth'
 import { useAuthStore } from '@/auth/stores/authStore'
+import { AUTH_ROLES } from '@/types/auth'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { ArrowLeft } from 'lucide-react'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 
 interface Props {
   onBack: () => void
@@ -18,26 +18,26 @@ const shelterSignUpSchema = z.object({
   name: z.string().min(2, 'Shelter name is required'),
   registration_number: z.string().min(1, 'Registration number is required'),
   capacity: z.number().min(1, 'Capacity must be at least 1'),
-  contact_phone: z.string().optional(),
-  address: z.string().optional(),
-  city: z.string().optional(),
+  phoneNumber: z.string(),
+  address: z.string(),
+  city: z.string(),
   emergency_contact: z.object({
-    name: z.string().optional(),
-    phone: z.string().optional(),
-    email: z.string().email('Invalid email').optional()
+    name: z.string(),
+    phone: z.string(),
+    email: z.string().email('Invalid email')
   })
 })
 
 type ShelterFormType = z.infer<typeof shelterSignUpSchema>
-
 export const ShelterSignUpForm = ({ onBack, isSubmitting }: Props) => {
-  const signUpShelter = useAuthStore(state => state.signUpShelter)
+  const { signUpShelter } = useAuthStore((state) => ({
+    signUpShelter: state.signUpShelter
+  }))
   
   const { register, handleSubmit, formState: { errors } } = useForm<ShelterFormType>({
     resolver: zodResolver(shelterSignUpSchema),
     defaultValues: {
       role: AUTH_ROLES.SHELTER_ADMIN,
-      services: [],
       emergency_contact: {
         name: '',
         phone: '',
@@ -48,7 +48,24 @@ export const ShelterSignUpForm = ({ onBack, isSubmitting }: Props) => {
 
   const onSubmit = async (data: ShelterFormType) => {
     try {
-      await signUpShelter(data)
+      const formData: ShelterFormType = {
+        role: 'shelter_admin',
+        email: data.email,
+        password: data.password,
+        name: data.name,
+        registration_number: data.registration_number,
+        capacity: data.capacity,
+        phoneNumber: data.phoneNumber,
+        emergency_contact: {
+          name: data.emergency_contact.name,
+          email: data.emergency_contact.email,
+          phone: data.emergency_contact.phone,
+        },
+        address: data.address,
+        city: data.city,
+      };
+
+      await signUpShelter(formData);
       // Success handling will be managed by the auth store
     } catch (error) {
       console.error('Signup error:', error)
@@ -122,13 +139,14 @@ export const ShelterSignUpForm = ({ onBack, isSubmitting }: Props) => {
           <h3 className="text-lg font-semibold text-white">Contact Information</h3>
           
           <div>
-            <label htmlFor="contact_phone" className="block text-sm font-medium text-gray-200">
+            <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-200">
               Phone Number
             </label>
             <input
-              {...register('contact_phone')}
+              {...register('phoneNumber')}
               type="tel"
               className="mt-1 block w-full rounded-md border-gray-700 bg-gray-800 text-white"
+              placeholder="Phone number"
             />
           </div>
 

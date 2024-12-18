@@ -1,8 +1,8 @@
-import { useEffect, useRef } from 'react';
 import { Card } from '@/components/ui/Card';
+import { supabase } from '@/lib/supabase';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { supabase } from '@/lib/supabase';
+import { useEffect, useRef } from 'react';
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 

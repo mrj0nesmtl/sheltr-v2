@@ -1,6 +1,6 @@
+import { Button } from '@/components/ui/Button';
 import { motion } from 'framer-motion';
 import { FileText } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
 
 export function CallToAction() {
   return (

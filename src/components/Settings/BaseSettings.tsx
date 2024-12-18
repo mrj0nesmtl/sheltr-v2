@@ -1,9 +1,8 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
 import { Icon } from '@/components/ui/Icon';
 import { useAuthStore } from '@/stores/authStore';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface SettingsSection {
   id: string;
@@ -14,7 +13,6 @@ interface SettingsSection {
 }
 
 export function BaseSettings({ 
-  role,
   additionalSections = []
 }: { 
   role: 'super_admin' | 'shelter_admin' | 'donor' | 'participant',

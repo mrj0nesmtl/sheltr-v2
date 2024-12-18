@@ -1,9 +1,21 @@
-// Export UserRole type with proper path
-export type { UserRole } from '../auth.types';
-
-// If you need to re-export other types:
+// Export all auth-related types
 export type {
-  AuthState,
-  AuthUser,
-  // ... other types
-} from '../auth.types';
+    AUTH_ROLES,
+    AccessControl,
+    User,
+    LoginCredentials,
+    AuthState,
+    SignUpFormData,
+    AuthResponse,
+    AuthError,
+    Session,
+    AuthAction,
+    UserMetadata,
+    UserProfile
+} from '@auth/types/auth.types';
+
+// Export auth action types
+export { AuthActionType } from '@auth/types/auth.types';
+
+// Export role permissions
+export { RolePermissions, isValidRole } from '@auth/types/auth.types';

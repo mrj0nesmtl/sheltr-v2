@@ -7,7 +7,7 @@ interface WelcomeEmailProps {
   qrCode: string;
 }
 
-export const sendWelcomeEmail = async ({ to, name, verificationToken, qrCode }: WelcomeEmailProps) => {
+export const sendWelcomeEmail = async ({ to, name, verificationToken }: WelcomeEmailProps) => {
   try {
     // For development, just log the email
     console.log('Sending welcome email:', {

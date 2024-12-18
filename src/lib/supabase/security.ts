@@ -1,4 +1,3 @@
-import { createClient } from '@supabase/supabase-js';
 
 export const securityConfig = {
   // Ensure search paths are set to public schema

@@ -1,16 +1,15 @@
-import React from 'react';
-import { Shield, Building2, Heart, User } from 'lucide-react';
+import { Building2, Heart, Shield, User } from 'lucide-react';
+import type { AUTH_ROLES } from '../../lib/types/auth';
 import { cn } from '../../lib/utils';
-import type { UserRole } from '../../lib/types/auth';
 
 interface UserBadgeProps {
-  role: UserRole;
+  role: AUTH_ROLES;
   verified?: boolean;
   className?: string;
 }
 
 export function UserBadge({ role, verified, className }: UserBadgeProps) {
-  const getBadgeConfig = (role: UserRole) => {
+  const getBadgeConfig = (role: AUTH_ROLES) => {
     switch (role) {
       case 'super_admin':
         return {

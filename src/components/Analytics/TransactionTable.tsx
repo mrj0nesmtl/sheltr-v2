@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
-import { Icon } from '@/components/ui/Icon';
 import { Button } from '@/components/ui/Button';
+import { Icon, type IconName } from '@/components/ui/Icon';
+import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface Transaction {
   id: string;
@@ -59,8 +59,8 @@ export function TransactionTable() {
     setIsRefreshing(false);
   };
 
-  const getStatusColor = (status: string) => {
-    const colors = {
+  const getStatusColor = (status: Transaction['status']): string => {
+    const colors: Record<Transaction['status'], string> = {
       completed: 'text-green-400',
       pending: 'text-yellow-400',
       failed: 'text-red-400'
@@ -68,13 +68,13 @@ export function TransactionTable() {
     return colors[status] || 'text-gray-400';
   };
 
-  const getTypeIcon = (type: string): IconName => {
-    const icons: Record<string, IconName> = {
+  const getTypeIcon = (type: Transaction['type']): IconName => {
+    const icons: Record<Transaction['type'], IconName> = {
       direct: 'user',
       housing: 'home',
       operations: 'settings'
     };
-    return icons[type] || 'circle';
+    return icons[type];
   };
 
   return (
@@ -87,10 +87,14 @@ export function TransactionTable() {
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => refetchTransactions()}
+            onClick={refetchTransactions}
             className="text-gray-400 hover:text-white"
+            disabled={isRefreshing}
           >
-            <Icon name="refresh" className="h-4 w-4 mr-2" />
+            <Icon 
+              name="loader"
+              className={`h-4 w-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} 
+            />
             {t('common.refresh')}
           </Button>
           <Button

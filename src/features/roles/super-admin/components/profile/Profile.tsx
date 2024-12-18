@@ -1,9 +1,6 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
 import { useAuthStore } from '@/stores/authStore';
-import { profileService } from '@/lib/services/profileService';
+import { useTranslation } from 'react-i18next';
 
 export function SuperAdminProfile() {
   const { t } = useTranslation();

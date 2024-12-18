@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export function useWhitepaper(language: string = 'en') {
   const [content, setContent] = useState<string>('');

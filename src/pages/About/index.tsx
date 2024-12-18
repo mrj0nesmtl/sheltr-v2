@@ -1,14 +1,13 @@
-import React from 'react';
-import { motion, useScroll, useSpring } from 'framer-motion';
-import { 
-  Hero,
-  Overview, 
-  Metrics,
-  Technology,
-  Documentation,
-  Contact
-} from './sections';
 import { PageLayout } from '@/components/layouts';
+import { motion, useScroll, useSpring } from 'framer-motion';
+import {
+    Contact,
+    Documentation,
+    Hero,
+    Metrics,
+    Overview,
+    Technology
+} from './sections';
 
 export function About() {
   const { scrollYProgress } = useScroll();

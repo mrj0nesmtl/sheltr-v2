@@ -1,20 +1,19 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { useAuthStore } from '@/stores/authStore';
 import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
-import { Checkbox } from '@/components/ui/Checkbox';
 import { Card } from '@/components/ui/Card';
+import { Checkbox } from '@/components/ui/Checkbox';
 import { Icon } from '@/components/ui/Icon';
-import { useForm } from 'react-hook-form';
+import { Input } from '@/components/ui/Input';
+import { useAuthStore } from '@/stores/authStore';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
 export function DonorSignUpForm() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { signUp, error: authError, loading } = useAuthStore();
+  const { signUp, error: authError } = useAuthStore();
   
   const donorSignUpSchema = z.object({
     email: z.string().email(t('auth.validation.email')),

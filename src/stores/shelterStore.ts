@@ -1,6 +1,6 @@
-import { create } from 'zustand';
 import { supabase } from '@/lib/supabase';
 import type { Organization } from '@/lib/types/organization';
+import { create } from 'zustand';
 
 interface ShelterState {
   shelters: Organization[];

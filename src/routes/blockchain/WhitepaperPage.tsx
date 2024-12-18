@@ -1,13 +1,12 @@
-import { useTranslation } from 'react-i18next';
+import { Button } from '@/components/ui/Button';
 import { Icon } from '@/components/ui/Icon';
+import { useWhitepaper } from '@/hooks/useWhitepaper';
+import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { useWhitepaper } from '@/hooks/useWhitepaper';
-import { Button } from '@/components/ui/Button';
-import { motion } from 'framer-motion';
 
 export function WhitepaperPage() {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const { content, isLoading, error } = useWhitepaper(i18n.language);
 
   const toggleLanguage = () => {

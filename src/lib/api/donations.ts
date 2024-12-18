@@ -1,5 +1,5 @@
-import { supabase } from '../supabase';
 import type { Database } from '../database.types';
+import { supabase } from '../supabase';
 
 type Donation = Database['public']['Tables']['donations']['Row'];
 

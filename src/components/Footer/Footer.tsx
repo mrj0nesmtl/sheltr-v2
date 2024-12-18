@@ -1,8 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Logo } from '../ui/Logo';
+import { Link } from 'react-router-dom';
 import { LanguageToggle } from '../ui/LanguageToggle';
+import { Logo } from '../ui/Logo';
 
 export function Footer() {
   const { t } = useTranslation();

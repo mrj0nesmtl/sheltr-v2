@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
-import { FileText, Book, Github } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
+import { motion } from 'framer-motion';
+import { Book, FileText, Github } from 'lucide-react';
 
 export function Documentation() {
   const resources = [

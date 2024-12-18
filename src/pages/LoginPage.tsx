@@ -1,7 +1,7 @@
 import { LoginForm } from '@/components/Auth/LoginForm';
 import { useAuth } from '@/hooks/useAuth';
-import { Navigate } from 'react-router-dom';
 import { getDashboardPath } from '@/lib/navigation/roleNavigation';
+import { Navigate } from 'react-router-dom';
 
 export default function LoginPage() {
   const { isAuthenticated, user } = useAuth();

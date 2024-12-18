@@ -1,5 +1,5 @@
 import { supabase } from '../supabase';
-import type { ShelterProfile, EmergencyContact } from '../types/shelter';
+import type { EmergencyContact, ShelterProfile } from '../types/shelter';
 
 export async function createShelterProfile(data: {
   email: string;

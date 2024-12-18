@@ -1,12 +1,10 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { Menu } from 'lucide-react';
-import { Logo } from '../ui/Logo';
-import { Button } from '../ui/Button';
-import { Icon } from '../ui/Icon';
 import { mainNavigation } from '@/lib/navigation/config';
-import { cn } from '@/lib/utils';
+import { Menu } from 'lucide-react';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+import { Button } from '../ui/Button';
+import { Logo } from '../ui/Logo';
 
 export function Navigation() {
   const { t } = useTranslation();

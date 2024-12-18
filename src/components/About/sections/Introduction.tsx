@@ -1,14 +1,17 @@
-import { useState, useEffect } from 'react';
+import { Icon, IconName } from '@/components/ui/Icon';
+import { Brain, Wallet, Globe, Lock, QrCode, Shield, Users, BarChart, ShoppingBag } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Icon } from '@/components/ui/Icon';
 import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
 import { Link } from 'react-router-dom';
-import { IconName } from '@/components/ui/Icon';
-import { Wallet, Brain } from 'lucide-react';
+import remarkGfm from 'remark-gfm';
+
+type IconType = typeof Brain | typeof Wallet | typeof Globe | typeof Lock | 
+                typeof QrCode | typeof Shield | typeof Users | 
+                typeof BarChart | typeof ShoppingBag;
 
 interface ConceptCardProps {
-  icon: IconName;
+  icon: IconType | string;
   title: string;
   description: string;
   highlight?: string;
@@ -16,6 +19,9 @@ interface ConceptCardProps {
 
 function ConceptCard({ icon, title, description, highlight }: ConceptCardProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const IconComponent = typeof icon === 'string'
+    ? () => <Icon name={icon as IconName} className={`h-6 w-6 ${isHovered ? 'text-indigo-300 scale-110' : 'text-indigo-400'}`} />
+    : icon;
 
   return (
     <div
@@ -32,21 +38,12 @@ function ConceptCard({ icon, title, description, highlight }: ConceptCardProps) 
       <div className="flex items-center mb-4">
         <div className={`
           p-3 rounded-lg transition-all duration-300
-          ${isHovered 
-            ? 'bg-indigo-500/20 rotate-12' 
-            : 'bg-indigo-500/10'
-          }
+          ${isHovered ? 'bg-indigo-500/20 rotate-12' : 'bg-indigo-500/10'}
         `}>
-          <Icon 
-            name={icon} 
-            className={`
-              h-6 w-6 transition-all duration-300
-              ${isHovered 
-                ? 'text-indigo-300 scale-110' 
-                : 'text-indigo-400'
-              }
-            `} 
-          />
+          <IconComponent className={`
+            h-6 w-6 transition-all duration-300
+            ${isHovered ? 'text-indigo-300 scale-110' : 'text-indigo-400'}
+          `} />
         </div>
         <h3 className="text-xl font-semibold text-white ml-3 transition-colors duration-300 group-hover:text-indigo-300">
           {title}
@@ -136,7 +133,7 @@ function FullContentModal({ onClose, content }: FullContentModalProps) {
               className="inline-flex items-center space-x-2 text-indigo-400 hover:text-indigo-300"
             >
               <Icon name="file-text" className="h-5 w-5" />
-              <span>{t('about.whitepaper.readMore')}</span>
+              <span>Read More</span>
             </Link>
           </div>
         </div>
@@ -166,16 +163,16 @@ export function Introduction() {
     }
   }, [showFullContent]);
 
-  const keyConcepts: { icon: IconName; title: string; description: string; highlight?: string; }[] = [
+  const keyConcepts: ConceptCardProps[] = [
     {
-      icon: 'blocks',
-      title: 'Blockchain Transparency',
+      icon: Lock,
+      title: 'Blockchain Transparency', 
       description: 'Every donation is verified and tracked on the blockchain, ensuring complete transparency and accountability.',
       highlight: '100% Verifiable Transactions'
     },
     {
-      icon: 'qr-code',
-      title: 'QR Code Integration',
+      icon: QrCode,
+      title: 'QR Code Integration', 
       description: 'Instant, secure donations through unique QR codes assigned to each participant.',
       highlight: 'Direct Donor-to-Participant Connection'
     },
@@ -192,31 +189,31 @@ export function Introduction() {
       highlight: 'Personalized Support System'
     },
     {
-      icon: 'shield-lock',
+      icon: Shield,
       title: 'Multi-Factor Security',
       description: 'Advanced security measures protecting all transactions and user data.',
       highlight: 'Bank-Grade Protection'
     },
     {
-      icon: 'globe',
+      icon: Globe,
       title: 'Global Accessibility',
       description: 'Multi-language support and worldwide accessibility for donors and participants.',
       highlight: 'Available in Multiple Languages'
     },
     {
-      icon: 'chart-bar',
+      icon: BarChart,
       title: 'Impact Analytics',
       description: 'Real-time tracking and visualization of donation impact and community growth.',
       highlight: 'Data-Driven Insights'
     },
     {
-      icon: 'users',
+      icon: Users,
       title: 'Community Network',
       description: 'Building connections between donors, participants, and support organizations.',
       highlight: 'Growing Support Network'
     },
     {
-      icon: 'shopping-bag',
+      icon: ShoppingBag,
       title: 'Homeless Depot',
       description: 'Integrated marketplace for essential items and services.',
       highlight: 'Direct Resource Access'

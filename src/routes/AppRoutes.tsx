@@ -1,10 +1,10 @@
-import { Routes, Route } from 'react-router-dom';
-import { lazy, Suspense } from 'react';
 import { ProtectedRoute } from '@/auth/components/ProtectedRoute';
-import { UserRole } from '@/auth/types/auth.types';
+import { AUTH_ROLES } from '@/auth/types/auth.types';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
-import ScanDonatePage from '@/pages/ScanDonatePage';
 import Impact from '@/pages/Impact';
+import ScanDonatePage from '@/pages/ScanDonatePage';
+import { lazy, Suspense } from 'react';
+import { Route, Routes } from 'react-router-dom';
 
 // Lazy load pages
 const HomePage = lazy(() => import('@/pages/HomePage'));
@@ -89,7 +89,7 @@ const AppRoutes = () => {
       <Route
         path="/admin/*"
         element={
-          <ProtectedRoute allowedRoles={[UserRole.SUPER_ADMIN]}>
+          <ProtectedRoute allowedRoles={[AUTH_ROLES.SUPER_ADMIN]}>
             <Suspense fallback={<LoadingSpinner />}>
               <SuperAdminDashboard />
             </Suspense>
@@ -101,7 +101,7 @@ const AppRoutes = () => {
       <Route
         path="/shelter/*"
         element={
-          <ProtectedRoute allowedRoles={[UserRole.SHELTER_ADMIN]}>
+          <ProtectedRoute allowedRoles={[AUTH_ROLES.SHELTER_ADMIN]}>
             <Suspense fallback={<LoadingSpinner />}>
               <ShelterDashboard />
             </Suspense>
@@ -113,7 +113,7 @@ const AppRoutes = () => {
       <Route
         path="/donor/*"
         element={
-          <ProtectedRoute allowedRoles={[UserRole.DONOR]}>
+          <ProtectedRoute allowedRoles={[AUTH_ROLES.DONOR]}>
             <Suspense fallback={<LoadingSpinner />}>
               <DonorDashboard />
             </Suspense>
@@ -125,7 +125,7 @@ const AppRoutes = () => {
       <Route
         path="/participant/*"
         element={
-          <ProtectedRoute allowedRoles={[UserRole.PARTICIPANT]}>
+          <ProtectedRoute allowedRoles={[AUTH_ROLES.PARTICIPANT]}>
             <Suspense fallback={<LoadingSpinner />}>
               <ParticipantDashboard />
             </Suspense>

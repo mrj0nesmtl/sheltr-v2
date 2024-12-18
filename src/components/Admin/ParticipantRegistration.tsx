@@ -1,11 +1,10 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
-import { useAuthStore } from '@/stores/authStore';
-import { ParticipantRegistrationService } from '@/services/participantRegistration';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
+import { ParticipantRegistrationService } from '@/services/participantRegistration';
+import { useAuth } from '@/auth/components/AuthProvider';
+import { useForm, FieldError } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 interface RegistrationFormData {
   firstName: string;
@@ -27,7 +26,7 @@ interface RegistrationFormData {
 
 export function ParticipantRegistration() {
   const { t } = useTranslation();
-  const { user } = useAuthStore();
+  const { user } = useAuth();
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<RegistrationFormData>();
 
   const onSubmit = async (data: RegistrationFormData) => {
@@ -54,40 +53,35 @@ export function ParticipantRegistration() {
           <Input
             label={t('admin.participant.registration.firstName')}
             {...register('firstName', { required: true })}
-            error={errors.firstName}
+            error={errors.firstName?.message}
           />
-          {errors.firstName && (
-            <p className="text-red-500">{errors.firstName.message || 'First name is required'}</p>
-          )}
           <Input
             label={t('admin.participant.registration.lastName')}
             {...register('lastName', { required: true })}
-            error={errors.lastName}
+            error={errors.lastName?.message}
           />
-          {errors.lastName && (
-            <p className="text-red-500">{errors.lastName.message || 'Last name is required'}</p>
-          )}
           <Input
             type="email"
             label={t('admin.participant.registration.email')}
             {...register('email', { required: true })}
-            error={errors.email}
+            error={errors.email?.message}
           />
           <Input
             type="tel"
             label={t('admin.participant.registration.phone')}
             {...register('phone', { required: true })}
-            error={errors.phone}
+            error={errors.phone?.message}
           />
           <Input
             type="date"
             label={t('admin.participant.registration.dateOfBirth')}
             {...register('dateOfBirth', { required: true })}
-            error={errors.dateOfBirth}
+            error={errors.dateOfBirth?.message}
           />
           <Select
             label={t('admin.participant.registration.gender')}
             {...register('gender')}
+            error={errors.gender?.message}
             options={[
               { value: 'male', label: t('common.gender.male') },
               { value: 'female', label: t('common.gender.female') },
@@ -106,21 +100,21 @@ export function ParticipantRegistration() {
             <Input
               label={t('admin.participant.registration.emergencyName')}
               {...register('emergencyContact.name', { required: true })}
-              error={errors.emergencyContact?.name}
+              error={errors.emergencyContact?.name?.message}
             />
             <Input
               type="tel"
               label={t('admin.participant.registration.emergencyPhone')}
               {...register('emergencyContact.phone', { required: true })}
-              error={errors.emergencyContact?.phone}
+              error={errors.emergencyContact?.phone?.message}
             />
           </div>
         </div>
 
         <Button
           type="submit"
+          isLoading={isSubmitting}
           className="w-full"
-          loading={isSubmitting}
         >
           {t('admin.participant.registration.submit')}
         </Button>

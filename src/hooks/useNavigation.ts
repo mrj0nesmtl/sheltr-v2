@@ -1,5 +1,5 @@
-import { useLocation } from 'react-router-dom';
 import { mainNavigation } from '@/lib/navigation/config';
+import { useLocation } from 'react-router-dom';
 
 export function useNavigation() {
   const location = useLocation();
