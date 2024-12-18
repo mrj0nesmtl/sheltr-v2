@@ -1,3 +1,16 @@
+import { createClient } from '@supabase/supabase-js';
+
+// Create and export Supabase client
+export const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_ANON_KEY
+);
+
+// Use the client
+const { data, error } = await supabase
+  .from('participants')
+  .select('*');
+
 export const participantService = {
   async getParticipantsByOrganization(organizationId: string) {
     const { data, error } = await supabase

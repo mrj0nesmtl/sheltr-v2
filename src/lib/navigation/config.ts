@@ -2,26 +2,23 @@ import {
   Info,
   HelpCircle,
   BarChart3,
-  FileText,
   Building2,
-  Settings,
+  Shield,
   Home,
   User,
-  Users,
   Heart,
-  Shield,
-  Calendar,
-  Trophy,
-  QrCode
+  QrCode,
+  Trophy
 } from 'lucide-react';
-import { UserRole } from '@/types/auth.types';
+import type { UserRole } from '@/types/auth';
 
 export interface NavigationItem {
   path: string;
   label: string;
-  icon?: string;
+  icon?: any;
   requiresAuth?: boolean;
   roles?: UserRole[];
+  children?: NavigationItem[];
 }
 
 // Public navigation
@@ -29,31 +26,25 @@ export const mainNavigation: NavigationItem[] = [
   {
     path: '/about',
     label: 'nav.about',
-    icon: 'info',
+    icon: Info,
     requiresAuth: false
   },
   {
     path: '/how-it-works',
     label: 'nav.howItWorks',
-    icon: 'help-circle',
-    requiresAuth: false
-  },
-  {
-    path: '/solutions',
-    label: 'nav.solutions',
-    icon: 'lightbulb',
+    icon: HelpCircle,
     requiresAuth: false
   },
   {
     path: '/scan-donate',
     label: 'nav.scanDonate',
-    icon: 'qr-code',
+    icon: QrCode,
     requiresAuth: false
   },
   {
     path: '/impact',
     label: 'nav.impact',
-    icon: 'chart-bar',
+    icon: BarChart3,
     requiresAuth: false
   }
 ];
@@ -65,8 +56,7 @@ export const dashboardNavigation = {
       path: '/admin',
       label: 'nav.dashboard',
       icon: Shield,
-    },
-    // ... existing super admin routes
+    }
   ],
   
   shelter_admin: [
@@ -74,8 +64,7 @@ export const dashboardNavigation = {
       path: '/shelter',
       label: 'nav.shelterDashboard',
       icon: Building2,
-    },
-    // ... existing shelter admin routes
+    }
   ],
   
   donor: [
@@ -96,31 +85,6 @@ export const dashboardNavigation = {
         },
         {
           path: '/donor/profile',
-          label: 'nav.profile',
-          icon: User
-        }
-      ]
-    }
-  ],
-  
-  participant: [
-    {
-      path: '/participant',
-      label: 'nav.participantDashboard',
-      icon: User,
-      children: [
-        {
-          path: '/participant/qr-code',
-          label: 'nav.myQRCode',
-          icon: QrCode
-        },
-        {
-          path: '/participant/donations',
-          label: 'nav.receivedDonations',
-          icon: Heart
-        },
-        {
-          path: '/participant/profile',
           label: 'nav.profile',
           icon: User
         }
