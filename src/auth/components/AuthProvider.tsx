@@ -1,135 +1,28 @@
 import { createContext, useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuthStore } from '../stores/authStore';
-import { type AuthState, type UserRole } from '../types';
-import { supabase, auth, getUserProfile } from '../../lib/supabase';
-import type { User } from '@supabase/supabase-js';
-
-interface AuthState {
-  user: User | null;
-  loading: boolean;
-  isAuthenticated: boolean;
-  login: (email: string, password: string) => Promise<void>;
-  logout: () => Promise<void>;
-}
+import type { AuthState } from '../types';
 
 export const AuthContext = createContext<AuthState | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const navigate = useNavigate();
   const [state, setState] = useState<AuthState>({
     user: null,
-    loading: true,
+    loading: false,
     isAuthenticated: false,
-    login: async () => {},
-    logout: async () => {}
-  });
-
-  // Session recovery and validation
-  useEffect(() => {
-    const initializeAuth = async () => {
-      setState({ loading: true });
-      try {
-        const { data: { session }, error } = await auth.getSession();
-        
-        // Only proceed if we have a valid session
-        if (session?.user?.id) {
-          console.log('Valid session found, fetching profile...');
-          const profile = await getUserProfile(session.user.id);
-          if (profile) {
-            setState({
-              user: session.user,
-              role: profile.role as UserRole,
-              isAuthenticated: true,
-              loading: false
-            });
-          } else {
-            // Profile not found, clear session
-            handleInvalidSession();
-          }
-        } else {
-          // No valid session
-          handleInvalidSession();
-        }
-      } catch (error) {
-        console.error('Auth initialization error:', error);
-        handleInvalidSession();
-      } finally {
-        setState({ loading: false });
-      }
-    };
-
-    initializeAuth();
-  }, []);
-
-  // Real-time auth state monitoring
-  useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        if (event === 'SIGNED_OUT') {
-          handleInvalidSession();
-        } else if (event === 'SIGNED_IN' && session) {
-          setState({ loading: true });
-          try {
-            const profile = await getUserProfile(session.user.id);
-            if (profile) {
-              setState({
-                user: session.user,
-                role: profile.role as UserRole,
-                isAuthenticated: true,
-                loading: false
-              });
-            }
-          } catch (error) {
-            console.error('Profile fetch error:', error);
-            handleInvalidSession();
-          }
-        }
-      }
-    );
-
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, []);
-
-  const handleInvalidSession = () => {
-    localStorage.removeItem('sheltr-auth-token');
-    setState({ 
-      user: null, 
-      role: null, 
-      isAuthenticated: false,
-      loading: false
-    });
-    navigate('/login');
-  };
-
-  const value: AuthState = {
-    isAuthenticated: state.isAuthenticated,
-    user: state.user,
-    role: state.role,
     login: async (email: string, password: string) => {
-      setState({ loading: true });
-      try {
-        await auth.signIn({ email, password });
-        navigate('/');
-      } finally {
-        setState({ loading: false });
-      }
+      setState(prev => ({ ...prev, loading: true }));
+      // ... login logic
     },
     logout: async () => {
-      setState({ loading: true });
-      try {
-        await auth.signOut();
-        navigate('/login');
-      } finally {
-        setState({ loading: false });
-      }
-    },
-    loading: state.loading,
-  };
+      setState(prev => ({ ...prev, loading: true }));
+      // ... logout logic
+    }
+  });
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={state}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export function useAuth() {

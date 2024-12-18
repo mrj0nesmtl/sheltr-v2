@@ -56,11 +56,17 @@ export function ParticipantRegistration() {
             {...register('firstName', { required: true })}
             error={errors.firstName}
           />
+          {errors.firstName && (
+            <p className="text-red-500">{errors.firstName.message || 'First name is required'}</p>
+          )}
           <Input
             label={t('admin.participant.registration.lastName')}
             {...register('lastName', { required: true })}
             error={errors.lastName}
           />
+          {errors.lastName && (
+            <p className="text-red-500">{errors.lastName.message || 'Last name is required'}</p>
+          )}
           <Input
             type="email"
             label={t('admin.participant.registration.email')}

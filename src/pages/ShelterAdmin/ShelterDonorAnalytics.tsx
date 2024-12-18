@@ -3,6 +3,7 @@ import { Card } from '@/components/ui/Card';
 import { Icon } from '@/components/ui/Icon';
 import { analyticsService } from '@/lib/services/analyticsService';
 import { LineChart, Line, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { RefreshCw } from 'lucide-react';
 
 interface DonorMetrics {
   totalDonors: number;

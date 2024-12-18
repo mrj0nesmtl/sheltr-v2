@@ -98,3 +98,23 @@ export async function loadProjectDocs(docType: keyof typeof markdownFiles.projec
     };
   }
 }
+
+type SupportedLocale = 'en' | 'fr';
+type ContentLoader = Record<SupportedLocale, () => Promise<typeof import('*?raw')>>;
+
+const contentLoaders: Record<string, ContentLoader> = {
+  about: {
+    en: () => import('@/content/about/en.md?raw'),
+    fr: () => import('@/content/about/fr.md?raw')
+  }
+};
+
+export async function loadContent(path: string, locale: SupportedLocale): Promise<string> {
+  const loader = contentLoaders[path];
+  if (!loader || !loader[locale]) {
+    throw new Error(`Content not found for path: ${path} and locale: ${locale}`);
+  }
+  
+  const content = await loader[locale]();
+  return content.default;
+}
