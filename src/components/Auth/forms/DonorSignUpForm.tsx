@@ -6,22 +6,14 @@ import { useForm } from 'react-hook-form'
 interface Props {
   onBack: () => void
   isSubmitting: boolean
+  onSubmit: (data: DonorFormType) => Promise<void>
 }
 
-export const DonorSignUpForm = ({ onBack, isSubmitting }: Props) => {
+export default function DonorSignUpForm({ onBack, isSubmitting, onSubmit }: Props) {
   const signUpDonor = useAuthStore(state => state.signUpDonor)
   const { register, handleSubmit, formState: { errors } } = useForm<DonorFormType>({
     resolver: zodResolver(donorSignUpSchema)
   })
-
-  const onSubmit = async (data: DonorFormType) => {
-    try {
-      await signUpDonor(data)
-      // Use existing navigation/notification system
-    } catch (error) {
-      // Use existing error handling
-    }
-  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">

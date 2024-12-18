@@ -1,7 +1,12 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
-import type { AuthError, AuthResponse, AuthState, LoginCredentials, User } from '../types';
-import { AUTH_ROLES } from '../types';
+import { 
+  AUTH_ROLES, 
+  type AuthState, 
+  type User, 
+  type AuthError, 
+  type LoginCredentials 
+} from '@/types/core/auth';
 
 const initialState: AuthState = {
   user: null,
@@ -20,7 +25,6 @@ export const AuthContext = createContext<AuthState>(initialState);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [state, setState] = useState<AuthState>(initialState);
 
-  // Initialize auth state
   useEffect(() => {
     const initializeAuth = async () => {
       try {
@@ -32,19 +36,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             .eq('user_id', session.user.id)
             .single();
 
-          setState(prev => ({
+          setState((prev: AuthState) => ({
             ...prev,
-            user: { ...session.user, ...profile } as User,
-            role: profile?.role as AUTH_ROLES,
+            user: {
+              ...session.user,
+              ...profile,
+              role: profile?.role as AUTH_ROLES
+            } as User,
             isAuthenticated: true,
             loading: false
           }));
         } else {
-          setState(prev => ({ ...prev, loading: false }));
+          setState((prev: AuthState) => ({ ...prev, loading: false }));
         }
       } catch (error) {
         console.error('Auth initialization error:', error);
-        setState(prev => ({ 
+        setState((prev: AuthState) => ({ 
           ...prev, 
           error: 'Failed to initialize authentication',
           loading: false 
@@ -54,7 +61,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     initializeAuth();
 
-    // Set up auth state change listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
         if (event === 'SIGNED_IN' && session?.user) {
@@ -64,7 +70,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             .eq('user_id', session.user.id)
             .single();
 
-          setState(prev => ({
+          setState((prev: AuthState) => ({
             ...prev,
             user: { ...session.user, ...profile } as User,
             role: profile?.role as AUTH_ROLES,
@@ -72,7 +78,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             loading: false
           }));
         } else if (event === 'SIGNED_OUT') {
-          setState(prev => ({
+          setState((prev: AuthState) => ({
             ...prev,
             user: null,
             role: null,
@@ -89,7 +95,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const login = async (credentials: LoginCredentials) => {
-    setState(prev => ({ ...prev, loading: true, error: null }));
+    setState((prev: AuthState) => ({
+      ...prev,
+      loading: true,
+      error: null
+    }));
     try {
       const { data, error } = await supabase.auth.signInWithPassword(credentials);
       if (error) throw error;
@@ -100,7 +110,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         .eq('user_id', data.user.id)
         .single();
 
-      setState(prev => ({
+      setState((prev: AuthState) => ({
         ...prev,
         user: { ...data.user, ...profile } as User,
         role: profile?.role as AUTH_ROLES,
@@ -108,7 +118,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         loading: false
       }));
     } catch (error) {
-      setState(prev => ({
+      setState((prev: AuthState) => ({
         ...prev,
         error: (error as AuthError).message || 'Failed to login',
         loading: false
@@ -118,7 +128,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const logout = async () => {
-    setState(prev => ({ ...prev, loading: true, error: null }));
+    setState((prev: AuthState) => ({
+      ...prev,
+      loading: true,
+      error: null
+    }));
     try {
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
@@ -141,7 +155,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const refreshSession = async () => {
-    setState(prev => ({ ...prev, loading: true, error: null }));
+    setState((prev: AuthState) => ({
+      ...prev,
+      loading: true,
+      error: null
+    }));
     try {
       const { data, error } = await supabase.auth.refreshSession();
       if (error) throw error;
@@ -172,7 +190,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const updateProfile = async (data: Partial<User>) => {
-    setState(prev => ({ ...prev, loading: true, error: null }));
+    setState((prev: AuthState) => ({
+      ...prev,
+      loading: true,
+      error: null
+    }));
     try {
       const { error } = await supabase
         .from('profiles')

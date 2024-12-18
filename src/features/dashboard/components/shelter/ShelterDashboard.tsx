@@ -39,23 +39,32 @@ interface DashboardStats {
   activeServices: number;
 }
 
-interface AllocationData {
-  name: string;
-  value: number;
-  category: keyof typeof COLORS;
-}
+// Define the color categories and their subcategories
+type ColorMapping = {
+  housing: {
+    emergency: string;
+    transitional: string;
+    permanent: string;
+  };
+  support: {
+    medical: string;
+    mental: string;
+    addiction: string;
+  };
+  services: {
+    food: string;
+    training: string;
+    education: string;
+  };
+  operations: {
+    admin: string;
+    maintenance: string;
+    utilities: string;
+  };
+};
 
-interface DonationLocation {
-  id: string;
-  lat: number;
-  lng: number;
-  amount: number;
-  participant_name: string;
-  created_at: string;
-}
-
-// Enhanced color palette with proper typing
-const COLORS = {
+// Type the COLORS constant
+const COLORS: ColorMapping = {
   housing: {
     emergency: '#4F46E5',    // Indigo
     transitional: '#818CF8', // Light Indigo
@@ -77,6 +86,23 @@ const COLORS = {
     utilities: '#DC2626'    // Dark Red
   }
 } as const;
+
+// Update the interface for allocation data
+interface AllocationData {
+  name: string;
+  value: number;
+  category: keyof ColorMapping;
+  subcategory: string;
+}
+
+interface DonationLocation {
+  id: string;
+  lat: number;
+  lng: number;
+  amount: number;
+  participant_name: string;
+  created_at: string;
+}
 
 export function ShelterDashboard() {
   const { t } = useTranslation();
@@ -109,24 +135,24 @@ export function ShelterDashboard() {
   // More granular allocation data with proper typing
   const allocationData: AllocationData[] = [
     // Housing Programs (70%)
-    { name: 'Emergency Housing', value: 30, category: 'housing' },
-    { name: 'Transitional Housing', value: 25, category: 'housing' },
-    { name: 'Permanent Solutions', value: 15, category: 'housing' },
+    { name: 'Emergency Housing', value: 30, category: 'housing', subcategory: 'emergency' },
+    { name: 'Transitional Housing', value: 25, category: 'housing', subcategory: 'transitional' },
+    { name: 'Permanent Solutions', value: 15, category: 'housing', subcategory: 'permanent' },
     
     // Support Services (15%)
-    { name: 'Medical Care', value: 6, category: 'support' },
-    { name: 'Mental Health', value: 5, category: 'support' },
-    { name: 'Addiction Recovery', value: 4, category: 'support' },
+    { name: 'Medical Care', value: 6, category: 'support', subcategory: 'medical' },
+    { name: 'Mental Health', value: 5, category: 'support', subcategory: 'mental' },
+    { name: 'Addiction Recovery', value: 4, category: 'support', subcategory: 'addiction' },
     
     // Essential Services (10%)
-    { name: 'Food Programs', value: 4, category: 'services' },
-    { name: 'Job Training', value: 3, category: 'services' },
-    { name: 'Education', value: 3, category: 'services' },
+    { name: 'Food Programs', value: 4, category: 'services', subcategory: 'food' },
+    { name: 'Job Training', value: 3, category: 'services', subcategory: 'training' },
+    { name: 'Education', value: 3, category: 'services', subcategory: 'education' },
     
     // Operations (5%)
-    { name: 'Administration', value: 2, category: 'operations' },
-    { name: 'Maintenance', value: 2, category: 'operations' },
-    { name: 'Utilities', value: 1, category: 'operations' }
+    { name: 'Administration', value: 2, category: 'operations', subcategory: 'admin' },
+    { name: 'Maintenance', value: 2, category: 'operations', subcategory: 'maintenance' },
+    { name: 'Utilities', value: 1, category: 'operations', subcategory: 'utilities' }
   ];
 
   // Sample monthly trends with proper typing
@@ -314,7 +340,7 @@ export function ShelterDashboard() {
                   {allocationData.map((entry, index) => (
                     <Cell 
                       key={`cell-${index}`} 
-                      fill={COLORS[entry.category][Object.keys(COLORS[entry.category])[0]]}
+                      fill={COLORS[entry.category][entry.subcategory as keyof (typeof COLORS)[typeof entry.category]]}
                       opacity={0.9}
                     />
                   ))}

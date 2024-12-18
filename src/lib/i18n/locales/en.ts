@@ -10,8 +10,9 @@ export const en: Translations = {
       learnMore: 'Learn More',
       getStarted: 'Get Started',
       partnerNow: 'Partner Now',
-      scanNow: 'Scan & Donate Now',
-      joinMovement: 'Join the Movement'
+      scanNow: 'Scan Now',
+      joinMovement: 'Join the Movement',
+      confirm: 'Confirm'
     },
     signOut: "Sign Out",
     loading: "Loading...",
@@ -48,7 +49,10 @@ export const en: Translations = {
       unauthorized: "You are not authorized to perform this action.",
       validation: "Please check your input and try again.",
       network: "Network error. Please check your connection.",
-      server: "Server error. Please try again later."
+      server: "Server error. Please try again later.",
+      "Failed to check auth status": "Unable to verify authentication status. Please try again.",
+      invalidCredentials: "Invalid login credentials",
+      serverError: "Server error occurred. Please try again."
     },
     success: {
       saved: "Successfully saved",
@@ -70,11 +74,13 @@ export const en: Translations = {
       forgotPassword: "Forgot password?",
       rememberMe: "Remember me",
       errors: {
-        "Failed to check auth status": "Unable to verify your account. Please try again.",
+        "Failed to check auth status": "Unable to verify authentication status. Please try again.",
         "Invalid login credentials": "Invalid email or password",
         "Email not confirmed": "Please verify your email address",
         "No user returned": "Login failed. Please try again.",
-        "No profile found": "User profile not found. Please contact support."
+        "No profile found": "User profile not found. Please contact support.",
+        invalidCredentials: "Invalid login credentials",
+        serverError: "Server error occurred. Please try again."
       }
     },
     register: {
@@ -219,7 +225,21 @@ export const en: Translations = {
       recentActivity: "Recent Activity",
       viewAll: "View All",
       metrics: "Key Metrics",
-      notifications: "Notifications"
+      notifications: "Notifications",
+      howItWorks: "How It Works",
+      mainTitle: "Main Dashboard",
+      subtitle: "Your Overview",
+      backgroundAll: "View All Background",
+      cta: {
+        scan: "Scan QR Code",
+        learnMore: "Learn More",
+        title: "Dashboard Title",
+        description: "Dashboard Description"
+      },
+      feature: {
+        title: "Feature Title",
+        description: "Feature Description"
+      }
     },
     admin: {
       title: "Admin Dashboard",

@@ -6,8 +6,9 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { shelterAdminSignUpSchema } from '@/lib/validation/authValidation';
-import { useAuthStore } from '@/stores/authStore';
+import { useAuthStore } from '@/auth/stores/authStore';
 import type { ShelterAdminSignUpFormData } from '@/types/core/auth';
+import { AUTH_ROLES } from '@/types/core/auth';
 
 interface EmergencyContact {
   name: string;
@@ -68,15 +69,13 @@ export function ShelterSignUpForm() {
     label: t(`signUp.shelter.form.services.options.${service.toLowerCase().replace(/\s+/g, '')}`)
   }));
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (data: ShelterAdminSignUpFormData) => {
     setValidationErrors({});
 
     try {
-      const validatedData = shelterAdminSignUpSchema.parse(formData);
       await signUp({
-        ...validatedData,
-        role: 'shelter_admin'
+        ...data,
+        role: AUTH_ROLES.SHELTER_ADMIN
       });
       navigate('/admin/dashboard');
     } catch (error: any) {

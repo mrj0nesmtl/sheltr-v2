@@ -1,9 +1,9 @@
 import { useAuthStore } from '@/auth/stores/authStore';
-import { DonationMap } from '../Admin/DonationMap';
-import { DonorList } from '../Admin/DonorList';
-import { ParticipantLeaderboard } from '../Admin/ParticipantLeaderboard';
-import { ParticipantRegistrationModal } from '../Admin/ParticipantRegistrationModal';
-import { SystemAlerts } from '../Admin/SystemAlerts';
+import { DonationMap } from '@/components/Admin/DonationMap';
+import { DonorList } from '@/components/Admin/DonorList';
+import { ParticipantLeaderboard } from '@/components/Admin/ParticipantLeaderboard';
+import { ParticipantRegistrationModal } from '@/components/Admin/ParticipantRegistrationModal';
+import { SystemAlerts } from '@/components/Admin/SystemAlerts';
 import { Button } from '@/components/ui/Button';
 import { Icon } from '@/components/ui/Icon';
 import { useState } from 'react';

@@ -25,7 +25,7 @@ interface DonorStats {
 const COLORS = ['#6366F1', '#10B981', '#F59E0B', '#EF4444'];
 
 export function DonorDashboard() {
-  const { user, signOut } = useAuthStore();
+  const { user, logout } = useAuthStore();
   const navigate = useNavigate();
   const [stats, setStats] = useState<DonorStats>({
     totalDonated: 0,
@@ -97,7 +97,7 @@ export function DonorDashboard() {
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-white">Donor Dashboard</h1>
           <button
-            onClick={signOut}
+            onClick={logout}
             className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
           >
             Sign Out

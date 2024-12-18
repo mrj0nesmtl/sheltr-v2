@@ -37,6 +37,99 @@ interface PlatformStats {
   // ... other stats
 }
 
+// Add these interface definitions at the top of the file
+interface ShelterMetrics {
+  id: string;
+  name: string;
+  totalParticipants: number;
+  activePrograms: number;
+  successRate: number;
+}
+
+interface DonorMetrics {
+  id: string;
+  name: string;
+  totalDonated: number;
+  frequency: string;
+  impactScore: number;
+}
+
+interface ParticipantMetrics {
+  id: string;
+  name: string;
+  programProgress: number;
+  milestonesAchieved: number;
+  daysActive: number;
+}
+
+interface ShelterStats {
+  totalBeds: number;
+  occupancyRate: number;
+  avgStayDuration: number;
+  successfulPlacements: number;
+}
+
+interface DonorActivity {
+  donorId: string;
+  amount: number;
+  frequency: string;
+  lastDonation: Date;
+}
+
+interface ProgramMetrics {
+  programId: string;
+  name: string;
+  enrolledCount: number;
+  completionRate: number;
+}
+
+interface ProgressMetrics {
+  currentPhase: string;
+  daysInProgram: number;
+  goalsAchieved: number;
+  nextMilestone: string;
+}
+
+interface ServiceMetrics {
+  serviceId: string;
+  name: string;
+  usageCount: number;
+  satisfaction: number;
+}
+
+interface SupportMetrics {
+  donorId: string;
+  amount: number;
+  frequency: string;
+  duration: number;
+}
+
+interface ImpactStats {
+  totalDonated: number;
+  peopleHelped: number;
+  programsSupported: number;
+}
+
+interface LeaderboardStats {
+  rank: number;
+  score: number;
+  tier: string;
+}
+
+interface BadgeMetrics {
+  id: string;
+  name: string;
+  earnedDate: Date;
+  category: string;
+}
+
+interface TrendMetrics {
+  period: string;
+  amount: number;
+  frequency: string;
+  growth: number;
+}
+
 export const analyticsService = {
   // Super Admin Level
   async getGlobalAnalytics(): Promise<GlobalAnalytics> {

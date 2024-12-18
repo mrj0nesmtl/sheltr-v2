@@ -1,19 +1,23 @@
 import { AUTH_ROLES } from '@/types/auth';
 import { lazy } from 'react';
 import { RouteObject } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-// Use lazy loading for page components
-const Impact = lazy(() => import('@/pages/Impact').then(mod => ({ 
-  default: mod.default || mod.Impact 
-})));
+// Use typeof AUTH_ROLES for the type
+type CustomRouteObject = RouteObject & {
+  requiredRole?: typeof AUTH_ROLES[keyof typeof AUTH_ROLES];
+};
 
-const Solutions = lazy(() => import('@/pages/Solutions'));
-const Home = lazy(() => import('@/pages/Home'));
-const DonorDashboard = lazy(() => import('@/pages/Donor/DonorDashboard'));
-const QRScanner = lazy(() => import('@/components/QRScanner'));
-const ImpactPage = lazy(() => import('@/pages/Impact'));
+// Updated import paths to match actual file structure
+const Impact = lazy(() => import('@/pages/Impact.tsx'));
+const Solutions = lazy(() => import('@/pages/Solutions.tsx'));
+const Home = lazy(() => import('@/pages/HomePage.tsx'));
+const DonorDashboard = lazy(() => import('@/pages/Donor/DonorSignUp'));
+const QRScanner = lazy(() => import('@/pages/ScanDonatePage.tsx'));
+const ImpactPage = lazy(() => import('@/pages/Impact.tsx'));
+const DonorSignUp = lazy(() => import('@/pages/Donor/DonorSignUp'));
 
-export const routes: RouteObject[] = [
+export const routes: CustomRouteObject[] = [
   {
     path: '/',
     element: <Home />
@@ -40,5 +44,9 @@ export const routes: RouteObject[] = [
     path: '/impact-page',
     element: <ImpactPage />,
     requiredRole: AUTH_ROLES.SUPER_ADMIN
-  }
+  },
+  {
+    path: '/donor/signup',
+    element: <DonorSignUp />
+  },
 ]; 

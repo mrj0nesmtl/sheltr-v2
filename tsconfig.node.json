@@ -13,7 +13,21 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
-    "strict": true
+    "strict": true,
+    "typeRoots": ["./node_modules/@types"],
+    "types": [
+      "node",
+      "d3-color",
+      "geojson",
+      "geojson-vt",
+      "hast",
+      "json-schema",
+      "mdast",
+      "mdx",
+      "ms",
+      "phoenix",
+      "unist"
+    ]
   },
   "include": ["vite.config.ts"]
 }

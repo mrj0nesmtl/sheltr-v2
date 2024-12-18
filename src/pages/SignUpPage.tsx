@@ -1,14 +1,16 @@
 import type { DonorSignUpForm as DonorFormType, ShelterSignUpForm as ShelterFormType } from '@/auth/schemas';
-import { DonorSignUpForm } from '@/components/auth/forms/DonorSignUpForm';
+import DonorSignUpForm from '@/components/auth/forms/DonorSignUpForm';
 import { ShelterSignUpForm } from '@/components/auth/forms/ShelterSignUpForm';
 import { Building2, Heart } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function SignUpPage() {
   const { t } = useTranslation();
   const [selectedForm, setSelectedForm] = useState<'donor' | 'shelter' | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
 
   const handleDonorSubmit = async (data: DonorFormType) => {
     setIsSubmitting(true);
@@ -36,11 +38,19 @@ export default function SignUpPage() {
 
   if (selectedForm === 'donor') {
     return (
-      <DonorSignUpForm 
-        onSubmit={handleDonorSubmit} 
-        onBack={() => setSelectedForm(null)}
-        isSubmitting={isSubmitting}
-      />
+      <div className="container mx-auto px-4 min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center">
+        <div className="w-full max-w-md space-y-8">
+          <h1 className="text-3xl font-bold text-white text-center mb-8">
+            Create Donor Account
+          </h1>
+          
+          <DonorSignUpForm 
+            onSubmit={handleDonorSubmit}
+            onBack={() => setSelectedForm(null)}
+            isSubmitting={isSubmitting}
+          />
+        </div>
+      </div>
     );
   }
 
@@ -81,7 +91,13 @@ export default function SignUpPage() {
             Support individuals directly and track your impact with our transparent
             donation system.
           </p>
-          <button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-6 rounded-lg transition-colors">
+          <button 
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedForm('donor');
+            }}
+            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-6 rounded-lg transition-colors"
+          >
             Get Started
           </button>
         </div>
@@ -111,9 +127,9 @@ export default function SignUpPage() {
 
       <div className="mt-12 text-gray-400">
         Already have an account?{' '}
-        <a href="/login" className="text-indigo-400 hover:text-indigo-300">
+        <Link to="/login" className="text-indigo-400 hover:text-indigo-300">
           Sign in
-        </a>
+        </Link>
       </div>
     </div>
   );
