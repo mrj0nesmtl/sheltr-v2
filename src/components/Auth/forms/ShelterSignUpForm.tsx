@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { shelterSignUpSchema, type ShelterSignUpForm as ShelterFormType } from '@/auth/schemas'
+import { z } from 'zod'
+import { AUTH_ROLES } from '@/types/auth'
 import { useAuthStore } from '@/auth/stores/authStore'
 import { ArrowLeft } from 'lucide-react'
 
@@ -9,13 +10,33 @@ interface Props {
   isSubmitting: boolean
 }
 
+// Define the complete shelter form schema
+const shelterSignUpSchema = z.object({
+  role: z.literal(AUTH_ROLES.SHELTER_ADMIN),
+  email: z.string().email('Invalid email address'),
+  password: z.string().min(8, 'Password must be at least 8 characters'),
+  name: z.string().min(2, 'Shelter name is required'),
+  registration_number: z.string().min(1, 'Registration number is required'),
+  capacity: z.number().min(1, 'Capacity must be at least 1'),
+  contact_phone: z.string().optional(),
+  address: z.string().optional(),
+  city: z.string().optional(),
+  emergency_contact: z.object({
+    name: z.string().optional(),
+    phone: z.string().optional(),
+    email: z.string().email('Invalid email').optional()
+  })
+})
+
+type ShelterFormType = z.infer<typeof shelterSignUpSchema>
+
 export const ShelterSignUpForm = ({ onBack, isSubmitting }: Props) => {
   const signUpShelter = useAuthStore(state => state.signUpShelter)
   
   const { register, handleSubmit, formState: { errors } } = useForm<ShelterFormType>({
     resolver: zodResolver(shelterSignUpSchema),
     defaultValues: {
-      role: 'shelter',
+      role: AUTH_ROLES.SHELTER_ADMIN,
       services: [],
       emergency_contact: {
         name: '',
