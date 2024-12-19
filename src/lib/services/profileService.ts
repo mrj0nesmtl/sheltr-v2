@@ -1,6 +1,7 @@
 import { supabase } from '@/lib/supabase/client';
+import type { UserProfile } from '@/types/auth';
 
-export async function getUserProfile(userId: string): Promise<Profile | null> {
+export async function getUserProfile(userId: string): Promise<UserProfile | null> {
   const { data, error } = await supabase
     .from('profiles')
     .select('*')
@@ -12,10 +13,10 @@ export async function getUserProfile(userId: string): Promise<Profile | null> {
     return null;
   }
 
-  return data as Profile;
+  return data as UserProfile;
 }
 
-export async function updateUserProfile(userId: string, updates: Partial<Profile>) {
+export async function updateUserProfile(userId: string, updates: Partial<UserProfile>) {
   const { data, error } = await supabase
     .from('profiles')
     .update(updates)
@@ -23,5 +24,5 @@ export async function updateUserProfile(userId: string, updates: Partial<Profile
     .single();
 
   if (error) throw error;
-  return data as Profile;
+  return data as UserProfile;
 }

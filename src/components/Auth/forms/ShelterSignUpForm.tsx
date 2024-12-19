@@ -1,77 +1,22 @@
-import { useAuthStore } from '@/auth/stores/authStore'
-import { AUTH_ROLES } from '@/types/auth'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { ArrowLeft } from 'lucide-react'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
+import { FC } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { AUTH_ROLES, type ShelterAdminSignUpFormData } from '@/types/auth';
+import { shelterAdminSignUpSchema } from '@/auth/schemas';
 
 interface Props {
-  onBack: () => void
-  isSubmitting: boolean
+  onBack: () => void;
+  isSubmitting: boolean;
+  onSubmit: (data: ShelterAdminSignUpFormData) => Promise<void>;
 }
 
-// Define the complete shelter form schema
-const shelterSignUpSchema = z.object({
-  role: z.literal(AUTH_ROLES.SHELTER_ADMIN),
-  email: z.string().email('Invalid email address'),
-  password: z.string().min(8, 'Password must be at least 8 characters'),
-  name: z.string().min(2, 'Shelter name is required'),
-  registration_number: z.string().min(1, 'Registration number is required'),
-  capacity: z.number().min(1, 'Capacity must be at least 1'),
-  phoneNumber: z.string(),
-  address: z.string(),
-  city: z.string(),
-  emergency_contact: z.object({
-    name: z.string(),
-    phone: z.string(),
-    email: z.string().email('Invalid email')
-  })
-})
-
-type ShelterFormType = z.infer<typeof shelterSignUpSchema>
-export const ShelterSignUpForm = ({ onBack, isSubmitting }: Props) => {
-  const { signUpShelter } = useAuthStore((state) => ({
-    signUpShelter: state.signUpShelter
-  }))
-  
-  const { register, handleSubmit, formState: { errors } } = useForm<ShelterFormType>({
-    resolver: zodResolver(shelterSignUpSchema),
+export const ShelterSignUpForm: FC<Props> = ({ onBack, isSubmitting, onSubmit }) => {
+  const { register, handleSubmit, formState: { errors } } = useForm<ShelterAdminSignUpFormData>({
+    resolver: zodResolver(shelterAdminSignUpSchema),
     defaultValues: {
-      role: AUTH_ROLES.SHELTER_ADMIN,
-      emergency_contact: {
-        name: '',
-        phone: '',
-        email: ''
-      }
+      role: AUTH_ROLES.SHELTER_ADMIN
     }
-  })
-
-  const onSubmit = async (data: ShelterFormType) => {
-    try {
-      const formData: ShelterFormType = {
-        role: 'shelter_admin',
-        email: data.email,
-        password: data.password,
-        name: data.name,
-        registration_number: data.registration_number,
-        capacity: data.capacity,
-        phoneNumber: data.phoneNumber,
-        emergency_contact: {
-          name: data.emergency_contact.name,
-          email: data.emergency_contact.email,
-          phone: data.emergency_contact.phone,
-        },
-        address: data.address,
-        city: data.city,
-      };
-
-      await signUpShelter(formData);
-      // Success handling will be managed by the auth store
-    } catch (error) {
-      console.error('Signup error:', error)
-      // Error handling will be managed by the auth store
-    }
-  }
+  });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="max-w-2xl mx-auto p-6 space-y-6">

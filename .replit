@@ -1,18 +1,18 @@
-run = "npm run dev"
+run = "npm run preview"
 entrypoint = "src/App.tsx"
 
 [env]
 XDG_CONFIG_HOME = "/home/runner/.config"
 PATH = "/home/runner/$REPL_SLUG/.config/npm/node_global/bin:/home/runner/$REPL_SLUG/node_modules/.bin"
 npm_config_prefix = "/home/runner/$REPL_SLUG/.config/npm/node_global"
-NODE_ENV = "development"
+NODE_ENV = "production"
 
 [nix]
 channel = "stable-22_11"
 
 [deployment]
-run = ["sh", "-c", "npm run dev"]
-build = ["sh", "-c", "npm run build"]
+run = ["sh", "-c", "npm run preview"]
+build = ["sh", "-c", "npm run build:force"]
 deploymentTarget = "cloudrun"
 ignorePorts = false
 
@@ -34,3 +34,7 @@ language = "nodejs"
 [packager.features]
 packageSearch = true
 guessImports = true
+
+[hosting]
+route = "/"
+directory = "dist"

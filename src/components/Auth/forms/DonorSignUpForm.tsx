@@ -1,19 +1,31 @@
-import { donorSignUpSchema, type DonorSignUpForm as DonorFormType } from '@/auth/schemas'
+import { type FC } from 'react'
+import { donorSignUpSchema } from '@/auth/schemas'
 import { useAuthStore } from '@/auth/stores/authStore'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import type { z } from 'zod'
+import { AUTH_ROLES, type DonorSignUpFormData } from '@/types/auth'
 
 interface Props {
   onBack: () => void
   isSubmitting: boolean
-  onSubmit: (data: DonorFormType) => Promise<void>
+  onSubmit: (data: DonorSignUpFormData) => Promise<void>
 }
 
-export default function DonorSignUpForm({ onBack, isSubmitting, onSubmit }: Props) {
-  const signUpDonor = useAuthStore(state => state.signUpDonor)
-  const { register, handleSubmit, formState: { errors } } = useForm<DonorFormType>({
-    resolver: zodResolver(donorSignUpSchema)
+export const DonorSignUpForm: FC<Props> = ({ 
+  onBack, 
+  isSubmitting, 
+  onSubmit 
+}) => {
+  const { register, handleSubmit, formState: { errors } } = useForm<DonorSignUpFormData>({
+    resolver: zodResolver(donorSignUpSchema),
+    defaultValues: {
+      role: AUTH_ROLES.DONOR
+    }
   })
+
+  // Remove unused signUpDonor if not being used
+  // const signUpDonor = useAuthStore(state => state.signUpDonor)
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -30,6 +42,7 @@ export default function DonorSignUpForm({ onBack, isSubmitting, onSubmit }: Prop
           Email
         </label>
         <input
+          id="email"
           {...register('email')}
           type="email"
           className="mt-1 block w-full rounded-md border-gray-700 bg-gray-800 text-white"
@@ -44,6 +57,7 @@ export default function DonorSignUpForm({ onBack, isSubmitting, onSubmit }: Prop
           Password
         </label>
         <input
+          id="password"
           {...register('password')}
           type="password"
           className="mt-1 block w-full rounded-md border-gray-700 bg-gray-800 text-white"
@@ -58,6 +72,7 @@ export default function DonorSignUpForm({ onBack, isSubmitting, onSubmit }: Prop
           Name
         </label>
         <input
+          id="name"
           {...register('name')}
           type="text"
           className="mt-1 block w-full rounded-md border-gray-700 bg-gray-800 text-white"
@@ -77,3 +92,5 @@ export default function DonorSignUpForm({ onBack, isSubmitting, onSubmit }: Prop
     </form>
   )
 }
+
+export default DonorSignUpForm

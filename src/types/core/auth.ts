@@ -1,73 +1,34 @@
-// Define the AUTH_ROLES as both type and enum
-export enum AUTH_ROLES {
-  SUPER_ADMIN = 'super_admin',
-  SHELTER_ADMIN = 'shelter_admin',
-  DONOR = 'donor'
-}
+import { AUTH_ROLES } from './constants';
 
-// User type with all required properties
-export interface User {
+// Define the role type from AUTH_ROLES
+export type AllowedRole = (typeof AUTH_ROLES)[keyof typeof AUTH_ROLES];
+
+// Base user interface
+export interface BaseUser {
   id: string;
   email: string;
-  role: AUTH_ROLES;
+  role: AllowedRole;
+}
+
+// Supabase user interface
+export interface User extends BaseUser {
   app_metadata: Record<string, any>;
   user_metadata: Record<string, any>;
-  created_at: string;
-  updated_at?: string;
   aud: string;
+  created_at: string;
 }
 
-// Shelter Admin Sign Up Form Data
-export interface ShelterAdminSignUpFormData {
-  email: string;
-  password: string;
-  confirmPassword: string;
-  name: string;
-  organization: string;
-  registrationNumber: string;
-  city: string;
-  address: string;
-  capacity: number;
-  services: string[];
-  contactPhone: string;
-  emergencyContact: {
-    name: string;
-    phone: string;
-    email: string;
-  };
-  role: AUTH_ROLES.SHELTER_ADMIN;
+// Auth state user interface
+export interface AuthUser extends BaseUser {
+  // Add any additional auth-specific user properties here
 }
 
-// Auth Response type
-export interface AuthResponse {
-  data: {
-    user: User;
-    session: any;
-  };
-  error: Error | null;
-}
-
-// Auth Error type
-export interface AuthError {
-  message: string;
-  status?: number;
-}
-
-// Add this to your existing auth.ts file
 export interface AuthState {
-  user: User | null;
-  role: AUTH_ROLES | null;
-  loading: boolean;
+  user: AuthUser | null;
   isAuthenticated: boolean;
-  error: string | null;
-  login: (credentials: LoginCredentials) => Promise<void>;
-  logout: () => Promise<void>;
-  refreshSession: () => Promise<void>;
-  updateProfile: (data: Partial<User>) => Promise<void>;
 }
 
-// Add this if not already present
-export interface LoginCredentials {
-  email: string;
-  password: string;
+export interface AuthResponse {
+  user: User;
+  session: any; // Type this more specifically if needed
 } 

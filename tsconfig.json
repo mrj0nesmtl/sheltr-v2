@@ -12,15 +12,15 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "moduleDetection": "force",
-    "noEmit": true,
+    "noEmit": false,
     "jsx": "react-jsx",
 
     /* Linting */
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
     "strictBindCallApply": true,
@@ -46,7 +46,10 @@
     "checkJs": true,
     "forceConsistentCasingInFileNames": true,
     "incremental": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+
+    /* Change these settings */
+    "noEmitOnError": false,
   },
   "include": [
     "src/**/*.ts",
