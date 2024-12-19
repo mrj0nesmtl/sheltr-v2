@@ -1,5 +1,32 @@
 # Changelog
 
+## [0.4.7] - 2024-12-18 18:30 EST
+### Added
+- Production deployment configuration
+- Replit-specific build settings
+- Port forwarding configuration
+- Environment variable structure
+
+### Changed
+- Updated Node.js engine requirements
+- Optimized build command configuration
+- Enhanced deployment pipeline
+- Improved environment configuration
+
+### Fixed
+- Node.js version compatibility
+- Build process configuration
+- Port forwarding setup
+- Environment variable integration
+
+### Technical Debt Addressed
+- Deployment configuration standardized
+- Build process optimized
+- Environment setup streamlined
+- Version compatibility resolved
+
+[0.4.7]: https://github.com/mrj0nesmtl/sheltr-v2
+
 ## [0.4.6] - 2024-12-18 17:51 EST
 ### Added
 - New DonorSignUp page component

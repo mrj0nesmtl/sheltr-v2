@@ -6,9 +6,7 @@
 ├── package-lock.json
 ├── package.json
 ├── postcss.config.js
-├── project-structure.txt
 ├── project_structure.txt
-├── project_structure_L4.txt
 ├── public
 │   ├── content
 │   │   └── whitepaper
@@ -21,6 +19,7 @@
 │   │   ├── documentation_map.md
 │   │   ├── project
 │   │   ├── sessions
+│   │   ├── technical
 │   │   ├── testing
 │   │   ├── translations
 │   │   ├── update project_docs
@@ -51,6 +50,7 @@
 │   ├── auth
 │   │   ├── components
 │   │   ├── forms
+│   │   ├── guards
 │   │   ├── hooks
 │   │   ├── schemas
 │   │   ├── services
@@ -166,7 +166,6 @@
 │   │   ├── SuperAdmin
 │   │   ├── blockchain
 │   │   └── index.ts
-│   ├── project_structure.txt
 │   ├── routes
 │   │   ├── AppRoutes.tsx
 │   │   ├── blockchain
@@ -214,4 +213,4 @@
 ├── vercel.json
 └── vite.config.ts
 
-108 directories, 107 files
+110 directories, 104 files

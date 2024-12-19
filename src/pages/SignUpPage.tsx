@@ -1,6 +1,6 @@
 import type { DonorSignUpForm as DonorFormType, ShelterSignUpForm as ShelterFormType } from '@/auth/schemas';
-import DonorSignUpForm from '@/components/auth/forms/DonorSignUpForm';
-import { ShelterSignUpForm } from '@/components/auth/forms/ShelterSignUpForm';
+import { DonorSignUpForm } from '@/components/Auth/forms/DonorSignUpForm';
+import { ShelterSignUpForm } from '@/components/Auth/forms/ShelterSignUpForm';
 import { Building2, Heart } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
