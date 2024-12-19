@@ -1,40 +1,21 @@
-run = "npm install && npm run build:force && npm run preview"
-modules = ["nodejs-18", "web"]
-
-[env]
-XDG_CONFIG_HOME = "/home/runner/.config"
-PATH = "/home/runner/$REPL_SLUG/.config/npm/node_global/bin:/home/runner/$REPL_SLUG/node_modules/.bin"
-npm_config_prefix = "/home/runner/$REPL_SLUG/.config/npm/node_global"
-NODE_ENV = "production"
+run = "npm run dev"
+entrypoint = "src/main.tsx"
 
 [nix]
-channel = "stable-24_05"
+channel = "stable-22_11"
 
-[deployment]
-run = ["sh", "-c", "npm run preview"]
-build = ["sh", "-c", "npm install && npm run build:force"]
-deploymentTarget = "cloudrun"
-ignorePorts = false
-
-[[ports]]
-localPort = 5173
-externalPort = 80
-protocol = "http"
-
-[languages.javascript]
-pattern = "**/{*.js,*.jsx,*.ts,*.tsx}"
-syntax = "javascript"
-
-[languages.javascript.languageServer]
-start = ["typescript-language-server", "--stdio"]
+[env]
+PATH = "/home/runner/$REPL_SLUG/.config/npm/node_global/bin:/home/runner/$REPL_SLUG/node_modules/.bin"
+npm_config_prefix = "/home/runner/$REPL_SLUG/.config/npm/node_global"
 
 [packager]
 language = "nodejs"
+  [packager.features]
+  packageSearch = true
+  guessImports = true
+  enabledForHosting = true
 
-[packager.features]
-packageSearch = true
-guessImports = true
-
-[hosting]
-route = "/"
-directory = "dist"
+[languages.typescript]
+pattern = "**/{*.ts,*.tsx}"
+  [languages.typescript.languageServer]
+  start = ["typescript-language-server", "--stdio"]
