@@ -8,11 +8,11 @@
     "npm": ">=8.19.2"
   },
   "scripts": {
-    "dev": "./node_modules/.bin/vite",
-    "build": "./node_modules/.bin/vite build",
-    "build:check": "tsc && vite build",
-    "build:force": "./node_modules/.bin/vite build --emptyOutDir",
-    "preview": "vite preview --host",
+    "dev": "npx vite",
+    "build": "npx vite build",
+    "build:check": "tsc && npx vite build",
+    "build:force": "npx vite build --emptyOutDir",
+    "preview": "npx vite preview --host",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf node_modules/.cache dist .vite",
