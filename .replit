@@ -1,4 +1,4 @@
-run = "npm run preview"
+run = "npm install && npm run preview"
 entrypoint = "src/App.tsx"
 
 [env]
@@ -11,8 +11,8 @@ NODE_ENV = "production"
 channel = "stable-22_11"
 
 [deployment]
-run = ["sh", "-c", "npm run preview"]
-build = ["sh", "-c", "npm run build:force"]
+run = ["sh", "-c", "npm install && npm run build:force && npm run preview"]
+build = ["sh", "-c", "npm install && npm run build:force"]
 deploymentTarget = "cloudrun"
 ignorePorts = false
 
