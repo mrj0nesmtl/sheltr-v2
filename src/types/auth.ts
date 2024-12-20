@@ -17,3 +17,20 @@ export const AUTH_ROLES = {
 
 // Remove the last line as we're already importing at the top
 // export * from './auth.types'; 
+
+export interface ShelterAdminSignUpFormData {
+  email: string;
+  password: string;
+  name: string;
+  phoneNumber?: string;
+  address?: string;
+  city?: string;
+  registration_number: string;
+  capacity: number;
+  emergency_contact?: {
+    name?: string;
+    phone?: string;
+    email?: string;
+  };
+  role: typeof AUTH_ROLES.SHELTER_ADMIN;
+}
