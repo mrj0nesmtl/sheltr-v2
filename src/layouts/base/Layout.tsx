@@ -1,12 +1,13 @@
 import { Outlet } from 'react-router-dom';
-import { PageLayout } from './PageLayout';
-
-export { PageLayout };
+import { Header } from '../components/Header';
 
 export function Layout() {
   return (
     <div className="min-h-screen bg-gray-900">
-      <Outlet />
+      <Header />
+      <main className="pt-16">
+        <Outlet />
+      </main>
     </div>
   );
-}
+} 

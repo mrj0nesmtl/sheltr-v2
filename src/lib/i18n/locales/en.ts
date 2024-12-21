@@ -132,7 +132,57 @@ export const en: Translations = {
     scanDonate: "Scan + Donate",
     impact: "Impact",
     login: "Login",
-    signUp: "Sign Up"
+    signUp: "Sign Up",
+    solutions_menu: {
+      title: 'Solutions',
+      howItWorks: 'How It Works',
+      solutions: 'Solutions',
+      scanDonate: 'Scan + Donate'
+    },
+    company_menu: {
+      title: 'Company',
+      about: 'About',
+      blog: 'Blog'
+    },
+    blockchain: {
+      title: 'Blockchain',
+      menu: {
+        whitepaper: 'Whitepaper',
+        transactions: 'Transactions'
+      }
+    },
+    footer: {
+      copyright: '© {{year}} SHELTR. All rights reserved.',
+      tagline: 'Hacking Homelessness with Technology.',
+      quickLinks: 'Quick Links',
+      resources: 'Resources',
+      connect: 'Connect',
+      links: {
+        howItWorks: 'How It Works',
+        solutions: 'Solutions',
+        scanDonate: 'Scan + Donate',
+        about: 'About',
+        blog: 'Blog',
+        whitepaper: 'Whitepaper',
+        transactions: 'Transactions',
+        privacy: 'Privacy Policy',
+        terms: 'Terms of Service'
+      },
+      social: {
+        linkedin: 'Follow us on LinkedIn',
+        youtube: 'Watch on YouTube',
+        tiktok: 'Follow on TikTok',
+        website: 'Visit our Blog',
+        substack: 'Read our Substack',
+        spotify: 'Listen on Spotify'
+      },
+      podcast: {
+        latest: 'Latest Episode',
+        listen: 'Listen Now',
+        duration: 'Duration',
+        showName: 'Tomes of Arcana'
+      }
+    }
   },
 
   hero: {

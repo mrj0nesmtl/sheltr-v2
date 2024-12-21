@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AUTH_ROLES, type ShelterAdminSignUpFormData } from '@/types/auth';
 import { shelterAdminSignUpSchema } from '@/auth/schemas';
+import { ArrowLeft } from 'lucide-react';
 
 interface Props {
   onBack: () => void;

@@ -12,7 +12,7 @@ interface LanguageToggleProps {
   className?: string;
 }
 
-export function LanguageToggle() {
+export function LanguageToggle({ className }: LanguageToggleProps) {
   const { i18n } = useTranslation();
 
   const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];

@@ -1,4 +1,4 @@
-import { Header } from '@/components/Layout/Header';
+import { Header } from '@/layouts/components/Header';
 import { BrowserRouter } from 'react-router-dom';
 import AppRoutes from './routes/AppRoutes';
 

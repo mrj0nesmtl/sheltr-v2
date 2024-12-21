@@ -25,7 +25,8 @@ export default defineConfig({
       '@types': path.resolve(__dirname, './src/types'),
       '@hooks': path.resolve(__dirname, './src/hooks'),
       '@services': path.resolve(__dirname, './src/services')
-    }
+    },
+    extensions: ['.js', '.jsx', '.ts', '.tsx']
   },
   server: {
     port: 5173,

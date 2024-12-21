@@ -1,3 +1,4 @@
+export { BuildProgress } from './BuildProgress';
 export { Contact } from './Contact';
 export { Documentation } from './Documentation';
 export { Hero } from './Hero';

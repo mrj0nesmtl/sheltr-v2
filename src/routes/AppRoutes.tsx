@@ -1,149 +1,44 @@
-import { ProtectedRoute } from '@/auth/components/ProtectedRoute';
-import { AUTH_ROLES } from '@/auth/types/auth.types';
-import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
-import Impact from '@/pages/Impact';
-import ScanDonatePage from '@/pages/ScanDonatePage';
 import { lazy, Suspense } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+import { Layout } from '@/layouts/base/Layout';
+import { DashboardLayout } from '@/layouts/specialized/dashboard';
 
-// Lazy load pages
-const HomePage = lazy(() => import('@/pages/HomePage'));
+// Lazy load pages with correct paths
+const Home = lazy(() => import('@/pages/HomePage'));
 const About = lazy(() => import('@/pages/About'));
-const LoginPage = lazy(() => import('@/pages/LoginPage'));
-const SignupPage = lazy(() => import('@/pages/SignUpPage'));
-const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
 const HowItWorks = lazy(() => import('@/pages/HowItWorks'));
-const Solutions = lazy(() => import('@/pages/Solutions'));
+const ScanDonate = lazy(() => import('@/pages/ScanDonatePage'));
+const Impact = lazy(() => import('@/pages/Impact'));
+const Login = lazy(() => import('@/pages/LoginPage'));
+const SignUp = lazy(() => import('@/pages/SignUpPage'));
 
-// Lazy load dashboard pages
-const DonorDashboard = lazy(() => import('@/features/dashboard/components/donor/DonorDashboard'));
-const ParticipantDashboard = lazy(() => import('@/features/roles/participant/ParticipantDashboard'));
-const ShelterDashboard = lazy(() => import('@/features/dashboard/components/shelter/ShelterDashboard'));
-const SuperAdminDashboard = lazy(() => import('@/pages/SuperAdmin/SuperAdminDashboard'));
+// Dashboard pages - Correct paths in layouts directory
+const DonorDashboard = lazy(() => import('@/layouts/specialized/dashboard/components/donor/DonorDashboard'));
+const ParticipantDashboard = lazy(() => import('@/layouts/specialized/dashboard/components/participant/ParticipantDashboard'));
+const ShelterDashboard = lazy(() => import('@/layouts/specialized/dashboard/components/shelter/ShelterDashboard'));
 
-const AppRoutes = () => {
+export default function AppRoutes() {
   return (
-    <Routes>
-      {/* Public routes */}
-      <Route 
-        path="/" 
-        element={
-          <Suspense fallback={<LoadingSpinner />}>
-            <HomePage />
-          </Suspense>
-        } 
-      />
-      <Route 
-        path="/about" 
-        element={
-          <Suspense fallback={<LoadingSpinner />}>
-            <About />
-          </Suspense>
-        } 
-      />
-      <Route 
-        path="/login" 
-        element={
-          <Suspense fallback={<LoadingSpinner />}>
-            <LoginPage />
-          </Suspense>
-        } 
-      />
-      <Route 
-        path="/signup" 
-        element={
-          <Suspense fallback={<LoadingSpinner />}>
-            <SignupPage />
-          </Suspense>
-        } 
-      />
-      <Route 
-        path="/how-it-works" 
-        element={
-          <Suspense fallback={<LoadingSpinner />}>
-            <HowItWorks />
-          </Suspense>
-        } 
-      />
-      <Route 
-        path="/solutions" 
-        element={
-          <Suspense fallback={<LoadingSpinner />}>
-            <Solutions />
-          </Suspense>
-        } 
-      />
-      <Route 
-        path="/scan-donate" 
-        element={
-          <Suspense fallback={<LoadingSpinner />}>
-            <ScanDonatePage />
-          </Suspense>
-        } 
-      />
-      <Route path="/impact" element={<Impact />} />
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        {/* Public routes with main layout */}
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/how-it-works" element={<HowItWorks />} />
+          <Route path="/scan-donate" element={<ScanDonate />} />
+          <Route path="/impact" element={<Impact />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+        </Route>
 
-      {/* Protected routes with role-based access */}
-      
-      {/* Admin routes */}
-      <Route
-        path="/admin/*"
-        element={
-          <ProtectedRoute allowedRoles={[AUTH_ROLES.SUPER_ADMIN]}>
-            <Suspense fallback={<LoadingSpinner />}>
-              <SuperAdminDashboard />
-            </Suspense>
-          </ProtectedRoute>
-        }
-      />
-
-      {/* Shelter routes */}
-      <Route
-        path="/shelter/*"
-        element={
-          <ProtectedRoute allowedRoles={[AUTH_ROLES.SHELTER_ADMIN]}>
-            <Suspense fallback={<LoadingSpinner />}>
-              <ShelterDashboard />
-            </Suspense>
-          </ProtectedRoute>
-        }
-      />
-
-      {/* Donor routes */}
-      <Route
-        path="/donor/*"
-        element={
-          <ProtectedRoute allowedRoles={[AUTH_ROLES.DONOR]}>
-            <Suspense fallback={<LoadingSpinner />}>
-              <DonorDashboard />
-            </Suspense>
-          </ProtectedRoute>
-        }
-      />
-
-      {/* Participant routes */}
-      <Route
-        path="/participant/*"
-        element={
-          <ProtectedRoute allowedRoles={[AUTH_ROLES.PARTICIPANT]}>
-            <Suspense fallback={<LoadingSpinner />}>
-              <ParticipantDashboard />
-            </Suspense>
-          </ProtectedRoute>
-        }
-      />
-
-      {/* Catch-all route */}
-      <Route 
-        path="*" 
-        element={
-          <Suspense fallback={<LoadingSpinner />}>
-            <NotFoundPage />
-          </Suspense>
-        } 
-      />
-    </Routes>
+        {/* Protected dashboard routes */}
+        <Route element={<DashboardLayout />}>
+          <Route path="/donor/dashboard" element={<DonorDashboard />} />
+          <Route path="/participant/dashboard" element={<ParticipantDashboard />} />
+          <Route path="/shelter/dashboard" element={<ShelterDashboard />} />
+        </Route>
+      </Routes>
+    </Suspense>
   );
-};
-
-export default AppRoutes;
+}

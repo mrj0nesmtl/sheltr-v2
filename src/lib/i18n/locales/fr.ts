@@ -29,7 +29,8 @@ export const fr: Translations = {
       solutions: 'Solutions',
       solutionsDesc: 'Découvrez nos solutions innovantes pour donateurs et refuges',
       impact: 'Impact',
-      impactDesc: 'Suivez et mesurez l\'impact réel de vos contributions'
+      impactDesc: 'Suivez et mesurez l\'impact réel de vos contributions',
+      scanDonate: 'Scanner & Donner'
     },
     company_menu: {
       title: 'Entreprise',
@@ -38,7 +39,8 @@ export const fr: Translations = {
       blog: 'Blogue',
       blogDesc: 'Dernières nouvelles et mises à jour de SHELTR',
       whitepaper: 'Livre Blanc',
-      whitepaperDesc: 'Détails techniques et architecture de la plateforme'
+      whitepaperDesc: 'Détails techniques et architecture de la plateforme',
+      scanDonate: 'Scanner & Donner'
     },
     scanDonate: 'Scanner & Donner',
     signUp: 'S\'inscrire',
@@ -54,7 +56,8 @@ export const fr: Translations = {
       shelterDashboard: 'Tableau de Bord du Refuge',
       shelterDashboardDesc: 'Gérer les opérations du refuge',
       residentManagement: 'Gestion des Résidents',
-      residentManagementDesc: 'Suivre et soutenir les résidents du refuge'
+      residentManagementDesc: 'Suivre et soutenir les résidents du refuge',
+      scanDonate: 'Scanner & Donner'
     },
     donor_menu: {
       title: 'Mes Dons',
@@ -82,7 +85,9 @@ export const fr: Translations = {
         transactions: "Transactions",
         transactionsDesc: "Voir les transactions blockchain",
         depot: "Dépôt Sans-Abri",
-        depotDesc: "Accéder aux ressources des participants"
+        depotDesc: "Accéder aux ressources des participants",
+        whitepaper: "Livre Blanc",
+        transactions: "Transactions"
       }
     },
     footer: {
@@ -90,7 +95,38 @@ export const fr: Translations = {
       contact: 'Contact',
       privacy: 'Confidentialité',
       terms: 'Conditions',
-      copyright: '© {{year}} SHELTR. Tous droits réservés.'
+      copyright: '© {{year}} SHELTR. Tous droits réservés.',
+      tagline: 'Pirater l\'itinérance avec la technologie.',
+      quickLinks: 'Liens Rapides',
+      resources: 'Ressources',
+      connect: 'Connecter',
+      links: {
+        howItWorks: 'Comment ça Marche',
+        solutions: 'Nos Solutions',
+        scanDonate: 'Scanner + Donner',
+        about: 'À Propos',
+        blog: 'Blog',
+        whitepaper: 'Livre Blanc',
+        transactions: 'Transactions',
+        privacy: 'Politique de Confidentialité',
+        terms: 'Conditions d\'Utilisation'
+      },
+      social: {
+        linkedin: 'Suivez-nous sur LinkedIn',
+        youtube: 'Regarder sur YouTube',
+        tiktok: 'Suivez-nous sur TikTok',
+        website: 'Visitez notre Blog',
+        substack: 'Lisez notre Substack',
+        spotify: 'Écoutez sur Spotify'
+      },
+      podcast: {
+        latest: 'Dernier Épisode',
+        listen: 'Écouter',
+        listenOn: 'Écouter sur Spotify',
+        duration: 'Durée',
+        showName: 'Tomes of Arcana',
+        description: 'Découvrez notre dernier épisode sur les solutions technologiques pour l\'itinérance'
+      }
     },
     language: 'Langue',
     closeMenu: 'Fermer le menu',
@@ -329,24 +365,28 @@ export const fr: Translations = {
     links: {
       howItWorks: 'Comment ça Marche',
       solutions: 'Nos Solutions',
-      scanDonate: 'Scanner & Donner',
+      scanDonate: 'Scanner + Donner',
+      about: 'À Propos',
       blog: 'Blog',
-      privacy: 'Confidentialité',
+      whitepaper: 'Livre Blanc',
+      transactions: 'Transactions',
+      privacy: 'Politique de Confidentialité',
       terms: 'Conditions d\'Utilisation'
     },
     social: {
       linkedin: 'Suivez-nous sur LinkedIn',
-      youtube: 'Regardez sur YouTube',
-      tiktok: 'Suivez sur TikTok',
-      website: 'Visitez notre site web',
-      substack: 'Lisez notre Substack'
+      youtube: 'Regarder sur YouTube',
+      tiktok: 'Suivez-nous sur TikTok',
+      website: 'Visitez notre Blog',
+      substack: 'Lisez notre Substack',
+      spotify: 'Écoutez sur Spotify'
     },
     podcast: {
       latest: 'Dernier Épisode',
       listen: 'Écouter',
       listenOn: 'Écouter sur Spotify',
       duration: 'Durée',
-      showName: 'SHELTR Podcast',
+      showName: 'Tomes of Arcana',
       description: 'Découvrez notre dernier épisode sur les solutions technologiques pour l\'itinérance'
     },
     copyright: '© {{year}} SHELTR.',
