@@ -29,8 +29,7 @@ export const fr: Translations = {
       solutions: 'Solutions',
       solutionsDesc: 'Découvrez nos solutions innovantes pour donateurs et refuges',
       impact: 'Impact',
-      impactDesc: 'Suivez et mesurez l\'impact réel de vos contributions',
-      scanDonate: 'Scanner & Donner'
+      impactDesc: 'Suivez et mesurez l\'impact réel de vos contributions'
     },
     company_menu: {
       title: 'Entreprise',
@@ -39,11 +38,9 @@ export const fr: Translations = {
       blog: 'Blogue',
       blogDesc: 'Dernières nouvelles et mises à jour de SHELTR',
       whitepaper: 'Livre Blanc',
-      whitepaperDesc: 'Détails techniques et architecture de la plateforme',
-      scanDonate: 'Scanner & Donner'
+      whitepaperDesc: 'Détails techniques et architecture de la plateforme'
     },
-    scanDonate: 'Scanner & Donner',
-    signUp: 'S\'inscrire',
+    signUp: 'S\'inscrire', 
     login: 'Connexion',
     platform_menu: {
       title: 'Plateforme',
@@ -56,8 +53,7 @@ export const fr: Translations = {
       shelterDashboard: 'Tableau de Bord du Refuge',
       shelterDashboardDesc: 'Gérer les opérations du refuge',
       residentManagement: 'Gestion des Résidents',
-      residentManagementDesc: 'Suivre et soutenir les résidents du refuge',
-      scanDonate: 'Scanner & Donner'
+      residentManagementDesc: 'Suivre et soutenir les résidents du refuge'
     },
     donor_menu: {
       title: 'Mes Dons',
@@ -105,7 +101,6 @@ export const fr: Translations = {
         about: 'À Propos',
         blog: 'Blog',
         whitepaper: 'Livre Blanc',
-        transactions: 'Transactions',
         privacy: 'Politique de Confidentialité',
         terms: 'Conditions d\'Utilisation'
       },
