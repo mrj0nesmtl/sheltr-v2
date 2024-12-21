@@ -85,9 +85,7 @@ export const fr: Translations = {
         transactions: "Transactions",
         transactionsDesc: "Voir les transactions blockchain",
         depot: "Dépôt Sans-Abri",
-        depotDesc: "Accéder aux ressources des participants",
-        whitepaper: "Livre Blanc",
-        transactions: "Transactions"
+        depotDesc: "Accéder aux ressources des participants"
       }
     },
     footer: {
@@ -809,6 +807,21 @@ export const fr: Translations = {
         monthly: "Mensuel",
         quarterly: "Trimestriel",
         annual: "Annuel"
+      }
+    }
+  },
+  navigation: {
+    main: {
+      about: "À Propos",
+      howItWorks: "Comment Ça Marche",
+      scanDonate: "Scanner + Donner",
+      impact: "Impact",
+      depot: "Dépôt Sans-Abri",
+      depotDesc: "Accéder aux ressources des participants",
+      documentation: {
+        whitepaper: "Livre Blanc",
+        transactions: "Transactions",
+        resources: "Ressources"
       }
     }
   }

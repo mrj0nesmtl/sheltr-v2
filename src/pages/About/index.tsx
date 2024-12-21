@@ -28,21 +28,20 @@ export default function About() {
         {/* Mission & Vision */}
         <Introduction />
 
-        {/* How It Works CTA */}
-        <section 
-          className="relative my-16 rounded-2xl overflow-hidden min-h-[300px]"
-          style={{
-            backgroundImage: `url('/images/homeless-person-bench.jpg')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        >
-          {/* Multiple gradient layers for better visibility */}
-          <div className="absolute inset-0">
-            {/* Dark gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-gray-900/80 via-gray-900/70 to-gray-900/80" />
-            {/* Additional side gradient for depth */}
-            <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 via-transparent to-gray-900/90" />
+        {/* How It Works CTA with background image */}
+        <section className="relative my-16 rounded-2xl overflow-hidden min-h-[300px]">
+          {/* Background image with overlay */}
+          <div className="absolute inset-0 w-full h-full">
+            <img 
+              src={homelessPersonBench} 
+              alt="Background" 
+              className="w-full h-full object-cover opacity-50"
+            />
+            <div 
+              className="absolute inset-0 bg-gradient-to-r 
+                from-gray-900/95 via-gray-900/90 to-gray-900/80 
+                backdrop-blur-[2px]" 
+            />
           </div>
 
           {/* Content */}
