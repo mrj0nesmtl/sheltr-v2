@@ -1,5 +1,43 @@
 # Changelog
 
+## [0.4.9] - 2024-12-21 15:30 EST
+### Added
+- Comprehensive database security policies
+- Role-based access control (RBAC) implementation
+- Organization-participant relationship management
+- Enhanced donation system security
+- Transaction monitoring policies
+
+### Changed
+- Restructured database access patterns
+- Optimized policy configurations
+- Enhanced participant service management
+- Improved donation flow security
+- Updated transaction handling
+
+### Security
+- Implemented Row Level Security (RLS)
+- Added granular access policies
+- Enhanced data privacy controls
+- Secured participant data access
+- Protected donation information
+
+### Fixed
+- Duplicate security policies
+- Overly permissive access controls
+- Missing relationship tables
+- Incorrect column references
+- Policy redundancies
+
+### Technical Debt Addressed
+- Database security architecture
+- Access control standardization
+- Policy naming conventions
+- Relationship management
+- Documentation structure
+
+[0.4.9]: https://github.com/mrj0nesmtl/sheltr-v2
+
 ## [0.4.8] - 2024-12-20 19:54 EST
 ### Added
 - Optimized Hero section component

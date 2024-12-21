@@ -143,25 +143,38 @@ function FullContentModal({ onClose, content }: FullContentModalProps) {
 }
 
 export function Introduction() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [showFullContent, setShowFullContent] = useState(false);
   const [fullContent, setFullContent] = useState<string>('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const loadFullContent = async () => {
+      setIsLoading(true);
+      setError(null);
       try {
-        const response = await fetch('/docs/SHELTR_INTRO_eng.md');
+        const contentFile = i18n.language === 'fr'
+          ? '/src/pages/About/content/shelter_intro_fr.md'
+          : '/src/pages/About/content/sheltr_intro_eng.md';
+        
+        const response = await fetch(contentFile);
+        if (!response.ok) throw new Error('Failed to load content');
+        
         const text = await response.text();
         setFullContent(text);
       } catch (error) {
-        console.error('Failed to load full content:', error);
+        console.error('Failed to load content:', error);
+        setError('Failed to load content. Please try again.');
+      } finally {
+        setIsLoading(false);
       }
     };
 
     if (showFullContent) {
       loadFullContent();
     }
-  }, [showFullContent]);
+  }, [showFullContent, i18n.language]);
 
   const keyConcepts: ConceptCardProps[] = [
     {
@@ -223,16 +236,41 @@ export function Introduction() {
   return (
     <div className="bg-gray-800/50 rounded-xl p-8">
       {/* Header */}
-      <div className="flex items-center mb-8">
-        <Icon name="info" className="h-8 w-8 text-indigo-400 mr-3" />
-        <div>
-          <h2 className="text-2xl font-bold text-white">
-            {t('about.intro.title')}
-          </h2>
-          <p className="text-gray-400 mt-1 max-w-2xl">
-            {t('about.intro.abstract')}
-          </p>
+      <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center">
+          <Icon name="info" className="h-8 w-8 text-indigo-400 mr-3" />
+          <div>
+            <h2 className="text-2xl font-bold text-white">
+              {t('about.intro.title')}
+            </h2>
+            <p className="text-gray-400 mt-1 max-w-2xl">
+              {t('about.intro.abstract')}
+            </p>
+          </div>
         </div>
+        <button
+          onClick={() => setShowFullContent(true)}
+          disabled={isLoading}
+          className={`
+            px-4 py-2 rounded-lg transition-all duration-300 flex items-center gap-2
+            ${isLoading 
+              ? 'bg-gray-700/50 text-gray-400 cursor-not-allowed'
+              : 'bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/20'
+            }
+          `}
+        >
+          {isLoading ? (
+            <>
+              <Icon name="loader" className="h-5 w-5 animate-spin" />
+              <span>Loading...</span>
+            </>
+          ) : (
+            <>
+              <Icon name="file-text" className="h-5 w-5" />
+              <span>Read Full Overview</span>
+            </>
+          )}
+        </button>
       </div>
 
       {/* Key Concepts Grid */}
@@ -254,6 +292,21 @@ export function Introduction() {
             </div>
           }
         />
+      )}
+
+      {error && (
+        <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4 mb-6">
+          <div className="flex items-center text-red-400">
+            <Icon name="alert-triangle" className="h-5 w-5 mr-2" />
+            <span>{error}</span>
+          </div>
+          <button 
+            onClick={() => setShowFullContent(true)}
+            className="mt-2 text-sm text-red-400 hover:text-red-300"
+          >
+            Try again
+          </button>
+        </div>
       )}
     </div>
   );

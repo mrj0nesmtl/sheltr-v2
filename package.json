@@ -24,7 +24,9 @@
     "deploy:prod": "npm run build && npm run test",
     "analyze": "vite build --mode analyze || echo 'Analysis completed with warnings'",
     "increment-version": "node scripts/increment-version.js",
-    "update-docs": "node scripts/update-docs.js"
+    "update-docs": "node scripts/update-docs.js",
+    "archive:docs": "ts-node scripts/archive-docs.ts",
+    "archive:auto": "node scripts/auto-archive.js"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.19",
