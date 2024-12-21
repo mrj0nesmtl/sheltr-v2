@@ -11,20 +11,9 @@
 │   ├── content
 │   │   └── whitepaper
 │   ├── docs
-│   │   ├── SHELTR Page Organization Refactor Plan.ini
-│   │   ├── SHELTR Refactor Progress Assessment.ini
 │   │   ├── about
-│   │   ├── architecture
-│   │   ├── doc_notes
-│   │   ├── documentation_map.md
 │   │   ├── project
-│   │   ├── sessions
-│   │   ├── technical
-│   │   ├── testing
-│   │   ├── translations
-│   │   ├── update project_docs
-│   │   ├── whitepaper_eng.md
-│   │   └── whitepaper_fr.md
+│   │   └── translations
 │   ├── images
 │   │   ├── hero-bg.jpg
 │   │   ├── homeless-person-bench.jpg
@@ -123,6 +112,13 @@
 │   │   └── useWhitepaper.ts
 │   ├── i18n.ts
 │   ├── index.css
+│   ├── layouts
+│   │   ├── PageLayout.tsx
+│   │   ├── base
+│   │   ├── components
+│   │   ├── index.ts
+│   │   ├── specialized
+│   │   └── types.ts
 │   ├── lib
 │   │   ├── api
 │   │   ├── auth
@@ -178,7 +174,6 @@
 │   │   ├── profileStore.ts
 │   │   └── shelterStore.ts
 │   ├── styles
-│   │   ├── footer.css
 │   │   ├── global.css
 │   │   ├── globals.css
 │   │   ├── reset.css
@@ -213,4 +208,4 @@
 ├── vercel.json
 └── vite.config.ts
 
-110 directories, 104 files
+110 directories, 99 files

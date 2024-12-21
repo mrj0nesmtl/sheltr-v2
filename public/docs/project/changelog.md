@@ -1,5 +1,34 @@
 # Changelog
 
+## [0.4.8] - 2024-12-20 19:54 EST
+### Added
+- Optimized Hero section component
+- Enhanced About page structure
+- Proper layout system organization
+- Correct dashboard component paths
+
+### Changed
+- Restructured project architecture
+- Updated routing configuration
+- Fixed component import paths
+- Enhanced page layouts
+- Improved navigation system
+
+### Fixed
+- Dashboard component paths
+- Route configurations
+- Page layouts
+- Navigation structure
+- Component organization
+
+### Technical Debt Addressed
+- Project structure standardized
+- Component paths corrected
+- Layout system optimized
+- Route organization improved
+
+[0.4.8]: https://github.com/mrj0nesmtl/sheltr-v2
+
 ## [0.4.7] - 2024-12-18 18:30 EST
 ### Added
 - Production deployment configuration

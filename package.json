@@ -57,6 +57,7 @@
     "marked": "^15.0.4",
     "nanoid": "^5.0.9",
     "openai": "^4.76.3",
+    "postgres": "^3.4.5",
     "qrcode": "^1.5.4",
     "qrcode.react": "^4.2.0",
     "react": "^18.3.1",
