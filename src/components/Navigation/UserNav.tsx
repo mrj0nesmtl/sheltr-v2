@@ -18,7 +18,7 @@ interface UserNavProps {
 export function UserNav({ user }: UserNavProps) {
   const { t } = useTranslation();
   const { signOut } = useAuthStore();
-  const { roleNavItems } = useNavigation();
+  const { roleNavItems = [] } = useNavigation();
 
   return (
     <Menu as="div" className="relative ml-3">
@@ -48,8 +48,7 @@ export function UserNav({ user }: UserNavProps) {
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-gray-800 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          {/* Role-based Navigation Items */}
-          {roleNavItems.map((item) => (
+          {roleNavItems?.map((item) => (
             <Menu.Item key={item.path}>
               {({ active }) => (
                 <Link

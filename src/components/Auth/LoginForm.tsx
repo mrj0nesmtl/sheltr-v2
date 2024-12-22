@@ -40,13 +40,16 @@ export function LoginForm() {
         console.log('🎯 Navigating based on role:', profileData.role);
         switch (profileData.role) {
           case 'super_admin':
-            navigate('/super-admin/dashboard');
+            navigate('/super-admin/dashboard', { replace: true });
             break;
           case 'shelter_admin':
             navigate('/shelter-admin/dashboard', { replace: true });
             break;
           case 'donor':
-            navigate('/donor/dashboard');
+            navigate('/donor/dashboard', { replace: true });
+            break;
+          case 'participant':
+            navigate('/participant/dashboard', { replace: true });
             break;
           default:
             throw new Error(`Invalid role: ${profileData.role}`);

@@ -34,3 +34,5 @@ export function DonorSidebar() {
     </div>
   );
 }
+
+export default DonorSidebar;

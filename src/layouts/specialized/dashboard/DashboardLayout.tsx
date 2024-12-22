@@ -3,7 +3,7 @@ import type { DashboardLayoutProps } from '@/types/core/dashboard';
 import { DashboardHeader } from './components/DashboardHeader';
 import { Sidebar } from './Sidebar';
 
-export function DashboardLayout({ title }: DashboardLayoutProps) {
+export function DashboardLayout({ title = "Dashboard" }: Partial<DashboardLayoutProps>) {
   return (
     <div className="flex h-screen bg-gray-900">
       <Sidebar />

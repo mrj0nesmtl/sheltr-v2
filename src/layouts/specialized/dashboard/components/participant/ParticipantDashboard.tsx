@@ -1,5 +1,5 @@
-import { DashboardHeader } from '@/components/Layout/DashboardLayout/DashboardHeader';
-import { useAuthStore } from '@/stores/authStore';
+import { DashboardHeader } from "@/layouts/specialized/dashboard/components/DashboardHeader";
+import { useAuthStore } from '@/auth/stores/authStore';
 import { useTranslation } from 'react-i18next';
 
 export function ParticipantDashboard() {
@@ -31,4 +31,6 @@ export function ParticipantDashboard() {
       </div>
     </div>
   );
-} 
+}
+
+export default ParticipantDashboard; 

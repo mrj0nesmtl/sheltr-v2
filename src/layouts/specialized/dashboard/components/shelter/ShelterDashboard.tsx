@@ -424,4 +424,6 @@ export function ShelterDashboard() {
       />
     </div>
   );
-} 
+}
+
+export default ShelterDashboard; 

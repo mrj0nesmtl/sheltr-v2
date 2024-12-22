@@ -1,6 +1,7 @@
 .
 ├── README.md
 ├── analyze.html
+├── database_analysis_export.md
 ├── eslint.config.js
 ├── index.html
 ├── package-lock.json
@@ -12,8 +13,13 @@
 │   │   └── whitepaper
 │   ├── docs
 │   │   ├── about
+│   │   ├── archives
+│   │   ├── core
+│   │   ├── dev
+│   │   ├── guides
 │   │   ├── project
-│   │   └── translations
+│   │   ├── reference
+│   │   └── technical
 │   ├── images
 │   │   ├── hero-bg.jpg
 │   │   ├── homeless-person-bench.jpg
@@ -25,6 +31,7 @@
 ├── replit.nix
 ├── scripts
 │   ├── analyze-errors.js
+│   ├── archive-docs.ts
 │   ├── backup.js
 │   ├── cleanup.js
 │   ├── detailed-error-analysis.js
@@ -208,4 +215,4 @@
 ├── vercel.json
 └── vite.config.ts
 
-110 directories, 99 files
+115 directories, 101 files

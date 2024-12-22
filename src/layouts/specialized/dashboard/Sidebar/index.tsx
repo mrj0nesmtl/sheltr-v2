@@ -1,5 +1,9 @@
 import React from 'react';
 import { useAuthStore } from '@/auth/stores/authStore';
+import { DonorSidebar } from './DonorSidebar';
+import { ShelterAdminSidebar } from './ShelterAdminSidebar';
+import { SuperAdminSidebar } from './SuperAdminSidebar';
+import { ParticipantSidebar } from './ParticipantSidebar';
 
 // Role-specific sidebar exports
 export { DonorSidebar } from './DonorSidebar';
@@ -11,19 +15,17 @@ export { SidebarItem } from './SidebarItem';
 
 // Main Sidebar component
 export const Sidebar: React.FC = () => {
-  const { user } = useAuthStore();
+  const { role } = useAuthStore();
 
-  switch (user?.role) {
+  switch (role) {
     case 'donor':
       return <DonorSidebar />;
-    case 'participant':
-      return <ParticipantSidebar />;
     case 'shelter_admin':
       return <ShelterAdminSidebar />;
     case 'super_admin':
       return <SuperAdminSidebar />;
-    case 'debug':
-      return <DebugSidebar />;
+    case 'participant':
+      return <ParticipantSidebar />;
     default:
       return null;
   }

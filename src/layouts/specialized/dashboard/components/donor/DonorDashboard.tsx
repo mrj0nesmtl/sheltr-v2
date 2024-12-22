@@ -268,3 +268,6 @@ export function DonorDashboard() {
     </div>
   );
 }
+
+// Add default export
+export default DonorDashboard;
