@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Layout } from '@/layouts/base/Layout';
 import { DashboardLayout } from '@/layouts/specialized/dashboard';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 
 // Lazy load pages with correct paths
 const Home = lazy(() => import('@/pages/HomePage'));
@@ -16,6 +17,7 @@ const SignUp = lazy(() => import('@/pages/SignUpPage'));
 const DonorDashboard = lazy(() => import('@/layouts/specialized/dashboard/components/donor/DonorDashboard'));
 const ParticipantDashboard = lazy(() => import('@/layouts/specialized/dashboard/components/participant/ParticipantDashboard'));
 const ShelterDashboard = lazy(() => import('@/layouts/specialized/dashboard/components/shelter/ShelterDashboard'));
+const SuperAdminDashboard = lazy(() => import('@/layouts/specialized/dashboard/components/super-admin/SuperAdminDashboard'));
 
 export default function AppRoutes() {
   return (
@@ -33,10 +35,15 @@ export default function AppRoutes() {
         </Route>
 
         {/* Protected dashboard routes */}
-        <Route element={<DashboardLayout />}>
+        <Route element={
+          <ErrorBoundary>
+            <DashboardLayout />
+          </ErrorBoundary>
+        }>
+          <Route path="/super-admin/dashboard" element={<SuperAdminDashboard />} />
+          <Route path="/shelter-admin/dashboard" element={<ShelterDashboard />} />
           <Route path="/donor/dashboard" element={<DonorDashboard />} />
           <Route path="/participant/dashboard" element={<ParticipantDashboard />} />
-          <Route path="/shelter/dashboard" element={<ShelterDashboard />} />
         </Route>
       </Routes>
     </Suspense>

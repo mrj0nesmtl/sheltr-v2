@@ -21,14 +21,24 @@ export function Metrics() {
   return (
     <section className="py-20 px-4 bg-gray-800/30">
       <div className="max-w-7xl mx-auto">
-        <motion.h2 
-          className="text-3xl md:text-4xl font-bold text-white text-center mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          Live Project Metrics
-        </motion.h2>
+        <div className="text-center mb-16">
+          <motion.span
+            className="text-sm uppercase tracking-wider text-gray-400 block mb-2"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            Live Project Metrics
+          </motion.span>
+          <motion.h2
+            className="text-4xl font-bold text-white"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            Real-time insights into our platform's performance and impact.
+          </motion.h2>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <MetricCard
@@ -37,14 +47,12 @@ export function Metrics() {
             trend="+0.1%"
             chart={<AreaChart data={sampleData.health} />}
           />
-          
           <MetricCard
             title="Active Donations"
             value="1,234"
             trend="+12%"
             chart={<BarChart data={sampleData.donations} />}
           />
-          
           <MetricCard
             title="Success Rate"
             value="98%"

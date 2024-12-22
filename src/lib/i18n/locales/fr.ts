@@ -29,7 +29,8 @@ export const fr: Translations = {
       solutions: 'Solutions',
       solutionsDesc: 'Découvrez nos solutions innovantes pour donateurs et refuges',
       impact: 'Impact',
-      impactDesc: 'Suivez et mesurez l\'impact réel de vos contributions'
+      impactDesc: 'Suivez et mesurez l\'impact réel de vos contributions',
+      signUp: 'Inscrire'
     },
     company_menu: {
       title: 'Entreprise',
@@ -40,7 +41,7 @@ export const fr: Translations = {
       whitepaper: 'Livre Blanc',
       whitepaperDesc: 'Détails techniques et architecture de la plateforme'
     },
-    signUp: 'S\'inscrire', 
+    signUp: 'Inscrire', 
     login: 'Connexion',
     platform_menu: {
       title: 'Plateforme',
