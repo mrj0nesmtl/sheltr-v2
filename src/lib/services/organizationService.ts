@@ -1,5 +1,7 @@
-import { supabase } from '../supabase';
 import type { ExtendedParticipant, Organization, OrganizationStaff } from '../types/organization';
+import { supabase } from '../supabase';
+import { ParticipantRegistration } from '@/features/roles/shelter-admin/components/participant-management';
+import { participantService } from '@/features/roles/participant/services/participantRegistration';
 
 export const organizationService = {
   // Organization Management

@@ -1,6 +1,7 @@
 import { createDonation, updateDonationStatus } from '../api/donations';
 import { updateParticipantBalances } from '../api/participants';
 import { createTransaction } from '../api/transactions';
+import { ParticipantDonationData } from '@/types/participant.types';
 
 export async function processDonation(
   participantId: string,

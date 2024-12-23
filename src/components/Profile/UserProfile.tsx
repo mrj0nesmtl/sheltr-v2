@@ -8,6 +8,7 @@ import { FriendActivity } from './FriendActivity';
 import { ImageUpload } from './ImageUpload';
 import { ParticipantFeatures } from './ParticipantFeatures';
 import { SocialLinks } from './SocialLinks';
+import { ParticipantProfile } from '@/features/roles/participant/components';
 
 export function UserProfile() {
   const { user } = useAuthStore();

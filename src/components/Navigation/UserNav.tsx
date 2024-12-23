@@ -1,90 +1,77 @@
+import { Avatar } from '@/components/ui/Avatar';
+import { Icon } from '@/components/ui/Icon';
 import { useAuthStore } from '@/auth/stores/authStore';
-import { useNavigation } from '@/hooks/useNavigation';
-import { cn } from '@/lib/utils';
-import { Menu, Transition } from '@headlessui/react';
-import { ChevronDown, LogOut, User } from 'lucide-react';
-import { Fragment } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-interface UserNavProps {
-  user: {
-    name?: string;
-    email: string;
-    avatar_url?: string;
-  };
-}
-
-export function UserNav({ user }: UserNavProps) {
+export function UserNav() {
   const { t } = useTranslation();
-  const { signOut } = useAuthStore();
-  const { roleNavItems = [] } = useNavigation();
+  const navigate = useNavigate();
+  const { user, signOut } = useAuthStore();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleProfileClick = () => {
+    navigate('/profile');
+    setIsOpen(false);
+  };
+
+  const handleSignOut = async () => {
+    await signOut();
+    setIsOpen(false);
+  };
 
   return (
-    <Menu as="div" className="relative ml-3">
-      <div>
-        <Menu.Button className="flex items-center space-x-3 text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-          <span className="sr-only">Open user menu</span>
-          <div className="flex items-center space-x-2 text-gray-300">
-            {user.avatar_url ? (
-              <img className="h-8 w-8 rounded-full" src={user.avatar_url} alt="" />
-            ) : (
-              <div className="h-8 w-8 rounded-full bg-gray-700 flex items-center justify-center">
-                <User className="h-5 w-5 text-gray-400" />
-              </div>
-            )}
-            <span className="hidden md:inline-block">{user.name || user.email}</span>
-            <ChevronDown className="h-4 w-4" />
-          </div>
-        </Menu.Button>
-      </div>
-      <Transition
-        as={Fragment}
-        enter="transition ease-out duration-100"
-        enterFrom="transform opacity-0 scale-95"
-        enterTo="transform opacity-100 scale-100"
-        leave="transition ease-in duration-75"
-        leaveFrom="transform opacity-100 scale-100"
-        leaveTo="transform opacity-0 scale-95"
+    <div className="relative">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-800/50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
       >
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-gray-800 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          {roleNavItems?.map((item) => (
-            <Menu.Item key={item.path}>
-              {({ active }) => (
-                <Link
-                  to={item.path}
-                  className={cn(
-                    active ? 'bg-gray-700' : '',
-                    'block px-4 py-2 text-sm text-gray-300'
-                  )}
-                >
-                  <div className="flex items-center">
-                    {item.icon && <item.icon className="mr-2 h-4 w-4" />}
-                    {t(item.label)}
-                  </div>
-                </Link>
-              )}
-            </Menu.Item>
-          ))}
-          
-          <Menu.Item>
-            {({ active }) => (
-              <button
-                onClick={signOut}
-                className={cn(
-                  active ? 'bg-gray-700' : '',
-                  'block w-full text-left px-4 py-2 text-sm text-gray-300'
-                )}
-              >
-                <div className="flex items-center">
-                  <LogOut className="mr-2 h-4 w-4" />
-                  {t('nav.signOut')}
-                </div>
-              </button>
-            )}
-          </Menu.Item>
-        </Menu.Items>
-      </Transition>
-    </Menu>
+        <Avatar
+          src={user?.profileImage}
+          fallback={user?.name?.[0] || 'U'}
+          className="h-8 w-8 cursor-pointer"
+        />
+        <span className="text-sm text-gray-200">
+          {user?.name?.split('+')[0] || 'User'}
+        </span>
+        <Icon name="chevron-down" className="h-4 w-4 text-gray-400" />
+      </button>
+
+      {isOpen && (
+        <div className="absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5">
+          <div className="py-1" role="menu">
+            <button
+              onClick={handleProfileClick}
+              className="flex w-full items-center px-4 py-2 text-sm text-gray-300 hover:bg-gray-700"
+            >
+              <Icon name="user" className="mr-3 h-4 w-4" />
+              {t('nav.profile')}
+            </button>
+
+            <button
+              onClick={() => {
+                navigate('/settings');
+                setIsOpen(false);
+              }}
+              className="flex w-full items-center px-4 py-2 text-sm text-gray-300 hover:bg-gray-700"
+            >
+              <Icon name="settings" className="mr-3 h-4 w-4" />
+              {t('nav.settings')}
+            </button>
+
+            <div className="border-t border-gray-700 my-1" />
+
+            <button
+              onClick={handleSignOut}
+              className="flex w-full items-center px-4 py-2 text-sm text-red-400 hover:bg-gray-700"
+            >
+              <Icon name="log-out" className="mr-3 h-4 w-4" />
+              {t('nav.signOut')}
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
   );
 } 

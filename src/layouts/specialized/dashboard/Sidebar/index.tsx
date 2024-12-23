@@ -1,15 +1,19 @@
 import React from 'react';
 import { useAuthStore } from '@/auth/stores/authStore';
-import { DonorSidebar } from './DonorSidebar';
-import { ShelterAdminSidebar } from './ShelterAdminSidebar';
-import { SuperAdminSidebar } from './SuperAdminSidebar';
-import { ParticipantSidebar } from './ParticipantSidebar';
+import { DonorSidebar } from '@/features/roles/donor/components/common/DonorSidebar';
+import { ParticipantSidebar } from '@/features/roles/participant/components/common/ParticipantSidebar';
+import { ShelterAdminSidebar } from '@/features/roles/shelter-admin/components/common/ShelterAdminSidebar';
+import { SuperAdminSidebar } from '@/features/roles/super-admin/components/common/SuperAdminSidebar';
+import { DebugSidebar } from './DebugSidebar';
+import { SidebarItem } from './SidebarItem';
 
 // Role-specific sidebar exports
-export { DonorSidebar } from './DonorSidebar';
-export { ParticipantSidebar } from './ParticipantSidebar';
-export { ShelterAdminSidebar } from './ShelterAdminSidebar';
-export { SuperAdminSidebar } from './SuperAdminSidebar';
+export {
+  DonorSidebar,
+  ParticipantSidebar,
+  ShelterAdminSidebar,
+  SuperAdminSidebar
+};
 export { DebugSidebar } from './DebugSidebar';
 export { SidebarItem } from './SidebarItem';
 

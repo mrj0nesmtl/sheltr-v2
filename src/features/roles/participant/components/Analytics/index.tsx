@@ -1,6 +1,8 @@
 import React from 'react';
 import { ParticipantErrorBoundary } from '@/components/ErrorBoundary';
 import { LoadingState } from '../components/LoadingState';
+import { ParticipantAnalytics } from '../../components';
+import { ParticipantDetailAnalytics } from '../../components/Dashboard';
 
 // Add a test component that throws an error
 const TestErrorComponent = () => {
