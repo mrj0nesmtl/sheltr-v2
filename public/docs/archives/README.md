@@ -1,35 +1,64 @@
 # 📚 SHELTR Documentation Archives
 
-## Directory Structure
-```
-archives/
-├── checkpoints/    # Daily development checkpoints
-├── changelogs/     # Version-specific changes
-└── builds/         # Build-specific documentation
-```
+## Overview
+This directory contains archived documentation, organized by category and date. Each archive maintains the history of SHELTR's development, decisions, and progress.
 
-## Latest Versions
-- Current Version: 0.4.9
-- Last Checkpoint: December 21, 2024
-- Last Build: #1246
+## Archive Categories
 
-## Archive Navigation
-- [Checkpoints](./checkpoints/README.md)
-- [Changelogs](./changelogs/README.md)
-- [Builds](./builds/README.md)
+### 🗺️ [Roadmap Archives](./roadmap/)
+- Version history of project roadmaps
+- Strategic planning documents
+- Milestone tracking
+- Latest: [v0.4.9](./roadmap/2024-12/roadmap-0.4.9.md)
 
-## Archiving Guidelines
-1. **Checkpoints**
-   - Archive daily at 00:00 EST
-   - Use format: `checkpoint-YYYY-MM-DD.md`
-   - Store in monthly directories
+### 📋 [Changelogs](./changelogs/)
+- Detailed version changes
+- Feature updates
+- Bug fixes
+- Latest: [December 22, 2024](./changelogs/2024-12/changelog-2024-12-22.md)
 
-2. **Changelogs**
-   - Archive per version release
-   - Use format: `changelog-X.X.X.md`
-   - Include all version changes
+### 🏗️ [Builds](./builds/)
+- Build configuration history
+- Deployment records
+- Infrastructure changes
+- Latest: [Build 0.4.8](./builds/2024-12/build-0.4.8.md)
 
-3. **Builds**
-   - Archive per build
-   - Use format: `build-X.X.X.md`
-   - Include build-specific details 
+### ⚡ [Checkpoints](./checkpoints/)
+- Development milestones
+- Sprint completions
+- Project status snapshots
+- Latest: [December 20, 2024](./checkpoints/2024-12/checkpoint-2024-12-20.md)
+
+## Archive Guidelines
+
+### 📅 Organization
+- Archives are organized by category and date
+- Use YYYY-MM format for date directories
+- Include version numbers where applicable
+- Maintain consistent file naming
+
+### 📝 Documentation Standards
+- Include timestamps on all archives
+- Reference related documents
+- Maintain markdown formatting
+- Include relevant metadata
+
+### 🔄 Retention Policy
+- Keep all major version archives
+- Maintain at least 12 months of history
+- Archive deprecated documentation
+- Preserve architectural decisions
+
+### 🔍 Search & Reference
+- Use consistent tagging
+- Maintain table of contents
+- Link related documents
+- Keep index files updated
+
+## Latest Updates
+- December 22, 2024: Added roadmap v0.4.9
+- December 20, 2024: Added checkpoint documentation
+- December 15, 2024: Restructured archive organization
+
+---
+*For current documentation, see the [main documentation](../README.md)*
