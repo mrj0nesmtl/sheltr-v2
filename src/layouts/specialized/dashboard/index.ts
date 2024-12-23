@@ -1,3 +1,3 @@
-export { DashboardLayout } from './DashboardLayout';
+export { DashboardLayout } from '@/components/Dashboard/common/DashboardLayout';
 export { DashboardHeader } from './components/DashboardHeader';
-export * from './Sidebar'; 
+export * from './Sidebar';

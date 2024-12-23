@@ -1,10 +1,14 @@
 // src/features/roles/participant/components/index.ts
-// Personal dashboard and profile
+// Core exports
 export * from './dashboard/ParticipantDashboard';
+export * from './analytics/ParticipantAnalytics';
 export * from './profile/ParticipantProfile';
-export * from './settings/Settings';
+export * from './common/ParticipantErrorBoundary';
 
-// Analytics visible to participant
+// Analytics components
 export * from './analytics/AchievementMetrics';
 export * from './analytics/DonorSupport';
 export * from './analytics/PersonalProgress';
+
+// Profile components
+export * from './profile/ParticipantFeatures';

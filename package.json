@@ -29,7 +29,9 @@
     "archive:auto": "node scripts/auto-archive.js",
     "start:prod": "npx serve dist -s -l ${PORT:-5173}",
     "build:analyze": "vite build --mode analyze",
-    "postbuild": "npx serve dist -s -l ${PORT:-5173} &"
+    "postbuild": "npx serve dist -s -l ${PORT:-5173} &",
+    "export-structure": "./scripts/export-structure.sh",
+    "precommit": "npm run export-structure"
   },
   "dependencies": {
     "@capacitor/core": "^5.0.0",

@@ -9,3 +9,8 @@ export * from './settings/Settings';
 export * from './analytics/DonorEngagement';
 export * from './analytics/ParticipantManagement';
 export * from './analytics/ShelterAnalytics';
+
+// Shelter-specific components
+export * from './Dashboard/ShelterDetailAnalytics';
+export * from './Dashboard/ShelterParticipantAnalytics';
+export * from './Dashboard/ShelterManagement';
