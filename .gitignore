@@ -58,3 +58,4 @@ replit.nix
 !.env.*.template
 analyze.html
 stats.html
+.DS_Store
