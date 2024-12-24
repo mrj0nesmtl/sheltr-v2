@@ -1,5 +1,5 @@
 # 📝 SHELTR Type Definitions
-*Version: 0.4.9 - December 22, 2024*
+*Version: 0.4.9 - December 23, 2024*
 
 ## Core Types
 
@@ -15,12 +15,41 @@ interface User {
   createdAt: Date;
 }
 
-type UserRole = 'admin' | 'donor' | 'shelter' | 'participant';
+type UserRole = 'super_admin' | 'shelter_admin' | 'donor' | 'participant';
 
 interface UserProfile {
   displayName: string;
   avatar?: string;
   preferences: UserPreferences;
+}
+```
+
+### Layout System
+```typescript
+interface LayoutSystem {
+  sidebar: {
+    type: 'super_admin' | 'shelter_admin' | 'donor' | 'participant';
+    required: boolean;
+    dependencies: string[];
+  };
+  header: {
+    type: 'dashboard';
+    required: boolean;
+    dependencies: string[];
+  };
+}
+
+interface SidebarProps {
+  role: UserRole;
+  navigation: NavigationItem[];
+  isCollapsed?: boolean;
+  onToggle?: () => void;
+}
+
+interface DashboardHeaderProps {
+  user: User;
+  navigation: NavigationProps;
+  actions?: ActionItem[];
 }
 ```
 
@@ -75,6 +104,14 @@ interface NavigationProps {
   items: NavigationItem[];
   active?: string;
   onNavigate: (path: string) => void;
+}
+
+interface NavigationItem {
+  path: string;
+  label: string;
+  icon?: React.ReactNode;
+  children?: NavigationItem[];
+  roles?: UserRole[];
 }
 ```
 
@@ -164,7 +201,12 @@ type EventType =
   | 'donation_created'
   | 'qr_scanned'
   | 'user_authenticated'
-  | 'error_occurred';
+  | 'error_occurred'
+  | 'layout_changed'
+  | 'sidebar_toggled';
 ```
 
+---
 *For implementation details, see /docs/guides/best-practices.md*
+*For component documentation, see /docs/reference/components.md*
+*For debugging help, see /docs/dev/debugging.md*

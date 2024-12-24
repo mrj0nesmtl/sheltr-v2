@@ -1,9 +1,9 @@
 # 🏗️ SHELTR Dashboard Architecture
-*Last Updated: December 22, 2024*
+*Last Updated: December 23, 2024*
 *Version: 0.4.9*
 
 ## Overview
-The SHELTR dashboard implements a type-safe, role-based, modular architecture with optimized component paths, enhanced routing configuration, and improved layout organization.
+The SHELTR dashboard implements a type-safe, role-based, modular architecture with optimized component paths, enhanced routing configuration, and improved layout organization. Critical component dependencies have been identified and documented.
 
 ## Current Implementation Status
 ```typescript
@@ -16,7 +16,8 @@ interface ImplementationStatus {
       'Build optimization',
       'Port forwarding',
       'Node.js compatibility',
-      'Performance monitoring'
+      'Performance monitoring',
+      'Component dependency mapping'
     ],
     pending: [
       'Error tracking',
@@ -32,7 +33,8 @@ interface ImplementationStatus {
       'Path alias setup',
       'Strict type checking',
       'Build error resolution',
-      'Import path standardization'
+      'Import path standardization',
+      'Layout system stabilization'
     ],
     pending: [
       'Unused import cleanup',
@@ -49,13 +51,32 @@ interface ImplementationStatus {
       'QR Scanner integration',
       'Page organization',
       'Component paths',
-      'Layout optimization'
+      'Layout optimization',
+      'Sidebar system stability'
     ],
     pending: [
       'Form validation',
       'Success feedback',
       'Loading indicators'
     ]
+  }
+}
+```
+
+## Critical Dependencies
+```typescript
+interface CriticalPaths {
+  layout: {
+    sidebar: {
+      required: ['index.tsx', 'DebugSidebar.tsx', 'DonorSidebar.tsx'],
+      impact: 'HIGH',
+      location: 'src/layouts/specialized/dashboard/Sidebar/'
+    },
+    dashboard: {
+      required: ['DashboardHeader.tsx'],
+      impact: 'HIGH',
+      location: 'src/layouts/specialized/dashboard/components/'
+    }
   }
 }
 ```
@@ -117,6 +138,8 @@ src/
 - ✅ Error state management
 - ✅ Cleanup procedures
 - ✅ User feedback system
+- ✅ Layout state management
+- ✅ Sidebar system state
 
 ## Data Flow
 1. ✅ Authentication verification
@@ -165,7 +188,11 @@ interface DashboardViews {
 3. Add loading state management
 4. Enhance offline support
 5. Integrate analytics tracking
+6. Document component dependencies
+7. Establish safe refactoring practices
+8. Optimize layout relationships
 
 ---
 *For detailed security implementation, see [security.md](./security.md)*
 *For API documentation, see [api.md](./api.md)*
+*For debugging guidelines, see [debugging.md](./debugging.md)*

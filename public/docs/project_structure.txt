@@ -1,0 +1,68 @@
+.
+├── about
+│   └── roadmap.md
+├── archives
+│   ├── README.md
+│   ├── builds
+│   │   └── 2024-12
+│   ├── changelogs
+│   │   └── 2024-12
+│   ├── checkpoints
+│   │   ├── 2024-12
+│   │   └── README.md
+│   ├── roadmap
+│   │   ├── 2024-12
+│   │   └── README.md
+│   └── status
+│       └── 2024-12
+├── core
+│   ├── README.md
+│   ├── api.md
+│   ├── architecture.md
+│   └── security.md
+├── dev
+│   ├── debugging.md
+│   ├── ideas.md
+│   ├── notes
+│   │   ├── 2024-12
+│   │   └── tree
+│   └── todos.md
+├── guides
+│   ├── best-practices.md
+│   ├── contribution.md
+│   ├── deployment.md
+│   └── getting-started.md
+├── project_backup
+│   ├── SHELTR Page Organization Refactor Plan.ini
+│   ├── SHELTR Refactor Progress Assessment.ini
+│   ├── build_tract.md
+│   ├── buildout_implementation.md
+│   ├── changelog.md
+│   ├── checkpoint.md
+│   ├── dashboard.md
+│   ├── dashboard_arch.md
+│   ├── dec15-restructure.md
+│   ├── deployment.md
+│   ├── pages.md
+│   ├── prompt_1.md
+│   ├── prompt_2.md
+│   ├── prompt_3.md
+│   ├── rbac.md
+│   ├── roadmap.md
+│   ├── status_report.md
+│   ├── tech_stack.md
+│   ├── typescript_errors.md
+│   ├── user_flow_testing.md
+│   └── user_flows.md
+├── project_structure.txt
+├── reference
+│   ├── components.md
+│   ├── constants.md
+│   └── types.md
+└── technical
+    ├── authentication.md
+    ├── blockchain.md
+    ├── database.md
+    └── qr-system.md
+
+22 directories, 44 files

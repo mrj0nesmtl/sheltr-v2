@@ -1,155 +1,169 @@
-Structured approach to clearing these TypeScript errors:
+# 🔧 SHELTR Debugging Guide
+*Last Updated: December 23, 2024*
+*Version: 0.4.9*
 
-High-Priority Auth Components (18 errors total):
-- AuthProvider.tsx (5 errors)
-- authStore.ts (3 errors)
-- DonorSignUpForm.tsx (1 error)
-- ShelterSignUpForm.tsx (3 errors)
-- ShelterSignUpForm.tsx in admin components (5 errors)
+## Structured Approach to TypeScript Errors
 
-Dashboard Components (9 errors total):
-- DonorDashboard.tsx (1 error)
-- ShelterDashboard.tsx (4 errors)
-- GlobalDonationMap.tsx (1 error)
-- SystemMonitoring.tsx (2 errors)
+### High-Priority Auth Components (18 errors total)
+- AuthProvider.tsx (5 errors)
+- authStore.ts (3 errors)
+- DonorSignUpForm.tsx (1 error)
+- ShelterSignUpForm.tsx (3 errors)
+- ShelterSignUpForm.tsx in admin components (5 errors)
 
-Analytics Components (12 errors total):
-- ShelterDonorAnalytics.tsx (5 errors)
-- ShelterParticipantAnalytics.tsx (2 errors)
-- ImpactPage.tsx (5 errors)
+### Critical Component Dependencies
 
-Core Services & Config (15 errors total):
-- transactions.ts (2 errors)
-- participantService.ts (1 error)
-- participantRegistration.ts (4 errors)
-- config.ts (1 error)
-- AppRoutes.tsx (4 errors)
+#### Layout System
+```typescript
+interface LayoutDependencies {
+  sidebar: {
+    critical: [
+      'index.tsx',          // Core navigation
+      'DebugSidebar.tsx',   // Development testing
+      'DonorSidebar.tsx',   // Role-specific navigation
+      'SidebarItem.tsx'     // Shared component
+    ],
+    location: 'src/layouts/specialized/dashboard/Sidebar/',
+    debugSteps: [
+      'Verify all files exist',
+      'Check import paths',
+      'Validate role components',
+      'Test navigation state'
+    ]
+  }
+}
+```
 
-Type Definition Files (15 errors total):
-- index.ts in types/auth (8 errors)
-- auth.ts in types/core (1 error)
-- index.ts in types (6 errors)
+### Common Issues & Solutions
 
-Recommended Action Plan:
-First Phase - Core Types & Auth
-- Fix type definition files first
-- Update auth components and store
-This will resolve cascading type errors
+#### 1. White Screen / Layout Breaks
+```bash
+# Check critical files exist
+ls src/layouts/specialized/dashboard/Sidebar/
+ls src/layouts/specialized/dashboard/components/
 
-Second Phase - Components
-- Update form components
-- Fix dashboard components
-- Resolve analytics type issues
+# Verify imports in index.tsx
+grep -r "import.*from.*Sidebar" src/layouts/
 
-Third Phase - Services & Routes
-- Update service implementations
-- Fix route configurations
-- Clean up remaining type issues
+# Restore missing components if needed
+git checkout src/layouts/specialized/dashboard/Sidebar/
+```
 
-I would like to:
-1. Start with fixing the core type definitions
-2. Begin with the auth components
-3. Focus on a specific component that's blocking development
+#### 2. Navigation Failures
+- Verify Sidebar/index.tsx exports
+- Check role-specific sidebar components
+- Validate auth context integration
+- Test route guard implementation
 
-This systematic approach will help us:
-1. Resolve dependencies in the correct order
-2. Prevent circular type issues
-3. Maintain consistent type definitions
-4. Enable proper deployment to REPLITStructured approach to clearing these TypeScript errors:
+### Component Error Resolution
 
-High-Priority Auth Components (18 errors total):
-- AuthProvider.tsx (5 errors)
-- authStore.ts (3 errors)
-- DonorSignUpForm.tsx (1 error)
-- ShelterSignUpForm.tsx (3 errors)
-- ShelterSignUpForm.tsx in admin components (5 errors)
+#### Dashboard Components (9 errors total)
+- DonorDashboard.tsx (1 error)
+- ShelterDashboard.tsx (4 errors)
+- GlobalDonationMap.tsx (1 error)
+- SystemMonitoring.tsx (2 errors)
 
-Dashboard Components (9 errors total):
-- DonorDashboard.tsx (1 error)
-- ShelterDashboard.tsx (4 errors)
-- GlobalDonationMap.tsx (1 error)
-- SystemMonitoring.tsx (2 errors)
+#### Analytics Components (12 errors total)
+- ShelterDonorAnalytics.tsx (5 errors)
+- ShelterParticipantAnalytics.tsx (2 errors)
+- ImpactPage.tsx (5 errors)
 
-Analytics Components (12 errors total):
-- ShelterDonorAnalytics.tsx (5 errors)
-- ShelterParticipantAnalytics.tsx (2 errors)
-- ImpactPage.tsx (5 errors)
+### Safe Refactoring Practices
 
-Core Services & Config (15 errors total):
-- transactions.ts (2 errors)
-- participantService.ts (1 error)
-- participantRegistration.ts (4 errors)
-- config.ts (1 error)
-- AppRoutes.tsx (4 errors)
+1. **Before Component Changes**
+```bash
+# Document current state
+git status
+# Backup critical components
+cp -r src/layouts/specialized/dashboard/Sidebar/ src/backup/
+```
 
-Type Definition Files (15 errors total):
-- index.ts in types/auth (8 errors)
-- auth.ts in types/core (1 error)
-- index.ts in types (6 errors)
+2. **During Changes**
+```bash
+# Test after each modification
+npm run dev
+# Check for layout breaks
+npm run test:e2e
+```
 
-Recommended Action Plan:
-First Phase - Core Types & Auth
-- Fix type definition files first
-- Update auth components and store
-This will resolve cascading type errors
+3. **After Changes**
+```bash
+# Verify all dependencies
+npm run check-types
+# Test all roles
+npm run test:roles
+```
 
-Second Phase - Components
-- Update form components
-- Fix dashboard components
-- Resolve analytics type issues
+### Type Definition Files (15 errors total)
+- index.ts in types/auth (8 errors)
+- auth.ts in types/core (1 error)
+- index.ts in types (6 errors)
 
-Third Phase - Services & Routes
-- Update service implementations
-- Fix route configurations
-- Clean up remaining type issues
+## Recommended Action Plan
 
-I would like to:
-1. Start with fixing the core type definitions
-2. Begin with the auth components
-3. Focus on a specific component that's blocking development
+### First Phase - Core Types & Auth
+1. Fix type definition files first
+2. Update auth components and store
+3. This will resolve cascading type errors
 
-This systematic approach will help us:
-1. Resolve dependencies in the correct order
-2. Prevent circular type issues
-3. Maintain consistent type definitions
-4. Enable proper deployment to REPLIT# SHELTR User Flow Testing Checklist
+### Second Phase - Components
+1. Update form components
+2. Fix dashboard components
+3. Resolve analytics type issues
 
-## Authentication Flows
-- [x] Admin Login -> /admin/dashboard ✅ Fixed
-- [x] Donor Login -> /donor/dashboard
-- [x] Participant Login -> /participant/dashboard
+### Third Phase - Services & Routes
+1. Update service implementations
+2. Fix route configurations
+3. Clean up remaining type issues
 
-### Admin Flow Testing
-- [ ] Login with joel.yaffe+admin@gmail.com
-- [ ] Verify redirect to /admin/dashboard
-- [ ] Check organization association
-- [ ] Test admin features:
-  - [ ] View participant list
-  - [ ] Manage shelter settings
-  - [ ] Access analytics
+## Testing Checklist
 
-### Admin Flow Verification
-- [ ] Login as admin user
-- [ ] Verify redirect to /admin/dashboard
-- [ ] Verify ShelterDashboard component renders
-- [ ] Verify admin-specific features are available
+### Authentication Flows
+- [ ] Admin Login -> /admin/dashboard
+- [ ] Donor Login -> /donor/dashboard
+- [ ] Participant Login -> /participant/dashboard
 
-## Role-Specific Features
-### Participant
+### Role-Specific Features
+#### Participant
 - [ ] QR Code Generation/Display
 - [ ] Transaction History
 - [ ] Wallet Balance
 - [ ] Housing Fund Status
 - [ ] Profile Management
 
-### Donor
+#### Donor
 - [ ] QR Code Scanner
 - [ ] Donation History
 - [ ] Impact Tracking
 - [ ] Receipt Generation
 
-### Shelter Admin
+#### Shelter Admin
 - [ ] Participant Management
 - [ ] Bulk Registration
 - [ ] Analytics Dashboard
 - [ ] Report Generation
+
+## Emergency Recovery
+
+### Layout System Recovery
+```bash
+# Restore critical components
+git checkout src/layouts/specialized/dashboard/Sidebar/index.tsx
+git checkout src/layouts/specialized/dashboard/components/DashboardHeader.tsx
+
+# Verify restoration
+npm run dev
+```
+
+### Component Dependencies
+```typescript
+interface CriticalDependencies {
+  layout: string[];
+  auth: string[];
+  navigation: string[];
+}
+```
+
+---
+*For architecture details, see [architecture.md](../core/architecture.md)*
+*For deployment info, see [deployment.md](../core/deployment.md)*
