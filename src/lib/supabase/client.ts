@@ -71,3 +71,10 @@ export async function getUserProfile(userId: string) {
     return null;
   }
 }
+
+// Add a force logout utility
+export const forceLogout = async () => {
+  await supabase.auth.signOut();
+  window.localStorage.clear(); // Clear all local storage
+  window.location.href = '/login'; // Redirect to login
+};

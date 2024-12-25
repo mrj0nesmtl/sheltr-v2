@@ -1,4 +1,5 @@
 import { AUTH_ROLES } from '../auth';
+import { DashboardLayout } from '@/features/dashboard/layouts/DashboardLayout';
 
 export interface DashboardLayoutProps {
   children: React.ReactNode;

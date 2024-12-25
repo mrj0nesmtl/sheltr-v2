@@ -65,7 +65,7 @@ export interface AuthError {
 export interface AuthState {
   user: User | null;
   role: AUTH_ROLES | null;
-  loading: boolean;
+  isLoading: boolean;
   isAuthenticated: boolean;
   error: string | null;
   login: (credentials: LoginCredentials) => Promise<void>;

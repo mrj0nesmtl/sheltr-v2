@@ -1,7 +1,7 @@
 import { lazy, Suspense } from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { Layout } from '@/layouts/base/Layout';
-import { DashboardLayout } from '@/layouts/specialized/dashboard';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { useAuth } from '@/hooks/useAuth';
+import { DashboardLayout } from '@/features/dashboard/layouts/DashboardLayout';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 
 // Public pages
@@ -13,51 +13,62 @@ const Impact = lazy(() => import('@/pages/Impact'));
 const Login = lazy(() => import('@/pages/LoginPage'));
 const SignUp = lazy(() => import('@/pages/SignUpPage'));
 
-// Dashboard pages
-const DonorDashboardView = lazy(() => import('@/features/roles/donor/components/Dashboard/DonorDashboard'));
-const ParticipantDashboardView = lazy(() => import('@/features/roles/participant/components/Dashboard/ParticipantDashboard'));
-const ShelterDashboardView = lazy(() => import('@/features/roles/shelter-admin/components/Dashboard/ShelterDashboard'));
-const SuperAdminDashboardView = lazy(() => import('@/features/roles/super-admin/components/dashboard/SuperAdminDashboard'));
-
-// Profile pages - Updated with correct paths
-const DonorProfileView = lazy(() => import('@/features/roles/donor/components/profile/DonorProfile'));
-const ParticipantProfileView = lazy(() => import('@/features/roles/participant/components/profile/ParticipantProfile'));
-const ShelterProfileView = lazy(() => import('@/features/roles/shelter-admin/components/profile/Profile'));
-const SuperAdminProfileView = lazy(() => import('@/features/roles/super-admin/components/profile/Profile'));
+// Dashboard views
+const DonorDashboardView = lazy(() => 
+  import('@/features/dashboard/roles/donor/DonorDashboard')
+);
+const ParticipantDashboardView = lazy(() => 
+  import('@/features/dashboard/roles/participant/ParticipantDashboard')
+);
+const ShelterDashboardView = lazy(() => 
+  import('@/features/dashboard/roles/shelter-admin/ShelterDashboard')
+);
+const SuperAdminDashboardView = lazy(() => 
+  import('@/features/dashboard/roles/super-admin/SuperAdminDashboard')
+);
 
 export default function AppRoutes() {
+  const { isAuthenticated, user } = useAuth();
+
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div className="text-white">Loading routes...</div>}>
       <Routes>
-        {/* Public routes */}
-        <Route element={<Layout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/how-it-works" element={<HowItWorks />} />
-          <Route path="/scan-donate" element={<ScanDonate />} />
-          <Route path="/impact" element={<Impact />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
+        {/* Public routes - always accessible */}
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/how-it-works" element={<HowItWorks />} />
+        <Route path="/scan-donate" element={<ScanDonate />} />
+        <Route path="/impact" element={<Impact />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+
+        {/* Protected routes with DashboardLayout */}
+        <Route 
+          element={
+            isAuthenticated ? <DashboardLayout /> : <Navigate to="/login" />
+          }
+        >
+          {/* Dashboard routes based on user role */}
+          <Route 
+            path="/super-admin/dashboard" 
+            element={<SuperAdminDashboardView />} 
+          />
+          <Route 
+            path="/shelter-admin/dashboard" 
+            element={<ShelterDashboardView />} 
+          />
+          <Route 
+            path="/donor/dashboard" 
+            element={<DonorDashboardView />} 
+          />
+          <Route 
+            path="/participant/dashboard" 
+            element={<ParticipantDashboardView />} 
+          />
         </Route>
 
-        {/* Protected dashboard routes */}
-        <Route element={<ErrorBoundary><DashboardLayout /></ErrorBoundary>}>
-          {/* Super Admin Routes */}
-          <Route path="/super-admin/dashboard" element={<SuperAdminDashboardView />} />
-          <Route path="/super-admin/profile" element={<SuperAdminProfileView />} />
-          
-          {/* Shelter Admin Routes */}
-          <Route path="/shelter-admin/dashboard" element={<ShelterDashboardView />} />
-          <Route path="/shelter-admin/profile" element={<ShelterProfileView />} />
-          
-          {/* Donor Routes */}
-          <Route path="/donor/dashboard" element={<DonorDashboardView />} />
-          <Route path="/donor/profile" element={<DonorProfileView />} />
-          
-          {/* Participant Routes */}
-          <Route path="/participant/dashboard" element={<ParticipantDashboardView />} />
-          <Route path="/participant/profile" element={<ParticipantProfileView />} />
-        </Route>
+        {/* Catch-all route */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Suspense>
   );

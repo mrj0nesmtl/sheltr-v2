@@ -1,6 +1,6 @@
-import { AreaChart } from "@/components/Dashboard/widgets/AreaChart";
-import { BarChart } from "@/components/Dashboard/widgets/BarChart";
-import { LineChart } from "@/components/Dashboard/widgets/LineChart";
+import { AreaChart } from '@/features/dashboard/shared/widgets/charts/AreaChart';
+import { BarChart } from '@/features/dashboard/shared/widgets/charts/BarChart';
+import { LineChart } from '@/features/dashboard/shared/widgets/charts/LineChart';
 import { motion } from 'framer-motion';
 import { MetricCard } from '../components/MetricCard';
 

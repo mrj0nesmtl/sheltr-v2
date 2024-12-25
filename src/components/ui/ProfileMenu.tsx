@@ -1,11 +1,19 @@
-import { useAuthStore } from '@/stores/authStore';
+import { useAuth } from '@/hooks/useAuth';
 import { Menu } from '@headlessui/react';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from './Icon';
 
-export function ProfileMenu() {
+interface ProfileMenuProps {
+  user?: {
+    avatar_url?: string;
+  };
+}
+
+export function ProfileMenu({ user: userProp }: ProfileMenuProps) {
   const navigate = useNavigate();
-  const { user, signOut } = useAuthStore();
+  const { user: authUser, signOut } = useAuth();
+  
+  const user = userProp || authUser;
 
   return (
     <Menu as="div" className="relative">

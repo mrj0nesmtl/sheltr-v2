@@ -4,7 +4,16 @@ import { getDashboardPath } from '@/lib/navigation/roleNavigation';
 import { Navigate } from 'react-router-dom';
 
 export default function LoginPage() {
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, user, isLoading } = useAuth();
+
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className="container mx-auto px-4 min-h-[calc(100vh-4rem)] flex items-center justify-center">
+        <div className="text-white">Loading...</div>
+      </div>
+    );
+  }
 
   // Redirect if already logged in
   if (isAuthenticated && user?.role) {

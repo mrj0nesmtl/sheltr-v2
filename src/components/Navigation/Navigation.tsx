@@ -5,10 +5,12 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Button } from '../ui/Button';
 import { Logo } from '../ui/Logo';
+import { useAuth } from '@/hooks/useAuth';
 
 export function Navigation() {
   const { t } = useTranslation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { isAuthenticated, user } = useAuth();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-gray-900/95 backdrop-blur-sm border-b border-gray-800">
@@ -34,16 +36,26 @@ export function Navigation() {
 
           {/* Auth Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link to="/login">
-              <Button variant="ghost" className="text-gray-300 hover:text-white">
-                {t('nav.login')}
-              </Button>
-            </Link>
-            <Link to="/signup">
-              <Button className="bg-indigo-600 hover:bg-indigo-700 text-white">
-                {t('nav.signUp')}
-              </Button>
-            </Link>
+            {isAuthenticated ? (
+              <Link to="/donor/dashboard">
+                <Button className="bg-indigo-600 hover:bg-indigo-700 text-white">
+                  {t('nav.dashboard')}
+                </Button>
+              </Link>
+            ) : (
+              <>
+                <Link to="/login">
+                  <Button variant="ghost" className="text-gray-300 hover:text-white">
+                    {t('nav.login')}
+                  </Button>
+                </Link>
+                <Link to="/signup">
+                  <Button className="bg-indigo-600 hover:bg-indigo-700 text-white">
+                    {t('nav.signUp')}
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -71,20 +83,32 @@ export function Navigation() {
               </Link>
             ))}
             <div className="pt-4 pb-3 border-t border-gray-700">
-              <Link
-                to="/login"
-                className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 rounded-md"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {t('nav.login')}
-              </Link>
-              <Link
-                to="/signup"
-                className="block px-3 py-2 mt-1 text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-md"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {t('nav.signUp')}
-              </Link>
+              {isAuthenticated ? (
+                <Link
+                  to="/donor/dashboard"
+                  className="block px-3 py-2 text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-md"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {t('nav.dashboard')}
+                </Link>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 rounded-md"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {t('nav.login')}
+                  </Link>
+                  <Link
+                    to="/signup"
+                    className="block px-3 py-2 mt-1 text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-md"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {t('nav.signUp')}
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>
