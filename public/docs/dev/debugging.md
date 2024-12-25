@@ -1,169 +1,229 @@
 # 🔧 SHELTR Debugging Guide
-*Last Updated: December 23, 2024*
+*Last Updated: December 25, 2024*
 *Version: 0.4.9*
 
-## Structured Approach to TypeScript Errors
+## Common Issues & Solutions
 
-### High-Priority Auth Components (18 errors total)
-- AuthProvider.tsx (5 errors)
-- authStore.ts (3 errors)
-- DonorSignUpForm.tsx (1 error)
-- ShelterSignUpForm.tsx (3 errors)
-- ShelterSignUpForm.tsx in admin components (5 errors)
-
-### Critical Component Dependencies
-
-#### Layout System
+### 1. Authentication System
 ```typescript
-interface LayoutDependencies {
-  sidebar: {
-    critical: [
-      'index.tsx',          // Core navigation
-      'DebugSidebar.tsx',   // Development testing
-      'DonorSidebar.tsx',   // Role-specific navigation
-      'SidebarItem.tsx'     // Shared component
+interface AuthDebugging {
+  loginPage: {
+    symptoms: ['Blank page', 'Loading state stuck', 'Form not rendering'],
+    checks: [
+      'Supabase connection',
+      'AuthProvider mounting',
+      'Route configuration'
     ],
-    location: 'src/layouts/specialized/dashboard/Sidebar/',
-    debugSteps: [
-      'Verify all files exist',
-      'Check import paths',
-      'Validate role components',
-      'Test navigation state'
+    solutions: [
+      'Verify .env configuration',
+      'Check AuthProvider wrapper',
+      'Validate route guards'
+    ]
+  },
+  sessionManagement: {
+    symptoms: ['Session loss', 'Infinite redirects'],
+    locations: [
+      'src/auth/components/AuthProvider.tsx',
+      'src/auth/stores/authStore.ts'
+    ],
+    solutions: [
+      'Check token refresh logic',
+      'Verify session persistence',
+      'Debug auth state updates'
     ]
   }
 }
 ```
 
-### Common Issues & Solutions
-
-#### 1. White Screen / Layout Breaks
-```bash
-# Check critical files exist
-ls src/layouts/specialized/dashboard/Sidebar/
-ls src/layouts/specialized/dashboard/components/
-
-# Verify imports in index.tsx
-grep -r "import.*from.*Sidebar" src/layouts/
-
-# Restore missing components if needed
-git checkout src/layouts/specialized/dashboard/Sidebar/
-```
-
-#### 2. Navigation Failures
-- Verify Sidebar/index.tsx exports
-- Check role-specific sidebar components
-- Validate auth context integration
-- Test route guard implementation
-
-### Component Error Resolution
-
-#### Dashboard Components (9 errors total)
-- DonorDashboard.tsx (1 error)
-- ShelterDashboard.tsx (4 errors)
-- GlobalDonationMap.tsx (1 error)
-- SystemMonitoring.tsx (2 errors)
-
-#### Analytics Components (12 errors total)
-- ShelterDonorAnalytics.tsx (5 errors)
-- ShelterParticipantAnalytics.tsx (2 errors)
-- ImpactPage.tsx (5 errors)
-
-### Safe Refactoring Practices
-
-1. **Before Component Changes**
-```bash
-# Document current state
-git status
-# Backup critical components
-cp -r src/layouts/specialized/dashboard/Sidebar/ src/backup/
-```
-
-2. **During Changes**
-```bash
-# Test after each modification
-npm run dev
-# Check for layout breaks
-npm run test:e2e
-```
-
-3. **After Changes**
-```bash
-# Verify all dependencies
-npm run check-types
-# Test all roles
-npm run test:roles
-```
-
-### Type Definition Files (15 errors total)
-- index.ts in types/auth (8 errors)
-- auth.ts in types/core (1 error)
-- index.ts in types (6 errors)
-
-## Recommended Action Plan
-
-### First Phase - Core Types & Auth
-1. Fix type definition files first
-2. Update auth components and store
-3. This will resolve cascading type errors
-
-### Second Phase - Components
-1. Update form components
-2. Fix dashboard components
-3. Resolve analytics type issues
-
-### Third Phase - Services & Routes
-1. Update service implementations
-2. Fix route configurations
-3. Clean up remaining type issues
-
-## Testing Checklist
-
-### Authentication Flows
-- [ ] Admin Login -> /admin/dashboard
-- [ ] Donor Login -> /donor/dashboard
-- [ ] Participant Login -> /participant/dashboard
-
-### Role-Specific Features
-#### Participant
-- [ ] QR Code Generation/Display
-- [ ] Transaction History
-- [ ] Wallet Balance
-- [ ] Housing Fund Status
-- [ ] Profile Management
-
-#### Donor
-- [ ] QR Code Scanner
-- [ ] Donation History
-- [ ] Impact Tracking
-- [ ] Receipt Generation
-
-#### Shelter Admin
-- [ ] Participant Management
-- [ ] Bulk Registration
-- [ ] Analytics Dashboard
-- [ ] Report Generation
-
-## Emergency Recovery
-
-### Layout System Recovery
-```bash
-# Restore critical components
-git checkout src/layouts/specialized/dashboard/Sidebar/index.tsx
-git checkout src/layouts/specialized/dashboard/components/DashboardHeader.tsx
-
-# Verify restoration
-npm run dev
-```
-
-### Component Dependencies
+### 2. Layout System Issues
 ```typescript
-interface CriticalDependencies {
-  layout: string[];
-  auth: string[];
-  navigation: string[];
+interface LayoutDebugging {
+  sidebar: {
+    critical: [
+      'index.tsx',          // Core navigation
+      'DebugSidebar.tsx',   // Development testing
+      'DonorSidebar.tsx'    // Role-specific navigation
+    ],
+    location: 'src/layouts/specialized/dashboard/Sidebar/',
+    symptoms: [
+      'White screen',
+      'Navigation missing',
+      'Role-based content not showing'
+    ],
+    solutions: [
+      'Check component mounting',
+      'Verify role-based rendering',
+      'Validate auth context'
+    ]
+  },
+  dashboard: {
+    components: ['DashboardHeader.tsx', 'DashboardLayout.tsx'],
+    location: 'src/layouts/specialized/dashboard/components/',
+    checks: [
+      'Component hierarchy',
+      'Auth state integration',
+      'Route protection'
+    ]
+  }
 }
 ```
 
+## Diagnostic Tools
+
+### 1. Development Environment
+```bash
+# Environment Verification
+npm run check-env     # Verify environment variables
+npm run type-check    # Run TypeScript checks
+npm run lint         # ESLint verification
+
+# Component Testing
+npm run test:components  # Run component tests
+npm run storybook       # Visual component testing
+
+# E2E Testing
+npm run cypress:open    # Interactive testing
+npm run cypress:run     # Headless testing
+```
+
+### 2. Runtime Debugging
+```typescript
+interface DebugTools {
+  browser: {
+    react: 'React Developer Tools',
+    network: 'Chrome DevTools Network',
+    storage: ['Local Storage', 'Session Storage', 'IndexedDB']
+  },
+  logging: {
+    levels: ['error', 'warn', 'info', 'debug'],
+    locations: [
+      'src/utils/logger.ts',
+      'src/features/**/debug.ts'
+    ]
+  },
+  monitoring: {
+    performance: 'Lighthouse',
+    errors: 'Sentry',
+    analytics: 'Vercel Analytics'
+  }
+}
+```
+
+## Common Error Patterns
+
+### 1. Authentication Errors
+```typescript
+interface AuthErrors {
+  login: {
+    E001: 'Supabase connection failed',
+    E002: 'Invalid credentials format',
+    E003: 'Session initialization failed'
+  },
+  session: {
+    E101: 'Token refresh failed',
+    E102: 'Role validation error',
+    E103: 'Permission denied'
+  }
+}
+```
+
+### 2. Layout Errors
+```typescript
+interface LayoutErrors {
+  rendering: {
+    L001: 'Component failed to mount',
+    L002: 'Role-based content error',
+    L003: 'Navigation state invalid'
+  },
+  routing: {
+    R001: 'Invalid route configuration',
+    R002: 'Guard condition failed',
+    R003: 'Role access denied'
+  }
+}
+```
+
+## Recovery Procedures
+
+### 1. Critical System Recovery
+```bash
+# Reset environment
+npm clean-install
+npm run build
+
+# Verify core systems
+npm run verify:auth
+npm run verify:layout
+npm run verify:routes
+
+# Test critical paths
+npm run test:critical
+```
+
+### 2. Component Recovery
+```typescript
+interface RecoverySteps {
+  auth: [
+    'Verify Supabase connection',
+    'Check AuthProvider mounting',
+    'Test session management'
+  ],
+  layout: [
+    'Validate component tree',
+    'Check role-based rendering',
+    'Test navigation state'
+  ],
+  routing: [
+    'Verify route configuration',
+    'Test guards and middleware',
+    'Check role permissions'
+  ]
+}
+```
+
+## Performance Debugging
+
+### 1. Bundle Analysis
+```bash
+# Analyze bundle size
+npm run analyze
+
+# Check performance metrics
+npm run lighthouse
+```
+
+### 2. Runtime Performance
+```typescript
+interface PerformanceChecks {
+  metrics: {
+    FCP: 'First Contentful Paint',
+    LCP: 'Largest Contentful Paint',
+    TTI: 'Time to Interactive'
+  },
+  tools: {
+    profiler: 'React Profiler',
+    network: 'Network Tab',
+    memory: 'Memory Usage'
+  }
+}
+```
+
+## Development Tips
+
+### 1. Quick Fixes
+- Clear local storage and session data
+- Reset environment variables
+- Rebuild node modules
+- Clear build cache
+- Check component mounting order
+
+### 2. Prevention
+- Use TypeScript strict mode
+- Implement proper error boundaries
+- Add comprehensive logging
+- Maintain test coverage
+- Document debug procedures
+
 ---
 *For architecture details, see [architecture.md](../core/architecture.md)*
-*For deployment info, see [deployment.md](../core/deployment.md)*
+*For technical specs, see [technical.md](../core/technical.md)*

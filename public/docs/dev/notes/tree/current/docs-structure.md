@@ -1,5 +1,5 @@
 # 🌳 SHELTR Documentation Structure
-*Generated: 2024-12-23 03:00:33*
+*Generated: 2024-12-25 14:58:12*
 \n## Directory Structure
 ./public/docs
 ├── about
@@ -18,6 +18,28 @@
 │   │   ├── 2024-12
 │   │   │   └── checkpoint-2024-12-20.md
 │   │   └── README.md
+│   ├── project_backup
+│   │   ├── SHELTR Page Organization Refactor Plan.ini
+│   │   ├── SHELTR Refactor Progress Assessment.ini
+│   │   ├── build_tract.md
+│   │   ├── buildout_implementation.md
+│   │   ├── changelog.md
+│   │   ├── checkpoint.md
+│   │   ├── dashboard.md
+│   │   ├── dashboard_arch.md
+│   │   ├── dec15-restructure.md
+│   │   ├── deployment.md
+│   │   ├── pages.md
+│   │   ├── prompt_1.md
+│   │   ├── prompt_2.md
+│   │   ├── prompt_3.md
+│   │   ├── rbac.md
+│   │   ├── roadmap.md
+│   │   ├── status_report.md
+│   │   ├── tech_stack.md
+│   │   ├── typescript_errors.md
+│   │   ├── user_flow_testing.md
+│   │   └── user_flows.md
 │   ├── roadmap
 │   │   ├── 2024-12
 │   │   └── README.md
@@ -29,13 +51,19 @@
 │   ├── README.md
 │   ├── api.md
 │   ├── architecture.md
-│   └── security.md
+│   ├── security.md
+│   └── technical.md
 ├── dev
 │   ├── notes
 │   │   ├── 2024-12
+│   │   │   ├── Prompt 2.md
 │   │   │   ├── ai-prompts.md
+│   │   │   ├── critical-incident-dec25.md
+│   │   │   ├── developer-action-plan.md
+│   │   │   ├── recovery-checklist.md
 │   │   │   ├── refactor-assessment.md
-│   │   │   └── status-dec22.md
+│   │   │   ├── status-dec22.md
+│   │   │   └── status-dec25.md
 │   │   └── tree
 │   │       ├── archive
 │   │       ├── current
@@ -49,36 +77,15 @@
 │   ├── contribution.md
 │   ├── deployment.md
 │   └── getting-started.md
-├── project_backup
-│   ├── SHELTR Page Organization Refactor Plan.ini
-│   ├── SHELTR Refactor Progress Assessment.ini
-│   ├── build_tract.md
-│   ├── buildout_implementation.md
-│   ├── changelog.md
-│   ├── checkpoint.md
-│   ├── dashboard.md
-│   ├── dashboard_arch.md
-│   ├── dec15-restructure.md
-│   ├── deployment.md
-│   ├── pages.md
-│   ├── prompt_1.md
-│   ├── prompt_2.md
-│   ├── prompt_3.md
-│   ├── rbac.md
-│   ├── roadmap.md
-│   ├── status_report.md
-│   ├── tech_stack.md
-│   ├── typescript_errors.md
-│   ├── user_flow_testing.md
-│   └── user_flows.md
 ├── reference
 │   ├── components.md
 │   ├── constants.md
 │   └── types.md
-└── technical
-    ├── authentication.md
-    ├── blockchain.md
-    ├── database.md
-    └── qr-system.md
+├── technical
+│   ├── authentication.md
+│   ├── blockchain.md
+│   ├── database.md
+│   └── qr-system.md
+└── project_structure.txt
 
-24 directories, 55 files
+24 directories, 62 files

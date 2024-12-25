@@ -1,5 +1,5 @@
 # 🌳 SHELTR Source Structure
-*Generated: 2024-12-23 03:00:33*
+*Generated: 2024-12-25 14:58:12*
 \n## Directory Structure
 ./src
 ├── auth
@@ -22,7 +22,8 @@
 │   └── types.ts
 ├── backup
 │   ├── dashboard_cleanup
-│   │   └── DonorDashboard.tsx
+│   ├── sidebars
+│   │   └── 20241224
 │   └── super-admin
 │       ├── QuickStatCard.tsx
 │       ├── ShelterPerformanceChart.tsx
@@ -64,9 +65,7 @@
 │   ├── Dashboard
 │   │   ├── Analytics
 │   │   ├── common
-│   │   ├── widgets
-│   │   ├── DonorLeaderboard.tsx
-│   │   └── types.ts
+│   │   └── widgets
 │   ├── Documentation
 │   │   ├── components
 │   │   ├── pages
@@ -107,16 +106,12 @@
 │   │   ├── ActivityLog.tsx
 │   │   ├── AddFriend.tsx
 │   │   ├── AdminFeatures.tsx
-│   │   ├── BaseProfile.tsx
 │   │   ├── DonorFeatures.tsx
-│   │   ├── EditProfileModal.tsx
 │   │   ├── FriendActivity.tsx
 │   │   ├── ImageCropModal.tsx
 │   │   ├── ImageUpload.tsx
-│   │   ├── ProfileLayout.tsx
 │   │   ├── RoleSpecificInfo.tsx
-│   │   ├── SocialLinks.tsx
-│   │   └── UserProfile.tsx
+│   │   └── SocialLinks.tsx
 │   ├── QRScanner
 │   │   ├── QRScanner.tsx
 │   │   └── QRScannerLoading.tsx
@@ -125,8 +120,6 @@
 │   ├── Settings
 │   │   └── BaseSettings.tsx
 │   ├── Sidebar
-│   │   └── Sidebar.tsx
-│   ├── SuperAdmin
 │   ├── ThankYou
 │   │   └── ThankYou.tsx
 │   ├── Token
@@ -197,6 +190,9 @@
 │   ├── dashboard
 │   │   ├── components
 │   │   ├── hooks
+│   │   ├── layouts
+│   │   ├── roles
+│   │   ├── shared
 │   │   ├── store
 │   │   ├── utils
 │   │   └── index.ts
@@ -209,11 +205,6 @@
 │   │   ├── store
 │   │   ├── utils
 │   │   └── index.ts
-│   ├── roles
-│   │   ├── donor
-│   │   ├── participant
-│   │   ├── shelter-admin
-│   │   └── super-admin
 │   └── shared
 │       ├── analytics
 │       ├── components
@@ -420,4 +411,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-152 directories, 266 files
+151 directories, 258 files

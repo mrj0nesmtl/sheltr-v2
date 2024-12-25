@@ -1,5 +1,5 @@
 # 🌳 SHELTR Components Structure
-*Generated: 2024-12-23 03:00:33*
+*Generated: 2024-12-25 14:58:12*
 \n## Directory Structure
 ./src/components
 ├── About
@@ -52,21 +52,8 @@
 │   └── index.ts
 ├── Dashboard
 │   ├── Analytics
-│   │   ├── DonationHistory.tsx
-│   │   ├── DonorStats.tsx
-│   │   └── StatCard.tsx
 │   ├── common
-│   │   ├── DashboardLayout.tsx
-│   │   ├── DashboardNav.tsx
-│   │   └── index.ts
-│   ├── widgets
-│   │   ├── AreaChart.tsx
-│   │   ├── BarChart.tsx
-│   │   ├── LineChart.tsx
-│   │   ├── StatCard.tsx
-│   │   └── index.ts
-│   ├── DonorLeaderboard.tsx
-│   └── types.ts
+│   └── widgets
 ├── Documentation
 │   ├── components
 │   │   ├── DocViewer.tsx
@@ -114,16 +101,12 @@
 │   ├── ActivityLog.tsx
 │   ├── AddFriend.tsx
 │   ├── AdminFeatures.tsx
-│   ├── BaseProfile.tsx
 │   ├── DonorFeatures.tsx
-│   ├── EditProfileModal.tsx
 │   ├── FriendActivity.tsx
 │   ├── ImageCropModal.tsx
 │   ├── ImageUpload.tsx
-│   ├── ProfileLayout.tsx
 │   ├── RoleSpecificInfo.tsx
-│   ├── SocialLinks.tsx
-│   └── UserProfile.tsx
+│   └── SocialLinks.tsx
 ├── QRScanner
 │   ├── QRScanner.tsx
 │   └── QRScannerLoading.tsx
@@ -132,8 +115,6 @@
 ├── Settings
 │   └── BaseSettings.tsx
 ├── Sidebar
-│   └── Sidebar.tsx
-├── SuperAdmin
 ├── ThankYou
 │   └── ThankYou.tsx
 ├── Token
@@ -185,4 +166,4 @@
 ├── Logo.tsx
 └── ThemeToggle.tsx
 
-49 directories, 134 files
+48 directories, 116 files
