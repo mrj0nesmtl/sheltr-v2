@@ -1,5 +1,5 @@
 # 🌳 SHELTR Project Structure
-*Generated: 2024-12-23 03:00:33*
+*Generated: 2024-12-25 14:58:12*
 *Version: 0.4.9*
 
 ## Table of Contents
@@ -11,7 +11,7 @@
 6. [Technical Structures](#technical-structures)
 
 \n---\n
-*Generated: 2024-12-23 03:00:33*
+*Generated: 2024-12-25 14:58:12*
 \n## Directory Structure
 ./src/auth
 ├── components
@@ -34,7 +34,7 @@
 
 10 directories, 8 files
 \n---\n
-*Generated: 2024-12-23 03:00:33*
+*Generated: 2024-12-25 14:58:12*
 \n## Directory Structure
 ./src/components
 ├── About
@@ -87,21 +87,8 @@
 │   └── index.ts
 ├── Dashboard
 │   ├── Analytics
-│   │   ├── DonationHistory.tsx
-│   │   ├── DonorStats.tsx
-│   │   └── StatCard.tsx
 │   ├── common
-│   │   ├── DashboardLayout.tsx
-│   │   ├── DashboardNav.tsx
-│   │   └── index.ts
-│   ├── widgets
-│   │   ├── AreaChart.tsx
-│   │   ├── BarChart.tsx
-│   │   ├── LineChart.tsx
-│   │   ├── StatCard.tsx
-│   │   └── index.ts
-│   ├── DonorLeaderboard.tsx
-│   └── types.ts
+│   └── widgets
 ├── Documentation
 │   ├── components
 │   │   ├── DocViewer.tsx
@@ -149,16 +136,12 @@
 │   ├── ActivityLog.tsx
 │   ├── AddFriend.tsx
 │   ├── AdminFeatures.tsx
-│   ├── BaseProfile.tsx
 │   ├── DonorFeatures.tsx
-│   ├── EditProfileModal.tsx
 │   ├── FriendActivity.tsx
 │   ├── ImageCropModal.tsx
 │   ├── ImageUpload.tsx
-│   ├── ProfileLayout.tsx
 │   ├── RoleSpecificInfo.tsx
-│   ├── SocialLinks.tsx
-│   └── UserProfile.tsx
+│   └── SocialLinks.tsx
 ├── QRScanner
 │   ├── QRScanner.tsx
 │   └── QRScannerLoading.tsx
@@ -167,8 +150,6 @@
 ├── Settings
 │   └── BaseSettings.tsx
 ├── Sidebar
-│   └── Sidebar.tsx
-├── SuperAdmin
 ├── ThankYou
 │   └── ThankYou.tsx
 ├── Token
@@ -220,9 +201,9 @@
 ├── Logo.tsx
 └── ThemeToggle.tsx
 
-49 directories, 134 files
+48 directories, 116 files
 \n---\n
-*Generated: 2024-12-23 03:00:33*
+*Generated: 2024-12-25 14:58:12*
 \n## Directory Structure
 ./public/docs
 ├── about
@@ -241,6 +222,28 @@
 │   │   ├── 2024-12
 │   │   │   └── checkpoint-2024-12-20.md
 │   │   └── README.md
+│   ├── project_backup
+│   │   ├── SHELTR Page Organization Refactor Plan.ini
+│   │   ├── SHELTR Refactor Progress Assessment.ini
+│   │   ├── build_tract.md
+│   │   ├── buildout_implementation.md
+│   │   ├── changelog.md
+│   │   ├── checkpoint.md
+│   │   ├── dashboard.md
+│   │   ├── dashboard_arch.md
+│   │   ├── dec15-restructure.md
+│   │   ├── deployment.md
+│   │   ├── pages.md
+│   │   ├── prompt_1.md
+│   │   ├── prompt_2.md
+│   │   ├── prompt_3.md
+│   │   ├── rbac.md
+│   │   ├── roadmap.md
+│   │   ├── status_report.md
+│   │   ├── tech_stack.md
+│   │   ├── typescript_errors.md
+│   │   ├── user_flow_testing.md
+│   │   └── user_flows.md
 │   ├── roadmap
 │   │   ├── 2024-12
 │   │   └── README.md
@@ -252,13 +255,19 @@
 │   ├── README.md
 │   ├── api.md
 │   ├── architecture.md
-│   └── security.md
+│   ├── security.md
+│   └── technical.md
 ├── dev
 │   ├── notes
 │   │   ├── 2024-12
+│   │   │   ├── Prompt 2.md
 │   │   │   ├── ai-prompts.md
+│   │   │   ├── critical-incident-dec25.md
+│   │   │   ├── developer-action-plan.md
+│   │   │   ├── recovery-checklist.md
 │   │   │   ├── refactor-assessment.md
-│   │   │   └── status-dec22.md
+│   │   │   ├── status-dec22.md
+│   │   │   └── status-dec25.md
 │   │   └── tree
 │   │       ├── archive
 │   │       ├── current
@@ -272,41 +281,20 @@
 │   ├── contribution.md
 │   ├── deployment.md
 │   └── getting-started.md
-├── project_backup
-│   ├── SHELTR Page Organization Refactor Plan.ini
-│   ├── SHELTR Refactor Progress Assessment.ini
-│   ├── build_tract.md
-│   ├── buildout_implementation.md
-│   ├── changelog.md
-│   ├── checkpoint.md
-│   ├── dashboard.md
-│   ├── dashboard_arch.md
-│   ├── dec15-restructure.md
-│   ├── deployment.md
-│   ├── pages.md
-│   ├── prompt_1.md
-│   ├── prompt_2.md
-│   ├── prompt_3.md
-│   ├── rbac.md
-│   ├── roadmap.md
-│   ├── status_report.md
-│   ├── tech_stack.md
-│   ├── typescript_errors.md
-│   ├── user_flow_testing.md
-│   └── user_flows.md
 ├── reference
 │   ├── components.md
 │   ├── constants.md
 │   └── types.md
-└── technical
-    ├── authentication.md
-    ├── blockchain.md
-    ├── database.md
-    └── qr-system.md
+├── technical
+│   ├── authentication.md
+│   ├── blockchain.md
+│   ├── database.md
+│   └── qr-system.md
+└── project_structure.txt
 
-24 directories, 55 files
+24 directories, 62 files
 \n---\n
-*Generated: 2024-12-23 03:00:33*
+*Generated: 2024-12-25 14:58:12*
 \n## Directory Structure
 ./src/features
 ├── auth
@@ -320,6 +308,24 @@
 │   ├── components
 │   │   └── index.ts
 │   ├── hooks
+│   ├── layouts
+│   │   ├── participant
+│   │   ├── shelter
+│   │   ├── super-admin
+│   │   ├── DashboardLayout.tsx
+│   │   └── index.ts
+│   ├── roles
+│   │   ├── donor
+│   │   ├── participant
+│   │   ├── shelter-admin
+│   │   └── super-admin
+│   ├── shared
+│   │   ├── analytics
+│   │   ├── components
+│   │   ├── navigation
+│   │   ├── profile
+│   │   ├── widgets
+│   │   └── types.ts
 │   ├── store
 │   ├── utils
 │   └── index.ts
@@ -335,33 +341,6 @@
 │   ├── store
 │   ├── utils
 │   └── index.ts
-├── roles
-│   ├── donor
-│   │   ├── components
-│   │   ├── hooks
-│   │   ├── store
-│   │   ├── utils
-│   │   └── index.ts
-│   ├── participant
-│   │   ├── components
-│   │   ├── hooks
-│   │   ├── services
-│   │   ├── store
-│   │   ├── types
-│   │   ├── utils
-│   │   └── index.ts
-│   ├── shelter-admin
-│   │   ├── components
-│   │   ├── hooks
-│   │   ├── store
-│   │   ├── utils
-│   │   └── index.ts
-│   └── super-admin
-│       ├── components
-│       ├── hooks
-│       ├── store
-│       ├── utils
-│       └── index.ts
 └── shared
     ├── analytics
     ├── components
@@ -371,9 +350,9 @@
     ├── utils
     └── index.ts
 
-48 directories, 14 files
+40 directories, 13 files
 \n---\n
-*Generated: 2024-12-23 03:00:33*
+*Generated: 2024-12-25 14:58:12*
 \n## Directory Structure
 ./src/layouts
 ├── base
@@ -392,7 +371,7 @@
 
 7 directories, 7 files
 \n---\n
-*Generated: 2024-12-23 03:00:33*
+*Generated: 2024-12-25 14:58:12*
 \n## Directory Structure
 .
 ├── public
@@ -443,9 +422,12 @@
 │   └── config.toml
 ├── README.md
 ├── analyze.html
+├── dashboard_files.txt
 ├── database_analysis_export.md
 ├── eslint.config.js
+├── header_files.txt
 ├── index.html
+├── layout_files.txt
 ├── package-lock.json
 ├── package.json
 ├── postcss.config.js
@@ -462,9 +444,9 @@
 ├── vercel.json
 └── vite.config.ts
 
-27 directories, 40 files
+27 directories, 43 files
 \n---\n
-*Generated: 2024-12-23 03:00:33*
+*Generated: 2024-12-25 14:58:12*
 \n## Directory Structure
 ./src/pages
 ├── About
@@ -528,7 +510,7 @@
 
 13 directories, 46 files
 \n---\n
-*Generated: 2024-12-23 03:00:33*
+*Generated: 2024-12-25 14:58:12*
 \n## Directory Structure
 ./src
 ├── auth
@@ -551,7 +533,8 @@
 │   └── types.ts
 ├── backup
 │   ├── dashboard_cleanup
-│   │   └── DonorDashboard.tsx
+│   ├── sidebars
+│   │   └── 20241224
 │   └── super-admin
 │       ├── QuickStatCard.tsx
 │       ├── ShelterPerformanceChart.tsx
@@ -593,9 +576,7 @@
 │   ├── Dashboard
 │   │   ├── Analytics
 │   │   ├── common
-│   │   ├── widgets
-│   │   ├── DonorLeaderboard.tsx
-│   │   └── types.ts
+│   │   └── widgets
 │   ├── Documentation
 │   │   ├── components
 │   │   ├── pages
@@ -636,16 +617,12 @@
 │   │   ├── ActivityLog.tsx
 │   │   ├── AddFriend.tsx
 │   │   ├── AdminFeatures.tsx
-│   │   ├── BaseProfile.tsx
 │   │   ├── DonorFeatures.tsx
-│   │   ├── EditProfileModal.tsx
 │   │   ├── FriendActivity.tsx
 │   │   ├── ImageCropModal.tsx
 │   │   ├── ImageUpload.tsx
-│   │   ├── ProfileLayout.tsx
 │   │   ├── RoleSpecificInfo.tsx
-│   │   ├── SocialLinks.tsx
-│   │   └── UserProfile.tsx
+│   │   └── SocialLinks.tsx
 │   ├── QRScanner
 │   │   ├── QRScanner.tsx
 │   │   └── QRScannerLoading.tsx
@@ -654,8 +631,6 @@
 │   ├── Settings
 │   │   └── BaseSettings.tsx
 │   ├── Sidebar
-│   │   └── Sidebar.tsx
-│   ├── SuperAdmin
 │   ├── ThankYou
 │   │   └── ThankYou.tsx
 │   ├── Token
@@ -726,6 +701,9 @@
 │   ├── dashboard
 │   │   ├── components
 │   │   ├── hooks
+│   │   ├── layouts
+│   │   ├── roles
+│   │   ├── shared
 │   │   ├── store
 │   │   ├── utils
 │   │   └── index.ts
@@ -738,11 +716,6 @@
 │   │   ├── store
 │   │   ├── utils
 │   │   └── index.ts
-│   ├── roles
-│   │   ├── donor
-│   │   ├── participant
-│   │   ├── shelter-admin
-│   │   └── super-admin
 │   └── shared
 │       ├── analytics
 │       ├── components
@@ -949,4 +922,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-152 directories, 266 files
+151 directories, 258 files

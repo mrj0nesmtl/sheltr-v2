@@ -10,6 +10,28 @@
 │   ├── checkpoints
 │   │   ├── 2024-12
 │   │   └── README.md
+│   ├── project_backup
+│   │   ├── SHELTR Page Organization Refactor Plan.ini
+│   │   ├── SHELTR Refactor Progress Assessment.ini
+│   │   ├── build_tract.md
+│   │   ├── buildout_implementation.md
+│   │   ├── changelog.md
+│   │   ├── checkpoint.md
+│   │   ├── dashboard.md
+│   │   ├── dashboard_arch.md
+│   │   ├── dec15-restructure.md
+│   │   ├── deployment.md
+│   │   ├── pages.md
+│   │   ├── prompt_1.md
+│   │   ├── prompt_2.md
+│   │   ├── prompt_3.md
+│   │   ├── rbac.md
+│   │   ├── roadmap.md
+│   │   ├── status_report.md
+│   │   ├── tech_stack.md
+│   │   ├── typescript_errors.md
+│   │   ├── user_flow_testing.md
+│   │   └── user_flows.md
 │   ├── roadmap
 │   │   ├── 2024-12
 │   │   └── README.md
@@ -19,7 +41,8 @@
 │   ├── README.md
 │   ├── api.md
 │   ├── architecture.md
-│   └── security.md
+│   ├── security.md
+│   └── technical.md
 ├── dev
 │   ├── debugging.md
 │   ├── ideas.md
@@ -32,28 +55,6 @@
 │   ├── contribution.md
 │   ├── deployment.md
 │   └── getting-started.md
-├── project_backup
-│   ├── SHELTR Page Organization Refactor Plan.ini
-│   ├── SHELTR Refactor Progress Assessment.ini
-│   ├── build_tract.md
-│   ├── buildout_implementation.md
-│   ├── changelog.md
-│   ├── checkpoint.md
-│   ├── dashboard.md
-│   ├── dashboard_arch.md
-│   ├── dec15-restructure.md
-│   ├── deployment.md
-│   ├── pages.md
-│   ├── prompt_1.md
-│   ├── prompt_2.md
-│   ├── prompt_3.md
-│   ├── rbac.md
-│   ├── roadmap.md
-│   ├── status_report.md
-│   ├── tech_stack.md
-│   ├── typescript_errors.md
-│   ├── user_flow_testing.md
-│   └── user_flows.md
 ├── project_structure.txt
 ├── reference
 │   ├── components.md
@@ -65,4 +66,4 @@
     ├── database.md
     └── qr-system.md
 
-22 directories, 44 files
+22 directories, 45 files
