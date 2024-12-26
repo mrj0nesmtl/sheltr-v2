@@ -1,5 +1,17 @@
-# 🌳 SHELTR Components Structure
-*Generated: 2024-12-26 11:37:51*
+# 🧩 SHELTR Components Structure
+*Updated: 2024-12-26*
+
+## Navigation
+- `Navigation/`: Core navigation components
+  - `MobileNav.tsx`: New mobile navigation implementation
+  - `Navigation.tsx`: Main navigation wrapper
+  - `UserNav.tsx`: User-specific navigation elements
+
+## Authentication Flow
+- Enhanced session handling
+- Improved role-based redirects
+- Better error state management 
+
 \n## Directory Structure
 ./src/components
 ├── About
@@ -89,7 +101,6 @@
 ├── Meta
 │   └── PageMeta.tsx
 ├── Navigation
-│   ├── MobileMenu.tsx
 │   ├── MobileNav.tsx
 │   ├── Navigation.tsx
 │   ├── UserNav.tsx
@@ -166,4 +177,4 @@
 ├── Logo.tsx
 └── ThemeToggle.tsx
 
-48 directories, 116 files
+48 directories, 115 files

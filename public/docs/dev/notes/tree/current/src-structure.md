@@ -1,5 +1,5 @@
 # 🌳 SHELTR Source Structure
-*Generated: 2024-12-26 11:37:51*
+*Generated: 2024-12-26 14:27:09*
 \n## Directory Structure
 ./src
 ├── auth
@@ -94,7 +94,6 @@
 │   ├── Meta
 │   │   └── PageMeta.tsx
 │   ├── Navigation
-│   │   ├── MobileMenu.tsx
 │   │   ├── MobileNav.tsx
 │   │   ├── Navigation.tsx
 │   │   ├── UserNav.tsx
@@ -409,4 +408,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-150 directories, 257 files
+150 directories, 256 files

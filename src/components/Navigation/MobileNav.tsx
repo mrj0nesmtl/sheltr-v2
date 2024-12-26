@@ -1,10 +1,42 @@
-import { useNavigation } from '@/hooks/useNavigation';
-import { cn } from '@/lib/utils';
+import { useAuth } from '@/hooks/useAuth';
 import { Dialog, Transition } from '@headlessui/react';
-import { X } from 'lucide-react';
+import { 
+  X,
+  HelpCircle,
+  Info,
+  QrCode,
+  BarChart3,
+  FileText,
+  Link as LinkIcon,
+  Activity,
+  Wallet,
+  Home,
+  LogIn,
+  UserPlus,
+  User
+} from 'lucide-react';
 import { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { Logo } from '../ui/Logo';
+import { LanguageToggle } from '../ui/LanguageToggle';
+import { Button } from '../ui/Button';
+
+// Define navigation items with icons
+const publicNavItems = [
+  { path: '/how-it-works', label: 'nav.solutions_menu.howItWorks', icon: HelpCircle },
+  { path: '/solutions', label: 'nav.solutions_menu.solutions', icon: Home },
+  { path: '/scan-donate', label: 'nav.scanDonate', icon: QrCode },
+  { path: '/impact', label: 'nav.solutions_menu.impact', icon: BarChart3 },
+  { path: '/about', label: 'nav.about', icon: Info }
+];
+
+const blockchainNavItems = [
+  { path: '/whitepaper', label: 'nav.blockchain_menu.whitepaper', icon: FileText },
+  { path: '/token', label: 'nav.blockchain_menu.token', icon: LinkIcon },
+  { path: '/transactions', label: 'nav.blockchain_menu.transactions', icon: Activity },
+  { path: '/depot', label: 'nav.blockchain_menu.depot', icon: Wallet }
+];
 
 interface MobileNavProps {
   isOpen: boolean;
@@ -13,11 +45,7 @@ interface MobileNavProps {
 
 export function MobileNav({ isOpen, onClose }: MobileNavProps) {
   const { t } = useTranslation();
-  const { publicNavItems, roleNavItems, isAuthenticated, isActiveRoute } = useNavigation();
-
-  const getLabel = (label: string) => {
-    return label === 'Home' ? label : t(label);
-  };
+  const { user, isAuthenticated } = useAuth();
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
@@ -45,55 +73,93 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
             leaveTo="-translate-x-full"
           >
             <Dialog.Panel className="relative flex w-full max-w-xs flex-col overflow-y-auto bg-gray-900 pb-12 shadow-xl">
-              <div className="flex px-4 pb-2 pt-5">
+              {/* Header */}
+              <div className="flex items-center justify-between p-4 border-b border-gray-800">
+                <Logo className="h-8 w-auto" />
                 <button
                   type="button"
-                  className="relative -m-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:text-gray-500"
+                  className="text-gray-400 hover:text-white"
                   onClick={onClose}
                 >
-                  <span className="absolute -inset-0.5" />
-                  <span className="sr-only">Close menu</span>
-                  <X className="h-6 w-6" aria-hidden="true" />
+                  <X className="h-6 w-6" />
                 </button>
               </div>
 
-              <div className="space-y-6 px-4 py-6">
-                {publicNavItems.map((item) => (
+              {/* Navigation Content */}
+              <div className="flex-1 px-4 py-6 space-y-6">
+                {/* Main Navigation */}
+                <div className="space-y-1">
+                  {publicNavItems.map((item) => (
+                    <Link
+                      key={item.path}
+                      to={item.path}
+                      className="flex items-center space-x-3 px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-800 hover:text-white rounded-md"
+                      onClick={onClose}
+                    >
+                      <item.icon className="h-5 w-5 flex-shrink-0" />
+                      <span>{t(item.label)}</span>
+                    </Link>
+                  ))}
+                </div>
+
+                {/* Blockchain Section */}
+                <div className="space-y-1">
+                  <h3 className="px-3 text-sm font-semibold text-gray-400 uppercase tracking-wider">
+                    {t('nav.blockchain')}
+                  </h3>
+                  {blockchainNavItems.map((item) => (
+                    <Link
+                      key={item.path}
+                      to={item.path}
+                      className="flex items-center space-x-3 px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-800 hover:text-white rounded-md"
+                      onClick={onClose}
+                    >
+                      <item.icon className="h-5 w-5 flex-shrink-0" />
+                      <span>{t(item.label)}</span>
+                    </Link>
+                  ))}
+                </div>
+
+                {/* Language Toggle */}
+                <div className="px-3">
+                  <LanguageToggle />
+                </div>
+              </div>
+
+              {/* Auth Section */}
+              <div className="border-t border-gray-800 px-4 py-6">
+                {!isAuthenticated ? (
+                  <div className="space-y-3">
+                    <Link
+                      to="/login"
+                      className="flex justify-center w-full"
+                      onClick={onClose}
+                    >
+                      <Button variant="primary" className="w-full flex items-center justify-center gap-2">
+                        <LogIn className="h-5 w-5" />
+                        {t('nav.login')}
+                      </Button>
+                    </Link>
+                    <Link
+                      to="/signup"
+                      className="flex justify-center w-full"
+                      onClick={onClose}
+                    >
+                      <Button variant="outline" className="w-full flex items-center justify-center gap-2">
+                        <UserPlus className="h-5 w-5" />
+                        {t('nav.signUp')}
+                      </Button>
+                    </Link>
+                  </div>
+                ) : (
                   <Link
-                    key={item.path}
-                    to={item.path}
-                    className={cn(
-                      "flex items-center space-x-2 text-base font-medium",
-                      isActiveRoute(item.path)
-                        ? "text-white"
-                        : "text-gray-300 hover:text-white"
-                    )}
+                    to="/profile"
+                    className="flex items-center space-x-3 px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-800 hover:text-white rounded-md"
                     onClick={onClose}
                   >
-                    {item.icon && <item.icon className="h-5 w-5" />}
-                    <span>{getLabel(item.label)}</span>
+                    <User className="h-5 w-5 flex-shrink-0" />
+                    <span>{t('nav.profile')}</span>
                   </Link>
-                ))}
-
-                {isAuthenticated && (
-                  <div className="border-t border-gray-800 pt-6">
-                    {roleNavItems.map((item) => (
-                      <Link
-                        key={item.path}
-                        to={item.path}
-                        className={cn(
-                          "flex items-center space-x-2 text-base font-medium mb-4",
-                          isActiveRoute(item.path)
-                            ? "text-white"
-                            : "text-gray-300 hover:text-white"
-                        )}
-                        onClick={onClose}
-                      >
-                        {item.icon && <item.icon className="h-5 w-5" />}
-                        <span>{t(item.label)}</span>
-                      </Link>
-                    ))}
-                  </div>
                 )}
               </div>
             </Dialog.Panel>

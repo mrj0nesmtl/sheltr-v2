@@ -1,5 +1,5 @@
 # 🌳 SHELTR Features Structure
-*Generated: 2024-12-26 11:37:51*
+*Generated: 2024-12-26 14:27:09*
 \n## Directory Structure
 ./src/features
 ├── auth
@@ -11,7 +11,6 @@
 │   └── index.ts
 ├── dashboard
 │   ├── components
-│   │   └── index.ts
 │   ├── hooks
 │   ├── layouts
 │   │   ├── participant
@@ -55,4 +54,4 @@
     ├── utils
     └── index.ts
 
-40 directories, 13 files
+40 directories, 12 files

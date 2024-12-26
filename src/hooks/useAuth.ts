@@ -1,11 +1,14 @@
 import { supabase, forceLogout } from '@/lib/supabase/client';
 import { useEffect, useState } from 'react';
 import { AUTH_ROLES } from '@/auth/types/auth.types';
+import { useNavigate } from 'react-router-dom';
+import { getDashboardPath } from '@/lib/navigation/roleNavigation';
 
 export const useAuth = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const initSession = async () => {
@@ -17,7 +20,7 @@ export const useAuth = () => {
         }
         
         if (!session?.user) {
-          await forceLogout(); // Force logout if no user in session
+          await forceLogout();
           return;
         }
 
@@ -29,6 +32,13 @@ export const useAuth = () => {
         };
         
         setUser(userData);
+        
+        // Redirect to appropriate dashboard if on login page
+        const currentPath = window.location.pathname;
+        if (currentPath === '/login') {
+          const dashboardPath = getDashboardPath(userData.role);
+          navigate(dashboardPath, { replace: true });
+        }
       } catch (e) {
         console.error('Session error:', e);
         setError(e);
@@ -44,6 +54,7 @@ export const useAuth = () => {
       async (_event, session) => {
         if (!session?.user) {
           await forceLogout();
+          setUser(null);
           return;
         }
 
@@ -60,7 +71,7 @@ export const useAuth = () => {
     );
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, [navigate]); // Add navigate to dependencies
 
   return {
     user,
@@ -68,6 +79,10 @@ export const useAuth = () => {
     isLoading,
     error,
     isAuthenticated: !!user,
-    signOut: forceLogout
+    signOut: async () => {
+      await forceLogout();
+      setUser(null);
+      navigate('/', { replace: true });
+    }
   };
 }; 

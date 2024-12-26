@@ -2,6 +2,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { Navigation } from '@/components/Navigation/Navigation';
 import { Footer } from '@/components/Footer/Footer';
 import { PageLayout } from './PageLayout';
+import { useLocation } from 'react-router-dom';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -9,15 +10,19 @@ interface LayoutProps {
 
 export function Layout({ children }: LayoutProps) {
   const { isAuthenticated, user } = useAuth();
+  const location = useLocation();
+  
+  // Check if we're on a dashboard route
+  const isDashboardRoute = location.pathname.startsWith('/dashboard');
 
   return (
     <div className="relative min-h-screen flex flex-col bg-gray-900">
-      {/* Main Navigation - Fixed at top */}
-      <Navigation />
+      {/* Main Navigation - Only show on non-dashboard routes */}
+      {!isDashboardRoute && <Navigation />}
       
-      {/* Main Content Area - Flexible height with padding for nav */}
+      {/* Main Content Area */}
       <main className="flex-1 w-full mx-auto px-4">
-        <div className="pt-16 pb-16"> {/* Reduced bottom padding */}
+        <div className={`${!isDashboardRoute ? 'pt-16' : ''} pb-16`}>
           <PageLayout>
             {children}
           </PageLayout>
@@ -29,6 +34,7 @@ export function Layout({ children }: LayoutProps) {
         <Footer />
       </div>
 
+      {/* Status indicator */}
       <div className="fixed bottom-4 right-4 text-sm text-white/50">
         Status: {isAuthenticated ? `Logged in${user?.email ? ` as ${user.email}` : ''}` : 'Not logged in'}
       </div>
