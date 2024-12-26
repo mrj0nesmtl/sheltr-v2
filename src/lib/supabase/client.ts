@@ -1,15 +1,16 @@
 import { createClient } from '@supabase/supabase-js';
 import type { Database } from '../types/database';
 
-// Fix: Correct the URL typo (stagqg instead of staggg)
-const supabaseUrl = 'https://oinjrlzucizztdstagqg.supabase.co';
-const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9pbmpybHp1Y2l6enRkc3RhZ3FnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjg4ODkwODcsImV4cCI6MjA0NDQ2NTA4N30.XPKa2Zhse4_KZRSuHfwaqBo0A9QezPhWdPLezI67zdk';
+// Change to use environment variables
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://oinjrlzucizztdstagqg.supabase.co';
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9pbmpybHp1Y2l6enRkc3RhZ3FnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjg4ODkwODcsImV4cCI6MjA0NDQ2NTA4N30.XPKa2Zhse4_KZRSuHfwaqBo0A9QezPhWdPLezI67zdk';
 
 // Add debug logging
 console.log('Initializing Supabase client with:', { 
   url: supabaseUrl,
   keyLength: supabaseAnonKey.length,
-  timestamp: new Date().toISOString()
+  timestamp: new Date().toISOString(),
+  usingEnvVars: !!import.meta.env.VITE_SUPABASE_URL
 });
 
 export const supabase = createClient<Database>(
@@ -19,7 +20,8 @@ export const supabase = createClient<Database>(
     auth: {
       autoRefreshToken: true,
       persistSession: true,
-      detectSessionInUrl: true
+      detectSessionInUrl: true,
+      storage: window.localStorage // Explicitly set storage
     }
   }
 );
@@ -74,7 +76,17 @@ export async function getUserProfile(userId: string) {
 
 // Add a force logout utility
 export const forceLogout = async () => {
-  await supabase.auth.signOut();
-  window.localStorage.clear(); // Clear all local storage
-  window.location.href = '/login'; // Redirect to login
+  try {
+    const { error } = await supabase.auth.signOut();
+    if (error) throw error;
+    
+    // Clear any auth-related local storage
+    localStorage.removeItem('supabase.auth.token');
+    localStorage.removeItem('user');
+    
+    // Force reload the page to clear any cached auth state
+    window.location.href = '/login';
+  } catch (error) {
+    console.error('Error during logout:', error);
+  }
 };

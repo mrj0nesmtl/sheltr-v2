@@ -12,12 +12,17 @@ type CustomRouteObject = RouteObject & {
 const Impact = lazy(() => import('@/pages/Impact.tsx'));
 const Solutions = lazy(() => import('@/pages/Solutions.tsx'));
 const Home = lazy(() => import('@/pages/HomePage.tsx'));
-const DonorDashboard = lazy(() => import('@/pages/Donor/DonorSignUp'));
+const DonorDashboard = lazy(() => import('@/pages/Donor/DonorDashboard.tsx'));
 const QRScanner = lazy(() => import('@/pages/ScanDonatePage.tsx'));
 const ImpactPage = lazy(() => import('@/pages/Impact.tsx'));
-const DonorSignUp = lazy(() => import('@/pages/Donor/DonorSignUp'));
+const DonorSignUp = lazy(() => import('@/pages/Donor/DonorSignUp.tsx'));
+const LoginPage = lazy(() => import('@/pages/LoginPage'));
 
 export const routes: CustomRouteObject[] = [
+  {
+    path: '/login',
+    element: <LoginPage />,
+  },
   {
     path: '/',
     element: <Home />

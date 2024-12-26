@@ -1,30 +1,30 @@
 import { lazy, Suspense } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { DashboardLayout } from '@/features/dashboard/layouts/DashboardLayout';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 
-// Public pages
-const Home = lazy(() => import('@/pages/HomePage'));
-const About = lazy(() => import('@/pages/About'));
-const HowItWorks = lazy(() => import('@/pages/HowItWorks'));
-const ScanDonate = lazy(() => import('@/pages/ScanDonatePage'));
-const Impact = lazy(() => import('@/pages/Impact'));
-const Login = lazy(() => import('@/pages/LoginPage'));
-const SignUp = lazy(() => import('@/pages/SignUpPage'));
+// Public pages - add type annotations
+const Home = lazy(() => import('@/pages/HomePage').then(module => ({ default: module.default })));
+const About = lazy(() => import('@/pages/About').then(module => ({ default: module.default })));
+const HowItWorks = lazy(() => import('@/pages/HowItWorks').then(module => ({ default: module.default })));
+const ScanDonate = lazy(() => import('@/pages/ScanDonatePage').then(module => ({ default: module.default })));
+const Impact = lazy(() => import('@/pages/Impact').then(module => ({ default: module.default })));
+const Login = lazy(() => import('@/pages/LoginPage').then(module => ({ default: module.default })));
+const SignUp = lazy(() => import('@/pages/SignUpPage').then(module => ({ default: module.default })));
 
-// Dashboard views
+// Dashboard views - add type annotations
 const DonorDashboardView = lazy(() => 
-  import('@/features/dashboard/roles/donor/DonorDashboard')
+  import('@/features/dashboard/roles/donor/DonorDashboard').then(module => ({ default: module.default }))
 );
 const ParticipantDashboardView = lazy(() => 
-  import('@/features/dashboard/roles/participant/ParticipantDashboard')
+  import('@/features/dashboard/roles/participant/ParticipantDashboard').then(module => ({ default: module.default }))
 );
 const ShelterDashboardView = lazy(() => 
-  import('@/features/dashboard/roles/shelter-admin/ShelterDashboard')
+  import('@/features/dashboard/roles/shelter-admin/ShelterDashboard').then(module => ({ default: module.default }))
 );
 const SuperAdminDashboardView = lazy(() => 
-  import('@/features/dashboard/roles/super-admin/SuperAdminDashboard')
+  import('@/features/dashboard/roles/super-admin/SuperAdminDashboard').then(module => ({ default: module.default }))
 );
 
 export default function AppRoutes() {
@@ -34,18 +34,28 @@ export default function AppRoutes() {
     <Suspense fallback={<div className="text-white">Loading routes...</div>}>
       <Routes>
         {/* Public routes - always accessible */}
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/about" element={<About />} />
         <Route path="/how-it-works" element={<HowItWorks />} />
         <Route path="/scan-donate" element={<ScanDonate />} />
         <Route path="/impact" element={<Impact />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={
+          <ErrorBoundary>
+            <Login />
+          </ErrorBoundary>
+        } />
         <Route path="/signup" element={<SignUp />} />
 
         {/* Protected routes with DashboardLayout */}
-        <Route 
+        <Route
           element={
-            isAuthenticated ? <DashboardLayout /> : <Navigate to="/login" />
+            isAuthenticated ? (
+              <DashboardLayout>
+                <Outlet />
+              </DashboardLayout>
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         >
           {/* Dashboard routes based on user role */}
