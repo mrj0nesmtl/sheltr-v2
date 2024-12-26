@@ -2,15 +2,19 @@ import { mainNavigation } from '@/lib/navigation/config';
 import { Menu } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Button } from '../ui/Button';
 import { Logo } from '../ui/Logo';
 import { useAuth } from '@/hooks/useAuth';
+import { getDashboardPath } from '@/lib/navigation/roleNavigation';
 
 export function Navigation() {
   const { t } = useTranslation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { isAuthenticated, user } = useAuth();
+
+  // Get the correct dashboard path based on user role
+  const dashboardPath = user?.role ? getDashboardPath(user.role) : '/';
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-gray-900/95 backdrop-blur-sm border-b border-gray-800">
@@ -37,7 +41,7 @@ export function Navigation() {
           {/* Auth Buttons */}
           <div className="hidden md:flex items-center space-x-4">
             {isAuthenticated ? (
-              <Link to="/donor/dashboard">
+              <Link to={dashboardPath}>
                 <Button className="bg-indigo-600 hover:bg-indigo-700 text-white">
                   {t('nav.dashboard')}
                 </Button>
@@ -85,7 +89,7 @@ export function Navigation() {
             <div className="pt-4 pb-3 border-t border-gray-700">
               {isAuthenticated ? (
                 <Link
-                  to="/donor/dashboard"
+                  to={dashboardPath}
                   className="block px-3 py-2 text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-md"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >

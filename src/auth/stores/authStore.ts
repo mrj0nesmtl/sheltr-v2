@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import axios from 'axios';
+import { supabase } from '@/lib/supabase/client';
 import { 
   AUTH_ROLES,
   type User,
@@ -31,6 +32,7 @@ interface AuthStore extends AuthState {
   setRole: (role: AllowedRole) => void;
   clearAuth: () => void;
   signUp: (data: ShelterAdminSignUpFormData) => Promise<void>;
+  logout: () => Promise<void>;
 }
 
 export const useAuthStore = create<AuthStore>((set) => ({
@@ -73,9 +75,29 @@ export const useAuthStore = create<AuthStore>((set) => ({
     }
   },
 
+  logout: async () => {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+      
+      // Clear auth state
+      set({ 
+        user: null,
+        role: null,
+        isAuthenticated: false,
+        error: null
+      });
+      
+      // Redirect to login (you might want to handle this in the component instead)
+      window.location.href = '/login';
+    } catch (error) {
+      set({ error: (error as Error).message });
+      throw error;
+    }
+  },
+
   // Implement required AuthState methods
   login: async () => { /* implement login logic */ },
-  logout: async () => { /* implement logout logic */ },
   refreshSession: async () => { /* implement refresh logic */ },
   updateProfile: async () => { /* implement update logic */ }
 }));

@@ -8,18 +8,8 @@ import { useNavigate } from 'react-router-dom';
 export function UserNav() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { user, signOut } = useAuthStore();
+  const { user, logout } = useAuthStore();
   const [isOpen, setIsOpen] = useState(false);
-
-  const handleProfileClick = () => {
-    navigate('/profile');
-    setIsOpen(false);
-  };
-
-  const handleSignOut = async () => {
-    await signOut();
-    setIsOpen(false);
-  };
 
   return (
     <div className="relative">
@@ -33,7 +23,7 @@ export function UserNav() {
           className="h-8 w-8 cursor-pointer"
         />
         <span className="text-sm text-gray-200">
-          {user?.name?.split('+')[0] || 'User'}
+          {user?.name?.split('+')?.[0] || 'User'}
         </span>
         <Icon name="chevron-down" className="h-4 w-4 text-gray-400" />
       </button>
@@ -42,7 +32,10 @@ export function UserNav() {
         <div className="absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5">
           <div className="py-1" role="menu">
             <button
-              onClick={handleProfileClick}
+              onClick={() => {
+                navigate('/profile');
+                setIsOpen(false);
+              }}
               className="flex w-full items-center px-4 py-2 text-sm text-gray-300 hover:bg-gray-700"
             >
               <Icon name="user" className="mr-3 h-4 w-4" />
@@ -63,7 +56,14 @@ export function UserNav() {
             <div className="border-t border-gray-700 my-1" />
 
             <button
-              onClick={handleSignOut}
+              onClick={async () => {
+                try {
+                  await logout();
+                  setIsOpen(false);
+                } catch (error) {
+                  console.error('Error signing out:', error);
+                }
+              }}
               className="flex w-full items-center px-4 py-2 text-sm text-red-400 hover:bg-gray-700"
             >
               <Icon name="log-out" className="mr-3 h-4 w-4" />

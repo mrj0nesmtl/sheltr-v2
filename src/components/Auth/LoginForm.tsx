@@ -4,59 +4,89 @@ import { supabase } from '@/lib/supabase/client';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+// Add form validation schema
+const loginSchema = {
+  email: (value: string) => {
+    if (!value) return "Email is required";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return "Invalid email format";
+    return null;
+  },
+  password: (value: string) => {
+    if (!value) return "Password is required";
+    if (value.length < 6) return "Password must be at least 6 characters";
+    return null;
+  }
+};
+
 export function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState<{[key: string]: string}>({});
   const navigate = useNavigate();
   const { setUser, setRole } = useAuthStore();
 
+  // Add validation function
+  const validateForm = () => {
+    const newErrors: {[key: string]: string} = {};
+    const emailError = loginSchema.email(email);
+    const passwordError = loginSchema.password(password);
+    
+    if (emailError) newErrors.email = emailError;
+    if (passwordError) newErrors.password = passwordError;
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate before submission
+    if (!validateForm()) return;
+
     setIsLoading(true);
     
     try {
-      console.log('🔑 Step 1: Attempting authentication...');
+      // Add error boundary
       const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
         email: email.trim().toLowerCase(),
         password,
       });
 
       if (authError) throw authError;
-      console.log('✅ Authentication successful:', authData.user?.id);
 
-      console.log('👤 Step 2: Fetching profile data using function...');
+      // Add null check
+      if (!authData.user?.id) {
+        throw new Error('User ID not found');
+      }
+
       const { data: profileData, error: profileError } = await supabase
-        .rpc('get_user_profile', { user_id: authData.user?.id })
+        .rpc('get_user_profile', { user_id: authData.user.id })
         .single();
 
       if (profileError) throw profileError;
-      console.log('📋 Profile data:', profileData);
 
-      if (authData.user && profileData) {
-        await setUser(authData.user);
-        await setRole(profileData.role);
-        
-        console.log('🎯 Navigating based on role:', profileData.role);
-        switch (profileData.role) {
-          case 'super_admin':
-            navigate('/super-admin/dashboard', { replace: true });
-            break;
-          case 'shelter_admin':
-            navigate('/shelter-admin/dashboard', { replace: true });
-            break;
-          case 'donor':
-            navigate('/donor/dashboard', { replace: true });
-            break;
-          case 'participant':
-            navigate('/participant/dashboard', { replace: true });
-            break;
-          default:
-            throw new Error(`Invalid role: ${profileData.role}`);
-        }
+      // Add role validation
+      if (!profileData?.role) {
+        throw new Error('User role not found');
       }
+
+      await setUser(authData.user);
+      await setRole(profileData.role);
+      
+      // Simplified navigation logic
+      const dashboardPath = getDashboardPath(profileData.role);
+      navigate(dashboardPath, { replace: true });
+      
+      toast({
+        title: "Welcome back!",
+        description: "Successfully logged in",
+        variant: "default"
+      });
+
     } catch (error) {
-      console.error('❌ Login error:', error);
+      console.error('Login error:', error);
       toast({
         variant: "destructive",
         title: "Login Failed",
