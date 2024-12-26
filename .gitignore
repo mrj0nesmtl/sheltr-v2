@@ -60,3 +60,4 @@ analyze.html
 stats.html
 .DS_Store
 **/.DS_Store
+public/docs/dev/notes/tree/archive/*.tar.gz
