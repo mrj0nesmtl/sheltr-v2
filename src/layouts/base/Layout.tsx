@@ -29,12 +29,11 @@ export function Layout({ children }: LayoutProps) {
         <Footer />
       </div>
 
-      {/* Auth Status - Debug Only */}
       <div className="fixed bottom-4 right-4 text-sm text-white/50">
-        Status: {isAuthenticated ? 'Logged in' : 'Not logged in'}
+        Status: {isAuthenticated ? `Logged in${user?.email ? ` as ${user.email}` : ''}` : 'Not logged in'}
       </div>
     </div>
   );
 }
 
-export default Layout; 
+export default Layout;
