@@ -1,5 +1,5 @@
 # 🌳 SHELTR Source Structure
-*Generated: 2024-12-25 14:58:12*
+*Generated: 2024-12-25 19:19:03*
 \n## Directory Structure
 ./src
 ├── auth
@@ -342,8 +342,6 @@
 │   ├── Donor
 │   │   ├── DonorSignUp.tsx
 │   │   └── Settings.tsx
-│   ├── Login
-│   │   └── index.tsx
 │   ├── ShelterAdmin
 │   │   └── types
 │   ├── SuperAdmin
@@ -411,4 +409,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-151 directories, 258 files
+150 directories, 257 files

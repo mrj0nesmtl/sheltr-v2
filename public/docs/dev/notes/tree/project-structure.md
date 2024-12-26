@@ -1,5 +1,5 @@
 # 🌳 SHELTR Project Structure
-*Generated: 2024-12-25 14:58:12*
+*Generated: 2024-12-25 19:19:03*
 *Version: 0.4.9*
 
 ## Table of Contents
@@ -11,7 +11,7 @@
 6. [Technical Structures](#technical-structures)
 
 \n---\n
-*Generated: 2024-12-25 14:58:12*
+*Generated: 2024-12-25 19:19:03*
 \n## Directory Structure
 ./src/auth
 ├── components
@@ -34,7 +34,7 @@
 
 10 directories, 8 files
 \n---\n
-*Generated: 2024-12-25 14:58:12*
+*Generated: 2024-12-25 19:19:03*
 \n## Directory Structure
 ./src/components
 ├── About
@@ -203,7 +203,7 @@
 
 48 directories, 116 files
 \n---\n
-*Generated: 2024-12-25 14:58:12*
+*Generated: 2024-12-25 19:19:03*
 \n## Directory Structure
 ./public/docs
 ├── about
@@ -294,7 +294,7 @@
 
 24 directories, 62 files
 \n---\n
-*Generated: 2024-12-25 14:58:12*
+*Generated: 2024-12-25 19:19:03*
 \n## Directory Structure
 ./src/features
 ├── auth
@@ -352,7 +352,7 @@
 
 40 directories, 13 files
 \n---\n
-*Generated: 2024-12-25 14:58:12*
+*Generated: 2024-12-25 19:19:03*
 \n## Directory Structure
 ./src/layouts
 ├── base
@@ -371,7 +371,7 @@
 
 7 directories, 7 files
 \n---\n
-*Generated: 2024-12-25 14:58:12*
+*Generated: 2024-12-25 19:19:03*
 \n## Directory Structure
 .
 ├── public
@@ -446,7 +446,7 @@
 
 27 directories, 43 files
 \n---\n
-*Generated: 2024-12-25 14:58:12*
+*Generated: 2024-12-25 19:19:03*
 \n## Directory Structure
 ./src/pages
 ├── About
@@ -473,8 +473,6 @@
 ├── Donor
 │   ├── DonorSignUp.tsx
 │   └── Settings.tsx
-├── Login
-│   └── index.tsx
 ├── ShelterAdmin
 │   └── types
 │       └── index.ts
@@ -508,9 +506,9 @@
 ├── Solutions.tsx
 └── index.ts
 
-13 directories, 46 files
+12 directories, 45 files
 \n---\n
-*Generated: 2024-12-25 14:58:12*
+*Generated: 2024-12-25 19:19:03*
 \n## Directory Structure
 ./src
 ├── auth
@@ -853,8 +851,6 @@
 │   ├── Donor
 │   │   ├── DonorSignUp.tsx
 │   │   └── Settings.tsx
-│   ├── Login
-│   │   └── index.tsx
 │   ├── ShelterAdmin
 │   │   └── types
 │   ├── SuperAdmin
@@ -922,4 +918,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-151 directories, 258 files
+150 directories, 257 files

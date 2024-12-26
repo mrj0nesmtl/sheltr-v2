@@ -1,5 +1,5 @@
 # 🌳 SHELTR Pages Structure
-*Generated: 2024-12-25 14:58:12*
+*Generated: 2024-12-25 19:19:03*
 \n## Directory Structure
 ./src/pages
 ├── About
@@ -26,8 +26,6 @@
 ├── Donor
 │   ├── DonorSignUp.tsx
 │   └── Settings.tsx
-├── Login
-│   └── index.tsx
 ├── ShelterAdmin
 │   └── types
 │       └── index.ts
@@ -61,4 +59,4 @@
 ├── Solutions.tsx
 └── index.ts
 
-13 directories, 46 files
+12 directories, 45 files
