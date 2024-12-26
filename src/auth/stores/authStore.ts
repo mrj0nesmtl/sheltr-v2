@@ -2,14 +2,16 @@ import { create } from 'zustand';
 import axios from 'axios';
 import { supabase } from '@/lib/supabase/client';
 import { 
-  AUTH_ROLES,
   type User,
   type AuthUser,
   type AuthState,
   type AllowedRole,
   type ShelterAdminSignUpFormData,
-  type AuthResponse
+  type AuthResponse,
+  type LoginCredentials,
+  type AuthError
 } from '@/types/core/auth';
+import { AUTH_ROLES } from '@/auth/types/auth.types';
 
 // Helper function to convert Supabase User to AuthUser
 const convertUser = (user: User | null): AuthUser | null => {
@@ -29,16 +31,17 @@ const convertUser = (user: User | null): AuthUser | null => {
 
 interface AuthStore extends AuthState {
   setUser: (user: User | null) => void;
-  setRole: (role: AllowedRole) => void;
+  setRole: (role: AUTH_ROLES) => void;
   clearAuth: () => void;
-  signUp: (data: ShelterAdminSignUpFormData) => Promise<void>;
-  logout: () => Promise<void>;
+  login: (credentials: LoginCredentials) => Promise<void>;
+  refreshSession: () => Promise<void>;
+  updateProfile: (data: Partial<User>) => Promise<void>;
 }
 
 export const useAuthStore = create<AuthStore>((set) => ({
   user: null,
   role: null,
-  loading: false,
+  isLoading: true,
   isAuthenticated: false,
   error: null,
   
@@ -96,8 +99,74 @@ export const useAuthStore = create<AuthStore>((set) => ({
     }
   },
 
-  // Implement required AuthState methods
-  login: async () => { /* implement login logic */ },
-  refreshSession: async () => { /* implement refresh logic */ },
-  updateProfile: async () => { /* implement update logic */ }
+  login: async (credentials: LoginCredentials) => {
+    try {
+      set({ isLoading: true, error: null });
+      const { data, error } = await supabase.auth.signInWithPassword(credentials);
+      
+      if (error) throw error;
+      
+      if (data.user) {
+        set({ 
+          user: data.user as User,
+          role: data.user.role as AUTH_ROLES,
+          isAuthenticated: true,
+          isLoading: false 
+        });
+      }
+    } catch (error) {
+      set({ 
+        error: (error as AuthError).message,
+        isLoading: false 
+      });
+      throw error;
+    }
+  },
+
+  refreshSession: async () => {
+    try {
+      set({ isLoading: true });
+      const { data: { session }, error } = await supabase.auth.getSession();
+      
+      if (error) throw error;
+      
+      if (session?.user) {
+        set({
+          user: session.user as User,
+          role: session.user.role as AUTH_ROLES,
+          isAuthenticated: true,
+          isLoading: false
+        });
+      }
+    } catch (error) {
+      set({ 
+        error: (error as AuthError).message,
+        isLoading: false 
+      });
+      throw error;
+    }
+  },
+
+  updateProfile: async (data: Partial<User>) => {
+    try {
+      set({ isLoading: true });
+      const { error } = await supabase
+        .from('profiles')
+        .update(data)
+        .eq('id', data.id);
+      
+      if (error) throw error;
+      
+      set(state => ({
+        user: state.user ? { ...state.user, ...data } : null,
+        isLoading: false
+      }));
+    } catch (error) {
+      set({ 
+        error: (error as AuthError).message,
+        isLoading: false 
+      });
+      throw error;
+    }
+  }
 }));

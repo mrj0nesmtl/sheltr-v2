@@ -1,11 +1,20 @@
 # 📝 SHELTR Type Definitions
-*Version: 0.4.9 - December 23, 2024*
+*Version: 0.4.11 - December 25, 2024 19:45 EST*
+*Status: CRITICAL* 🔴
+
+## ⚠️ CRITICAL ALERT
+Auth-related types require immediate attention. Several core types need updates for system stability.
 
 ## Core Types
 
-### Authentication
+### Authentication (🔴 CRITICAL)
 ```typescript
-type AuthStatus = 'authenticated' | 'unauthenticated' | 'loading';
+type AuthStatus = 
+  | 'authenticated'     // 🔴 Currently unstable
+  | 'unauthenticated'  // 🔴 Default state
+  | 'loading'          // 🟡 Needs review
+  | 'error'            // New state for auth failures
+  | 'partial';         // New state for incomplete auth
 
 interface User {
   id: string;
@@ -13,29 +22,47 @@ interface User {
   role: UserRole;
   profile: UserProfile;
   createdAt: Date;
+  authStatus: AuthStatus;     // New required field
+  sessionExpiry?: Date;       // New field for session management
+  lastLogin?: Date;          // New field for tracking
 }
 
-type UserRole = 'super_admin' | 'shelter_admin' | 'donor' | 'participant';
+type UserRole = 
+  | 'super_admin'      // ✅ Functional
+  | 'shelter_admin'    // 🟡 Partial
+  | 'donor'           // 🟡 Partial
+  | 'participant';    // 🟡 Partial
 
 interface UserProfile {
   displayName: string;
   avatar?: string;
   preferences: UserPreferences;
+  authPreferences?: AuthPreferences;  // New field
+}
+
+// New type for auth preferences
+interface AuthPreferences {
+  sessionTimeout: number;
+  requireMFA: boolean;
+  lastPasswordChange: Date;
 }
 ```
 
-### Layout System
+### Layout System (🟡 UNSTABLE)
 ```typescript
 interface LayoutSystem {
   sidebar: {
     type: 'super_admin' | 'shelter_admin' | 'donor' | 'participant';
     required: boolean;
     dependencies: string[];
+    authRequired: boolean;     // New field
+    fallback?: string;        // New field
   };
   header: {
     type: 'dashboard';
     required: boolean;
     dependencies: string[];
+    authStatus: AuthStatus;   // New field
   };
 }
 
@@ -44,13 +71,34 @@ interface SidebarProps {
   navigation: NavigationItem[];
   isCollapsed?: boolean;
   onToggle?: () => void;
+  authStatus: AuthStatus;     // New required field
+  fallbackView?: string;     // New field
 }
 
 interface DashboardHeaderProps {
   user: User;
   navigation: NavigationProps;
   actions?: ActionItem[];
+  authState: AuthStatus;      // New required field
 }
+```
+
+### Auth Error Types (🔴 NEW CRITICAL)
+```typescript
+interface AuthError {
+  code: AuthErrorCode;
+  message: string;
+  timestamp: Date;
+  attempts: number;
+  resolution?: string;
+}
+
+type AuthErrorCode = 
+  | 'AUTH_FAILED'
+  | 'SESSION_EXPIRED'
+  | 'INVALID_TOKEN'
+  | 'ROLE_UNAUTHORIZED'
+  | 'SYSTEM_ERROR';
 ```
 
 ### Donations
@@ -206,7 +254,53 @@ type EventType =
   | 'sidebar_toggled';
 ```
 
+## Critical Type Updates
+
+### 🔴 Authentication Types
+1. Added new AuthStatus values
+2. Enhanced User interface
+3. Added AuthPreferences
+4. Added AuthError types
+
+### 🟡 Layout Types
+1. Added auth-related fields
+2. Enhanced error handling
+3. Added fallback options
+
+### ✅ Stable Types
+1. Donation types
+2. QR Scanner types
+3. API Response types
+4. Utility types
+
+## Type Migration Guide
+
+### Critical Changes
+1. Update AuthStatus usage
+2. Implement AuthError handling
+3. Add required auth fields
+4. Update layout dependencies
+
+### Required Updates
+1. User type implementations
+2. Layout system interfaces
+3. Navigation props
+4. Error handling
+
+## Emergency Recovery Types
+```typescript
+interface AuthRecovery {
+  status: AuthStatus;
+  errors: AuthError[];
+  recovery: {
+    attempts: number;
+    timeout: number;
+    fallback: string;
+  };
+}
+```
+
 ---
-*For implementation details, see /docs/guides/best-practices.md*
-*For component documentation, see /docs/reference/components.md*
-*For debugging help, see /docs/dev/debugging.md*
+*Last Updated: December 25, 2024 19:45 EST*
+*Status: CRITICAL RECOVERY NEEDED*
+*For detailed status, see [status-dec25.md](../dev/notes/2024-12/status-dec25.md)*

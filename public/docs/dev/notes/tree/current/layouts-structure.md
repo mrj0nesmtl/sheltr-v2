@@ -1,5 +1,5 @@
 # 🌳 SHELTR Layouts Structure
-*Generated: 2024-12-25 19:19:03*
+*Generated: 2024-12-26 11:37:51*
 \n## Directory Structure
 ./src/layouts
 ├── base

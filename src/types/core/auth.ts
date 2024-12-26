@@ -1,9 +1,4 @@
-// Define the AUTH_ROLES as both type and enum
-export enum AUTH_ROLES {
-  SUPER_ADMIN = 'super_admin',
-  SHELTER_ADMIN = 'shelter_admin',
-  DONOR = 'donor'
-}
+import { AUTH_ROLES, type User, type AuthError, type Session } from '@/auth/types/auth.types';
 
 // User type with all required properties
 export interface User {

@@ -34,15 +34,19 @@ export default function AppRoutes() {
     <Suspense fallback={<div className="text-white">Loading routes...</div>}>
       <Routes>
         {/* Public routes - always accessible */}
-        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/how-it-works" element={<HowItWorks />} />
         <Route path="/scan-donate" element={<ScanDonate />} />
         <Route path="/impact" element={<Impact />} />
         <Route path="/login" element={
-          <ErrorBoundary>
-            <Login />
-          </ErrorBoundary>
+          isAuthenticated ? (
+            <Navigate to={`/${user?.role}/dashboard`} replace />
+          ) : (
+            <ErrorBoundary>
+              <Login />
+            </ErrorBoundary>
+          )
         } />
         <Route path="/signup" element={<SignUp />} />
 
