@@ -1,17 +1,5 @@
-# 🧩 SHELTR Components Structure
-*Updated: 2024-12-26*
-
-## Navigation
-- `Navigation/`: Core navigation components
-  - `MobileNav.tsx`: New mobile navigation implementation
-  - `Navigation.tsx`: Main navigation wrapper
-  - `UserNav.tsx`: User-specific navigation elements
-
-## Authentication Flow
-- Enhanced session handling
-- Improved role-based redirects
-- Better error state management 
-
+# 🌳 SHELTR Components Structure
+*Generated: 2024-12-26 22:05:09*
 \n## Directory Structure
 ./src/components
 ├── About

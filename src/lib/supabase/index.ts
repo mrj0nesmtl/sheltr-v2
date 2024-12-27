@@ -106,6 +106,23 @@ export async function validateUserRole(userId: string, expectedRole: AUTH_ROLES)
   return profile?.role === expectedRole;
 }
 
+// Add after other utility functions
+export const forceLogout = async () => {
+  try {
+    const { error } = await supabase.auth.signOut();
+    if (error) throw error;
+    
+    // Clear any auth-related local storage
+    localStorage.removeItem('sheltr-auth-token'); // Updated to use our custom key
+    localStorage.removeItem('user');
+    
+    // Force reload the page to clear any cached auth state
+    window.location.href = '/login';
+  } catch (error) {
+    console.error('[Supabase] Error during logout:', error);
+  }
+};
+
 // Re-export types
 export type { Database } from '../types/database';
 export type { SupabaseUser as User, AUTH_ROLES };

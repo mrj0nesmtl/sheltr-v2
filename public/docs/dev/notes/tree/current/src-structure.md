@@ -1,24 +1,20 @@
 # 🌳 SHELTR Source Structure
-*Generated: 2024-12-26 14:27:09*
+*Generated: 2024-12-26 22:05:09*
 \n## Directory Structure
 ./src
 ├── auth
 │   ├── components
 │   │   ├── AuthProvider.tsx
 │   │   └── ProtectedRoute.tsx
-│   ├── forms
 │   ├── guards
 │   │   └── RoleGuard.tsx
-│   ├── hooks
 │   ├── schemas
 │   │   ├── index.ts
 │   │   └── validation.ts
-│   ├── services
 │   ├── stores
 │   │   └── authStore.ts
 │   ├── types
 │   │   └── auth.types.ts
-│   ├── validation
 │   └── types.ts
 ├── backup
 │   ├── dashboard_cleanup
@@ -408,4 +404,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-150 directories, 256 files
+146 directories, 256 files

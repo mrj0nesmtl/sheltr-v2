@@ -2,22 +2,22 @@ import { LoginForm } from '@/components/Auth/LoginForm';
 import { useAuth } from '@/hooks/useAuth';
 import { getDashboardPath } from '@/lib/navigation/roleNavigation';
 import { Navigate, Link } from 'react-router-dom';
-import { useEffect } from 'react';
-
-console.log('LoginPage component mounting');
 
 export default function LoginPage() {
-  console.log('LoginPage component mounting');
   const { isAuthenticated, user, isLoading } = useAuth();
 
-  useEffect(() => {
-    console.log('LoginPage effect - auth state:', { isAuthenticated, user, isLoading });
-  }, [isAuthenticated, user, isLoading]);
+  // Debug auth state once
+  console.log('LoginPage render - auth state:', { 
+    isAuthenticated, 
+    userRole: user?.role,
+    isLoading 
+  });
 
   // Only redirect if we're actually authenticated and have a user role
   if (isAuthenticated && user?.role) {
-    console.log('Redirecting to dashboard:', getDashboardPath(user.role));
-    return <Navigate to={getDashboardPath(user.role)} replace />;
+    const dashboardPath = getDashboardPath(user.role);
+    console.log('Redirecting to dashboard:', dashboardPath);
+    return <Navigate to={dashboardPath} replace />;
   }
 
   // Show login form regardless of loading state

@@ -30,24 +30,31 @@ const SuperAdminDashboardView = lazy(() =>
 export default function AppRoutes() {
   const { isAuthenticated, user } = useAuth();
 
+  console.log('AppRoutes - Protected Route Check:', {
+    path: window.location.pathname,
+    isAuthenticated,
+    hasUser: !!user,
+    userRole: user?.role
+  });
+
+  const loginElement = isAuthenticated && user?.role ? (
+    <Navigate to={`/${user.role}/dashboard`} replace />
+  ) : (
+    <ErrorBoundary>
+      <Login />
+    </ErrorBoundary>
+  );
+
   return (
     <Suspense fallback={<div className="text-white">Loading routes...</div>}>
       <Routes>
-        {/* Public routes - always accessible */}
+        {/* Public routes */}
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/how-it-works" element={<HowItWorks />} />
         <Route path="/scan-donate" element={<ScanDonate />} />
         <Route path="/impact" element={<Impact />} />
-        <Route path="/login" element={
-          isAuthenticated ? (
-            <Navigate to={`/${user?.role}/dashboard`} replace />
-          ) : (
-            <ErrorBoundary>
-              <Login />
-            </ErrorBoundary>
-          )
-        } />
+        <Route path="/login" element={loginElement} />
         <Route path="/signup" element={<SignUp />} />
 
         {/* Protected routes with DashboardLayout */}
@@ -64,21 +71,20 @@ export default function AppRoutes() {
         >
           {/* Dashboard routes based on user role */}
           <Route 
-            path="/super-admin/dashboard" 
-            element={<SuperAdminDashboardView />} 
-          />
-          <Route 
             path="/shelter-admin/dashboard" 
-            element={<ShelterDashboardView />} 
+            element={
+              user?.role === 'shelter_admin' ? (
+                <ErrorBoundary>
+                  <ShelterDashboardView />
+                </ErrorBoundary>
+              ) : (
+                <Navigate to={`/${user?.role}/dashboard`} replace />
+              )
+            }
           />
-          <Route 
-            path="/donor/dashboard" 
-            element={<DonorDashboardView />} 
-          />
-          <Route 
-            path="/participant/dashboard" 
-            element={<ParticipantDashboardView />} 
-          />
+          <Route path="/donor/dashboard" element={<DonorDashboardView />} />
+          <Route path="/participant/dashboard" element={<ParticipantDashboardView />} />
+          <Route path="/super-admin/dashboard" element={<SuperAdminDashboardView />} />
         </Route>
 
         {/* Catch-all route */}

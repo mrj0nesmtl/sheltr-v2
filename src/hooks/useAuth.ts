@@ -11,67 +11,95 @@ export const useAuth = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const initSession = async () => {
-      try {
-        const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-        
-        if (sessionError) {
-          throw sessionError;
-        }
-        
-        if (!session?.user) {
-          await forceLogout();
-          return;
-        }
+    let mounted = true;
 
-        const userData = {
-          ...session.user,
-          role: session.user.email === 'joel@arcanaconcept.com' 
-            ? AUTH_ROLES.SUPER_ADMIN 
-            : AUTH_ROLES.DONOR
-        };
+    const getUserRole = async (userId: string) => {
+      console.log('🔍 getUserRole - START', { userId });
+      try {
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', userId)
+          .single();
         
-        setUser(userData);
+        if (error) throw error;
         
-        // Redirect to appropriate dashboard if on login page
-        const currentPath = window.location.pathname;
-        if (currentPath === '/login') {
-          const dashboardPath = getDashboardPath(userData.role);
-          navigate(dashboardPath, { replace: true });
-        }
+        console.log('✅ Profile data:', data);
+        return data?.role || AUTH_ROLES.DONOR;
       } catch (e) {
-        console.error('Session error:', e);
-        setError(e);
-        await forceLogout();
-      } finally {
-        setIsLoading(false);
+        console.error('❌ Profile error:', e);
+        return AUTH_ROLES.DONOR;
       }
     };
 
-    initSession();
+    const initSession = async () => {
+      if (!mounted) return;
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (_event, session) => {
+      try {
+        console.log('🚀 Initializing session...');
+        const { data: { session } } = await supabase.auth.getSession();
+        
         if (!session?.user) {
-          await forceLogout();
+          console.log('📤 No session found');
           setUser(null);
+          setIsLoading(false);
           return;
         }
 
-        const userData = {
-          ...session.user,
-          role: session.user.email === 'joel@arcanaconcept.com' 
-            ? AUTH_ROLES.SUPER_ADMIN 
-            : AUTH_ROLES.DONOR
-        };
+        console.log('✅ Session found:', session.user.id);
+        const userRole = await getUserRole(session.user.id);
         
-        setUser(userData);
-        setIsLoading(false);
+        if (mounted) {
+          setUser({
+            ...session.user,
+            role: userRole
+          });
+        }
+      } catch (e) {
+        console.error('❌ Session error:', e);
+        if (mounted) {
+          setError(e);
+          await forceLogout();
+        }
+      } finally {
+        if (mounted) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    // Initialize session
+    initSession();
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        console.log('🔄 Auth state changed:', event);
+        
+        if (!session?.user) {
+          if (mounted) {
+            setUser(null);
+            setIsLoading(false);
+          }
+          return;
+        }
+
+        const userRole = await getUserRole(session.user.id);
+        if (mounted) {
+          setUser({
+            ...session.user,
+            role: userRole
+          });
+          setIsLoading(false);
+        }
       }
     );
 
-    return () => subscription.unsubscribe();
-  }, [navigate]); // Add navigate to dependencies
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
+  }, [navigate]);
 
   return {
     user,

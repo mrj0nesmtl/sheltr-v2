@@ -1,9 +1,9 @@
 import { useAuthStore } from '@/auth/stores/authStore';
-import { DonationMap } from '@/components/Admin/DonationMap';
-import { DonorList } from '@/components/Admin/DonorList';
-import { ParticipantLeaderboard } from '@/components/Admin/ParticipantLeaderboard';
-import { ParticipantRegistrationModal } from '@/components/Admin/ParticipantRegistrationModal';
-import { SystemAlerts } from '@/components/Admin/SystemAlerts';
+import { DonationMap } from '@/components/Map/DonationMap';
+import { DonorLeaderboard } from '@/features/dashboard/shared/widgets/DonorLeaderboard';
+import { ParticipantLeaderboard } from '@/features/dashboard/shared/components/ParticipantLeaderboard';
+import { ParticipantRegistrationModal } from '@/features/dashboard/shared/components/ParticipantRegistrationModal';
+import { SystemAlerts } from '@/pages/SuperAdmin/components/SystemAlerts';
 import { Button } from '@/components/ui/Button';
 import { Icon, type IconName } from '@/components/ui/Icon';
 import { useState } from 'react';
@@ -418,7 +418,7 @@ export function ShelterDashboard() {
       {/* Participant Management */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <ParticipantLeaderboard participants={[]} />
-        <DonorList donors={[]} onViewDetails={(id: string) => console.log('View donor:', id)} />
+        <DonorLeaderboard />
       </div>
 
       <ParticipantRegistrationModal

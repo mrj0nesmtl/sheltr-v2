@@ -1,22 +1,5 @@
 # 🌳 SHELTR Layouts Structure
-*Generated: 2024-12-26 14:27:09*
-
-## Core Layouts
-- `base/Layout.tsx`: Main application layout with navigation handling
-- `base/PageLayout.tsx`: Base page structure
-
-## Dashboard Layout
-- `specialized/dashboard/DashboardLayout.tsx`: Enhanced dashboard layout with:
-  - Responsive sidebar
-  - Mobile navigation
-  - Role-based content rendering
-  - Improved scroll handling
-
-## Navigation Components
-- Removed: `MobileMenu.tsx`
-- Added: `MobileNav.tsx` with improved mobile responsiveness
-- Updated: Integration with dashboard layouts
-
+*Generated: 2024-12-26 22:05:09*
 \n## Directory Structure
 ./src/layouts
 ├── base

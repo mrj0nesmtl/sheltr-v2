@@ -1,3 +1,5 @@
+import { AUTH_ROLES } from '@/auth/types/auth.types';
+import { getDashboardPath } from '@/lib/navigation/roleNavigation';
 import { useAuthStore } from '@/auth/stores/authStore';
 import { toast } from "@/components/ui/Toast";
 import { supabase } from '@/lib/supabase/client';
@@ -42,41 +44,76 @@ export function LoginForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validate before submission
     if (!validateForm()) return;
-
     setIsLoading(true);
     
     try {
-      // Add error boundary
+      console.log('🚀 Starting login process...');
+
+      // 1. First authenticate with Supabase
+      console.log('📡 Authenticating with Supabase...');
       const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
         email: email.trim().toLowerCase(),
         password,
       });
 
-      if (authError) throw authError;
+      if (authError) {
+        console.error('❌ Auth Error:', authError);
+        throw authError;
+      }
+      
+      console.log('✅ Auth successful:', {
+        userId: authData.user?.id,
+        email: authData.user?.email
+      });
 
-      // Add null check
       if (!authData.user?.id) {
-        throw new Error('User ID not found');
+        throw new Error('No user ID received from authentication');
       }
 
+      // 2. Fetch profile data
+      console.log('📡 Fetching profile data...');
       const { data: profileData, error: profileError } = await supabase
-        .rpc('get_user_profile', { user_id: authData.user.id })
+        .from('profiles')
+        .select('role, id, first_name, last_name')
+        .eq('id', authData.user.id)
         .single();
 
-      if (profileError) throw profileError;
+      console.log('📥 Profile query response:', { profileData, profileError });
 
-      // Add role validation
-      if (!profileData?.role) {
-        throw new Error('User role not found');
+      if (profileError) {
+        console.error('❌ Profile Error:', profileError);
+        throw profileError;
       }
 
-      await setUser(authData.user);
-      await setRole(profileData.role);
-      
-      // Simplified navigation logic
-      const dashboardPath = getDashboardPath(profileData.role);
+      if (!profileData?.role) {
+        console.error('❌ No role found in profile');
+        throw new Error('User role not found in profile');
+      }
+
+      // 3. Update auth store
+      console.log('💾 Updating auth store...', {
+        role: profileData.role,
+        userId: authData.user.id
+      });
+
+      const userWithRole = {
+        ...authData.user,
+        role: profileData.role,
+        firstName: profileData.first_name,
+        lastName: profileData.last_name
+      };
+
+      await setUser(userWithRole);
+      await setRole(profileData.role as AUTH_ROLES);
+
+      // 4. Navigate to dashboard
+      const dashboardPath = getDashboardPath(profileData.role as AUTH_ROLES);
+      console.log('🧭 Navigating to dashboard:', { 
+        role: profileData.role,
+        path: dashboardPath 
+      });
+
       navigate(dashboardPath, { replace: true });
       
       toast({
@@ -86,7 +123,7 @@ export function LoginForm() {
       });
 
     } catch (error) {
-      console.error('Login error:', error);
+      console.error('❌ Login error:', error);
       toast({
         variant: "destructive",
         title: "Login Failed",

@@ -11,19 +11,19 @@ export interface MarkdownData {
 // Markdown file mapping
 export const markdownFiles = {
   intro: {
-    en: () => import('@/docs/sheltr_intro_eng.md?raw'),
-    fr: () => import('@/docs/shelter_inro_fr.md?raw')
+    en: () => import('@/pages/About/content/sheltr_intro_eng.md?raw'),
+    fr: () => import('@/pages/About/content/shelter_intro_fr.md?raw')
   },
   whitepaper: {
-    en: () => import('@/docs/whitepaper_eng.md?raw'),
-    fr: () => import('@/docs/whitepaper_fr.md?raw')
+    en: () => import('@/content/whitepaper/whitepaper_en.md?raw'),
+    fr: () => import('@/content/whitepaper/whitepaper_fr.md?raw')
   },
-  techStack: () => import('@/docs/tech_stack.md?raw'),
+  techStack: () => import('/docs/core/technical.md?url&raw'),
   // Project documentation
   project: {
-    statusReport: () => import('@/docs/project/status_report.md?raw'),
-    buildTract: () => import('@/docs/technical/build_tract.md?raw'),
-    checkpoint: () => import('@/docs/project/checkpoint.md?raw')
+    statusReport: () => import('/docs/project/status_report.md?url&raw'),
+    buildTract: () => import('/docs/technical/build_tract.md?url&raw'),
+    checkpoint: () => import('/docs/project/checkpoint.md?url&raw')
   }
 };
 

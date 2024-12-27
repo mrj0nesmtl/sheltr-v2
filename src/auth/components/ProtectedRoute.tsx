@@ -2,6 +2,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { AUTH_ROLES } from '@/types/auth.types';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { getRoleBasedRedirect } from '@/lib/navigation/roleNavigation';
 
 interface ProtectedRouteProps {
   allowedRoles?: AUTH_ROLES[];
@@ -14,11 +15,13 @@ export function ProtectedRoute({ allowedRoles = [], children }: ProtectedRoutePr
   const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
-    console.log('ProtectedRoute: Auth State', {
+    console.log('ProtectedRoute - Current State:', {
       user,
-      isLoading,
+      userRole: user?.role,
       allowedRoles,
-      currentPath: location.pathname
+      currentPath: location.pathname,
+      isLoading,
+      isInitialized
     });
 
     if (!isLoading && user?.email) {
@@ -41,10 +44,19 @@ export function ProtectedRoute({ allowedRoles = [], children }: ProtectedRoutePr
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  // Check role access
+  // Add detailed role checking logs
+  console.log('ProtectedRoute - Role Check:', {
+    userRole: user.role,
+    allowedRoles,
+    hasAccess: allowedRoles.includes(user.role as AUTH_ROLES)
+  });
+
+  // Check role access and redirect to appropriate dashboard
   if (allowedRoles.length > 0 && !allowedRoles.includes(user.role as AUTH_ROLES)) {
-    console.log('ProtectedRoute: Invalid role, redirecting to home');
-    return <Navigate to="/" replace />;
+    console.log('ProtectedRoute: Invalid role, redirecting to correct dashboard');
+    const correctPath = getRoleBasedRedirect(user.role as AUTH_ROLES);
+    console.log('Redirecting to:', correctPath);
+    return <Navigate to={correctPath} replace />;
   }
 
   return <>{children}</>;

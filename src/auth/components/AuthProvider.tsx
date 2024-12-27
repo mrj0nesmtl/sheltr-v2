@@ -27,6 +27,30 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       login: async (credentials: LoginCredentials) => {
         const { data, error } = await supabase.auth.signInWithPassword(credentials);
         if (error) throw error;
+        
+        // Fetch profile data immediately after successful login
+        if (data.user) {
+          const { data: profileData, error: profileError } = await supabase
+            .from('profiles')
+            .select('role')
+            .eq('id', data.user.id)
+            .single();
+            
+          if (profileError) throw profileError;
+          
+          // Update state with user and role
+          setState(prev => ({
+            ...prev,
+            user: {
+              ...data.user,
+              role: profileData?.role || AUTH_ROLES.DONOR
+            },
+            role: profileData?.role || AUTH_ROLES.DONOR,
+            isAuthenticated: true,
+            isLoading: false
+          }));
+        }
+        
         return data;
       },
       logout: async () => {
@@ -47,7 +71,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
     };
 
-    // Return initial state with stable methods
     return {
       ...initialState,
       ...authMethods
@@ -62,35 +85,78 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     async function initializeAuth() {
       try {
-        // Get initial session
         const { data: { session } } = await supabase.auth.getSession();
         
-        if (mounted) {
+        if (session?.user && mounted) {
+          // Fetch profile data
+          const { data: profileData } = await supabase
+            .from('profiles')
+            .select('role')
+            .eq('id', session.user.id)
+            .single();
+            
           setState(prev => ({
             ...prev,
             isLoading: false,
-            isAuthenticated: !!session,
-            user: session?.user || null
+            isAuthenticated: true,
+            user: {
+              ...session.user,
+              role: profileData?.role || AUTH_ROLES.DONOR
+            },
+            role: profileData?.role || AUTH_ROLES.DONOR
+          }));
+        } else if (mounted) {
+          setState(prev => ({
+            ...prev,
+            isLoading: false,
+            isAuthenticated: false
           }));
         }
       } catch (error) {
         console.error('Auth initialization error:', error);
+        if (mounted) {
+          setState(prev => ({
+            ...prev,
+            isLoading: false,
+            error
+          }));
+        }
       }
     }
 
-    // Initialize auth
     initializeAuth();
 
-    // Set up auth listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
+      async (_event, session) => {
         if (!mounted) return;
-        setState(prev => ({
-          ...prev,
-          isLoading: false,
-          isAuthenticated: !!session,
-          user: session?.user || null
-        }));
+        
+        if (session?.user) {
+          // Fetch profile data on auth state change
+          const { data: profileData } = await supabase
+            .from('profiles')
+            .select('role')
+            .eq('id', session.user.id)
+            .single();
+            
+          setState(prev => ({
+            ...prev,
+            isLoading: false,
+            isAuthenticated: true,
+            user: {
+              ...session.user,
+              role: profileData?.role || AUTH_ROLES.DONOR
+            },
+            role: profileData?.role || AUTH_ROLES.DONOR
+          }));
+        } else {
+          setState(prev => ({
+            ...prev,
+            isLoading: false,
+            isAuthenticated: false,
+            user: null,
+            role: null
+          }));
+        }
       }
     );
 

@@ -1,7 +1,7 @@
 import { Calendar, Heart, TrendingUp, Trophy } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { getDonorRankings } from '../../lib/api/donorRankingsApi';
-import { cn } from '../../lib/utils';
+import { calculateImpactScore, getDonorRankings } from "@/lib/api/donorRankingsApi";
+import { cn } from "@/lib/utils";
 
 interface DonorRanking {
   id: string;

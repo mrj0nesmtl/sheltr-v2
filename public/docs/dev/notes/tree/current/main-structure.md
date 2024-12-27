@@ -1,18 +1,5 @@
-# 📁 SHELTR Main Structure
-*Updated: 2024-12-26*
-
-## Recent Changes
-- Improved dashboard layout responsiveness
-- Enhanced navigation system
-- Better authentication flow
-- Removed deprecated components
-- Updated documentation structure
-
-## Core Updates
-- Authentication persistence
-- Role-based routing
-- Mobile-first design approach
-
+# 🌳 SHELTR Main Structure
+*Generated: 2024-12-26 22:05:09*
 \n## Directory Structure
 .
 ├── public
