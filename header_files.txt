@@ -1,3 +1,0 @@
-./src/features/dashboard/shared/navigation/DashboardHeader.tsx
-./src/features/dashboard/layouts/DashboardHeader.tsx
-./src/layouts/components/Header.tsx
