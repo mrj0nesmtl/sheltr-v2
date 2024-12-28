@@ -1,6 +1,7 @@
 # 🔧 SHELTR Technical Specifications
-*Last Updated: December 25, 2024*
-*Version: 0.4.9*
+*Last Updated: December 28, 2024*
+*Version: 0.4.12*
+*Status: CRITICAL REFACTOR* 🔴
 
 ## Core Systems
 
@@ -11,106 +12,179 @@ interface LayoutSystem {
     base: {
       required: ['Layout.tsx', 'PageLayout.tsx'],
       location: 'src/layouts/base/',
-      dependencies: ['navigation', 'footer']
+      dependencies: ['navigation', 'footer'],
+      status: 'NEEDS_REBUILD'
     },
     sidebar: {
       required: ['index.tsx', 'DebugSidebar.tsx'],
       location: 'src/layouts/specialized/dashboard/Sidebar/',
-      dependencies: ['role components', 'auth context']
+      dependencies: ['role components', 'auth context'],
+      status: 'PARTIALLY_IMPLEMENTED'
     },
     dashboard: {
       required: ['DashboardHeader.tsx', 'DashboardLayout.tsx'],
       location: 'src/layouts/specialized/dashboard/components/',
-      dependencies: ['auth state', 'navigation']
+      dependencies: ['auth state', 'navigation'],
+      status: 'UNSTABLE'
     }
   },
   specialized: {
     donor: {
       components: ['DonorSidebar.tsx', 'DonorDashboard.tsx'],
-      location: 'src/layouts/specialized/dashboard/donor/'
+      location: 'src/layouts/specialized/dashboard/donor/',
+      status: 'NOT_IMPLEMENTED'
     },
     participant: {
       components: ['ParticipantSidebar.tsx', 'ParticipantDashboard.tsx'],
-      location: 'src/layouts/specialized/dashboard/participant/'
+      location: 'src/layouts/specialized/dashboard/participant/',
+      status: 'NOT_IMPLEMENTED'
     },
     shelterAdmin: {
       components: ['ShelterSidebar.tsx', 'ShelterDashboard.tsx'],
-      location: 'src/layouts/specialized/dashboard/shelter/'
+      location: 'src/layouts/specialized/dashboard/shelter/',
+      status: 'PARTIALLY_IMPLEMENTED'
     }
   }
 }
 ```
 
 ### Technical Dependencies
-- TypeScript 4.9+
-- React 18+
-- Vite 4.4+
-- Node.js 18.12.1+
-- Supabase Client 2.x
-- TailwindCSS 3.x
-- Shadcn/ui 0.4.x
-- React Router 6.x
-- Zustand 4.x
+```typescript
+interface TechnicalDependencies {
+  core: {
+    typescript: '^4.9.0',
+    react: '^18.0.0',
+    vite: '^4.4.0',
+    node: '>=18.12.1'
+  },
+  backend: {
+    supabase: '^2.0.0',
+    database: 'PostgreSQL 15+'
+  },
+  styling: {
+    tailwind: '^3.0.0',
+    shadcn: '^0.4.0'
+  },
+  routing: {
+    reactRouter: '^6.0.0'
+  },
+  stateManagement: {
+    zustand: '^4.0.0'
+  },
+  status: {
+    core: 'STABLE',
+    dependencies: 'UP_TO_DATE',
+    conflicts: 'NONE'
+  }
+}
+```
 
 ### Integration Points
-1. **Authentication**
-   ```typescript
-   interface AuthIntegration {
-     provider: 'Supabase',
-     components: {
-       core: ['AuthProvider.tsx', 'RoleGuard.tsx'],
-       forms: ['LoginForm.tsx', 'SignupForm.tsx'],
-       hooks: ['useAuth.ts', 'useRole.ts']
-     },
-     flows: {
-       login: ['email/password', 'social'],
-       signup: ['email verification', 'role selection'],
-       recovery: ['password reset', 'email verification']
-     }
-   }
-   ```
 
-2. **Dashboard**
-   ```typescript
-   interface DashboardIntegration {
-     core: {
-       layout: 'DashboardLayout.tsx',
-       navigation: 'DashboardNavigation.tsx',
-       sidebar: 'RoleSidebar.tsx'
-     },
-     features: {
-       analytics: ['DonationMetrics', 'ImpactTracking'],
-       management: ['UserManagement', 'RoleManagement'],
-       reporting: ['ActivityReports', 'DonationReports']
-     },
-     state: {
-       global: 'DashboardStore',
-       local: 'ComponentState',
-       persistence: 'LocalStorage'
-     }
-   }
-   ```
+#### 1. Authentication (🔴 CRITICAL)
+```typescript
+interface AuthIntegration {
+  provider: 'Supabase',
+  status: 'PARTIALLY_FUNCTIONAL',
+  components: {
+    core: ['AuthProvider.tsx', 'RoleGuard.tsx'],
+    forms: ['LoginForm.tsx', 'SignupForm.tsx'],
+    hooks: ['useAuth.ts', 'useRole.ts']
+  },
+  flows: {
+    login: {
+      methods: ['email/password', 'social'],
+      status: 'NEEDS_FIXING'
+    },
+    signup: {
+      methods: ['email verification', 'role selection'],
+      status: 'PARTIALLY_WORKING'
+    },
+    recovery: {
+      methods: ['password reset', 'email verification'],
+      status: 'NOT_IMPLEMENTED'
+    }
+  },
+  issues: [
+    'Session persistence',
+    'Cache clearing requirement',
+    'Role verification',
+    'Token refresh'
+  ]
+}
+```
 
-3. **QR System**
-   ```typescript
-   interface QRIntegration {
-     scanner: {
-       component: 'QRScanner.tsx',
-       hooks: ['useScanner', 'useCameraPermissions'],
-       utils: ['qrProcessing', 'validation']
-     },
-     generation: {
-       service: 'QRGenerationService',
-       types: ['donation', 'verification', 'tracking'],
-       format: 'SVG'
-     },
-     validation: {
-       methods: ['blockchain', 'database'],
-       security: ['encryption', 'timestamp'],
-       expiry: 'configurable'
-     }
-   }
-   ```
+#### 2. Dashboard (🔴 NEEDS_REBUILD)
+```typescript
+interface DashboardIntegration {
+  core: {
+    layout: {
+      component: 'DashboardLayout.tsx',
+      status: 'UNSTABLE'
+    },
+    navigation: {
+      component: 'DashboardNavigation.tsx',
+      status: 'NEEDS_REBUILD'
+    },
+    sidebar: {
+      component: 'RoleSidebar.tsx',
+      status: 'PARTIALLY_IMPLEMENTED'
+    }
+  },
+  features: {
+    analytics: {
+      components: ['DonationMetrics', 'ImpactTracking'],
+      status: 'NOT_IMPLEMENTED'
+    },
+    management: {
+      components: ['UserManagement', 'RoleManagement'],
+      status: 'PARTIALLY_IMPLEMENTED'
+    },
+    reporting: {
+      components: ['ActivityReports', 'DonationReports'],
+      status: 'NOT_IMPLEMENTED'
+    }
+  },
+  state: {
+    global: {
+      store: 'DashboardStore',
+      status: 'NEEDS_REBUILD'
+    },
+    local: {
+      store: 'ComponentState',
+      status: 'STABLE'
+    },
+    persistence: {
+      method: 'LocalStorage',
+      status: 'IMPLEMENTED'
+    }
+  }
+}
+```
+
+#### 3. QR System (✅ STABLE)
+```typescript
+interface QRIntegration {
+  scanner: {
+    component: 'QRScanner.tsx',
+    hooks: ['useScanner', 'useCameraPermissions'],
+    utils: ['qrProcessing', 'validation'],
+    status: 'STABLE'
+  },
+  generation: {
+    service: 'QRGenerationService',
+    types: ['donation', 'verification', 'tracking'],
+    format: 'SVG',
+    status: 'STABLE'
+  },
+  validation: {
+    methods: ['blockchain', 'database'],
+    security: ['encryption', 'timestamp'],
+    expiry: 'configurable',
+    status: 'IMPLEMENTED'
+  }
+}
+```
 
 ## System Architecture
 ```typescript
@@ -137,70 +211,73 @@ interface SystemArchitecture {
 }
 ```
 
-## Performance Requirements
-- First Contentful Paint < 1.2s
-- Largest Contentful Paint < 2.5s
-- Time to Interactive < 3.5s
-- First Input Delay < 100ms
-- Cumulative Layout Shift < 0.1
-- Bundle size < 500KB (main)
-- Lighthouse score > 90
-- Type coverage > 95%
-- Test coverage > 80%
-
-## Security Specifications
+## Critical Performance Requirements
 ```typescript
-interface SecurityRequirements {
-  authentication: {
-    session: 'JWT',
-    storage: 'httpOnly cookies',
-    refresh: true,
-    mfa: 'optional'
+interface PerformanceRequirements {
+  metrics: {
+    fcp: '< 1.2s',
+    lcp: '< 2.5s',
+    tti: '< 3.5s',
+    fid: '< 100ms',
+    cls: '< 0.1'
   },
-  authorization: {
-    type: 'RBAC',
-    granularity: 'component-level',
-    persistence: 'encrypted'
+  bundle: {
+    mainSize: '< 500KB',
+    chunkSize: '< 200KB'
   },
-  data: {
-    encryption: {
-      inTransit: 'TLS 1.3',
-      atRest: 'AES-256'
-    },
-    validation: {
-      input: 'zod',
-      sanitization: true
-    }
+  quality: {
+    lighthouse: '> 90',
+    typeCoverage: '> 95%',
+    testCoverage: '> 80%'
+  },
+  current: {
+    status: 'NEEDS_IMPROVEMENT',
+    issues: [
+      'Bundle size optimization',
+      'Code splitting implementation',
+      'Performance monitoring setup'
+    ]
   }
 }
 ```
 
 ## Development Standards
-1. **Code Quality**
-   - Strict TypeScript checks
-   - ESLint configuration
-   - Prettier formatting
-   - Husky pre-commit hooks
+```typescript
+interface DevelopmentStandards {
+  code: {
+    typescript: 'strict',
+    linting: 'ESLint',
+    formatting: 'Prettier',
+    hooks: 'Husky'
+  },
+  testing: {
+    unit: 'Jest',
+    integration: 'React Testing Library',
+    e2e: 'Cypress',
+    component: 'Storybook'
+  },
+  documentation: {
+    inline: 'TSDoc',
+    storybook: true,
+    readme: true,
+    architecture: true
+  },
+  monitoring: {
+    bundle: true,
+    lighthouse: true,
+    performance: true,
+    optimization: true
+  }
+}
+```
 
-2. **Testing Requirements**
-   - Unit tests (Jest)
-   - Integration tests (React Testing Library)
-   - E2E tests (Cypress)
-   - Component tests (Storybook)
-
-3. **Documentation**
-   - TSDoc comments
-   - Storybook stories
-   - README maintenance
-   - Architecture updates
-
-4. **Performance**
-   - Bundle analysis
-   - Lighthouse monitoring
-   - Performance budgets
-   - Optimization tracking
+## Immediate Technical Priorities
+1. Authentication System Rebuild
+2. Dashboard Architecture Redesign
+3. Role-Based Component Implementation
+4. Performance Optimization
+5. Testing Implementation
 
 ---
-*For implementation details, see [architecture.md](./architecture.md)*
-*For security details, see [security.md](./security.md)*
+*For implementation details, see [implementation.md](./implementation.md)*
 *For API specifications, see [api.md](./api.md)* 

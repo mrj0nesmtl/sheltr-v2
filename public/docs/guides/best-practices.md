@@ -1,194 +1,261 @@
 # 📚 SHELTR Development Best Practices
-*Version: 0.4.9 - December 25, 2024*
+*Version: 0.5.1 - December 28, 2024*
+*Status: CRITICAL REFACTOR* 🔴
 
 ## 1. Project Structure
-```bash
-src/
-├── auth/                     ✅ Core System
-│   ├── components/          ✅ Implemented
-│   ├── stores/              ✅ Configured
-│   └── types/               ✅ Defined
-├── layouts/                  ✅ Completed
-│   ├── base/                ✅ Implemented
-│   └── specialized/         ✅ Implemented
-│       └── dashboard/       ✅ Enhanced
-│           ├── Sidebar/     ✅ Restored
-│           └── components/  ✅ Functional
-├── features/                🟡 In Progress
-│   ├── scan-donate/        ✅ Implemented
-│   ├── dashboard/          ✅ Structured
-│   └── blockchain/         🔵 Not Started
-└── public/
-    └── docs/               ✅ Restructured
+```typescript
+interface ProjectStructure {
+  src: {
+    auth: {
+      components: ['AuthProvider', 'RoleGuard'],
+      stores: ['authStore'],
+      types: ['AuthTypes', 'RoleTypes'],
+      status: 'NEEDS_REBUILD'
+    },
+    features: {
+      dashboard: {
+        layouts: ['DashboardLayout'],
+        roles: {
+          donor: 'NOT_IMPLEMENTED',
+          participant: 'NOT_IMPLEMENTED',
+          shelterAdmin: 'UNSTABLE',
+          superAdmin: 'PARTIALLY_IMPLEMENTED'
+        },
+        shared: ['components', 'hooks', 'utils']
+      },
+      donation: {
+        components: ['QRScanner', 'PaymentFlow'],
+        status: 'STABLE'
+      }
+    },
+    shared: {
+      components: ['ui', 'forms', 'layouts'],
+      utils: ['validation', 'formatting'],
+      hooks: ['useAuth', 'useRole']
+    }
+  }
+}
 ```
 
 ## 2. Code Organization
 
-### Component Structure
-- Use feature-based organization
-- Implement role-based components
-- Maintain clear component hierarchy
-- Follow atomic design principles
-- Ensure proper cleanup
-- Handle loading states
-- Implement error boundaries
+### Component Architecture
+```typescript
+interface ComponentArchitecture {
+  principles: {
+    atomic: 'Atomic Design Pattern',
+    feature: 'Feature-First Organization',
+    role: 'Role-Based Components'
+  },
+  structure: {
+    components: {
+      ui: 'Reusable UI Components',
+      feature: 'Feature-Specific Components',
+      page: 'Page Components'
+    },
+    layouts: {
+      base: 'Base Layouts',
+      role: 'Role-Specific Layouts'
+    }
+  },
+  patterns: {
+    composition: 'Prefer composition over inheritance',
+    props: 'Use TypeScript interfaces for props',
+    state: 'Centralized state management',
+    hooks: 'Custom hooks for shared logic'
+  }
+}
+```
 
-### File Naming
-- Use PascalCase for components
-- Use camelCase for utilities
-- Use kebab-case for documentation
-- Use descriptive, purpose-indicating names
-- Include role prefixes where applicable
-- Add type suffixes for interfaces/types
-- Use .test suffix for test files
+### File Naming Conventions
+```typescript
+interface NamingConventions {
+  components: {
+    pattern: 'PascalCase',
+    examples: ['Button.tsx', 'UserCard.tsx']
+  },
+  hooks: {
+    pattern: 'camelCase with use prefix',
+    examples: ['useAuth.ts', 'useRole.ts']
+  },
+  utils: {
+    pattern: 'camelCase',
+    examples: ['formatDate.ts', 'validateInput.ts']
+  },
+  types: {
+    pattern: 'PascalCase with Type/Interface suffix',
+    examples: ['UserType.ts', 'AuthInterface.ts']
+  },
+  tests: {
+    pattern: 'Same as source file with .test/.spec',
+    examples: ['Button.test.tsx', 'useAuth.spec.ts']
+  }
+}
+```
 
 ## 3. Development Guidelines
 
 ### TypeScript Best Practices
-- Enable strict mode
-- Use proper type annotations
-- Implement interface segregation
-- Avoid type assertions
-- Leverage generics appropriately
-- Document complex types
-- Use discriminated unions
+```typescript
+interface TypeScriptGuidelines {
+  configuration: {
+    strict: true,
+    noImplicitAny: true,
+    strictNullChecks: true
+  },
+  patterns: {
+    types: 'Use explicit type annotations',
+    interfaces: 'Prefer interfaces for objects',
+    generics: 'Use generics for reusable components',
+    enums: 'Use const enums for better performance'
+  },
+  validation: {
+    zod: 'Use Zod for runtime validation',
+    typeGuards: 'Implement proper type guards'
+  }
+}
+```
 
 ### Component Development
-- Implement proper cleanup
-- Use proper error boundaries
-- Maintain consistent styling
-- Follow accessibility guidelines
-- Handle loading states
-- Implement proper validation
-- Use controlled components
+```typescript
+interface ComponentGuidelines {
+  structure: {
+    props: 'Use TypeScript interfaces',
+    state: 'Use appropriate hooks',
+    effects: 'Clean up side effects'
+  },
+  patterns: {
+    composition: 'Use composition over inheritance',
+    memoization: 'Memoize expensive computations',
+    errorBoundaries: 'Implement error boundaries'
+  },
+  performance: {
+    lazyLoading: 'Implement lazy loading',
+    codeSpitting: 'Use dynamic imports',
+    virtualLists: 'Use virtualization for long lists'
+  }
+}
+```
 
 ### State Management
-- Use appropriate state solutions
-- Implement proper store patterns
-- Maintain clean store structure
-- Follow immutability principles
-- Implement proper hydration
-- Handle persistence correctly
-- Use selective subscriptions
+```typescript
+interface StateManagementGuidelines {
+  global: {
+    tool: 'Zustand',
+    patterns: ['Atomic updates', 'Selector optimization']
+  },
+  local: {
+    tool: 'React.useState',
+    patterns: ['Controlled components', 'Form state']
+  },
+  server: {
+    tool: 'React Query',
+    patterns: ['Cache management', 'Optimistic updates']
+  }
+}
+```
 
-## 4. Documentation Standards
+## 4. Testing Standards
 
-### Code Documentation
-- Document complex logic
-- Add component usage examples
-- Include prop descriptions
-- Maintain up-to-date docs
-- Add TypeScript interfaces
-- Document side effects
-- Include error handling
+### Unit Testing
+```typescript
+interface TestingGuidelines {
+  unit: {
+    framework: 'Jest + React Testing Library',
+    coverage: 'Minimum 80%',
+    patterns: [
+      'Arrange-Act-Assert',
+      'Test behavior not implementation',
+      'Mock external dependencies'
+    ]
+  },
+  integration: {
+    framework: 'Cypress',
+    coverage: 'Critical user flows',
+    patterns: [
+      'Test user journeys',
+      'Mock API responses',
+      'Test error states'
+    ]
+  }
+}
+```
 
-### Commit Messages
-- Use conventional commits
-- Include ticket references
-- Add clear descriptions
-- Follow semantic versioning
-- Link related issues
-- Document breaking changes
-- Include migration steps
+## 5. Performance Guidelines
 
-## 5. Performance Optimization
-
-### Build Process
-- Optimize bundle size
-- Implement code splitting
-- Use lazy loading
-- Enable tree shaking
-- Optimize dependencies
-- Use dynamic imports
-- Implement proper caching
-
-### Runtime Performance
-- Implement proper memoization
-- Optimize re-renders
-- Use performance monitoring
-- Implement caching strategies
-- Optimize images and assets
-- Use proper event handling
-- Monitor memory usage
+### Optimization Techniques
+```typescript
+interface PerformanceGuidelines {
+  rendering: {
+    memoization: 'Use React.memo for expensive components',
+    virtualLists: 'Implement virtualization',
+    lazyLoading: 'Use React.lazy for code splitting'
+  },
+  state: {
+    selectors: 'Use efficient selectors',
+    batching: 'Batch state updates',
+    caching: 'Implement proper caching'
+  },
+  assets: {
+    images: 'Optimize and lazy load images',
+    fonts: 'Use system fonts or optimize loading',
+    icons: 'Use SVG or icon fonts'
+  }
+}
+```
 
 ## 6. Security Guidelines
 
-### Authentication
-- Implement proper validation
-- Use secure session management
-- Follow OAuth best practices
-- Maintain role-based access
-- Implement proper guards
-- Handle token refresh
-- Secure sensitive data
+### Implementation Practices
+```typescript
+interface SecurityGuidelines {
+  authentication: {
+    session: 'Implement proper session management',
+    tokens: 'Use secure token storage',
+    refresh: 'Implement token refresh'
+  },
+  data: {
+    validation: 'Validate all inputs',
+    sanitization: 'Sanitize user input',
+    encryption: 'Encrypt sensitive data'
+  }
+}
+```
 
-### Data Protection
-- Implement input sanitization
-- Use proper encryption
-- Follow data privacy rules
-- Implement proper logging
-- Validate user input
-- Handle sensitive data
-- Implement rate limiting
+## 7. Documentation Standards
 
-## 7. Testing Standards
-
-### Unit Testing
-- Maintain high coverage
-- Test edge cases
-- Implement proper mocks
-- Use testing best practices
-- Test async operations
-- Validate error states
-- Test accessibility
-
-### Integration Testing
-- Test component integration
-- Verify state management
-- Test API integration
-- Validate user flows
-- Test role-based access
-- Verify form submissions
-- Test error handling
+### Code Documentation
+```typescript
+interface DocumentationGuidelines {
+  inline: {
+    comments: 'Document complex logic',
+    jsdoc: 'Use TSDoc for functions/components'
+  },
+  external: {
+    readme: 'Maintain up-to-date README',
+    storybook: 'Document components',
+    api: 'Document API endpoints'
+  }
+}
+```
 
 ## 8. Deployment Guidelines
 
-### Environment Configuration
-- Use proper env variables
-- Implement feature flags
-- Maintain build configs
-- Follow security practices
-- Handle secrets properly
-- Configure CI/CD
-- Implement staging
+### CI/CD Practices
+```typescript
+interface DeploymentGuidelines {
+  pipeline: {
+    checks: ['Linting', 'Testing', 'Type checking'],
+    builds: ['Production build', 'Size analysis'],
+    deployment: ['Staging', 'Production']
+  },
+  monitoring: {
+    performance: 'Monitor core metrics',
+    errors: 'Track runtime errors',
+    analytics: 'Track user behavior'
+  }
+}
+```
 
-### Monitoring
-- Implement error tracking
-- Use performance monitoring
-- Add usage analytics
-- Maintain logs
-- Monitor API usage
-- Track user sessions
-- Implement alerts
-
-## 9. Code Review Guidelines
-
-### Review Checklist
-- Verify TypeScript types
-- Check error handling
-- Review performance impact
-- Validate accessibility
-- Check documentation
-- Review test coverage
-- Verify security measures
-
-### Quality Gates
-- All tests passing
-- No TypeScript errors
-- Documentation updated
-- Performance verified
-- Security validated
-- Accessibility checked
-- Code style consistent
-
-*Last Updated: December 25, 2024*
+---
+*For detailed implementation guides, see [implementation-guides/](../implementation-guides/)*

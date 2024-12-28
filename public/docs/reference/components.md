@@ -1,20 +1,20 @@
 # 🧩 SHELTR Component Reference
-*Version: 0.4.12 - December 26, 2024 22:00 EST*
-*Status: STABILIZING* 🟡
+*Version: 0.4.12 - December 28, 2024 22:00 EST*
+*Status: CRITICAL REFACTOR* 🔴
 
 ## ⚠️ STATUS UPDATE
-Auth system implementation has been stabilized. Several components have been fixed and tested.
+Authentication system and dashboard components require immediate attention. Several critical components need rebuilding.
 
 ## Critical Layout Components
 
-### Sidebar System
+### Sidebar System (🔴 NEEDS REBUILD)
 ```typescript
 interface SidebarSystem {
   core: {
     index: {
       path: 'src/layouts/specialized/dashboard/Sidebar/index.tsx',
       required: true,
-      status: '✅ STABLE',
+      status: '🔴 UNSTABLE',
       exports: ['Sidebar', 'SidebarItem']
     }
   },
@@ -22,19 +22,28 @@ interface SidebarSystem {
     superAdmin: {
       path: 'src/layouts/specialized/dashboard/Sidebar/SuperAdminSidebar.tsx',
       required: true,
-      status: '✅ STABLE'
+      status: '⚠️ PARTIALLY_WORKING'
+    },
+    shelterAdmin: {
+      path: 'src/layouts/specialized/dashboard/Sidebar/ShelterAdminSidebar.tsx',
+      required: true,
+      status: '🔴 UNSTABLE'
     },
     donor: {
       path: 'src/layouts/specialized/dashboard/Sidebar/DonorSidebar.tsx',
       required: true,
-      status: '🟡 NEEDS_TESTING'
+      status: '❌ NOT_IMPLEMENTED'
     },
-    // Other role sidebars remain at previous status
+    participant: {
+      path: 'src/layouts/specialized/dashboard/Sidebar/ParticipantSidebar.tsx',
+      required: true,
+      status: '❌ NOT_IMPLEMENTED'
+    }
   }
 }
 ```
 
-### Layout Components
+### Layout Components (🔴 CRITICAL)
 ```typescript
 interface LayoutProps {
   children: React.ReactNode;
@@ -42,18 +51,19 @@ interface LayoutProps {
   status?: ComponentStatus;
 }
 
-// Base Layout Components (✅ STABLE)
-BaseLayout        // Enhanced with mobile responsiveness
-DashboardLayout   // Navigation and scroll fixed
-AuthLayout        // Restored functionality
+// Base Layout Components
+BaseLayout        // 🔴 NEEDS_REBUILD
+DashboardLayout   // 🔴 UNSTABLE
+AuthLayout        // ⚠️ PARTIALLY_WORKING
 
-// Specialized Layouts (🟡 IN_PROGRESS)
-SuperAdminDashboard    // ✅ STABLE
-DonorDashboard        // 🟡 NEEDS_TESTING
-ShelterDashboard      // 🟡 NEEDS_TESTING
+// Specialized Layouts
+SuperAdminDashboard    // ⚠️ PARTIALLY_WORKING
+ShelterDashboard      // 🔴 UNSTABLE
+DonorDashboard        // ❌ NOT_IMPLEMENTED
+ParticipantDashboard  // ❌ NOT_IMPLEMENTED
 ```
 
-## Authentication Components (🟡 STABILIZING)
+## Authentication Components (🔴 CRITICAL)
 ```typescript
 interface AuthProps {
   redirectUrl?: string;
@@ -63,237 +73,93 @@ interface AuthProps {
 }
 
 // Auth Components
-LoginForm        // ✅ FUNCTIONAL
-SignupForm       // 🟡 NEEDS_TESTING
-VerificationForm // 🟡 PARTIAL
-ResetPassword    // 🟡 PARTIAL
+LoginForm        // ⚠️ UNSTABLE
+SignupForm       // ⚠️ UNSTABLE
+VerificationForm // 🔴 NOT_WORKING
+ResetPassword    // 🔴 NOT_WORKING
 ```
 
 ## Dashboard Components
 
-### Core Dashboard (✅ STABLE)
+### Core Dashboard (🔴 NEEDS_REBUILD)
 ```typescript
 interface DashboardCore {
   header: {
     path: 'src/layouts/specialized/dashboard/components/DashboardHeader.tsx',
     required: true,
-    status: '✅ STABLE',
+    status: '⚠️ UNSTABLE',
     dependencies: ['auth context', 'navigation']
   },
   layout: {
     path: 'src/layouts/specialized/dashboard/DashboardLayout.tsx',
     required: true,
-    status: '✅ STABLE',
+    status: '🔴 NEEDS_REBUILD',
     dependencies: ['Sidebar', 'DashboardHeader']
   }
 }
 ```
 
-### Donor Dashboard
+### Role-Specific Dashboards
 ```typescript
-interface DonorMetricsProps {
-  timeframe: 'day' | 'week' | 'month' | 'year';
-  data: DonationData[];
-  status: ComponentStatus;
+interface RoleDashboards {
+  superAdmin: {
+    status: '⚠️ PARTIALLY_WORKING',
+    components: ['SystemStats', 'UserManagement', 'Analytics']
+  },
+  shelterAdmin: {
+    status: '🔴 UNSTABLE',
+    components: ['ShelterMetrics', 'UserManagement', 'Reports']
+  },
+  donor: {
+    status: '❌ NOT_IMPLEMENTED',
+    components: ['DonationHistory', 'Impact', 'Profile']
+  },
+  participant: {
+    status: '❌ NOT_IMPLEMENTED',
+    components: ['Progress', 'Resources', 'Profile']
+  }
 }
-
-// Donor Components (✅ IMPLEMENTED)
-DonationHistory
-ImpactMetrics
-DonorProfile
-QRScanner
-DonationForm
 ```
 
-### Shelter Dashboard
+## Feature Components (✅ STABLE)
 ```typescript
-interface ShelterMetricsProps {
-  shelterData: ShelterData;
-  donationMetrics: DonationMetrics;
-  status: ComponentStatus;
+interface FeatureComponents {
+  ui: ['Button', 'Card', 'Alert', 'Modal'],
+  forms: ['Input', 'Select', 'Checkbox'],
+  feedback: ['Toast', 'ErrorBoundary', 'LoadingState'],
+  data: ['Table', 'Chart', 'StatCard']
 }
-
-// Shelter Components (✅ FUNCTIONAL)
-ShelterMetrics
-ResourceManagement
-ParticipantList
-ShelterAnalytics
-DonorAnalytics
 ```
 
-### Admin Dashboard
-```typescript
-interface AdminDashboardProps {
-  systemMetrics: SystemMetrics;
-  userManagement: UserManagement;
-  status: ComponentStatus;
-}
+## Critical Issues to Address
 
-// Admin Components (✅ IMPLEMENTED)
-SystemMonitoring
-UserManagement
-GlobalAnalytics
-ShelterOverview
-```
+### 🔴 Authentication Components
+1. Session Management
+   - Token refresh implementation
+   - Cache handling
+   - Role verification
+   - Login persistence
 
-## Feature Components
-```typescript
-interface QRScannerProps {
-  onScan: (data: string) => void;
-  onError: (error: Error) => void;
-  enabled: boolean;
-  status: ComponentStatus;
-}
+### 🔴 Dashboard Components
+1. Layout System
+   - Unified layout structure
+   - Role-based navigation
+   - Component organization
+   - Error boundaries
 
-// Feature Components (✅ IMPLEMENTED)
-QRScanner
-DonationForm
-ImpactMetrics
-ActivityLog
-```
+### 🔴 Role-Based Components
+1. Implementation Status
+   - Super Admin (⚠️ Partial)
+   - Shelter Admin (🔴 Unstable)
+   - Donor (❌ Not Started)
+   - Participant (❌ Not Started)
 
-## UI Components
-```typescript
-interface ButtonProps {
-  variant: 'primary' | 'secondary' | 'text';
-  size: 'sm' | 'md' | 'lg';
-  disabled?: boolean;
-  loading?: boolean;
-}
-
-// Common UI Components
-Button
-Card
-Alert
-Modal
-Spinner
-```
-
-## Form Components
-
-### Input Components
-```typescript
-interface InputProps {
-  name: string;
-  label: string;
-  error?: string;
-  touched?: boolean;
-}
-
-// Form Elements
-TextInput
-Select
-Checkbox
-RadioGroup
-```
-
-### Validation Components
-```typescript
-interface ValidationProps {
-  rules: ValidationRule[];
-  message: string;
-}
-
-// Validation Components
-FormValidator
-FieldError
-ValidationMessage
-```
-
-## Chart Components
-
-### Data Visualization
-```typescript
-interface ChartProps {
-  data: DataPoint[];
-  options: ChartOptions;
-}
-
-// Chart Components
-LineChart
-BarChart
-PieChart
-MetricsCard
-```
-
-## Utility Components
-
-### Feedback Components
-```typescript
-interface ToastProps {
-  message: string;
-  type: 'success' | 'error' | 'info';
-  duration?: number;
-}
-
-// Utility Components
-Toast
-ErrorBoundary
-LoadingState
-Skeleton
-```
-
-## HOCs & Providers
-
-### Context Providers
-```typescript
-interface ProviderProps {
-  initialState?: any;
-  children: React.ReactNode;
-}
-
-// Providers
-AuthProvider
-ThemeProvider
-FeatureProvider
-```
-
-## Safe Refactoring Guidelines
-1. Never modify auth components without testing
-2. Maintain navigation state integrity
-3. Test all role-specific components
-4. Verify auth integration
-5. Document all changes
-
-## Critical Status Overview
-
-### 🔴 Critical Components
-1. Auth System
-   - Login non-functional
-   - SignUp forms broken
-   - Session management unstable
-   - Role verification incomplete
-
-2. Layout System
-   - Navigation state unstable
-   - Sidebar needs fixes
-   - Auth layout broken
-
-### 🟡 Unstable Components
-1. Dashboard Components
-   - Header navigation unstable
-   - Role-based access incomplete
-   - State management issues
-
-2. Navigation
-   - User navigation unreliable
-   - Route protection partial
-   - State management needs fixes
-
-### ✅ Stable Components
-1. UI Components Library
-2. Feature Components
-3. Chart Components
-4. Utility Components
-
-## Emergency Recovery Plan
-1. Fix auth component implementation
-2. Restore login functionality
-3. Implement proper session management
-4. Stabilize navigation system
-5. Test role-based access
+## Immediate Action Plan
+1. Authentication System Rebuild
+2. Dashboard Layout Restructuring
+3. Role-Based Component Implementation
+4. Navigation System Fix
 
 ---
-*Last Updated: December 26, 2024 22:00 EST*
-*Status: STABILIZING*
-*For detailed status, see [status-dec26.md](../dev/notes/2024-12/status-dec26.md)*
+*Last Updated: December 28, 2024 22:00 EST*
+*Status: CRITICAL REFACTOR* 🔴

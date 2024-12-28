@@ -1,17 +1,65 @@
 # 🏗️ SHELTR Dashboard Architecture
-*Last Updated: December 25, 2024 19:45 EST*
-*Version: 0.4.11*
-*Status: CRITICAL* 🔴
+*Last Updated: December 28, 2024 21:45 EST*
+*Version: 0.4.12*
+*Status: CRITICAL REFACTOR* 🔴
 
-## ⚠️ CRITICAL ALERT
-Auth system implementation is currently unstable. Core architecture remains sound but implementation needs emergency fixes.
+## ⚠️ CRITICAL ASSESSMENT
+Current implementation requires significant restructuring. Core architecture remains sound but implementation needs complete overhaul.
 
 ## Overview
 SHELTR implements a modular, type-safe architecture with role-based access control, optimized component paths, and feature-based organization. The system is built around core services including authentication, QR-based donations, and blockchain integration.
 
-## Core Architecture
+## Core Architecture Components
 
-### 1. Feature Organization
+### 1. Authentication System (🔴 CRITICAL)
+```typescript
+interface AuthSystem {
+  status: 'CRITICAL',
+  currentState: {
+    login: 'PARTIALLY_FUNCTIONAL',
+    logout: 'FUNCTIONAL_WITH_ISSUES',
+    session: 'NEEDS_REBUILD',
+    roleAccess: 'PARTIALLY_IMPLEMENTED'
+  },
+  issues: [
+    'Cache clearing required for re-login',
+    'Session management unstable',
+    'Role verification incomplete',
+    'Token refresh not implemented'
+  ],
+  priority: 'IMMEDIATE_REBUILD_REQUIRED'
+}
+```
+
+### 2. Dashboard System (🔴 NEEDS REBUILD)
+```typescript
+interface DashboardArchitecture {
+  layouts: {
+    base: {
+      path: 'src/layouts/base/DashboardLayout.tsx',
+      status: 'NEEDS_REBUILD',
+      components: ['Sidebar', 'Header', 'MainContent']
+    },
+    roleSpecific: {
+      superAdmin: 'PARTIALLY_IMPLEMENTED',
+      shelterAdmin: 'UNSTABLE',
+      donor: 'NOT_IMPLEMENTED',
+      participant: 'NOT_IMPLEMENTED'
+    }
+  },
+  components: {
+    shared: ['StatCard', 'Analytics', 'UserNav'],
+    roleSpecific: {
+      superAdmin: ['SystemStats', 'AdminControls'],
+      shelterAdmin: ['ShelterMetrics', 'ParticipantList'],
+      donor: ['DonationHistory', 'ImpactMetrics'],
+      participant: ['Progress', 'Resources']
+    }
+  }
+}
+```
+
+### 3. Feature Organization
 ```typescript
 interface FeatureArchitecture {
   auth: {
@@ -22,7 +70,11 @@ interface FeatureArchitecture {
   },
   dashboard: {
     layouts: ['DashboardLayout', 'RoleBasedLayout'],
-    components: ['Sidebar', 'DashboardHeader'],
+    components: {
+      core: ['Sidebar', 'DashboardHeader'],
+      analytics: ['StatCard', 'Charts'],
+      navigation: ['NavMenu', 'Breadcrumbs']
+    },
     views: {
       donor: ['DonorDashboard', 'DonationHistory'],
       participant: ['ParticipantDashboard', 'Resources'],
@@ -38,29 +90,15 @@ interface FeatureArchitecture {
 }
 ```
 
-### 2. Role-Based Access Control (🔴 CRITICAL)
-```typescript
-interface AuthImplementation {
-  status: 'CRITICAL',
-  issues: [
-    'Login non-functional',
-    'Session management unstable',
-    'Role verification incomplete',
-    'Logout partially implemented'
-  ],
-  priority: 'IMMEDIATE_FIX_REQUIRED'
-}
-```
+## Implementation Strategy
 
-### 3. Component Architecture
+### 1. Core Layout System
 ```typescript
-interface ComponentArchitecture {
-  layouts: {
-    base: 'src/layouts/base/Layout.tsx',
-    specialized: {
-      dashboard: 'src/layouts/specialized/dashboard/DashboardLayout.tsx',
-      auth: 'src/layouts/specialized/auth/AuthLayout.tsx'
-    }
+interface LayoutSystem {
+  base: {
+    component: 'DashboardLayout',
+    responsibility: 'Core layout structure',
+    children: ['Sidebar', 'Header', 'MainContent']
   },
   routing: {
     public: ['/', '/about', '/login', '/signup'],
@@ -71,35 +109,38 @@ interface ComponentArchitecture {
       superAdmin: '/super-admin/*'
     }
   },
-  features: {
-    auth: 'src/features/auth/*',
-    dashboard: 'src/features/dashboard/*',
-    donation: 'src/features/donation/*',
-    analytics: 'src/features/analytics/*'
+  state: {
+    global: ['auth', 'theme', 'notifications'],
+    layout: ['sidebar', 'navigation', 'breadcrumbs']
   }
 }
 ```
 
-## Implementation Details
-
-### 1. Authentication Flow
+### 2. Component Architecture
 ```typescript
-interface AuthFlow {
-  login: {
-    provider: 'Supabase',
-    method: 'email_password',
-    mfa: boolean,
-    session: 'jwt'
+interface ComponentArchitecture {
+  shared: {
+    ui: ['Button', 'Card', 'Input'],
+    layout: ['Header', 'Footer', 'Sidebar'],
+    feedback: ['Toast', 'ErrorBoundary', 'Loading']
   },
-  protection: {
-    routes: 'react-router-guards',
-    roles: 'role-based-access',
-    tokens: 'jwt-refresh'
+  features: {
+    dashboard: {
+      core: ['StatCard', 'MetricsDisplay'],
+      charts: ['LineChart', 'BarChart', 'PieChart'],
+      tables: ['DataTable', 'SortableTable']
+    },
+    auth: {
+      forms: ['LoginForm', 'SignupForm'],
+      validation: ['RoleGuard', 'PermissionCheck']
+    }
   }
 }
 ```
 
-### 2. State Management
+## Data Flow Architecture
+
+### 1. State Management
 ```typescript
 interface StateArchitecture {
   global: {
@@ -109,8 +150,8 @@ interface StateArchitecture {
   },
   features: {
     donation: 'DonationStore',
-    scanner: 'ScannerStore',
-    dashboard: 'DashboardStore'
+    dashboard: 'DashboardStore',
+    analytics: 'AnalyticsStore'
   },
   persistence: {
     type: 'localStorage + IndexedDB',
@@ -120,114 +161,61 @@ interface StateArchitecture {
 }
 ```
 
-### 3. Data Flow
+### 2. API Integration
 ```typescript
-interface DataFlow {
-  api: {
-    base: '/api',
+interface APIArchitecture {
+  endpoints: {
     auth: '/api/auth/*',
     donations: '/api/donations/*',
     analytics: '/api/analytics/*'
   },
-  websockets: {
-    enabled: true,
-    channels: ['donations', 'notifications', 'analytics'],
-    protocol: 'WSS'
-  },
-  blockchain: {
-    network: 'Ethereum',
-    contracts: ['DonationContract', 'ImpactTracking'],
-    verification: 'real-time'
+  realtime: {
+    websockets: {
+      enabled: true,
+      channels: ['donations', 'notifications']
+    },
+    blockchain: {
+      network: 'Ethereum',
+      contracts: ['DonationContract', 'ImpactTracking']
+    }
   }
 }
 ```
 
-## Directory Structure
-```bash
-src/
-├── auth/                    # Authentication system
-│   ├── components/         
-│   │   ├── AuthProvider.tsx
-│   │   └── RoleGuard.tsx
-│   ├── stores/
-│   │   └── authStore.ts
-│   └── types/
-│       └── auth.types.ts
-├── features/               # Feature modules
-│   ├── dashboard/
-│   ├── donation/
-│   └── analytics/
-├── layouts/               # Layout components
-│   ├── base/
-│   └── specialized/
-├── components/           # Shared components
-│   ├── ui/
-│   └── shared/
-└── pages/               # Page components
-    ��── public/
-    └── protected/
-```
+## Rebuild Priority Areas
 
-## Performance Optimizations
-- ✅ Code splitting by route
-- ✅ Lazy loading of role-specific components
-- ✅ Optimized re-render prevention
-- ✅ Strategic data caching
-- ✅ Bundle size optimization
+### 1. Authentication System
+- Complete session management rebuild
+- Implement proper token refresh
+- Fix role-based routing
+- Resolve cache issues
 
-## Security Implementation
-- ✅ Role-based access control
-- ✅ JWT token management
-- ✅ Route protection
-- ✅ Data encryption
-- ✅ API security
+### 2. Dashboard Architecture
+- Create unified layout system
+- Implement role-specific views
+- Build reusable components
+- Standardize navigation
+
+### 3. State Management
+- Centralize auth state
+- Implement proper caching
+- Add real-time updates
+- Optimize performance
 
 ## Development Guidelines
-1. Feature-first organization
-2. Type-safe implementation
-3. Component composition
-4. State isolation
-5. Performance optimization
+1. Component-First Development
+2. Type-Safe Implementation
+3. Performance Optimization
+4. Error Boundary Implementation
+5. Testing Coverage
 
-## Implementation Status
-
-### Current Critical Issues
-1. 🔴 Authentication System
-   - Login system non-functional
-   - Session management unstable
-   - Role verification incomplete
-   - Logout flow partially implemented
-
-2. 🟡 Layout System
-   - Navigation state management unstable
-   - Sidebar system needs reinforcement
-   - Component hierarchy fragile
-
-3. 🟡 Routing System
-   - Protected routes need validation
-   - Role-based access incomplete
-   - Navigation state management issues
-
-## Emergency Recovery Plan
-1. Auth System Stabilization
-   - Fix login functionality
-   - Implement proper session management
-   - Complete logout flow
-   - Test role-based access
-
-2. Layout System Recovery
-   - Stabilize navigation
-   - Fix sidebar implementation
-   - Reinforce component hierarchy
-
-## Next Steps
-1. 🔴 Emergency auth system recovery
-2. 🔴 Login system restoration
-3. 🔴 Session management implementation
-4. 🟡 Protected route validation
-5. 🟡 System-wide stability testing
+## Success Criteria
+- Authentication working without cache issues
+- Role-based dashboards fully functional
+- Sub-second page loads
+- 95% test coverage
+- Zero critical bugs
 
 ---
-*For critical status updates, see [status-dec25.md](../dev/notes/2024-12/status-dec25.md)*
+*For implementation details, see [implementation.md](./implementation.md)*
 *For API documentation, see [api.md](./api.md)*
-*For debugging guidelines, see [debugging.md](./debugging.md)*

@@ -1,20 +1,21 @@
 # 🔒 SHELTR Constants Reference
-*Version: 0.4.12 - December 26, 2024 22:00 EST*
-*Status: STABILIZING* 🟡
+*Version: 0.4.12 - December 28, 2024 22:00 EST*
+*Status: CRITICAL REFACTOR* 🔴
 
 ## ⚠️ STATUS UPDATE
-Auth system has been stabilized. Constants updated to reflect recent fixes.
+Auth system requires immediate verification. Constants updated to reflect current issues.
 
 ## API Constants
 
-### Endpoints (🟡 STABILIZING)
+### Endpoints (🔴 NEEDS_REVIEW)
 ```typescript
 export const API_ENDPOINTS = {
   AUTH: {
-    LOGIN: '/auth/login',      // ✅ Functional
-    REGISTER: '/auth/register', // ✅ Functional
-    LOGOUT: '/auth/logout',     // ✅ Functional
-    VERIFY: '/auth/verify'      // 🟡 Testing
+    LOGIN: '/auth/login',      // ⚠️ Unstable
+    REGISTER: '/auth/register', // ⚠️ Unstable
+    LOGOUT: '/auth/logout',     // ⚠️ Cache Issues
+    VERIFY: '/auth/verify',     // 🔴 Not Working
+    REFRESH: '/auth/refresh'    // ❌ Not Implemented
   },
   DONATIONS: {
     CREATE: '/donations/create', // ✅ Functional
@@ -29,32 +30,35 @@ export const API_ENDPOINTS = {
 } as const;
 ```
 
-### Configuration (✅ STABLE)
+### Configuration (⚠️ NEEDS_UPDATE)
 ```typescript
 export const API_CONFIG = {
   BASE_URL: 'https://sheltr.replit.app',
   VERSION: 'v1',
-  TIMEOUT: 15000,              // Optimized for auth
-  RETRY_ATTEMPTS: 2,           // Adjusted for better UX
-  AUTH_TIMEOUT: 10000         // New: Specific auth timeout
+  TIMEOUT: 30000,              // Increased for stability
+  RETRY_ATTEMPTS: 3,           // Increased for reliability
+  AUTH_TIMEOUT: 20000,         // Increased for auth stability
+  CACHE_CONTROL: 'no-store'    // Added for auth fixes
 } as const;
 ```
 
-## Authentication Constants (✅ STABLE)
+## Authentication Constants (🔴 CRITICAL)
 ```typescript
 export const AUTH_CONFIG = {
   SESSION: {
-    TIMEOUT: 7200,            // Extended for better UX
-    REFRESH_THRESHOLD: 600    // Adjusted for stability
+    TIMEOUT: 3600,            // Reduced for testing
+    REFRESH_THRESHOLD: 300,   // Adjusted for stability
+    CLEAR_CACHE: true        // Added for login fixes
   },
   ROUTES: {
-    LOGIN: '/login',          // ✅ Functional
-    REGISTER: '/register',    // ✅ Functional
-    RESET: '/reset-password'  // ✅ Functional
+    LOGIN: '/login',          // ⚠️ Unstable
+    REGISTER: '/register',    // ⚠️ Unstable
+    RESET: '/reset-password'  // 🔴 Not Working
   },
-  PERSISTENCE: {             // New section
+  PERSISTENCE: {
     STORAGE_KEY: 'sheltr_auth',
-    VERSION: 'v1'
+    VERSION: 'v1',
+    CLEAR_ON_LOGOUT: true    // Added for stability
   }
 } as const;
 ```
@@ -91,18 +95,20 @@ export const BREAKPOINTS = {
 } as const;
 ```
 
-## Feature Flags (✅ STABLE)
+## Feature Flags (⚠️ UPDATING)
 ```typescript
 export const FEATURES = {
   QR_SCANNER: true,           // ✅ Functional
-  OFFLINE_MODE: false,        // 🟡 Beta testing
+  OFFLINE_MODE: false,        // 🔴 Disabled
   ANALYTICS: true,           // ✅ Functional
   BLOCKCHAIN: false,         // 🔵 Coming soon
-  AUTH_DEBUG: false         // Disabled: System stable
+  AUTH_DEBUG: true,         // Added for testing
+  FORCE_LOGOUT: true,       // Added for stability
+  CLEAR_CACHE: true        // Added for auth fixes
 } as const;
 ```
 
-## Validation Constants (🟡 NEEDS REVIEW)
+## Validation Constants (🔴 NEEDS_REVIEW)
 ```typescript
 export const VALIDATION = {
   PASSWORD: {
@@ -115,21 +121,22 @@ export const VALIDATION = {
     MIN_LENGTH: 3,
     MAX_LENGTH: 20
   },
-  AUTH: {                    // New section for auth validation
-    SESSION_TIMEOUT: 3600,
-    TOKEN_EXPIRY: 7200,
-    MAX_ATTEMPTS: 3
+  AUTH: {
+    SESSION_TIMEOUT: 3600,    // Reduced for testing
+    TOKEN_EXPIRY: 3600,      // Reduced for testing
+    MAX_ATTEMPTS: 5,         // Increased for UX
+    FORCE_LOGOUT: true       // Added for stability
   }
 } as const;
 ```
 
-## Role Constants (✅ STABLE)
+## Role Constants (⚠️ UPDATING)
 ```typescript
 export const ROLES = {
-  ADMIN: 'admin',           // ✅ Functional
-  DONOR: 'donor',          // ✅ Functional
-  SHELTER: 'shelter',      // ✅ Functional
-  PARTICIPANT: 'participant'// 🟡 Testing
+  ADMIN: 'admin',           // ⚠️ Partial
+  DONOR: 'donor',          // ❌ Not Implemented
+  SHELTER: 'shelter',      // ⚠️ Unstable
+  PARTICIPANT: 'participant'// ❌ Not Implemented
 } as const;
 ```
 
@@ -140,43 +147,46 @@ export const STATUS = {
   LOADING: 'loading',
   SUCCESS: 'success',
   ERROR: 'error',
-  AUTH_ERROR: 'auth_error'  // New status for auth issues
+  AUTH_ERROR: 'auth_error',  // Added for auth issues
+  CACHE_ERROR: 'cache_error' // Added for debugging
 } as const;
 ```
 
 ## Status Overview
 
-### ✅ Stable Areas
+### ⚠️ Critical Areas
 1. Auth System
-   - Login endpoint functional
-   - Register endpoint functional
-   - Session management stable
-   - Token handling improved
+   - Login endpoints unstable
+   - Session management issues
+   - Cache clearing required
+   - Token refresh needed
 
 2. Configuration
-   - Timeouts optimized
-   - Retry logic improved
-   - Session handling stable
+   - Timeouts adjusted
+   - Retry logic enhanced
+   - Cache control added
+   - Debug flags enabled
 
-### 🟡 Areas Under Testing
+### 🔴 Areas Needing Review
 1. Feature Implementation
-   - Offline mode in beta
-   - Participant role access
-   - Extended auth features
+   - Auth debugging enabled
+   - Offline mode disabled
+   - Force logout added
+   - Cache clearing enabled
 
 2. System Integration
-   - Blockchain integration planned
-   - Extended analytics
-   - Advanced metrics
+   - Session timeouts reduced
+   - Token expiry adjusted
+   - Max attempts increased
+   - Validation updated
 
-## Recent Improvements
-1. Auth system stabilized
-2. Session management optimized
-3. Role-based access implemented
-4. Validation constants updated
-5. Feature flags adjusted
+## Recent Changes
+1. Added auth debug flags
+2. Increased timeouts
+3. Added cache control
+4. Enhanced error states
+5. Updated validation rules
 
 ---
-*Last Updated: December 26, 2024 22:00 EST*
-*Status: STABILIZING*
-*For implementation details, see [status-dec26.md](../dev/notes/2024-12/status-dec26.md)*
+*Last Updated: December 28, 2024 22:00 EST*
+*Status: CRITICAL REFACTOR* 🔴
