@@ -29,18 +29,21 @@ export function QuickStatCard({
   return (
     <Card>
       <Card.Content className="p-6">
-        <div className="flex items-center justify-between">
-          <div className={`p-3 rounded-lg ${colorMap[customColor]}`}>
-            <Icon name={icon} className="h-6 w-6" />
+        <div className="bg-gray-800 rounded-lg p-4 sm:p-6 h-full">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <div className={`p-2 rounded-lg bg-${customColor}-500/20`}>
+                <Icon name={icon} className={`h-5 w-5 text-${customColor}-400`} />
+              </div>
+              <div className="ml-4">
+                <p className="text-sm text-gray-400">{label}</p>
+                <p className="text-2xl font-semibold text-white">{value}</p>
+              </div>
+            </div>
+            <div className={`text-${trendUp ? 'green' : 'red'}-400 text-sm`}>
+              {trend}
+            </div>
           </div>
-          <div className={`flex items-center gap-1 ${trendUp ? 'text-emerald-400' : 'text-red-400'}`}>
-            <Icon name={trendUp ? 'trending-up' : 'trending-down'} className="h-4 w-4" />
-            <span>{trend}</span>
-          </div>
-        </div>
-        <div className="mt-4">
-          <h3 className="text-3xl font-bold text-white">{value}</h3>
-          <p className="text-sm text-gray-400">{label}</p>
         </div>
       </Card.Content>
     </Card>

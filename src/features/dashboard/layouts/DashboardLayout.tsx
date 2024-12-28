@@ -1,89 +1,117 @@
-import { type ReactNode, useState, useEffect } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
-import { SuperAdminSidebar } from '@/features/dashboard/shared/navigation/sidebar';
+import { type ReactNode, Suspense } from 'react';
+import { Outlet } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { UserNav } from '@/components/Navigation/UserNav';
-import { Menu, X } from 'lucide-react';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { ShelterAdminSidebar } from '@/features/dashboard/shared/navigation/sidebar/ShelterAdminSidebar';
+import { SuperAdminSidebar } from '@/features/dashboard/shared/navigation/sidebar';
+import { Logo } from '@/components/ui/Logo';
+import { Button } from '@/components/ui/Button';
+import { Menu } from 'lucide-react';
+import { useState } from 'react';
 
-export function DashboardLayout({ children }: { children: ReactNode }) {
+interface DashboardLayoutProps {
+  children?: ReactNode;
+}
+
+export function DashboardLayout({ children }: DashboardLayoutProps) {
   const { user, isLoading } = useAuth();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isInitialized, setIsInitialized] = useState(false);
-  const navigate = useNavigate();
+  const [isSidebarOpen, setSidebarOpen] = useState(true);
 
-  useEffect(() => {
-    if (!isLoading && user) {
-      setIsInitialized(true);
-    }
-  }, [isLoading, user]);
-
-  const SidebarComponent = () => {
-    switch (user?.role) {
-      case 'super_admin':
-        return <SuperAdminSidebar />;
-      default:
-        return null;
-    }
-  };
-
-  if (!isInitialized) {
+  // Loading state
+  if (isLoading) {
     return (
       <div className="flex h-screen items-center justify-center bg-gray-900">
-        <h2 className="text-xl text-white">Loading dashboard...</h2>
+        <div className="text-xl text-white">Loading...</div>
       </div>
     );
   }
 
+  // Render appropriate sidebar based on user role
+  const renderSidebar = () => {
+    if (!user?.role) return null;
+
+    const sidebarMap = {
+      shelter_admin: <ShelterAdminSidebar />,
+      super_admin: <SuperAdminSidebar />
+    };
+
+    return sidebarMap[user.role as keyof typeof sidebarMap] || null;
+  };
+
   return (
-    <div className="bg-gray-900 min-h-screen">
+    <div className="min-h-screen bg-gray-900">
+      {/* Main Layout */}
       <div className="flex">
-        <div 
+        {/* Sidebar */}
+        <aside 
           className={`
-            fixed inset-y-0 left-0 z-50 w-64 
-            bg-gray-900 border-r border-gray-800 
-            transform transition-transform duration-300 ease-in-out
-            overflow-y-auto
-            md:sticky md:top-0 md:translate-x-0
-            ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+            fixed top-0 left-0 h-screen w-64 
+            bg-gray-800 border-r border-gray-700
+            transform transition-transform duration-200 ease-in-out
+            ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+            lg:relative lg:translate-x-0
           `}
         >
-          <SidebarComponent />
-        </div>
+          {renderSidebar()}
+        </aside>
 
-        <div className="flex-1 min-w-0">
-          <div className="sticky top-0 z-40 bg-gray-900 border-b border-gray-800">
-            <div className="p-4 flex justify-between items-center">
-              <button
-                className="md:hidden text-gray-400 hover:text-white"
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                aria-label="Toggle mobile menu"
-              >
-                {isMobileMenuOpen ? (
-                  <X className="h-6 w-6" />
-                ) : (
-                  <Menu className="h-6 w-6" />
-                )}
-              </button>
-
-              <div className="text-white">
-                Welcome back, {user?.email}
+        {/* Main Content Area */}
+        <main className="flex-1 min-h-screen">
+          {/* Top Navigation */}
+          <nav className="sticky top-0 z-40 bg-gray-800 border-b border-gray-700">
+            <div className="px-4 py-3 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="lg:hidden"
+                  onClick={() => setSidebarOpen(!isSidebarOpen)}
+                >
+                  <Menu className="h-5 w-5" />
+                </Button>
+                <h1 className="text-xl font-semibold text-white">
+                  {getPageTitle(user?.role)}
+                </h1>
               </div>
               <UserNav />
             </div>
-          </div>
+          </nav>
 
-          <div className="p-6 md:ml-64">
-            {children || <Outlet />}
+          {/* Page Content */}
+          <div className="p-6">
+            <ErrorBoundary>
+              <Suspense fallback={
+                <div className="flex items-center justify-center min-h-[50vh]">
+                  <div className="text-white">Loading content...</div>
+                </div>
+              }>
+                {children || <Outlet />}
+              </Suspense>
+            </ErrorBoundary>
           </div>
-        </div>
+        </main>
       </div>
 
-      {isMobileMenuOpen && (
+      {/* Mobile Overlay */}
+      {isSidebarOpen && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
-          onClick={() => setIsMobileMenuOpen(false)}
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
         />
       )}
     </div>
   );
+}
+
+// Helper function to get page title
+function getPageTitle(role?: string) {
+  switch (role) {
+    case 'shelter_admin':
+      return 'Shelter Dashboard';
+    case 'super_admin':
+      return 'Admin Dashboard';
+    default:
+      return 'Dashboard';
+  }
 }

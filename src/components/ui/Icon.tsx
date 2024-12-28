@@ -2,6 +2,8 @@ import { cn } from '@/lib/utils';
 import * as Icons from 'lucide-react';
 import type { LucideIcon, LucideProps } from 'lucide-react';
 import React from 'react';
+import { DollarSign } from 'lucide-react';
+import { ChevronDown, User, Settings, LogOut } from 'lucide-react';
 
 // Define icon type
 export type IconName = keyof typeof icons;
@@ -82,7 +84,16 @@ const icons = {
   home: Icons.Home,
   'log-out': Icons.LogOut,
   'phone-call': Icons.PhoneCall,
+  'dollar-sign': DollarSign,
 } as const;
+
+const iconMap = {
+  'chevron-down': ChevronDown,
+  'user': User,
+  'settings': Settings,
+  'log-out': LogOut,
+  // ... other icons
+};
 
 export function Icon({ 
   name, 

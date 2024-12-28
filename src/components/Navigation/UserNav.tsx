@@ -10,6 +10,20 @@ export function UserNav() {
   const navigate = useNavigate();
   const { user, logout } = useAuthStore();
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSignOut = async () => {
+    try {
+      setIsLoading(true);
+      await logout();
+      setIsOpen(false);
+      navigate('/login', { replace: true });
+    } catch (error) {
+      console.error('Error signing out:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="relative">
@@ -56,18 +70,16 @@ export function UserNav() {
             <div className="border-t border-gray-700 my-1" />
 
             <button
-              onClick={async () => {
-                try {
-                  await logout();
-                  setIsOpen(false);
-                } catch (error) {
-                  console.error('Error signing out:', error);
-                }
-              }}
-              className="flex w-full items-center px-4 py-2 text-sm text-red-400 hover:bg-gray-700"
+              onClick={handleSignOut}
+              disabled={isLoading}
+              className="flex w-full items-center px-4 py-2 text-sm text-red-400 hover:bg-gray-700 disabled:opacity-50"
             >
-              <Icon name="log-out" className="mr-3 h-4 w-4" />
-              {t('nav.signOut')}
+              {isLoading ? (
+                <Icon name="loader" className="mr-3 h-4 w-4 animate-spin" />
+              ) : (
+                <Icon name="log-out" className="mr-3 h-4 w-4" />
+              )}
+              {isLoading ? t('nav.signingOut') : t('nav.signOut')}
             </button>
           </div>
         </div>

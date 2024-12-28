@@ -182,7 +182,11 @@ export const en: Translations = {
         duration: 'Duration',
         showName: 'Tomes of Arcana'
       }
-    }
+    },
+    profile: "Profile",
+    settings: "Settings",
+    signOut: "Sign Out",
+    dashboard: "Dashboard"
   },
 
   hero: {

@@ -9,9 +9,9 @@ export default function SuperAdminDashboardView() {
 
   return (
     <ErrorBoundary>
-      <div className="p-6 space-y-6">
-        {/* Quick Stats Row */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+        {/* Quick Stats Row - Improve responsive grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           <QuickStatCard 
             icon="users"
             label="Total Users"

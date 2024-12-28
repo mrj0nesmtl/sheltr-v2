@@ -14,18 +14,18 @@ const Login = lazy(() => import('@/pages/LoginPage').then(module => ({ default: 
 const SignUp = lazy(() => import('@/pages/SignUpPage').then(module => ({ default: module.default })));
 
 // Dashboard views - add type annotations
-const DonorDashboardView = lazy(() => 
-  import('@/features/dashboard/roles/donor/DonorDashboard').then(module => ({ default: module.default }))
-);
-const ParticipantDashboardView = lazy(() => 
-  import('@/features/dashboard/roles/participant/ParticipantDashboard').then(module => ({ default: module.default }))
-);
+const DonorDashboardView = lazy(() => import('@/features/dashboard/roles/donor/DonorDashboard'));
+const ParticipantDashboardView = lazy(() => import('@/features/dashboard/roles/participant/ParticipantDashboard'));
 const ShelterDashboardView = lazy(() => 
-  import('@/features/dashboard/roles/shelter-admin/ShelterDashboard').then(module => ({ default: module.default }))
+  import('@/features/dashboard/roles/shelter-admin/ShelterDashboard')
+    .then(module => {
+      if (!module.default) {
+        throw new Error('ShelterDashboard component not found');
+      }
+      return { default: module.default };
+    })
 );
-const SuperAdminDashboardView = lazy(() => 
-  import('@/features/dashboard/roles/super-admin/SuperAdminDashboard').then(module => ({ default: module.default }))
-);
+const SuperAdminDashboardView = lazy(() => import('@/features/dashboard/roles/super-admin/SuperAdminDashboard'));
 
 export default function AppRoutes() {
   const { isAuthenticated, user } = useAuth();
