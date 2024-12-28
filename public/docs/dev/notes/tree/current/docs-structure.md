@@ -1,9 +1,10 @@
 # 🌳 SHELTR Documentation Structure
-*Generated: 2024-12-26 22:05:09*
+*Generated: 2024-12-27 23:17:38*
 \n## Directory Structure
 ./public/docs
 ├── about
-│   └── roadmap.md
+│   ├── roadmap.md
+│   └── whitepaper_final.md
 ├── archives
 │   ├── builds
 │   │   └── 2024-12
@@ -59,8 +60,6 @@
 │   │   │   ├── Prompt 2.md
 │   │   │   ├── ai-prompts.md
 │   │   │   ├── critical-incident-dec25.md
-│   │   │   ├── developer-action-plan.md
-│   │   │   ├── recovery-checklist.md
 │   │   │   ├── refactor-assessment.md
 │   │   │   ├── status-dec22.md
 │   │   │   └── status-dec25.md
@@ -73,15 +72,18 @@
 ├── guides
 │   ├── best-practices.md
 │   └── deployment.md
+├── project
+│   ├── checkpoint.md
+│   └── status_report.md
 ├── reference
 │   ├── components.md
 │   ├── constants.md
 │   └── types.md
-├── technical
-│   ├── authentication.md
-│   ├── blockchain.md
-│   ├── database.md
-│   └── qr-system.md
-└── project_structure.txt
+└── technical
+    ├── authentication.md
+    ├── blockchain.md
+    ├── build_tract.md
+    ├── database.md
+    └── qr-system.md
 
-24 directories, 58 files
+25 directories, 59 files

@@ -1,5 +1,5 @@
 # 🌳 SHELTR Source Structure
-*Generated: 2024-12-26 22:05:09*
+*Generated: 2024-12-27 23:17:38*
 \n## Directory Structure
 ./src
 ├── auth
@@ -168,11 +168,18 @@
 ├── constants
 │   └── podcast.ts
 ├── content
+│   ├── about
+│   │   ├── en.md
+│   │   └── fr.md
 │   ├── intro
 │   │   └── en.md
+│   ├── project
+│   ├── technical
 │   └── whitepaper
 │       ├── en.md
-│       └── fr.md
+│       ├── fr.md
+│       ├── whitepaper_en.md
+│       └── whitepaper_fr.md
 ├── contexts
 │   └── ThemeContext.tsx
 ├── features
@@ -404,4 +411,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-146 directories, 256 files
+149 directories, 260 files

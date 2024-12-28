@@ -1,5 +1,5 @@
 # 🌳 SHELTR Main Structure
-*Generated: 2024-12-26 22:05:09*
+*Generated: 2024-12-27 23:17:37*
 \n## Directory Structure
 .
 ├── public
@@ -50,7 +50,6 @@
 │   └── config.toml
 ├── README.md
 ├── analyze.html
-├── dashboard_files.txt
 ├── database_analysis_export.md
 ├── eslint.config.js
 ├── header_files.txt
@@ -59,7 +58,6 @@
 ├── package-lock.json
 ├── package.json
 ├── postcss.config.js
-├── project_structure.txt
 ├── replit.dev.nix
 ├── replit.nix
 ├── server.js
@@ -72,4 +70,4 @@
 ├── vercel.json
 └── vite.config.ts
 
-27 directories, 43 files
+27 directories, 41 files

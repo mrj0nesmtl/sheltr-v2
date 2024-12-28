@@ -1,5 +1,5 @@
 # 🌳 SHELTR Project Structure
-*Generated: 2024-12-26 14:27:09*
+*Generated: 2024-12-27 23:17:38*
 *Version: 0.4.9*
 
 ## Table of Contents
@@ -11,30 +11,26 @@
 6. [Technical Structures](#technical-structures)
 
 \n---\n
-*Generated: 2024-12-26 14:27:09*
+*Generated: 2024-12-27 23:17:38*
 \n## Directory Structure
 ./src/auth
 ├── components
 │   ├── AuthProvider.tsx
 │   └── ProtectedRoute.tsx
-├── forms
 ├── guards
 │   └── RoleGuard.tsx
-├── hooks
 ├── schemas
 │   ├── index.ts
 │   └── validation.ts
-├── services
 ├── stores
 │   └── authStore.ts
 ├── types
 │   └── auth.types.ts
-├── validation
 └── types.ts
 
-10 directories, 8 files
+6 directories, 8 files
 \n---\n
-*Generated: 2024-12-26 14:27:09*
+*Generated: 2024-12-27 23:17:38*
 \n## Directory Structure
 ./src/components
 ├── About
@@ -202,11 +198,12 @@
 
 48 directories, 115 files
 \n---\n
-*Generated: 2024-12-26 14:27:09*
+*Generated: 2024-12-27 23:17:38*
 \n## Directory Structure
 ./public/docs
 ├── about
-│   └── roadmap.md
+│   ├── roadmap.md
+│   └── whitepaper_final.md
 ├── archives
 │   ├── builds
 │   │   └── 2024-12
@@ -262,8 +259,6 @@
 │   │   │   ├── Prompt 2.md
 │   │   │   ├── ai-prompts.md
 │   │   │   ├── critical-incident-dec25.md
-│   │   │   ├── developer-action-plan.md
-│   │   │   ├── recovery-checklist.md
 │   │   │   ├── refactor-assessment.md
 │   │   │   ├── status-dec22.md
 │   │   │   └── status-dec25.md
@@ -276,20 +271,23 @@
 ├── guides
 │   ├── best-practices.md
 │   └── deployment.md
+├── project
+│   ├── checkpoint.md
+│   └── status_report.md
 ├── reference
 │   ├── components.md
 │   ├── constants.md
 │   └── types.md
-├── technical
-│   ├── authentication.md
-│   ├── blockchain.md
-│   ├── database.md
-│   └── qr-system.md
-└── project_structure.txt
+└── technical
+    ├── authentication.md
+    ├── blockchain.md
+    ├── build_tract.md
+    ├── database.md
+    └── qr-system.md
 
-24 directories, 58 files
+25 directories, 59 files
 \n---\n
-*Generated: 2024-12-26 14:27:09*
+*Generated: 2024-12-27 23:17:38*
 \n## Directory Structure
 ./src/features
 ├── auth
@@ -346,7 +344,7 @@
 
 40 directories, 12 files
 \n---\n
-*Generated: 2024-12-26 14:27:09*
+*Generated: 2024-12-27 23:17:38*
 \n## Directory Structure
 ./src/layouts
 ├── base
@@ -365,7 +363,7 @@
 
 7 directories, 7 files
 \n---\n
-*Generated: 2024-12-26 14:27:09*
+*Generated: 2024-12-27 23:17:37*
 \n## Directory Structure
 .
 ├── public
@@ -416,7 +414,6 @@
 │   └── config.toml
 ├── README.md
 ├── analyze.html
-├── dashboard_files.txt
 ├── database_analysis_export.md
 ├── eslint.config.js
 ├── header_files.txt
@@ -425,7 +422,6 @@
 ├── package-lock.json
 ├── package.json
 ├── postcss.config.js
-├── project_structure.txt
 ├── replit.dev.nix
 ├── replit.nix
 ├── server.js
@@ -438,9 +434,9 @@
 ├── vercel.json
 └── vite.config.ts
 
-27 directories, 43 files
+27 directories, 41 files
 \n---\n
-*Generated: 2024-12-26 14:27:09*
+*Generated: 2024-12-27 23:17:38*
 \n## Directory Structure
 ./src/pages
 ├── About
@@ -502,26 +498,22 @@
 
 12 directories, 45 files
 \n---\n
-*Generated: 2024-12-26 14:27:09*
+*Generated: 2024-12-27 23:17:38*
 \n## Directory Structure
 ./src
 ├── auth
 │   ├── components
 │   │   ├── AuthProvider.tsx
 │   │   └── ProtectedRoute.tsx
-│   ├── forms
 │   ├── guards
 │   │   └── RoleGuard.tsx
-│   ├── hooks
 │   ├── schemas
 │   │   ├── index.ts
 │   │   └── validation.ts
-│   ├── services
 │   ├── stores
 │   │   └── authStore.ts
 │   ├── types
 │   │   └── auth.types.ts
-│   ├── validation
 │   └── types.ts
 ├── backup
 │   ├── dashboard_cleanup
@@ -675,11 +667,18 @@
 ├── constants
 │   └── podcast.ts
 ├── content
+│   ├── about
+│   │   ├── en.md
+│   │   └── fr.md
 │   ├── intro
 │   │   └── en.md
+│   ├── project
+│   ├── technical
 │   └── whitepaper
 │       ├── en.md
-│       └── fr.md
+│       ├── fr.md
+│       ├── whitepaper_en.md
+│       └── whitepaper_fr.md
 ├── contexts
 │   └── ThemeContext.tsx
 ├── features
@@ -911,4 +910,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-150 directories, 256 files
+149 directories, 260 files
