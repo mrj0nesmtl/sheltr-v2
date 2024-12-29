@@ -1,10 +1,10 @@
 <div align="center">
 
-![SHELTR](https://img.shields.io/badge/SHELTR-V2-blue)
-![Version](https://img.shields.io/badge/Version-0.4.12-orange)
-![Stage](https://img.shields.io/badge/Stage-Late_Alpha-yellow)
-![License](https://img.shields.io/badge/License-MIT-purple)
-[![Listen on Spotify](https://img.shields.io/badge/Listen_on-Spotify-1DB954?logo=spotify)](https://open.spotify.com/show/3Q2RpnzF9sUv26yPMP9tWI)
+![SHELTR](https://img.shields.io/badge/SHELTR-V2-4B32C3)
+![Version](https://img.shields.io/badge/Version-0.4.12-FF6B6B)
+![Stage](https://img.shields.io/badge/Stage-Late_Alpha-FED766)
+![License](https://img.shields.io/badge/License-MIT-8A2BE2)
+[![Listen on Spotify](https://img.shields.io/badge/Listen_on-Spotify-1DB954?logo=spotify&logoColor=white)](https://open.spotify.com/show/3Q2RpnzF9sUv26yPMP9tWI)
 
 **Revolutionizing Charitable Giving Through Technology**
 *December 2024 - Beta Launch January 2024*
@@ -19,12 +19,12 @@
 
 | Component | Status | Progress |
 |-----------|---------|-----------|
-| Core System | ✅ STABLE | ![95%](https://progress-bar.dev/95) |
-| Auth System | ✅ STABLE | ![90%](https://progress-bar.dev/90) |
-| Layout System | ✅ STABLE | ![95%](https://progress-bar.dev/95) |
-| Role-Based Access | 🟡 IN PROGRESS | ![85%](https://progress-bar.dev/85) |
-| QR System | 🟡 IN PROGRESS | ![70%](https://progress-bar.dev/70) |
-| Blockchain | 🔵 PLANNED | ![0%](https://progress-bar.dev/0) |
+| Core System | ✅ STABLE | ![95%](https://img.shields.io/badge/-95%25-success?style=flat-square) |
+| Auth System | ✅ STABLE | ![90%](https://img.shields.io/badge/-90%25-success?style=flat-square) |
+| Layout System | ✅ STABLE | ![95%](https://img.shields.io/badge/-95%25-success?style=flat-square) |
+| Role-Based Access | 🟡 IN PROGRESS | ![85%](https://img.shields.io/badge/-85%25-yellow?style=flat-square) |
+| QR System | 🟡 IN PROGRESS | ![70%](https://img.shields.io/badge/-70%25-yellow?style=flat-square) |
+| Blockchain | 🔵 PLANNED | ![0%](https://img.shields.io/badge/-0%25-blue?style=flat-square) |
 
 ### 🎯 Recent Achievements
 
@@ -93,42 +93,54 @@
 - User authorization
 
 ### 📱 QR System (🟡 IN PROGRESS)
-- Unique participant codes
-- Instant donation flow
-- Real-time verification
-- Success tracking
+- Unique participant QR code generation using Supabase secure storage
+- Instant donation flow with multi-auth support (Google, GitHub, Email)
+- Real-time verification through Supabase realtime subscriptions
+- Success tracking with blockchain verification preparation
+- Mobile-optimized scanner with PWA support
+- Offline capability with local storage sync
 
 ### 🔗 Blockchain Integration (🔵 PLANNED)
-- $SHELTR token implementation
-- Transaction verification
-- Smart contract automation
-- Transparent ledger
+- $SHELTR token implementation on Polygon network for low gas fees
+- Transaction verification with smart contract automation
+- Multi-signature wallet support for enhanced security
+- Transparent ledger with real-time impact tracking
+- Integration with existing Supabase architecture
+- Cross-chain compatibility planning
 
 ### 🤖 AI & Analytics (🔵 PLANNED)
-- Impact metrics
-- Donation patterns
-- Success predictions
-- Resource optimization
+- ML-powered impact metrics using historical data
+- Predictive donation patterns analysis
+- Success predictions for resource allocation
+- Resource optimization through AI insights
+- Real-time dashboard with customizable views
+- Integration with blockchain data for enhanced insights
 
 ## 🛠️ Technology Stack
 
 ### Frontend (✅ STABLE)
-- React 18
-- TypeScript
-- Tailwind CSS
-- Zustand
+- React 18 with TypeScript
+- TailwindCSS for styling
+- Zustand for state management
+- PWA support with service workers
+- React Query for data fetching
+- Framer Motion for animations
 
 ### Backend (✅ STABLE)
-- Supabase
-- PostgreSQL
+- Supabase with PostgreSQL
+- Multi-auth provider support
 - Real-time subscriptions
-- Role-based security
+- Row Level Security (RLS)
+- Edge Functions deployment
+- Automated backups
 
 ### Blockchain (🔵 PLANNED)
-- Ethereum Network
-- Smart Contracts
-- $SHELTR Token
-- Web3 Integration
+- Polygon Network for scalability
+- Solidity Smart Contracts
+- $SHELTR Token (ERC-20)
+- Web3.js integration
+- MetaMask & WalletConnect support
+- IPFS for decentralized storage
 
 ## 🤝 Contribution Guidelines
 
@@ -150,9 +162,9 @@ We welcome contributions! Current focus areas:
 
 <div align="center">
 
-[![GitHub Stars](https://img.shields.io/github/stars/arcanaconcept/sheltr-V2?style=social)](https://github.com/arcanaconcept/sheltr-V2)
-[![Follow on LinkedIn](https://img.shields.io/badge/Follow-LinkedIn-0077B5?logo=linkedin)](https://www.linkedin.com/company/arcana-concept)
-[![YouTube Channel](https://img.shields.io/badge/Watch-YouTube-FF0000?logo=youtube)](https://www.youtube.com/@ArcanaConcept)
+[![GitHub Stars](https://img.shields.io/badge/Stars-★_Star_Us-F4D03F?style=for-the-badge&logo=github)](https://github.com/mrj0nesmtl/sheltr-v2)
+[![Follow on LinkedIn](https://img.shields.io/badge/LinkedIn-Follow_Us-0077B5?style=for-the-badge&logo=linkedin)](https://www.linkedin.com)
+[![YouTube Channel](https://img.shields.io/badge/YouTube-Subscribe-FF0000?style=for-the-badge&logo=youtube)](https://www.youtube.com)
 
 **Join us in revolutionizing charitable giving through technology**
 *#hackhomelessness #blockchain #socialimpact*
@@ -163,6 +175,6 @@ We welcome contributions! Current focus areas:
 
 <div align="center">
 
-**SHELTR V2** | [Website](https://www.arcanaconcept.com) | [Documentation](https://www.arcanaconcept.com/docs) | [Community](https://discord.gg/arcanaconcept)
+**SHELTR V2** | [Website](https://sheltr.dev) | [Documentation](https://docs.sheltr.dev) | [Community](https://discord.gg/sheltr)
 
 </div>
