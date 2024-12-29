@@ -15,16 +15,8 @@ export function ProtectedRoute({ allowedRoles = [], children }: ProtectedRoutePr
   const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
-    console.log('ProtectedRoute - Current State:', {
-      user,
-      userRole: user?.role,
-      allowedRoles,
-      currentPath: location.pathname,
-      isLoading,
-      isInitialized
-    });
-
-    if (!isLoading && user?.email) {
+    // Wait for both user and role to be available
+    if (!isLoading && user?.email && user?.role) {
       setIsInitialized(true);
     }
   }, [user, isLoading, location.pathname]);
@@ -38,24 +30,16 @@ export function ProtectedRoute({ allowedRoles = [], children }: ProtectedRoutePr
     );
   }
 
-  // Redirect to login if no user
-  if (!user) {
-    console.log('ProtectedRoute: No user, redirecting to login');
+  // Redirect to login if no user or no role
+  if (!user || !user.role) {
+    console.log('ProtectedRoute: No user or role, redirecting to login');
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  // Add detailed role checking logs
-  console.log('ProtectedRoute - Role Check:', {
-    userRole: user.role,
-    allowedRoles,
-    hasAccess: allowedRoles.includes(user.role as AUTH_ROLES)
-  });
-
-  // Check role access and redirect to appropriate dashboard
+  // Check role access
   if (allowedRoles.length > 0 && !allowedRoles.includes(user.role as AUTH_ROLES)) {
-    console.log('ProtectedRoute: Invalid role, redirecting to correct dashboard');
     const correctPath = getRoleBasedRedirect(user.role as AUTH_ROLES);
-    console.log('Redirecting to:', correctPath);
+    console.log('Redirecting to correct role path:', correctPath);
     return <Navigate to={correctPath} replace />;
   }
 

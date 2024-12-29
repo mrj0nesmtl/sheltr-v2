@@ -175,7 +175,16 @@ export interface AuthResponse {
 export interface AuthError {
   code: string;
   message: string;
-  details?: Record<string, string[]>;
+  details?: Record<string, any>;
+  timestamp: number;
+}
+
+export type ErrorSeverity = 'info' | 'warning' | 'error' | 'fatal';
+
+export interface EnhancedAuthError extends AuthError {
+  severity: ErrorSeverity;
+  handled: boolean;
+  retryCount?: number;
 }
 
 export interface Session {
@@ -198,4 +207,15 @@ export enum AuthActionType {
 export interface AuthAction {
   type: AuthActionType;
   payload: unknown;
+}
+
+export const ROLE_ROUTES = {
+  [AUTH_ROLES.SUPER_ADMIN]: '/super-admin/dashboard',
+  [AUTH_ROLES.SHELTER_ADMIN]: '/shelter-admin/dashboard',
+  [AUTH_ROLES.DONOR]: '/donor/dashboard',
+  [AUTH_ROLES.PARTICIPANT]: '/participant/dashboard'
+} as const;
+
+export function getRoleBasedRoute(role: AUTH_ROLES): string {
+  return ROLE_ROUTES[role] || '/dashboard';
 } 

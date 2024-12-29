@@ -1,5 +1,5 @@
 # 🌳 SHELTR Layouts Structure
-*Generated: 2024-12-27 23:17:38*
+*Generated: 2024-12-28 22:37:57*
 \n## Directory Structure
 ./src/layouts
 ├── base
@@ -7,6 +7,17 @@
 │   └── PageLayout.tsx
 ├── components
 │   └── Header.tsx
+├── dashboard
+│   ├── base
+│   │   └── UnifiedDashboard.tsx
+│   ├── navigation
+│   │   └── DashboardNavigation.tsx
+│   ├── roles
+│   │   ├── components
+│   │   └── RoleRouter.tsx
+│   └── shared
+│       ├── analytics
+│       └── DashboardShell.tsx
 ├── specialized
 │   └── dashboard
 │       ├── Sidebar
@@ -16,4 +27,4 @@
 ├── index.ts
 └── types.ts
 
-7 directories, 7 files
+14 directories, 11 files

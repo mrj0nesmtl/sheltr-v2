@@ -1,5 +1,5 @@
 # 🌳 SHELTR Source Structure
-*Generated: 2024-12-27 23:17:38*
+*Generated: 2024-12-28 22:37:57*
 \n## Directory Structure
 ./src
 ├── auth
@@ -226,6 +226,11 @@
 │   │   └── PageLayout.tsx
 │   ├── components
 │   │   └── Header.tsx
+│   ├── dashboard
+│   │   ├── base
+│   │   ├── navigation
+│   │   ├── roles
+│   │   └── shared
 │   ├── specialized
 │   │   └── dashboard
 │   ├── PageLayout.tsx
@@ -411,4 +416,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-149 directories, 260 files
+154 directories, 260 files

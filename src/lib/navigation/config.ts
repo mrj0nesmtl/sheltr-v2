@@ -23,15 +23,15 @@ export interface NavigationItem {
 // Public navigation
 export const mainNavigation: NavigationItem[] = [
   {
-    path: '/about',
-    label: 'nav.about',
-    icon: Info,
-    requiresAuth: false
-  },
-  {
     path: '/how-it-works',
     label: 'nav.howItWorks',
     icon: HelpCircle,
+    requiresAuth: false
+  },
+  {
+    path: '/solutions',
+    label: 'nav.solutions',
+    icon: Info,
     requiresAuth: false
   },
   {
@@ -88,6 +88,44 @@ export const dashboardNavigation = {
           icon: User
         }
       ]
+    }
+  ]
+}; 
+
+// Update footerNavigation to include About
+export const footerNavigation = {
+  company: [
+    {
+      label: 'footer.about',
+      path: '/about'
+    },
+    {
+      label: 'footer.blog',
+      path: '/blog'
+    }
+  ],
+  solutions: [
+    {
+      label: 'footer.howItWorks',
+      path: '/how-it-works'
+    },
+    {
+      label: 'footer.solutions',
+      path: '/solutions'
+    },
+    {
+      label: 'footer.scanDonate',
+      path: '/scan-donate'
+    }
+  ],
+  blockchain: [
+    {
+      label: 'footer.whitepaper',
+      path: '/whitepaper'
+    },
+    {
+      label: 'footer.transactions',
+      path: '/transactions'
     }
   ]
 }; 

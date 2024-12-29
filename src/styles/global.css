@@ -52,6 +52,37 @@
     @apply fixed inset-y-0 right-0 w-full max-w-sm shadow-xl;
     background-color: var(--bg-secondary);
   }
+
+  /* Card hover effects */
+  .hover\:shadow-indigo-500\/20:hover {
+    box-shadow: 0 20px 25px -5px rgb(99 102 241 / 0.1),
+                0 8px 10px -6px rgb(99 102 241 / 0.1);
+  }
+
+  .hover\:shadow-purple-500\/20:hover {
+    box-shadow: 0 20px 25px -5px rgb(168 85 247 / 0.1),
+                0 8px 10px -6px rgb(168 85 247 / 0.1);
+  }
+
+  .hover\:shadow-blue-500\/20:hover {
+    box-shadow: 0 20px 25px -5px rgb(59 130 246 / 0.1),
+                0 8px 10px -6px rgb(59 130 246 / 0.1);
+  }
+
+  .hover\:shadow-emerald-500\/20:hover {
+    box-shadow: 0 20px 25px -5px rgb(16 185 129 / 0.1),
+                0 8px 10px -6px rgb(16 185 129 / 0.1);
+  }
+
+  .hover\:shadow-rose-500\/20:hover {
+    box-shadow: 0 20px 25px -5px rgb(244 63 94 / 0.1),
+                0 8px 10px -6px rgb(244 63 94 / 0.1);
+  }
+
+  .hover\:shadow-amber-500\/20:hover {
+    box-shadow: 0 20px 25px -5px rgb(245 158 11 / 0.1),
+                0 8px 10px -6px rgb(245 158 11 / 0.1);
+  }
 }
 
 /* Base theme styles */
@@ -137,4 +168,66 @@ body {
 [data-theme="christmas"] {
   background-color: var(--bg-primary);
   color: var(--text-primary);
+}
+
+/* Override any default Lucide icon styles */
+.hero-icon-wrapper svg {
+  stroke: currentColor !important;
+  fill: none !important;
+}
+
+/* Specific icon colors */
+.hero-icon-wrapper svg.text-indigo-400 {
+  color: rgb(129 140 248) !important;
+}
+
+.hero-icon-wrapper svg.text-purple-400 {
+  color: rgb(192 132 252) !important;
+}
+
+.hero-icon-wrapper svg.text-blue-400 {
+  color: rgb(96 165 250) !important;
+}
+
+.hero-icon-wrapper svg.text-emerald-400 {
+  color: rgb(52 211 153) !important;
+}
+
+.hero-icon-wrapper svg.text-rose-400 {
+  color: rgb(251 113 133) !important;
+}
+
+.hero-icon-wrapper svg.text-amber-400 {
+  color: rgb(251 191 36) !important;
+}
+
+/* Target Lucide icons specifically */
+.lucide.lucide-heart {
+  color: rgb(129 140 248) !important;
+  stroke: rgb(129 140 248) !important;
+}
+
+.lucide.lucide-wallet {
+  color: rgb(192 132 252) !important;
+  stroke: rgb(192 132 252) !important;
+}
+
+.lucide.lucide-home {
+  color: rgb(96 165 250) !important;
+  stroke: rgb(96 165 250) !important;
+}
+
+.lucide.lucide-qr-code {
+  color: rgb(52 211 153) !important;
+  stroke: rgb(52 211 153) !important;
+}
+
+.lucide.lucide-shield {
+  color: rgb(251 113 133) !important;
+  stroke: rgb(251 113 133) !important;
+}
+
+.lucide.lucide-bar-chart {
+  color: rgb(251 191 36) !important;
+  stroke: rgb(251 191 36) !important;
 } 

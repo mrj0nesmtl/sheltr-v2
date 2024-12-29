@@ -1,5 +1,5 @@
 # 🌳 SHELTR Documentation Structure
-*Generated: 2024-12-27 23:17:38*
+*Generated: 2024-12-28 22:37:57*
 \n## Directory Structure
 ./public/docs
 ├── about
@@ -24,7 +24,6 @@
 │   │   ├── SHELTR Refactor Progress Assessment.ini
 │   │   ├── build_tract.md
 │   │   ├── buildout_implementation.md
-│   │   ├── changelog.md
 │   │   ├── checkpoint.md
 │   │   ├── dashboard.md
 │   │   ├── dashboard_arch.md
@@ -43,6 +42,7 @@
 │   │   └── user_flows.md
 │   ├── roadmap
 │   │   ├── 2024-12
+│   │   │   └── roadmap_12_22_2024.md
 │   │   └── README.md
 │   ├── status
 │   │   └── 2024-12
@@ -52,6 +52,7 @@
 │   ├── README.md
 │   ├── api.md
 │   ├── architecture.md
+│   ├── changelog.md
 │   ├── security.md
 │   └── technical.md
 ├── dev
@@ -62,7 +63,8 @@
 │   │   │   ├── critical-incident-dec25.md
 │   │   │   ├── refactor-assessment.md
 │   │   │   ├── status-dec22.md
-│   │   │   └── status-dec25.md
+│   │   │   ├── status-dec25.md
+│   │   │   └── success_metrics.md
 │   │   └── tree
 │   │       ├── archive
 │   │       ├── current
@@ -86,4 +88,4 @@
     ├── database.md
     └── qr-system.md
 
-25 directories, 59 files
+25 directories, 61 files

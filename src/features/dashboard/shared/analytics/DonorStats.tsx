@@ -1,5 +1,5 @@
 import { Calendar, DollarSign, Heart, TrendingUp } from 'lucide-react';
-import { cn } from '../../../lib/utils';
+import { cn } from '@/lib/utils';
 
 interface DonorStats {
   totalDonated: number;

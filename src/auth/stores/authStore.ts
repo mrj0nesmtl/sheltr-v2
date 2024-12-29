@@ -10,7 +10,9 @@ import {
   type ShelterAdminSignUpFormData,
   type AuthResponse,
   type LoginCredentials,
-  type AuthError
+  type AuthError,
+  type EnhancedAuthError,
+  type ErrorSeverity
 } from '@/types/core/auth';
 import { AUTH_ROLES } from '@/auth/types/auth.types';
 
@@ -30,6 +32,23 @@ const convertUser = (user: User | null): AuthUser | null => {
   };
 };
 
+interface SessionState {
+  status: 'idle' | 'authenticating' | 'authenticated' | 'error';
+  expiresAt: number | null;
+  lastChecked: number | null;
+}
+
+interface AuthState {
+  user: AuthUser | null;
+  role: AUTH_ROLES | null;
+  isLoading: boolean;
+  isAuthenticated: boolean;
+  error: EnhancedAuthError | null;
+  session: SessionState;
+  sessionError: EnhancedAuthError | null;
+  lastError: EnhancedAuthError | null;
+}
+
 interface AuthStore extends AuthState {
   setUser: (user: User | null) => void;
   setRole: (role: AUTH_ROLES) => void;
@@ -37,16 +56,41 @@ interface AuthStore extends AuthState {
   login: (credentials: LoginCredentials) => Promise<void>;
   refreshSession: () => Promise<void>;
   updateProfile: (data: Partial<User>) => Promise<void>;
+  handleError: (error: Error | AuthError, severity: ErrorSeverity) => void;
 }
+
+// Add session management utilities
+const SESSION_CHECK_INTERVAL = 4 * 60 * 1000; // 4 minutes
+const SESSION_REFRESH_THRESHOLD = 5 * 60 * 1000; // 5 minutes before expiry
+
+// Error handling utilities
+const createAuthError = (
+  error: Error | AuthError,
+  severity: ErrorSeverity = 'error'
+): EnhancedAuthError => ({
+  code: (error as AuthError).code || 'UNKNOWN_ERROR',
+  message: error.message,
+  details: (error as AuthError).details || {},
+  severity,
+  handled: false,
+  timestamp: Date.now()
+});
 
 export const useAuthStore = create<AuthStore>(
   persist(
-    (set) => ({
+    (set, get) => ({
       user: null,
       role: null,
       isLoading: true,
       isAuthenticated: false,
       error: null,
+      session: {
+        status: 'idle',
+        expiresAt: null,
+        lastChecked: null
+      },
+      sessionError: null,
+      lastError: null,
       
       setUser: (user) => set({ 
         user: convertUser(user),
@@ -64,7 +108,13 @@ export const useAuthStore = create<AuthStore>(
           user: null,
           role: null,
           isAuthenticated: false,
-          error: null
+          error: null,
+          sessionError: null,
+          session: {
+            status: 'idle',
+            expiresAt: null,
+            lastChecked: null
+          }
         });
       },
 
@@ -86,78 +136,92 @@ export const useAuthStore = create<AuthStore>(
       logout: async () => {
         try {
           const { error } = await supabase.auth.signOut();
-          if (error) throw error;
           
-          // Clear auth state but don't redirect
-          set({ 
-            user: null,
-            role: null,
-            isAuthenticated: false,
-            error: null,
-            session: null // Clear session
-          });
+          if (error) {
+            get().handleError(error, 'warning');
+            throw error;
+          }
+          
+          get().clearAuth();
         } catch (error) {
-          set({ error: (error as Error).message });
+          get().handleError(error as Error, 'error');
           throw error;
         }
       },
 
       login: async (credentials: LoginCredentials) => {
         try {
-          set({ isLoading: true, error: null });
+          set({ 
+            isLoading: true, 
+            error: null,
+            session: { ...get().session, status: 'authenticating' }
+          });
+
           const { data, error } = await supabase.auth.signInWithPassword(credentials);
           
-          if (error) throw error;
+          if (error) {
+            get().handleError(error, 'error');
+            throw error;
+          }
           
           if (data.user) {
-            // Store both user and session
             set({ 
               user: data.user as User,
               role: data.user.role as AUTH_ROLES,
               isAuthenticated: true,
               isLoading: false,
-              session: data.session // Add session storage
+              session: {
+                status: 'authenticated',
+                expiresAt: new Date(data.session!.expires_at!).getTime(),
+                lastChecked: Date.now()
+              },
+              error: null,
+              sessionError: null
             });
           }
         } catch (error) {
-          set({ 
-            error: (error as AuthError).message,
-            isLoading: false 
-          });
+          get().handleError(error as Error, 'error');
           throw error;
         }
       },
 
       refreshSession: async () => {
         try {
-          set({ isLoading: true });
+          set({ 
+            session: { ...get().session, status: 'authenticating' },
+            sessionError: null 
+          });
+
           const { data: { session }, error } = await supabase.auth.getSession();
           
-          if (error) throw error;
-          
-          if (session?.user) {
-            set({
-              user: session.user as User,
-              role: session.user.role as AUTH_ROLES,
-              isAuthenticated: true,
-              isLoading: false,
-              session // Store session
-            });
-          } else {
-            // No valid session found
-            set({
-              user: null,
-              role: null,
-              isAuthenticated: false,
-              isLoading: false,
-              session: null
-            });
+          if (error) {
+            get().handleError(error, 'warning');
+            throw error;
           }
-        } catch (error) {
-          set({ 
-            error: (error as AuthError).message,
-            isLoading: false 
+          
+          if (!session) {
+            get().handleError(
+              new Error('Session not found'), 
+              'warning'
+            );
+            get().clearAuth();
+            return;
+          }
+
+          set({
+            user: session.user as User,
+            role: session.user.role as AUTH_ROLES,
+            isAuthenticated: true,
+            session: {
+              status: 'authenticated',
+              expiresAt: new Date(session.expires_at!).getTime(),
+              lastChecked: Date.now()
+            },
+            error: null,
+            sessionError: null
           });
+        } catch (error) {
+          get().handleError(error as Error, 'error');
           throw error;
         }
       },
@@ -183,16 +247,61 @@ export const useAuthStore = create<AuthStore>(
           });
           throw error;
         }
-      }
+      },
+
+      // New method to check session validity
+      checkSession: async () => {
+        const state = get();
+        const now = Date.now();
+        
+        // Check if we need to refresh
+        if (
+          state.session.expiresAt && 
+          state.session.lastChecked &&
+          now - state.session.lastChecked < SESSION_CHECK_INTERVAL
+        ) {
+          return; // Skip if checked recently
+        }
+
+        // Check if session is expiring soon
+        if (
+          state.session.expiresAt && 
+          state.session.expiresAt - now < SESSION_REFRESH_THRESHOLD
+        ) {
+          await get().refreshSession();
+        }
+      },
+
+      handleError: (error: Error | AuthError, severity: ErrorSeverity = 'error') => {
+        const enhancedError = createAuthError(error, severity);
+        
+        set((state) => ({
+          error: enhancedError,
+          lastError: state.error,
+          isLoading: false,
+          session: {
+            ...state.session,
+            status: severity === 'fatal' ? 'error' : state.session.status
+          }
+        }));
+
+        // Handle fatal errors
+        if (severity === 'fatal') {
+          get().clearAuth();
+        }
+      },
     }),
     {
-      name: 'auth-storage', // storage key
+      name: 'auth-storage',
       partialize: (state) => ({
-        // Only persist these fields
         user: state.user,
         role: state.role,
         isAuthenticated: state.isAuthenticated,
-        session: state.session
+        session: {
+          status: state.session.status,
+          expiresAt: state.session.expiresAt
+        },
+        lastError: state.lastError // Store last error for debugging
       })
     }
   )
