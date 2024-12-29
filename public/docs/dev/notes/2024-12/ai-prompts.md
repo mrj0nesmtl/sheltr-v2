@@ -1,61 +1,56 @@
-# 🚀 SHELTR System Enhancement
+# 🚀 SHELTR Next Session Planning
 *December 29, 2024 09:00 EST*
 *Version: 0.5.2*
 
-## Project Context
-SHELTR platform continues its evolution following our successful system recovery. With 92% of core functionality restored and stable, we're now focusing on enhancing user experience and system reliability. The auth system is functional but needs refinement, while our dashboard and layout systems are ready for planned improvements.
-
-## Today's Focus
-1. Authentication Refinements
-   - Implement signOut functionality in UserNav dropdown
-   - Enhance session management
-   - Optimize role transitions
-   - Improve error handling
-
-2. Dashboard Navigation
-   - Reconnect sidebar menu links
-   - Implement role-based navigation
-   - Enhance menu structure
-   - Add error boundaries
-
-## 📊 System Status Overview
+## 🌟 Opening Context
 ```typescript
-interface SystemStatus {
-  auth: {
-    core: '✅ STABLE',
-    login: '🟡 ENHANCING',
-    session: '✅ FUNCTIONAL',
-    roles: '🟡 REFINING'
+interface ProjectContext {
+  status: "STABLE_ADVANCING",
+  phase: "DASHBOARD_ENHANCEMENT",
+  focus: "USER_EXPERIENCE",
+  priority: "ROLE_SPECIFIC_FEATURES"
+}
+```
+
+## 📖 Story So Far
+We've successfully stabilized SHELTR's core architecture, with authentication and base layouts now robust and reliable. Our Super Admin dashboard is fully functional, and we're ready to expand the platform's reach through role-specific experiences. The foundation is solid - now it's time to build the unique experiences that will make SHELTR truly impactful for each user type.
+
+## 🎯 Next Session Focus Areas
+
+### 1. Public Pages Enhancement
+```typescript
+interface PublicPages {
+  location: 'src/pages/public/*',
+  issues: ['Navigation links', 'Route consistency'],
+  priority: 'HIGH',
+  impact: 'User Acquisition'
+}
+```
+
+### 2. Role-Specific Dashboards
+```typescript
+interface DashboardImplementation {
+  donor: {
+    features: [
+      'Analytics dashboard',
+      'Donation history',
+      'Impact metrics',
+      'QR management'
+    ],
+    status: '🟡 IN_PROGRESS'
   },
-  dashboard: {
-    layout: '✅ STABLE',
-    navigation: '🟡 UPDATING',
-    components: '✅ FUNCTIONAL',
-    roles: '🟡 EXPANDING'
+  participant: {
+    features: [
+      'Resource access',
+      'Profile management',
+      'Service history',
+      'Need requests'
+    ],
+    status: '🔵 PLANNED'
   }
 }
 ```
-
-## 🎯 Implementation Priority
-
-### 1. UserNav Dropdown
-```typescript
-interface UserNavEnhancements {
-  signOut: {
-    status: '🟡 IMPLEMENTING',
-    component: 'UserNav.tsx',
-    location: 'src/components/Navigation/',
-    requirements: [
-      'Add signOut functionality',
-      'Handle session cleanup',
-      'Add loading state',
-      'Implement error handling'
-    ]
-  }
-}
-```
-
-### 2. Sidebar Navigation
+### 3. Sidebar Navigation
 ```typescript
 interface SidebarEnhancements {
   navigation: {
@@ -70,65 +65,114 @@ interface SidebarEnhancements {
     ]
   }
 }
-```
 
-## 📝 Implementation Strategy
-
-### Phase 1: UserNav Enhancement
-1. SignOut Implementation
-   - Add signOut function
-   - Implement session cleanup
-   - Add loading states
-   - Handle errors gracefully
-
-2. Session Management
-   - Verify token cleanup
-   - Clear local storage
-   - Handle redirect
-   - Update UI state
-
-### Phase 2: Sidebar Enhancement
-1. Navigation System
-   - Connect menu links
-   - Add role-based filtering
-   - Implement active states
-   - Add error boundaries
-
-## 📁 Critical Files
+## 📁 Key File Structure
 ```
 src/
-├── components/
-│   └── Navigation/
-│       └── UserNav.tsx         // 🎯 Primary Focus
-├── layouts/
-│   └── dashboard/
-│       └── Sidebar.tsx        // 🎯 Secondary Focus
-└── features/
-    └── auth/
-        └── authStore.ts       // ✅ Supporting
+├── features/
+│   ├── dashboard/
+│   │   ├── donor/
+│   │   │   ├── components/
+│   │   │   ├── analytics/
+│   │   │   └── forms/
+│   │   └── participant/
+│   │       ├── components/
+│   │       ├── profile/
+│   │       └── services/
+│   ├── analytics/
+│   │   ├── components/
+│   │   └── permissions/
+│   └── qr/
+│       ├── scanner/
+│       └── generator/
+└── pages/
+    ├── public/
+    ├── donor/
+    └── participant/
 ```
 
-## 📈 Success Metrics
-| Task | Current | Target | Priority |
-|------|---------|---------|----------|
-| SignOut | 🟡 0% | ✅ 100% | Critical |
-| Navigation | 🟡 50% | ✅ 100% | High |
-| Session | ✅ 90% | ✅ 100% | Medium |
-| Role Access | ✅ 85% | ✅ 100% | Medium |
+## 📚 Essential Documentation
+1. `public/docs/technical/`
+   - authentication.md
+   - build_tract.md
+   - analytics.md
+   - permissions.md
 
-## 🔄 Next Steps
-1. Implement SignOut
-2. Connect Navigation
-3. Enhance Role Access
-4. Update Documentation
+2. `public/docs/reference/`
+   - components.md
+   - types.md
+   - constants.md
 
-## 📚 Reference Documentation
-1. [authentication.md] - Auth implementation details
-2. [navigation.md] - Navigation system specs
-3. [components.md] - Component documentation
-4. [best-practices.md] - Development guidelines
+3. `public/docs/guides/`
+   - best-practices.md
+   - implementation.md
 
----
-*Session: Navigation Enhancement (Sprint 5.3)*
-*Project URL: http://localhost:5173*
-*Repository: github.com/mrj0nesmtl/sheltr-v2*
+## 🎯 Implementation Plan
+
+### Phase 1: Public Pages (Priority: High)
+1. Audit broken links
+2. Fix navigation issues
+3. Enhance error handling
+4. Update route protection
+
+### Phase 2: Dashboard Experiences (Priority: Critical)
+1. Donor Dashboard
+   - Analytics integration
+   - Donation tracking
+   - Impact visualization
+   - QR code management
+
+2. Participant Dashboard
+   - Service access
+   - Profile management
+   - Resource requests
+   - History tracking
+
+### Phase 3: Analytics & Security (Priority: High)
+1. Role-specific analytics
+2. Supabase permissions
+3. Data recording rules
+4. Security verification
+
+### Phase 4: Feature Activation (Priority: Medium)
+1. QR scanning system
+2. User registration
+3. Onboarding flows
+4. Role customization
+
+## 🎯 Next Session Goals
+1. Begin public pages audit
+2. Start donor dashboard implementation
+3. Configure analytics permissions
+4. Initialize QR code system
+
+## 💡 Key Considerations
+- Maintain type safety
+- Follow established patterns
+- Document new features
+- Test thoroughly
+- Keep security first
+
+## 🔄 Opening Prompt for Next Session
+```typescript
+const nextSessionPrompt = `
+@Claude I'm continuing development on the SHELTR platform. We've stabilized our core systems and are now focusing on role-specific experiences. Key files to reference:
+
+1. /public/docs/technical/build_tract.md
+2. /public/docs/reference/components.md
+3. /public/docs/guides/best-practices.md
+
+Today we're working on:
+1 - A few broken links on the public pages - nothing to serious.
+2 - implemetation of our new donor and participant dashboard experiences : tuned analytics, forms, feeds, profiles, settings... etc.
+3 - activate all dashboard analytic components or all user roles and verify and secure supabase tables and data recording permissions.
+4 - Activate QR code scaning
+5 - Customized each user roll dashboard experience and features.
+6 - Registration forms and User Onboarding
+
+Please help me maintain our established patterns while implementing new features.
+```
+
+*Next Session: Role-Specific Dashboard Implementation*
+*Focus: Donor Experience*
+*Status: READY TO PROCEED* ✅
