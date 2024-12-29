@@ -1,5 +1,5 @@
 # 🌳 SHELTR Project Structure
-*Generated: 2024-12-27 23:17:38*
+*Generated: 2024-12-28 22:37:57*
 *Version: 0.4.9*
 
 ## Table of Contents
@@ -11,7 +11,7 @@
 6. [Technical Structures](#technical-structures)
 
 \n---\n
-*Generated: 2024-12-27 23:17:38*
+*Generated: 2024-12-28 22:37:57*
 \n## Directory Structure
 ./src/auth
 ├── components
@@ -30,7 +30,7 @@
 
 6 directories, 8 files
 \n---\n
-*Generated: 2024-12-27 23:17:38*
+*Generated: 2024-12-28 22:37:57*
 \n## Directory Structure
 ./src/components
 ├── About
@@ -198,7 +198,7 @@
 
 48 directories, 115 files
 \n---\n
-*Generated: 2024-12-27 23:17:38*
+*Generated: 2024-12-28 22:37:57*
 \n## Directory Structure
 ./public/docs
 ├── about
@@ -223,7 +223,6 @@
 │   │   ├── SHELTR Refactor Progress Assessment.ini
 │   │   ├── build_tract.md
 │   │   ├── buildout_implementation.md
-│   │   ├── changelog.md
 │   │   ├── checkpoint.md
 │   │   ├── dashboard.md
 │   │   ├── dashboard_arch.md
@@ -242,6 +241,7 @@
 │   │   └── user_flows.md
 │   ├── roadmap
 │   │   ├── 2024-12
+│   │   │   └── roadmap_12_22_2024.md
 │   │   └── README.md
 │   ├── status
 │   │   └── 2024-12
@@ -251,6 +251,7 @@
 │   ├── README.md
 │   ├── api.md
 │   ├── architecture.md
+│   ├── changelog.md
 │   ├── security.md
 │   └── technical.md
 ├── dev
@@ -261,7 +262,8 @@
 │   │   │   ├── critical-incident-dec25.md
 │   │   │   ├── refactor-assessment.md
 │   │   │   ├── status-dec22.md
-│   │   │   └── status-dec25.md
+│   │   │   ├── status-dec25.md
+│   │   │   └── success_metrics.md
 │   │   └── tree
 │   │       ├── archive
 │   │       ├── current
@@ -285,9 +287,9 @@
     ├── database.md
     └── qr-system.md
 
-25 directories, 59 files
+25 directories, 61 files
 \n---\n
-*Generated: 2024-12-27 23:17:38*
+*Generated: 2024-12-28 22:37:57*
 \n## Directory Structure
 ./src/features
 ├── auth
@@ -344,7 +346,7 @@
 
 40 directories, 12 files
 \n---\n
-*Generated: 2024-12-27 23:17:38*
+*Generated: 2024-12-28 22:37:57*
 \n## Directory Structure
 ./src/layouts
 ├── base
@@ -352,6 +354,17 @@
 │   └── PageLayout.tsx
 ├── components
 │   └── Header.tsx
+├── dashboard
+│   ├── base
+│   │   └── UnifiedDashboard.tsx
+│   ├── navigation
+│   │   └── DashboardNavigation.tsx
+│   ├── roles
+│   │   ├── components
+│   │   └── RoleRouter.tsx
+│   └── shared
+│       ├── analytics
+│       └── DashboardShell.tsx
 ├── specialized
 │   └── dashboard
 │       ├── Sidebar
@@ -361,9 +374,9 @@
 ├── index.ts
 └── types.ts
 
-7 directories, 7 files
+14 directories, 11 files
 \n---\n
-*Generated: 2024-12-27 23:17:37*
+*Generated: 2024-12-28 22:37:57*
 \n## Directory Structure
 .
 ├── public
@@ -414,9 +427,7 @@
 │   └── config.toml
 ├── README.md
 ├── analyze.html
-├── database_analysis_export.md
 ├── eslint.config.js
-├── header_files.txt
 ├── index.html
 ├── layout_files.txt
 ├── package-lock.json
@@ -434,9 +445,9 @@
 ├── vercel.json
 └── vite.config.ts
 
-27 directories, 41 files
+27 directories, 39 files
 \n---\n
-*Generated: 2024-12-27 23:17:38*
+*Generated: 2024-12-28 22:37:57*
 \n## Directory Structure
 ./src/pages
 ├── About
@@ -498,7 +509,7 @@
 
 12 directories, 45 files
 \n---\n
-*Generated: 2024-12-27 23:17:38*
+*Generated: 2024-12-28 22:37:57*
 \n## Directory Structure
 ./src
 ├── auth
@@ -725,6 +736,11 @@
 │   │   └── PageLayout.tsx
 │   ├── components
 │   │   └── Header.tsx
+│   ├── dashboard
+│   │   ├── base
+│   │   ├── navigation
+│   │   ├── roles
+│   │   └── shared
 │   ├── specialized
 │   │   └── dashboard
 │   ├── PageLayout.tsx
@@ -910,4 +926,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-149 directories, 260 files
+154 directories, 260 files
