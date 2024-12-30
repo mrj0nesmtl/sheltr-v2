@@ -1,5 +1,5 @@
 import { mainNavigation } from '@/lib/navigation/config';
-import { Menu } from 'lucide-react';
+import { Menu, LogIn, UserPlus } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
@@ -7,6 +7,7 @@ import { Button } from '../ui/Button';
 import { Logo } from '../ui/Logo';
 import { useAuth } from '@/hooks/useAuth';
 import { getDashboardPath } from '@/lib/navigation/roleNavigation';
+import { cn } from '@/lib/utils';
 
 export function Navigation() {
   const { t } = useTranslation();
@@ -31,8 +32,13 @@ export function Navigation() {
               <Link
                 key={item.path}
                 to={item.path}
-                className="text-gray-300 hover:text-white text-sm font-medium"
+                className="flex items-center gap-2 text-gray-300 hover:text-white text-sm font-medium"
               >
+                {item.icon && (
+                  <item.icon 
+                    className={cn("w-4 h-4", item.iconClassName)} 
+                  />
+                )}
                 {t(item.label)}
               </Link>
             ))}
@@ -49,12 +55,14 @@ export function Navigation() {
             ) : (
               <>
                 <Link to="/login">
-                  <Button variant="ghost" className="text-gray-300 hover:text-white">
+                  <Button variant="ghost" className="text-gray-300 hover:text-white flex items-center gap-2">
+                    <LogIn className="w-4 h-4" />
                     {t('nav.login')}
                   </Button>
                 </Link>
                 <Link to="/signup">
-                  <Button className="bg-indigo-600 hover:bg-indigo-700 text-white">
+                  <Button className="bg-indigo-600 hover:bg-indigo-700 text-white flex items-center gap-2">
+                    <UserPlus className="w-4 h-4" />
                     {t('nav.signUp')}
                   </Button>
                 </Link>
@@ -80,9 +88,10 @@ export function Navigation() {
               <Link
                 key={item.path}
                 to={item.path}
-                className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 rounded-md"
+                className="flex items-center gap-2 px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 rounded-md"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
+                {item.icon && <item.icon className="w-4 h-4" />}
                 {t(item.label)}
               </Link>
             ))}
@@ -99,16 +108,18 @@ export function Navigation() {
                 <>
                   <Link
                     to="/login"
-                    className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 rounded-md"
+                    className="flex items-center gap-2 px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 rounded-md"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
+                    <LogIn className="w-4 h-4" />
                     {t('nav.login')}
                   </Link>
                   <Link
                     to="/signup"
-                    className="block px-3 py-2 mt-1 text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-md"
+                    className="flex items-center gap-2 px-3 py-2 mt-1 text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-md"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
+                    <UserPlus className="w-4 h-4" />
                     {t('nav.signUp')}
                   </Link>
                 </>

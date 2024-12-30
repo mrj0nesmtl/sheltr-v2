@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/Button';
 import { FeatureCard } from '@/components/ui/FeatureCard';
+import { PageBackground } from '@/components/ui/PageBackground';
 import { motion } from 'framer-motion';
 import {
     Database,
@@ -10,9 +11,11 @@ import {
     Wallet
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function HowItWorks() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const steps = [
     {
@@ -70,83 +73,97 @@ export default function HowItWorks() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-900">
-      {/* Hero Section */}
-      <div className="relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center"
-          >
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              How SHELTR Works
-            </h1>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              Our innovative platform combines blockchain technology with direct support to create lasting change in the lives of homeless individuals.
-            </p>
-          </motion.div>
-        </div>
-      </div>
+    <div className="relative min-h-screen bg-gray-900">
+      <PageBackground
+        imagePath="/images/backgrounds/how-it-works-bg.jpg"
+        alt={t('howItWorks.backgroundAlt')}
+        opacity={15}
+        overlay={true}
+        fadeHeight="75vh"
+      />
 
-      {/* Steps Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-          {steps.map((step, index) => (
-            <FeatureCard
-              key={index}
-              {...step}
-              delay={index * 0.2}
-            />
-          ))}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        {/* Hero Section */}
+        <div className="relative overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-center"
+            >
+              <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+                How SHELTR Works
+              </h1>
+              <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+                Our innovative platform combines blockchain technology with direct support to create lasting change in the lives of homeless individuals.
+              </p>
+            </motion.div>
+          </div>
         </div>
-      </div>
 
-      {/* Transparency Section */}
-      <div className="bg-gray-800/30 py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-3xl font-bold text-white text-center mb-16"
-          >
-            Transparency & Trust
-          </motion.h2>
-          <div className="grid gap-8 md:grid-cols-3">
-            {transparency.map((item, index) => (
+        {/* Steps Section */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+            {steps.map((step, index) => (
               <FeatureCard
                 key={index}
-                {...item}
+                {...step}
                 delay={index * 0.2}
               />
             ))}
           </div>
         </div>
-      </div>
 
-      {/* CTA Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-3xl font-bold text-white mb-4">
-            Ready to Make a Difference?
-          </h2>
-          <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
-            Join us in revolutionizing charitable giving and creating lasting impact.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button size="lg" className="bg-indigo-600 hover:bg-indigo-700">
-              Become a Donor
-            </Button>
-            <Button size="lg" variant="outline">
-              Partner with Us
-            </Button>
+        {/* Transparency Section */}
+        <div className="bg-gray-800/30 py-24">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-3xl font-bold text-white text-center mb-16"
+            >
+              Transparency & Trust
+            </motion.h2>
+            <div className="grid gap-8 md:grid-cols-3">
+              {transparency.map((item, index) => (
+                <FeatureCard
+                  key={index}
+                  {...item}
+                  delay={index * 0.2}
+                />
+              ))}
+            </div>
           </div>
-        </motion.div>
+        </div>
+
+        {/* CTA Section */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl font-bold text-white mb-4">
+              Ready to Make a Difference?
+            </h2>
+            <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
+              Join us in revolutionizing charitable giving and creating lasting impact.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link to="/signup">
+                <Button size="lg" className="bg-indigo-600 hover:bg-indigo-700">
+                  Become a Donor
+                </Button>
+              </Link>
+              <Link to="/solutions">
+                <Button size="lg" variant="outline">
+                  Partner with Us
+                </Button>
+              </Link>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </div>
   );

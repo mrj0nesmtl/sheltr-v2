@@ -7,7 +7,8 @@ import {
   BookOpen, 
   Newspaper,
   Music,
-  Video
+  Video,
+  Github
 } from 'lucide-react';
 
 export function Footer() {
@@ -18,46 +19,56 @@ export function Footer() {
     {
       icon: <Youtube className="h-5 w-5" />,
       url: 'https://youtube.com/@ArcanaConcept/shorts',
-      label: t('nav.footer.social.youtube')
+      label: t('nav.footer.social.youtube'),
+      hoverColor: 'hover:text-red-500'
     },
     {
       icon: <Linkedin className="h-5 w-5" />,
       url: 'https://www.linkedin.com/company/arcana-concept/',
-      label: t('nav.footer.social.linkedin')
+      label: t('nav.footer.social.linkedin'),
+      hoverColor: 'hover:text-blue-500'
     },
     {
       icon: <Video className="h-5 w-5" />,
       url: 'https://www.tiktok.com/@arcanaconcept',
-      label: t('nav.footer.social.tiktok')
+      label: t('nav.footer.social.tiktok'),
+      hoverColor: 'hover:text-pink-500'
     },
     {
       icon: <BookOpen className="h-5 w-5" />,
       url: 'https://www.arcanaconcept.com/blog',
-      label: t('nav.footer.social.website')
+      label: t('nav.footer.social.website'),
+      hoverColor: 'hover:text-purple-500'
     },
     {
       icon: <Newspaper className="h-5 w-5" />,
       url: 'https://substack.com/@arcanaconcept',
-      label: t('nav.footer.social.substack')
+      label: t('nav.footer.social.substack'),
+      hoverColor: 'hover:text-emerald-500'
     },
     {
       icon: <Music className="h-5 w-5" />,
       url: 'https://open.spotify.com/playlist/2OOwTrX6t82bCjAB0dSGYs',
-      label: t('nav.footer.podcast.listenOn')
+      label: t('nav.footer.podcast.listenOn'),
+      hoverColor: 'hover:text-green-500'
     }
   ];
+
+  const linkStyles = {
+    theHack: "text-gray-400 hover:text-indigo-400 transition-colors duration-200",
+    operations: "text-gray-400 hover:text-cyan-400 transition-colors duration-200",
+    blockchain: "text-gray-400 hover:text-purple-400 transition-colors duration-200"
+  };
 
   return (
     <footer className="w-full bg-gray-900 border-t border-gray-800">
       <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-          {/* Brand Section */}
           <div className="space-y-4">
             <Logo className="h-8 w-auto" />
             <p className="text-gray-400 text-sm">
               {t('nav.footer.tagline')}
             </p>
-            {/* Social Media Links */}
             <div className="flex space-x-4">
               {socialLinks.map((link, index) => (
                 <a
@@ -65,7 +76,7 @@ export function Footer() {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-white transition-colors duration-200"
+                  className={`text-gray-400 transition-colors duration-200 ${link.hoverColor}`}
                   aria-label={link.label}
                 >
                   {link.icon}
@@ -74,91 +85,81 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Solutions Links */}
           <div>
             <h3 className="text-white font-medium mb-3">
-              {t('nav.solutions_menu.title')}
+              The Hack
             </h3>
             <ul className="space-y-2">
               <li>
-                <Link 
-                  to="/how-it-works" 
-                  className="text-gray-400 hover:text-white transition-colors duration-200"
-                >
-                  {t('nav.footer.links.howItWorks')}
+                <Link to="/how-it-works" className={linkStyles.theHack}>
+                  How it Works
                 </Link>
               </li>
               <li>
-                <Link 
-                  to="/solutions" 
-                  className="text-gray-400 hover:text-white transition-colors duration-200"
-                >
-                  {t('nav.footer.links.solutions')}
+                <Link to="/solutions" className={linkStyles.theHack}>
+                  Our Solution
                 </Link>
               </li>
               <li>
-                <Link 
-                  to="/scan-donate" 
-                  className="text-gray-400 hover:text-white transition-colors duration-200"
-                >
-                  {t('nav.footer.links.scanDonate')}
+                <Link to="/scan-donate" className={linkStyles.theHack}>
+                  Scan Now
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Company Links */}
           <div>
             <h3 className="text-white font-medium mb-3">
-              {t('nav.company_menu.title')}
+              Operations
             </h3>
             <ul className="space-y-2">
               <li>
-                <Link 
-                  to="/about" 
-                  className="text-gray-400 hover:text-white transition-colors duration-200"
-                >
-                  {t('nav.company_menu.about')}
+                <Link to="/about" className={linkStyles.operations}>
+                  Whois
                 </Link>
               </li>
               <li>
-                <Link 
-                  to="/blog" 
-                  className="text-gray-400 hover:text-white transition-colors duration-200"
+                <a 
+                  href="https://github.com/mrj0nesmtl/sheltr-v2"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${linkStyles.operations} inline-flex items-center gap-1`}
                 >
-                  {t('nav.company_menu.blog')}
+                  Github <Github className="h-4 w-4" />
+                </a>
+              </li>
+              <li>
+                <Link to="/blog" className={linkStyles.operations}>
+                  Blog
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Blockchain Links */}
           <div>
             <h3 className="text-white font-medium mb-3">
-              {t('nav.blockchain.title')}
+              Blockchain
             </h3>
             <ul className="space-y-2">
               <li>
-                <Link 
-                  to="/whitepaper" 
-                  className="text-gray-400 hover:text-white transition-colors duration-200"
-                >
-                  {t('nav.blockchain.menu.whitepaper')}
+                <Link to="/whitepaper" className={linkStyles.blockchain}>
+                  Sheltr Whitepaper
                 </Link>
               </li>
               <li>
-                <Link 
-                  to="/transactions" 
-                  className="text-gray-400 hover:text-white transition-colors duration-200"
-                >
-                  {t('nav.blockchain.menu.transactions')}
+                <Link to="/token" className={linkStyles.blockchain}>
+                  $SHELTR
+                </Link>
+              </li>
+              <li>
+                <Link to="/transactions" className={linkStyles.blockchain}>
+                  Transactions
                 </Link>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Copyright */}
         <div className="pt-4 border-t border-gray-800">
           <p className="text-gray-400 text-sm text-center">
             © {currentYear} SHELTR

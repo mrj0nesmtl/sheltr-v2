@@ -1,12 +1,11 @@
 import { PageLayout } from '@/layouts';
-import { MetricCard, TechCard, SectionDivider } from './components';
+import { TechCard, SectionDivider } from './components';
 import { 
   BuildProgress,
   Contact,
   Documentation,
   Hero,
   Introduction,
-  Metrics,
   Overview,
   Technology
 } from './sections';
@@ -37,11 +36,7 @@ export default function About() {
               alt="Background" 
               className="w-full h-full object-cover opacity-50"
             />
-            <div 
-              className="absolute inset-0 bg-gradient-to-r 
-                from-gray-900/95 via-gray-900/90 to-gray-900/80 
-                backdrop-blur-[2px]" 
-            />
+            <div className="absolute inset-0 bg-gradient-to-r from-gray-900/95 via-gray-900/90 to-gray-900/80 backdrop-blur-[2px]" />
           </div>
 
           {/* Content */}
@@ -51,14 +46,12 @@ export default function About() {
             </h2>
             <Link 
               to="/how-it-works"
-              className="
-                inline-flex items-center gap-2 px-8 py-4 
+              className="inline-flex items-center gap-2 px-8 py-4 
                 bg-gradient-to-r from-indigo-600 to-purple-600 
                 hover:from-indigo-500 hover:to-purple-500
                 text-white font-semibold rounded-lg
                 transform transition-all duration-300
-                hover:scale-105 hover:shadow-xl hover:shadow-indigo-500/20
-              "
+                hover:scale-105 hover:shadow-xl hover:shadow-indigo-500/20"
             >
               <span>Discover How SHELTR Works</span>
               <svg 
@@ -79,15 +72,6 @@ export default function About() {
               Learn about our blockchain transparency, QR code donations, and AI-driven insights
             </p>
           </div>
-        </section>
-
-        {/* Live Metrics */}
-        <section>
-          <SectionDivider 
-            title="Live Project Metrics" 
-            subtitle="Real-time insights into our platform's performance and impact."
-          />
-          <Metrics />
         </section>
 
         {/* Technology */}

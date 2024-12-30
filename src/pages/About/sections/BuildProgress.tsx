@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import { GitBranch, GitCommit, GitPullRequest } from 'lucide-react';
 import { TechCard } from '../components/TechCard';
 
@@ -40,28 +39,15 @@ export function BuildProgress() {
   ];
 
   return (
-    <section className="py-20 px-4 bg-gray-800/30">
-      <div className="max-w-7xl mx-auto">
-        <motion.h2 
-          className="text-3xl md:text-4xl font-bold text-white text-center mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          Building in Public
-        </motion.h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {buildDocs.map((doc, index) => (
-            <TechCard 
-              key={doc.title}
-              {...doc}
-              delay={index * 0.2}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {buildDocs.map((doc, index) => (
+        <TechCard 
+          key={doc.title}
+          {...doc}
+          delay={index * 0.2}
+        />
+      ))}
+    </div>
   );
 }
 

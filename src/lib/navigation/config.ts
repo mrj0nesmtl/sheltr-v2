@@ -8,7 +8,9 @@ import {
     QrCode,
     Shield,
     Trophy,
-    User
+    User,
+    LayoutGrid,
+    BarChart
 } from 'lucide-react';
 
 export interface NavigationItem {
@@ -25,26 +27,26 @@ export const mainNavigation: NavigationItem[] = [
   {
     path: '/how-it-works',
     label: 'nav.howItWorks',
-    icon: HelpCircle,
-    requiresAuth: false
+    icon: Info,
+    iconClassName: 'text-blue-400'
   },
   {
     path: '/solutions',
     label: 'nav.solutions',
-    icon: Info,
-    requiresAuth: false
+    icon: LayoutGrid,
+    iconClassName: 'text-purple-400'
   },
   {
     path: '/scan-donate',
     label: 'nav.scanDonate',
     icon: QrCode,
-    requiresAuth: false
+    iconClassName: 'text-green-400'
   },
   {
     path: '/impact',
     label: 'nav.impact',
-    icon: BarChart3,
-    requiresAuth: false
+    icon: BarChart,
+    iconClassName: 'text-yellow-400'
   }
 ];
 

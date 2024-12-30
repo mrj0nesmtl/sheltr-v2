@@ -106,13 +106,35 @@ export function QRScanner({ className }: QRScannerProps) {
       "max-w-2xl mx-auto aspect-[4/3]",
       className
     )}>
-      {/* Scanner Container */}
-      <div 
-        id="qr-reader" 
-        className="w-full h-full bg-black/20 backdrop-blur-sm"
-      />
+      <div id="qr-reader" className="w-full h-full bg-black/20 backdrop-blur-sm" />
 
-      {/* Scanning Overlay */}
+      {/* Initial State - Updated for perfect vertical centering */}
+      {!isScanning && !error && (
+        <div className="absolute inset-0 flex flex-col justify-between p-8">
+          {/* Top text */}
+          <p className="text-gray-400 text-sm text-center">
+            Position the QR code within the frame. The scanner will automatically detect and process it.
+          </p>
+
+          {/* Centered Button */}
+          <div className="flex justify-center">
+            <Button
+              onClick={startScanner}
+              variant="default"
+              size="lg"
+              className="bg-indigo-600 hover:bg-indigo-500 transition-colors"
+            >
+              <Camera className="w-5 h-5 mr-2" />
+              <span>{t('qrScanner.startButton')}</span>
+            </Button>
+          </div>
+
+          {/* Empty div for spacing balance */}
+          <div className="h-[1.5rem]" />
+        </div>
+      )}
+
+      {/* Scanner Container */}
       {isScanning && !error && (
         <div className="absolute inset-0 pointer-events-none">
           {/* Scanner Frame */}
@@ -155,30 +177,6 @@ export function QRScanner({ className }: QRScannerProps) {
             <RefreshCw className="w-4 h-4" />
             <span>{t('qrScanner.retryButton')}</span>
           </Button>
-        </div>
-      )}
-
-      {/* Initial State */}
-      {!isScanning && !error && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center p-8 
-                      bg-gray-900/95 backdrop-blur-sm">
-          <div className="max-w-md text-center space-y-6">
-            <h3 className="text-xl font-semibold text-white">
-              {t('qrScanner.instructions')}
-            </h3>
-            <p className="text-gray-400 text-sm">
-              {t('qrScanner.instructionsDetail')}
-            </p>
-            <Button
-              onClick={startScanner}
-              variant="default"
-              size="lg"
-              className="flex items-center space-x-2"
-            >
-              <Camera className="w-5 h-5" />
-              <span>{t('qrScanner.startButton')}</span>
-            </Button>
-          </div>
         </div>
       )}
     </div>

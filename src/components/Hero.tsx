@@ -1,6 +1,7 @@
 import { ArrowRight, BarChart, Heart, Home, QrCode, Shield, Wallet } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { PageBackground } from './ui/PageBackground';
 
 export function Hero() {
   const { t } = useTranslation();
@@ -8,14 +9,12 @@ export function Hero() {
   return (
     <div className="flex flex-col min-h-[calc(100vh-4rem)]">
       <div className="relative flex-1">
-        <div className="absolute inset-0 z-0">
-          <img
-            src="https://images.unsplash.com/photo-1577415124269-fc1140a69e91?auto=format&fit=crop&q=80"
-            alt={t('hero.backgroundAlt')}
-            className="w-full h-full object-cover opacity-20"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-gray-900/50 to-gray-900" />
-        </div>
+        <PageBackground
+          imagePath="/images/backgrounds/hero-bg.jpg"
+          alt={t('hero.backgroundAlt')}
+          opacity={20}
+          overlay={true}
+        />
         
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="text-center mb-12">
@@ -27,8 +26,8 @@ export function Hero() {
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link
-                to="/scan"
-                className="rounded-md bg-indigo-600 px-6 py-3 text-lg font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                to="/scan-donate"
+                className="rounded-md bg-green-600 px-6 py-3 text-lg font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
               >
                 {t('hero.cta.scan')}
               </Link>
@@ -89,13 +88,13 @@ export function Hero() {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
-                to="/signup/donor"
+                to="/signup"
                 className="inline-flex items-center px-8 py-3 border border-transparent text-lg font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
               >
                 {t('common.cta.becomeDonor')} <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
               <Link
-                to="/signup/shelter"
+                to="/solutions"
                 className="inline-flex items-center px-8 py-3 border border-white text-lg font-medium rounded-md text-white hover:bg-white/10"
               >
                 {t('common.cta.partnerWithUs')} <ArrowRight className="ml-2 h-5 w-5" />
