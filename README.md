@@ -186,3 +186,32 @@ We welcome contributions! Current focus areas:
 **SHELTR V2** | [Website](https://sheltr.dev) | [Documentation](https://docs.sheltr.dev) | [Community](https://discord.gg/sheltr)
 
 </div>
+
+## 📚 Documentation
+
+| Category | Description | Links |
+|----------|-------------|-------|
+| 📖 About | Project overview and vision | [Roadmap](docs/about/roadmap.md) • [Whitepaper](docs/about/whitepaper_final.md) |
+| 🛠 Technical | Implementation details | [Authentication](docs/technical/authentication.md) • [Blockchain](docs/technical/blockchain.md) • [QR System](docs/technical/qr-system.md) • [Database](docs/technical/database.md) |
+| 🏗 Core | System architecture | [API](docs/core/api.md) • [Architecture](docs/core/architecture.md) • [Security](docs/core/security.md) • [Technical](docs/core/technical.md) |
+| 📘 Reference | Component documentation | [Components](docs/reference/components.md) • [Constants](docs/reference/constants.md) • [Types](docs/reference/types.md) |
+| 📋 Guides | Development guides | [Best Practices](docs/guides/best-practices.md) • [Deployment](docs/guides/deployment.md) |
+| 📝 Changelogs | Version history | [Latest Changes](docs/archives/changelogs/2024-12/changelog-0.4.8.md) |
+| ✅ Status | Project status | [Current Status](docs/project/status_report.md) • [Checkpoint](docs/project/checkpoint.md) |
+
+### 🔍 Quick Links
+
+- **For Developers**
+  - [Architecture Overview](docs/core/architecture.md)
+  - [API Documentation](docs/core/api.md)
+  - [Best Practices](docs/guides/best-practices.md)
+  - [Debugging Guide](docs/dev/debugging.md)
+
+- **For Contributors**
+  - [Project Roadmap](docs/about/roadmap.md)
+  - [Component Reference](docs/reference/components.md)
+  - [Type Definitions](docs/reference/types.md)
+
+- **For Deployment**
+  - [Deployment Guide](docs/guides/deployment.md)
+  - [Security Overview](docs/core/security.md)
