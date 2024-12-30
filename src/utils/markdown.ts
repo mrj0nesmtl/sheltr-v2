@@ -22,9 +22,10 @@ export const markdownFiles = {
   // Project documentation
   project: {
     statusReport: () => import('/docs/project/status_report.md?url&raw'),
-    buildTract: () => import('/docs/technical/build_tract.md?url&raw'),
+    roadmap: () => import('/docs/about/roadmap.md?url&raw'),
     checkpoint: () => import('/docs/project/checkpoint.md?url&raw')
-  }
+  },
+  readme: () => import('/README.md?url&raw')
 };
 
 // Parse markdown with frontmatter
@@ -59,11 +60,59 @@ export function parseFrontMatter(markdown: string): MarkdownData {
   }
 }
 
+// Add this helper function to clean up the README content
+function cleanReadmeContent(content: string): string {
+  // Remove the original build progress table section
+  return content.replace(
+    /### 📊 Build Progress \(Late Alpha\)[\s\S]*?(?=### 🎯 Recent Achievements)/,
+    ''
+  );
+}
+
+// Add interface for build progress data
+export interface BuildProgress {
+  component: string;
+  status: string;
+  progress: number;
+}
+
+// Add function to parse build progress from markdown content
+function parseBuildProgress(content: string): BuildProgress[] {
+  try {
+    // Find the build progress table section
+    const tableMatch = content.match(/### 📊 Build Progress \(Late Alpha\)([\s\S]*?)(?=###)/);
+    if (!tableMatch) return [];
+
+    const tableContent = tableMatch[1];
+    
+    // Parse the table rows
+    const rows = tableContent.match(/\|(.*?)\|(.*?)\|(.*?)\|/g);
+    if (!rows) return [];
+
+    // Convert rows to BuildProgress objects (skip header row)
+    return rows.slice(1).map(row => {
+      const [_, component, status, progress] = row.split('|').map(cell => cell.trim());
+      const progressNumber = parseInt(progress.match(/\d+/)?.[0] || '0');
+      
+      return {
+        component,
+        status: status.includes('STABLE') ? '✅ STABLE' :
+               status.includes('IN PROGRESS') ? '🟡 IN PROGRESS' :
+               '🔵 PLANNED',
+        progress: progressNumber
+      };
+    });
+  } catch (error) {
+    console.error('Error parsing build progress:', error);
+    return [];
+  }
+}
+
 // Load and parse markdown files
 export async function loadMarkdown(
   type: keyof typeof markdownFiles, 
   lang?: 'en' | 'fr'
-): Promise<MarkdownData> {
+): Promise<MarkdownData & { buildProgress?: BuildProgress[] }> {
   try {
     let content: string;
     
@@ -75,12 +124,25 @@ export async function loadMarkdown(
       content = module.default;
     }
 
-    return parseFrontMatter(content);
+    // Parse build progress if it's the readme file
+    const buildProgress = type === 'readme' ? parseBuildProgress(content) : undefined;
+
+    // Clean up README content
+    if (type === 'readme') {
+      content = cleanReadmeContent(content);
+    }
+
+    return {
+      content,
+      data: {},
+      buildProgress
+    };
   } catch (error) {
     console.error(`Error loading markdown: ${error}`);
     return {
       content: '',
-      data: {}
+      data: {},
+      buildProgress: []
     };
   }
 }
@@ -104,8 +166,8 @@ type ContentLoader = Record<SupportedLocale, () => Promise<typeof import('*?raw'
 
 const contentLoaders: Record<string, ContentLoader> = {
   about: {
-    en: () => import('@/content/about/en.md?raw'),
-    fr: () => import('@/content/about/fr.md?raw')
+    en: () => import('@/pages/About/content/sheltr_intro_eng.md?raw'),
+    fr: () => import('@/pages/About/content/shelter_intro_fr.md?raw')
   }
 };
 

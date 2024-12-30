@@ -1,5 +1,5 @@
 # 🌳 SHELTR Project Structure
-*Generated: 2024-12-28 22:37:57*
+*Generated: 2024-12-30 00:04:56*
 *Version: 0.4.9*
 
 ## Table of Contents
@@ -11,7 +11,7 @@
 6. [Technical Structures](#technical-structures)
 
 \n---\n
-*Generated: 2024-12-28 22:37:57*
+*Generated: 2024-12-30 00:04:56*
 \n## Directory Structure
 ./src/auth
 ├── components
@@ -30,7 +30,7 @@
 
 6 directories, 8 files
 \n---\n
-*Generated: 2024-12-28 22:37:57*
+*Generated: 2024-12-30 00:04:56*
 \n## Directory Structure
 ./src/components
 ├── About
@@ -47,11 +47,6 @@
 │   ├── ProjectStatus.tsx
 │   └── StatusCard.tsx
 ├── Admin
-│   ├── Analytics
-│   │   ├── ShelterMap.tsx
-│   │   ├── ShelterOverview.tsx
-│   │   ├── ShelterStats.tsx
-│   │   └── ShelterTable.tsx
 │   └── Shelters
 │       └── ShelterList.tsx
 ├── Auth
@@ -81,10 +76,6 @@
 ├── CustomerSupport
 │   ├── CustomerSupport.tsx
 │   └── index.ts
-├── Dashboard
-│   ├── Analytics
-│   ├── common
-│   └── widgets
 ├── Documentation
 │   ├── components
 │   │   ├── DocViewer.tsx
@@ -106,6 +97,8 @@
 ├── Footer
 │   ├── Footer.tsx
 │   └── index.ts
+├── Header
+│   └── Navigation.tsx
 ├── Hero
 │   └── Hero.tsx
 ├── HowItWorks
@@ -115,8 +108,6 @@
 ├── Legal
 │   ├── PrivacyPolicy.tsx
 │   └── TermsOfService.tsx
-├── Map
-│   └── DonationMap.tsx
 ├── Meta
 │   └── PageMeta.tsx
 ├── Navigation
@@ -124,7 +115,6 @@
 │   ├── Navigation.tsx
 │   ├── UserNav.tsx
 │   └── types.ts
-├── Participant
 ├── Podcast
 │   └── PodcastPreview.tsx
 ├── Profile
@@ -159,8 +149,6 @@
 │   └── index.ts
 ├── shared
 │   ├── analytics
-│   │   ├── DonationTrends.tsx
-│   │   ├── TransactionTable.tsx
 │   │   └── index.ts
 │   └── ui
 │       └── index.ts
@@ -183,6 +171,7 @@
 │   ├── LoadingSpinner.tsx
 │   ├── Logo.tsx
 │   ├── NavLink.tsx
+│   ├── PageBackground.tsx
 │   ├── ProfileMenu.tsx
 │   ├── QRCode.tsx
 │   ├── Select.tsx
@@ -196,9 +185,9 @@
 ├── Logo.tsx
 └── ThemeToggle.tsx
 
-48 directories, 115 files
+42 directories, 110 files
 \n---\n
-*Generated: 2024-12-28 22:37:57*
+*Generated: 2024-12-30 00:04:56*
 \n## Directory Structure
 ./public/docs
 ├── about
@@ -223,16 +212,15 @@
 │   │   ├── SHELTR Refactor Progress Assessment.ini
 │   │   ├── build_tract.md
 │   │   ├── buildout_implementation.md
+│   │   ├── changelog.md
 │   │   ├── checkpoint.md
 │   │   ├── dashboard.md
 │   │   ├── dashboard_arch.md
 │   │   ├── dec15-restructure.md
-│   │   ├── deployment.md
 │   │   ├── pages.md
 │   │   ├── prompt_1.md
 │   │   ├── prompt_2.md
 │   │   ├── prompt_3.md
-│   │   ├── rbac.md
 │   │   ├── roadmap.md
 │   │   ├── status_report.md
 │   │   ├── tech_stack.md
@@ -240,8 +228,6 @@
 │   │   ├── user_flow_testing.md
 │   │   └── user_flows.md
 │   ├── roadmap
-│   │   ├── 2024-12
-│   │   │   └── roadmap_12_22_2024.md
 │   │   └── README.md
 │   ├── status
 │   │   └── 2024-12
@@ -251,19 +237,14 @@
 │   ├── README.md
 │   ├── api.md
 │   ├── architecture.md
-│   ├── changelog.md
+│   ├── rbac.md
 │   ├── security.md
 │   └── technical.md
 ├── dev
 │   ├── notes
 │   │   ├── 2024-12
-│   │   │   ├── Prompt 2.md
 │   │   │   ├── ai-prompts.md
-│   │   │   ├── critical-incident-dec25.md
-│   │   │   ├── refactor-assessment.md
-│   │   │   ├── status-dec22.md
-│   │   │   ├── status-dec25.md
-│   │   │   └── success_metrics.md
+│   │   │   └── refactor-assessment.md
 │   │   └── tree
 │   │       ├── archive
 │   │       ├── current
@@ -287,9 +268,9 @@
     ├── database.md
     └── qr-system.md
 
-25 directories, 61 files
+24 directories, 54 files
 \n---\n
-*Generated: 2024-12-28 22:37:57*
+*Generated: 2024-12-30 00:04:56*
 \n## Directory Structure
 ./src/features
 ├── auth
@@ -300,8 +281,6 @@
 │   ├── utils
 │   └── index.ts
 ├── dashboard
-│   ├── components
-│   ├── hooks
 │   ├── layouts
 │   │   ├── participant
 │   │   ├── shelter
@@ -344,9 +323,9 @@
     ├── utils
     └── index.ts
 
-40 directories, 12 files
+38 directories, 12 files
 \n---\n
-*Generated: 2024-12-28 22:37:57*
+*Generated: 2024-12-30 00:04:56*
 \n## Directory Structure
 ./src/layouts
 ├── base
@@ -365,18 +344,13 @@
 │   └── shared
 │       ├── analytics
 │       └── DashboardShell.tsx
-├── specialized
-│   └── dashboard
-│       ├── Sidebar
-│       ├── components
-│       └── index.ts
 ├── PageLayout.tsx
 ├── index.ts
 └── types.ts
 
-14 directories, 11 files
+10 directories, 10 files
 \n---\n
-*Generated: 2024-12-28 22:37:57*
+*Generated: 2024-12-30 00:04:56*
 \n## Directory Structure
 .
 ├── public
@@ -447,7 +421,7 @@
 
 27 directories, 39 files
 \n---\n
-*Generated: 2024-12-28 22:37:57*
+*Generated: 2024-12-30 00:04:56*
 \n## Directory Structure
 ./src/pages
 ├── About
@@ -509,7 +483,7 @@
 
 12 directories, 45 files
 \n---\n
-*Generated: 2024-12-28 22:37:57*
+*Generated: 2024-12-30 00:04:56*
 \n## Directory Structure
 ./src
 ├── auth
@@ -543,7 +517,6 @@
 │   │   ├── ProjectStatus.tsx
 │   │   └── StatusCard.tsx
 │   ├── Admin
-│   │   ├── Analytics
 │   │   └── Shelters
 │   ├── Auth
 │   │   ├── forms
@@ -568,10 +541,6 @@
 │   ├── CustomerSupport
 │   │   ├── CustomerSupport.tsx
 │   │   └── index.ts
-│   ├── Dashboard
-│   │   ├── Analytics
-│   │   ├── common
-│   │   └── widgets
 │   ├── Documentation
 │   │   ├── components
 │   │   ├── pages
@@ -586,6 +555,8 @@
 │   ├── Footer
 │   │   ├── Footer.tsx
 │   │   └── index.ts
+│   ├── Header
+│   │   └── Navigation.tsx
 │   ├── Hero
 │   │   └── Hero.tsx
 │   ├── HowItWorks
@@ -595,8 +566,6 @@
 │   ├── Legal
 │   │   ├── PrivacyPolicy.tsx
 │   │   └── TermsOfService.tsx
-│   ├── Map
-│   │   └── DonationMap.tsx
 │   ├── Meta
 │   │   └── PageMeta.tsx
 │   ├── Navigation
@@ -604,7 +573,6 @@
 │   │   ├── Navigation.tsx
 │   │   ├── UserNav.tsx
 │   │   └── types.ts
-│   ├── Participant
 │   ├── Podcast
 │   │   └── PodcastPreview.tsx
 │   ├── Profile
@@ -659,6 +627,7 @@
 │   │   ├── LoadingSpinner.tsx
 │   │   ├── Logo.tsx
 │   │   ├── NavLink.tsx
+│   │   ├── PageBackground.tsx
 │   │   ├── ProfileMenu.tsx
 │   │   ├── QRCode.tsx
 │   │   ├── Select.tsx
@@ -678,9 +647,6 @@
 ├── constants
 │   └── podcast.ts
 ├── content
-│   ├── about
-│   │   ├── en.md
-│   │   └── fr.md
 │   ├── intro
 │   │   └── en.md
 │   ├── project
@@ -700,8 +666,6 @@
 │   │   ├── utils
 │   │   └── index.ts
 │   ├── dashboard
-│   │   ├── components
-│   │   ├── hooks
 │   │   ├── layouts
 │   │   ├── roles
 │   │   ├── shared
@@ -741,8 +705,6 @@
 │   │   ├── navigation
 │   │   ├── roles
 │   │   └── shared
-│   ├── specialized
-│   │   └── dashboard
 │   ├── PageLayout.tsx
 │   ├── index.ts
 │   └── types.ts
@@ -926,4 +888,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-154 directories, 260 files
+143 directories, 259 files

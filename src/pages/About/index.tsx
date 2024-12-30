@@ -1,14 +1,5 @@
 import { PageLayout } from '@/layouts';
-import { TechCard, SectionDivider } from './components';
-import { 
-  BuildProgress,
-  Contact,
-  Documentation,
-  Hero,
-  Introduction,
-  Overview,
-  Technology
-} from './sections';
+import { Hero, Introduction } from './sections';
 import { Link } from 'react-router-dom';
 
 // Use direct path since image is in public folder
@@ -27,7 +18,7 @@ export default function About() {
         {/* Mission & Vision */}
         <Introduction />
 
-        {/* How It Works CTA with background image */}
+        {/* How It Works CTA with background image - Updated to point to Wiki */}
         <section className="relative my-16 rounded-2xl overflow-hidden min-h-[300px]">
           {/* Background image with overlay */}
           <div className="absolute inset-0 w-full h-full">
@@ -45,7 +36,7 @@ export default function About() {
               Want to know how it all works?
             </h2>
             <Link 
-              to="/how-it-works"
+              to="/wiki"
               className="inline-flex items-center gap-2 px-8 py-4 
                 bg-gradient-to-r from-indigo-600 to-purple-600 
                 hover:from-indigo-500 hover:to-purple-500
@@ -53,7 +44,7 @@ export default function About() {
                 transform transition-all duration-300
                 hover:scale-105 hover:shadow-xl hover:shadow-indigo-500/20"
             >
-              <span>Discover How SHELTR Works</span>
+              <span>View Our Development Progress</span>
               <svg 
                 className="w-5 h-5" 
                 fill="none" 
@@ -72,42 +63,6 @@ export default function About() {
               Learn about our blockchain transparency, QR code donations, and AI-driven insights
             </p>
           </div>
-        </section>
-
-        {/* Technology */}
-        <section>
-          <SectionDivider 
-            title="Technology Stack" 
-            subtitle="Built with modern tools for scalability, security, and performance."
-          />
-          <Technology />
-        </section>
-
-        {/* Build Progress */}
-        <section>
-          <SectionDivider 
-            title="Building in Public" 
-            subtitle="Follow our journey as we develop SHELTR openly and transparently."
-          />
-          <BuildProgress />
-        </section>
-
-        {/* Documentation */}
-        <section>
-          <SectionDivider 
-            title="Documentation & Resources" 
-            subtitle="Everything you need to understand and contribute to SHELTR."
-          />
-          <Documentation />
-        </section>
-
-        {/* Contact */}
-        <section>
-          <SectionDivider 
-            title="Get in Touch" 
-            subtitle="Join us in our mission to hack homelessness."
-          />
-          <Contact />
         </section>
       </div>
     </PageLayout>

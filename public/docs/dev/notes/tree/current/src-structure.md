@@ -1,5 +1,5 @@
 # 🌳 SHELTR Source Structure
-*Generated: 2024-12-28 22:37:57*
+*Generated: 2024-12-30 00:04:56*
 \n## Directory Structure
 ./src
 ├── auth
@@ -33,7 +33,6 @@
 │   │   ├── ProjectStatus.tsx
 │   │   └── StatusCard.tsx
 │   ├── Admin
-│   │   ├── Analytics
 │   │   └── Shelters
 │   ├── Auth
 │   │   ├── forms
@@ -58,10 +57,6 @@
 │   ├── CustomerSupport
 │   │   ├── CustomerSupport.tsx
 │   │   └── index.ts
-│   ├── Dashboard
-│   │   ├── Analytics
-│   │   ├── common
-│   │   └── widgets
 │   ├── Documentation
 │   │   ├── components
 │   │   ├── pages
@@ -76,6 +71,8 @@
 │   ├── Footer
 │   │   ├── Footer.tsx
 │   │   └── index.ts
+│   ├── Header
+│   │   └── Navigation.tsx
 │   ├── Hero
 │   │   └── Hero.tsx
 │   ├── HowItWorks
@@ -85,8 +82,6 @@
 │   ├── Legal
 │   │   ├── PrivacyPolicy.tsx
 │   │   └── TermsOfService.tsx
-│   ├── Map
-│   │   └── DonationMap.tsx
 │   ├── Meta
 │   │   └── PageMeta.tsx
 │   ├── Navigation
@@ -94,7 +89,6 @@
 │   │   ├── Navigation.tsx
 │   │   ├── UserNav.tsx
 │   │   └── types.ts
-│   ├── Participant
 │   ├── Podcast
 │   │   └── PodcastPreview.tsx
 │   ├── Profile
@@ -149,6 +143,7 @@
 │   │   ├── LoadingSpinner.tsx
 │   │   ├── Logo.tsx
 │   │   ├── NavLink.tsx
+│   │   ├── PageBackground.tsx
 │   │   ├── ProfileMenu.tsx
 │   │   ├── QRCode.tsx
 │   │   ├── Select.tsx
@@ -168,9 +163,6 @@
 ├── constants
 │   └── podcast.ts
 ├── content
-│   ├── about
-│   │   ├── en.md
-│   │   └── fr.md
 │   ├── intro
 │   │   └── en.md
 │   ├── project
@@ -190,8 +182,6 @@
 │   │   ├── utils
 │   │   └── index.ts
 │   ├── dashboard
-│   │   ├── components
-│   │   ├── hooks
 │   │   ├── layouts
 │   │   ├── roles
 │   │   ├── shared
@@ -231,8 +221,6 @@
 │   │   ├── navigation
 │   │   ├── roles
 │   │   └── shared
-│   ├── specialized
-│   │   └── dashboard
 │   ├── PageLayout.tsx
 │   ├── index.ts
 │   └── types.ts
@@ -416,4 +404,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-154 directories, 260 files
+143 directories, 259 files

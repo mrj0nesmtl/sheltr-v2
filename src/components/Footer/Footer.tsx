@@ -165,6 +165,15 @@ export function Footer() {
             © {currentYear} SHELTR
           </p>
         </div>
+
+        <div className="mt-8 text-center">
+          <Link 
+            to="/wiki" 
+            className="text-gray-400 hover:text-white transition-colors"
+          >
+            📚 Project Wiki
+          </Link>
+        </div>
       </div>
     </footer>
   );

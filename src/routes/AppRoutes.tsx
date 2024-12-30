@@ -13,6 +13,7 @@ import HowItWorks from '@/pages/HowItWorks';
 import ScanDonatePage from '@/pages/ScanDonatePage';
 import Impact from '@/pages/Impact';
 import About from '@/pages/About';
+import Wiki from '@/pages/Wiki/Wiki';
 
 const AppRoutes = () => {
   const { role } = useAuthStore();
@@ -28,6 +29,7 @@ const AppRoutes = () => {
       <Route path="/scan-donate" element={<ScanDonatePage />} />
       <Route path="/impact" element={<Impact />} />
       <Route path="/about" element={<About />} />
+      <Route path="/wiki" element={<Wiki />} />
       
       {/* Protected dashboard routes */}
       <Route

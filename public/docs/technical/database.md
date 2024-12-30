@@ -1,7 +1,7 @@
 export PGHOST=db.oinjrlzuc1zztdstagqg.supabase.co
 export PGDATABASE=postgres
 export PGUSER=postgres
-export PGPASSWORD='Tc2mcfoPGGsHA8GD&'
+export PGPASSWORD='xxxxxxxxxxxxx'
 psql
 
 

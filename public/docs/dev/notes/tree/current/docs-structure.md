@@ -1,5 +1,5 @@
 # 🌳 SHELTR Documentation Structure
-*Generated: 2024-12-28 22:37:57*
+*Generated: 2024-12-30 00:04:56*
 \n## Directory Structure
 ./public/docs
 ├── about
@@ -24,16 +24,15 @@
 │   │   ├── SHELTR Refactor Progress Assessment.ini
 │   │   ├── build_tract.md
 │   │   ├── buildout_implementation.md
+│   │   ├── changelog.md
 │   │   ├── checkpoint.md
 │   │   ├── dashboard.md
 │   │   ├── dashboard_arch.md
 │   │   ├── dec15-restructure.md
-│   │   ├── deployment.md
 │   │   ├── pages.md
 │   │   ├── prompt_1.md
 │   │   ├── prompt_2.md
 │   │   ├── prompt_3.md
-│   │   ├── rbac.md
 │   │   ├── roadmap.md
 │   │   ├── status_report.md
 │   │   ├── tech_stack.md
@@ -41,8 +40,6 @@
 │   │   ├── user_flow_testing.md
 │   │   └── user_flows.md
 │   ├── roadmap
-│   │   ├── 2024-12
-│   │   │   └── roadmap_12_22_2024.md
 │   │   └── README.md
 │   ├── status
 │   │   └── 2024-12
@@ -52,19 +49,14 @@
 │   ├── README.md
 │   ├── api.md
 │   ├── architecture.md
-│   ├── changelog.md
+│   ├── rbac.md
 │   ├── security.md
 │   └── technical.md
 ├── dev
 │   ├── notes
 │   │   ├── 2024-12
-│   │   │   ├── Prompt 2.md
 │   │   │   ├── ai-prompts.md
-│   │   │   ├── critical-incident-dec25.md
-│   │   │   ├── refactor-assessment.md
-│   │   │   ├── status-dec22.md
-│   │   │   ├── status-dec25.md
-│   │   │   └── success_metrics.md
+│   │   │   └── refactor-assessment.md
 │   │   └── tree
 │   │       ├── archive
 │   │       ├── current
@@ -88,4 +80,4 @@
     ├── database.md
     └── qr-system.md
 
-25 directories, 61 files
+24 directories, 54 files

@@ -10,7 +10,7 @@ SHELTR's API provides secure, role-based endpoints for donation management, user
 ```typescript
 interface APIConfig {
   endpoints: {
-   production: 'https://sheltr.replit.app',
+   production: 'https://sheltr-ops.replit.app',
    development: 'http://localhost:5173'
   },
   version: 'v1',
