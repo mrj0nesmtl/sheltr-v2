@@ -1,6 +1,8 @@
 import { PageLayout } from '@/layouts';
 import { Hero, Introduction } from './sections';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { PageBackground } from '@/components/ui/PageBackground';
 
 // Use direct path since image is in public folder
 const homelessPersonBench = '/images/homeless-person-bench.jpg';
@@ -8,11 +10,37 @@ const homelessPersonBench = '/images/homeless-person-bench.jpg';
 export default function About() {
   return (
     <PageLayout>
-      <div className="container mx-auto px-4 space-y-24">
-        {/* Hero with gradient overlay */}
-        <div className="relative">
-          <div className="absolute inset-0 bg-gradient-to-b from-gray-900/0 via-gray-900 to-gray-900/0 pointer-events-none" />
-          <Hero />
+      <div className="relative">
+        <PageBackground
+          imagePath="/images/backgrounds/about-bg.jpg"
+          alt="About SHELTR Background"
+          opacity={30}
+          overlay={true}
+          fadeHeight="75vh"
+        />
+        <div 
+          className="absolute inset-0 bg-gray-900/30 z-[1]"
+          aria-hidden="true"
+        />
+      </div>
+
+      <div className="container mx-auto px-4 space-y-24 relative z-10">
+        {/* Hero Section */}
+        <div className="relative overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-center"
+            >
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8">
+                About SHELTR
+              </h1>
+              <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
+                Hacking Homelessness with technology and transparency
+              </p>
+            </motion.div>
+          </div>
         </div>
 
         {/* Mission & Vision */}

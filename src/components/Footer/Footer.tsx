@@ -48,7 +48,7 @@ export function Footer() {
     },
     {
       icon: <Music className="h-5 w-5" />,
-      url: 'https://open.spotify.com/playlist/2OOwTrX6t82bCjAB0dSGYs',
+      url: 'https://open.spotify.com/show/3Q2RpnzF9sUv26yPMP9tWI',
       label: t('nav.footer.podcast.listenOn'),
       hoverColor: 'hover:text-green-500'
     }

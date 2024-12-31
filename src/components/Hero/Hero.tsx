@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/Button';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Heart, Wallet, Home, QrCode, Shield, BarChart3 } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export function Hero() {
   const { t } = useTranslation();
@@ -72,87 +73,19 @@ export function Hero() {
 
   return (
     <div className="relative overflow-hidden">
-      <div className="container mx-auto px-4 py-16">
-        <h1 className="text-4xl font-bold mb-4">
-          {t('hero.title')}
-        </h1>
-        <Button
-          variant="outline"
-          size="lg"
-          asChild
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center"
         >
-          <Link to="/blockchain/whitepaper">
-            <Icon name="file-text" className="mr-2 h-5 w-5" />
-            {t('hero.readWhitepaper')}
-          </Link>
-        </Button>
-
-        {/* Feature Cards Grid */}
-        <div className="grid gap-8 md:grid-cols-3 mt-16">
-          {features.map((feature, index) => {
-            const Icon = feature.icon;
-            return (
-              <div 
-                key={index} 
-                className={`
-                  relative p-6 rounded-2xl 
-                  bg-gray-800/30 backdrop-blur-lg
-                  border border-gray-700/50
-                  transition-all duration-500 ease-out
-                  hover:bg-gray-800/50
-                  hover:-translate-y-1 hover:scale-[1.02]
-                  hover:shadow-2xl
-                  ${feature.styles.glow}
-                  ${feature.styles.border}
-                  group
-                  cursor-pointer
-                `}
-              >
-                {/* Glow effect */}
-                <div className={`
-                  absolute inset-0 rounded-2xl opacity-0 
-                  group-hover:opacity-100 transition-opacity duration-500
-                  ${feature.styles.bg} blur-xl -z-10
-                `} />
-                
-                <div 
-                  className={`
-                    inline-flex p-3 rounded-lg mb-4
-                    ${feature.styles.bg}
-                    transform transition-all duration-500
-                    group-hover:scale-110 group-hover:rotate-3
-                    ring-1 ring-white/10 group-hover:ring-white/20
-                  `}
-                >
-                  <Icon 
-                    className={`
-                      w-6 h-6 ${feature.styles.icon}
-                      transition-all duration-500
-                      group-hover:animate-pulse
-                      group-hover:scale-110
-                    `}
-                  />
-                </div>
-                <h3 className="
-                  text-lg font-semibold text-white mb-2
-                  transition-all duration-500
-                  group-hover:text-opacity-100
-                  group-hover:translate-x-1
-                ">
-                  {feature.title}
-                </h3>
-                <p className="
-                  text-gray-400
-                  transition-all duration-500
-                  group-hover:text-gray-300
-                  group-hover:translate-x-1
-                ">
-                  {feature.description}
-                </p>
-              </div>
-            );
-          })}
-        </div>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8">
+            {t('hero.title')}
+          </h1>
+          <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
+            {t('hero.description')}
+          </p>
+        </motion.div>
       </div>
     </div>
   );

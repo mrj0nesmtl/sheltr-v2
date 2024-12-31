@@ -1,14 +1,40 @@
 import { Icon } from '@/components/ui/Icon';
-import { blogPosts } from '@/lib/content/blog/posts';
+import { getBlogPost } from '@/lib/api/blogApi';
 import { formatDate } from '@/lib/utils';
 import { Helmet } from 'react-helmet-async';
 import ReactMarkdown from 'react-markdown';
 import { Link, useParams } from 'react-router-dom';
 import remarkGfm from 'remark-gfm';
+import { useState, useEffect } from 'react';
 
 export function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
-  const post = blogPosts.find((p) => p.slug === slug);
+  const [post, setPost] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function loadPost() {
+      try {
+        const data = await getBlogPost(slug!);
+        setPost(data);
+      } catch (err) {
+        console.error('Error loading blog post:', err);
+        setError('Failed to load blog post');
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadPost();
+  }, [slug]);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-[200px]">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
+      </div>
+    );
+  }
 
   if (!post) {
     return (

@@ -15,4 +15,4 @@ export interface BlogPost {
   content: string;
   categories: string[];
   image: string;
-} 
+}

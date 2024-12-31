@@ -91,10 +91,10 @@ export default function HowItWorks() {
               animate={{ opacity: 1, y: 0 }}
               className="text-center"
             >
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8">
                 How SHELTR Works
               </h1>
-              <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+              <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
                 Our innovative platform combines blockchain technology with direct support to create lasting change in the lives of homeless individuals.
               </p>
             </motion.div>
