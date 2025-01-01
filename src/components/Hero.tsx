@@ -2,6 +2,7 @@ import { ArrowRight, BarChart, Heart, Home, QrCode, Shield, Wallet } from 'lucid
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { PageBackground } from './ui/PageBackground';
+import { motion } from 'framer-motion';
 
 export function Hero() {
   const { t } = useTranslation();
@@ -17,26 +18,34 @@ export function Hero() {
         />
         
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-white sm:text-5xl mb-6">
-              {t('hero.title')}
-            </h1>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              {t('hero.subtitle')}
-            </p>
-            <div className="mt-10 flex items-center justify-center gap-x-6">
-              <Link
-                to="/scan-donate"
-                className="rounded-md bg-green-600 px-6 py-3 text-lg font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+          <div className="relative overflow-hidden">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-center"
               >
-                {t('hero.cta.scan')}
-              </Link>
-              <Link
-                to="/how-it-works"
-                className="text-lg font-semibold leading-6 text-white hover:text-indigo-200"
-              >
-                {t('hero.cta.learnMore')} <span aria-hidden="true">→</span>
-              </Link>
+                <h1 className="text-4xl font-bold text-white sm:text-5xl mb-6">
+                  {t('hero.title')}
+                </h1>
+                <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-10">
+                  {t('hero.subtitle')}
+                </p>
+                <div className="flex items-center justify-center gap-x-6">
+                  <Link
+                    to="/scan-donate"
+                    className="rounded-md bg-green-600 px-6 py-3 text-lg font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+                  >
+                    {t('hero.cta.scan')}
+                  </Link>
+                  <Link
+                    to="/how-it-works"
+                    className="text-lg font-semibold leading-6 text-white hover:text-indigo-200"
+                  >
+                    {t('hero.cta.learnMore')} <span aria-hidden="true">→</span>
+                  </Link>
+                </div>
+              </motion.div>
             </div>
           </div>
 
