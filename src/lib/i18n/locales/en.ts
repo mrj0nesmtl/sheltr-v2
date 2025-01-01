@@ -153,7 +153,7 @@ export const en: Translations = {
     },
     footer: {
       copyright: '© {{year}} SHELTR. All rights reserved.',
-      tagline: 'We are hacking homelessness. 🏴‍☠️',
+      tagline: 'We are hacking homelessness.',
       quickLinks: 'Quick Links',
       resources: 'Resources',
       connect: 'Connect',

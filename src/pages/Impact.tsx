@@ -78,9 +78,10 @@ export default function Impact() {
   return (
     <div className="min-h-screen bg-gray-900">
       <PageBackground
-        imagePath="/images/backgrounds/impact-bg.jpg"
+        imagePath="public/images/backgrounds/imapct-bg.jpg"
         opacity={15}
         fadeHeight="75vh"
+        alt="Impact Background"
       />
       
       {/* Hero Section */}

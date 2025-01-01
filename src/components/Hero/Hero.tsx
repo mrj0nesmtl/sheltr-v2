@@ -21,7 +21,7 @@ export function Hero() {
     },
     {
       title: 'Smart Allocation',
-      description: 'Funds are automatically distributed: 80% for immediate needs, 15% for housing, and 5% for operations.',
+      description: 'Funds are algorithmically distributed: 80% for immediate needs, 15% for housing, and 5% for operations.',
       icon: Wallet,
       styles: {
         icon: 'text-purple-400',

@@ -95,7 +95,7 @@ export default function HowItWorks() {
                 How SHELTR Works
               </h1>
               <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
-                Our innovative platform combines blockchain technology with direct support to create lasting change in the lives of homeless individuals.
+                Our innovative platform combines blockchain technology with direct funding support to create lasting change in the lives of homeless individuals.
               </p>
             </motion.div>
           </div>
