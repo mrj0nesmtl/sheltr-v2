@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Logo } from '../ui/Logo';
+import { PodcastPreview } from '../Podcast/PodcastPreview';
 import { 
   Youtube, 
   Linkedin, 
@@ -46,12 +47,7 @@ export function Footer() {
       label: t('nav.footer.social.substack'),
       hoverColor: 'hover:text-emerald-500'
     },
-    {
-      icon: <Music className="h-5 w-5" />,
-      url: 'https://open.spotify.com/show/3Q2RpnzF9sUv26yPMP9tWI',
-      label: t('nav.footer.podcast.listenOn'),
-      hoverColor: 'hover:text-green-500'
-    }
+   
   ];
 
   const linkStyles = {
@@ -63,7 +59,7 @@ export function Footer() {
   return (
     <footer className="w-full bg-gray-900 border-t border-gray-800">
       <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-8 mb-8">
           <div className="space-y-4">
             <Logo className="h-8 w-auto" />
             <p className="text-gray-400 text-sm">
@@ -120,7 +116,7 @@ export function Footer() {
               </li>
               <li>
                 <a 
-                  href="https://github.com/mrj0nesmtl/sheltr-v2"
+                  href="https://github.com/mrj0nesmtl/sheltr-v2/blob/main/README.md"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`${linkStyles.operations} inline-flex items-center gap-1`}
@@ -158,11 +154,18 @@ export function Footer() {
               </li>
             </ul>
           </div>
+
+          <div>
+            <h3 className="text-white font-medium mb-3">
+              Listen on Spotify 🎧 
+            </h3>
+            <PodcastPreview />
+          </div>
         </div>
 
         <div className="pt-4 border-t border-gray-800">
           <p className="text-gray-400 text-sm text-center">
-            © {currentYear} SHELTR
+            © {currentYear} SHELTR Ops.
           </p>
         </div>
 
@@ -171,7 +174,7 @@ export function Footer() {
             to="/wiki" 
             className="text-gray-400 hover:text-white transition-colors"
           >
-            📚 Project Wiki
+            📚 Sheltr Wiki
           </Link>
         </div>
       </div>
