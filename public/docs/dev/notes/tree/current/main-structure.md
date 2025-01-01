@@ -1,12 +1,13 @@
 # 🌳 SHELTR Main Structure
-*Generated: 2024-12-30 00:04:56*
+*Generated: 2024-12-31 22:34:10*
 \n## Directory Structure
 .
 ├── public
 │   ├── content
 │   ├── docs
 │   ├── images
-│   └── index.html
+│   ├── index.html
+│   └── manifest.json
 ├── scripts
 │   ├── analyze-errors.js
 │   ├── archive-docs.ts
@@ -68,4 +69,4 @@
 ├── vercel.json
 └── vite.config.ts
 
-27 directories, 39 files
+27 directories, 40 files

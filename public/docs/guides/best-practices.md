@@ -1,5 +1,5 @@
 # 📚 SHELTR Development Best Practices
-*Version: 0.5.1 - December 28, 2024*
+*Version: 0.5.2 - December 31, 2024*
 *Status: STABLE* 🟢
 
 ## 1. Project Structure
@@ -29,9 +29,9 @@ interface ProjectStructure {
       }
     },
     shared: {
-      components: ['ui', 'forms', 'layouts'],
+      components: ['ui', 'forms', 'layouts', 'SEO'],
       utils: ['validation', 'formatting'],
-      hooks: ['useAuth', 'useRole']
+      hooks: ['useAuth', 'useRole', 'useScrollToTop']
     }
   }
 }
@@ -51,7 +51,8 @@ interface ComponentArchitecture {
     components: {
       ui: 'Reusable UI Components',
       feature: 'Feature-Specific Components',
-      page: 'Page Components'
+      page: 'Page Components',
+      seo: 'SEO Components'
     },
     layouts: {
       base: 'Base Layouts',
@@ -62,7 +63,8 @@ interface ComponentArchitecture {
     composition: 'Prefer composition over inheritance',
     props: 'Use TypeScript interfaces for props',
     state: 'Centralized state management',
-    hooks: 'Custom hooks for shared logic'
+    hooks: 'Custom hooks for shared logic',
+    seo: 'Consistent meta tag implementation'
   }
 }
 ```
@@ -72,11 +74,11 @@ interface ComponentArchitecture {
 interface NamingConventions {
   components: {
     pattern: 'PascalCase',
-    examples: ['Button.tsx', 'UserCard.tsx']
+    examples: ['Button.tsx', 'UserCard.tsx', 'MetaTags.tsx']
   },
   hooks: {
     pattern: 'camelCase with use prefix',
-    examples: ['useAuth.ts', 'useRole.ts']
+    examples: ['useAuth.ts', 'useRole.ts', 'useScrollToTop.ts']
   },
   utils: {
     pattern: 'camelCase',
@@ -132,25 +134,45 @@ interface ComponentGuidelines {
   performance: {
     lazyLoading: 'Implement lazy loading',
     codeSplitting: 'Use dynamic imports',
-    virtualLists: 'Use virtualization for long lists'
+    virtualLists: 'Use virtualization for long lists',
+    seo: 'Implement proper meta tags'
   }
 }
 ```
 
-### State Management
+### SEO Best Practices
 ```typescript
-interface StateManagementGuidelines {
-  global: {
-    tool: 'Zustand',
-    patterns: ['Atomic updates', 'Selector optimization']
+interface SEOGuidelines {
+  metaTags: {
+    required: ['title', 'description', 'og:image'],
+    social: ['og:title', 'twitter:card', 'linkedin:share'],
+    images: ['proper dimensions', 'optimized size', 'relevant content']
   },
-  local: {
-    tool: 'React.useState',
-    patterns: ['Controlled components', 'Form state']
+  performance: {
+    imageOptimization: 'Compress and properly size images',
+    lazyLoading: 'Implement for non-critical images',
+    preloading: 'Critical assets only'
   },
-  server: {
-    tool: 'React Query',
-    patterns: ['Cache management', 'Optimistic updates']
+  accessibility: {
+    semanticHTML: 'Use proper HTML elements',
+    aria: 'Implement ARIA labels',
+    landmarks: 'Use proper landmark roles'
+  }
+}
+```
+
+### Navigation Best Practices
+```typescript
+interface NavigationGuidelines {
+  scrollBehavior: {
+    topOnNavigate: 'Implement ScrollToTop',
+    smoothScroll: 'Use for anchor links',
+    restoration: 'Maintain scroll position when needed'
+  },
+  routing: {
+    lazyLoading: 'Implement for routes',
+    guards: 'Protect private routes',
+    breadcrumbs: 'Implement for navigation context'
   }
 }
 ```

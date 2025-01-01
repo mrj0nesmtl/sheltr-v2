@@ -129,6 +129,11 @@ export function Footer() {
                   Blog
                 </Link>
               </li>
+              <li>
+                <Link to="/wiki" className={linkStyles.operations}>
+                  Wiki
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -167,15 +172,6 @@ export function Footer() {
           <p className="text-gray-400 text-sm text-center">
             © {currentYear} SHELTR Ops.
           </p>
-        </div>
-
-        <div className="mt-8 text-center">
-          <Link 
-            to="/wiki" 
-            className="text-gray-400 hover:text-white transition-colors"
-          >
-            📚 Sheltr Wiki
-          </Link>
         </div>
       </div>
     </footer>

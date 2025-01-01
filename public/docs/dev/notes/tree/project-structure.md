@@ -1,5 +1,5 @@
 # 🌳 SHELTR Project Structure
-*Generated: 2024-12-30 00:04:56*
+*Generated: 2024-12-31 22:34:11*
 *Version: 0.4.9*
 
 ## Table of Contents
@@ -11,7 +11,7 @@
 6. [Technical Structures](#technical-structures)
 
 \n---\n
-*Generated: 2024-12-30 00:04:56*
+*Generated: 2024-12-31 22:34:11*
 \n## Directory Structure
 ./src/auth
 ├── components
@@ -30,7 +30,7 @@
 
 6 directories, 8 files
 \n---\n
-*Generated: 2024-12-30 00:04:56*
+*Generated: 2024-12-31 22:34:11*
 \n## Directory Structure
 ./src/components
 ├── About
@@ -57,6 +57,7 @@
 │   ├── AuthLayout.tsx
 │   ├── LoginButton.tsx
 │   ├── LoginForm.tsx
+│   ├── RequireAuth.tsx
 │   ├── ShelterRegistrationForm.tsx
 │   ├── SignUpForm.tsx
 │   └── SignUpSelector.tsx
@@ -183,11 +184,12 @@
 ├── ErrorBoundary.tsx
 ├── Hero.tsx
 ├── Logo.tsx
+├── ScrollToTop.tsx
 └── ThemeToggle.tsx
 
-42 directories, 110 files
+42 directories, 112 files
 \n---\n
-*Generated: 2024-12-30 00:04:56*
+*Generated: 2024-12-31 22:34:11*
 \n## Directory Structure
 ./public/docs
 ├── about
@@ -270,7 +272,7 @@
 
 24 directories, 54 files
 \n---\n
-*Generated: 2024-12-30 00:04:56*
+*Generated: 2024-12-31 22:34:11*
 \n## Directory Structure
 ./src/features
 ├── auth
@@ -325,7 +327,7 @@
 
 38 directories, 12 files
 \n---\n
-*Generated: 2024-12-30 00:04:56*
+*Generated: 2024-12-31 22:34:11*
 \n## Directory Structure
 ./src/layouts
 ├── base
@@ -350,14 +352,15 @@
 
 10 directories, 10 files
 \n---\n
-*Generated: 2024-12-30 00:04:56*
+*Generated: 2024-12-31 22:34:10*
 \n## Directory Structure
 .
 ├── public
 │   ├── content
 │   ├── docs
 │   ├── images
-│   └── index.html
+│   ├── index.html
+│   └── manifest.json
 ├── scripts
 │   ├── analyze-errors.js
 │   ├── archive-docs.ts
@@ -419,9 +422,9 @@
 ├── vercel.json
 └── vite.config.ts
 
-27 directories, 39 files
+27 directories, 40 files
 \n---\n
-*Generated: 2024-12-30 00:04:56*
+*Generated: 2024-12-31 22:34:11*
 \n## Directory Structure
 ./src/pages
 ├── About
@@ -445,6 +448,8 @@
 │   │   ├── Technology.tsx
 │   │   └── index.ts
 │   └── index.tsx
+├── Admin
+│   └── CreatePost.tsx
 ├── Donor
 │   ├── DonorSignUp.tsx
 │   └── Settings.tsx
@@ -467,6 +472,8 @@
 │   ├── Analytics.tsx
 │   ├── Settings.tsx
 │   └── index.ts
+├── Wiki
+│   └── Wiki.tsx
 ├── blockchain
 │   ├── transactions.tsx
 │   └── whitepaper.tsx
@@ -481,9 +488,9 @@
 ├── Solutions.tsx
 └── index.ts
 
-12 directories, 45 files
+14 directories, 47 files
 \n---\n
-*Generated: 2024-12-30 00:04:56*
+*Generated: 2024-12-31 22:34:11*
 \n## Directory Structure
 ./src
 ├── auth
@@ -523,6 +530,7 @@
 │   │   ├── AuthLayout.tsx
 │   │   ├── LoginButton.tsx
 │   │   ├── LoginForm.tsx
+│   │   ├── RequireAuth.tsx
 │   │   ├── ShelterRegistrationForm.tsx
 │   │   ├── SignUpForm.tsx
 │   │   └── SignUpSelector.tsx
@@ -639,6 +647,7 @@
 │   ├── ErrorBoundary.tsx
 │   ├── Hero.tsx
 │   ├── Logo.tsx
+│   ├── ScrollToTop.tsx
 │   └── ThemeToggle.tsx
 ├── config
 │   ├── deployment.ts
@@ -818,6 +827,8 @@
 │   │   ├── content
 │   │   ├── sections
 │   │   └── index.tsx
+│   ├── Admin
+│   │   └── CreatePost.tsx
 │   ├── Donor
 │   │   ├── DonorSignUp.tsx
 │   │   └── Settings.tsx
@@ -829,6 +840,8 @@
 │   │   ├── Analytics.tsx
 │   │   ├── Settings.tsx
 │   │   └── index.ts
+│   ├── Wiki
+│   │   └── Wiki.tsx
 │   ├── blockchain
 │   │   ├── transactions.tsx
 │   │   └── whitepaper.tsx
@@ -888,4 +901,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-143 directories, 259 files
+145 directories, 263 files
