@@ -1,6 +1,6 @@
 # 🔒 SHELTR Constants Reference
-*Version: 0.4.12 - December 28, 2024 22:00 EST*
-*Status: STABLE* ✅
+*Version: 0.5.3 - January 1, 00:00 EST*
+*Status: STABLE* 🟢
 
 ## ⚠️ STATUS UPDATE
 Auth system stabilized. Constants updated to reflect current implementation.

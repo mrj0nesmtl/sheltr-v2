@@ -1,5 +1,7 @@
 # 🌳 SHELTR Pages Structure
 *Generated: 2024-12-31 22:34:11*
+*Version: 0.5.3*
+*Status: STABLE* 🟢
 \n## Directory Structure
 ./src/pages
 ├── About

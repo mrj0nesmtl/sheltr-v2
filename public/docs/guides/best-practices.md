@@ -1,5 +1,5 @@
 # 📚 SHELTR Development Best Practices
-*Version: 0.5.2 - December 31, 2024*
+*Version: 0.5.3 - January 1, 2025*
 *Status: STABLE* 🟢
 
 ## 1. Project Structure

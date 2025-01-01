@@ -1,6 +1,7 @@
 # 🌳 SHELTR Project Structure
 *Generated: 2024-12-31 22:34:11*
-*Version: 0.4.9*
+*Version: 0.5.3*
+*Status: STABLE* 🟢
 
 ## Table of Contents
 1. [Main Structure](#main-structure)

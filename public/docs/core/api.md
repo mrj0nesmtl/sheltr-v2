@@ -1,6 +1,6 @@
 # 🔌 SHELTR API Documentation
 *Last Updated: December 28, 2024 22:45 EST*
-*Version: 0.5.0*
+*Version: 0.5.3*
 *Status: Active Development* 🟢
 
 ## API Overview

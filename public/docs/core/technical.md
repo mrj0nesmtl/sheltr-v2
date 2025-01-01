@@ -1,6 +1,6 @@
 # 🔧 SHELTR Technical Specifications
 *Last Updated: December 31, 2024*
-*Version: 0.5.1*
+*Version: 0.5.3*
 *Status: Active Development* 🟢
 
 ## Core Systems

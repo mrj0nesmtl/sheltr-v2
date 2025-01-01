@@ -1,5 +1,6 @@
 # 📱 SHELTR QR System
-*Version: 0.4.9 - December 22, 2024*
+*Version: 0.5.3 - January 1, 00:00 EST*
+*Status: STABLE* 🟢
 
 ## QR Code Structure
 ```typescript

@@ -1,6 +1,6 @@
 # 📝 SHELTR Type Definitions
-*Version: 0.5.0 - December 28, 2024 22:45 EST*
-*Status: STABLE* ✅
+  *Version: 0.5.0 - December 28, 2024 22:45 EST*
+  *Status: STABLE* ✅
 
 ## 🔄 STATUS UPDATE
 Authentication types have been stabilized. Layout and component types enhanced for better type safety.

@@ -1,6 +1,6 @@
 # 🏗️ SHELTR Dashboard Architecture
 *Last Updated: December 31, 2024 22:45 EST*
-*Version: 0.5.2*
+*Version: 0.5.3*
 *Status: Active Development* 🟢
 
 ## Overview

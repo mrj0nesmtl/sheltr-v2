@@ -1,5 +1,7 @@
 # 🚀 SHELTR Documentation
 *Last Updated: December 21, 2024*
+*Version: 0.5.3*
+*Status: STABLE* 🟢
 
 ## Quick Links
 - [Getting Started](../guides/getting-started.md)

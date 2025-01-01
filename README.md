@@ -7,7 +7,8 @@
 [![Listen on Spotify](https://img.shields.io/badge/Listen_on-Spotify-1DB954?logo=spotify&logoColor=white)](https://open.spotify.com/show/3Q2RpnzF9sUv26yPMP9tWI)
 
 **Revolutionizing Charitable Giving Through Technology**
-*December 2024 - Beta Launch January 2024*
+*December 2024 - Beta Launch (V1.0.0) Mid-January 2025*
+*Version: 0.5.3*
 
 </div>
 

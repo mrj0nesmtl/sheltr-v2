@@ -1,5 +1,7 @@
 # 🔐 Role-Based Access Control
 *Last Updated: December 18, 2024 17:51 EST*
+*Version: 0.5.3*
+*Status: STABLE* 🟢
 
 ## Role Definitions
 ```typescript

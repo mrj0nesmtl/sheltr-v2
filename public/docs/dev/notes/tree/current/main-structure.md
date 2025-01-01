@@ -1,5 +1,7 @@
 # 🌳 SHELTR Main Structure
 *Generated: 2024-12-31 22:34:10*
+*Version: 0.5.3*
+*Status: STABLE* 🟢
 \n## Directory Structure
 .
 ├── public
