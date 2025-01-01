@@ -11,9 +11,10 @@ export function MetaTags({
   title = 'SHELTR - Hacking Homelessness with Technology',
   description = 'Transform donations into meaningful actions using blockchain technology and smart contracts to directly support homeless individuals with transparency and accountability.',
   image = '/images/og-image.jpg',
-  url = 'https://sheltr.org'
+  url = 'https://sheltr-ops.replit.app'
 }: MetaTagsProps) {
   const canonicalUrl = url.endsWith('/') ? url.slice(0, -1) : url;
+  const fullImageUrl = `${canonicalUrl}${image}`;
 
   return (
     <Helmet>
@@ -41,7 +42,7 @@ export function MetaTags({
       <meta property="og:url" content={canonicalUrl} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta property="og:image" content={`${canonicalUrl}${image}`} />
+      <meta property="og:image" content={fullImageUrl} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
       <meta property="og:site_name" content="SHELTR" />
@@ -51,7 +52,7 @@ export function MetaTags({
       <meta name="twitter:url" content={canonicalUrl} />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={`${canonicalUrl}${image}`} />
+      <meta name="twitter:image" content={fullImageUrl} />
       <meta name="twitter:site" content="@sheltr" />
 
       {/* PWA Meta Tags */}
