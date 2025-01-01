@@ -12,15 +12,14 @@ interface MetaTagsProps {
 
 export function MetaTags({ 
   title = 'SHELTR - Hacking Homelessness with Technology',
-  description = 'Transform donations into meaningful actions using blockchain technology and smart contracts to directly support homeless individuals with transparency and accountability.',
-  image = '/images/og-image.jpg',
+  description = 'Transform daily donations into meaningful actions using blockchain technology and smart contracts to directly support homeless individuals with transparency and accountability.',
+  image = 'https://sheltr-ops.replit.app/public/images/og-image.jpg',
   url = 'https://sheltr-ops.replit.app',
   author = 'SHELTR Team',
   publishedDate = new Date().toISOString(),
   type = 'website'
 }: MetaTagsProps) {
-  const siteUrl = 'https://sheltr-ops.replit.app';
-  const fullImageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
+  const fullImageUrl = image;
 
   return (
     <Helmet>
@@ -31,7 +30,7 @@ export function MetaTags({
       
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={type} />
-      <meta property="og:url" content={url || siteUrl} />
+      <meta property="og:url" content={url} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={fullImageUrl} />
@@ -48,15 +47,26 @@ export function MetaTags({
 
       {/* Twitter Card */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:url" content={url || siteUrl} />
+      <meta name="twitter:url" content={url} />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={fullImageUrl} />
+      <meta name="twitter:image:src" content={fullImageUrl} />
       
       {/* Additional Meta Tags */}
       <meta property="og:locale" content="en_US" />
       <meta name="robots" content="index, follow" />
-      <link rel="canonical" href={url || siteUrl} />
+      <link rel="canonical" href={url} />
+
+      {/* Add debugging meta tags */}
+      <meta name="debug:image" content={fullImageUrl} />
+      <meta name="debug:url" content={url} />
+      
+      {/* Ensure image is specified multiple ways */}
+      <meta property="og:image" content={fullImageUrl} />
+      <meta property="og:image:secure_url" content={fullImageUrl} />
+      <meta name="twitter:image:src" content={fullImageUrl} />
+      <meta itemprop="image" content={fullImageUrl} />
     </Helmet>
   );
 } 
