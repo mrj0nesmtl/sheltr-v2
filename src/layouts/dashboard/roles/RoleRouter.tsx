@@ -1,19 +1,22 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { useAuthStore } from '@/auth/stores/authStore';
 import { AUTH_ROLES } from '@/auth/types/auth.types';
 
-// Import from our new structure
-import { SuperAdminDashboard } from './components/SuperAdminDashboard';
-import { ShelterAdminDashboard } from './components/ShelterAdminDashboard';
-import { DonorDashboard } from './components/DonorDashboard';
-import { ParticipantDashboard } from './components/ParticipantDashboard';
+// Import dashboards from new feature-based structure
+import { ShelterAdminDashboard } from '@/features/dashboard/roles/shelter-admin';
+import { DonorDashboard } from '@/features/dashboard/roles/donor';
+import { ParticipantDashboard } from '@/features/dashboard/roles/participant';
+import { SuperAdminDashboard } from '@/features/dashboard/roles/super-admin';
 
-interface RoleRouterProps {
-  role: AUTH_ROLES;
-}
+export const RoleRouter = () => {
+  const { user } = useAuthStore();
 
-export const RoleRouter = ({ role }: RoleRouterProps) => {
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
   const getDashboardComponent = () => {
-    switch (role) {
+    switch (user.role) {
       case AUTH_ROLES.SUPER_ADMIN:
         return <SuperAdminDashboard />;
       case AUTH_ROLES.SHELTER_ADMIN:
@@ -23,14 +26,13 @@ export const RoleRouter = ({ role }: RoleRouterProps) => {
       case AUTH_ROLES.PARTICIPANT:
         return <ParticipantDashboard />;
       default:
-        return null;
+        return <Navigate to="/unauthorized" replace />;
     }
   };
 
   return (
     <Routes>
-      <Route path="dashboard/*" element={getDashboardComponent()} />
-      <Route path="*" element={getDashboardComponent()} />
+      <Route path="/*" element={getDashboardComponent()} />
     </Routes>
   );
 };
