@@ -1,6 +1,6 @@
-import { Card } from '@/components/ui/Card';
-import { Icon } from '@/components/ui/Icon';
-import { useAuthStore } from '@/stores/authStore';
+import { Card } from '@/components/ui';
+import { Icon } from '@/components/ui';
+import { useAuthStore } from '@/auth/stores/authStore';
 
 export function ShelterAdminProfile() {
   const { user } = useAuthStore();
