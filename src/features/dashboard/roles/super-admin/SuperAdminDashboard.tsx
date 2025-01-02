@@ -1,10 +1,10 @@
-import { useAuth } from '@/hooks/useAuth';
+import { useAuthStore } from '@/auth/stores/authStore';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { QuickStatCard } from './QuickStatCard';
 import { GlobalAnalytics } from './analytics/GlobalAnalytics';
 
-export default function SuperAdminDashboardView() {
-  const { user, role } = useAuth();
+export const SuperAdminDashboard = () => {
+  const { user, role } = useAuthStore();
   console.log('SuperAdminDashboard: Rendering with role:', role);
 
   return (
@@ -45,4 +45,4 @@ export default function SuperAdminDashboardView() {
       </div>
     </ErrorBoundary>
   );
-}
+};

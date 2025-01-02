@@ -1,36 +1,20 @@
-import { DashboardHeader } from "@/layouts/specialized/dashboard/components/DashboardHeader";
 import { useAuthStore } from '@/auth/stores/authStore';
 import { useTranslation } from 'react-i18next';
+import { DashboardHeader } from '@/features/dashboard/shared/components/DashboardHeader';
 
-export function ParticipantDashboard() {
+export const ParticipantDashboard = () => {
+  const { user } = useAuthStore();
   const { t } = useTranslation();
-  const { user, signOut } = useAuthStore();
-  
-  const getDisplayName = (email: string = '') => {
-    if (!email) return '';
-    const withoutSuffix = email.replace('+participant', '');
-    const localPart = withoutSuffix.split('@')[0];
-    const nameParts = localPart.split(/[._]/);
-    return nameParts
-      .map(part => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
-      .join(' ');
-  };
 
   return (
-    <div className="min-h-screen bg-gray-900">
-      <DashboardHeader
-        name={getDisplayName(user?.email)}
-        role="participant"
-        title={t('dashboard.participant.title')}
-        onSignOut={signOut}
+    <div className="space-y-6">
+      <DashboardHeader 
+        title={t('dashboard.participant.title')} 
+        user={user} 
       />
-      
-      {/* Stats Grid */}
-      <div className="px-8">
-        {/* ... rest of participant dashboard content ... */}
-      </div>
+      {/* Dashboard content */}
     </div>
   );
-}
+};
 
 export default ParticipantDashboard; 

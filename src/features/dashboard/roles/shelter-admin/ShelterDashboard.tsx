@@ -1,5 +1,5 @@
 import { useAuthStore } from '@/auth/stores/authStore';
-import { DonationMap } from '@/components/Map/DonationMap';
+import { DonationMap } from '@/features/shared/analytics/maps/DonationMap';
 import { UserNav } from '@/components/Navigation/UserNav';
 import { DonorLeaderboard } from '@/features/dashboard/shared/widgets/DonorLeaderboard';
 import { ParticipantLeaderboard } from '@/features/dashboard/shared/components/ParticipantLeaderboard';
