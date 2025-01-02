@@ -13,7 +13,7 @@ interface MetaTagsProps {
 export function MetaTags({ 
   title = 'SHELTR - Hacking Homelessness with Technology',
   description = 'Transform daily donations into meaningful actions using blockchain technology and smart contracts to directly support homeless individuals with transparency and accountability.',
-  image = 'https://sheltr-ops.replit.app/public/images/og-image.jpg',
+  image = 'https://sheltr-ops.replit.app/images/og-image.jpg',
   url = 'https://sheltr-ops.replit.app',
   author = 'SHELTR Team',
   publishedDate = new Date().toISOString(),

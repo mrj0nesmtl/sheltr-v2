@@ -1,6 +1,44 @@
 # 📚 SHELTR Development Best Practices
-*Version: 0.5.3 - January 1, 2025*
+*Last Updated: January 1, 2024 15:45 UTC*
+*Version: 0.5.3*
 *Status: STABLE* 🟢
+
+## Situational Abstract
+Following the analytics system consolidation, these best practices have been updated to reflect our new standardized approach to data visualization, metrics, and dashboard implementations. Key focus areas include the shared analytics library usage, chart standardization, and role-specific dashboard patterns.
+
+## Recent Updates
+| Category | Status | Details |
+|----------|---------|---------|
+| Analytics Library | ✅ Complete | New shared component guidelines |
+| Chart Standards | ✅ Complete | Recharts implementation patterns |
+| Dashboard Patterns | 🟡 In Progress | Role-specific implementations |
+| Documentation | 🟡 Updating | New analytics guidelines |
+
+### Analytics Best Practices
+```typescript
+interface AnalyticsGuidelines {
+  imports: {
+    preferred: '@/features/shared/analytics',
+    deprecated: [
+      '@/features/dashboard/shared/widgets/charts',
+      '@/pages/About/components/MetricCard'
+    ]
+  },
+  implementation: {
+    charts: {
+      library: 'recharts',
+      theming: 'analyticsTheme',
+      responsiveness: true,
+      errorHandling: true
+    },
+    metrics: {
+      component: 'MetricCard',
+      loading: 'Implement skeleton state',
+      error: 'Use error boundary'
+    }
+  }
+}
+```
 
 ## 1. Project Structure
 ```typescript

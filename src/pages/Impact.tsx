@@ -78,7 +78,7 @@ export default function Impact() {
   return (
     <div className="min-h-screen bg-gray-900">
       <PageBackground
-        imagePath="public/images/backgrounds/imapct-bg.jpg"
+        imagePath="/images/backgrounds/imapct-bg.jpg"
         opacity={15}
         fadeHeight="75vh"
         alt="Impact Background"

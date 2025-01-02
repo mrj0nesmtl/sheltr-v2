@@ -3,6 +3,7 @@ import { UnifiedDashboard } from '@/layouts/dashboard/base/UnifiedDashboard';
 import { ProtectedRoute } from '@/auth/components/ProtectedRoute';
 import { useAuthStore } from '@/auth/stores/authStore';
 import { AUTH_ROLES } from '@/auth/types/auth.types';
+import { RoleRouter } from '@/layouts/dashboard/roles/RoleRouter';
 
 import HomePage from '@/pages/HomePage';
 import LoginPage from '@/pages/LoginPage';
@@ -36,7 +37,7 @@ const AppRoutes = () => {
         path="/super-admin/*"
         element={
           <ProtectedRoute allowedRoles={[AUTH_ROLES.SUPER_ADMIN]}>
-            <UnifiedDashboard />
+            <RoleRouter />
           </ProtectedRoute>
         }
       />
@@ -45,7 +46,7 @@ const AppRoutes = () => {
         path="/shelter-admin/*"
         element={
           <ProtectedRoute allowedRoles={[AUTH_ROLES.SHELTER_ADMIN]}>
-            <UnifiedDashboard />
+            <RoleRouter />
           </ProtectedRoute>
         }
       />
