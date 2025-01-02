@@ -1,7 +1,37 @@
 # 🌳 SHELTR Components Structure
-*Generated: 2024-12-31 22:34:11*
+*Last Updated: January 1, 2024 15:45 UTC*
 *Version: 0.5.3*
 *Status: STABLE* 🟢
+
+## Recent Changes
+| Category | Update | Status |
+|----------|---------|---------|
+| Analytics | Consolidated to shared library | ✅ Complete |
+| Charts | Standardized on recharts | ✅ Complete |
+| Metrics | Migration in progress | 🟡 In Progress |
+| Maps | Implemented in shared | ✅ Complete |
+
+## New Analytics Structure
+```typescript
+/src/features/shared/analytics/
+├── charts/
+│   ├── AreaChart.tsx
+│   ├── BarChart.tsx
+│   ├── LineChart.tsx
+│   └── index.ts
+├── metrics/
+│   ├── MetricCard.tsx
+│   └── index.ts
+├── maps/
+│   ├── DonationMap.tsx
+│   └── index.ts
+├── types/
+│   └── index.ts
+├── utils/
+│   └── theme.ts
+└── index.ts
+```
+
 \n## Directory Structure
 ./src/components
 ├── About
@@ -159,3 +189,9 @@
 └── ThemeToggle.tsx
 
 42 directories, 112 files
+
+## Migration Notes
+- Old chart components marked for deprecation
+- Dashboard components being updated to use new shared analytics
+- Documentation being updated to reflect new structure
+- Testing implementation in progress

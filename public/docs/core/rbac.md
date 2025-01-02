@@ -1,5 +1,5 @@
 # 🔐 Role-Based Access Control
-*Last Updated: December 18, 2024 17:51 EST*
+*Last Updated: January 1, 2025 00:15 EST*
 *Version: 0.5.3*
 *Status: STABLE* 🟢
 
@@ -16,33 +16,12 @@ enum UserRole {
 ## Authentication Flow Matrix
 | Action           | Public | Donor | Shelter Admin | Super Admin |
 |-----------------|--------|-------|---------------|-------------|
-| View Signup     | ✅    | ✅    | ✅           | ✅         |
-| Create Account  | ✅    | ✅    | ✅           | ✅         |
-| Access Form     | ❌    | ✅    | ✅           | ✅         |
-| Manage Profile  | ❌    | ✅    | ✅           | ✅         |
-| View Dashboard  | ❌    | ✅    | ✅           | ✅         |
-
-## Donor Authentication Implementation
-```typescript
-interface DonorAuthControl extends AccessControl {
-  createAccount: boolean;
-  accessDashboard: boolean;
-  manageProfile: boolean;
-}
-
-const donorPermissions: Record<UserRole, DonorAuthControl> = {
-  donor: {
-    createAccount: true,
-    accessDashboard: true,
-    manageProfile: true,
-    view: true,
-    edit: true,
-    delete: false,
-    manage: false
-  },
-  // ... other role permissions
-}
-```
+| View Landing    | ✅     | ✅    | ✅           | ✅         |
+| Create Account  | ✅     | ✅    | ✅           | ✅         |
+| Access Form     | ❌     | ✅    | ✅           | ✅         |
+| Manage Profile  | ❌     | ✅    | ✅           | ✅         |
+| View Dashboard  | ❌     | ✅    | ✅           | ✅         |
+| QR Scanner      | ❌     | ✅    | ✅           | ✅         |
 
 ## Feature Access Matrix
 | Feature          | Participant | Donor | Shelter Admin | Super Admin |
@@ -58,21 +37,30 @@ const donorPermissions: Record<UserRole, DonorAuthControl> = {
 
 *🔵 = Limited Access*
 
-## Scanner Access Control
+## Implementation Example
 ```typescript
-interface ScannerAccessControl extends AccessControl {
-  scan: boolean;
-  validate: boolean;
-  history: boolean;
+interface AccessControl {
+  view: boolean;
+  edit: boolean;
+  delete: boolean;
+  manage: boolean;
 }
 
-const scannerPermissions: Record<UserRole, ScannerAccessControl> = {
+interface DonorAuthControl extends AccessControl {
+  createAccount: boolean;
+  accessDashboard: boolean;
+  manageProfile: boolean;
+  scanQR: boolean;
+}
+
+const donorPermissions: Record<UserRole, DonorAuthControl> = {
   donor: {
-    scan: true,
-    validate: true,
-    history: true,
+    createAccount: true,
+    accessDashboard: true,
+    manageProfile: true,
+    scanQR: true,
     view: true,
-    edit: false,
+    edit: true,
     delete: false,
     manage: false
   },
@@ -80,18 +68,18 @@ const scannerPermissions: Record<UserRole, ScannerAccessControl> = {
 }
 ```
 
-## Implementation
+## Usage Example
 ```typescript
-const withScannerAccess = (
+const withRoleAccess = (
   Component: FC,
   requiredRole: UserRole
 ) => {
   return function WrappedComponent(props: any) {
     const { user } = useAuth();
-    const canAccessScanner = user && scannerPermissions[user.role]?.scan;
+    const hasAccess = user && user.role >= requiredRole;
     
-    if (!canAccessScanner) {
-      return null;
+    if (!hasAccess) {
+      return <Navigate to="/unauthorized" />;
     }
     
     return <Component {...props} />;
@@ -99,4 +87,9 @@ const withScannerAccess = (
 }
 ```
 
-[Previous sections remain unchanged...]
+## Recent Updates
+- Added QR Scanner permissions
+- Updated Donor analytics access
+- Enhanced Shelter Admin user management
+- Added Participant role definitions
+- Updated implementation examples

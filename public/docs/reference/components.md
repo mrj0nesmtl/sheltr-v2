@@ -1,9 +1,61 @@
 # 🧩 SHELTR Component Reference
-*Version: 0.5.3 - January 1, 2025 00:00 EST*
+*Last Updated: January 1, 2024 15:45 UTC*
+*Version: 0.5.3*
 *Status: STABLE* 🟢
 
 ## 🔄 STATUS UPDATE
-Core systems enhanced with SEO optimization, navigation improvements, and dashboard development progress. Component architecture significantly improved.
+Major analytics consolidation completed. All chart and metric components now standardized under shared analytics library. Dashboard implementations in progress with new component structure.
+
+## Analytics Components (🟡 IN_MIGRATION)
+
+### Shared Analytics Library
+```typescript
+interface AnalyticsComponents {
+  charts: {
+    path: '@/features/shared/analytics/charts',
+    components: {
+      AreaChart: '✅ IMPLEMENTED',
+      BarChart: '✅ IMPLEMENTED',
+      LineChart: '✅ IMPLEMENTED'
+    },
+    library: 'recharts'
+  },
+  metrics: {
+    path: '@/features/shared/analytics/metrics',
+    components: {
+      MetricCard: '✅ IMPLEMENTED',
+      DonationTrends: '🟡 IN_PROGRESS',
+      ShelterStats: '🟡 IN_PROGRESS'
+    }
+  },
+  maps: {
+    path: '@/features/shared/analytics/maps',
+    components: {
+      DonationMap: '✅ IMPLEMENTED'
+    }
+  }
+}
+```
+
+### Dashboard Analytics
+```typescript
+interface DashboardAnalytics {
+  superAdmin: {
+    path: '@/features/dashboard/roles/super-admin',
+    components: {
+      GlobalAnalytics: '🟡 IN_PROGRESS',
+      SystemMetrics: '🟡 IN_PROGRESS'
+    }
+  },
+  shelterAdmin: {
+    path: '@/features/dashboard/roles/shelter-admin',
+    components: {
+      ShelterMetrics: '🟡 IN_PROGRESS',
+      ParticipantAnalytics: '🟡 IN_PROGRESS'
+    }
+  }
+}
+```
 
 ## Core Layout Components
 
@@ -195,3 +247,25 @@ interface FeatureComponents {
 ---
 *Last Updated: December 31, 2024 22:45 EST*
 *Status: STABLE PROGRESS* 🟢
+
+## Component Directory Structure
+```typescript
+interface ComponentStructure {
+  shared: {
+    analytics: {
+      path: 'src/features/shared/analytics',
+      exports: ['charts', 'metrics', 'maps']
+    },
+    ui: {
+      path: 'src/components/ui',
+      exports: ['Button', 'Card', 'Input', /* ... */]
+    }
+  },
+  features: {
+    dashboard: {
+      path: 'src/features/dashboard',
+      roles: ['super-admin', 'shelter-admin', 'donor', 'participant']
+    }
+  }
+}
+```
