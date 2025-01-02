@@ -1,7 +1,5 @@
 # 🌳 SHELTR Auth Structure
-*Generated: 2024-12-31 22:34:11*
-*Version: 0.5.3*
-*Status: STABLE* 🟢
+*Generated: 2025-01-02 15:36:41*
 \n## Directory Structure
 ./src/auth
 ├── components

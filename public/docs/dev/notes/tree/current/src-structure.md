@@ -1,7 +1,5 @@
 # 🌳 SHELTR Source Structure
-*Generated: 2024-12-31 22:34:11*
-*Version: 0.5.3*
-*Status: STABLE* 🟢
+*Generated: 2025-01-02 15:36:41*
 \n## Directory Structure
 ./src
 ├── auth
@@ -20,6 +18,7 @@
 │   └── types.ts
 ├── backup
 │   ├── dashboard_cleanup
+│   │   └── shelter-admin
 │   ├── sidebars
 │   │   └── 20241224
 │   └── super-admin
@@ -85,8 +84,6 @@
 │   ├── Legal
 │   │   ├── PrivacyPolicy.tsx
 │   │   └── TermsOfService.tsx
-│   ├── Meta
-│   │   └── PageMeta.tsx
 │   ├── Navigation
 │   │   ├── MobileNav.tsx
 │   │   ├── Navigation.tsx
@@ -98,12 +95,14 @@
 │   │   ├── ActivityLog.tsx
 │   │   ├── AddFriend.tsx
 │   │   ├── AdminFeatures.tsx
+│   │   ├── BaseProfile.tsx
 │   │   ├── DonorFeatures.tsx
 │   │   ├── FriendActivity.tsx
 │   │   ├── ImageCropModal.tsx
 │   │   ├── ImageUpload.tsx
 │   │   ├── RoleSpecificInfo.tsx
-│   │   └── SocialLinks.tsx
+│   │   ├── SocialLinks.tsx
+│   │   └── index.ts
 │   ├── QRScanner
 │   │   ├── QRScanner.tsx
 │   │   └── QRScannerLoading.tsx
@@ -145,12 +144,14 @@
 │   │   ├── LoadingOverlay.tsx
 │   │   ├── LoadingSpinner.tsx
 │   │   ├── Logo.tsx
+│   │   ├── MetricCard.tsx
 │   │   ├── NavLink.tsx
 │   │   ├── PageBackground.tsx
 │   │   ├── ProfileMenu.tsx
 │   │   ├── QRCode.tsx
 │   │   ├── Select.tsx
 │   │   ├── SignOutButton.tsx
+│   │   ├── Table.tsx
 │   │   ├── Textarea.tsx
 │   │   ├── Toast.tsx
 │   │   ├── Toaster.tsx
@@ -292,6 +293,7 @@
 │   │   ├── analyticsService.ts
 │   │   ├── donationService.ts
 │   │   ├── imageService.ts
+│   │   ├── monitoring.ts
 │   │   ├── organizationService.ts
 │   │   ├── participantService.ts
 │   │   ├── profileService.ts
@@ -365,6 +367,7 @@
 │   ├── ShelterSignUp.tsx
 │   ├── SignUpPage.tsx
 │   ├── Solutions.tsx
+│   ├── debug.tsx
 │   └── index.ts
 ├── routes
 │   ├── blockchain
@@ -374,6 +377,9 @@
 │   └── index.tsx
 ├── services
 │   └── docs.service.ts
+├── src
+│   └── backup
+│       └── dashboard_cleanup
 ├── stores
 │   ├── donationStore.ts
 │   ├── profileStore.ts
@@ -412,4 +418,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-145 directories, 263 files
+148 directories, 268 files

@@ -1,12 +1,10 @@
 # 🧩 SHELTR Component Reference
-*Last Updated: January 1, 2024 15:45 UTC*
-*Version: 0.5.3*
+*Last Updated: January 3, 2024 16:45 UTC*
+*Version: 0.5.4*
 *Status: STABLE* 🟢
 
 ## 🔄 STATUS UPDATE
-Major analytics consolidation completed. All chart and metric components now standardized under shared analytics library. Dashboard implementations in progress with new component structure.
-
-## Analytics Components (🟡 IN_MIGRATION)
+Montreal dashboard implementation completed with enhanced analytics visualization. New chart components and map integration now standardized under shared analytics library.
 
 ### Shared Analytics Library
 ```typescript
@@ -16,7 +14,9 @@ interface AnalyticsComponents {
     components: {
       AreaChart: '✅ IMPLEMENTED',
       BarChart: '✅ IMPLEMENTED',
-      LineChart: '✅ IMPLEMENTED'
+      LineChart: '✅ IMPLEMENTED',
+      PieChart: '✅ IMPLEMENTED',
+      DonationAllocationPieChart: '✅ IMPLEMENTED'
     },
     library: 'recharts'
   },
@@ -24,15 +24,17 @@ interface AnalyticsComponents {
     path: '@/features/shared/analytics/metrics',
     components: {
       MetricCard: '✅ IMPLEMENTED',
-      DonationTrends: '🟡 IN_PROGRESS',
-      ShelterStats: '🟡 IN_PROGRESS'
+      DonationTrends: '✅ IMPLEMENTED',
+      ShelterStats: '✅ IMPLEMENTED'
     }
   },
   maps: {
     path: '@/features/shared/analytics/maps',
     components: {
-      DonationMap: '✅ IMPLEMENTED'
-    }
+      GlobalDonationMap: '✅ IMPLEMENTED',
+      MontrealShelterMap: '✅ IMPLEMENTED'
+    },
+    library: 'leaflet'
   }
 }
 ```

@@ -3,6 +3,7 @@ entrypoint = "src/main.tsx"
 
 [env]
 VITE_PORT = "5173"
+VITE_PUBLIC_URL = "https://sheltr-ops.replit.app"
 
 [nix]
 channel = "stable-22_11"
@@ -24,6 +25,10 @@ enabledForHosting = true
 pattern = "**/{*.ts,*.tsx}"
 [languages.typescript.languageServer]
 start = ["typescript-language-server", "--stdio"]
+
+[static]
+directory = "public"
+serve = "/public"
 
 [[ports]]
 localPort = 5173

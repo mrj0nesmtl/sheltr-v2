@@ -1,37 +1,5 @@
 # 🌳 SHELTR Components Structure
-*Last Updated: January 1, 2024 15:45 UTC*
-*Version: 0.5.3*
-*Status: STABLE* 🟢
-
-## Recent Changes
-| Category | Update | Status |
-|----------|---------|---------|
-| Analytics | Consolidated to shared library | ✅ Complete |
-| Charts | Standardized on recharts | ✅ Complete |
-| Metrics | Migration in progress | 🟡 In Progress |
-| Maps | Implemented in shared | ✅ Complete |
-
-## New Analytics Structure
-```typescript
-/src/features/shared/analytics/
-├── charts/
-│   ├── AreaChart.tsx
-│   ├── BarChart.tsx
-│   ├── LineChart.tsx
-│   └── index.ts
-├── metrics/
-│   ├── MetricCard.tsx
-│   └── index.ts
-├── maps/
-│   ├── DonationMap.tsx
-│   └── index.ts
-├── types/
-│   └── index.ts
-├── utils/
-│   └── theme.ts
-└── index.ts
-```
-
+*Generated: 2025-01-02 15:36:41*
 \n## Directory Structure
 ./src/components
 ├── About
@@ -110,8 +78,6 @@
 ├── Legal
 │   ├── PrivacyPolicy.tsx
 │   └── TermsOfService.tsx
-├── Meta
-│   └── PageMeta.tsx
 ├── Navigation
 │   ├── MobileNav.tsx
 │   ├── Navigation.tsx
@@ -123,12 +89,14 @@
 │   ├── ActivityLog.tsx
 │   ├── AddFriend.tsx
 │   ├── AdminFeatures.tsx
+│   ├── BaseProfile.tsx
 │   ├── DonorFeatures.tsx
 │   ├── FriendActivity.tsx
 │   ├── ImageCropModal.tsx
 │   ├── ImageUpload.tsx
 │   ├── RoleSpecificInfo.tsx
-│   └── SocialLinks.tsx
+│   ├── SocialLinks.tsx
+│   └── index.ts
 ├── QRScanner
 │   ├── QRScanner.tsx
 │   └── QRScannerLoading.tsx
@@ -172,12 +140,14 @@
 │   ├── LoadingOverlay.tsx
 │   ├── LoadingSpinner.tsx
 │   ├── Logo.tsx
+│   ├── MetricCard.tsx
 │   ├── NavLink.tsx
 │   ├── PageBackground.tsx
 │   ├── ProfileMenu.tsx
 │   ├── QRCode.tsx
 │   ├── Select.tsx
 │   ├── SignOutButton.tsx
+│   ├── Table.tsx
 │   ├── Textarea.tsx
 │   ├── Toast.tsx
 │   ├── Toaster.tsx
@@ -188,10 +158,4 @@
 ├── ScrollToTop.tsx
 └── ThemeToggle.tsx
 
-42 directories, 112 files
-
-## Migration Notes
-- Old chart components marked for deprecation
-- Dashboard components being updated to use new shared analytics
-- Documentation being updated to reflect new structure
-- Testing implementation in progress
+41 directories, 115 files

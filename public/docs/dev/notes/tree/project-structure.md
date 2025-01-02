@@ -1,7 +1,6 @@
 # 🌳 SHELTR Project Structure
-*Generated: 2024-12-31 22:34:11*
-*Version: 0.5.3*
-*Status: STABLE* 🟢
+*Generated: 2025-01-02 15:36:42*
+*Version: 0.4.9*
 
 ## Table of Contents
 1. [Main Structure](#main-structure)
@@ -12,7 +11,7 @@
 6. [Technical Structures](#technical-structures)
 
 \n---\n
-*Generated: 2024-12-31 22:34:11*
+*Generated: 2025-01-02 15:36:41*
 \n## Directory Structure
 ./src/auth
 ├── components
@@ -31,7 +30,7 @@
 
 6 directories, 8 files
 \n---\n
-*Generated: 2024-12-31 22:34:11*
+*Generated: 2025-01-02 15:36:41*
 \n## Directory Structure
 ./src/components
 ├── About
@@ -110,8 +109,6 @@
 ├── Legal
 │   ├── PrivacyPolicy.tsx
 │   └── TermsOfService.tsx
-├── Meta
-│   └── PageMeta.tsx
 ├── Navigation
 │   ├── MobileNav.tsx
 │   ├── Navigation.tsx
@@ -123,12 +120,14 @@
 │   ├── ActivityLog.tsx
 │   ├── AddFriend.tsx
 │   ├── AdminFeatures.tsx
+│   ├── BaseProfile.tsx
 │   ├── DonorFeatures.tsx
 │   ├── FriendActivity.tsx
 │   ├── ImageCropModal.tsx
 │   ├── ImageUpload.tsx
 │   ├── RoleSpecificInfo.tsx
-│   └── SocialLinks.tsx
+│   ├── SocialLinks.tsx
+│   └── index.ts
 ├── QRScanner
 │   ├── QRScanner.tsx
 │   └── QRScannerLoading.tsx
@@ -172,12 +171,14 @@
 │   ├── LoadingOverlay.tsx
 │   ├── LoadingSpinner.tsx
 │   ├── Logo.tsx
+│   ├── MetricCard.tsx
 │   ├── NavLink.tsx
 │   ├── PageBackground.tsx
 │   ├── ProfileMenu.tsx
 │   ├── QRCode.tsx
 │   ├── Select.tsx
 │   ├── SignOutButton.tsx
+│   ├── Table.tsx
 │   ├── Textarea.tsx
 │   ├── Toast.tsx
 │   ├── Toaster.tsx
@@ -188,9 +189,9 @@
 ├── ScrollToTop.tsx
 └── ThemeToggle.tsx
 
-42 directories, 112 files
+41 directories, 115 files
 \n---\n
-*Generated: 2024-12-31 22:34:11*
+*Generated: 2025-01-02 15:36:41*
 \n## Directory Structure
 ./public/docs
 ├── about
@@ -246,8 +247,7 @@
 ├── dev
 │   ├── notes
 │   │   ├── 2024-12
-│   │   │   ├── ai-prompts.md
-│   │   │   └── refactor-assessment.md
+│   │   │   └── prompt.md
 │   │   └── tree
 │   │       ├── archive
 │   │       ├── current
@@ -271,9 +271,9 @@
     ├── database.md
     └── qr-system.md
 
-24 directories, 54 files
+24 directories, 53 files
 \n---\n
-*Generated: 2024-12-31 22:34:11*
+*Generated: 2025-01-02 15:36:41*
 \n## Directory Structure
 ./src/features
 ├── auth
@@ -319,6 +319,16 @@
 │   └── index.ts
 └── shared
     ├── analytics
+    │   ├── charts
+    │   ├── hooks
+    │   ├── maps
+    │   ├── metrics
+    │   ├── types
+    │   ├── utils
+    │   ├── DonationHistory.tsx
+    │   ├── DonorStats.tsx
+    │   ├── index.ts
+    │   └── theme.ts
     ├── components
     │   └── index.ts
     ├── hooks
@@ -326,9 +336,9 @@
     ├── utils
     └── index.ts
 
-38 directories, 12 files
+44 directories, 16 files
 \n---\n
-*Generated: 2024-12-31 22:34:11*
+*Generated: 2025-01-02 15:36:42*
 \n## Directory Structure
 ./src/layouts
 ├── base
@@ -353,9 +363,14 @@
 
 10 directories, 10 files
 \n---\n
-*Generated: 2024-12-31 22:34:10*
+*Generated: 2025-01-02 15:36:41*
 \n## Directory Structure
 .
+├── analytics
+├── components
+├── docs
+│   └── dev
+├── management
 ├── public
 │   ├── content
 │   ├── docs
@@ -390,6 +405,7 @@
 │   ├── pages
 │   ├── routes
 │   ├── services
+│   ├── src
 │   ├── stores
 │   ├── styles
 │   ├── types
@@ -423,9 +439,9 @@
 ├── vercel.json
 └── vite.config.ts
 
-27 directories, 40 files
+33 directories, 40 files
 \n---\n
-*Generated: 2024-12-31 22:34:11*
+*Generated: 2025-01-02 15:36:42*
 \n## Directory Structure
 ./src/pages
 ├── About
@@ -487,11 +503,12 @@
 ├── ShelterSignUp.tsx
 ├── SignUpPage.tsx
 ├── Solutions.tsx
+├── debug.tsx
 └── index.ts
 
-14 directories, 47 files
+14 directories, 48 files
 \n---\n
-*Generated: 2024-12-31 22:34:11*
+*Generated: 2025-01-02 15:36:41*
 \n## Directory Structure
 ./src
 ├── auth
@@ -510,6 +527,7 @@
 │   └── types.ts
 ├── backup
 │   ├── dashboard_cleanup
+│   │   └── shelter-admin
 │   ├── sidebars
 │   │   └── 20241224
 │   └── super-admin
@@ -575,8 +593,6 @@
 │   ├── Legal
 │   │   ├── PrivacyPolicy.tsx
 │   │   └── TermsOfService.tsx
-│   ├── Meta
-│   │   └── PageMeta.tsx
 │   ├── Navigation
 │   │   ├── MobileNav.tsx
 │   │   ├── Navigation.tsx
@@ -588,12 +604,14 @@
 │   │   ├── ActivityLog.tsx
 │   │   ├── AddFriend.tsx
 │   │   ├── AdminFeatures.tsx
+│   │   ├── BaseProfile.tsx
 │   │   ├── DonorFeatures.tsx
 │   │   ├── FriendActivity.tsx
 │   │   ├── ImageCropModal.tsx
 │   │   ├── ImageUpload.tsx
 │   │   ├── RoleSpecificInfo.tsx
-│   │   └── SocialLinks.tsx
+│   │   ├── SocialLinks.tsx
+│   │   └── index.ts
 │   ├── QRScanner
 │   │   ├── QRScanner.tsx
 │   │   └── QRScannerLoading.tsx
@@ -635,12 +653,14 @@
 │   │   ├── LoadingOverlay.tsx
 │   │   ├── LoadingSpinner.tsx
 │   │   ├── Logo.tsx
+│   │   ├── MetricCard.tsx
 │   │   ├── NavLink.tsx
 │   │   ├── PageBackground.tsx
 │   │   ├── ProfileMenu.tsx
 │   │   ├── QRCode.tsx
 │   │   ├── Select.tsx
 │   │   ├── SignOutButton.tsx
+│   │   ├── Table.tsx
 │   │   ├── Textarea.tsx
 │   │   ├── Toast.tsx
 │   │   ├── Toaster.tsx
@@ -782,6 +802,7 @@
 │   │   ├── analyticsService.ts
 │   │   ├── donationService.ts
 │   │   ├── imageService.ts
+│   │   ├── monitoring.ts
 │   │   ├── organizationService.ts
 │   │   ├── participantService.ts
 │   │   ├── profileService.ts
@@ -855,6 +876,7 @@
 │   ├── ShelterSignUp.tsx
 │   ├── SignUpPage.tsx
 │   ├── Solutions.tsx
+│   ├── debug.tsx
 │   └── index.ts
 ├── routes
 │   ├── blockchain
@@ -864,6 +886,9 @@
 │   └── index.tsx
 ├── services
 │   └── docs.service.ts
+├── src
+│   └── backup
+│       └── dashboard_cleanup
 ├── stores
 │   ├── donationStore.ts
 │   ├── profileStore.ts
@@ -902,4 +927,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-145 directories, 263 files
+148 directories, 268 files
