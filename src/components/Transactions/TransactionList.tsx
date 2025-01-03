@@ -1,86 +1,73 @@
-import { Icon } from '@/components/ui/Icon';
-import { useTranslation } from 'react-i18next';
+import React from 'react';
+import { Table } from '@/components/ui/Table';
 
-interface Transaction {
-  id: string;
-  date: string;
-  amount: number;
-  type: 'donation' | 'withdrawal';
-  status: 'completed' | 'pending' | 'failed';
-  description: string;
-}
+const mockTransactions = [
+  {
+    id: 'tx_001',
+    type: 'Donation',
+    amount: '$250.00',
+    from: '0x1234...5678',
+    to: 'Hope Haven',
+    status: 'Completed',
+    timestamp: '2024-01-02 15:30'
+  },
+  {
+    id: 'tx_002',
+    type: 'Allocation',
+    amount: '$175.00',
+    from: 'Mercy House',
+    to: 'Food Program',
+    status: 'Completed',
+    timestamp: '2024-01-02 14:45'
+  },
+  {
+    id: 'tx_003',
+    type: 'Donation',
+    amount: '$500.00',
+    from: '0x8765...4321',
+    to: 'Safe Harbor',
+    status: 'Completed',
+    timestamp: '2024-01-02 13:15'
+  }
+];
 
-interface TransactionListProps {
-  userId?: string;
-  limit?: number;
-}
-
-export function TransactionList({ limit = 5 }: TransactionListProps) {
-  const { t } = useTranslation();
-
-  // Mock data - replace with real data fetching
-  const transactions: Transaction[] = [
-    {
-      id: '1',
-      date: '2024-03-15',
-      amount: 50.00,
-      type: 'donation',
-      status: 'completed',
-      description: 'Monthly donation'
-    },
-    // Add more mock transactions
-  ];
-
-  const getStatusColor = (status: Transaction['status']) => {
-    switch (status) {
-      case 'completed':
-        return 'text-green-400';
-      case 'pending':
-        return 'text-yellow-400';
-      case 'failed':
-        return 'text-red-400';
-      default:
-        return 'text-gray-400';
-    }
-  };
-
+export function TransactionList() {
   return (
-    <div className="space-y-4">
-      {transactions.slice(0, limit).map((transaction) => (
-        <div
-          key={transaction.id}
-          className="flex items-center justify-between p-4 bg-gray-700/50 rounded-lg"
-        >
-          <div className="flex items-center space-x-4">
-            <div className={`p-2 rounded-full ${
-              transaction.type === 'donation' ? 'bg-green-500/20' : 'bg-blue-500/20'
-            }`}>
-              <Icon 
-                name={transaction.type === 'donation' ? 'arrowDown' : 'arrowUp'} 
-                className={`h-5 w-5 ${
-                  transaction.type === 'donation' ? 'text-green-400' : 'text-blue-400'
-                }`} 
-              />
-            </div>
-            <div>
-              <p className="text-sm font-medium text-white">
-                {transaction.description}
-              </p>
-              <p className="text-xs text-gray-400">
-                {new Date(transaction.date).toLocaleDateString()}
-              </p>
-            </div>
-          </div>
-          <div className="text-right">
-            <p className="text-sm font-medium text-white">
-              ${transaction.amount.toFixed(2)}
-            </p>
-            <p className={`text-xs ${getStatusColor(transaction.status)}`}>
-              {t(`transaction.status.${transaction.status}`)}
-            </p>
-          </div>
-        </div>
-      ))}
+    <div className="p-4">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-semibold text-gray-200">Recent Transactions</h2>
+        <span className="text-sm text-gray-400">Last 24 hours</span>
+      </div>
+      <div className="bg-gray-800/40 rounded-lg overflow-hidden">
+        <Table>
+          <thead className="bg-gray-700/50">
+            <tr>
+              <th className="px-4 py-3 text-left text-sm font-medium text-gray-200">Type</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-gray-200">Amount</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-gray-200">From</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-gray-200">To</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-gray-200">Status</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-gray-200">Time</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-700/50">
+            {mockTransactions.map((tx) => (
+              <tr key={tx.id} className="hover:bg-gray-700/25 transition-colors">
+                <td className="px-4 py-3 text-sm text-gray-300">{tx.type}</td>
+                <td className="px-4 py-3 text-sm text-gray-300">{tx.amount}</td>
+                <td className="px-4 py-3 text-sm text-gray-300">{tx.from}</td>
+                <td className="px-4 py-3 text-sm text-gray-300">{tx.to}</td>
+                <td className="px-4 py-3 text-sm">
+                  <span className="px-2 py-1 text-xs font-medium rounded-full bg-green-500/20 text-green-400">
+                    {tx.status}
+                  </span>
+                </td>
+                <td className="px-4 py-3 text-sm text-gray-400">{tx.timestamp}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
     </div>
   );
 } 
