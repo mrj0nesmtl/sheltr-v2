@@ -4,3 +4,7 @@ export * from './Card';
 export * from './Checkbox';
 export * from './Icon';
 export * from './Input';
+export * from './Table';
+export * from './LoadingSpinner';
+export * from './MetricCard';
+export * from './SignOutButton';

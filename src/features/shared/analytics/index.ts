@@ -18,6 +18,9 @@ export * from './utils/theme';
 // Hooks
 export * from './hooks/useAnalytics';
 
+// Analytics Components
+export { DashboardAnalytics } from '@/layouts/dashboard/shared/analytics/DashboardAnalytics';
+
 // Donation History
 export * from './DonationHistory';
 export * from './DonorStats';

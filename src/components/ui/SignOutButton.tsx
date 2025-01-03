@@ -1,4 +1,4 @@
-import { useAuthStore } from '@/stores/authStore';
+import { useAuthStore } from '@/auth/stores/authStore';
 import { useTranslation } from 'react-i18next';
 import { Icon } from './Icon';
 import { useState } from 'react';
@@ -11,12 +11,12 @@ interface SignOutButtonProps {
   onSignOutComplete?: () => void;
 }
 
-export function SignOutButton({ 
+export const SignOutButton = ({ 
   className = '', 
   variant = 'menu',
   onSignOutStart,
   onSignOutComplete 
-}: SignOutButtonProps) {
+}: SignOutButtonProps) => {
   const { t } = useTranslation();
   const { logout } = useAuthStore();
   const navigate = useNavigate();
@@ -73,4 +73,4 @@ export function SignOutButton({
       {isLoading ? t('nav.signingOut') : t('nav.signOut')}
     </button>
   );
-} 
+}; 
