@@ -1,5 +1,5 @@
 # 🌳 SHELTR Components Structure
-*Generated: 2025-01-02 15:36:41*
+*Generated: 2025-01-02 23:53:42*
 \n## Directory Structure
 ./src/components
 ├── About
@@ -119,11 +119,17 @@
 │   └── index.ts
 ├── shared
 │   ├── analytics
+│   │   ├── DetailedAnalytics.tsx
+│   │   ├── SystemHealthMonitor.tsx
 │   │   └── index.ts
 │   └── ui
 │       └── index.ts
 ├── ui
 │   ├── Charts
+│   │   ├── DonationAllocationPieChart.tsx
+│   │   ├── MapComponent.tsx
+│   │   ├── NetworkActivityChart.tsx
+│   │   └── index.ts
 │   ├── Accordion.tsx
 │   ├── Avatar.tsx
 │   ├── Badge.tsx
@@ -158,4 +164,4 @@
 ├── ScrollToTop.tsx
 └── ThemeToggle.tsx
 
-41 directories, 115 files
+41 directories, 121 files

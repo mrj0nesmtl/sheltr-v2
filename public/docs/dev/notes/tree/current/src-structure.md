@@ -1,5 +1,5 @@
 # 🌳 SHELTR Source Structure
-*Generated: 2025-01-02 15:36:41*
+*Generated: 2025-01-02 23:53:42*
 \n## Directory Structure
 ./src
 ├── auth
@@ -316,6 +316,7 @@
 │   │   └── shelter.ts
 │   ├── utils
 │   │   ├── docs-parser.ts
+│   │   ├── format.ts
 │   │   ├── iconMapping.ts
 │   │   ├── navigation.ts
 │   │   ├── qrCode.ts
@@ -418,4 +419,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-148 directories, 268 files
+148 directories, 269 files
