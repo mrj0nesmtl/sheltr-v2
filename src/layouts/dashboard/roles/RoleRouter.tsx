@@ -33,6 +33,11 @@ export const RoleRouter = () => {
   return (
     <Routes>
       <Route path="/*" element={getDashboardComponent()} />
+      {/* Add additional role-specific routes here if needed */}
+      {/* Example:
+      <Route path="/profile" element={<ProfileComponent />} />
+      <Route path="/settings" element={<SettingsComponent />} />
+      */}
     </Routes>
   );
 };

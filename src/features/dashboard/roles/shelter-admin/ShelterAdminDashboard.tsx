@@ -3,6 +3,7 @@ import { DashboardHeader } from '@/features/dashboard/shared/components'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
+import { SignOutButton } from '@/components/ui/SignOutButton'
 import { ParticipantList } from './components/ParticipantList'
 import { ProgramsList } from './components/ProgramsList'
 import { DonationAnalytics } from './components/DonationAnalytics'
@@ -18,8 +19,11 @@ export const ShelterAdminDashboard = () => {
     <ErrorBoundary>
       <div className="min-h-screen bg-slate-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
-          {/* Header Section */}
-          <DashboardHeader title="Shelter Admin Dashboard" user={user} />
+          {/* Header Section with Sign Out */}
+          <div className="flex justify-between items-center">
+            <DashboardHeader title="Shelter Admin Dashboard" user={user} />
+            <SignOutButton variant="header" />
+          </div>
 
           {/* Metrics Overview - 3 column grid on desktop, stack on mobile */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
