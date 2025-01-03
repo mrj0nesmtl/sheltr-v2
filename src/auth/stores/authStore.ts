@@ -187,23 +187,15 @@ export const useAuthStore = create<AuthStore>(
 
       refreshSession: async () => {
         try {
-          set({ 
-            session: { ...get().session, status: 'authenticating' },
-            sessionError: null 
-          });
-
           const { data: { session }, error } = await supabase.auth.getSession();
           
           if (error) {
             get().handleError(error, 'warning');
-            throw error;
+            get().clearAuth();
+            return;
           }
           
           if (!session) {
-            get().handleError(
-              new Error('Session not found'), 
-              'warning'
-            );
             get().clearAuth();
             return;
           }
@@ -212,6 +204,7 @@ export const useAuthStore = create<AuthStore>(
             user: session.user as User,
             role: session.user.role as AUTH_ROLES,
             isAuthenticated: true,
+            isLoading: false,
             session: {
               status: 'authenticated',
               expiresAt: new Date(session.expires_at!).getTime(),
@@ -222,7 +215,7 @@ export const useAuthStore = create<AuthStore>(
           });
         } catch (error) {
           get().handleError(error as Error, 'error');
-          throw error;
+          get().clearAuth();
         }
       },
 
@@ -300,8 +293,7 @@ export const useAuthStore = create<AuthStore>(
         session: {
           status: state.session.status,
           expiresAt: state.session.expiresAt
-        },
-        lastError: state.lastError // Store last error for debugging
+        }
       })
     }
   )

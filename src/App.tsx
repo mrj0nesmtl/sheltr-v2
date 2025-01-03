@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Layout } from '@/layouts/base/Layout';
 import AppRoutes from './routes/AppRoutes';
