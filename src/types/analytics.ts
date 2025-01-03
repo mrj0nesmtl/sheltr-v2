@@ -33,3 +33,27 @@ export type ScanError = {
   message: string;
   timestamp: Date;
 };
+
+export interface GrowthTrend {
+  month: string;
+  users: number;
+  donations: number;
+  shelters: number;
+}
+
+export interface UserActivityData {
+  activeToday: number;
+  weeklyActive: number;
+  topLocations: Array<{
+    city: string;
+    users: number;
+  }>;
+}
+
+export interface ActivityItem {
+  id: number;
+  type: 'donation' | 'shelter' | 'user';
+  user: string;
+  action: string;
+  timestamp: string;
+}

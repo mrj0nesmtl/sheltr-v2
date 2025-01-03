@@ -342,17 +342,52 @@ export const en: Translations = {
     },
     participant: {
       title: "Participant Dashboard",
+      subtitle: "Welcome to your personal progress tracker",
       metrics: {
-        totalReceived: "Total Received",
-        servicesUsed: "Services Used",
-        upcomingAppointments: "Upcoming Appointments",
-        housingProgress: "Housing Progress"
+        progress: "Program Progress",
+        resources: "Available Resources",
+        events: "Upcoming Events",
+        achievements: "Achievements Earned",
+        upcoming: "Events This Week",
+        donationStats: "Donation Statistics",
+        shelterAffiliation: "Shelter Affiliation"
       },
-      actions: {
-        viewServices: "View Services",
-        scheduleAppointment: "Schedule Appointment",
-        updateProfile: "Update Profile",
-        contactSupport: "Contact Support"
+      activity: {
+        title: "Recent Activity",
+        empty: "No recent activity to show",
+        viewAll: "View All Activity"
+      },
+      resources: {
+        title: "Resource Access",
+        available: "Available Now",
+        scheduled: "Scheduled Services",
+        recommended: "Recommended for You"
+      },
+      analytics: {
+        donations: {
+          title: "Donation Overview",
+          total: "Total Received",
+          recent: "Recent Donations",
+          trend: "Monthly Trend"
+        },
+        heatmap: {
+          title: "Donation Activity",
+          daily: "Daily Activity",
+          weekly: "Weekly Pattern",
+          tooltip: "{{count}} donations on {{date}}"
+        },
+        shelter: {
+          title: "Shelter Information",
+          current: "Current Shelter",
+          duration: "Length of Stay",
+          services: "Services Used"
+        },
+        progress: {
+          title: "Program Progress",
+          goals: "Goals Completed",
+          nextMilestone: "Next Milestone",
+          timeline: "Progress Timeline"
+        }
       }
     }
   },
