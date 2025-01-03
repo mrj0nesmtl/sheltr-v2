@@ -15,6 +15,7 @@ import ScanDonatePage from '@/pages/ScanDonatePage';
 import Impact from '@/pages/Impact';
 import About from '@/pages/About';
 import Wiki from '@/pages/Wiki/Wiki';
+import { ParticipantDashboard } from '@/features/dashboard/roles/participant/ParticipantDashboard';
 
 const AppRoutes = () => {
   const { role } = useAuthStore();
@@ -46,6 +47,16 @@ const AppRoutes = () => {
         path="/shelter-admin/*"
         element={
           <ProtectedRoute allowedRoles={[AUTH_ROLES.SHELTER_ADMIN]}>
+            <RoleRouter />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Add Participant Routes */}
+      <Route
+        path="/participant/*"
+        element={
+          <ProtectedRoute allowedRoles={[AUTH_ROLES.PARTICIPANT]}>
             <RoleRouter />
           </ProtectedRoute>
         }
