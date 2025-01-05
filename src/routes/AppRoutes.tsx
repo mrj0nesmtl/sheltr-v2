@@ -16,6 +16,7 @@ import Impact from '@/pages/Impact';
 import About from '@/pages/About';
 import Wiki from '@/pages/Wiki/Wiki';
 import { ParticipantDashboard } from '@/features/dashboard/roles/participant/ParticipantDashboard';
+import { DonorDashboard } from '@/features/dashboard/roles/donor/DonorDashboard';
 
 const AppRoutes = () => {
   const { role } = useAuthStore();
@@ -47,6 +48,16 @@ const AppRoutes = () => {
         path="/shelter-admin/*"
         element={
           <ProtectedRoute allowedRoles={[AUTH_ROLES.SHELTER_ADMIN]}>
+            <RoleRouter />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Add Donor Routes */}
+      <Route
+        path="/donor/*"
+        element={
+          <ProtectedRoute allowedRoles={[AUTH_ROLES.DONOR]}>
             <RoleRouter />
           </ProtectedRoute>
         }

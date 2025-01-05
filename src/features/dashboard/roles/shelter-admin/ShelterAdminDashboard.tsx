@@ -4,6 +4,9 @@ import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { SignOutButton } from '@/components/ui/SignOutButton'
+import { UserBadge } from '@/components/UserBadge/UserBadge'
+import { Badge } from '@/components/ui/Badge'
+import { Icon } from '@/components/ui/Icon'
 import { ParticipantList } from './components/ParticipantList'
 import { ProgramsList } from './components/ProgramsList'
 import { DonationAnalytics } from './components/DonationAnalytics'
@@ -19,10 +22,34 @@ export const ShelterAdminDashboard = () => {
     <ErrorBoundary>
       <div className="min-h-screen bg-slate-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
-          {/* Header Section with Sign Out */}
-          <div className="flex justify-between items-center">
-            <DashboardHeader title="Shelter Admin Dashboard" user={user} />
-            <SignOutButton variant="header" />
+          {/* Enhanced Header Section with Badges */}
+          <div className="bg-gray-800/50 backdrop-blur-lg p-6 rounded-lg">
+            <div className="flex justify-between items-start">
+              <div className="space-y-4">
+                <DashboardHeader title="Shelter Admin Dashboard" user={user} />
+                {/* Badges Section */}
+                <div className="flex items-center gap-2 flex-wrap">
+                  <UserBadge role="shelter_admin" verified={true} />
+                  <Badge variant="success" size="sm" className="flex items-center gap-1">
+                    <Icon name="check-circle" className="w-3 h-3" />
+                    Verified Status
+                  </Badge>
+                  <Badge variant="info" size="sm" className="flex items-center gap-1">
+                    <Icon name="users" className="w-3 h-3" />
+                    24 Active Participants
+                  </Badge>
+                  <Badge variant="warning" size="sm" className="flex items-center gap-1">
+                    <Icon name="wallet" className="w-3 h-3" />
+                    $9,250 Donations
+                  </Badge>
+                  <Badge variant="error" size="sm" className="flex items-center gap-1">
+                    <Icon name="clock" className="w-3 h-3" />
+                    3 Pending Reviews
+                  </Badge>
+                </div>
+              </div>
+              <SignOutButton variant="header" />
+            </div>
           </div>
 
           {/* Metrics Overview - 3 column grid on desktop, stack on mobile */}

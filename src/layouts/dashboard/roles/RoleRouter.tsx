@@ -2,11 +2,11 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuthStore } from '@/auth/stores/authStore';
 import { AUTH_ROLES } from '@/auth/types/auth.types';
 
-// Import dashboards from new feature-based structure
-import { ShelterAdminDashboard } from '@/features/dashboard/roles/shelter-admin';
-import { DonorDashboard } from '@/features/dashboard/roles/donor';
-import { ParticipantDashboard } from '@/features/dashboard/roles/participant';
-import { SuperAdminDashboard } from '@/features/dashboard/roles/super-admin';
+// Fix imports to point directly to the dashboard files
+import { ShelterAdminDashboard } from '@/features/dashboard/roles/shelter-admin/ShelterAdminDashboard';
+import { DonorDashboard } from '@/features/dashboard/roles/donor/DonorDashboard';
+import { ParticipantDashboard } from '@/features/dashboard/roles/participant/ParticipantDashboard';
+import { SuperAdminDashboard } from '@/features/dashboard/roles/super-admin/SuperAdminDashboard';
 
 export const RoleRouter = () => {
   const { user } = useAuthStore();
@@ -33,11 +33,6 @@ export const RoleRouter = () => {
   return (
     <Routes>
       <Route path="/*" element={getDashboardComponent()} />
-      {/* Add additional role-specific routes here if needed */}
-      {/* Example:
-      <Route path="/profile" element={<ProfileComponent />} />
-      <Route path="/settings" element={<SettingsComponent />} />
-      */}
     </Routes>
   );
 };

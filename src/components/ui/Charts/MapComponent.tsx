@@ -16,27 +16,41 @@ let DefaultIcon = L.icon({
 L.Marker.prototype.options.icon = DefaultIcon;
 
 interface MapComponentProps {
-  activeCategory: any;
+  userId?: string;
+  center?: [number, number];
+  zoom?: number;
+  markers?: Array<{
+    lat: number;
+    lng: number;
+    name: string;
+  }>;
 }
 
-export default function MapComponent({ activeCategory }: MapComponentProps) {
+export const MapComponent: React.FC<MapComponentProps> = ({ 
+  center = [45.5017, -73.5673],
+  zoom = 12,
+  markers = []
+}) => {
   return (
     <div className="h-[300px] rounded-lg overflow-hidden">
       <MapContainer
-        center={[45.5017, -73.5673]}
-        zoom={12}
+        center={center}
+        zoom={zoom}
         className="h-full w-full"
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; OpenStreetMap contributors'
         />
-        {activeCategory?.locations.map((location, idx) => (
-          <Marker key={idx} position={[location.lat, location.lng]}>
-            <Popup>{location.name}</Popup>
+        {markers.map((marker, idx) => (
+          <Marker key={idx} position={[marker.lat, marker.lng]}>
+            <Popup>{marker.name}</Popup>
           </Marker>
         ))}
       </MapContainer>
     </div>
   );
-} 
+};
+
+// Also add a default export if needed
+export default MapComponent; 

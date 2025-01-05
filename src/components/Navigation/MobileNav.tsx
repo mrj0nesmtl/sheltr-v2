@@ -13,7 +13,8 @@ import {
   Home,
   LogIn,
   UserPlus,
-  User
+  User,
+  LogOut
 } from 'lucide-react';
 import { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -21,6 +22,7 @@ import { Link } from 'react-router-dom';
 import { Logo } from '../ui/Logo';
 import { LanguageToggle } from '../ui/LanguageToggle';
 import { Button } from '../ui/Button';
+import { SignOutButton } from '../ui/SignOutButton';
 
 // Define navigation items with icons
 const publicNavItems = [
@@ -46,6 +48,13 @@ interface MobileNavProps {
 export function MobileNav({ isOpen, onClose }: MobileNavProps) {
   const { t } = useTranslation();
   const { user, isAuthenticated } = useAuth();
+
+  // Add debug logging
+  console.log('MobileNav State:', { 
+    isAuthenticated, 
+    user, 
+    isOpen 
+  });
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
@@ -126,8 +135,17 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
                 </div>
               </div>
 
-              {/* Auth Section */}
-              <div className="border-t border-gray-800 px-4 py-6">
+              {/* Auth Section - Simply use SignOutButton */}
+              <div className="mt-auto border-t border-gray-800 px-4 py-6">
+                {/* Debug info in development */}
+                {process.env.NODE_ENV === 'development' && (
+                  <div className="mb-4 p-2 bg-gray-800 rounded text-xs text-gray-400">
+                    Auth: {isAuthenticated ? 'Yes' : 'No'}
+                    <br />
+                    Role: {user?.role || 'None'}
+                  </div>
+                )}
+
                 {!isAuthenticated ? (
                   <div className="space-y-3">
                     <Link
@@ -152,14 +170,21 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
                     </Link>
                   </div>
                 ) : (
-                  <Link
-                    to="/profile"
-                    className="flex items-center space-x-3 px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-800 hover:text-white rounded-md"
-                    onClick={onClose}
-                  >
-                    <User className="h-5 w-5 flex-shrink-0" />
-                    <span>{t('nav.profile')}</span>
-                  </Link>
+                  <div className="space-y-4">
+                    <Link
+                      to="/profile"
+                      className="flex items-center space-x-3 px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-800 hover:text-white rounded-md"
+                      onClick={onClose}
+                    >
+                      <User className="h-5 w-5 flex-shrink-0" />
+                      <span>{t('nav.profile')}</span>
+                    </Link>
+                    
+                    <SignOutButton 
+                      variant="menu"
+                      onSignOutComplete={onClose}
+                    />
+                  </div>
                 )}
               </div>
             </Dialog.Panel>

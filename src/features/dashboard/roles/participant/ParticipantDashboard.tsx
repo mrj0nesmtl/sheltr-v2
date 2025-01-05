@@ -3,7 +3,9 @@ import { useAuthStore } from '@/auth/stores/authStore';
 import { useTranslation } from 'react-i18next';
 import { DashboardHeader } from '@/features/dashboard/shared/components/DashboardHeader';
 import { DashboardAnalytics } from '@/features/shared/analytics';
-import { MetricCard, Card, SignOutButton } from '@/components/ui';
+import { MetricCard, Card, SignOutButton, Badge } from '@/components/ui';
+import { Icon } from '@/components/ui/Icon';
+import { UserBadge } from '@/components/UserBadge/UserBadge';
 import { ResourceUtilization, ProgressMetrics } from '@/features/shared/analytics/charts';
 import { ServiceHistory } from '@/features/shared/analytics/tables';
 import { LoadingSpinner } from '@/components/ui';
@@ -35,10 +37,31 @@ export const ParticipantDashboard = () => {
     <ErrorBoundary>
       <div className="space-y-6 text-gray-100">
         <div className="flex justify-between items-center">
-          <DashboardHeader 
-            title={t('dashboard.participant.title')} 
-            user={user}
-          />
+          <div className="space-y-4">
+            <DashboardHeader 
+              title={t('dashboard.participant.title')} 
+              user={user}
+            />
+            <div className="flex items-center gap-2 flex-wrap">
+              <UserBadge role="participant" />
+              <Badge variant="success" size="sm" className="flex items-center gap-1">
+                <Icon name="check-circle" className="w-3 h-3" />
+                Program Active
+              </Badge>
+              <Badge variant="info" size="sm" className="flex items-center gap-1">
+                <Icon name="trending-up" className="w-3 h-3" />
+                75% Progress
+              </Badge>
+              <Badge variant="warning" size="sm" className="flex items-center gap-1">
+                <Icon name="star" className="w-3 h-3" />
+                Milestone 3
+              </Badge>
+              <Badge variant="default" size="sm" className="flex items-center gap-1">
+                <Icon name="calendar" className="w-3 h-3" />
+                30 Day Streak
+              </Badge>
+            </div>
+          </div>
           <SignOutButton variant="header" />
         </div>
 
