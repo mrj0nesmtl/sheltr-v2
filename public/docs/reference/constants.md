@@ -1,9 +1,10 @@
 # 🔒 SHELTR Constants Reference
-*Version: 0.5.3 - January 1, 00:00 EST*
+*Last Updated: January 4, 2025 21:30 EST*
+*Version: 0.5.4*
 *Status: STABLE* 🟢
 
 ## ⚠️ STATUS UPDATE
-Auth system stabilized. Constants updated to reflect current implementation.
+Badge system and authentication flows stabilized. Constants updated to reflect role-based implementation.
 
 ## API Constants
 
@@ -14,18 +15,18 @@ export const API_ENDPOINTS = {
     LOGIN: '/auth/login',      // ✅ Stable
     REGISTER: '/auth/register', // ✅ Stable
     LOGOUT: '/auth/logout',     // ✅ Stable
-    VERIFY: '/auth/verify',     // ✅ Implemented
-    REFRESH: '/auth/refresh'    // ✅ Implemented
+    VERIFY: '/auth/verify',     // ✅ Stable
+    REFRESH: '/auth/refresh'    // ✅ Stable
   },
-  DONATIONS: {
-    CREATE: '/donations/create', // ✅ Functional
-    LIST: '/donations/list',     // ✅ Functional
-    METRICS: '/donations/metrics'// ✅ Functional
+  BADGES: {
+    GET: '/badges/get',         // ✅ Implemented
+    UPDATE: '/badges/update',   // ✅ Implemented
+    VERIFY: '/badges/verify'    // ✅ Implemented
   },
-  QR: {
-    GENERATE: '/qr/generate',    // ✅ Functional
-    VALIDATE: '/qr/validate',    // ✅ Functional
-    SCAN: '/qr/scan'            // ✅ Functional
+  REALTIME: {
+    CONNECT: '/ws/connect',     // 🟡 In Progress
+    STATUS: '/ws/status',       // 🟡 In Progress
+    EVENTS: '/ws/events'        // 🟡 In Progress
   }
 } as const;
 ```
@@ -38,7 +39,8 @@ export const API_CONFIG = {
   TIMEOUT: 30000,              // Optimized
   RETRY_ATTEMPTS: 3,           // Optimized
   AUTH_TIMEOUT: 20000,         // Optimized
-  CACHE_CONTROL: 'no-store'    // Implemented
+  CACHE_CONTROL: 'no-store',   // Implemented
+  WEBSOCKET_RETRY: 5000        // Added
 } as const;
 ```
 
@@ -130,13 +132,35 @@ export const VALIDATION = {
 } as const;
 ```
 
-## Role Constants (🟡 IN_PROGRESS)
+## Role Constants (✅ STABLE)
 ```typescript
 export const ROLES = {
-  ADMIN: 'admin',           // ✅ Implemented
-  DONOR: 'donor',          // 🟡 In Progress
-  SHELTER: 'shelter',      // 🟡 In Progress
-  PARTICIPANT: 'participant'// 🔵 Planned
+  SUPER_ADMIN: 'super_admin',     // ✅ Implemented
+  SHELTER_ADMIN: 'shelter_admin', // ✅ Implemented
+  DONOR: 'donor',                // ✅ Implemented
+  PARTICIPANT: 'participant'     // ✅ Implemented
+} as const;
+```
+
+## Badge Constants (✅ STABLE)
+```typescript
+export const BADGES = {
+  TYPES: {
+    ROLE: 'role',
+    STATUS: 'status',
+    ACHIEVEMENT: 'achievement'
+  },
+  STYLES: {
+    DEFAULT: 'default',
+    SUCCESS: 'success',
+    WARNING: 'warning',
+    ERROR: 'error'
+  },
+  DISPLAY: {
+    SHOW_LABEL: true,
+    SHOW_ICON: true,
+    ANIMATE: true
+  }
 } as const;
 ```
 
@@ -156,31 +180,30 @@ export const STATUS = {
 
 ### ✅ Stable Areas
 1. Auth System
-   - Login endpoints stable
-   - Session management optimized
-   - Cache management implemented
-   - Token refresh functional
+   - Enhanced session management
+   - Role verification complete
+   - Badge system integrated
+   - Real-time ready
 
 2. Configuration
-   - Timeouts optimized
-   - Retry logic optimized
-   - Cache control implemented
-   - Debug flags disabled
+   - WebSocket support added
+   - Cache strategy optimized
+   - Performance enhanced
+   - Security hardened
 
 ### 🟡 Areas In Progress
-1. Feature Implementation
-   - Offline mode in development
-   - Blockchain integration planned
-   - Role system enhancement
-   - Advanced features planned
+1. Real-Time Features
+   - WebSocket implementation
+   - Event system
+   - Connection management
+   - Error handling
 
 ## Recent Changes
-1. Disabled debug flags
-2. Optimized timeouts
-3. Implemented cache control
-4. Enhanced error states
-5. Updated validation rules
+1. Added badge constants
+2. Updated role definitions
+3. Added WebSocket config
+4. Enhanced security measures
+5. Optimized performance settings
 
 ---
-*Last Updated: December 28, 2024 22:00 EST*
-*Status: STABLE* ✅
+*For implementation details, see [implementation.md](./implementation.md)*
