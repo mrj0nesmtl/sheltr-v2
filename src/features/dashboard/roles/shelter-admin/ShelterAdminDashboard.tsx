@@ -14,9 +14,29 @@ import { DisbursementTracker } from './components/DisbursementTracker'
 import { MetricCard } from '@/components/ui/MetricCard'
 import { DonationAllocationPieChart } from './components/DonationAllocationPieChart'
 import { GlobalDonationMap } from './components/GlobalDonationMap'
+import { ShelterDonationMap } from './components/ShelterDonationMap'
 
 export const ShelterAdminDashboard = () => {
   const { user } = useAuthStore()
+
+  const shelterData = {
+    name: "Downtown Shelter",
+    lat: 45.5017,
+    lng: -73.5673,
+    totalDonations: 124500
+  };
+
+  const participantData = [
+    {
+      id: "1",
+      name: "John D.",
+      lat: 45.5025,
+      lng: -73.5685,
+      lastDonation: 50,
+      totalDonations: 500
+    },
+    // Add more participants as needed
+  ];
 
   return (
     <ErrorBoundary>
@@ -72,7 +92,10 @@ export const ShelterAdminDashboard = () => {
                 <DonationAllocationPieChart />
               </Card>
               <Card className="p-6 bg-slate-800/50 backdrop-blur-lg border-slate-700">
-                <GlobalDonationMap />
+                <ShelterDonationMap 
+                  shelterLocation={shelterData}
+                  participants={participantData}
+                />
               </Card>
             </div>
 

@@ -1,49 +1,76 @@
-import React, { useState, Suspense, lazy } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PieChart } from 'react-minimal-pie-chart';
+import { MapComponent } from '@/components/ui/Charts/MapComponent';
+import { useGeolocation } from '@/hooks/useGeolocation';
 
-// Lazy load map components
-const MapComponent = lazy(() => import('./MapComponent'));
-
-const mockDonationData = [
-  { 
-    category: 'Food Programs', 
-    amount: 45000, 
-    percentage: 35,
-    color: '#60A5FA',
-    locations: [
-      { lat: 45.5017, lng: -73.5673, name: 'Montreal Food Bank' },
-      { lat: 45.5088, lng: -73.5878, name: 'Hope Kitchen' }
-    ]
-  },
-  { 
-    category: 'Shelter Operations', 
-    amount: 38000, 
-    percentage: 30,
-    color: '#F59E0B',
-    locations: []
-  },
-  { 
-    category: 'Medical Aid', 
-    amount: 25000, 
-    percentage: 20,
-    color: '#10B981',
-    locations: []
-  },
-  { 
-    category: 'Education', 
-    amount: 15000, 
-    percentage: 15,
-    color: '#EF4444',
-    locations: []
-  }
-];
+// Default North America view
+const DEFAULT_LOCATION = {
+  city: 'North America',
+  coordinates: [43.6532, -79.3832] as [number, number], // Centered on Toronto
+  zoom: 4
+};
 
 export function DonationAllocationPieChart() {
   const [activeCategory, setActiveCategory] = useState(null);
+  const [location, setLocation] = useState<{
+    city: string;
+    coordinates: [number, number];
+    zoom: number;
+  }>(DEFAULT_LOCATION);
+  
+  const { coordinates, city, error } = useGeolocation();
+
+  useEffect(() => {
+    if (coordinates && city) {
+      setLocation({
+        city,
+        coordinates,
+        zoom: 12 // Closer zoom for local view
+      });
+    } else if (error) {
+      console.log('Geolocation error, using default view:', error);
+      setLocation(DEFAULT_LOCATION);
+    }
+  }, [coordinates, city, error]);
+
+  // Sample data - in production this would be fetched based on location
+  const mockDonationData = [
+    { 
+      category: 'Food Programs', 
+      amount: 45000, 
+      percentage: 35,
+      color: '#60A5FA',
+    },
+    { 
+      category: 'Shelter Operations', 
+      amount: 38000, 
+      percentage: 30,
+      color: '#F59E0B',
+    },
+    { 
+      category: 'Medical Aid', 
+      amount: 25000, 
+      percentage: 20,
+      color: '#10B981',
+    },
+    { 
+      category: 'Education', 
+      amount: 15000, 
+      percentage: 15,
+      color: '#EF4444',
+    }
+  ];
 
   return (
     <div className="p-4 space-y-6">
-      <h3 className="text-xl font-semibold text-gray-200 mb-4">Donation Allocation</h3>
+      <h3 className="text-xl font-semibold text-gray-200 mb-4 flex items-center justify-between">
+        <span>
+          {location === DEFAULT_LOCATION ? 'Regional' : 'Local'} Donation Allocation
+        </span>
+        <span className="text-sm text-gray-400">
+          {location.city}
+        </span>
+      </h3>
       
       <div className="grid grid-cols-2 gap-6">
         {/* Pie Chart */}
@@ -62,14 +89,13 @@ export function DonationAllocationPieChart() {
           />
         </div>
 
-        {/* Map View with Suspense */}
-        <Suspense fallback={
-          <div className="h-[300px] flex items-center justify-center bg-gray-800/50 rounded-lg">
-            <span className="text-gray-400">Loading map...</span>
-          </div>
-        }>
-          <MapComponent activeCategory={activeCategory} />
-        </Suspense>
+        {/* Map View - Always shows something */}
+        <div className="h-[300px] rounded-lg overflow-hidden">
+          <MapComponent
+            center={location.coordinates}
+            zoom={location.zoom}
+          />
+        </div>
       </div>
 
       {/* Stats Grid */}

@@ -17,32 +17,34 @@ export function Hero() {
           overlay={true}
         />
         
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="relative overflow-hidden">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
               <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="text-center"
               >
-                <h1 className="text-4xl font-bold text-white sm:text-5xl mb-6">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
                   {t('hero.title')}
                 </h1>
-                <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-10">
+                <p className="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto mb-12 leading-relaxed">
                   {t('hero.subtitle')}
                 </p>
-                <div className="flex items-center justify-center gap-x-6">
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
                   <Link
                     to="/scan-donate"
-                    className="rounded-md bg-green-600 px-6 py-3 text-lg font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+                    className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 text-lg font-semibold text-white bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-500 focus:ring-4 focus:ring-indigo-600/50 focus:outline-none transition-all duration-200 ease-in-out"
                   >
+                    <QrCode className="w-5 h-5 mr-2" />
                     {t('hero.cta.scan')}
                   </Link>
                   <Link
                     to="/how-it-works"
-                    className="text-lg font-semibold leading-6 text-white hover:text-indigo-200"
+                    className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 text-lg font-semibold text-white border-2 border-white/20 rounded-lg hover:bg-white/10 focus:ring-4 focus:ring-white/30 focus:outline-none transition-all duration-200 ease-in-out group"
                   >
-                    {t('hero.cta.learnMore')} <span aria-hidden="true">→</span>
+                    {t('hero.cta.learnMore')}
+                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-200" />
                   </Link>
                 </div>
               </motion.div>

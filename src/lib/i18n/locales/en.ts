@@ -190,13 +190,14 @@ export const en: Translations = {
   },
 
   hero: {
-    mainTitle: "Transform Charitable Giving",
-    subtitle: 'Transform donations into meaningful actions using blockchain technology and smart contracts to directly support homeless individuals with transparency and accountability.',
+    title: "Transform Donations into Impact",
+    subtitle: "Transform your daily donations into meaningful events. We use blockchain smart contracts and AI to directly support homeless individuals with transparency and accountability.",
+    description: "Transform your daily donations into meaningful events. We use blockchain smart contracts and AI to directly support homeless individuals with transparency and accountability.",
     backgroundAlt: 'Person sleeping on bench',
     cta: {
       scan: 'Scan & Donate',
       learnMore: 'Learn More',
-      title: "Join the Movement to End Homelessness",
+      title: "Join the Movement to Hack Homelessness",
       description: "Make a direct impact through secure, transparent donations that create lasting change."
     },
     features: {
