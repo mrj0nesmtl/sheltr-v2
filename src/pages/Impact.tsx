@@ -26,7 +26,7 @@ import { AreaChart } from '@/features/dashboard/shared/analytics/charts/AreaChar
 import { MetricCard } from '@/features/dashboard/shared/analytics/metrics/MetricCard';
 import { PageBackground } from '@/components/ui/PageBackground';
 import { TokenCard } from '@/components/Token/TokenCard';
-import TransactionList from "@/components/Blockchain/TransactionList";
+import { TransactionRow } from '../components/Transactions/TransactionRow';
 import { GlobalDonationMap } from '@/features/dashboard/roles/shelter-admin/components/GlobalDonationMap';
 import { PieChart } from '@/components/charts/PieChart';
 import { SystemStatus } from '@/components/metrics/SystemStatus';
@@ -34,7 +34,6 @@ import { DonationAllocationPieChart } from '@/components/ui/Charts/DonationAlloc
 import { useEffect } from 'react';
 import { usePlatformStatus } from '@/services/platformStatus';
 import { LineChart } from '@/components/charts/LineChart';
-import { TransactionRow } from '@transactions/TransactionRow';
 
 // Define types
 interface DonationData {
