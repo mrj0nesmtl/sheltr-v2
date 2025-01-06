@@ -1,5 +1,5 @@
 # 🌳 SHELTR Project Structure
-*Generated: 2025-01-04 21:42:41*
+*Generated: 2025-01-06 00:24:40*
 *Version: 0.4.9*
 
 ## Table of Contents
@@ -11,7 +11,7 @@
 6. [Technical Structures](#technical-structures)
 
 \n---\n
-*Generated: 2025-01-04 21:42:41*
+*Generated: 2025-01-06 00:24:40*
 \n## Directory Structure
 ./src/auth
 ├── components
@@ -30,7 +30,7 @@
 
 6 directories, 8 files
 \n---\n
-*Generated: 2025-01-04 21:42:41*
+*Generated: 2025-01-06 00:24:40*
 \n## Directory Structure
 ./src/components
 ├── About
@@ -139,15 +139,21 @@
 ├── ThankYou
 │   └── ThankYou.tsx
 ├── Token
+│   ├── TokenCard.tsx
 │   └── TokenPage.tsx
 ├── Transactions
-│   └── TransactionList.tsx
+│   ├── TransactionList.tsx
+│   └── TransactionRow.tsx
 ├── UserBadge
 │   └── UserBadge.tsx
 ├── Verify
 │   └── VerifyPage.tsx
+├── charts
+│   └── LineChart.tsx
 ├── layouts
 │   └── index.ts
+├── metrics
+│   └── SystemStatus.tsx
 ├── shared
 │   ├── analytics
 │   │   ├── DetailedAnalytics.tsx
@@ -195,9 +201,9 @@
 ├── ScrollToTop.tsx
 └── ThemeToggle.tsx
 
-41 directories, 121 files
+43 directories, 125 files
 \n---\n
-*Generated: 2025-01-04 21:42:41*
+*Generated: 2025-01-06 00:24:40*
 \n## Directory Structure
 ./public/docs
 ├── about
@@ -253,7 +259,10 @@
 ├── dev
 │   ├── notes
 │   │   ├── 2024-12
-│   │   │   └── prompt.md
+│   │   │   ├── dashboard-implementation.md
+│   │   │   ├── migration-guide.md
+│   │   │   ├── prompt.md
+│   │   │   └── standardization-plan.md
 │   │   └── tree
 │   │       ├── archive
 │   │       ├── current
@@ -267,19 +276,21 @@
 │   ├── checkpoint.md
 │   └── status_report.md
 ├── reference
+│   ├── analytics-components.md
+│   ├── analytics-inventory.md
 │   ├── components.md
 │   ├── constants.md
 │   └── types.md
 └── technical
     ├── authentication.md
     ├── blockchain.md
-    ├── build_tract.md
+    ├── build_track.md
     ├── database.md
     └── qr-system.md
 
-24 directories, 53 files
+24 directories, 58 files
 \n---\n
-*Generated: 2025-01-04 21:42:41*
+*Generated: 2025-01-06 00:24:40*
 \n## Directory Structure
 ./src/features
 ├── auth
@@ -345,7 +356,7 @@
 
 45 directories, 16 files
 \n---\n
-*Generated: 2025-01-04 21:42:41*
+*Generated: 2025-01-06 00:24:40*
 \n## Directory Structure
 ./src/layouts
 ├── base
@@ -369,20 +380,17 @@
 
 9 directories, 10 files
 \n---\n
-*Generated: 2025-01-04 21:42:41*
+*Generated: 2025-01-06 00:24:40*
 \n## Directory Structure
 .
-├── analytics
-├── components
-├── docs
-│   └── dev
-├── management
 ├── public
 │   ├── content
 │   ├── docs
 │   ├── images
+│   ├── analyze.html
 │   ├── index.html
-│   └── manifest.json
+│   ├── manifest.json
+│   └── stats.html
 ├── scripts
 │   ├── analyze-errors.js
 │   ├── archive-docs.ts
@@ -426,7 +434,6 @@
 │   ├── migrations
 │   └── config.toml
 ├── README.md
-├── analyze.html
 ├── eslint.config.js
 ├── index.html
 ├── layout_files.txt
@@ -436,7 +443,6 @@
 ├── replit.dev.nix
 ├── replit.nix
 ├── server.js
-├── stats.html
 ├── tailwind.config.js
 ├── tsconfig.app.json
 ├── tsconfig.json
@@ -445,9 +451,9 @@
 ├── vercel.json
 └── vite.config.ts
 
-33 directories, 40 files
+28 directories, 40 files
 \n---\n
-*Generated: 2025-01-04 21:42:41*
+*Generated: 2025-01-06 00:24:40*
 \n## Directory Structure
 ./src/pages
 ├── About
@@ -514,7 +520,7 @@
 
 14 directories, 48 files
 \n---\n
-*Generated: 2025-01-04 21:42:41*
+*Generated: 2025-01-06 00:24:40*
 \n## Directory Structure
 ./src
 ├── auth
@@ -629,15 +635,21 @@
 │   ├── ThankYou
 │   │   └── ThankYou.tsx
 │   ├── Token
+│   │   ├── TokenCard.tsx
 │   │   └── TokenPage.tsx
 │   ├── Transactions
-│   │   └── TransactionList.tsx
+│   │   ├── TransactionList.tsx
+│   │   └── TransactionRow.tsx
 │   ├── UserBadge
 │   │   └── UserBadge.tsx
 │   ├── Verify
 │   │   └── VerifyPage.tsx
+│   ├── charts
+│   │   └── LineChart.tsx
 │   ├── layouts
 │   │   └── index.ts
+│   ├── metrics
+│   │   └── SystemStatus.tsx
 │   ├── shared
 │   │   ├── analytics
 │   │   └── ui
@@ -727,6 +739,7 @@
 ├── hooks
 │   ├── useAlerts.ts
 │   ├── useAuth.ts
+│   ├── useGeolocation.ts
 │   ├── useMarkdownContent.ts
 │   ├── useNavigation.ts
 │   └── useWhitepaper.ts
@@ -892,7 +905,8 @@
 │   ├── AppRoutes.tsx
 │   └── index.tsx
 ├── services
-│   └── docs.service.ts
+│   ├── docs.service.ts
+│   └── platformStatus.ts
 ├── src
 │   └── backup
 │       └── dashboard_cleanup
@@ -934,4 +948,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-148 directories, 269 files
+150 directories, 275 files

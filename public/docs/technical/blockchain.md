@@ -1,235 +1,228 @@
 # ⛓️ SHELTR Blockchain Integration
-*Version: 0.1.1 - December 27, 2024*
+*Version: 0.5.7 - January 6, 2025*
 
 ## SHELTR Token (SHLT) Economics
 ```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-contract SHELTRToken is ERC20, Ownable, Pausable {
+contract SHELTRToken is ERC20, SecurityToken, Pausable {
     // Token Economics
-    uint256 public constant PARTICIPANT_SHARE = 80;  // 80%
-    uint256 public constant HOUSING_FUND_SHARE = 15; // 15%
-    uint256 public constant SHELTER_SHARE = 5;       // 5%
+    uint256 public constant INITIAL_SUPPLY = 100_000_000 * 10**18;  // 100M tokens
+    uint256 public constant PARTICIPANT_SHARE = 60;  // 60%
+    uint256 public constant HOUSING_FUND_SHARE = 20; // 20%
+    uint256 public constant SHELTER_SHARE = 10;      // 10%
+    uint256 public constant MARKET_LIQUIDITY = 10;   // 10%
     
-    // Token Value Management
-    uint256 public tokenValue;  // Current token value in USD (x 10^18)
-    address public stablecoinPair; // USDC pair for price stability
+    // Market Dynamics
+    uint256 public currentMarketPrice;  // Current token market value
+    uint256 public totalValueLocked;    // TVL in contract
+    mapping(address => bool) public authorizedExchanges;
     
-    struct DonationAllocation {
-        uint256 participantAmount;
-        uint256 housingFundAmount;
-        uint256 shelterAmount;
-        uint256 timestamp;
-        bool isProcessed;
+    struct TokenMetrics {
+        uint256 circulatingSupply;
+        uint256 totalBurned;
+        uint256 marketCap;
+        uint256 volume24h;
+        uint256 lastTradePrice;
     }
 
+    // Enhanced Transaction Tracking
     struct DetailedTransaction {
         string transactionId;
         address donor;
         string shelterId;
         string participantId;
         string qrCodeId;
-        uint256 totalAmount;
-        DonationAllocation allocation;
-        uint256 tokensMinted;
+        uint256 amount;
+        uint256 tokenAmount;
+        uint256 marketValue;
         uint256 timestamp;
+        TransactionType txType;
         TransactionStatus status;
     }
 
-    // Enhanced mappings
-    mapping(address => Wallet) public participantWallets;
-    mapping(string => ShelterMetrics) public shelterMetrics;
-    mapping(string => ParticipantMetrics) public participantMetrics;
-    
-    struct Wallet {
-        uint256 tokenBalance;
-        uint256 cashValue;
-        uint256 pendingRewards;
-        Transaction[] history;
-    }
-
-    struct ShelterMetrics {
-        uint256 totalDonations;
-        uint256 participantCount;
-        uint256 averageDonation;
-        uint256 totalDistributed;
-        mapping(string => uint256) participantAllocations;
-    }
-
-    struct ParticipantMetrics {
-        uint256 totalReceived;
-        uint256 tokenBalance;
-        uint256 donationCount;
-        string[] activeShelters;
-        DonationHistory[] history;
+    enum TransactionType {
+        DONATION,
+        DISTRIBUTION,
+        TRADE,
+        STAKE,
+        UNSTAKE
     }
 }
 ```
 
-## Advanced Tracking System
+## Market Integration
 
-### Donation Flow
+### Trading System
 ```solidity
-interface ISHELTRDonation {
-    function processDonation(
+interface ISHELTRTrading {
+    function executeTrade(
+        address seller,
+        address buyer,
+        uint256 amount,
+        uint256 price
+    ) external returns (bool);
+    
+    function placeOrder(
+        OrderType orderType,
+        uint256 amount,
+        uint256 price
+    ) external returns (uint256 orderId);
+    
+    function cancelOrder(uint256 orderId) external returns (bool);
+    
+    struct Order {
+        address trader;
+        OrderType orderType;
+        uint256 amount;
+        uint256 price;
+        uint256 timestamp;
+        OrderStatus status;
+    }
+}
+```
+
+### Staking Mechanism
+```solidity
+contract SHELTRStaking {
+    struct StakeInfo {
+        uint256 amount;
+        uint256 startTime;
+        uint256 duration;
+        uint256 rewardRate;
+        bool isLocked;
+    }
+    
+    mapping(address => StakeInfo[]) public stakes;
+    
+    function stake(uint256 amount, uint256 duration) external returns (bool);
+    function unstake(uint256 stakeId) external returns (uint256);
+    function getRewards(uint256 stakeId) external view returns (uint256);
+}
+```
+
+## Impact Tracking System
+
+### Donation Verification
+```solidity
+interface IDonationVerifier {
+    function verifyDonation(
         string memory donationId,
-        string memory qrCodeId,
+        address donor,
+        uint256 amount
+    ) external returns (bool);
+    
+    function trackDistribution(
+        string memory distributionId,
         string memory participantId,
-        string memory shelterId,
         uint256 amount
-    ) external payable returns (DetailedTransaction memory);
+    ) external returns (bool);
     
-    function allocateFunds(
-        uint256 amount
-    ) external returns (DonationAllocation memory);
-    
-    function mintTokens(
-        address recipient,
-        uint256 amount
-    ) external returns (uint256);
+    function generateImpactReport(
+        string memory entityId
+    ) external view returns (ImpactMetrics memory);
 }
 ```
 
-### Participant Wallet System
-```typescript
-interface ParticipantWallet {
-    sheltrBalance: number;     // SHLT tokens
-    cashValue: number;        // USD equivalent
-    transactions: Transaction[];
-    rewards: RewardPoints;
-    
-    // Methods
-    convertToCash(): Promise<boolean>;
-    checkBalance(): Promise<WalletStatus>;
-    viewHistory(): Promise<Transaction[]>;
-    calculateRewards(): Promise<RewardPoints>;
-}
-
-interface WalletStatus {
-    tokenBalance: number;
-    usdValue: number;
-    pendingRewards: number;
-    recentTransactions: Transaction[];
-}
-```
-
-### Smart Contract Tracking
+### Smart Contract Governance
 ```solidity
-contract SHELTRTracking {
-    // Donation tracking
-    mapping(string => DetailedTransaction) public transactions;
-    mapping(string => ShelterCompliance) public shelterCompliance;
-    mapping(address => DonorProfile) public donors;
-    
-    struct ShelterCompliance {
-        bool isCompliant;
-        uint256 complianceScore;
-        uint256 totalProcessed;
-        uint256 distributionAccuracy;
-        ComplianceAudit[] auditHistory;
+contract SHELTRGovernance {
+    struct Proposal {
+        uint256 id;
+        address proposer;
+        string description;
+        uint256 forVotes;
+        uint256 againstVotes;
+        uint256 startBlock;
+        uint256 endBlock;
+        bool executed;
+        mapping(address => bool) hasVoted;
     }
     
-    struct DonorProfile {
-        uint256 totalDonated;
-        uint256 impactScore;
-        string[] supportedShelters;
-        string[] helpedParticipants;
-        DonationMetrics metrics;
-    }
+    function propose(string calldata description) external returns (uint256);
+    function castVote(uint256 proposalId, bool support) external returns (bool);
+    function executeProposal(uint256 proposalId) external returns (bool);
 }
 ```
 
-## Token Value System
+## Market Analysis Integration
 
-### Value Mechanism
-```typescript
-interface TokenValue {
-    // Base value mechanisms
-    baseValue: number;         // Initial USD peg
-    marketValue: number;       // Current market value
-    stablecoinPair: string;   // USDC pair address
-    
-    // Value modifiers
-    impactMultiplier: number; // Based on social impact
-    usageBonus: number;      // Based on token utility
-    
-    // Methods
-    calculateValue(): Promise<number>;
-    updateMarketPrice(): Promise<void>;
-    getConversionRate(): Promise<number>;
-}
-```
-
-### Reward System
-```typescript
-interface RewardSystem {
-    // Point system
-    points: number;
-    multiplier: number;
-    tier: RewardTier;
-    
-    // Benefits
-    bonusTokens: number;
-    specialFeatures: string[];
-    
-    // Methods
-    calculateRewards(usage: TokenUsage): Promise<number>;
-    distributeBonus(): Promise<boolean>;
-    upgradeTier(): Promise<RewardTier>;
-}
-```
-
-## Impact Tracking
-
-### Social Impact Metrics
-```typescript
-interface ImpactMetrics {
-    participantsHelped: number;
-    totalDistributed: number;
-    shelterEfficiency: number;
-    communityEngagement: number;
-    
-    // Analysis
-    calculateImpact(): Promise<ImpactScore>;
-    generateReport(): Promise<ImpactReport>;
-    trackProgress(): Promise<ProgressMetrics>;
-}
-```
-
-### Distribution Verification
+### Price Oracle
 ```solidity
-contract DistributionVerifier {
-    function verifyAllocation(
-        uint256 amount
-    ) public view returns (bool) {
-        return (
-            amount.mul(PARTICIPANT_SHARE).div(100) +
-            amount.mul(HOUSING_FUND_SHARE).div(100) +
-            amount.mul(SHELTER_SHARE).div(100) == amount
-        );
+contract SHELTRPriceOracle {
+    struct PriceData {
+        uint256 price;
+        uint256 timestamp;
+        uint256 confidence;
     }
+    
+    function updatePrice(uint256 newPrice) external onlyAuthorized;
+    function getPrice() external view returns (PriceData memory);
+    function getPriceHistory(uint256 timeframe) external view returns (PriceData[] memory);
 }
 ```
 
-## Mobile Integration
-
-### Participant App Features
+### Market Analytics
 ```typescript
-interface ParticipantApp {
-    wallet: ParticipantWallet;
-    qrProfile: QRProfile;
-    transactions: TransactionHistory;
-    rewards: RewardSystem;
+interface MarketAnalytics {
+    priceHistory: PricePoint[];
+    volume24h: number;
+    marketCap: number;
+    totalValueLocked: number;
     
     // Methods
-    viewBalance(): Promise<WalletStatus>;
-    trackDonations(): Promise<DonationHistory>;
-    convertTokens(): Promise<ConversionResult>;
-    checkRewards(): Promise<RewardStatus>;
+    calculateROI(): Promise<number>;
+    predictTrends(): Promise<TrendAnalysis>;
+    getMarketMetrics(): Promise<MarketMetrics>;
 }
 ```
 
-*For implementation details, see /docs/guides/blockchain-integration.md*
+## Security Measures
 
-*Last Updated: December 27, 2024*
+### Compliance System
+```solidity
+contract SHELTRCompliance {
+    // KYC/AML Integration
+    mapping(address => bool) public kycApproved;
+    mapping(address => bool) public accreditedInvestor;
+    
+    // Transfer Restrictions
+    function checkTransferRestrictions(
+        address from,
+        address to,
+        uint256 amount
+    ) external view returns (bool);
+    
+    // Reporting
+    function generateComplianceReport(
+        address account
+    ) external view returns (ComplianceReport memory);
+}
+```
+
+## Implementation Guidelines
+
+### Token Distribution
+1. Initial Distribution
+   - 60% Participant Pool
+   - 20% Housing Fund
+   - 10% Shelter Operations
+   - 10% Market Liquidity
+
+### Security Measures
+1. Transfer Restrictions
+2. KYC/AML Compliance
+3. Accredited Investor Verification
+4. Smart Contract Audits
+5. Emergency Pause Functionality
+
+### Market Integration
+1. DEX Listings
+2. CEX Partnerships
+3. Liquidity Pools
+4. Price Oracles
+5. Trading Pairs
+
+---
+*For implementation details, see [blockchain-integration.md](../guides/blockchain-integration.md)*

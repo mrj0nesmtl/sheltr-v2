@@ -1,18 +1,15 @@
 # 🌳 SHELTR Main Structure
-*Generated: 2025-01-04 21:42:41*
+*Generated: 2025-01-06 00:24:40*
 \n## Directory Structure
 .
-├── analytics
-├── components
-├── docs
-│   └── dev
-├── management
 ├── public
 │   ├── content
 │   ├── docs
 │   ├── images
+│   ├── analyze.html
 │   ├── index.html
-│   └── manifest.json
+│   ├── manifest.json
+│   └── stats.html
 ├── scripts
 │   ├── analyze-errors.js
 │   ├── archive-docs.ts
@@ -56,7 +53,6 @@
 │   ├── migrations
 │   └── config.toml
 ├── README.md
-├── analyze.html
 ├── eslint.config.js
 ├── index.html
 ├── layout_files.txt
@@ -66,7 +62,6 @@
 ├── replit.dev.nix
 ├── replit.nix
 ├── server.js
-├── stats.html
 ├── tailwind.config.js
 ├── tsconfig.app.json
 ├── tsconfig.json
@@ -75,4 +70,4 @@
 ├── vercel.json
 └── vite.config.ts
 
-33 directories, 40 files
+28 directories, 40 files

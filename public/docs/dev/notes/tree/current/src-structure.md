@@ -1,5 +1,5 @@
 # 🌳 SHELTR Source Structure
-*Generated: 2025-01-04 21:42:41*
+*Generated: 2025-01-06 00:24:40*
 \n## Directory Structure
 ./src
 ├── auth
@@ -114,15 +114,21 @@
 │   ├── ThankYou
 │   │   └── ThankYou.tsx
 │   ├── Token
+│   │   ├── TokenCard.tsx
 │   │   └── TokenPage.tsx
 │   ├── Transactions
-│   │   └── TransactionList.tsx
+│   │   ├── TransactionList.tsx
+│   │   └── TransactionRow.tsx
 │   ├── UserBadge
 │   │   └── UserBadge.tsx
 │   ├── Verify
 │   │   └── VerifyPage.tsx
+│   ├── charts
+│   │   └── LineChart.tsx
 │   ├── layouts
 │   │   └── index.ts
+│   ├── metrics
+│   │   └── SystemStatus.tsx
 │   ├── shared
 │   │   ├── analytics
 │   │   └── ui
@@ -212,6 +218,7 @@
 ├── hooks
 │   ├── useAlerts.ts
 │   ├── useAuth.ts
+│   ├── useGeolocation.ts
 │   ├── useMarkdownContent.ts
 │   ├── useNavigation.ts
 │   └── useWhitepaper.ts
@@ -377,7 +384,8 @@
 │   ├── AppRoutes.tsx
 │   └── index.tsx
 ├── services
-│   └── docs.service.ts
+│   ├── docs.service.ts
+│   └── platformStatus.ts
 ├── src
 │   └── backup
 │       └── dashboard_cleanup
@@ -419,4 +427,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-148 directories, 269 files
+150 directories, 275 files
