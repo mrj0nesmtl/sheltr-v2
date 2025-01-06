@@ -34,7 +34,7 @@ import { DonationAllocationPieChart } from '@/components/ui/Charts/DonationAlloc
 import { useEffect } from 'react';
 import { usePlatformStatus } from '@/services/platformStatus';
 import { LineChart } from '@/components/charts/LineChart';
-import { TransactionRow } from '@/components/transactions/TransactionRow';
+import { TransactionRow } from '@transactions/TransactionRow';
 
 // Define types
 interface DonationData {

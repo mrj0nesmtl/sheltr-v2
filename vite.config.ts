@@ -24,7 +24,8 @@ export default defineConfig({
       '@utils': path.resolve(__dirname, './src/utils'),
       '@types': path.resolve(__dirname, './src/types'),
       '@hooks': path.resolve(__dirname, './src/hooks'),
-      '@services': path.resolve(__dirname, './src/services')
+      '@services': path.resolve(__dirname, './src/services'),
+      '@transactions': path.resolve(__dirname, './src/components/transactions')
     },
     extensions: ['.js', '.jsx', '.ts', '.tsx']
   },
