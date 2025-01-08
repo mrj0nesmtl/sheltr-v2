@@ -2,19 +2,19 @@
 
 ![SHELTR](https://img.shields.io/badge/SHELTR-V2-4B32C3)
 ![Version](https://img.shields.io/badge/Version-0.5.7-FF6B6B)
-![Stage](https://img.shields.io/badge/Stage-Late_Alpha-FED766)
+![Stage](https://img.shields.io/badge/Prototype-Alpha-FED766)
 ![License](https://img.shields.io/badge/License-MIT-8A2BE2)
 [![Listen on Spotify](https://img.shields.io/badge/Listen_on-Spotify-1DB954?logo=spotify&logoColor=white)](https://open.spotify.com/show/3Q2RpnzF9sUv26yPMP9tWI)
 
 **Revolutionizing Charitable Giving Through Technology**
-*December 2024 - Beta Launch (V1.0.0) Mid-January 2025*
+*Project Initialization: December 2024 - Beta Launch (V1.0.0) Mid-January 2025*
 *Version: 0.5.7*
 
 </div>
 
 ## 🌟 Overview
 
-**SHELTR V2** is revolutionizing charitable giving for homelessness through cutting-edge technology integration. Our platform combines **QR code donations**, **blockchain verification**, **AI-driven insights**, and **gamified donor engagement** to create a transparent, efficient, and impactful giving ecosystem.
+**SHELTR V2** is hacking homelessness by revolutionizing daily charitable giving through cutting-edge technology integration. Our platform combines **QR code donations**, **blockchain verification**, **AI-driven insights**, and **gamified donor engagement** to create a transparent, efficient, and impactful giving ecosystem.
 
 ### 📊 Build Progress (Late Alpha)
 
@@ -22,21 +22,21 @@
 |-----------|---------|-----------|
 | Core System | ✅ STABLE | ![98%](https://img.shields.io/badge/-98%25-success?style=flat-square) |
 | Auth System | ✅ STABLE | ![100%](https://img.shields.io/badge/-100%25-success?style=flat-square) |
-| Layout System | ✅ STABLE | ![100%](https://img.shields.io/badge/-100%25-success?style=flat-square) |
+| Layout System | ✅ STABLE | ![90%](https://img.shields.io/badge/-100%25-success?style=flat-square) |
 | Role-Based Access | ✅ STABLE | ![100%](https://img.shields.io/badge/-100%25-success?style=flat-square) |
 | QR System | ✅ STABLE | ![95%](https://img.shields.io/badge/-95%25-success?style=flat-square) |
-| Transaction System | ✅ STABLE | ![100%](https://img.shields.io/badge/-100%25-success?style=flat-square) |
+| Transaction System |🟡 IN PROGRESS | ![20%](https://img.shields.io/badge/-100%25-success?style=flat-square) |
 | Blockchain | 🟡 IN PROGRESS | ![30%](https://img.shields.io/badge/-30%25-success?style=flat-square) |
 
-### 🎯 Recent Achievements
+### 🎯 Recent Sessions
 
-- 🟡 **Blockchain Integration** (Jan 6, 2024)
+- 🟡 **Blockchain Planning** (Jan 6, 2024)
   - Security token implementation
   - Transaction verification system
   - Market dynamics integration
   - Staking mechanism implementation
 
-- ✅ **Transaction System** (Jan 5, 2024)
+- 🟡 **Transaction System** (Jan 5, 2024)
   - Global transaction components
   - Shelter-specific implementations
   - Real-time updates
@@ -64,10 +64,10 @@
    - 🟡 Registration Flows
 
 2. Core Features
-   - ✅ Transaction System
-   - ✅ Blockchain Integration
-   - ✅ Security Token
-   - ✅ Market Analytics
+   - 🟡 Transaction System
+   - 🟡 Blockchain Integration
+   - 🟡 Security Token
+   - 🟡 Market Analytics
 
 ### Upcoming Beta Release (v1.0.0)
 1. Advanced Features
