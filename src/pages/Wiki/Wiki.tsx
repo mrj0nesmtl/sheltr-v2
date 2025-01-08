@@ -6,6 +6,7 @@ import remarkParse from 'remark-parse';
 import { unified } from 'unified';
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkHtml from 'remark-html';
+import { PlatformStatusSection } from './components/PlatformStatusSection';
 
 interface BuildProgress {
   component: string;
@@ -130,8 +131,13 @@ const Wiki = () => {
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
       <div className="container mx-auto px-4 py-6 sm:py-12 max-w-7xl">
         <h1 className="text-3xl sm:text-4xl font-bold text-center mb-6 sm:mb-12 text-gray-800 dark:text-white">
-          We Build in Public
+          Build in Public
         </h1>
+
+        {/* Platform Status Section */}
+        <div className="mb-8">
+          <PlatformStatusSection />
+        </div>
 
         {/* Switch to single column layout */}
         <div className="flex flex-col gap-6">

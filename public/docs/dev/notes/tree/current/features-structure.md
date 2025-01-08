@@ -1,5 +1,5 @@
 # 🌳 SHELTR Features Structure
-*Generated: 2025-01-06 00:24:40*
+*Generated: 2025-01-07 20:39:52*
 \n## Directory Structure
 ./src/features
 ├── auth
@@ -18,15 +18,68 @@
 │   │   └── index.ts
 │   ├── roles
 │   │   ├── donor
+│   │   │   ├── analytics
+│   │   │   ├── components
+│   │   │   ├── profile
+│   │   │   ├── DonorDashboard.tsx
+│   │   │   └── index.ts
 │   │   ├── participant
+│   │   │   ├── analytics
+│   │   │   ├── components
+│   │   │   ├── profile
+│   │   │   ├── ParticipantDashboard.tsx
+│   │   │   ├── ParticipantDetailAnalytics.tsx
+│   │   │   └── index.ts
 │   │   ├── shelter-admin
+│   │   │   ├── analytics
+│   │   │   ├── components
+│   │   │   ├── management
+│   │   │   ├── profile
+│   │   │   ├── src
+│   │   │   ├── ShelterAdminDashboard.tsx
+│   │   │   └── index.ts
 │   │   └── super-admin
+│   │       ├── analytics
+│   │       ├── components
+│   │       ├── profile
+│   │       ├── settings
+│   │       ├── AlertsAndIncidents.tsx
+│   │       ├── DonationAnalytics.tsx
+│   │       ├── QuickStatCard.tsx
+│   │       ├── ShelterPerformanceChart.tsx
+│   │       ├── SuperAdminDashboard.tsx
+│   │       ├── SystemHealthMonitor.tsx
+│   │       └── index.ts
 │   ├── shared
 │   │   ├── analytics
+│   │   │   ├── charts
+│   │   │   ├── maps
+│   │   │   ├── metrics
+│   │   │   ├── DonationHistory.tsx
+│   │   │   ├── DonorStats.tsx
+│   │   │   ├── clear
+│   │   │   └── index.ts
 │   │   ├── components
+│   │   │   ├── DashboardHeader.tsx
+│   │   │   ├── ParticipantLeaderboard.tsx
+│   │   │   ├── ParticipantRegistrationModal.tsx
+│   │   │   └── index.ts
 │   │   ├── navigation
+│   │   │   ├── sidebar
+│   │   │   ├── DashboardNav.tsx
+│   │   │   └── index.ts
 │   │   ├── profile
+│   │   │   ├── BaseProfile.tsx
+│   │   │   ├── EditProfileModal.tsx
+│   │   │   ├── ProfileLayout.tsx
+│   │   │   ├── UserProfile.tsx
+│   │   │   └── index.ts
 │   │   ├── widgets
+│   │   │   ├── charts
+│   │   │   ├── DonorLeaderboard.tsx
+│   │   │   ├── ImpactMetrics.tsx
+│   │   │   ├── StatCard.tsx
+│   │   │   └── index.ts
 │   │   └── types.ts
 │   ├── store
 │   ├── utils
@@ -46,12 +99,25 @@
 └── shared
     ├── analytics
     │   ├── charts
+    │   │   ├── AreaChart.tsx
+    │   │   ├── BarChart.tsx
+    │   │   ├── LineChart.tsx
+    │   │   ├── ProgressMetrics.tsx
+    │   │   ├── ResourceUtilization.tsx
+    │   │   └── index.ts
     │   ├── hooks
+    │   │   └── useAnalytics.ts
     │   ├── maps
+    │   │   └── DonationMap.tsx
     │   ├── metrics
+    │   │   └── MetricCard.tsx
     │   ├── tables
+    │   │   ├── ServiceHistory.tsx
+    │   │   └── index.ts
     │   ├── types
+    │   │   └── index.ts
     │   ├── utils
+    │   │   └── theme.ts
     │   ├── DonationHistory.tsx
     │   ├── DonorStats.tsx
     │   ├── index.ts
@@ -63,4 +129,4 @@
     ├── utils
     └── index.ts
 
-45 directories, 16 files
+65 directories, 62 files

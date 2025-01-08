@@ -34,6 +34,7 @@ import { DonationAllocationPieChart } from '@/components/ui/Charts/DonationAlloc
 import { useEffect } from 'react';
 import { usePlatformStatus } from '@/services/platformStatus';
 import { LineChart } from '@/components/charts/LineChart';
+import { PlatformStatusSection } from '@/features/dashboard/shared/analytics/PlatformStatusSection';
 
 // Define types
 interface DonationData {
@@ -326,15 +327,7 @@ export default function Impact() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Platform Status */}
           <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-6">
-            <h2 className="text-xl font-bold text-white mb-6 flex items-center">
-              <Shield className="w-6 h-6 mr-2" />
-              Platform Status
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
-              {platformStats.map(stat => (
-                <SystemStatus key={stat.title} {...stat} />
-              ))}
-            </div>
+            <PlatformStatusSection />
           </div>
 
           {/* Donation Allocation */}

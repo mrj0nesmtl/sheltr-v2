@@ -24,7 +24,7 @@ interface PlatformStatusState {
 }
 
 export const usePlatformStatus = create<PlatformStatusState>((set) => ({
-  version: '0.5.4', // From README
+  version: '0.5.4',
   buildProgress: {
     core: 98,
     auth: 95,
@@ -44,27 +44,36 @@ export const usePlatformStatus = create<PlatformStatusState>((set) => ({
   },
   fetchStatus: async () => {
     try {
-      // Fetch real response time
-      const startTime = performance.now();
-      await fetch('/api/health-check');
-      const endTime = performance.now();
-      const responseTime = Math.round(endTime - startTime);
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      // Mock response time calculation
+      const responseTime = Math.floor(Math.random() * 100) + 50; // Random time between 50-150ms
+      
+      // Mock active users
+      const activeUsers = Math.floor(Math.random() * 100);
 
-      // Get active users (could be from analytics service)
-      const activeUsers = await fetch('/api/active-users').then(res => res.json());
-
-      // Update state with real data
       set(state => ({
         systemStatus: {
           ...state.systemStatus,
           responseTime,
           lastUpdate: new Date(),
-          activeUsers: activeUsers.count,
-          // Add more real-time metrics
+          activeUsers,
+          isOperational: true,
+          apiStatus: 'Healthy',
+          networkHealth: 99.9,
+          uptime: 99.99
         }
       }));
     } catch (error) {
       console.error('Failed to fetch platform status:', error);
+      set(state => ({
+        systemStatus: {
+          ...state.systemStatus,
+          isOperational: false,
+          apiStatus: 'Error'
+        }
+      }));
     }
   }
 })); 

@@ -44,7 +44,8 @@ type AuthStatus =
   | 'unauthenticated'  // ✅ Stable
   | 'loading'          // ✅ Stable
   | 'error'            // ✅ Stable
-  | 'partial';         // ✅ Stable
+  | 'partial'          // ✅ Stable
+  | 'pendingVerification'; // New status
 
 interface User {
   id: string;
@@ -56,6 +57,10 @@ interface User {
   authStatus: AuthStatus;     
   sessionExpiry?: Date;      
   lastLogin?: Date;          
+  firstName?: string; // New field
+  lastName?: string;  // New field
+  address?: string;   // New field
+  phoneNumber?: string; // New field
 }
 
 type UserRole = 
@@ -352,3 +357,17 @@ type EventType =
 ---
 *Next Update Focus: Real-Time Integration Types*
 *For implementation details, see [implementation.md](../implementation/implementation.md)*
+
+### Profile Management Types
+```typescript
+interface ProfileUpdateResponse {
+  success: boolean;
+  message: string;
+  updatedProfile?: UserProfile;
+}
+
+type FeedbackMessage = {
+  type: 'success' | 'error';
+  content: string;
+}
+```

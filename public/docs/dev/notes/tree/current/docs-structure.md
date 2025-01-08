@@ -1,5 +1,5 @@
 # 🌳 SHELTR Documentation Structure
-*Generated: 2025-01-06 00:24:40*
+*Generated: 2025-01-07 20:39:52*
 \n## Directory Structure
 ./public/docs
 ├── about
@@ -61,9 +61,7 @@
 │   │   │   └── standardization-plan.md
 │   │   └── tree
 │   │       ├── archive
-│   │       ├── current
-│   │       ├── commands.md
-│   │       └── project-structure.md
+│   │       └── current
 │   └── debugging.md
 ├── guides
 │   ├── best-practices.md
@@ -84,4 +82,4 @@
     ├── database.md
     └── qr-system.md
 
-24 directories, 58 files
+24 directories, 56 files

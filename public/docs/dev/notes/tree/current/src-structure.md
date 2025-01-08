@@ -1,5 +1,5 @@
 # 🌳 SHELTR Source Structure
-*Generated: 2025-01-06 00:24:40*
+*Generated: 2025-01-07 20:39:52*
 \n## Directory Structure
 ./src
 ├── auth
@@ -16,18 +16,15 @@
 │   ├── types
 │   │   └── auth.types.ts
 │   └── types.ts
-├── backup
-│   ├── dashboard_cleanup
-│   │   └── shelter-admin
-│   ├── sidebars
-│   │   └── 20241224
-│   └── super-admin
-│       ├── QuickStatCard.tsx
-│       ├── ShelterPerformanceChart.tsx
-│       └── SuperAdminDashboard.tsx
 ├── components
 │   ├── About
 │   │   ├── sections
+│   │   │   ├── Checkpoint.tsx
+│   │   │   ├── Introduction.tsx
+│   │   │   ├── Roadmap.tsx
+│   │   │   ├── TechStack.tsx
+│   │   │   ├── Whitepaper.tsx
+│   │   │   └── index.ts
 │   │   ├── CallToAction.tsx
 │   │   ├── Features.tsx
 │   │   ├── MarkdownContent.tsx
@@ -35,8 +32,12 @@
 │   │   └── StatusCard.tsx
 │   ├── Admin
 │   │   └── Shelters
+│   │       └── ShelterList.tsx
 │   ├── Auth
 │   │   ├── forms
+│   │   │   ├── DonorSignUpForm.tsx
+│   │   │   ├── ShelterSignUpForm.tsx
+│   │   │   └── index.ts
 │   │   ├── AuthLayout.tsx
 │   │   ├── LoginButton.tsx
 │   │   ├── LoginForm.tsx
@@ -46,6 +47,7 @@
 │   │   └── SignUpSelector.tsx
 │   ├── Blockchain
 │   │   ├── Whitepaper
+│   │   │   └── WhitepaperLayout.tsx
 │   │   ├── BlockchainStats.tsx
 │   │   ├── TransactionList.tsx
 │   │   ├── WhitepaperPage.tsx
@@ -61,7 +63,14 @@
 │   │   └── index.ts
 │   ├── Documentation
 │   │   ├── components
+│   │   │   ├── DocViewer.tsx
+│   │   │   ├── DocumentHub.tsx
+│   │   │   ├── DocumentViewer.tsx
+│   │   │   ├── TableOfContents.tsx
+│   │   │   ├── WhitepaperView.tsx
+│   │   │   └── index.ts
 │   │   ├── pages
+│   │   │   └── WhitepaperPage.tsx
 │   │   ├── MarkdownViewer.tsx
 │   │   └── index.ts
 │   ├── DonationForm
@@ -131,9 +140,17 @@
 │   │   └── SystemStatus.tsx
 │   ├── shared
 │   │   ├── analytics
+│   │   │   ├── DetailedAnalytics.tsx
+│   │   │   ├── SystemHealthMonitor.tsx
+│   │   │   └── index.ts
 │   │   └── ui
+│   │       └── index.ts
 │   ├── ui
 │   │   ├── Charts
+│   │   │   ├── DonationAllocationPieChart.tsx
+│   │   │   ├── MapComponent.tsx
+│   │   │   ├── NetworkActivityChart.tsx
+│   │   │   └── index.ts
 │   │   ├── Accordion.tsx
 │   │   ├── Avatar.tsx
 │   │   ├── Badge.tsx
@@ -188,29 +205,60 @@
 ├── features
 │   ├── auth
 │   │   ├── components
+│   │   │   └── index.ts
 │   │   ├── hooks
 │   │   ├── store
 │   │   ├── utils
 │   │   └── index.ts
 │   ├── dashboard
 │   │   ├── layouts
+│   │   │   ├── participant
+│   │   │   ├── shelter
+│   │   │   ├── super-admin
+│   │   │   ├── DashboardLayout.tsx
+│   │   │   └── index.ts
 │   │   ├── roles
+│   │   │   ├── donor
+│   │   │   ├── participant
+│   │   │   ├── shelter-admin
+│   │   │   └── super-admin
 │   │   ├── shared
+│   │   │   ├── analytics
+│   │   │   ├── components
+│   │   │   ├── navigation
+│   │   │   ├── profile
+│   │   │   ├── widgets
+│   │   │   └── types.ts
 │   │   ├── store
 │   │   ├── utils
 │   │   └── index.ts
 │   ├── donor
 │   │   ├── types
+│   │   │   └── donor.ts
 │   │   └── validation
+│   │       └── donorValidation.ts
 │   ├── profile
 │   │   ├── components
+│   │   │   └── index.ts
 │   │   ├── hooks
 │   │   ├── store
 │   │   ├── utils
 │   │   └── index.ts
 │   └── shared
 │       ├── analytics
+│       │   ├── charts
+│       │   ├── hooks
+│       │   ├── maps
+│       │   ├── metrics
+│       │   ├── tables
+│       │   ├── types
+│       │   ├── utils
+│       │   ├── DonationHistory.tsx
+│       │   ├── DonorStats.tsx
+│       │   ├── index.ts
+│       │   └── theme.ts
 │       ├── components
+│       │   └── index.ts
 │       ├── hooks
 │       ├── store
 │       ├── utils
@@ -230,9 +278,14 @@
 │   │   └── Header.tsx
 │   ├── dashboard
 │   │   ├── base
+│   │   │   └── UnifiedDashboard.tsx
 │   │   ├── navigation
+│   │   │   └── DashboardNavigation.tsx
 │   │   ├── roles
+│   │   │   └── RoleRouter.tsx
 │   │   └── shared
+│   │       ├── analytics
+│   │       └── DashboardShell.tsx
 │   ├── PageLayout.tsx
 │   ├── index.ts
 │   └── types.ts
@@ -258,11 +311,19 @@
 │   │   └── constants.ts
 │   ├── content
 │   │   └── blog
+│   │       └── posts.ts
 │   ├── email
 │   │   ├── templates
+│   │   │   ├── donationReceipt.ts
+│   │   │   ├── donorWelcome.ts
+│   │   │   ├── serviceNotification.ts
+│   │   │   └── welcome.ts
 │   │   └── templates.ts
 │   ├── i18n
 │   │   ├── locales
+│   │   │   ├── en.json
+│   │   │   ├── en.ts
+│   │   │   └── fr.ts
 │   │   ├── config.ts
 │   │   ├── index.ts
 │   │   ├── migration.ts
@@ -272,6 +333,12 @@
 │   │   └── roleNavigation.ts
 │   ├── scripts
 │   │   ├── reset-auth
+│   │   │   ├── 01-backup.sql
+│   │   │   ├── 02-disable-triggers.sql
+│   │   │   ├── 03-clear-tables.sql
+│   │   │   ├── 04-enable-triggers.sql
+│   │   │   ├── 05-create-admin.sql
+│   │   │   └── README.md
 │   │   ├── add-activity-log.sql
 │   │   ├── add-sample-shelters.sql
 │   │   ├── auth-setup.sql
@@ -345,8 +412,24 @@
 ├── pages
 │   ├── About
 │   │   ├── components
+│   │   │   ├── MetricCard.tsx
+│   │   │   ├── ScrollReveal.tsx
+│   │   │   ├── SectionDivider.tsx
+│   │   │   ├── TechCard.tsx
+│   │   │   └── index.ts
 │   │   ├── content
+│   │   │   ├── shelter_intro_fr.md
+│   │   │   └── sheltr_intro_eng.md
 │   │   ├── sections
+│   │   │   ├── BuildProgress.tsx
+│   │   │   ├── Contact.tsx
+│   │   │   ├── Documentation.tsx
+│   │   │   ├── Hero.tsx
+│   │   │   ├── Introduction.tsx
+│   │   │   ├── Metrics.tsx
+│   │   │   ├── Overview.tsx
+│   │   │   ├── Technology.tsx
+│   │   │   └── index.ts
 │   │   └── index.tsx
 │   ├── Admin
 │   │   └── CreatePost.tsx
@@ -355,9 +438,20 @@
 │   │   └── Settings.tsx
 │   ├── ShelterAdmin
 │   │   └── types
+│   │       └── index.ts
 │   ├── SuperAdmin
 │   │   ├── components
+│   │   │   ├── GlobalAnalytics.tsx
+│   │   │   ├── GlobalDonationMap.tsx
+│   │   │   ├── NotificationCenter.tsx
+│   │   │   ├── RealTimeAlerts.tsx
+│   │   │   ├── ShelterManagementTable.tsx
+│   │   │   ├── SystemAlerts.tsx
+│   │   │   ├── SystemMonitoring.tsx
+│   │   │   └── index.ts
 │   │   ├── donors
+│   │   │   ├── DonorDetailAnalytics.tsx
+│   │   │   └── DonorManagement.tsx
 │   │   ├── Analytics.tsx
 │   │   ├── Settings.tsx
 │   │   └── index.ts
@@ -387,8 +481,6 @@
 │   ├── docs.service.ts
 │   └── platformStatus.ts
 ├── src
-│   └── backup
-│       └── dashboard_cleanup
 ├── stores
 │   ├── donationStore.ts
 │   ├── profileStore.ts
@@ -404,9 +496,13 @@
 │   │   └── schemas.ts
 │   ├── core
 │   │   ├── auth
+│   │   │   └── index.ts
 │   │   ├── dashboard
+│   │   │   └── index.ts
 │   │   ├── profile
+│   │   │   └── index.ts
 │   │   ├── shared
+│   │   │   └── index.ts
 │   │   ├── auth.ts
 │   │   ├── index.ts
 │   │   ├── shelter.types.ts
@@ -427,4 +523,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-150 directories, 275 files
+162 directories, 359 files

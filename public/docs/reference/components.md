@@ -331,3 +331,26 @@ interface ComponentStructure {
   }
 }
 ```
+
+## Donor Registration and Profile Creation Best Practices
+
+- **Form Validation**: Use Zod for form validation to ensure data integrity.
+- **User Feedback**: Implement toast notifications for user actions.
+- **Security**: Ensure secure data handling with HTTPS and Supabase.
+- **Profile Management**: Enable real-time profile updates with feedback.
+
+## Component Development Enhancements
+
+- **Reusable Components**: Develop reusable form components for consistency.
+- **State Management**: Use Zustand for managing form states and sessions.
+- **Error Handling**: Implement error boundaries to manage and log errors effectively.
+
+## Performance Optimization
+
+- **Lazy Loading**: Load components on demand to enhance performance.
+- **Code Splitting**: Split code into smaller chunks to reduce load times.
+
+## Mobile Responsiveness
+
+- **Responsive Design**: Ensure all components are adaptable to various screen sizes.
+- **Testing**: Conduct regular testing on multiple devices for consistency.

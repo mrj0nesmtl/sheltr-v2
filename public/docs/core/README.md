@@ -43,8 +43,3 @@
 - Secure authentication flows
 - Database security policies
 - Clean code principles
-
-## Getting Help
-- [GitHub Issues](https://github.com/username/sheltr/issues)
-- [Development Chat](https://discord.gg/sheltr)
-- [Documentation Updates](../archives/README.md) 

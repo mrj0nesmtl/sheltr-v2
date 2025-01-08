@@ -1,5 +1,5 @@
 # 🌳 SHELTR Project Structure
-*Generated: 2025-01-07 20:39:52*
+*Generated: 2025-01-07 20:38:35*
 *Version: 0.4.9*
 
 ## Table of Contents
@@ -11,7 +11,7 @@
 6. [Technical Structures](#technical-structures)
 
 \n---\n
-*Generated: 2025-01-07 20:39:52*
+*Generated: 2025-01-07 20:38:35*
 \n## Directory Structure
 ./src/auth
 ├── components
@@ -30,7 +30,7 @@
 
 6 directories, 8 files
 \n---\n
-*Generated: 2025-01-07 20:39:52*
+*Generated: 2025-01-07 20:38:35*
 \n## Directory Structure
 ./src/components
 ├── About
@@ -203,7 +203,7 @@
 
 43 directories, 125 files
 \n---\n
-*Generated: 2025-01-07 20:39:52*
+*Generated: 2025-01-07 20:38:35*
 \n## Directory Structure
 ./public/docs
 ├── about
@@ -265,7 +265,9 @@
 │   │   │   └── standardization-plan.md
 │   │   └── tree
 │   │       ├── archive
-│   │       └── current
+│   │       ├── current
+│   │       ├── commands.md
+│   │       └── project-structure.md
 │   └── debugging.md
 ├── guides
 │   ├── best-practices.md
@@ -286,9 +288,9 @@
     ├── database.md
     └── qr-system.md
 
-24 directories, 56 files
+24 directories, 58 files
 \n---\n
-*Generated: 2025-01-07 20:39:52*
+*Generated: 2025-01-07 20:38:35*
 \n## Directory Structure
 ./src/features
 ├── auth
@@ -420,7 +422,7 @@
 
 65 directories, 62 files
 \n---\n
-*Generated: 2025-01-07 20:39:52*
+*Generated: 2025-01-07 20:38:35*
 \n## Directory Structure
 ./src/layouts
 ├── base
@@ -444,7 +446,7 @@
 
 9 directories, 10 files
 \n---\n
-*Generated: 2025-01-07 20:39:52*
+*Generated: 2025-01-07 20:38:35*
 \n## Directory Structure
 .
 ├── public
@@ -672,7 +674,7 @@
 
 113 directories, 110 files
 \n---\n
-*Generated: 2025-01-07 20:39:52*
+*Generated: 2025-01-07 20:38:35*
 \n## Directory Structure
 ./src/pages
 ├── About
@@ -739,7 +741,7 @@
 
 14 directories, 48 files
 \n---\n
-*Generated: 2025-01-07 20:39:52*
+*Generated: 2025-01-07 20:38:35*
 \n## Directory Structure
 ./src
 ├── auth

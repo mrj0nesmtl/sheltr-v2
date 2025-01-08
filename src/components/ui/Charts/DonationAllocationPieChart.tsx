@@ -3,37 +3,17 @@ import { PieChart } from 'react-minimal-pie-chart';
 import { MapComponent } from '@/components/ui/Charts/MapComponent';
 import { useGeolocation } from '@/hooks/useGeolocation';
 
-// Default North America view
-const DEFAULT_LOCATION = {
-  city: 'North America',
-  coordinates: [43.6532, -79.3832] as [number, number], // Centered on Toronto
-  zoom: 4
-};
-
 export function DonationAllocationPieChart() {
   const [activeCategory, setActiveCategory] = useState(null);
-  const [location, setLocation] = useState<{
-    city: string;
-    coordinates: [number, number];
-    zoom: number;
-  }>(DEFAULT_LOCATION);
-  
   const { coordinates, city, error } = useGeolocation();
+  
+  const location = {
+    city: city || 'Montreal',
+    coordinates: coordinates || [45.5017, -73.5673],
+    zoom: 9
+  };
 
-  useEffect(() => {
-    if (coordinates && city) {
-      setLocation({
-        city,
-        coordinates,
-        zoom: 12 // Closer zoom for local view
-      });
-    } else if (error) {
-      console.log('Geolocation error, using default view:', error);
-      setLocation(DEFAULT_LOCATION);
-    }
-  }, [coordinates, city, error]);
-
-  // Sample data - in production this would be fetched based on location
+  // Sample data
   const mockDonationData = [
     { 
       category: 'Food Programs', 
@@ -62,19 +42,17 @@ export function DonationAllocationPieChart() {
   ];
 
   return (
-    <div className="p-4 space-y-6">
-      <h3 className="text-xl font-semibold text-gray-200 mb-4 flex items-center justify-between">
-        <span>
-          {location === DEFAULT_LOCATION ? 'Regional' : 'Local'} Donation Allocation
-        </span>
-        <span className="text-sm text-gray-400">
-          {location.city}
-        </span>
-      </h3>
-      
-      <div className="grid grid-cols-2 gap-6">
-        {/* Pie Chart */}
-        <div className="relative h-[300px]">
+    <>
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-xl font-bold text-white flex items-center">
+          Local Donation Allocation
+        </h2>
+        <span className="text-sm text-gray-400">{location.city}</span>
+      </div>
+
+      <div className="grid grid-cols-2 gap-4">
+        {/* Left side: Pie Chart */}
+        <div className="relative h-[200px]">
           <PieChart
             data={mockDonationData.map(item => ({
               title: item.category,
@@ -89,8 +67,8 @@ export function DonationAllocationPieChart() {
           />
         </div>
 
-        {/* Map View - Always shows something */}
-        <div className="h-[300px] rounded-lg overflow-hidden">
+        {/* Right side: Map */}
+        <div className="h-[200px] rounded-lg overflow-hidden">
           <MapComponent
             center={location.coordinates}
             zoom={location.zoom}
@@ -99,25 +77,22 @@ export function DonationAllocationPieChart() {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-4 mt-4">
         {mockDonationData.map((item) => (
           <div 
             key={item.category}
-            className={`bg-gray-800/40 p-4 rounded-lg cursor-pointer transition-all
-              ${activeCategory?.category === item.category ? 'ring-2 ring-blue-500' : ''}
-            `}
-            onClick={() => setActiveCategory(item)}
+            className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-4"
           >
-            <div className="flex justify-between items-center">
-              <span className="text-gray-300">{item.category}</span>
-              <span className="text-gray-400">{item.percentage}%</span>
+            <div className="flex justify-between items-center mb-1">
+              <span className="text-sm text-gray-400">{item.category}</span>
+              <span className="text-sm text-gray-400">{item.percentage}%</span>
             </div>
-            <p className="text-2xl font-semibold text-gray-200">
+            <p className="text-lg font-semibold text-white">
               ${item.amount.toLocaleString()}
             </p>
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 }
