@@ -2,14 +2,15 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { supabase } from '@/lib/supabase';
-import DonorSignUpForm from '@/components/Auth/forms/DonorSignUpForm';
-import type { DonorSignUpForm as DonorFormType } from '@/auth/schemas';
+import { DonorSignUpForm } from '@/components/Auth/forms/DonorSignUpForm';
+import type { DonorSignUpFormData } from '@/features/donor/types/donor';
+import { AUTH_ROLES } from '@/types/auth';
 
 export default function DonorSignUp() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async (data: DonorFormType) => {
+  const handleSubmit = async (data: DonorSignUpFormData) => {
     setIsSubmitting(true);
     try {
       // Handle Supabase auth signup
@@ -18,8 +19,9 @@ export default function DonorSignUp() {
         password: data.password,
         options: {
           data: {
-            role: 'donor',
-            name: data.name
+            role: AUTH_ROLES.DONOR,
+            display_name: data.display_name,
+            notification_preferences: data.notification_preferences
           },
           emailRedirectTo: `${window.location.origin}/auth/callback`
         }
@@ -32,8 +34,11 @@ export default function DonorSignUp() {
         .from('donor_profiles')
         .insert({
           user_id: authData.user?.id,
-          display_name: data.name,
-          email: data.email
+          display_name: data.display_name,
+          email: data.email,
+          phone: data.phone,
+          donation_preferences: data.donation_preferences,
+          social_connections: data.social_connections
         });
 
       if (profileError) throw profileError;
@@ -44,7 +49,10 @@ export default function DonorSignUp() {
         .insert({
           donor_id: authData.user?.id,
           total_donated: 0,
-          donation_count: 0
+          impact_score: 0,
+          donation_streak: 0,
+          people_helped: 0,
+          total_donations: 0
         });
 
       if (statsError) throw statsError;
@@ -61,17 +69,15 @@ export default function DonorSignUp() {
   };
 
   return (
-    <div className="container mx-auto px-4 min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center">
-      <div className="w-full max-w-md space-y-8">
-        <h1 className="text-3xl font-bold text-white text-center mb-8">
-          Create Donor Account
-        </h1>
-        
-        <DonorSignUpForm 
-          onSubmit={handleSubmit}
-          onBack={() => navigate('/signup')}
-          isSubmitting={isSubmitting}
-        />
+    <div className="container mx-auto px-4 py-8 min-h-[calc(100vh-4rem)]">
+      <div className="max-w-3xl mx-auto">
+        <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700 p-8">
+          <DonorSignUpForm 
+            onSubmit={handleSubmit}
+            onBack={() => navigate('/signup')}
+            isSubmitting={isSubmitting}
+          />
+        </div>
       </div>
     </div>
   );

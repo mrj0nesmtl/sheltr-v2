@@ -47,23 +47,53 @@ export const donorProfileSchema = baseProfileSchema.extend({
   profile_image: z.instanceof(File).optional()
 });
 
-export const shelterProfileSchema = baseProfileSchema.extend({
-  role: z.literal(AUTH_ROLES.SHELTER_ADMIN),
-  name: z.string().min(2, 'Organization name is required'),
-  address: z.string().min(5, 'Valid address required'),
-  city: z.string().min(2, 'City is required'),
-  contact_phone: z.string().regex(/^\+?[1-9]\d{1,14}$/, 'Invalid phone number'),
-  registration_number: z.string().min(5, 'Valid registration number required'),
-  capacity: z.number().min(1, 'Capacity must be at least 1'),
-  current_occupancy: z.number().min(0),
-  services: z.array(z.string()).min(1, 'At least one service must be specified'),
+export const shelterProfileSchema = z.object({
+  // Basic Information
+  name: z.string().min(3).max(100),
+  email: z.string().email(),
+  password: z.string().min(8),
+  
+  // Organization Details
+  registration_number: z.string().regex(/^[A-Z0-9-]+$/),
+  tax_id: z.string().optional(),
+  capacity: z.number().min(1),
+  
+  // Location
+  address: z.string(),
+  city: z.string(),
+  state: z.string(),
+  zip: z.string(),
+  
+  // Contact
+  phone_number: z.string(),
+  website: z.string().url().optional(),
+  
+  // Services
+  services: z.array(z.string()),
+  accessibility_features: z.array(z.string()),
+  
+  // Emergency Contact
   emergency_contact: z.object({
-    name: z.string().min(2, 'Contact name required'),
-    phone: z.string().regex(/^\+?[1-9]\d{1,14}$/, 'Invalid phone number'),
-    relationship: z.string().min(2, 'Relationship required')
+    name: z.string(),
+    phone: z.string(),
+    relationship: z.string(),
+    email: z.string().email()
   }),
-  verified: z.boolean(),
-  profile_image: z.instanceof(File).optional()
+
+  // Compliance
+  licenses: z.array(z.string()),
+  insurance_policy: z.string(),
+  
+  // Operating Hours
+  operating_hours: z.object({
+    monday: z.string(),
+    tuesday: z.string(),
+    wednesday: z.string(),
+    thursday: z.string(),
+    friday: z.string(),
+    saturday: z.string(),
+    sunday: z.string()
+  })
 });
 
 export const participantProfileSchema = baseProfileSchema.extend({

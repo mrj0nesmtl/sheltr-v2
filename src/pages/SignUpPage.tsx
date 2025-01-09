@@ -1,6 +1,6 @@
 import type { DonorSignUpForm as DonorFormType, ShelterSignUpForm as ShelterFormType } from '@/auth/schemas';
 import { DonorSignUpForm } from '@/components/Auth/forms/DonorSignUpForm';
-import { ShelterSignUpForm } from '@/components/Auth/forms/ShelterSignUpForm';
+import { ShelterRegistrationForm } from '@/components/Auth/forms/ShelterRegistrationForm';
 import { Building2, Heart } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -56,7 +56,7 @@ export default function SignUpPage() {
 
   if (selectedForm === 'shelter') {
     return (
-      <ShelterSignUpForm 
+      <ShelterRegistrationForm 
         onSubmit={handleShelterSubmit}
         onBack={() => setSelectedForm(null)}
         isSubmitting={isSubmitting}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { DashboardShell } from '@/layouts/dashboard/shared/DashboardShell';
 import { Avatar } from '@/components/ui/Avatar';
@@ -9,13 +9,21 @@ import { MapComponent } from '@/components/ui/Charts/MapComponent';
 import { DonationAllocationPieChart } from '@/components/ui/Charts/DonationAllocationPieChart';
 import { Badge } from '@/components/ui/Badge';
 import { UserBadge } from '@/components/UserBadge/UserBadge';
-import { Heart, Award, Star, Camera, Info } from 'lucide-react';
+import { Heart, Award, Star, Camera, Info, Settings, Users, Bell, Share2, UserCircle, Globe, Shield } from 'lucide-react';
 import { SignOutButton } from '@/components/ui/SignOutButton';
 import { useAuthStore } from '@/auth/stores/authStore';
 import { toast } from 'react-hot-toast';
 import { Button } from '@/components/ui/Button';
 import { DashboardHeader } from '@/features/dashboard/shared/components/DashboardHeader';
 import { MobileNav } from '@/components/Navigation/MobileNav';
+// import { Dialog } from '@/components/ui/Dialog';
+// import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/Tabs';
+import { supabase } from '@/lib/supabase';
+import type { 
+  DonorProfile as DonorProfileType,
+  DonorStatistics,
+  DonorSocialConnections 
+} from '@/features/donor/types';
 
 interface DonorDashboardProps {
   userId?: string;
@@ -68,9 +76,158 @@ const AvatarUpload: React.FC<AvatarUploadProps> = ({ currentUrl, onUpload, userE
   );
 };
 
-export const DonorDashboard: React.FC<DonorDashboardProps> = ({ userId }) => {
+// New Profile Settings Dialog Component
+const ProfileSettingsDialog: React.FC<{
+  open: boolean;
+  onClose: () => void;
+  profile: DonorProfileType;
+  stats: DonorStatistics;
+  socialConnections: DonorSocialConnections;
+}> = ({ open, onClose, profile, stats, socialConnections }) => {
+  return (
+    <Dialog open={open} onOpenChange={onClose}>
+      <div className="bg-gray-900 p-6 rounded-lg max-w-2xl w-full">
+        <h2 className="text-2xl font-bold text-white mb-6">Profile Settings</h2>
+        
+        <Tabs defaultValue="profile">
+          <TabsList>
+            <TabsTrigger value="profile">
+              <UserCircle className="w-4 h-4 mr-2" />
+              Profile
+            </TabsTrigger>
+            <TabsTrigger value="preferences">
+              <Settings className="w-4 h-4 mr-2" />
+              Preferences
+            </TabsTrigger>
+            <TabsTrigger value="social">
+              <Users className="w-4 h-4 mr-2" />
+              Social
+            </TabsTrigger>
+            <TabsTrigger value="privacy">
+              <Shield className="w-4 h-4 mr-2" />
+              Privacy
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="profile" className="space-y-4 mt-4">
+            {/* Profile Settings */}
+            <div className="space-y-4">
+              <Input
+                label="Display Name"
+                defaultValue={profile.display_name}
+                className="bg-gray-800"
+              />
+              <Input
+                label="Website"
+                defaultValue={profile.website || ''}
+                className="bg-gray-800"
+              />
+              <textarea
+                placeholder="Bio"
+                defaultValue={profile.bio || ''}
+                className="w-full bg-gray-800 rounded-md p-2"
+                rows={4}
+              />
+            </div>
+          </TabsContent>
+
+          <TabsContent value="preferences" className="space-y-4 mt-4">
+            {/* Donation & Notification Preferences */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-medium text-white">Donation Preferences</h3>
+              <div className="flex items-center justify-between">
+                <span>Anonymous Donations</span>
+                <Switch
+                  checked={stats.anonymous_donations}
+                  onCheckedChange={(checked) => {
+                    // Update anonymous donations preference
+                  }}
+                />
+              </div>
+              
+              <h3 className="text-lg font-medium text-white mt-6">Notification Settings</h3>
+              <select
+                value={stats.notification_frequency}
+                onChange={(e) => {
+                  // Update notification frequency
+                }}
+                className="w-full bg-gray-800 rounded-md"
+              >
+                <option value="daily">Daily Updates</option>
+                <option value="weekly">Weekly Digest</option>
+                <option value="monthly">Monthly Summary</option>
+              </select>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="social" className="space-y-4 mt-4">
+            {/* Social Connections Settings */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-medium text-white">Social Links</h3>
+              {Object.entries(profile.social_links || {}).map(([platform, url]) => (
+                <Input
+                  key={platform}
+                  label={platform.charAt(0).toUpperCase() + platform.slice(1)}
+                  defaultValue={url}
+                  className="bg-gray-800"
+                />
+              ))}
+
+              <h3 className="text-lg font-medium text-white mt-6">Impact Circle</h3>
+              <div className="bg-gray-800 p-4 rounded-md">
+                <p className="text-sm text-gray-400">
+                  {socialConnections.impact_circle.length} members in your impact circle
+                </p>
+                {/* Add member management UI here */}
+              </div>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="privacy" className="space-y-4 mt-4">
+            {/* Privacy Settings */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <span>Public Profile</span>
+                <Switch
+                  checked={profile.visibility === 'public'}
+                  onCheckedChange={(checked) => {
+                    // Update profile visibility
+                  }}
+                />
+              </div>
+              <div className="flex items-center justify-between">
+                <span>Show Impact Score</span>
+                <Switch
+                  checked={true}
+                  onCheckedChange={(checked) => {
+                    // Update impact score visibility
+                  }}
+                />
+              </div>
+              <div className="flex items-center justify-between">
+                <span>Allow Connection Requests</span>
+                <Switch
+                  checked={true}
+                  onCheckedChange={(checked) => {
+                    // Update connection settings
+                  }}
+                />
+              </div>
+            </div>
+          </TabsContent>
+        </Tabs>
+      </div>
+    </Dialog>
+  );
+};
+
+const DonorDashboard: React.FC<DonorDashboardProps> = ({ userId }) => {
   const { user, updateProfile, isAuthenticated } = useAuthStore();
   const dashboardUserId = userId || user?.id;
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [profile, setProfile] = useState<DonorProfileType | null>(null);
+  const [stats, setStats] = useState<DonorStatistics | null>(null);
+  const [socialConnections, setSocialConnections] = useState<DonorSocialConnections | null>(null);
 
   // Add debug logging
   console.log('DonorDashboard State:', { 
@@ -108,6 +265,37 @@ export const DonorDashboard: React.FC<DonorDashboardProps> = ({ userId }) => {
     }
   };
 
+  // Fetch donor data
+  useEffect(() => {
+    const fetchDonorData = async () => {
+      if (!dashboardUserId) return;
+
+      const [profileData, statsData, socialData] = await Promise.all([
+        supabase
+          .from('donor_profiles')
+          .select('*')
+          .eq('user_id', dashboardUserId)
+          .single(),
+        supabase
+          .from('donor_stats')
+          .select('*')
+          .eq('donor_id', dashboardUserId)
+          .single(),
+        supabase
+          .from('donor_social_connections')
+          .select('*')
+          .eq('donor_id', dashboardUserId)
+          .single()
+      ]);
+
+      setProfile(profileData.data);
+      setStats(statsData.data);
+      setSocialConnections(socialData.data);
+    };
+
+    fetchDonorData();
+  }, [dashboardUserId]);
+
   return (
     <div className="min-h-screen bg-gray-900">
       {/* Enhanced Header Section with responsive design */}
@@ -132,7 +320,16 @@ export const DonorDashboard: React.FC<DonorDashboardProps> = ({ userId }) => {
               </Badge>
             </div>
           </div>
-          <SignOutButton variant="header" />
+          <div className="flex items-center gap-4">
+            <Button
+              variant="ghost"
+              onClick={() => setIsSettingsOpen(true)}
+              className="text-gray-400 hover:text-white"
+            >
+              <Settings className="w-5 h-5" />
+            </Button>
+            <SignOutButton variant="header" />
+          </div>
         </div>
       </div>
 
@@ -251,6 +448,20 @@ export const DonorDashboard: React.FC<DonorDashboardProps> = ({ userId }) => {
           </div>
         </Card>
       </div>
+
+      {/* Profile Settings Dialog */}
+      {profile && stats && socialConnections && (
+        <ProfileSettingsDialog
+          open={isSettingsOpen}
+          onClose={() => setIsSettingsOpen(false)}
+          profile={profile}
+          stats={stats}
+          socialConnections={socialConnections}
+        />
+      )}
     </div>
   );
-}; 
+};
+
+export { DonorDashboard };
+export default DonorDashboard; 

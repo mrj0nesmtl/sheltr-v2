@@ -1,30 +1,22 @@
-import { cn } from '@/lib/utils';
 import React from 'react';
-import { Icon, type IconName } from './Icon';
+import { cn } from '@/lib/utils';
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface FileUploadProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> {
   label?: string;
   error?: string;
-  icon?: IconName;
-  leftAddon?: string;
-  required?: boolean;
   helperText?: string;
-  rightAddon?: React.ReactNode;
 }
 
-export const Input = React.forwardRef<HTMLInputElement, InputProps>(({
+export const FileUpload = React.forwardRef<HTMLInputElement, FileUploadProps>(({
   className,
   label,
   error,
-  icon,
-  leftAddon,
-  required,
   helperText,
-  rightAddon,
+  required,
   id,
   ...props
-}: InputProps, ref) => {
-  const inputId = id || `input-${label?.toLowerCase().replace(/\s+/g, '-')}`;
+}, ref) => {
+  const inputId = id || `file-${label?.toLowerCase().replace(/\s+/g, '-')}`;
 
   return (
     <div className="space-y-1">
@@ -38,19 +30,10 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(({
         </label>
       )}
       <div className="relative">
-        {leftAddon && (
-          <div className="absolute inset-y-0 left-0 flex items-center pl-3">
-            <span className="text-gray-400">{leftAddon}</span>
-          </div>
-        )}
-        {icon && (
-          <div className="absolute inset-y-0 left-0 flex items-center pl-3">
-            <Icon name={icon} className="h-5 w-5 text-gray-400" />
-          </div>
-        )}
         <input
           ref={ref}
           id={inputId}
+          type="file"
           aria-invalid={error ? 'true' : 'false'}
           aria-describedby={
             error ? `${inputId}-error` : 
@@ -58,25 +41,18 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(({
             undefined
           }
           className={cn(
-            'flex h-10 w-full rounded-md border border-gray-700 bg-gray-800/50',
-            'px-3 py-2 text-sm text-white placeholder:text-gray-400',
+            'flex w-full rounded-md border border-gray-700 bg-gray-800/50',
+            'text-sm text-white file:mr-4 file:py-2 file:px-4',
+            'file:border-0 file:bg-gray-700 file:text-white',
+            'file:hover:bg-gray-600 cursor-pointer',
             'focus:outline-none focus:ring-2 focus:ring-indigo-500',
             'disabled:cursor-not-allowed disabled:opacity-50',
-            'transition-colors duration-200',
-            icon && 'pl-10',
-            leftAddon && 'pl-7',
-            rightAddon && 'pr-10',
             error && 'border-red-500 focus:ring-red-500',
             className
           )}
           required={required}
           {...props}
         />
-        {rightAddon && (
-          <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-            {rightAddon}
-          </div>
-        )}
       </div>
       {error && (
         <p 
@@ -99,4 +75,4 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(({
   );
 });
 
-Input.displayName = 'Input'; 
+FileUpload.displayName = 'FileUpload'; 
