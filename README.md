@@ -147,10 +147,9 @@ pie title Fund Allocation Model
 
 ## 📬 Contact & Support
 
-- 📧 Email: support@sheltr.dev
-- 💬 Discord: [Join our community](https://discord.gg/sheltr)
-- 🐦 Twitter: [@SHELTRapp](https://twitter.com/SHELTRapp)
-- 📱 App: [Download SHELTR](https://app.sheltr.dev)
+- 📧 Email the developer: joel@arcanaconcept.com
+- 💬 BlueSky: [Join our community](https://sheltrops.bsky.social)
+- 📱 App: [SHELTR](https://sheltr-ops.replit.appv)
 
 ---
 
