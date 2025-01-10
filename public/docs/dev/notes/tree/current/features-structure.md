@@ -1,5 +1,5 @@
 # 🌳 SHELTR Features Structure
-*Generated: 2025-01-07 20:39:52*
+*Generated: 2025-01-10 13:59:41*
 \n## Directory Structure
 ./src/features
 ├── auth
@@ -57,6 +57,7 @@
 │   │   │   ├── metrics
 │   │   │   ├── DonationHistory.tsx
 │   │   │   ├── DonorStats.tsx
+│   │   │   ├── PlatformStatusSection.tsx
 │   │   │   ├── clear
 │   │   │   └── index.ts
 │   │   ├── components
@@ -129,4 +130,4 @@
     ├── utils
     └── index.ts
 
-65 directories, 62 files
+65 directories, 63 files

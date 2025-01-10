@@ -1,22 +1,44 @@
 # 📊 SHELTR Analytics Components
+*Last Updated: January 12, 2025 12:00 EST*
 *Version: 0.5.7*
+*Status: STABLE* 🟢
+
+## Component Directory Structure
+```typescript
+src/components/
+├── shared/
+│   ├── analytics/
+│   │   ├── DetailedAnalytics.tsx
+│   │   ├── SystemHealthMonitor.tsx
+│   │   └── index.ts
+└── ui/
+    └── Charts/
+        ├── DonationAllocationPieChart.tsx
+        ├── MapComponent.tsx
+        ├── NetworkActivityChart.tsx
+        └── index.ts
+```
 
 ## Available Components
 
 ### Charts
 ```typescript
-import { AreaChart, BarChart, LineChart } from '@/features/shared/analytics'
+import { 
+  DonationAllocationPieChart, 
+  NetworkActivityChart 
+} from '@/components/ui/Charts'
 
 // Usage
-<AreaChart 
-  data={[{ label: 'Jan', value: 100 }]} 
+<DonationAllocationPieChart 
+  data={donationData}
   height={300}
   gradient={true}
+  isLoading={isLoading}
 />
 
 // With loading state
-<LineChart
-  data={data}
+<NetworkActivityChart
+  data={networkData}
   height={250}
   isLoading={isLoading}
   error={error}
@@ -24,64 +46,51 @@ import { AreaChart, BarChart, LineChart } from '@/features/shared/analytics'
 />
 ```
 
-### Metrics
+### System Monitoring
 ```typescript
-import { MetricCard } from '@/features/shared/analytics'
+import { SystemHealthMonitor } from '@/components/shared/analytics'
 
 // Usage
-<MetricCard
-  title="Total Donations"
-  value="$125,000"
-  change={{ value: 12, trend: 'up' }}
-  icon={WalletIcon}
-  color="text-blue-500"
-  bgColor="bg-blue-500/10"
-  isLoading={isLoading}
+<SystemHealthMonitor
+  metrics={systemMetrics}
+  refreshInterval={5000}
+  showDetailedView={true}
+  onAlert={handleSystemAlert}
 />
 ```
 
-### Transaction Components
+### Detailed Analytics
 ```typescript
-import { TransactionTable } from '@/features/dashboard/shared/analytics/metrics'
-import { TransactionRow } from '@/components/Transactions/TransactionRow'
+import { DetailedAnalytics } from '@/components/shared/analytics'
 
-// Global Transaction Table
-<TransactionTable
-  limit={5}
-  onRefresh={refetchTransactions}
-  className="mt-4"
-/>
-
-// Individual Transaction Row
-<TransactionRow
-  type="receive"
-  amount={1000}
-  address="0x1234...5678"
-  timestamp={new Date()}
+// Usage
+<DetailedAnalytics
+  timeframe="weekly"
+  showBreakdown={true}
+  includeHistorical={true}
+  onTimeframeChange={handleTimeframeChange}
 />
 ```
 
 ### Maps
 ```typescript
-import { DonationMap } from '@/features/shared/analytics'
+import { MapComponent } from '@/components/ui/Charts'
 
 // Usage
-<DonationMap
+<MapComponent
   height={400}
   initialView={{
     center: [-96, 37.8],
     zoom: 3
   }}
-  markers={donationLocations}
+  markers={locationData}
   onMarkerClick={handleMarkerClick}
+  clustering={true}
 />
 ```
 
-## Theme Customization
+## Theme Configuration
 ```typescript
-import { analyticsTheme } from '@/features/shared/analytics'
-
-// Theme structure
 interface AnalyticsTheme {
   colors: {
     primary: string[];
@@ -108,41 +117,45 @@ interface AnalyticsTheme {
 }
 ```
 
-## Best Practices
-1. Always import from '@/features/shared/analytics'
-2. Use consistent theming
-3. Provide loading states
-4. Handle errors gracefully
-5. Include proper TypeScript types
-6. Implement responsive designs
-7. Add error boundaries
-8. Use skeleton loading states
+## Implementation Guidelines
+1. Use consistent import paths
+2. Implement proper error boundaries
+3. Include loading states
+4. Handle data validation
+5. Maintain type safety
+6. Follow responsive design
+7. Optimize performance
+8. Consider accessibility
 
-## Performance Guidelines
-1. Lazy load heavy components
-2. Implement proper memoization
-3. Use virtual scrolling for long lists
-4. Optimize re-renders
-5. Cache API responses
+## Performance Optimization
+1. Implement proper memoization
+2. Use lazy loading
+3. Optimize re-renders
+4. Cache API responses
+5. Virtual scroll for large datasets
 
-## Error Handling
+## Error Management
 ```typescript
-<ErrorBoundary fallback={<AnalyticsError onRetry={refetch} />}>
-  <AnalyticsComponent />
+<ErrorBoundary 
+  fallback={<AnalyticsError onRetry={refetch} />}
+  onError={logError}
+>
+  <DetailedAnalytics />
 </ErrorBoundary>
 ```
 
 ## Loading States
 ```typescript
-<Skeleton className="h-[300px] w-full" />
+<Skeleton className="h-[300px] w-full rounded-lg" />
 ```
 
-## Accessibility
-1. Proper ARIA labels
+## Accessibility Features
+1. ARIA labels
 2. Keyboard navigation
 3. Color contrast
 4. Screen reader support
+5. Focus management
 
 ---
-*For implementation examples, see [implementation.md](./implementation.md)*
-*For component API details, see [api.md](./api.md)* 
+*For implementation details, see [implementation.md](../guides/implementation.md)*
+*For component structure, see [components-structure.md](../dev/notes/tree/current/components-structure.md)* 

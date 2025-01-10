@@ -1,5 +1,5 @@
 # 🌳 SHELTR Pages Structure
-*Generated: 2025-01-07 20:39:52*
+*Generated: 2025-01-10 13:59:41*
 \n## Directory Structure
 ./src/pages
 ├── About
@@ -48,7 +48,11 @@
 │   ├── Settings.tsx
 │   └── index.ts
 ├── Wiki
-│   └── Wiki.tsx
+│   ├── components
+│   │   ├── PlatformStatusSection.tsx
+│   │   └── WikiMobileNav.tsx
+│   ├── Wiki.tsx
+│   └── WikiSidebar.tsx
 ├── blockchain
 │   ├── transactions.tsx
 │   └── whitepaper.tsx
@@ -64,4 +68,4 @@
 ├── debug.tsx
 └── index.ts
 
-14 directories, 48 files
+15 directories, 51 files

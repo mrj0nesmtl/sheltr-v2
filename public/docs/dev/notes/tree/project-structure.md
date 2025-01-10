@@ -1,5 +1,5 @@
 # 🌳 SHELTR Project Structure
-*Generated: 2025-01-07 20:39:52*
+*Generated: 2025-01-10 13:59:41*
 *Version: 0.4.9*
 
 ## Table of Contents
@@ -11,7 +11,7 @@
 6. [Technical Structures](#technical-structures)
 
 \n---\n
-*Generated: 2025-01-07 20:39:52*
+*Generated: 2025-01-10 13:59:41*
 \n## Directory Structure
 ./src/auth
 ├── components
@@ -30,7 +30,7 @@
 
 6 directories, 8 files
 \n---\n
-*Generated: 2025-01-07 20:39:52*
+*Generated: 2025-01-10 13:59:41*
 \n## Directory Structure
 ./src/components
 ├── About
@@ -52,13 +52,12 @@
 ├── Auth
 │   ├── forms
 │   │   ├── DonorSignUpForm.tsx
-│   │   ├── ShelterSignUpForm.tsx
+│   │   ├── ShelterRegistrationForm.tsx
 │   │   └── index.ts
 │   ├── AuthLayout.tsx
 │   ├── LoginButton.tsx
 │   ├── LoginForm.tsx
 │   ├── RequireAuth.tsx
-│   ├── ShelterRegistrationForm.tsx
 │   ├── SignUpForm.tsx
 │   └── SignUpSelector.tsx
 ├── Blockchain
@@ -175,6 +174,7 @@
 │   ├── Checkbox.tsx
 │   ├── CustomIcons.tsx
 │   ├── FeatureCard.tsx
+│   ├── FileUpload.tsx
 │   ├── FullContentModal.tsx
 │   ├── Icon.tsx
 │   ├── ImageUpload.tsx
@@ -203,52 +203,17 @@
 
 43 directories, 125 files
 \n---\n
-*Generated: 2025-01-07 20:39:52*
+*Generated: 2025-01-10 13:59:41*
 \n## Directory Structure
 ./public/docs
 ├── about
 │   ├── roadmap.md
 │   └── whitepaper_final.md
 ├── archives
-│   ├── builds
-│   │   └── 2024-12
-│   │       └── build-0.4.8.md
 │   ├── changelogs
-│   │   └── 2024-12
-│   │       ├── changelog-0.4.8.md
-│   │       ├── changelog-2024-12-15.md
-│   │       ├── changelog-2024-12-22.md
-│   │       └── index.md
-│   ├── checkpoints
-│   │   ├── 2024-12
-│   │   │   └── checkpoint-2024-12-20.md
-│   │   └── README.md
-│   ├── project_backup
-│   │   ├── SHELTR Page Organization Refactor Plan.ini
-│   │   ├── SHELTR Refactor Progress Assessment.ini
-│   │   ├── build_tract.md
-│   │   ├── buildout_implementation.md
-│   │   ├── changelog.md
-│   │   ├── checkpoint.md
-│   │   ├── dashboard.md
-│   │   ├── dashboard_arch.md
-│   │   ├── dec15-restructure.md
-│   │   ├── pages.md
-│   │   ├── prompt_1.md
-│   │   ├── prompt_2.md
-│   │   ├── prompt_3.md
-│   │   ├── roadmap.md
-│   │   ├── status_report.md
-│   │   ├── tech_stack.md
-│   │   ├── typescript_errors.md
-│   │   ├── user_flow_testing.md
-│   │   └── user_flows.md
-│   ├── roadmap
-│   │   └── README.md
-│   ├── status
-│   │   └── 2024-12
-│   │       └── status-dec21-0.4.8.md
-│   └── README.md
+│   └── project_backup
+│       ├── dec15-restructure.md
+│       └── status_report.md
 ├── core
 │   ├── README.md
 │   ├── api.md
@@ -258,24 +223,23 @@
 │   └── technical.md
 ├── dev
 │   ├── notes
-│   │   ├── 2024-12
-│   │   │   ├── dashboard-implementation.md
-│   │   │   ├── migration-guide.md
-│   │   │   ├── prompt.md
-│   │   │   └── standardization-plan.md
 │   │   └── tree
 │   │       ├── archive
 │   │       └── current
-│   └── debugging.md
+│   └── prompt.md
 ├── guides
 │   ├── best-practices.md
+│   ├── buildout_implementation.md
+│   ├── debugging.md
 │   └── deployment.md
 ├── project
+│   ├── changelog.md
 │   ├── checkpoint.md
 │   └── status_report.md
 ├── reference
 │   ├── analytics-components.md
 │   ├── analytics-inventory.md
+│   ├── authentication.md
 │   ├── components.md
 │   ├── constants.md
 │   └── types.md
@@ -286,9 +250,9 @@
     ├── database.md
     └── qr-system.md
 
-24 directories, 56 files
+15 directories, 29 files
 \n---\n
-*Generated: 2025-01-07 20:39:52*
+*Generated: 2025-01-10 13:59:41*
 \n## Directory Structure
 ./src/features
 ├── auth
@@ -346,6 +310,7 @@
 │   │   │   ├── metrics
 │   │   │   ├── DonationHistory.tsx
 │   │   │   ├── DonorStats.tsx
+│   │   │   ├── PlatformStatusSection.tsx
 │   │   │   ├── clear
 │   │   │   └── index.ts
 │   │   ├── components
@@ -418,9 +383,9 @@
     ├── utils
     └── index.ts
 
-65 directories, 62 files
+65 directories, 63 files
 \n---\n
-*Generated: 2025-01-07 20:39:52*
+*Generated: 2025-01-10 13:59:41*
 \n## Directory Structure
 ./src/layouts
 ├── base
@@ -444,7 +409,7 @@
 
 9 directories, 10 files
 \n---\n
-*Generated: 2025-01-07 20:39:52*
+*Generated: 2025-01-10 13:59:41*
 \n## Directory Structure
 .
 ├── public
@@ -672,7 +637,7 @@
 
 113 directories, 110 files
 \n---\n
-*Generated: 2025-01-07 20:39:52*
+*Generated: 2025-01-10 13:59:41*
 \n## Directory Structure
 ./src/pages
 ├── About
@@ -721,7 +686,11 @@
 │   ├── Settings.tsx
 │   └── index.ts
 ├── Wiki
-│   └── Wiki.tsx
+│   ├── components
+│   │   ├── PlatformStatusSection.tsx
+│   │   └── WikiMobileNav.tsx
+│   ├── Wiki.tsx
+│   └── WikiSidebar.tsx
 ├── blockchain
 │   ├── transactions.tsx
 │   └── whitepaper.tsx
@@ -737,9 +706,9 @@
 ├── debug.tsx
 └── index.ts
 
-14 directories, 48 files
+15 directories, 51 files
 \n---\n
-*Generated: 2025-01-07 20:39:52*
+*Generated: 2025-01-10 13:59:41*
 \n## Directory Structure
 ./src
 ├── auth
@@ -776,13 +745,12 @@
 │   ├── Auth
 │   │   ├── forms
 │   │   │   ├── DonorSignUpForm.tsx
-│   │   │   ├── ShelterSignUpForm.tsx
+│   │   │   ├── ShelterRegistrationForm.tsx
 │   │   │   └── index.ts
 │   │   ├── AuthLayout.tsx
 │   │   ├── LoginButton.tsx
 │   │   ├── LoginForm.tsx
 │   │   ├── RequireAuth.tsx
-│   │   ├── ShelterRegistrationForm.tsx
 │   │   ├── SignUpForm.tsx
 │   │   └── SignUpSelector.tsx
 │   ├── Blockchain
@@ -899,6 +867,7 @@
 │   │   ├── Checkbox.tsx
 │   │   ├── CustomIcons.tsx
 │   │   ├── FeatureCard.tsx
+│   │   ├── FileUpload.tsx
 │   │   ├── FullContentModal.tsx
 │   │   ├── Icon.tsx
 │   │   ├── ImageUpload.tsx
@@ -1196,7 +1165,11 @@
 │   │   ├── Settings.tsx
 │   │   └── index.ts
 │   ├── Wiki
-│   │   └── Wiki.tsx
+│   │   ├── components
+│   │   │   ├── PlatformStatusSection.tsx
+│   │   │   └── WikiMobileNav.tsx
+│   │   ├── Wiki.tsx
+│   │   └── WikiSidebar.tsx
 │   ├── blockchain
 │   │   ├── transactions.tsx
 │   │   └── whitepaper.tsx
@@ -1263,4 +1236,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-162 directories, 359 files
+163 directories, 362 files

@@ -1,5 +1,5 @@
 # 🌳 SHELTR Components Structure
-*Generated: 2025-01-07 20:39:52*
+*Generated: 2025-01-10 13:59:41*
 \n## Directory Structure
 ./src/components
 ├── About
@@ -21,13 +21,12 @@
 ├── Auth
 │   ├── forms
 │   │   ├── DonorSignUpForm.tsx
-│   │   ├── ShelterSignUpForm.tsx
+│   │   ├── ShelterRegistrationForm.tsx
 │   │   └── index.ts
 │   ├── AuthLayout.tsx
 │   ├── LoginButton.tsx
 │   ├── LoginForm.tsx
 │   ├── RequireAuth.tsx
-│   ├── ShelterRegistrationForm.tsx
 │   ├── SignUpForm.tsx
 │   └── SignUpSelector.tsx
 ├── Blockchain
@@ -144,6 +143,7 @@
 │   ├── Checkbox.tsx
 │   ├── CustomIcons.tsx
 │   ├── FeatureCard.tsx
+│   ├── FileUpload.tsx
 │   ├── FullContentModal.tsx
 │   ├── Icon.tsx
 │   ├── ImageUpload.tsx

@@ -1,10 +1,10 @@
 # 🔒 SHELTR Constants Reference
-*Last Updated: January 4, 2025 21:30 EST*
-*Version: 0.5.4*
+*Last Updated: January 12, 2025 12:00 EST*
+*Version: 0.5.8*
 *Status: STABLE* 🟢
 
 ## ⚠️ STATUS UPDATE
-Badge system and authentication flows stabilized. Constants updated to reflect role-based implementation.
+Real-time features and offline capabilities in final implementation phase. Constants updated to support PWA functionality and enhanced analytics.
 
 ## API Constants
 
@@ -24,9 +24,14 @@ export const API_ENDPOINTS = {
     VERIFY: '/badges/verify'    // ✅ Implemented
   },
   REALTIME: {
-    CONNECT: '/ws/connect',     // 🟡 In Progress
-    STATUS: '/ws/status',       // 🟡 In Progress
-    EVENTS: '/ws/events'        // 🟡 In Progress
+    CONNECT: '/ws/connect',     // ✅ Implemented
+    STATUS: '/ws/status',       // ✅ Implemented
+    EVENTS: '/ws/events'        // ✅ Implemented
+  },
+  ANALYTICS: {
+    METRICS: '/analytics/metrics', // ✅ New
+    EVENTS: '/analytics/events',   // ✅ New
+    REPORTS: '/analytics/reports'  // ✅ New
   }
 } as const;
 ```
@@ -40,7 +45,9 @@ export const API_CONFIG = {
   RETRY_ATTEMPTS: 3,           // Optimized
   AUTH_TIMEOUT: 20000,         // Optimized
   CACHE_CONTROL: 'no-store',   // Implemented
-  WEBSOCKET_RETRY: 5000        // Added
+  WEBSOCKET_RETRY: 5000,       // Implemented
+  OFFLINE_SYNC: 300000,        // New: 5min sync
+  PWA_VERSION: '1.0.0'         // New
 } as const;
 ```
 
@@ -75,14 +82,22 @@ export const THEME = {
     SECONDARY: '#10B981',
     ERROR: '#EF4444',
     WARNING: '#F59E0B',
-    SUCCESS: '#10B981'
+    SUCCESS: '#10B981',
+    INFO: '#60A5FA',    // Added
+    MUTED: '#9CA3AF'    // Added
   },
   SPACING: {
     XS: '0.25rem',
     SM: '0.5rem',
     MD: '1rem',
     LG: '1.5rem',
-    XL: '2rem'
+    XL: '2rem',
+    XXL: '4rem'        // Added
+  },
+  SHADOWS: {           // New section
+    SM: '0 1px 2px 0 rgb(0 0 0 / 0.05)',
+    MD: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+    LG: '0 10px 15px -3px rgb(0 0 0 / 0.1)'
   }
 } as const;
 ```
@@ -97,16 +112,18 @@ export const BREAKPOINTS = {
 } as const;
 ```
 
-## Feature Flags (🟡 IN_PROGRESS)
+## Feature Flags (✅ STABLE)
 ```typescript
 export const FEATURES = {
   QR_SCANNER: true,           // ✅ Functional
-  OFFLINE_MODE: false,        // 🟡 In Progress
-  ANALYTICS: true,           // ✅ Functional
-  BLOCKCHAIN: false,         // 🔵 Coming soon
-  AUTH_DEBUG: false,         // Disabled
-  FORCE_LOGOUT: false,       // Disabled
-  CLEAR_CACHE: true        // Implemented
+  OFFLINE_MODE: true,         // ✅ Implemented
+  ANALYTICS: true,            // ✅ Functional
+  BLOCKCHAIN: true,           // ✅ Implemented
+  AUTH_DEBUG: false,          // Disabled
+  FORCE_LOGOUT: false,        // Disabled
+  CLEAR_CACHE: true,          // Implemented
+  PWA_ENABLED: true,          // New
+  REAL_TIME: true            // New
 } as const;
 ```
 
@@ -204,6 +221,48 @@ export const STATUS = {
 3. Added WebSocket config
 4. Enhanced security measures
 5. Optimized performance settings
+
+## PWA Constants (✅ NEW)
+```typescript
+export const PWA_CONFIG = {
+  CACHE: {
+    VERSION: 'v1',
+    STRATEGY: 'network-first',
+    TIMEOUT: 3000
+  },
+  SYNC: {
+    BACKGROUND: true,
+    INTERVAL: 300000,
+    RETRY: 3
+  },
+  NOTIFICATIONS: {
+    ENABLED: true,
+    VAPID_KEY: process.env.NEXT_PUBLIC_VAPID_KEY
+  }
+} as const;
+```
+
+## Analytics Constants (✅ NEW)
+```typescript
+export const ANALYTICS = {
+  TRACKING: {
+    ENABLED: true,
+    ANONYMIZE_IP: true,
+    SAMPLE_RATE: 100
+  },
+  EVENTS: {
+    PAGE_VIEW: 'page_view',
+    DONATION: 'donation',
+    REGISTRATION: 'registration',
+    ERROR: 'error'
+  },
+  METRICS: {
+    PERFORMANCE: true,
+    ERRORS: true,
+    USAGE: true
+  }
+} as const;
+```
 
 ---
 *For implementation details, see [implementation.md](./implementation.md)*

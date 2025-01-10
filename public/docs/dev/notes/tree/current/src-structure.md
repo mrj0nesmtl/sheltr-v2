@@ -1,5 +1,5 @@
 # 🌳 SHELTR Source Structure
-*Generated: 2025-01-07 20:39:52*
+*Generated: 2025-01-10 13:59:41*
 \n## Directory Structure
 ./src
 ├── auth
@@ -36,13 +36,12 @@
 │   ├── Auth
 │   │   ├── forms
 │   │   │   ├── DonorSignUpForm.tsx
-│   │   │   ├── ShelterSignUpForm.tsx
+│   │   │   ├── ShelterRegistrationForm.tsx
 │   │   │   └── index.ts
 │   │   ├── AuthLayout.tsx
 │   │   ├── LoginButton.tsx
 │   │   ├── LoginForm.tsx
 │   │   ├── RequireAuth.tsx
-│   │   ├── ShelterRegistrationForm.tsx
 │   │   ├── SignUpForm.tsx
 │   │   └── SignUpSelector.tsx
 │   ├── Blockchain
@@ -159,6 +158,7 @@
 │   │   ├── Checkbox.tsx
 │   │   ├── CustomIcons.tsx
 │   │   ├── FeatureCard.tsx
+│   │   ├── FileUpload.tsx
 │   │   ├── FullContentModal.tsx
 │   │   ├── Icon.tsx
 │   │   ├── ImageUpload.tsx
@@ -456,7 +456,11 @@
 │   │   ├── Settings.tsx
 │   │   └── index.ts
 │   ├── Wiki
-│   │   └── Wiki.tsx
+│   │   ├── components
+│   │   │   ├── PlatformStatusSection.tsx
+│   │   │   └── WikiMobileNav.tsx
+│   │   ├── Wiki.tsx
+│   │   └── WikiSidebar.tsx
 │   ├── blockchain
 │   │   ├── transactions.tsx
 │   │   └── whitepaper.tsx
@@ -523,4 +527,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-162 directories, 359 files
+163 directories, 362 files

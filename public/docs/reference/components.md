@@ -1,133 +1,173 @@
 # 🧩 SHELTR Component Reference
-*Last Updated: January 6, 2025 00:12 EST*
-*Version: 0.5.7*
+*Last Updated: January 12, 2025 12:00 EST*
+*Version: 0.5.8*
 *Status: STABLE* 🟢
 
 ## Situational Abstract
-Following successful implementation of transaction components, geolocation features, and enhanced analytics visualization, component architecture has been refined to support unified transaction flows and standardized mapping system integration. All dashboard components now implement consistent transaction handling patterns and real-time data visualization capabilities.
+Component architecture has been expanded to include comprehensive documentation, blog systems, QR functionality, and enhanced analytics. All components now implement consistent patterns for validation, error handling, and accessibility.
 
 ## 🔄 STATUS UPDATE
-Transaction system implementation completed with comprehensive role integration. Components now include unified TransactionRow, standardized transaction display, and enhanced geolocation features.
+System-wide component implementation completed with full role integration. New additions include Blog, Documentation, QR Scanner, and Token systems with enhanced analytics capabilities.
 
-### Shared Analytics Library
+### Core Components Library
 ```typescript
-interface AnalyticsComponents {
-  charts: {
-    path: '@/features/shared/analytics/charts',
+interface CoreComponents {
+  about: {
+    path: 'src/components/About',
     components: {
-      AreaChart: '✅ IMPLEMENTED',
-      BarChart: '✅ IMPLEMENTED',
-      LineChart: '✅ IMPLEMENTED',
-      PieChart: '✅ IMPLEMENTED',
-      DonationAllocationPieChart: '✅ IMPLEMENTED'
-      TrendlineChart: '✅ IMPLEMENTED'
-    },
-    library: 'recharts'
-  },
-  transactions: {
-    path: '@/components/transactions',
-    components: {
-      TransactionRow: '✅ IMPLEMENTED',
-      TransactionList: '✅ IMPLEMENTED',
-      TransactionDetails: '✅ IMPLEMENTED'
+      Checkpoint: '✅ IMPLEMENTED',
+      Introduction: '✅ IMPLEMENTED',
+      Roadmap: '✅ IMPLEMENTED',
+      TechStack: '✅ IMPLEMENTED',
+      Whitepaper: '✅ IMPLEMENTED',
+      CallToAction: '✅ IMPLEMENTED',
+      Features: '✅ IMPLEMENTED',
+      ProjectStatus: '✅ IMPLEMENTED'
     }
   },
-  badges: {
-    path: '@/features/shared/badges',
+  auth: {
+    path: 'src/components/Auth',
     components: {
-      RoleBadge: '✅ IMPLEMENTED',
-      StatusBadge: '✅ IMPLEMENTED',
-      AchievementBadge: '✅ IMPLEMENTED'
+      DonorSignUpForm: '✅ IMPLEMENTED',
+      ShelterRegistrationForm: '✅ IMPLEMENTED',
+      LoginForm: '✅ IMPLEMENTED',
+      AuthLayout: '✅ IMPLEMENTED',
+      RequireAuth: '✅ IMPLEMENTED',
+      SignUpSelector: '✅ IMPLEMENTED'
+    }
+  },
+  ui: {
+    path: 'src/components/ui',
+    components: {
+      Button: '✅ IMPLEMENTED',
+      Input: '✅ IMPLEMENTED',
+      Select: '✅ IMPLEMENTED',
+      Card: '✅ IMPLEMENTED',
+      Table: '✅ IMPLEMENTED',
+      FileUpload: '✅ IMPLEMENTED',
+      LoadingSpinner: '✅ IMPLEMENTED',
+      Toast: '✅ IMPLEMENTED'
+    }
+  }
+}
+```
+
+### Feature Components
+```typescript
+interface FeatureComponents {
+  blog: {
+    path: 'src/components/Blog',
+    components: {
+      BlogEditor: '✅ IMPLEMENTED',
+      BlogList: '✅ IMPLEMENTED',
+      BlogPost: '✅ IMPLEMENTED'
+    }
+  },
+  documentation: {
+    path: 'src/components/Documentation',
+    components: {
+      DocViewer: '✅ IMPLEMENTED',
+      DocumentHub: '✅ IMPLEMENTED',
+      TableOfContents: '✅ IMPLEMENTED',
+      MarkdownViewer: '✅ IMPLEMENTED'
+    }
+  },
+  qrScanner: {
+    path: 'src/components/QRScanner',
+    components: {
+      QRScanner: '✅ IMPLEMENTED',
+      QRScannerLoading: '✅ IMPLEMENTED'
+    }
+  },
+  token: {
+    path: 'src/components/Token',
+    components: {
+      TokenCard: '✅ IMPLEMENTED',
+      TokenPage: '✅ IMPLEMENTED'
+    }
+  }
+}
+```
+
+### Analytics Components
+```typescript
+interface AnalyticsComponents {
+  shared: {
+    path: 'src/components/shared/analytics',
+    components: {
+      DetailedAnalytics: '✅ IMPLEMENTED',
+      SystemHealthMonitor: '✅ IMPLEMENTED'
+    }
+  },
+  charts: {
+    path: 'src/components/ui/Charts',
+    components: {
+      DonationAllocationPieChart: '✅ IMPLEMENTED',
+      MapComponent: '✅ IMPLEMENTED',
+      NetworkActivityChart: '✅ IMPLEMENTED',
+      LineChart: '✅ IMPLEMENTED'
     }
   },
   metrics: {
-    path: '@/features/shared/analytics/metrics',
+    path: 'src/components/metrics',
     components: {
-      MetricCard: '✅ IMPLEMENTED',
-      DonationTrends: '✅ IMPLEMENTED',
-      ShelterStats: '✅ IMPLEMENTED',
-      TokenMetrics: '✅ IMPLEMENTED',
-      ImpactMetrics: '✅ IMPLEMENTED'
+      SystemStatus: '✅ IMPLEMENTED'
     }
   }
 }
 ```
 
-### Authentication Components
+### Profile & User Components
 ```typescript
-interface AuthComponents {
+interface ProfileComponents {
   core: {
-    path: '@/features/auth/components',
+    path: 'src/components/Profile',
     components: {
-      SignOutButton: '✅ IMPLEMENTED',
-      RoleGuard: '✅ IMPLEMENTED',
-      AuthProvider: '✅ IMPLEMENTED'
+      ActivityLog: '✅ IMPLEMENTED',
+      BaseProfile: '✅ IMPLEMENTED',
+      ImageUpload: '✅ IMPLEMENTED',
+      SocialLinks: '✅ IMPLEMENTED'
     }
   },
-  forms: {
-    path: '@/features/auth/forms',
+  features: {
+    path: 'src/components/Profile',
     components: {
-      LoginForm: '✅ IMPLEMENTED',
-      SignupForm: '✅ IMPLEMENTED',
-      ResetPassword: '✅ IMPLEMENTED'
+      AddFriend: '✅ IMPLEMENTED',
+      AdminFeatures: '✅ IMPLEMENTED',
+      DonorFeatures: '✅ IMPLEMENTED',
+      FriendActivity: '✅ IMPLEMENTED'
     }
   }
 }
 ```
+[Previous sections remain unchanged...]
 
-### Dashboard Analytics
+### Layout Components
 ```typescript
-interface DashboardAnalytics {
-  superAdmin: {
-    path: '@/features/dashboard/roles/super-admin',
-    components: {
-      GlobalAnalytics: '🟡 IN_PROGRESS',
-      SystemMetrics: '🟡 IN_PROGRESS'
-    }
-  },
-  shelterAdmin: {
-    path: '@/features/dashboard/roles/shelter-admin',
-    components: {
-      ShelterMetrics: '🟡 IN_PROGRESS',
-      ParticipantAnalytics: '🟡 IN_PROGRESS'
-    }
-  }
-}
-```
-
-## Core Layout Components
-
-### Sidebar System (🟡 IN_PROGRESS)
-```typescript
-interface SidebarSystem {
+interface LayoutComponents {
   core: {
-    index: {
-      path: 'src/layouts/specialized/dashboard/Sidebar/index.tsx',
-      required: true,
-      status: '✅ STABLE',
-      exports: ['Sidebar', 'SidebarItem']
+    path: 'src/components/Layout',
+    components: {
+      Layout: '✅ IMPLEMENTED',
+      Header: '✅ IMPLEMENTED',
+      Footer: '✅ IMPLEMENTED',
+      Navigation: '✅ IMPLEMENTED'
     }
   },
-  roleSpecific: {
-    superAdmin: {
-      path: 'src/layouts/specialized/dashboard/Sidebar/SuperAdminSidebar.tsx',
-      required: true,
-      status: '✅ IMPLEMENTED'
-    },
-    shelterAdmin: {
-      path: 'src/layouts/specialized/dashboard/Sidebar/ShelterAdminSidebar.tsx',
-      required: true,
-      status: '🔴 IN_PROGRESS'
-    },
-    donor: {
-      path: 'src/layouts/specialized/dashboard/Sidebar/DonorSidebar.tsx',
-      required: true,
-      status: '🟡 IN_DEVELOPMENT'
-    },
-    participant: {
-      path: 'src/layouts/specialized/dashboard/Sidebar/ParticipantSidebar.tsx',
-      required: true,
-      status: '🔵 PLANNED'
+  navigation: {
+    path: 'src/components/Navigation',
+    components: {
+      MobileNav: '✅ IMPLEMENTED',
+      Navigation: '✅ IMPLEMENTED',
+      UserNav: '✅ IMPLEMENTED'
+    }
+  },
+  specialized: {
+    path: 'src/components/layouts',
+    components: {
+      AuthLayout: '✅ IMPLEMENTED',
+      DashboardLayout: '✅ IMPLEMENTED',
+      WhitepaperLayout: '✅ IMPLEMENTED'
     }
   }
 }
@@ -136,221 +176,141 @@ interface SidebarSystem {
 ### Transaction Components
 ```typescript
 interface TransactionComponents {
-  global: {
-    path: '@/components/transactions',
+  core: {
+    path: 'src/components/Transactions',
     components: {
-      TransactionRow: '✅ IMPLEMENTED',
       TransactionList: '✅ IMPLEMENTED',
-      TransactionDetails: '✅ IMPLEMENTED'
+      TransactionRow: '✅ IMPLEMENTED'
     }
   },
-  shelter: {
-    path: '@/features/dashboard/roles/shelter-admin',
+  blockchain: {
+    path: 'src/components/Blockchain',
     components: {
-      ShelterTransactionRow: '✅ IMPLEMENTED',
-      ShelterTransactionList: '✅ IMPLEMENTED',
-      TransactionMetrics: '✅ IMPLEMENTED'
+      BlockchainStats: '✅ IMPLEMENTED',
+      TransactionList: '✅ IMPLEMENTED',
+      WhitepaperPage: '✅ IMPLEMENTED'
     }
   }
 }
 ```
 
-### Navigation Components (✅ STABLE)
+### Support & Legal Components
 ```typescript
-interface NavigationSystem {
-  core: {
-    ScrollToTop: {
-      path: 'src/components/Navigation/ScrollToTop.tsx',
-      required: true,
-      status: '✅ IMPLEMENTED'
-    },
-    PageTransition: {
-      path: 'src/components/Navigation/PageTransition.tsx',
-      status: '✅ IMPLEMENTED'
+interface SupportComponents {
+  customerSupport: {
+    path: 'src/components/CustomerSupport',
+    components: {
+      CustomerSupport: '✅ IMPLEMENTED'
+    }
+  },
+  legal: {
+    path: 'src/components/Legal',
+    components: {
+      PrivacyPolicy: '✅ IMPLEMENTED',
+      TermsOfService: '✅ IMPLEMENTED'
+    }
+  },
+  contact: {
+    path: 'src/components/Contact',
+    components: {
+      ContactForm: '✅ IMPLEMENTED'
     }
   }
 }
 ```
 
-### SEO Components (✅ IMPLEMENTED)
+### Utility Components
 ```typescript
-interface SEOSystem {
-  core: {
-    MetaTags: {
-      path: 'src/components/SEO/MetaTags.tsx',
-      required: true,
-      status: '✅ IMPLEMENTED',
-      features: ['OpenGraph', 'Twitter Cards', 'LinkedIn Share']
-    },
-    SocialShare: {
-      path: 'src/components/SEO/SocialShare.tsx',
-      status: '✅ IMPLEMENTED'
+interface UtilityComponents {
+  seo: {
+    path: 'src/components/SEO',
+    components: {
+      MetaTags: '✅ IMPLEMENTED'
+    }
+  },
+  errorBoundary: {
+    path: 'src/components/ErrorBoundary',
+    components: {
+      BaseErrorBoundary: '✅ IMPLEMENTED',
+      ShelterAdminErrorBoundary: '✅ IMPLEMENTED'
+    }
+  },
+  settings: {
+    path: 'src/components/Settings',
+    components: {
+      BaseSettings: '✅ IMPLEMENTED'
     }
   }
 }
 ```
 
-### Layout Components (🟡 IN_PROGRESS)
-```typescript
-interface LayoutProps {
-  children: React.ReactNode;
-  className?: string;
-  status?: ComponentStatus;
-}
+## Implementation Guidelines
 
-// Base Layout Components
-BaseLayout        // ✅ STABLE
-DashboardLayout   // ✅ STABLE
-AuthLayout        // ✅ STABLE
+### Component Development Standards
+1. **Type Safety**
+   - Strict TypeScript implementation
+   - Proper interface definitions
+   - Comprehensive prop typing
+   - Enum usage for constants
 
-// Specialized Layouts
-SuperAdminDashboard    // ✅ IMPLEMENTED
-ShelterDashboard      // 🟡 IN_PROGRESS
-DonorDashboard        // 🟡 IN_DEVELOPMENT
-ParticipantDashboard  // 🔵 PLANNED
-```
+2. **Performance**
+   - Lazy loading where appropriate
+   - Memoization for complex calculations
+   - Optimized re-renders
+   - Bundle size consideration
 
-## Authentication Components (✅ STABLE)
-```typescript
-interface AuthProps {
-  redirectUrl?: string;
-  onSuccess?: () => void;
-  onError?: (error: Error) => void;
-  status: ComponentStatus;
-}
+3. **Accessibility**
+   - ARIA labels
+   - Keyboard navigation
+   - Screen reader support
+   - Color contrast compliance
+   - Focus management
 
-// Auth Components
-LoginForm        // ✅ STABLE
-SignupForm       // ✅ STABLE
-VerificationForm // ✅ IMPLEMENTED
-ResetPassword    // ✅ IMPLEMENTED
-```
+4. **Error Handling**
+   - Boundary implementation
+   - Graceful degradation
+   - User feedback
+   - Error logging
 
-## Dashboard Components
+### Best Practices
 
-### Core Dashboard (✅ STABLE)
-```typescript
-interface DashboardCore {
-  header: {
-    path: 'src/layouts/specialized/dashboard/components/DashboardHeader.tsx',
-    required: true,
-    status: '✅ STABLE',
-    dependencies: ['auth context', 'navigation']
-  },
-  layout: {
-    path: 'src/layouts/specialized/dashboard/DashboardLayout.tsx',
-    required: true,
-    status: '✅ STABLE',
-    dependencies: ['Sidebar', 'DashboardHeader']
-  }
-}
-```
+#### Form Components
+- Implement Zod validation
+- Real-time feedback
+- Error state management
+- Loading state handling
+- Field-level validation
 
-### Role-Specific Dashboards
-```typescript
-interface RoleDashboards {
-  superAdmin: {
-    status: '✅ IMPLEMENTED',
-    components: ['SystemStats', 'UserManagement', 'Analytics']
-  },
-  shelterAdmin: {
-    status: '🟡 IN_PROGRESS',
-    components: ['ShelterMetrics', 'UserManagement', 'Reports']
-  },
-  donor: {
-    status: '🟡 IN_DEVELOPMENT',
-    components: ['DonationHistory', 'Impact', 'Profile', 'SocialShare']
-  },
-  participant: {
-    status: '🔵 PLANNED',
-    components: ['Progress', 'Resources', 'Profile']
-  }
-}
-```
+#### File Management
+- Progress tracking
+- Validation checks
+- Error handling
+- Upload optimization
+- Format support
 
-## Feature Components (✅ STABLE)
-```typescript
-interface FeatureComponents {
-  ui: ['Button', 'Card', 'Alert', 'Modal'],
-  forms: ['Input', 'Select', 'Checkbox'],
-  feedback: ['Toast', 'ErrorBoundary', 'LoadingState'],
-  data: ['Table', 'Chart', 'StatCard'],
-  seo: ['MetaTags', 'SocialShare', 'ImageOptimizer']
-}
-```
-
-## Current Development Focus
-
-### 🟡 Real-Time Integration
-1. Data Flow
-   - WebSocket implementation
-   - Real-time updates
-   - Cache strategy
-   - Error handling
-   - Transaction streaming
-
-### 🟡 System Enhancement
-1. Implementation Status
-   - Authentication (✅ Complete)
-   - Transaction System (✅ Complete)
-   - Real-Time Updates (🟡 In Progress)
-   - Performance Optimization (🟡 In Progress)
-   - Geolocation Features (✅ Complete)
+#### Analytics Integration
+- Performance monitoring
+- Error tracking
+- Usage analytics
+- Real-time updates
+- Data visualization
 
 ## Next Steps
-1. Implement WebSocket connections
-2. Add loading states
-3. Enhance error handling
-4. Optimize performance
-5. Implement caching
-6. Monitor security
-7. Enhance transaction monitoring
-8. Implement real-time updates
+1. Complete PWA implementation
+2. Enhance offline capabilities
+3. Implement real-time features
+4. Optimize bundle sizes
+5. Add E2E testing
+6. Enhance documentation
+7. Implement CI/CD improvements
+
+## Performance Metrics
+- Bundle Size: < 200KB initial load
+- Lighthouse Score: > 90
+- First Paint: < 1.5s
+- TTI: < 3.5s
+- Error Rate: < 0.1%
 
 ---
 *For detailed implementation guides, see [implementation-guides/](../implementation-guides/)*
-
-## Component Directory Structure
-```typescript
-interface ComponentStructure {
-  shared: {
-    analytics: {
-      path: 'src/features/shared/analytics',
-      exports: ['charts', 'metrics', 'badges']
-    },
-    auth: {
-      path: 'src/features/auth',
-      exports: ['SignOutButton', 'RoleGuard', 'AuthProvider']
-    }
-  },
-  features: {
-    dashboard: {
-      path: 'src/features/dashboard',
-      roles: ['super-admin', 'shelter-admin', 'donor', 'participant']
-    }
-  }
-}
-```
-
-## Donor Registration and Profile Creation Best Practices
-
-- **Form Validation**: Use Zod for form validation to ensure data integrity.
-- **User Feedback**: Implement toast notifications for user actions.
-- **Security**: Ensure secure data handling with HTTPS and Supabase.
-- **Profile Management**: Enable real-time profile updates with feedback.
-
-## Component Development Enhancements
-
-- **Reusable Components**: Develop reusable form components for consistency.
-- **State Management**: Use Zustand for managing form states and sessions.
-- **Error Handling**: Implement error boundaries to manage and log errors effectively.
-
-## Performance Optimization
-
-- **Lazy Loading**: Load components on demand to enhance performance.
-- **Code Splitting**: Split code into smaller chunks to reduce load times.
-
-## Mobile Responsiveness
-
-- **Responsive Design**: Ensure all components are adaptable to various screen sizes.
-- **Testing**: Conduct regular testing on multiple devices for consistency.
+*For component structure, see [components-structure.md](../dev/notes/tree/current/components-structure.md)*

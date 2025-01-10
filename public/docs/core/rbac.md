@@ -1,44 +1,134 @@
 # 🔐 Role-Based Access Control
-*Last Updated: January 4, 2025 21:30 EST*
-*Version: 0.5.4*
+*Last Updated: January 9, 2025 21:45 EST*
+*Version: 0.5.8*
 *Status: STABLE* 🟢
 
 ## Situational Abstract
-Following successful implementation of role-based badges and enhanced dashboard visualizations across all user types, the RBAC system has been refined and stabilized. Authentication flows and session management have been optimized across all implemented roles. Current focus is on integrating real-time data while maintaining strict access controls and security policies. The system demonstrates robust permission management with clear role hierarchies and standardized access patterns.
+Following successful implementation of enhanced registration flows and file management capabilities, the RBAC system has been expanded to include document handling permissions, granular form access controls, and refined validation rules. The system maintains strict security policies while supporting new user onboarding and verification processes.
 
 ## Role Definitions
 ```typescript
 enum UserRole {
-  SUPER_ADMIN = 'super_admin',
-  SHELTER_ADMIN = 'shelter_admin',
-  DONOR = 'donor',
-  PARTICIPANT = 'participant'
+  SUPER_ADMIN = 'super_admin',     // System-wide access
+  SHELTER_ADMIN = 'shelter_admin',  // Shelter management
+  DONOR = 'donor',                 // Donation capabilities
+  PARTICIPANT = 'participant'      // Service recipient
+}
+
+interface RoleCapabilities {
+  superAdmin: {
+    system: boolean;      // System configuration access
+    users: boolean;       // User management access
+    analytics: boolean;   // Analytics access
+    documents: boolean;   // Document management
+  };
+  shelterAdmin: {
+    shelter: boolean;     // Shelter management
+    participants: boolean;// Participant management
+    documents: boolean;   // Document upload/management
+    analytics: boolean;   // Shelter analytics
+  };
+  donor: {
+    donations: boolean;   // Donation capabilities
+    profile: boolean;     // Profile management
+    history: boolean;     // Transaction history
+    impact: boolean;      // Impact metrics
+  };
+  participant: {
+    services: boolean;    // Service access
+    profile: boolean;     // Profile management
+    resources: boolean;   // Resource access
+    progress: boolean;    // Progress tracking
+  };
 }
 ```
 
 ## Authentication Flow Matrix
-| Action           | Public | Donor | Shelter Admin | Super Admin |
-|-----------------|--------|-------|---------------|-------------|
-| View Landing    | ✅     | ✅    | ✅           | ✅         |
-| Create Account  | ✅     | ✅    | ✅           | ✅         |
-| Access Dashboard| ❌     | ✅    | ✅           | ✅         |
-| Manage Profile  | ❌     | ✅    | ✅           | ✅         |
-| View Analytics  | ❌     | ✅    | ✅           | ✅         |
-| QR Scanner      | ❌     | ✅    | ✅           | ✅         |
+| Action                | Public | Donor | Shelter Admin | Super Admin |
+|----------------------|--------|-------|---------------|-------------|
+| View Landing         | ✅     | ✅    | ✅           | ✅         |
+| Create Account       | ✅     | ✅    | ✅           | ✅         |
+| Access Dashboard     | ❌     | ✅    | ✅           | ✅         |
+| Manage Profile       | ❌     | ✅    | ✅           | ✅         |
+| View Analytics       | ❌     | ✅    | ✅           | ✅         |
+| Upload Documents     | ❌     | ❌    | ✅           | ✅         |
+| Manage Documents     | ❌     | ❌    | ✅           | ✅         |
+| System Configuration | ❌     | ❌    | ❌           | ✅         |
 
 ## Feature Access Matrix
-| Feature             | Participant | Donor | Shelter Admin | Super Admin |
-|--------------------|-------------|-------|---------------|-------------|
-| View Public Pages  | ✅         | ✅    | ✅           | ✅         |
-| Profile Access     | ✅         | ✅    | ✅           | ✅         |
-| Make Donations     | ❌         | ✅    | ❌           | ✅         |
-| Manage Shelter     | ❌         | ❌    | ✅           | ✅         |
-| System Config      | ❌         | ❌    | ❌           | ✅         |
-| View Analytics     | ✅         | ✅    | ✅           | ✅         |
-| Manage Users       | ❌         | ❌    | 🔵           | ✅         |
-| QR Scanner Access  | ❌         | ✅    | ✅           | ✅         |
+| Feature              | Participant | Donor | Shelter Admin | Super Admin |
+|---------------------|-------------|-------|---------------|-------------|
+| View Public Pages   | ✅         | ✅    | ✅           | ✅         |
+| Profile Access      | ✅         | ✅    | ✅           | ✅         |
+| Make Donations      | ❌         | ✅    | ❌           | ✅         |
+| Manage Shelter      | ❌         | ❌    | ✅           | ✅         |
+| System Config       | ❌         | ❌    | ❌           | ✅         |
+| View Analytics      | ✅         | ✅    | ✅           | ✅         |
+| Manage Users        | ❌         | ❌    | 🔵           | ✅         |
+| Document Upload     | ❌         | ❌    | ✅           | ✅         |
+| Form Management     | ❌         | ❌    | ✅           | ✅         |
 
 *🔵 = Limited Access*
+
+## Document Access Controls
+```typescript
+interface DocumentPermissions {
+  upload: {
+    shelterAdmin: {
+      allowed: true,
+      types: ['pdf', 'jpg', 'png'],
+      maxSize: '5MB',
+      validation: true
+    },
+    superAdmin: {
+      allowed: true,
+      types: ['pdf', 'jpg', 'png', 'doc'],
+      maxSize: '10MB',
+      validation: true
+    },
+    donor: {
+      allowed: false
+    },
+    participant: {
+      allowed: false
+    }
+  },
+  management: {
+    view: ['super_admin', 'shelter_admin'],
+    edit: ['super_admin'],
+    delete: ['super_admin'],
+    download: ['super_admin', 'shelter_admin']
+  }
+}
+```
+
+## Form Access Controls
+```typescript
+interface FormPermissions {
+  registration: {
+    donor: {
+      create: true,
+      edit: true,
+      fields: ['email', 'password', 'profile']
+    },
+    shelter: {
+      create: true,
+      edit: true,
+      fields: ['organization', 'documents', 'verification']
+    }
+  },
+  management: {
+    superAdmin: {
+      access: 'FULL',
+      capabilities: ['create', 'edit', 'delete', 'manage']
+    },
+    shelterAdmin: {
+      access: 'LIMITED',
+      capabilities: ['create', 'edit']
+    }
+  }
+}
+```
 
 ## Implementation Example
 ```typescript
@@ -53,9 +143,9 @@ interface RoleAuthControl extends AccessControl {
   createAccount: boolean;
   accessDashboard: boolean;
   manageProfile: boolean;
-  scanQR: boolean;
+  uploadDocuments: boolean;
   viewAnalytics: boolean;
-  manageBadges: boolean;
+  manageForms: boolean;
 }
 
 const rolePermissions: Record<UserRole, RoleAuthControl> = {
@@ -63,9 +153,9 @@ const rolePermissions: Record<UserRole, RoleAuthControl> = {
     createAccount: true,
     accessDashboard: true,
     manageProfile: true,
-    scanQR: true,
+    uploadDocuments: true,
     viewAnalytics: true,
-    manageBadges: true,
+    manageForms: true,
     view: true,
     edit: true,
     delete: true,
@@ -75,9 +165,9 @@ const rolePermissions: Record<UserRole, RoleAuthControl> = {
     createAccount: true,
     accessDashboard: true,
     manageProfile: true,
-    scanQR: true,
+    uploadDocuments: true,
     viewAnalytics: true,
-    manageBadges: false,
+    manageForms: true,
     view: true,
     edit: true,
     delete: false,
@@ -87,9 +177,9 @@ const rolePermissions: Record<UserRole, RoleAuthControl> = {
     createAccount: true,
     accessDashboard: true,
     manageProfile: true,
-    scanQR: true,
+    uploadDocuments: false,
     viewAnalytics: true,
-    manageBadges: false,
+    manageForms: false,
     view: true,
     edit: false,
     delete: false,
@@ -99,9 +189,9 @@ const rolePermissions: Record<UserRole, RoleAuthControl> = {
     createAccount: true,
     accessDashboard: true,
     manageProfile: true,
-    scanQR: false,
+    uploadDocuments: false,
     viewAnalytics: true,
-    manageBadges: false,
+    manageForms: false,
     view: true,
     edit: false,
     delete: false,
@@ -111,14 +201,14 @@ const rolePermissions: Record<UserRole, RoleAuthControl> = {
 ```
 
 ## Recent Updates
-- [✅] Enhanced badge system integration
-- [✅] Optimized role verification
-- [✅] Implemented unified SignOutButton
-- [✅] Added analytics access controls
-- [✅] Updated Shelter Admin permissions
-- [✅] Refined Donor dashboard access
-- [✅] Enhanced Super Admin privileges
-- [✅] Protected route optimization
+- [✅] Enhanced document permissions
+- [✅] Added form access controls
+- [✅] Updated role capabilities
+- [✅] Refined access matrices
+- [✅] Enhanced validation rules
+- [✅] Updated implementation patterns
+- [✅] Added security controls
+- [✅] Enhanced audit logging
 
 ## Next Steps
 1. Implement real-time permission updates
@@ -127,6 +217,8 @@ const rolePermissions: Record<UserRole, RoleAuthControl> = {
 4. Implement permission caching
 5. Add role transition workflows
 6. Enhance security monitoring
+7. Add document versioning
+8. Enhance form controls
 
 ---
 *For implementation details, see [implementation.md](./implementation.md)*
