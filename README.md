@@ -1,8 +1,8 @@
 <div align="center">
 
 ![SHELTR](https://img.shields.io/badge/SHELTR-V2-4B32C3)
-![Version](https://img.shields.io/badge/Version-0.5.7-FF6B6B)
-![Stage](https://img.shields.io/badge/Prototype-Alpha-FED766)
+![Version](https://img.shields.io/badge/Version-0.5.8-FF6B6B)
+![Stage](https://img.shields.io/badge/Prototype-Beta-FED766)
 ![License](https://img.shields.io/badge/License-MIT-8A2BE2)
 [![Listen on Spotify](https://img.shields.io/badge/Listen_on-Spotify-1DB954?logo=spotify&logoColor=white)](https://open.spotify.com/show/3Q2RpnzF9sUv26yPMP9tWI)
 [![Arcana Ventures](https://img.shields.io/badge/Visit-Arcana_Ventures-4B32C3)](https://www.arcanaconcept.com/concepts/sheltr)
@@ -10,34 +10,47 @@
 [![LinkedIn](https://img.shields.io/badge/Connect_on-LinkedIn-0A66C2?logo=linkedin&logoColor=white)](https://www.linkedin.com/company/arcana-concept)
 [![Substack](https://img.shields.io/badge/Read_on-Substack-FF6719?logo=substack&logoColor=white)](https://substack.com/home/post/p-153502903)
 
+# 🏠 SHELTR
+### *Hacking Homelessness Through Direct-Impact Technology*
+
 **Revolutionizing Charitable Giving Through Technology**
 *Project Initialization: December 2024 - Beta Launch (V1.0.0) Mid-January 2025*
-*Version: 0.5.7*
+*Version: 0.5.8*
 
 </div>
 
-## 🌟 Table of Contents
-
-1. [Overview](#-overview)
-2. [Project Abstract](#-project-abstract)
-3. [Feature Set Overview](#-feature-set-overview)
-4. [Development Tracking & Roadmap](#-development-tracking--roadmap)
-5. [Implementation Status](#-implementation-status)
-6. [Full Technology Stack](#-full-technology-stack)
-7. [Development Roadmap](#-development-roadmap)
-8. [Key Features](#-key-features)
-9. [Documentation](#-documentation)
-10. [Contributing](#-contributing)
-
 ## 🌟 Overview
 
-**SHELTR** is hacking homelessness by revolutionizing daily charitable giving through cutting-edge technology integration. Our platform combines **QR code donations**, **blockchain verification**, **AI-driven insights**, and **gamified donor engagement** to create a transparent, efficient, and impactful giving ecosystem.
+SHELTR is revolutionizing charitable giving through cutting-edge technology integration. Our platform seamlessly combines **QR code donations**, **blockchain verification**, and **AI-driven insights** to create a transparent, efficient, and impactful giving ecosystem.
 
-### 📊 Project Abstract
+### 🎯 Core Features
+- **Instant QR Donations**: Scan-and-give technology
+- **Blockchain Verification**: 100% transparent tracking
+- **Smart Fund Allocation**: 80/15/5 distribution model
+- **AI-Powered Insights**: Data-driven impact optimization
+- **Gamified Engagement**: Donor reward system
 
-SHELTR is a transformative platform designed to enhance the way charitable donations are made and tracked. By leveraging modern technologies such as blockchain and AI, SHELTR ensures transparency and efficiency in fund allocation. The platform empowers donors with real-time insights and engages them through gamified experiences, fostering a community dedicated to eradicating homelessness.
+```mermaid
+graph LR
+    A[Donor] -->|QR Scan| B[Direct Donation]
+    B -->|Smart Contract| C[Fund Distribution]
+    C -->|80%| D[Direct Support]
+    C -->|15%| E[Housing Fund]
+    C -->|5%| F[Operations]
+```
 
-### 🔍 Feature Set Overview
+## 📊 Implementation Status
+
+| Component | Status | Progress |
+|-----------|---------|-----------|
+| Core System | ✅ STABLE | ![98%](https://img.shields.io/badge/-98%25-success) |
+| Auth System | ✅ STABLE | ![100%](https://img.shields.io/badge/-100%25-success) |
+| QR System | ✅ STABLE | ![95%](https://img.shields.io/badge/-95%25-success) |
+| Blockchain | 🟡 IN PROGRESS | ![60%](https://img.shields.io/badge/-60%25-yellow) |
+| Analytics | 🟡 IN PROGRESS | ![40%](https://img.shields.io/badge/-40%25-yellow) |
+| AI Integration | 🔵 PLANNED | ![0%](https://img.shields.io/badge/-0%25-blue) |
+
+## 🛠️ Technology Stack
 
 - **QR Code Donations**: Simplified donation process using QR codes.
 - **Blockchain Verification**: Secure and transparent transaction tracking.
@@ -46,99 +59,105 @@ SHELTR is a transformative platform designed to enhance the way charitable donat
 - **Role-Based Access**: Tailored access for different user roles.
 - **Real-Time Analytics**: Comprehensive data visualization and impact tracking.
 
-### 📊 Development Tracking & Roadmap
+```typescript
+interface TechStack {
+  frontend: {
+    framework: 'React 18',
+    language: 'TypeScript 5.0',
+    state: 'Zustand',
+    styling: 'Tailwind CSS'
+  },
+  backend: {
+    database: 'Supabase',
+    api: 'REST + WebSocket',
+    blockchain: 'Polygon',
+    analytics: 'Custom + Recharts'
+  }
+}
+```
 
-| Phase | Component | Status | Progress |
-|-------|-----------|--------|----------|
-| Alpha | Core System | ✅ STABLE | ![98%](https://img.shields.io/badge/-98%25-success?style=flat-square) |
-| Alpha | Auth System | ✅ STABLE | ![100%](https://img.shields.io/badge/-100%25-success?style=flat-square) |
-| Alpha | Layout System | ✅ STABLE | ![90%](https://img.shields.io/badge/-100%25-success?style=flat-square) |
-| Alpha | Role-Based Access | ✅ STABLE | ![100%](https://img.shields.io/badge/-100%25-success?style=flat-square) |
-| Alpha | QR System | ✅ STABLE | ![95%](https://img.shields.io/badge/-95%25-success?style=flat-square) |
-| Alpha | Transaction System | 🟡 IN PROGRESS | ![20%](https://img.shields.io/badge/-20%25-yellow?style=flat-square) |
-| Alpha | Blockchain Contracts | 🟡 IN PROGRESS | ![30%](https://img.shields.io/badge/-30%25-yellow?style=flat-square) |
-| Alpha | Deep Analytics | 🟡 IN PROGRESS | ![40%](https://img.shields.io/badge/-40%25-yellow?style=flat-square) |
-| Alpha | AI Integrations | 🔵 UPCOMING | ![0%](https://img.shields.io/badge/-0%25-lightgrey?style=flat-square) |
+## 📈 Impact Metrics
 
-### 🚀 Implementation Status
+| Metric | Target (2025) | Current |
+|--------|---------------|---------|
+| Active Users | 100,000 | 25,000 |
+| Monthly Donations | $5M | $1.2M |
+| Housing Fund | $10M | $2.1M |
+| Success Rate | 75% | 58% |
 
-#### Current Phase (v0.5.7)
-1. **User Engagement Features**
-   - 🟡 Newsletter System
-   - 🟡 Internal Messaging
-   - 🟡 Social Integration
-   - 🟡 Registration Flows
+## 🗺️ Roadmap
 
-2. **Core Features**
-   - 🟡 Transaction System
-   - 🟡 Blockchain Integration
-   - 🟡 Security Token
-   - 🟡 Market Analytics
-
-#### Upcoming Beta Release (v1.0.0)
-1. **Advanced Features**
-   - 🟡 User Engagement Suite
-   - 🟡 Social Integration
-   - 🟡 Advanced Analytics
-   - 🟡 Market Dashboard
-
-### 🛠️ Full Technology Stack
-
-- **Frontend**: React, TypeScript
-- **State Management**: Zustand, React Query
-- **Styling**: Tailwind CSS
-- **Authentication**: Supabase
-- **Blockchain**: Ethereum, Web3.js
-- **Analytics**: Recharts, Custom Analytics
-- **Testing**: Jest, Testing Library
-- **Documentation**: MDX, Storybook
-- **SEO**: React Helmet Async
-
-### 🎯 Development Roadmap
-
-#### January 2024 (Beta)
-- [x] Transaction System
-- [x] Blockchain Integration
-- [x] $SHELTR Token
-- [x] Market Analytics
-- [ ] User Engagement Features
-- [ ] Public Launch Preparation
-
-## 💫 Key Features
-
-### 🔗 Blockchain Integration (🟡 IN DEVELOPMENT)
-- Security token implementation
-- Transaction verification
-- Market dynamics
-- Staking mechanism
-- Cross-chain compatibility
-
-### 💱 Transaction System (🟡 IN DEVELOPMENT)
-- Global transaction handling
-- Real-time verification
-- Role-based access
-- Analytics integration
-- Performance optimization
-
-### 📊 Analytics & Metrics (🟡 IN DEVELOPMENT)
-- Real-time data visualization
-- Market analytics
-- Performance metrics
-- Impact tracking
-- Resource optimization
-
-### 👥 User Engagement (🟡 IN PROGRESS)
-- Newsletter system
-- Internal messaging
-- Social integration
-- Registration flows
-- Community features
-
-## 📄 Documentation
-
-- [Development Notes](public/docs/dev/notes/tree/current)
-- [Project Structure](public/docs/dev/notes/tree/project-structure.md)
+```mermaid
+gantt
+    title SHELTR Development Roadmap
+    dateFormat  YYYY-MM-DD
+    section Alpha
+    Core Development     :done, 2024-10-01, 2024-12-31
+    QR System           :done, 2024-11-15, 2024-12-31
+    Auth System        :done, 2024-12-01, 2024-12-31
+    section Beta
+    Smart Contracts    :active, 2025-01-01, 2025-01-31
+    Blockchain Integration :active, 2025-01-15, 2025-02-15
+    Testing & Audits   :2025-02-01, 2025-02-28
+    section Launch
+    Public Beta       :milestone, 2025-03-01
+    V1 Release       :milestone, 2025-03-31
+```
 
 ## 🤝 Contributing
 
-We welcome contributions to the SHELTR project! Please refer to the [Project Structure](public/docs/dev/notes/tree/project-structure.md) for guidelines on how to get started. Feel free to open issues or submit pull requests.
+We welcome contributions! Here's how you can help:
+
+1. 🔍 **Review Issues**: Check our [issues page](https://github.com/arcana-concept/SHELTR/issues)
+2. 🛠️ **Development**: See our [contribution guide](CONTRIBUTING.md)
+3. 📚 **Documentation**: Help improve our [docs](https://docs.sheltr.dev)
+4. 🧪 **Testing**: Run tests and report bugs
+
+## 📖 Documentation
+
+- [Technical Whitepaper](docs/about/whitepaper_final.md)
+- [API Documentation](https://api.sheltr.dev)
+- [Developer Guide](https://docs.sheltr.dev)
+- [Integration Guide](https://learn.sheltr.dev)
+
+## 🌟 Theory of Change
+
+SHELTR's approach to "hacking homelessness" combines:
+
+1. **Direct Impact**: Immediate assistance through QR donations
+2. **Sustainable Growth**: Smart contract-governed housing fund
+3. **Data-Driven**: AI-powered resource optimization
+4. **Community Engagement**: Gamified donor participation
+
+## 📊 Success Metrics
+
+```mermaid
+pie title Fund Allocation Model
+    "Direct Support" : 80
+    "Housing Fund" : 15
+    "Operations" : 5
+```
+
+## 🔒 Security & Compliance
+
+- 🛡️ **Blockchain Verification**: Every transaction
+- 🔐 **Data Protection**: GDPR & CCPA compliant
+- 📱 **Secure QR**: Dynamic & encrypted
+- 🏦 **Smart Contracts**: Audited & verified
+
+## 📬 Contact & Support
+
+- 📧 Email: support@sheltr.dev
+- 💬 Discord: [Join our community](https://discord.gg/sheltr)
+- 🐦 Twitter: [@SHELTRapp](https://twitter.com/SHELTRapp)
+- 📱 App: [Download SHELTR](https://app.sheltr.dev)
+
+---
+
+<div align="center">
+
+*"Innovation meets compassion at the intersection of technology and social change."*
+
+[Website](https://sheltr.dev) • [Documentation](https://docs.sheltr.dev) • [Community](https://community.sheltr.dev)
+
+</div>
