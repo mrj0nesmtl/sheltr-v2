@@ -108,17 +108,16 @@ gantt
 
 We welcome contributions! Here's how you can help:
 
-1. 🔍 **Review Issues**: Check our [issues page](https://github.com/arcana-concept/SHELTR/issues)
-2. 🛠️ **Development**: See our [contribution guide](CONTRIBUTING.md)
-3. 📚 **Documentation**: Help improve our [docs](https://docs.sheltr.dev)
-4. 🧪 **Testing**: Run tests and report bugs
+1. 🔍 **Review Issues**: Check our [issues page](SOON)
+2. 🛠️ **Development**: See our [contribution guide](SOON)
+3. 📚 **Documentation**: Help improve our [docs](https://github.com/mrj0nesmtl/sheltr-v2/tree/main/public/docs)
+4. 🧪 **Testing**: Run tests and report bugs (SOON)
 
 ## 📖 Documentation
 
-- [Technical Whitepaper](docs/about/whitepaper_final.md)
-- [API Documentation](https://api.sheltr.dev)
-- [Developer Guide](https://docs.sheltr.dev)
-- [Integration Guide](https://learn.sheltr.dev)
+- [Technical Whitepaper](https://github.com/mrj0nesmtl/sheltr-v2/blob/main/public/docs/about/whitepaper_final.md)
+- [API Documentation](https://github.com/mrj0nesmtl/sheltr-v2/blob/main/public/docs/core/api.md)
+
 
 ## 🌟 Theory of Change
 
@@ -157,6 +156,6 @@ pie title Fund Allocation Model
 
 *"Innovation meets compassion at the intersection of technology and social change."*
 
-[Website](https://sheltr.dev) • [Documentation](https://docs.sheltr.dev) • [Community](https://community.sheltr.dev)
+[Website](https://arcanaconcept.com/concepts/sheltr) • [Documentation](https://github.com/mrj0nesmtl/sheltr-v2/tree/main/public/docs) • [Community](https://arcanaconcept.comv)
 
 </div>
