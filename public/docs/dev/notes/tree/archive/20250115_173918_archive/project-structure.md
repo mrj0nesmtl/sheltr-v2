@@ -1,5 +1,5 @@
 # 🌳 SHELTR Project Structure
-*Generated: 2025-01-15 17:39:18*
+*Generated: 2025-01-15 14:18:14*
 *Version: 0.4.9*
 
 ## Table of Contents
@@ -11,13 +11,12 @@
 6. [Technical Structures](#technical-structures)
 
 \n---\n
-*Generated: 2025-01-15 17:39:18*
+*Generated: 2025-01-15 14:18:14*
 \n## Directory Structure
 ./src/auth
 ├── components
 │   ├── AuthProvider.tsx
-│   ├── ProtectedRoute.tsx
-│   └── ShelterSetupGuard.tsx
+│   └── ProtectedRoute.tsx
 ├── guards
 │   └── RoleGuard.tsx
 ├── schemas
@@ -29,9 +28,9 @@
 │   └── auth.types.ts
 └── types.ts
 
-6 directories, 9 files
+6 directories, 8 files
 \n---\n
-*Generated: 2025-01-15 17:39:18*
+*Generated: 2025-01-15 14:18:14*
 \n## Directory Structure
 ./src/components
 ├── About
@@ -56,7 +55,6 @@
 │   │   ├── ShelterRegistrationForm.tsx
 │   │   └── index.ts
 │   ├── AuthLayout.tsx
-│   ├── EmailVerificationError.tsx
 │   ├── LoginButton.tsx
 │   ├── LoginForm.tsx
 │   ├── RequireAuth.tsx
@@ -209,9 +207,9 @@
 ├── ScrollToTop.tsx
 └── ThemeToggle.tsx
 
-45 directories, 130 files
+45 directories, 129 files
 \n---\n
-*Generated: 2025-01-15 17:39:18*
+*Generated: 2025-01-15 14:18:14*
 \n## Directory Structure
 ./public/docs
 ├── about
@@ -257,7 +255,7 @@
 
 14 directories, 27 files
 \n---\n
-*Generated: 2025-01-15 17:39:18*
+*Generated: 2025-01-15 14:18:14*
 \n## Directory Structure
 ./src/features
 ├── auth
@@ -390,7 +388,7 @@
 
 65 directories, 63 files
 \n---\n
-*Generated: 2025-01-15 17:39:18*
+*Generated: 2025-01-15 14:18:14*
 \n## Directory Structure
 ./src/layouts
 ├── base
@@ -414,7 +412,7 @@
 
 9 directories, 10 files
 \n---\n
-*Generated: 2025-01-15 17:39:18*
+*Generated: 2025-01-15 14:18:14*
 \n## Directory Structure
 .
 ├── public
@@ -570,13 +568,11 @@
 │   │   ├── SuperAdmin
 │   │   ├── Wiki
 │   │   ├── blockchain
-│   │   ├── shelter
 │   │   ├── HomePage.tsx
 │   │   ├── HowItWorks.tsx
 │   │   ├── Impact.tsx
 │   │   ├── LoginPage.tsx
 │   │   ├── NotFoundPage.tsx
-│   │   ├── RegistrationConfirmation.tsx
 │   │   ├── ScanDonatePage.tsx
 │   │   ├── ShelterSignUp.tsx
 │   │   ├── SignUpPage.tsx
@@ -620,8 +616,6 @@
 │   └── vite-env.d.ts
 ├── supabase
 │   ├── exports
-│   │   ├── User and Organization Metadata Check.csv
-│   │   ├── organizations_rows (1).csv
 │   │   ├── organizations_rows.csv
 │   │   └── profiles_rows.csv
 │   ├── migrations
@@ -648,9 +642,9 @@
 ├── vercel.json
 └── vite.config.ts
 
-116 directories, 115 files
+115 directories, 112 files
 \n---\n
-*Generated: 2025-01-15 17:39:18*
+*Generated: 2025-01-15 14:18:14*
 \n## Directory Structure
 ./src/pages
 ├── About
@@ -707,14 +701,11 @@
 ├── blockchain
 │   ├── transactions.tsx
 │   └── whitepaper.tsx
-├── shelter
-│   └── ShelterSetup.tsx
 ├── HomePage.tsx
 ├── HowItWorks.tsx
 ├── Impact.tsx
 ├── LoginPage.tsx
 ├── NotFoundPage.tsx
-├── RegistrationConfirmation.tsx
 ├── ScanDonatePage.tsx
 ├── ShelterSignUp.tsx
 ├── SignUpPage.tsx
@@ -722,16 +713,15 @@
 ├── debug.tsx
 └── index.ts
 
-16 directories, 53 files
+15 directories, 51 files
 \n---\n
-*Generated: 2025-01-15 17:39:18*
+*Generated: 2025-01-15 14:18:14*
 \n## Directory Structure
 ./src
 ├── auth
 │   ├── components
 │   │   ├── AuthProvider.tsx
-│   │   ├── ProtectedRoute.tsx
-│   │   └── ShelterSetupGuard.tsx
+│   │   └── ProtectedRoute.tsx
 │   ├── guards
 │   │   └── RoleGuard.tsx
 │   ├── schemas
@@ -765,7 +755,6 @@
 │   │   │   ├── ShelterRegistrationForm.tsx
 │   │   │   └── index.ts
 │   │   ├── AuthLayout.tsx
-│   │   ├── EmailVerificationError.tsx
 │   │   ├── LoginButton.tsx
 │   │   ├── LoginForm.tsx
 │   │   ├── RequireAuth.tsx
@@ -1197,14 +1186,11 @@
 │   ├── blockchain
 │   │   ├── transactions.tsx
 │   │   └── whitepaper.tsx
-│   ├── shelter
-│   │   └── ShelterSetup.tsx
 │   ├── HomePage.tsx
 │   ├── HowItWorks.tsx
 │   ├── Impact.tsx
 │   ├── LoginPage.tsx
 │   ├── NotFoundPage.tsx
-│   ├── RegistrationConfirmation.tsx
 │   ├── ScanDonatePage.tsx
 │   ├── ShelterSignUp.tsx
 │   ├── SignUpPage.tsx
@@ -1263,4 +1249,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-166 directories, 370 files
+165 directories, 366 files

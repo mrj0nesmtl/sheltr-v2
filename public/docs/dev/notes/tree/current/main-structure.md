@@ -1,5 +1,5 @@
 # 🌳 SHELTR Main Structure
-*Generated: 2025-01-15 14:18:14*
+*Generated: 2025-01-15 17:39:18*
 \n## Directory Structure
 .
 ├── public
@@ -155,11 +155,13 @@
 │   │   ├── SuperAdmin
 │   │   ├── Wiki
 │   │   ├── blockchain
+│   │   ├── shelter
 │   │   ├── HomePage.tsx
 │   │   ├── HowItWorks.tsx
 │   │   ├── Impact.tsx
 │   │   ├── LoginPage.tsx
 │   │   ├── NotFoundPage.tsx
+│   │   ├── RegistrationConfirmation.tsx
 │   │   ├── ScanDonatePage.tsx
 │   │   ├── ShelterSignUp.tsx
 │   │   ├── SignUpPage.tsx
@@ -203,6 +205,8 @@
 │   └── vite-env.d.ts
 ├── supabase
 │   ├── exports
+│   │   ├── User and Organization Metadata Check.csv
+│   │   ├── organizations_rows (1).csv
 │   │   ├── organizations_rows.csv
 │   │   └── profiles_rows.csv
 │   ├── migrations
@@ -229,4 +233,4 @@
 ├── vercel.json
 └── vite.config.ts
 
-115 directories, 112 files
+116 directories, 115 files

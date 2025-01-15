@@ -87,22 +87,20 @@ interface TechStack {
 
 ## 🗺️ Roadmap
 
-```mermaid
-gantt
-    title SHELTR Development Roadmap
-    dateFormat  YYYY-MM-DD
-    section Alpha
-    Core Development     :done, 2024-10-01, 2024-12-31
-    QR System           :done, 2024-11-15, 2024-12-31
-    Auth System        :done, 2024-12-01, 2024-12-31
-    section Beta
-    Smart Contracts    :active, 2025-01-01, 2025-01-31
-    Blockchain Integration :active, 2025-01-15, 2025-02-15
-    Testing & Audits   :2025-02-01, 2025-02-28
-    section Launch
-    Public Beta       :milestone, 2025-03-01
-    V1 Release       :milestone, 2025-03-31
-```
+### Development Timeline
+| Phase | Status | Timeline |
+|-------|---------|----------|
+| **Alpha** |
+| Core Development | ✅ Done | 2024-10-01 to 2024-12-31 |
+| QR System | ✅ Done | 2024-11-15 to 2024-12-31 |
+| Auth System | ✅ Done | 2024-12-01 to 2024-12-31 |
+| **Beta** |
+| Smart Contracts | 🟡 Active | 2025-01-01 to 2025-01-31 |
+| Blockchain Integration | 🟡 Active | 2025-01-15 to 2025-02-15 |
+| Testing & Audits | ⏳ Planned | 2025-02-01 to 2025-02-28 |
+| **Launch** |
+| Public Beta | 🎯 Milestone | 2025-03-01 |
+| V1 Release | 🎯 Milestone | 2025-03-31 |
 
 ## 🤝 Contributing
 
@@ -130,12 +128,12 @@ SHELTR's approach to "hacking homelessness" combines:
 
 ## 📊 Success Metrics
 
-```mermaid
-pie title Fund Allocation Model
-    "Direct Support" : 80
-    "Housing Fund" : 15
-    "Operations" : 5
-```
+### Fund Allocation Model
+| Category | Percentage |
+|----------|------------|
+| Direct Support | 80% |
+| Housing Fund | 15% |
+| Operations | 5% |
 
 ## 🔒 Security & Compliance
 

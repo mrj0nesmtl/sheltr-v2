@@ -1,5 +1,5 @@
 # 🌳 SHELTR Components Structure
-*Generated: 2025-01-15 14:18:14*
+*Generated: 2025-01-15 17:39:18*
 \n## Directory Structure
 ./src/components
 ├── About
@@ -24,6 +24,7 @@
 │   │   ├── ShelterRegistrationForm.tsx
 │   │   └── index.ts
 │   ├── AuthLayout.tsx
+│   ├── EmailVerificationError.tsx
 │   ├── LoginButton.tsx
 │   ├── LoginForm.tsx
 │   ├── RequireAuth.tsx
@@ -176,4 +177,4 @@
 ├── ScrollToTop.tsx
 └── ThemeToggle.tsx
 
-45 directories, 129 files
+45 directories, 130 files

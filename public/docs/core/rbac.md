@@ -1,10 +1,10 @@
 # 🔐 Role-Based Access Control
-*Last Updated: January 9, 2025 21:45 EST*
-*Version: 0.5.8*
+*Last Updated: January 15, 2025 15:49 EST*
+*Version: 0.5.9*
 *Status: STABLE* 🟢
 
 ## Situational Abstract
-Following successful implementation of enhanced registration flows and file management capabilities, the RBAC system has been expanded to include document handling permissions, granular form access controls, and refined validation rules. The system maintains strict security policies while supporting new user onboarding and verification processes.
+Following successful implementation of enhanced registration flows and organization verification processes, the RBAC system has been expanded to include automated registration number generation, improved shelter admin onboarding, and refined role-based navigation. The system maintains strict security policies while supporting new user verification processes and organization setup workflows.
 
 ## Role Definitions
 ```typescript
@@ -54,6 +54,31 @@ interface RoleCapabilities {
 | Upload Documents     | ❌     | ❌    | ✅           | ✅         |
 | Manage Documents     | ❌     | ❌    | ✅           | ✅         |
 | System Configuration | ❌     | ❌    | ❌           | ✅         |
+
+## Organization Status Controls
+```typescript
+interface OrganizationStatus {
+  pending: {
+    allowedActions: ['complete_profile', 'upload_documents'],
+    restrictions: ['manage_participants', 'access_funds']
+  },
+  active: {
+    allowedActions: ['all'],
+    restrictions: []
+  },
+  suspended: {
+    allowedActions: ['view_profile'],
+    restrictions: ['all']
+  }
+}
+
+interface RegistrationControl {
+  format: 'SH-YYYYMMDD-XXX',
+  validation: boolean,
+  uniqueness: boolean,
+  required: true
+}
+```
 
 ## Feature Access Matrix
 | Feature              | Participant | Donor | Shelter Admin | Super Admin |
@@ -201,11 +226,11 @@ const rolePermissions: Record<UserRole, RoleAuthControl> = {
 ```
 
 ## Recent Updates
-- [✅] Enhanced document permissions
-- [✅] Added form access controls
-- [✅] Updated role capabilities
-- [✅] Refined access matrices
-- [✅] Enhanced validation rules
+- [✅] Added organization status controls
+- [✅] Enhanced registration number generation
+- [✅] Updated role-based navigation
+- [✅] Added organization verification flow
+- [✅] Enhanced shelter admin onboarding
 - [✅] Updated implementation patterns
 - [✅] Added security controls
 - [✅] Enhanced audit logging

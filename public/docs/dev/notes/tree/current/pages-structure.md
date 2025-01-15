@@ -1,5 +1,5 @@
 # 🌳 SHELTR Pages Structure
-*Generated: 2025-01-15 14:18:14*
+*Generated: 2025-01-15 17:39:18*
 \n## Directory Structure
 ./src/pages
 ├── About
@@ -56,11 +56,14 @@
 ├── blockchain
 │   ├── transactions.tsx
 │   └── whitepaper.tsx
+├── shelter
+│   └── ShelterSetup.tsx
 ├── HomePage.tsx
 ├── HowItWorks.tsx
 ├── Impact.tsx
 ├── LoginPage.tsx
 ├── NotFoundPage.tsx
+├── RegistrationConfirmation.tsx
 ├── ScanDonatePage.tsx
 ├── ShelterSignUp.tsx
 ├── SignUpPage.tsx
@@ -68,4 +71,4 @@
 ├── debug.tsx
 └── index.ts
 
-15 directories, 51 files
+16 directories, 53 files

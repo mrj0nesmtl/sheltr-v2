@@ -1,11 +1,12 @@
 # 🌳 SHELTR Source Structure
-*Generated: 2025-01-15 14:18:14*
+*Generated: 2025-01-15 17:39:18*
 \n## Directory Structure
 ./src
 ├── auth
 │   ├── components
 │   │   ├── AuthProvider.tsx
-│   │   └── ProtectedRoute.tsx
+│   │   ├── ProtectedRoute.tsx
+│   │   └── ShelterSetupGuard.tsx
 │   ├── guards
 │   │   └── RoleGuard.tsx
 │   ├── schemas
@@ -39,6 +40,7 @@
 │   │   │   ├── ShelterRegistrationForm.tsx
 │   │   │   └── index.ts
 │   │   ├── AuthLayout.tsx
+│   │   ├── EmailVerificationError.tsx
 │   │   ├── LoginButton.tsx
 │   │   ├── LoginForm.tsx
 │   │   ├── RequireAuth.tsx
@@ -470,11 +472,14 @@
 │   ├── blockchain
 │   │   ├── transactions.tsx
 │   │   └── whitepaper.tsx
+│   ├── shelter
+│   │   └── ShelterSetup.tsx
 │   ├── HomePage.tsx
 │   ├── HowItWorks.tsx
 │   ├── Impact.tsx
 │   ├── LoginPage.tsx
 │   ├── NotFoundPage.tsx
+│   ├── RegistrationConfirmation.tsx
 │   ├── ScanDonatePage.tsx
 │   ├── ShelterSignUp.tsx
 │   ├── SignUpPage.tsx
@@ -533,4 +538,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-165 directories, 366 files
+166 directories, 370 files

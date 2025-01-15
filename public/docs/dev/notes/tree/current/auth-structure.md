@@ -1,10 +1,11 @@
 # 🌳 SHELTR Auth Structure
-*Generated: 2025-01-15 14:18:14*
+*Generated: 2025-01-15 17:39:18*
 \n## Directory Structure
 ./src/auth
 ├── components
 │   ├── AuthProvider.tsx
-│   └── ProtectedRoute.tsx
+│   ├── ProtectedRoute.tsx
+│   └── ShelterSetupGuard.tsx
 ├── guards
 │   └── RoleGuard.tsx
 ├── schemas
@@ -16,4 +17,4 @@
 │   └── auth.types.ts
 └── types.ts
 
-6 directories, 8 files
+6 directories, 9 files
