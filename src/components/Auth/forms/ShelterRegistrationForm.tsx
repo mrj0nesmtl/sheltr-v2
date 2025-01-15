@@ -4,52 +4,159 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
-import { Select } from '@/components/ui/Select';
 import { FileUpload } from '@/components/ui/FileUpload';
 import type { ShelterRegistrationFormData } from '@/lib/types/organization';
+import { supabase } from '@/lib/supabase';
+import { AUTH_ROLES } from '@/auth/types/auth.types';
 import { cn } from '@/lib/utils';
 import { 
-  Building2, 
-  Contact, 
-  ClipboardList, 
-  UserCog, 
-  FileText,
-  ArrowLeft,
-  Check,
-  ArrowRight,
-  Loader2
+  Building2, Contact, ClipboardList, 
+  UserCog, FileText, ArrowLeft,
+  Check, ArrowRight, Loader2, AlertTriangle 
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { format } from 'date-fns';
 
 interface Props {
   onBack: () => void;
-  isSubmitting: boolean;
-  onSubmit: (data: ShelterRegistrationFormData) => Promise<void>;
 }
 
-export const ShelterRegistrationForm: FC<Props> = ({ onBack, isSubmitting, onSubmit }) => {
+export const ShelterRegistrationForm: FC<Props> = ({ onBack }) => {
+  console.log('Form Component Rendering');
+
+  // Form State
   const [currentStep, setCurrentStep] = useState(1);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
-  const { register, handleSubmit, formState: { errors } } = useForm<ShelterRegistrationFormData>({
+  const [isLoading, setIsLoading] = useState(false);
+  const [status, setStatus] = useState<{
+    type: 'idle' | 'loading' | 'success' | 'error';
+    message: string;
+  }>({ type: 'idle', message: '' });
+
+  // Form Validation
+  const {
+    handleSubmit,
+    getValues,
+    register,
+    formState: { errors, touchedFields }
+  } = useForm<ShelterRegistrationFormData>({
     resolver: zodResolver(shelterRegistrationSchema),
-    mode: 'onSubmit'
+    mode: 'onBlur',
+    reValidateMode: 'onBlur',
+    defaultValues: {
+      status: 'pending',
+      verified: false,
+      current_capacity: 0,
+      housing_fund_balance: '0',
+      token_balance: '0',
+      country: 'Canada',
+      operating_hours: {},
+      emergency_contacts: [],
+      registration_number: `SH-${format(new Date(), 'yyyyMMdd')}-${String(Math.floor(Math.random() * 1000)).padStart(3, '0')}`
+    }
   });
 
+  const navigate = useNavigate();
+
+  // Step Configuration
   const steps = [
     { number: 1, title: 'Basic Information', icon: Building2 },
     { number: 2, title: 'Contact Information', icon: Contact },
     { number: 3, title: 'Shelter Details', icon: ClipboardList },
-    { number: 4, title: 'Administrator', icon: UserCog },
-    { number: 5, title: 'Documents', icon: FileText }
+    { number: 4, title: 'Administrator', icon: UserCog }
   ];
 
+  // Main Form Submission Handler with proper types
+  const handleFormSubmission = async (data: ShelterRegistrationFormData) => {
+    try {
+      setIsLoading(true);
+      
+      // 1. Create auth user only
+      const { data: authData, error: authError } = await supabase.auth.signUp({
+        email: data.email,
+        password: data.password,
+        options: {
+          data: {
+            role: AUTH_ROLES.SHELTER_ADMIN
+          }
+        }
+      });
+      
+      if (authError) throw authError;
+      
+      // 2. Sign in explicitly after signup
+      const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+        email: data.email,
+        password: data.password,
+      });
+
+      if (signInError) throw signInError;
+
+      // 3. Verify we have a session
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+      if (sessionError || !session) {
+        throw new Error('Failed to authenticate after signup');
+      }
+      
+      console.log('Successfully authenticated:', session.user.id);
+
+      // 2. Show success message
+      setStatus({ 
+        type: 'success', 
+        message: 'Registration started! Please check your email to verify your account. After verification, you can complete your shelter profile.' 
+      });
+
+      // 3. Redirect to confirmation page
+      navigate('/registration-confirmation');
+
+    } catch (error) {
+      console.error('❌ Registration error:', error);
+      setStatus({ 
+        type: 'error', 
+        message: error.message || 'Registration failed' 
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Step Navigation
+  const handleNextStep = () => {
+    const formData = getValues();
+    localStorage.setItem('shelter-registration-progress', JSON.stringify(formData));
+    
+    if (!completedSteps.includes(currentStep)) {
+      setCompletedSteps(prev => [...prev, currentStep]);
+    }
+    setCurrentStep(prev => prev + 1);
+  };
+
+  // Status Message Component
+  const StatusMessage = () => {
+    if (status.type === 'idle') return null;
+
+    return (
+      <div className={cn(
+        "mt-4 p-4 rounded-lg flex items-center gap-2",
+        status.type === 'loading' && "bg-blue-500/10 text-blue-200",
+        status.type === 'success' && "bg-green-500/10 text-green-200",
+        status.type === 'error' && "bg-red-500/10 text-red-200"
+      )}>
+        {status.type === 'loading' && <Loader2 className="w-4 h-4 animate-spin" />}
+        {status.type === 'success' && <Check className="w-4 h-4" />}
+        {status.type === 'error' && <AlertTriangle className="w-4 h-4" />}
+        <p>{status.message}</p>
+      </div>
+    );
+  };
+
+  // Step Navigation and UI Components
   const renderStepIndicator = () => (
     <div className="mb-8 relative">
       <div className="absolute top-6 left-0 w-full h-[2px] bg-gray-700">
         <div 
           className="h-full bg-indigo-600 transition-all duration-500 ease-in-out"
-          style={{ 
-            width: `${(Math.max(0, (currentStep - 1) * 25))}%`
-          }}
+          style={{ width: `${(Math.max(0, (currentStep - 1) * 25))}%` }}
         />
       </div>
 
@@ -62,8 +169,13 @@ export const ShelterRegistrationForm: FC<Props> = ({ onBack, isSubmitting, onSub
           return (
             <button
               key={step.number}
+              type="button"
               onClick={() => setCurrentStep(step.number)}
-              className="flex flex-col items-center group z-10"
+              className={cn(
+                "flex flex-col items-center group z-10",
+                isCompleted && "text-green-500",
+                isCurrent && "text-indigo-400"
+              )}
             >
               <div className={cn(
                 "w-12 h-12 rounded-full flex items-center justify-center",
@@ -71,37 +183,14 @@ export const ShelterRegistrationForm: FC<Props> = ({ onBack, isSubmitting, onSub
                 "border-2",
                 isCurrent && "scale-110 border-indigo-400",
                 isCompleted 
-                  ? "bg-green-500 border-green-400 text-white" 
+                  ? "bg-green-500/10 border-green-500 text-green-500" 
                   : isCurrent
-                    ? "bg-indigo-600 text-white border-indigo-400"
-                    : "bg-gray-700 text-gray-300 border-gray-600 group-hover:bg-gray-600",
-                "group-hover:shadow-lg group-hover:scale-105",
+                    ? "bg-indigo-600/10 text-indigo-400 border-indigo-400"
+                    : "bg-gray-800 text-gray-400 border-gray-700"
               )}>
-                <div className="relative">
-                  <div className={cn(
-                    "transition-all duration-300 ease-in-out",
-                    isCompleted ? "opacity-0 scale-50" : "opacity-100 scale-100"
-                  )}>
-                    <Icon className="w-6 h-6" />
-                  </div>
-                  <div className={cn(
-                    "absolute inset-0 flex items-center justify-center",
-                    "transition-all duration-300 ease-in-out",
-                    isCompleted ? "opacity-100 scale-100" : "opacity-0 scale-50"
-                  )}>
-                    <Check className="w-6 h-6" />
-                  </div>
-                </div>
+                {isCompleted ? <Check className="w-6 h-6" /> : <Icon className="w-6 h-6" />}
               </div>
-              <span className={cn(
-                "text-sm mt-2 transition-colors duration-200",
-                isCurrent ? "text-white" : "text-gray-400 group-hover:text-gray-300"
-              )}>
-                {step.title}
-              </span>
-              {isCompleted && !isCurrent && (
-                <span className="text-xs text-green-500 mt-1">Completed</span>
-              )}
+              <span className="text-sm mt-2">{step.title}</span>
             </button>
           );
         })}
@@ -109,23 +198,21 @@ export const ShelterRegistrationForm: FC<Props> = ({ onBack, isSubmitting, onSub
     </div>
   );
 
-  const getCurrentStepIcon = () => {
-    const currentStepData = steps.find(step => step.number === currentStep);
-    const Icon = currentStepData?.icon;
-    return Icon ? <Icon className="w-6 h-6 text-indigo-400" /> : null;
-  };
-
+  // Form Steps UI
   const renderStep = () => {
     switch (currentStep) {
       case 1:
         return (
           <section className="space-y-6">
-            <h2 className="text-xl font-semibold text-white">Basic Information</h2>
+            <h2 className="text-xl font-semibold text-white flex items-center gap-2">
+              <Building2 className="w-5 h-5 text-indigo-400" />
+              Basic Information
+            </h2>
             <div className="grid gap-6">
               <Input
                 label="Email Address"
+                type="email"
                 required
-                icon="mail"
                 {...register('email')}
                 error={errors.email?.message}
               />
@@ -133,14 +220,12 @@ export const ShelterRegistrationForm: FC<Props> = ({ onBack, isSubmitting, onSub
                 label="Password"
                 type="password"
                 required
-                icon="lock"
                 {...register('password')}
                 error={errors.password?.message}
               />
               <Input
                 label="Shelter Name"
                 required
-                icon="building"
                 {...register('shelterName')}
                 error={errors.shelterName?.message}
               />
@@ -151,21 +236,20 @@ export const ShelterRegistrationForm: FC<Props> = ({ onBack, isSubmitting, onSub
       case 2:
         return (
           <section className="space-y-6">
-            <h2 className="text-xl font-semibold text-white">Contact Information</h2>
+            <h2 className="text-xl font-semibold text-white flex items-center gap-2">
+              <Contact className="w-5 h-5 text-indigo-400" />
+              Contact Information
+            </h2>
             <div className="grid gap-6">
               <Input
                 label="Phone Number"
                 required
-                icon="phone"
-                placeholder="(555) 555-5555"
                 {...register('phone')}
                 error={errors.phone?.message}
               />
               <Input
                 label="Street Address"
                 required
-                icon="map-pin"
-                placeholder="123 Main St"
                 {...register('streetAddress')}
                 error={errors.streetAddress?.message}
               />
@@ -173,14 +257,12 @@ export const ShelterRegistrationForm: FC<Props> = ({ onBack, isSubmitting, onSub
                 <Input
                   label="City"
                   required
-                  icon="city"
                   {...register('city')}
                   error={errors.city?.message}
                 />
                 <Input
                   label="Postal Code"
                   required
-                  icon="mail"
                   {...register('postalCode')}
                   error={errors.postalCode?.message}
                 />
@@ -192,12 +274,14 @@ export const ShelterRegistrationForm: FC<Props> = ({ onBack, isSubmitting, onSub
       case 3:
         return (
           <section className="space-y-6">
-            <h2 className="text-xl font-semibold text-white">Shelter Details</h2>
+            <h2 className="text-xl font-semibold text-white flex items-center gap-2">
+              <ClipboardList className="w-5 h-5 text-indigo-400" />
+              Shelter Details
+            </h2>
             <div className="grid gap-6">
               <Input
                 label="Registration Number"
                 required
-                icon="hash"
                 {...register('registrationNumber')}
                 error={errors.registrationNumber?.message}
               />
@@ -205,8 +289,10 @@ export const ShelterRegistrationForm: FC<Props> = ({ onBack, isSubmitting, onSub
                 label="Capacity"
                 type="number"
                 required
-                icon="users"
-                {...register('capacity')}
+                min="0"
+                {...register('capacity', { 
+                  valueAsNumber: true
+                })}
                 error={errors.capacity?.message}
               />
               <div className="space-y-4">
@@ -227,7 +313,7 @@ export const ShelterRegistrationForm: FC<Props> = ({ onBack, isSubmitting, onSub
                         type="checkbox"
                         {...register('services')}
                         value={service.id}
-                        className="form-checkbox h-5 w-5 text-indigo-600"
+                        className="form-checkbox h-5 w-5 text-indigo-600 rounded border-gray-600 bg-gray-700"
                       />
                       <span className="text-sm text-gray-300">{service.label}</span>
                     </label>
@@ -241,37 +327,28 @@ export const ShelterRegistrationForm: FC<Props> = ({ onBack, isSubmitting, onSub
       case 4:
         return (
           <section className="space-y-6">
-            <h2 className="text-xl font-semibold text-white">Administrator Information</h2>
+            <h2 className="text-xl font-semibold text-white flex items-center gap-2">
+              <UserCog className="w-5 h-5 text-indigo-400" />
+              Administrator Information
+            </h2>
             <div className="grid gap-6">
               <Input
                 label="Administrator Name"
                 required
-                icon="user"
-                placeholder="Full name of shelter administrator"
+                placeholder="Full Name"
                 {...register('administrator.name')}
                 error={errors.administrator?.name?.message}
               />
               <Input
                 label="Administrator Title"
                 required
-                icon="briefcase"
-                placeholder="e.g., Executive Director"
+                placeholder="e.g. Executive Director"
                 {...register('administrator.title')}
                 error={errors.administrator?.title?.message}
               />
               <Input
-                label="Administrator Email"
-                type="email"
-                required
-                icon="mail"
-                placeholder="admin@shelter.org"
-                {...register('administrator.email')}
-                error={errors.administrator?.email?.message}
-              />
-              <Input
                 label="Administrator Phone"
                 required
-                icon="phone"
                 placeholder="(555) 555-5555"
                 {...register('administrator.phone')}
                 error={errors.administrator?.phone?.message}
@@ -280,52 +357,18 @@ export const ShelterRegistrationForm: FC<Props> = ({ onBack, isSubmitting, onSub
           </section>
         );
 
-      case 5:
-        return (
-          <section className="space-y-6">
-            <h2 className="text-xl font-semibold text-white">Required Documents</h2>
-            <div className="grid gap-6">
-              <FileUpload
-                label="Registration Document"
-                required
-                accept=".pdf,.doc,.docx"
-                helperText="Upload official registration document (PDF, DOC)"
-                {...register('documents.registration')}
-                error={errors.documents?.registration?.message}
-              />
-              <FileUpload
-                label="Tax Document"
-                accept=".pdf,.doc,.docx"
-                helperText="Upload tax exemption document if applicable"
-                {...register('documents.tax')}
-                error={errors.documents?.tax?.message}
-              />
-              <FileUpload
-                label="Insurance Document"
-                accept=".pdf,.doc,.docx"
-                helperText="Upload insurance documentation"
-                {...register('documents.insurance')}
-                error={errors.documents?.insurance?.message}
-              />
-              <FileUpload
-                label="Organization Logo"
-                accept="image/*"
-                helperText="Upload your organization's logo (PNG, JPG)"
-                {...register('logo')}
-                error={errors.logo?.message}
-              />
-            </div>
-          </section>
-        );
+      default:
+        return null;
     }
   };
 
-  const handleNextStep = () => {
-    if (!completedSteps.includes(currentStep)) {
-      setCompletedSteps(prev => [...prev, currentStep]);
-    }
-    setCurrentStep(prev => prev + 1);
-  };
+  console.log('Form State:', {
+    errors,
+    touchedFields,
+    values: getValues(),
+    currentStep,
+    isLoading
+  });
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -339,17 +382,18 @@ export const ShelterRegistrationForm: FC<Props> = ({ onBack, isSubmitting, onSub
           Back
         </button>
 
-        <div className="flex items-center gap-3 mb-8">
-          {getCurrentStepIcon()}
-          <h1 className="text-3xl font-bold text-white">
-            Register Your Shelter
-          </h1>
-        </div>
-
-        {renderStepIndicator()}
-
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+        <form 
+          onSubmit={(e) => {
+            e.preventDefault();
+            console.log('Form Submit Event Triggered');
+            handleSubmit(handleFormSubmission)(e);
+          }} 
+          className="space-y-8"
+        >
+          {renderStepIndicator()}
           {renderStep()}
+
+          <StatusMessage />
 
           <div className="flex justify-between pt-6">
             {currentStep > 1 && (
@@ -363,7 +407,36 @@ export const ShelterRegistrationForm: FC<Props> = ({ onBack, isSubmitting, onSub
                 Previous
               </Button>
             )}
-            {currentStep < 5 ? (
+            
+            {currentStep === steps.length ? (
+              <Button
+                type="submit"
+                disabled={isLoading}
+                className="ml-auto group"
+                onClick={(e) => {
+                  e.preventDefault();
+                  console.log('Complete Registration Button Clicked');
+                  console.log('Current Form Values:', getValues());
+                  console.log('Form Errors:', errors);
+                  
+                  // Add detailed validation check
+                  const formData = getValues();
+                  console.log('Administrator Data:', formData.administrator);
+                  
+                  handleSubmit((data) => {
+                    console.log('Form Submission Data:', data);
+                    return handleFormSubmission(data);
+                  })(e);
+                }}
+              >
+                {isLoading ? (
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                ) : (
+                  <Check className="w-4 h-4 mr-2" />
+                )}
+                Complete Registration
+              </Button>
+            ) : (
               <Button
                 type="button"
                 onClick={handleNextStep}
@@ -372,46 +445,12 @@ export const ShelterRegistrationForm: FC<Props> = ({ onBack, isSubmitting, onSub
                 Next
                 <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
               </Button>
-            ) : (
-              <Button
-                type="submit"
-                disabled={isSubmitting}
-                className="group"
-              >
-                {isSubmitting ? (
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                ) : (
-                  <Check className="w-4 h-4 mr-2" />
-                )}
-                {isSubmitting ? 'Registering...' : 'Complete Registration'}
-              </Button>
             )}
-          </div>
-
-          <div className="mt-4 pt-4 border-t border-gray-700">
-            <p className="text-xs text-gray-500 mb-2">Development Navigation:</p>
-            <div className="flex gap-2">
-              {steps.map((step) => (
-                <button
-                  key={step.number}
-                  type="button"
-                  onClick={() => setCurrentStep(step.number)}
-                  className={cn(
-                    "px-2 py-1 text-xs rounded",
-                    currentStep === step.number 
-                      ? "bg-indigo-600 text-white" 
-                      : "bg-gray-700 text-gray-300"
-                  )}
-                >
-                  Step {step.number}
-                </button>
-              ))}
-            </div>
           </div>
         </form>
       </div>
     </div>
   );
 };
+export default ShelterRegistrationForm;
 
-export default ShelterRegistrationForm; 

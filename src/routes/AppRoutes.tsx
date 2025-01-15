@@ -4,6 +4,9 @@ import { ProtectedRoute } from '@/auth/components/ProtectedRoute';
 import { useAuthStore } from '@/auth/stores/authStore';
 import { AUTH_ROLES } from '@/auth/types/auth.types';
 import { RoleRouter } from '@/layouts/dashboard/roles/RoleRouter';
+import { ShelterAdminDashboard } from '@/features/dashboard/roles/shelter-admin/ShelterAdminDashboard';
+import { ShelterSetupGuard } from '@/auth/components/ShelterSetupGuard';
+import { ShelterSetup } from '@/pages/shelter/ShelterSetup';
 
 import HomePage from '@/pages/HomePage';
 import LoginPage from '@/pages/LoginPage';
@@ -17,6 +20,8 @@ import About from '@/pages/About';
 import Wiki from '@/pages/Wiki/Wiki';
 import { ParticipantDashboard } from '@/features/dashboard/roles/participant/ParticipantDashboard';
 import { DonorDashboard } from '@/features/dashboard/roles/donor/DonorDashboard';
+import RegistrationConfirmation from '@/pages/RegistrationConfirmation';
+import { EmailVerificationError } from '@/components/Auth/EmailVerificationError';
 
 const AppRoutes = () => {
   const { role } = useAuthStore();
@@ -27,12 +32,14 @@ const AppRoutes = () => {
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignUpPage />} />
+      <Route path="/registration-confirmation" element={<RegistrationConfirmation />} />
       <Route path="/how-it-works" element={<HowItWorks />} />
       <Route path="/solutions" element={<Solutions />} />
       <Route path="/scan-donate" element={<ScanDonatePage />} />
       <Route path="/impact" element={<Impact />} />
       <Route path="/about" element={<About />} />
       <Route path="/wiki" element={<Wiki />} />
+      <Route path="/verification-error" element={<EmailVerificationError />} />
       
       {/* Protected dashboard routes */}
       <Route
@@ -45,10 +52,12 @@ const AppRoutes = () => {
       />
 
       <Route
-        path="/shelter-admin/*"
+        path="/shelter/:orgId/dashboard/*"
         element={
           <ProtectedRoute allowedRoles={[AUTH_ROLES.SHELTER_ADMIN]}>
-            <RoleRouter />
+            <ShelterSetupGuard>
+              <ShelterAdminDashboard />
+            </ShelterSetupGuard>
           </ProtectedRoute>
         }
       />
@@ -69,6 +78,15 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute allowedRoles={[AUTH_ROLES.PARTICIPANT]}>
             <RoleRouter />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/shelter/setup"
+        element={
+          <ProtectedRoute allowedRoles={[AUTH_ROLES.SHELTER_ADMIN]}>
+            <ShelterSetup />
           </ProtectedRoute>
         }
       />

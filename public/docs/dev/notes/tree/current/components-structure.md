@@ -1,5 +1,5 @@
 # 🌳 SHELTR Components Structure
-*Generated: 2025-01-10 13:59:41*
+*Generated: 2025-01-15 14:18:14*
 \n## Directory Structure
 ./src/components
 ├── About
@@ -45,6 +45,12 @@
 ├── CustomerSupport
 │   ├── CustomerSupport.tsx
 │   └── index.ts
+├── Dashboard
+│   └── CompleteProfile
+│       ├── DocumentUpload.tsx
+│       ├── ProfileProgress.tsx
+│       ├── VerificationStatus.tsx
+│       └── index.tsx
 ├── Documentation
 │   ├── components
 │   │   ├── DocViewer.tsx
@@ -170,4 +176,4 @@
 ├── ScrollToTop.tsx
 └── ThemeToggle.tsx
 
-43 directories, 125 files
+45 directories, 129 files

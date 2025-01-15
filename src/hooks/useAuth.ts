@@ -16,19 +16,64 @@ export const useAuth = () => {
     const getUserRole = async (userId: string) => {
       console.log('🔍 getUserRole - START', { userId });
       try {
-        const { data, error } = await supabase
+        // 1. First check profiles (master table) - if no profile exists, create one
+        const { data: profileData, error: profileError } = await supabase
           .from('profiles')
-          .select('role')
+          .select('role, id')
           .eq('id', userId)
-          .single();
+          .maybeSingle();
+
+        if (!profileData && !profileError) {
+          console.log('📝 Creating new profile for user:', userId);
+          const { data: newProfile, error: createError } = await supabase
+            .from('profiles')
+            .insert([
+              {
+                id: userId,
+                role: AUTH_ROLES.SHELTER_ADMIN, // Default to shelter admin during registration
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString()
+              }
+            ])
+            .select()
+            .single();
+
+          if (createError) {
+            console.error('❌ Profile creation error:', createError);
+            throw createError;
+          }
+
+          console.log('✅ New profile created:', newProfile);
+          return {
+            role: newProfile.role,
+            isNewProfile: true
+          };
+        }
+
+        // 2. Validate and return role
+        const userRole = profileData?.role || AUTH_ROLES.SHELTER_ADMIN;
         
-        if (error) throw error;
-        
-        console.log('✅ Profile data:', data);
-        return data?.role || AUTH_ROLES.DONOR;
+        // Ensure role is a valid enum value
+        if (!Object.values(AUTH_ROLES).includes(userRole)) {
+          console.error('❌ Invalid role found:', userRole);
+          return {
+            role: AUTH_ROLES.SHELTER_ADMIN,
+            error: 'Invalid role'
+          };
+        }
+
+        console.log('✅ Role resolved:', userRole);
+        return {
+          role: userRole,
+          organizationId: profileData?.organization_id
+        };
+
       } catch (e) {
-        console.error('❌ Profile error:', e);
-        return AUTH_ROLES.DONOR;
+        console.error('❌ Role resolution error:', e);
+        return { 
+          role: AUTH_ROLES.SHELTER_ADMIN,
+          error: e instanceof Error ? e.message : 'Unknown error'
+        };
       }
     };
 
@@ -50,10 +95,15 @@ export const useAuth = () => {
         const userRole = await getUserRole(session.user.id);
         
         if (mounted) {
-          setUser({
+          const userWithRole = {
             ...session.user,
-            role: userRole
-          });
+            role: userRole.role,
+            organizationId: userRole.organizationId
+          };
+          
+          console.log('🔑 Setting user with role:', userWithRole);
+          setUser(userWithRole);
+          setIsLoading(false);
         }
       } catch (e) {
         console.error('❌ Session error:', e);
@@ -91,6 +141,11 @@ export const useAuth = () => {
             role: userRole
           });
           setIsLoading(false);
+
+          // Add proper navigation with both role and userId
+          const dashboardPath = getDashboardPath(userRole, session.user.id);
+          console.log('🚀 Navigating to:', dashboardPath);
+          navigate(dashboardPath, { replace: true });
         }
       }
     );

@@ -1,15 +1,12 @@
 # 🌳 SHELTR Documentation Structure
-*Generated: 2025-01-10 13:59:41*
+*Generated: 2025-01-15 14:18:14*
 \n## Directory Structure
 ./public/docs
 ├── about
 │   ├── roadmap.md
 │   └── whitepaper_final.md
 ├── archives
-│   ├── changelogs
-│   └── project_backup
-│       ├── dec15-restructure.md
-│       └── status_report.md
+│   └── changelogs
 ├── core
 │   ├── README.md
 │   ├── api.md
@@ -46,4 +43,4 @@
     ├── database.md
     └── qr-system.md
 
-15 directories, 29 files
+14 directories, 27 files

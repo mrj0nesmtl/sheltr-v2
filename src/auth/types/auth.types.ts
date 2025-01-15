@@ -209,13 +209,13 @@ export interface AuthAction {
   payload: unknown;
 }
 
-export const ROLE_ROUTES = {
+export const ROLE_BASE_PATHS = {
   [AUTH_ROLES.SUPER_ADMIN]: '/super-admin/dashboard',
-  [AUTH_ROLES.SHELTER_ADMIN]: '/shelter-admin/dashboard',
+  [AUTH_ROLES.SHELTER_ADMIN]: '/shelter/:orgId/dashboard',
   [AUTH_ROLES.DONOR]: '/donor/dashboard',
   [AUTH_ROLES.PARTICIPANT]: '/participant/dashboard'
 } as const;
 
 export function getRoleBasedRoute(role: AUTH_ROLES): string {
-  return ROLE_ROUTES[role] || '/dashboard';
+  return ROLE_BASE_PATHS[role] || '/dashboard';
 } 

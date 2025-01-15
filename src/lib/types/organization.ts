@@ -130,45 +130,27 @@ export interface ShelterRegistrationFormData {
 
 // Form validation schema
 export const shelterRegistrationSchema = z.object({
-  // Basic Information
-  email: z.string().email('Valid email is required'),
-  password: z.string().min(8, 'Password must be at least 8 characters'),
-  shelterName: z.string().min(2, 'Shelter name is required'),
-
-  // Contact Information
-  phone: z.string().optional(),
-  streetAddress: z.string().optional(),
-  city: z.string().optional(),
-  postalCode: z.string().optional(),
-  country: z.string(),
-
-  // Shelter Details
-  registrationNumber: z.string().min(1, 'Registration number is required'),
-  capacity: z.number().min(1, 'Capacity must be at least 1'),
-  services: z.array(z.string()).min(1, 'Select at least one service'),
-  taxId: z.string().optional(),
-
-  // Administrator (required)
+  email: z.string().email(),
+  password: z.string().min(8),
+  shelterName: z.string().min(2),
+  phone: z.string(),
+  streetAddress: z.string(),
+  city: z.string(),
+  postalCode: z.string(),
+  country: z.string().default('Canada'),
+  registrationNumber: z.string(),
+  capacity: z.coerce.number(),
+  services: z.array(z.string()).default([]),
   administrator: z.object({
-    name: z.string().min(2, 'Administrator name is required'),
-    title: z.string().min(2, 'Administrator title is required'),
-    email: z.string().email('Valid administrator email is required'),
-    phone: z.string().min(10, 'Valid administrator phone is required')
-  }),
-
-  // Secondary Contact (optional)
-  secondaryContact: z.object({
-    name: z.string().optional(),
-    title: z.string().optional(),
-    email: z.string().email('Valid email is required').optional(),
-    phone: z.string().optional()
+    name: z.string(),
+    title: z.string(),
+    phone: z.string()
   }).optional(),
-
-  // Documents
-  documents: z.object({
-    registration: z.instanceof(File).optional(),
-    tax: z.instanceof(File).optional(),
-    insurance: z.instanceof(File).optional()
-  }).optional(),
-  logo: z.instanceof(File).optional()
+  status: z.enum(['pending', 'active', 'suspended']).default('pending'),
+  verified: z.boolean().default(false),
+  current_capacity: z.number().default(0),
+  housing_fund_balance: z.string().default('0'),
+  token_balance: z.string().default('0'),
+  operating_hours: z.record(z.any()).optional(),
+  emergency_contacts: z.array(z.any()).default([])
 }); 

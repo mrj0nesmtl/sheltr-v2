@@ -165,9 +165,22 @@ export const useAuthStore = create<AuthStore>(
           }
           
           if (data.user) {
+            // Try to get role from organization_staff
+            const { data: staffData } = await supabase
+              .from('organization_staff')
+              .select('role')
+              .eq('user_id', data.user.id)
+              .maybeSingle(); // Use maybeSingle() instead of single()
+
+            const userRole = staffData?.role || 
+                            data.user.user_metadata?.role || 
+                            AUTH_ROLES.DONOR;
+
+            console.log('Login role resolution:', { staffData, userRole, metadata: data.user.user_metadata });
+
             set({ 
               user: data.user as User,
-              role: data.user.role as AUTH_ROLES,
+              role: userRole as AUTH_ROLES,
               isAuthenticated: true,
               isLoading: false,
               session: {
@@ -180,6 +193,7 @@ export const useAuthStore = create<AuthStore>(
             });
           }
         } catch (error) {
+          console.error('Login error:', error);
           get().handleError(error as Error, 'error');
           throw error;
         }
@@ -190,19 +204,35 @@ export const useAuthStore = create<AuthStore>(
           const { data: { session }, error } = await supabase.auth.getSession();
           
           if (error) {
+            console.error('Session error:', error);
             get().handleError(error, 'warning');
             get().clearAuth();
             return;
           }
           
           if (!session) {
+            console.log('No session found');
             get().clearAuth();
             return;
           }
 
+          // First try to get role from organization_staff
+          const { data: staffData, error: staffError } = await supabase
+            .from('organization_staff')
+            .select('role')
+            .eq('user_id', session.user.id)
+            .maybeSingle(); // Use maybeSingle() instead of single()
+
+          // If no staff record found, try to get role from user metadata
+          const userRole = staffData?.role || 
+                          session.user.user_metadata?.role || 
+                          AUTH_ROLES.DONOR; // Default to DONOR if no role found
+
+          console.log('Role resolution:', { staffData, userRole, metadata: session.user.user_metadata });
+
           set({
             user: session.user as User,
-            role: session.user.role as AUTH_ROLES,
+            role: userRole as AUTH_ROLES,
             isAuthenticated: true,
             isLoading: false,
             session: {
@@ -213,7 +243,9 @@ export const useAuthStore = create<AuthStore>(
             error: null,
             sessionError: null
           });
+
         } catch (error) {
+          console.error('Session refresh error:', error);
           get().handleError(error as Error, 'error');
           get().clearAuth();
         }

@@ -1,5 +1,5 @@
 # 🌳 SHELTR Project Structure
-*Generated: 2025-01-15 14:18:14*
+*Generated: 2025-01-10 13:59:41*
 *Version: 0.4.9*
 
 ## Table of Contents
@@ -11,7 +11,7 @@
 6. [Technical Structures](#technical-structures)
 
 \n---\n
-*Generated: 2025-01-15 14:18:14*
+*Generated: 2025-01-10 13:59:41*
 \n## Directory Structure
 ./src/auth
 ├── components
@@ -30,7 +30,7 @@
 
 6 directories, 8 files
 \n---\n
-*Generated: 2025-01-15 14:18:14*
+*Generated: 2025-01-10 13:59:41*
 \n## Directory Structure
 ./src/components
 ├── About
@@ -76,12 +76,6 @@
 ├── CustomerSupport
 │   ├── CustomerSupport.tsx
 │   └── index.ts
-├── Dashboard
-│   └── CompleteProfile
-│       ├── DocumentUpload.tsx
-│       ├── ProfileProgress.tsx
-│       ├── VerificationStatus.tsx
-│       └── index.tsx
 ├── Documentation
 │   ├── components
 │   │   ├── DocViewer.tsx
@@ -207,16 +201,19 @@
 ├── ScrollToTop.tsx
 └── ThemeToggle.tsx
 
-45 directories, 129 files
+43 directories, 125 files
 \n---\n
-*Generated: 2025-01-15 14:18:14*
+*Generated: 2025-01-10 13:59:41*
 \n## Directory Structure
 ./public/docs
 ├── about
 │   ├── roadmap.md
 │   └── whitepaper_final.md
 ├── archives
-│   └── changelogs
+│   ├── changelogs
+│   └── project_backup
+│       ├── dec15-restructure.md
+│       └── status_report.md
 ├── core
 │   ├── README.md
 │   ├── api.md
@@ -253,9 +250,9 @@
     ├── database.md
     └── qr-system.md
 
-14 directories, 27 files
+15 directories, 29 files
 \n---\n
-*Generated: 2025-01-15 14:18:14*
+*Generated: 2025-01-10 13:59:41*
 \n## Directory Structure
 ./src/features
 ├── auth
@@ -388,7 +385,7 @@
 
 65 directories, 63 files
 \n---\n
-*Generated: 2025-01-15 14:18:14*
+*Generated: 2025-01-10 13:59:41*
 \n## Directory Structure
 ./src/layouts
 ├── base
@@ -412,7 +409,7 @@
 
 9 directories, 10 files
 \n---\n
-*Generated: 2025-01-15 14:18:14*
+*Generated: 2025-01-10 13:59:41*
 \n## Directory Structure
 .
 ├── public
@@ -470,7 +467,6 @@
 │   │   ├── Blog
 │   │   ├── Contact
 │   │   ├── CustomerSupport
-│   │   ├── Dashboard
 │   │   ├── Documentation
 │   │   ├── DonationForm
 │   │   ├── ErrorBoundary
@@ -615,9 +611,6 @@
 │   ├── types.d.ts
 │   └── vite-env.d.ts
 ├── supabase
-│   ├── exports
-│   │   ├── organizations_rows.csv
-│   │   └── profiles_rows.csv
 │   ├── migrations
 │   │   ├── 20240304_create_tables.sql
 │   │   ├── 20240304_fix_search_path.sql
@@ -642,9 +635,9 @@
 ├── vercel.json
 └── vite.config.ts
 
-115 directories, 112 files
+113 directories, 110 files
 \n---\n
-*Generated: 2025-01-15 14:18:14*
+*Generated: 2025-01-10 13:59:41*
 \n## Directory Structure
 ./src/pages
 ├── About
@@ -715,7 +708,7 @@
 
 15 directories, 51 files
 \n---\n
-*Generated: 2025-01-15 14:18:14*
+*Generated: 2025-01-10 13:59:41*
 \n## Directory Structure
 ./src
 ├── auth
@@ -776,12 +769,6 @@
 │   ├── CustomerSupport
 │   │   ├── CustomerSupport.tsx
 │   │   └── index.ts
-│   ├── Dashboard
-│   │   └── CompleteProfile
-│   │       ├── DocumentUpload.tsx
-│   │       ├── ProfileProgress.tsx
-│   │       ├── VerificationStatus.tsx
-│   │       └── index.tsx
 │   ├── Documentation
 │   │   ├── components
 │   │   │   ├── DocViewer.tsx
@@ -1249,4 +1236,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-165 directories, 366 files
+163 directories, 362 files

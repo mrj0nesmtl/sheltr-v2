@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { useAuthStore } from '@/auth/stores/authStore';
 import { Layout } from '@/layouts/base/Layout';
@@ -9,7 +9,9 @@ import AppRoutes from './routes/AppRoutes';
 import { Toaster } from 'react-hot-toast';
 import { MobileNav } from '@/components/Navigation/MobileNav';
 import { Navigation } from '@/components/Navigation/Navigation';
-import { DashboardNav } from '@/features/dashboard/shared/navigation/DashboardNav';
+import { DashboardNavigation } from '@/layouts/dashboard/navigation/DashboardNavigation';
+import { RegistrationConfirmation } from '@/pages/RegistrationConfirmation';
+import { Dashboard } from '@/components/Dashboard/Dashboard';
 
 export function App() {
   // Destructure only what we need initially
@@ -109,6 +111,12 @@ export function App() {
               onClose={() => setIsOpen(false)} 
             />
           </div>
+          {/* Add Dashboard Navigation when on shelter routes */}
+          {window.location.pathname.includes('/shelter/') && (
+            <div data-testid="dashboard-navigation">
+              <DashboardNavigation role={AUTH_ROLES.SHELTER_ADMIN} />
+            </div>
+          )}
         </div>
       </BrowserRouter>
     </HelmetProvider>

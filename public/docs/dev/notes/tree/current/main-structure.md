@@ -1,5 +1,5 @@
 # 🌳 SHELTR Main Structure
-*Generated: 2025-01-10 13:59:41*
+*Generated: 2025-01-15 14:18:14*
 \n## Directory Structure
 .
 ├── public
@@ -57,6 +57,7 @@
 │   │   ├── Blog
 │   │   ├── Contact
 │   │   ├── CustomerSupport
+│   │   ├── Dashboard
 │   │   ├── Documentation
 │   │   ├── DonationForm
 │   │   ├── ErrorBoundary
@@ -201,6 +202,9 @@
 │   ├── types.d.ts
 │   └── vite-env.d.ts
 ├── supabase
+│   ├── exports
+│   │   ├── organizations_rows.csv
+│   │   └── profiles_rows.csv
 │   ├── migrations
 │   │   ├── 20240304_create_tables.sql
 │   │   ├── 20240304_fix_search_path.sql
@@ -225,4 +229,4 @@
 ├── vercel.json
 └── vite.config.ts
 
-113 directories, 110 files
+115 directories, 112 files

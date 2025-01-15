@@ -29,7 +29,19 @@ i18n
     interpolation: {
       escapeValue: false
     },
-    debug: true
+    debug: false,
+    saveMissing: false,
+    silent: true
   });
+
+// Suppress i18next console warnings in development
+if (process.env.NODE_ENV === 'development') {
+  const originalConsoleWarn = console.warn;
+  console.warn = (...args) => {
+    if (!args[0]?.includes('i18next::translator')) {
+      originalConsoleWarn.apply(console, args);
+    }
+  };
+}
 
 export default i18n;
