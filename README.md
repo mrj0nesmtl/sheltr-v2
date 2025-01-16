@@ -99,23 +99,54 @@ interface TechStack {
 | Blockchain Integration | 🟡 Active | 2025-01-15 to 2025-02-15 |
 | Testing & Audits | ⏳ Planned | 2025-02-01 to 2025-02-28 |
 | **Launch** |
-| Public Beta | 🎯 Milestone | 2025-03-01 |
+| Public Beta | 🎯 Milestone | 2025-02-01 |
 | V1 Release | 🎯 Milestone | 2025-03-31 |
 
-## 🤝 Contributing
+## 🤝 Contributing + Documentation 📚
 
-We welcome contributions! Here's how you can help:
+We welcome contributions! Here's how you get up to speed with the documentation:
 
-1. 🔍 **Review Issues**: Check our [issues page](SOON)
-2. 🛠️ **Development**: See our [contribution guide](SOON)
-3. 📚 **Documentation**: Help improve our [docs](https://github.com/mrj0nesmtl/sheltr-v2/tree/main/public/docs)
-4. 🧪 **Testing**: Run tests and report bugs (SOON)
+## 📚 Documentation Index
 
-## 📖 Documentation
+### 🎯 About SHELTR
+- [📋 Project Roadmap](/public/docs/about/roadmap.md)
+- [📄 Technical Whitepaper](/public/docs/about/whitepaper_final.md)
 
-- [Technical Whitepaper](https://github.com/mrj0nesmtl/sheltr-v2/blob/main/public/docs/about/whitepaper_final.md)
-- [API Documentation](https://github.com/mrj0nesmtl/sheltr-v2/blob/main/public/docs/core/api.md)
+### 🏗️ Core Architecture
+- [🔌 API Documentation](/public/docs/core/api.md)
+- [🏛️ System Architecture](/public/docs/core/architecture.md)
+- [🔐 Security Framework](/public/docs/core/security.md)
+- [👥 Role-Based Access Control](/public/docs/core/rbac.md)
+- [⚙️ Technical Specifications](/public/docs/core/technical.md)
 
+### 🛠️ Technical Implementation
+- [🔑 Authentication System](/public/docs/technical/authentication.md)
+- [🗄️ Database Architecture](/public/docs/technical/database.md)
+- [📱 QR System Documentation](/public/docs/technical/qr-system.md)
+- [🏗️ Build Tracking](/public/docs/technical/build_track.md)
+
+### 📊 Analytics & Components
+- [📈 Analytics Components](/public/docs/reference/analytics-components.md)
+- [📦 Analytics Inventory](/public/docs/reference/analytics-inventory.md)
+- [🧩 Component Library](/public/docs/reference/components.md)
+
+### 🚀 Development Guides
+- [✨ Best Practices](/public/docs/guides/best-practices.md)
+- [🔨 Implementation Guide](/public/docs/guides/buildout_implementation.md)
+- [🚀 Deployment Guide](/public/docs/guides/deployment.md)
+- [🌳 Project Structure](/public/docs/dev/notes/tree/project-structure.md)
+
+### 📋 Project Status
+- [📊 Status Report](/public/docs/project/status_report.md)
+- [📝 Changelog](/public/docs/project/changelog.md)
+
+### Quick Links
+| Category | Documentation |
+|----------|---------------|
+| Getting Started | [Whitepaper](/public/docs/about/whitepaper_final.md) • [Architecture](/public/docs/core/architecture.md) |
+| Development | [Best Practices](/public/docs/guides/best-practices.md) • [Implementation](/public/docs/guides/buildout_implementation.md) |
+| Technical | [API](/public/docs/core/api.md) • [Security](/public/docs/core/security.md) |
+| Status | [Project Status](/public/docs/project/status_report.md) • [Changelog](/public/docs/project/changelog.md) |
 
 ## 🌟 Theory of Change
 
