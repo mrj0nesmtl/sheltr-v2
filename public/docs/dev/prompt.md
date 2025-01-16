@@ -7,6 +7,13 @@
 const nextSessionPrompt = `
 @Claude We're continuing development on the SHELTR platform, focusing on user flow testing, dashboard enhancements, and participant onboarding implementation. Our goal is to verify and enhance the core user experiences while ensuring proper database connectivity for analytics.
 
+Current Critical Issues:
+1. We are debugging the dashboard navigation issue for the logged-in user.
+2. We are debugging the dashboard navigation issue for the logged-in admin user.
+3. Donor signup flow is not fully implemented
+4. Shelter registration flow is not fully implemented
+5. Participant onboarding flow is not fully implemented
+
 Part 1: Core Flow Testing & Implementation
 1. Donor Signup Flow Testing
 2. Shelter Registration Verification

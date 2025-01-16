@@ -1,5 +1,5 @@
 # 🌳 SHELTR Documentation Structure
-*Generated: 2025-01-15 17:39:18*
+*Generated: 2025-01-15 21:48:37*
 \n## Directory Structure
 ./public/docs
 ├── about
@@ -32,7 +32,6 @@
 ├── reference
 │   ├── analytics-components.md
 │   ├── analytics-inventory.md
-│   ├── authentication.md
 │   ├── components.md
 │   ├── constants.md
 │   └── types.md
@@ -43,4 +42,4 @@
     ├── database.md
     └── qr-system.md
 
-14 directories, 27 files
+14 directories, 26 files

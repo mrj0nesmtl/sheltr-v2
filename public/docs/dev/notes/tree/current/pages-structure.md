@@ -1,10 +1,14 @@
 # 🌳 SHELTR Pages Structure
-*Generated: 2025-01-15 17:39:18*
+*Generated: 2025-01-15 21:48:37*
 \n## Directory Structure
 ./src/pages
 ├── About
 │   ├── components
+│   │   ├── ContentCard.tsx
+│   │   ├── IconBox.tsx
+│   │   ├── MediaCard.tsx
 │   │   ├── MetricCard.tsx
+│   │   ├── NewsletterForm.tsx
 │   │   ├── ScrollReveal.tsx
 │   │   ├── SectionDivider.tsx
 │   │   ├── TechCard.tsx
@@ -18,10 +22,14 @@
 │   │   ├── Documentation.tsx
 │   │   ├── Hero.tsx
 │   │   ├── Introduction.tsx
+│   │   ├── MediaSection.tsx
 │   │   ├── Metrics.tsx
+│   │   ├── Newsletter.tsx
 │   │   ├── Overview.tsx
 │   │   ├── Technology.tsx
 │   │   └── index.ts
+│   ├── styles
+│   │   └── Hero.styles.ts
 │   └── index.tsx
 ├── Admin
 │   └── CreatePost.tsx
@@ -71,4 +79,4 @@
 ├── debug.tsx
 └── index.ts
 
-16 directories, 53 files
+17 directories, 60 files

@@ -1,5 +1,5 @@
 # 🌳 SHELTR Source Structure
-*Generated: 2025-01-15 17:39:18*
+*Generated: 2025-01-15 21:48:36*
 \n## Directory Structure
 ./src
 ├── auth
@@ -420,7 +420,11 @@
 ├── pages
 │   ├── About
 │   │   ├── components
+│   │   │   ├── ContentCard.tsx
+│   │   │   ├── IconBox.tsx
+│   │   │   ├── MediaCard.tsx
 │   │   │   ├── MetricCard.tsx
+│   │   │   ├── NewsletterForm.tsx
 │   │   │   ├── ScrollReveal.tsx
 │   │   │   ├── SectionDivider.tsx
 │   │   │   ├── TechCard.tsx
@@ -434,10 +438,14 @@
 │   │   │   ├── Documentation.tsx
 │   │   │   ├── Hero.tsx
 │   │   │   ├── Introduction.tsx
+│   │   │   ├── MediaSection.tsx
 │   │   │   ├── Metrics.tsx
+│   │   │   ├── Newsletter.tsx
 │   │   │   ├── Overview.tsx
 │   │   │   ├── Technology.tsx
 │   │   │   └── index.ts
+│   │   ├── styles
+│   │   │   └── Hero.styles.ts
 │   │   └── index.tsx
 │   ├── Admin
 │   │   └── CreatePost.tsx
@@ -538,4 +546,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-166 directories, 370 files
+167 directories, 377 files
