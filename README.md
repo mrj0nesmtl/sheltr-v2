@@ -80,10 +80,10 @@ interface TechStack {
 
 | Metric | Target (2025) | Current |
 |--------|---------------|---------|
-| Active Users | 100,000 | 25,000 |
-| Monthly Donations | $5M | $1.2M |
-| Housing Fund | $10M | $2.1M |
-| Success Rate | 75% | 58% |
+| Active Users | 100,000 | 10 |
+| Monthly Donations | $5M | $0M |
+| Housing Fund | $10M | $0M |
+| Success Rate | 75% | 0% |
 
 ## 🗺️ Roadmap
 
