@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React, { useState, useEffect, useRef, useCallback, memo } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { useAuthStore } from '@/auth/stores/authStore';
 import { Layout } from '@/layouts/base/Layout';
@@ -10,28 +10,43 @@ import { Toaster } from 'react-hot-toast';
 import { MobileNav } from '@/components/Navigation/MobileNav';
 import { Navigation } from '@/components/Navigation/Navigation';
 import { DashboardNavigation } from '@/layouts/dashboard/navigation/DashboardNavigation';
-import { RegistrationConfirmation } from '@/pages/RegistrationConfirmation';
-import { Dashboard } from '@/components/Dashboard/Dashboard';
 
-export function App() {
-  // Destructure only what we need initially
+// Create AppContent component to use location
+const AppContent = memo(() => {
+  const location = useLocation();
   const { refreshSession, checkSession, isLoading, user } = useAuthStore();
   const [initializationError, setInitializationError] = useState<string | null>(null);
   const [hasInitialized, setHasInitialized] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  
+  const mountedRef = useRef(false);
+  const prevPathRef = useRef(location.pathname);
 
-  // Debug logging
-  console.log('Auth State:', { isLoading, user, initializationError, hasInitialized });
+  // Memoized logging function
+  const logNavigationState = useCallback(() => {
+    if (!mountedRef.current || prevPathRef.current === location.pathname) return;
+    
+    prevPathRef.current = location.pathname;
+    console.debug('Navigation state:', {
+      pathname: location.pathname,
+      auth: { isLoading, user, hasInitialized },
+      components: {
+        Navigation: true,
+        MobileNav: isOpen,
+        DashboardNav: location.pathname.includes('/shelter/')
+      }
+    });
+  }, [location.pathname, isLoading, user, hasInitialized, isOpen]);
 
   // Initialize auth state and session checking
   useEffect(() => {
+    if (mountedRef.current || hasInitialized) return;
+    
     const initializeAuth = async () => {
-      if (hasInitialized) return; // Prevent multiple initializations
-      
-      console.log('Starting auth initialization...');
+      console.debug('Starting auth initialization...');
       try {
         await refreshSession();
-        console.log('Auth refresh completed');
+        console.debug('Auth refresh completed');
         setHasInitialized(true);
       } catch (error) {
         console.error('Auth initialization failed:', error);
@@ -39,6 +54,7 @@ export function App() {
       }
     };
 
+    mountedRef.current = true;
     initializeAuth();
 
     // Set up periodic session checks
@@ -50,10 +66,17 @@ export function App() {
       }
     }, 4 * 60 * 1000);
 
-    return () => clearInterval(sessionInterval);
+    return () => {
+      mountedRef.current = false;
+      clearInterval(sessionInterval);
+    };
   }, [refreshSession, checkSession, hasInitialized]);
 
-  // Show loading state only during initial load
+  // Log navigation state changes
+  useEffect(() => {
+    logNavigationState();
+  }, [logNavigationState]);
+
   if (isLoading && !hasInitialized) {
     return (
       <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center p-4">
@@ -71,56 +94,54 @@ export function App() {
     );
   }
 
-  // Add debug logging
-  console.log('Current pathname:', window.location.pathname);
-  console.log('Rendering navigation components...');
+  return (
+    <div className="min-h-screen bg-gray-900">
+      <ScrollToTop />
+      <MetaTags />
+      <Layout>
+        <AppRoutes />
+      </Layout>
+      <Toaster 
+        position="top-right"
+        toastOptions={{
+          duration: 4000,
+          style: {
+            background: '#1F2937',
+            color: '#fff',
+          },
+        }}
+      />
+      <nav data-testid="main-navigation">
+        <Navigation />
+      </nav>
+      <div data-testid="mobile-navigation">
+        <MobileNav 
+          isOpen={isOpen} 
+          onClose={() => setIsOpen(false)} 
+        />
+      </div>
+      {location.pathname.includes('/shelter/') && (
+        <div data-testid="dashboard-navigation">
+          <DashboardNavigation role={AUTH_ROLES.SHELTER_ADMIN} />
+        </div>
+      )}
+    </div>
+  );
+});
 
-  // Check which components are being rendered
-  console.log('Mounted Navigation Components:', {
-    Navigation: document.querySelector('[data-testid="main-navigation"]'),
-    MobileNav: document.querySelector('[data-testid="mobile-navigation"]'),
-    UserNav: document.querySelector('[data-testid="user-navigation"]'),
-    DashboardNav: document.querySelector('[data-testid="dashboard-navigation"]')
-  });
+AppContent.displayName = 'AppContent';
 
+// Main App component
+export const App = memo(() => {
   return (
     <HelmetProvider>
       <BrowserRouter>
-        <div className="min-h-screen bg-gray-900">
-          <ScrollToTop />
-          <MetaTags />
-          <Layout>
-            <AppRoutes />
-          </Layout>
-          <Toaster 
-            position="top-right"
-            toastOptions={{
-              duration: 4000,
-              style: {
-                background: '#1F2937',
-                color: '#fff',
-              },
-            }}
-          />
-          <nav data-testid="main-navigation">
-            <Navigation />
-          </nav>
-          <div data-testid="mobile-navigation">
-            <MobileNav 
-              isOpen={isOpen} 
-              onClose={() => setIsOpen(false)} 
-            />
-          </div>
-          {/* Add Dashboard Navigation when on shelter routes */}
-          {window.location.pathname.includes('/shelter/') && (
-            <div data-testid="dashboard-navigation">
-              <DashboardNavigation role={AUTH_ROLES.SHELTER_ADMIN} />
-            </div>
-          )}
-        </div>
+        <AppContent />
       </BrowserRouter>
     </HelmetProvider>
   );
-}
+});
+
+App.displayName = 'App';
 
 export default App;

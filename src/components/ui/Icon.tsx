@@ -29,6 +29,14 @@ const icons = {
   'external-link': Icons.ExternalLink,
   'x': Icons.X,
   
+  // Media & Player Controls
+  'play': Icons.Play,
+  'spotify': Icons.Music, // Using Music as fallback for Spotify
+  'pause': Icons.Pause,
+  'skip-forward': Icons.SkipForward,
+  'skip-back': Icons.SkipBack,
+  'volume': Icons.Volume2,
+  
   // User & Profile
   user: Icons.User,
   'user-plus': Icons.UserPlus,
@@ -87,14 +95,6 @@ const icons = {
   'dollar-sign': DollarSign,
 } as const;
 
-const iconMap = {
-  'chevron-down': ChevronDown,
-  'user': User,
-  'settings': Settings,
-  'log-out': LogOut,
-  // ... other icons
-};
-
 export function Icon({ 
   name, 
   className, 
@@ -106,7 +106,9 @@ export function Icon({
   const IconComponent = icons[name];
 
   if (!IconComponent) {
-    console.warn(`Icon "${name}" not found`);
+    if (process.env.NODE_ENV === 'development') {
+      console.warn(`Icon "${name}" not found in icons object. Available icons: ${Object.keys(icons).join(', ')}`);
+    }
     return null;
   }
 

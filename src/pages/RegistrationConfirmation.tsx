@@ -1,10 +1,44 @@
-import { type FC } from 'react';
+import { type FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/Button';
 import { Mail } from 'lucide-react';
+import { supabase } from '@/lib/supabase/client';
 
 const RegistrationConfirmation: FC = () => {
   const navigate = useNavigate();
+  const [isResending, setIsResending] = useState(false);
+  const [resendStatus, setResendStatus] = useState<{
+    type: 'success' | 'error' | null;
+    message: string;
+  }>({ type: null, message: '' });
+
+  const handleResendConfirmation = async () => {
+    try {
+      setIsResending(true);
+      const { error } = await supabase.auth.resend({
+        type: 'signup',
+        email: 'joel.yaffe+admin@gmail.com',
+        options: {
+          emailRedirectTo: `${window.location.origin}/auth/callback`
+        }
+      });
+
+      if (error) throw error;
+
+      setResendStatus({
+        type: 'success',
+        message: 'Confirmation email has been resent. Please check your inbox.'
+      });
+    } catch (error) {
+      console.error('Error resending confirmation:', error);
+      setResendStatus({
+        type: 'error',
+        message: `Failed to send confirmation email: ${error.message || 'Unknown error'}`
+      });
+    } finally {
+      setIsResending(false);
+    }
+  };
 
   return (
     <div className="max-w-lg mx-auto mt-20 p-6 text-center">
@@ -17,6 +51,26 @@ const RegistrationConfirmation: FC = () => {
       <p className="text-sm text-gray-400 mb-6">
         After verification, you'll be able to access your dashboard and complete your shelter profile.
       </p>
+
+      {/* Resend Button */}
+      <Button 
+        variant="outline" 
+        onClick={handleResendConfirmation}
+        disabled={isResending}
+        className="text-gray-300 hover:text-white border-gray-700 hover:border-indigo-500 mb-4"
+      >
+        {isResending ? 'Sending...' : 'Resend Confirmation Email'}
+      </Button>
+
+      {/* Status Message */}
+      {resendStatus.message && (
+        <p className={`text-sm mb-6 ${
+          resendStatus.type === 'success' ? 'text-green-500' : 'text-red-500'
+        }`}>
+          {resendStatus.message}
+        </p>
+      )}
+
       <Button 
         variant="outline" 
         onClick={() => navigate('/')}
