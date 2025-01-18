@@ -1,8 +1,10 @@
-export { BuildProgress } from './BuildProgress';
-export { Contact } from './Contact';
-export { Documentation } from './Documentation';
 export { Hero } from './Hero';
 export { Introduction } from './Introduction';
-export { Metrics } from './Metrics';
 export { Overview } from './Overview';
+export { MediaSection } from './MediaSection';
+export { Newsletter } from './Newsletter';
 export { Technology } from './Technology';
+export { Metrics } from './Metrics';
+export { BuildProgress } from './BuildProgress';
+export { Documentation } from './Documentation';
+export { Contact } from './Contact';

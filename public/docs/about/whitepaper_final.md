@@ -22,9 +22,9 @@ SHELTR's unique value proposition lies in its integrated technology stack that c
 - Smart contract-governed fund allocation
 
 ### Key Metrics & Goals
-- Target: 100,000 active participants by 2025
+- Target: 100,000 active participants by 2026
 - Projected impact: $50M in direct support
-- Housing fund growth: $10M by 2025
+- Housing fund growth: $10M by 2026
 - Platform adoption: 500 shelters across North America
 
 ## Table of Contents
