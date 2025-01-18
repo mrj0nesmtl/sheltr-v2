@@ -47,6 +47,8 @@ interface AuthState {
   session: SessionState;
   sessionError: EnhancedAuthError | null;
   lastError: EnhancedAuthError | null;
+  hasInitialized: boolean;
+  isInitializing: boolean;
 }
 
 interface AuthStore extends AuthState {
@@ -57,6 +59,10 @@ interface AuthStore extends AuthState {
   refreshSession: () => Promise<void>;
   updateProfile: (data: Partial<User>) => Promise<void>;
   handleError: (error: Error | AuthError, severity: ErrorSeverity) => void;
+  setLoading: (isLoading: boolean) => void;
+  setInitializing: (isInitializing: boolean) => void;
+  setInitialized: (hasInitialized: boolean) => void;
+  batchUpdate: (updates: Partial<AuthState>) => void;
 }
 
 // Add session management utilities
@@ -81,7 +87,7 @@ export const useAuthStore = create<AuthStore>(
     (set, get) => ({
       user: null,
       role: null,
-      isLoading: true,
+      isLoading: false,
       isAuthenticated: false,
       error: null,
       session: {
@@ -91,12 +97,26 @@ export const useAuthStore = create<AuthStore>(
       },
       sessionError: null,
       lastError: null,
+      hasInitialized: false,
+      isInitializing: false,
       
-      setUser: (user) => set({ 
-        user: convertUser(user),
-        role: user?.role || null,
-        isAuthenticated: !!user 
-      }),
+      setLoading: (isLoading: boolean) => set({ isLoading }),
+      
+      setUser: (user) => {
+        const currentState = get();
+        // Only update if values actually changed
+        if (
+          currentState.user?.id !== user?.id || 
+          currentState.role !== user?.role ||
+          currentState.isAuthenticated !== !!user
+        ) {
+          set({ 
+            user: convertUser(user),
+            role: user?.role || null,
+            isAuthenticated: !!user 
+          });
+        }
+      },
       
       setRole: (role) => set((state) => ({
         user: state.user ? { ...state.user, role } : null,
@@ -110,6 +130,7 @@ export const useAuthStore = create<AuthStore>(
           isAuthenticated: false,
           error: null,
           sessionError: null,
+          isInitializing: false,
           session: {
             status: 'idle',
             expiresAt: null,
@@ -150,9 +171,12 @@ export const useAuthStore = create<AuthStore>(
       },
 
       login: async (credentials: LoginCredentials) => {
+        if (get().isInitializing) return;
+        
         try {
-          set({ 
-            isLoading: true, 
+          get().batchUpdate({ 
+            isLoading: true,
+            isInitializing: true,
             error: null,
             session: { ...get().session, status: 'authenticating' }
           });
@@ -165,24 +189,23 @@ export const useAuthStore = create<AuthStore>(
           }
           
           if (data.user) {
-            // Try to get role from organization_staff
             const { data: staffData } = await supabase
               .from('organization_staff')
               .select('role')
               .eq('user_id', data.user.id)
-              .maybeSingle(); // Use maybeSingle() instead of single()
+              .maybeSingle();
 
             const userRole = staffData?.role || 
-                            data.user.user_metadata?.role || 
-                            AUTH_ROLES.DONOR;
+                           data.user.user_metadata?.role || 
+                           AUTH_ROLES.DONOR;
 
-            console.log('Login role resolution:', { staffData, userRole, metadata: data.user.user_metadata });
-
-            set({ 
+            get().batchUpdate({
               user: data.user as User,
               role: userRole as AUTH_ROLES,
               isAuthenticated: true,
               isLoading: false,
+              isInitializing: false,
+              hasInitialized: true,
               session: {
                 status: 'authenticated',
                 expiresAt: new Date(data.session!.expires_at!).getTime(),
@@ -195,59 +218,79 @@ export const useAuthStore = create<AuthStore>(
         } catch (error) {
           console.error('Login error:', error);
           get().handleError(error as Error, 'error');
-          throw error;
         }
       },
 
       refreshSession: async () => {
+        const currentState = get();
+        const now = Date.now();
+        
+        if (
+          currentState.isInitializing || 
+          (currentState.session.lastChecked && 
+           now - currentState.session.lastChecked < SESSION_CHECK_INTERVAL)
+        ) {
+          return;
+        }
+
+        set({ isInitializing: true });
+
         try {
           const { data: { session }, error } = await supabase.auth.getSession();
           
           if (error) {
-            console.error('Session error:', error);
             get().handleError(error, 'warning');
             get().clearAuth();
             return;
           }
           
           if (!session) {
-            console.log('No session found');
             get().clearAuth();
             return;
           }
 
-          // First try to get role from organization_staff
-          const { data: staffData, error: staffError } = await supabase
-            .from('organization_staff')
-            .select('role')
-            .eq('user_id', session.user.id)
-            .maybeSingle(); // Use maybeSingle() instead of single()
+          // Only fetch role if user or role has changed
+          if (!currentState.user || session.user.id !== currentState.user.id) {
+            const { data: staffData } = await supabase
+              .from('organization_staff')
+              .select('role')
+              .eq('user_id', session.user.id)
+              .maybeSingle();
 
-          // If no staff record found, try to get role from user metadata
-          const userRole = staffData?.role || 
-                          session.user.user_metadata?.role || 
-                          AUTH_ROLES.DONOR; // Default to DONOR if no role found
+            const userRole = staffData?.role || 
+                           session.user.user_metadata?.role || 
+                           AUTH_ROLES.DONOR;
 
-          console.log('Role resolution:', { staffData, userRole, metadata: session.user.user_metadata });
-
-          set({
-            user: session.user as User,
-            role: userRole as AUTH_ROLES,
-            isAuthenticated: true,
-            isLoading: false,
-            session: {
-              status: 'authenticated',
-              expiresAt: new Date(session.expires_at!).getTime(),
-              lastChecked: Date.now()
-            },
-            error: null,
-            sessionError: null
-          });
+            set({
+              user: session.user as User,
+              role: userRole as AUTH_ROLES,
+              isAuthenticated: true,
+              isLoading: false,
+              session: {
+                status: 'authenticated',
+                expiresAt: new Date(session.expires_at!).getTime(),
+                lastChecked: now
+              },
+              error: null,
+              sessionError: null
+            });
+          } else {
+            // Just update session timestamp if user hasn't changed
+            set(state => ({
+              session: {
+                ...state.session,
+                lastChecked: now,
+                expiresAt: new Date(session.expires_at!).getTime()
+              }
+            }));
+          }
 
         } catch (error) {
           console.error('Session refresh error:', error);
           get().handleError(error as Error, 'error');
           get().clearAuth();
+        } finally {
+          set({ isInitializing: false });
         }
       },
 
@@ -274,23 +317,21 @@ export const useAuthStore = create<AuthStore>(
         }
       },
 
-      // New method to check session validity
       checkSession: async () => {
         const state = get();
         const now = Date.now();
         
-        // Check if we need to refresh
+        // Skip check if recently checked
         if (
-          state.session.expiresAt && 
           state.session.lastChecked &&
           now - state.session.lastChecked < SESSION_CHECK_INTERVAL
         ) {
-          return; // Skip if checked recently
+          return;
         }
 
-        // Check if session is expiring soon
+        // Only refresh if session is expiring soon or missing
         if (
-          state.session.expiresAt && 
+          !state.session.expiresAt ||
           state.session.expiresAt - now < SESSION_REFRESH_THRESHOLD
         ) {
           await get().refreshSession();
@@ -315,6 +356,23 @@ export const useAuthStore = create<AuthStore>(
           get().clearAuth();
         }
       },
+
+      setInitializing: (isInitializing: boolean) => 
+        set({ isInitializing }),
+
+      setInitialized: (hasInitialized: boolean) => 
+        set({ hasInitialized }),
+
+      batchUpdate: (updates: Partial<AuthState>) => {
+        const currentState = get();
+        const hasChanges = Object.entries(updates).some(
+          ([key, value]) => currentState[key as keyof AuthState] !== value
+        );
+        
+        if (hasChanges) {
+          set(updates);
+        }
+      },
     }),
     {
       name: 'auth-storage',
@@ -322,9 +380,11 @@ export const useAuthStore = create<AuthStore>(
         user: state.user,
         role: state.role,
         isAuthenticated: state.isAuthenticated,
+        hasInitialized: state.hasInitialized,
         session: {
           status: state.session.status,
-          expiresAt: state.session.expiresAt
+          expiresAt: state.session.expiresAt,
+          lastChecked: state.session.lastChecked
         }
       })
     }

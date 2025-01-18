@@ -1,151 +1,114 @@
 import { supabase, forceLogout } from '@/lib/supabase/client';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { AUTH_ROLES } from '@/auth/types/auth.types';
 import { useNavigate } from 'react-router-dom';
 import { getDashboardPath } from '@/lib/navigation/roleNavigation';
 
 export const useAuth = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [user, setUser] = useState(null);
-  const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const navigateRef = useRef(navigate);
+  
+  const [state, setState] = useState({
+    isLoading: true,
+    user: null,
+    error: null
+  });
+
+  const getUserRole = useCallback(async (userId: string) => {
+    try {
+      const { data: profileData, error: profileError } = await supabase
+        .from('profiles')
+        .select('role, id, organization_id')
+        .eq('id', userId)
+        .maybeSingle();
+
+      if (!profileData && !profileError) {
+        const { data: newProfile, error: createError } = await supabase
+          .from('profiles')
+          .insert([{
+            id: userId,
+            role: AUTH_ROLES.SHELTER_ADMIN,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+          }])
+          .select()
+          .single();
+
+        if (createError) throw createError;
+        return {
+          role: newProfile.role,
+          organizationId: newProfile.organization_id,
+          isNewProfile: true
+        };
+      }
+
+      return {
+        role: profileData?.role || AUTH_ROLES.SHELTER_ADMIN,
+        organizationId: profileData?.organization_id
+      };
+    } catch (e) {
+      console.error('❌ Role resolution error:', e);
+      return { 
+        role: AUTH_ROLES.SHELTER_ADMIN,
+        organizationId: null,
+        error: e instanceof Error ? e.message : 'Unknown error'
+      };
+    }
+  }, []);
 
   useEffect(() => {
     let mounted = true;
+    navigateRef.current = navigate;
 
-    const getUserRole = async (userId: string) => {
-      console.log('🔍 getUserRole - START', { userId });
+    const handleSession = async (session) => {
+      if (!session?.user || !mounted) {
+        setState(s => ({ ...s, user: null, isLoading: false }));
+        return;
+      }
+
       try {
-        // 1. First check profiles (master table) - if no profile exists, create one
-        const { data: profileData, error: profileError } = await supabase
-          .from('profiles')
-          .select('role, id')
-          .eq('id', userId)
-          .maybeSingle();
+        const { role, organizationId } = await getUserRole(session.user.id);
+        if (!mounted) return;
 
-        if (!profileData && !profileError) {
-          console.log('📝 Creating new profile for user:', userId);
-          const { data: newProfile, error: createError } = await supabase
-            .from('profiles')
-            .insert([
-              {
-                id: userId,
-                role: AUTH_ROLES.SHELTER_ADMIN, // Default to shelter admin during registration
-                created_at: new Date().toISOString(),
-                updated_at: new Date().toISOString()
-              }
-            ])
-            .select()
-            .single();
-
-          if (createError) {
-            console.error('❌ Profile creation error:', createError);
-            throw createError;
-          }
-
-          console.log('✅ New profile created:', newProfile);
-          return {
-            role: newProfile.role,
-            isNewProfile: true
-          };
-        }
-
-        // 2. Validate and return role
-        const userRole = profileData?.role || AUTH_ROLES.SHELTER_ADMIN;
+        const userWithRole = {
+          ...session.user,
+          role,
+          organizationId
+        };
         
-        // Ensure role is a valid enum value
-        if (!Object.values(AUTH_ROLES).includes(userRole)) {
-          console.error('❌ Invalid role found:', userRole);
-          return {
-            role: AUTH_ROLES.SHELTER_ADMIN,
-            error: 'Invalid role'
-          };
+        setState(s => ({ ...s, user: userWithRole, isLoading: false }));
+        
+        if (role) {
+          const dashboardPath = getDashboardPath(role, session.user.id);
+          navigateRef.current(dashboardPath, { replace: true });
         }
-
-        console.log('✅ Role resolved:', userRole);
-        return {
-          role: userRole,
-          organizationId: profileData?.organization_id
-        };
-
       } catch (e) {
-        console.error('❌ Role resolution error:', e);
-        return { 
-          role: AUTH_ROLES.SHELTER_ADMIN,
-          error: e instanceof Error ? e.message : 'Unknown error'
-        };
+        if (mounted) {
+          setState(s => ({ ...s, error: e, isLoading: false }));
+          await forceLogout();
+        }
       }
     };
 
     const initSession = async () => {
-      if (!mounted) return;
-
-      try {
-        console.log('🚀 Initializing session...');
-        const { data: { session } } = await supabase.auth.getSession();
-        
-        if (!session?.user) {
-          console.log('📤 No session found');
-          setUser(null);
-          setIsLoading(false);
-          return;
-        }
-
-        console.log('✅ Session found:', session.user.id);
-        const userRole = await getUserRole(session.user.id);
-        
-        if (mounted) {
-          const userWithRole = {
-            ...session.user,
-            role: userRole.role,
-            organizationId: userRole.organizationId
-          };
-          
-          console.log('🔑 Setting user with role:', userWithRole);
-          setUser(userWithRole);
-          setIsLoading(false);
-        }
-      } catch (e) {
-        console.error('❌ Session error:', e);
-        if (mounted) {
-          setError(e);
-          await forceLogout();
-        }
-      } finally {
-        if (mounted) {
-          setIsLoading(false);
-        }
-      }
+      const { data: { session } } = await supabase.auth.getSession();
+      await handleSession(session);
     };
 
-    // Initialize session
     initSession();
 
-    // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
-        console.log('🔄 Auth state changed:', event);
+        if (!mounted) return;
         
-        if (!session?.user) {
-          if (mounted) {
-            setUser(null);
-            setIsLoading(false);
-          }
+        if (event === 'SIGNED_OUT') {
+          setState(s => ({ ...s, user: null }));
+          navigateRef.current('/', { replace: true });
           return;
         }
 
-        const userRole = await getUserRole(session.user.id);
-        if (mounted) {
-          setUser({
-            ...session.user,
-            role: userRole
-          });
-          setIsLoading(false);
-
-          // Add proper navigation with both role and userId
-          const dashboardPath = getDashboardPath(userRole, session.user.id);
-          console.log('🚀 Navigating to:', dashboardPath);
-          navigate(dashboardPath, { replace: true });
+        if (session?.user && event === 'SIGNED_IN') {
+          await handleSession(session);
         }
       }
     );
@@ -154,18 +117,20 @@ export const useAuth = () => {
       mounted = false;
       subscription.unsubscribe();
     };
-  }, [navigate]);
+  }, [getUserRole]);
+
+  const signOut = useCallback(async () => {
+    await forceLogout();
+    setState(s => ({ ...s, user: null }));
+    navigateRef.current('/', { replace: true });
+  }, []);
 
   return {
-    user,
-    role: user?.role || null,
-    isLoading,
-    error,
-    isAuthenticated: !!user,
-    signOut: async () => {
-      await forceLogout();
-      setUser(null);
-      navigate('/', { replace: true });
-    }
+    user: state.user,
+    role: state.user?.role || null,
+    isLoading: state.isLoading,
+    error: state.error,
+    isAuthenticated: !!state.user,
+    signOut
   };
 }; 
