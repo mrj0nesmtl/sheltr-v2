@@ -22,15 +22,20 @@ export const fr: Translations = {
     refresh: "Actualiser",
   },
   nav: {
+    about: "À Propos",
+    howItWorks: "Comment ça Marche",
+    solutions: "Solutions",
+    scanDonate: "Scanner + Donner",
+    impact: "Impact",
+    login: "Connexion",
+    signUp: "S'inscrire",
     solutions_menu: {
       title: 'Solutions',
       howItWorks: 'Comment ça Marche',
-      howItWorksDesc: 'Découvrez comment notre plateforme transforme les dons',
       solutions: 'Solutions',
-      solutionsDesc: 'Découvrez nos solutions innovantes pour donateurs et refuges',
+      scanDonate: 'Scanner + Donner',
       impact: 'Impact',
-      impactDesc: 'Suivez et mesurez l\'impact réel de vos contributions',
-      signUp: 'Inscrire'
+      impactDesc: 'Suivez et mesurez l\'impact réel de vos contributions'
     },
     company_menu: {
       title: 'Entreprise',
@@ -41,7 +46,7 @@ export const fr: Translations = {
       whitepaper: 'Livre Blanc',
       whitepaperDesc: 'Détails techniques et architecture de la plateforme'
     },
-    signUp: 'Inscrire', 
+    signUp: 'Inscrire',
     login: 'Connexion',
     platform_menu: {
       title: 'Plateforme',
@@ -71,18 +76,30 @@ export const fr: Translations = {
       serviceHistoryDesc: 'Suivez votre utilisation des services et vos progrès'
     },
     blog: 'Blog',
+    blockchain_menu: {
+      title: 'Blockchain',
+      whitepaper: 'Livre Blanc',
+      token: 'Tokenomique',
+      transactions: 'Transactions',
+      depot: 'Dépôt Sans-Abri',
+      whitepaperDesc: 'Détails techniques et architecture de la plateforme',
+      tokenDesc: 'Économie et utilité du jeton SHELTR',
+      transactionsDesc: 'Voir et suivre les transactions blockchain',
+      depotDesc: 'Accéder aux ressources et services des participants',
+      features: {
+        transparency: 'Transparence des Transactions',
+        tracking: 'Suivi d\'Impact',
+        verification: 'Vérification d\'Identité',
+        rewards: 'Récompenses des Donateurs'
+      }
+    },
     blockchain: {
-      title: "Blockchain",
-      desc: "Explorer les fonctionnalités blockchain",
+      title: 'Blockchain',
       menu: {
-        whitepaper: "Livre Blanc",
-        whitepaperDesc: "Documentation technique et vision",
-        token: "Jeton $SHELTER",
-        tokenDesc: "Économie et utilités du jeton",
-        transactions: "Transactions",
-        transactionsDesc: "Voir les transactions blockchain",
-        depot: "Dépôt Sans-Abri",
-        depotDesc: "Accéder aux ressources des participants"
+        whitepaper: 'Livre Blanc',
+        token: 'Tokenomique',
+        transactions: 'Transactions',
+        depot: 'Dépôt Sans-Abri'
       }
     },
     footer: {
@@ -90,18 +107,19 @@ export const fr: Translations = {
       contact: 'Contact',
       privacy: 'Confidentialité',
       terms: 'Conditions',
-      copyright: '© {{year}} SHELTR. Tous droits réservés.',
-      tagline: 'Pirater l\'itinérance avec la technologie.',
+      copyright: '© {{year}} Arcana Concept. Tous droits réservés.',
+      tagline: '#ConstruireSansPrendre #FaitAuCanada',
       quickLinks: 'Liens Rapides',
       resources: 'Ressources',
-      connect: 'Connecter',
+      connect: 'Se Connecter',
       links: {
         howItWorks: 'Comment ça Marche',
-        solutions: 'Nos Solutions',
+        solutions: 'Solutions',
         scanDonate: 'Scanner + Donner',
         about: 'À Propos',
         blog: 'Blog',
         whitepaper: 'Livre Blanc',
+        transactions: 'Transactions',
         privacy: 'Politique de Confidentialité',
         terms: 'Conditions d\'Utilisation'
       },
@@ -114,12 +132,10 @@ export const fr: Translations = {
         spotify: 'Écoutez sur Spotify'
       },
       podcast: {
-        latest: 'Dernier Épisode',
-        listen: 'Écouter',
-        listenOn: 'Écouter sur Spotify',
+        latest: 'Dernier Épisode Spotify',
+        listen: 'Écouter Maintenant',
         duration: 'Durée',
-        showName: 'Tomes of Arcana',
-        description: 'Découvrez notre dernier épisode sur les solutions technologiques pour l\'itinérance'
+        showName: 'Tomes of Arcana'
       }
     },
     language: 'Langue',
@@ -476,15 +492,20 @@ export const fr: Translations = {
   },
   qrScanner: {
     title: "Scanner le Code QR pour Faire un Don",
-    instructions: "Positionnez le code QR dans le cadre pour le scanner",
-    scannerActive: "Le scanner est actif et prêt",
+    instructions: "Pointez votre caméra vers le code QR d'un participant",
+    scannerActive: "Scanner actif",
     retryButton: "Réessayer",
     errors: {
-      cameraPermission: "Veuillez autoriser l'accès à la caméra pour scanner les codes QR",
-      noCamera: "Aucune caméra trouvée sur votre appareil",
-      cameraInUse: "La caméra est utilisée par une autre application",
-      initialization: "Impossible d'initialiser le scanner QR"
-    }
+      cameraPermission: "Accès à la caméra refusé. Veuillez activer les permissions de la caméra.",
+      initialization: "Échec de l'initialisation de la caméra. Veuillez réessayer.",
+      invalidCode: "Code QR invalide",
+      invalidCodeDesc: "Ce code QR n'est pas associé à un participant SHELTR.",
+      processing: "Erreur lors du traitement du code QR. Veuillez réessayer.",
+      noCamera: "Aucune caméra trouvée sur votre appareil.",
+      notSupported: "Le scan de QR n'est pas supporté sur cet appareil."
+    },
+    instructionsDetail: "Positionnez le code QR dans le cadre. Le scanner le détectera et le traitera automatiquement.",
+    startButton: "Démarrer le Scanner"
   },
   auth: {
     fields: {
@@ -493,10 +514,112 @@ export const fr: Translations = {
     },
     login: {
       title: "Connexion à SHELTR",
+      email: "Email",
+      password: "Mot de passe",
       signIn: "Se connecter",
       signingIn: "Connexion en cours...",
       noAccount: "Vous n'avez pas de compte ?",
-      signUp: "S'inscrire"
+      signUp: "S'inscrire",
+      forgotPassword: "Mot de passe oublié ?",
+      rememberMe: "Se souvenir de moi",
+      errors: {
+        "Failed to check auth status": "Impossible de vérifier le statut d'authentification. Veuillez réessayer.",
+        "Invalid login credentials": "Email ou mot de passe invalide",
+        "Email not confirmed": "Veuillez vérifier votre adresse email",
+        "No user returned": "Échec de la connexion. Veuillez réessayer.",
+        "No profile found": "Profil utilisateur non trouvé. Veuillez contacter le support.",
+        invalidCredentials: "Identifiants invalides",
+        serverError: "Erreur serveur. Veuillez réessayer."
+      }
+    },
+    register: {
+      title: "Créer Votre Compte SHELTR",
+      subtitle: "Rejoignez le mouvement pour mettre fin à l'itinérance",
+      firstName: "Prénom",
+      lastName: "Nom",
+      email: "Email",
+      password: "Mot de passe",
+      confirmPassword: "Confirmer le mot de passe",
+      role: "Je suis un(e)",
+      roles: {
+        donor: "Donateur",
+        shelter: "Administrateur de refuge",
+        participant: "Participant"
+      },
+      terms: "J'accepte les Conditions d'Utilisation et la Politique de Confidentialité",
+      createAccount: "Créer un compte",
+      alreadyHaveAccount: "Vous avez déjà un compte ?",
+      signIn: "Se connecter"
+    },
+    verification: {
+      title: "Vérifiez Votre Email",
+      subtitle: "Veuillez vérifier votre email pour le lien de vérification",
+      resend: "Renvoyer l'email de vérification",
+      success: "Email de vérification envoyé"
+    },
+    resetPassword: {
+      title: "Créer un Nouveau Mot de Passe",
+      newPassword: "Nouveau mot de passe",
+      confirmPassword: "Confirmer le nouveau mot de passe",
+      submit: "Réinitialiser le mot de passe",
+      success: "Mot de passe réinitialisé avec succès"
+    },
+    shelterRegistration: {
+      steps: {
+        basic: "Informations de Base",
+        contact: "Informations de Contact",
+        details: "Détails du Refuge",
+        summary: "Résumé de l'Inscription"
+      },
+      fields: {
+        email: "Adresse Email",
+        password: "Mot de passe",
+        shelterName: "Nom du Refuge",
+        website: "Site Web",
+        phone: "Téléphone du Refuge",
+        streetAddress: "Adresse",
+        city: "Ville",
+        postalCode: "Code Postal",
+        administrator: {
+          name: "Nom de l'Administrateur",
+          title: "Titre de l'Administrateur",
+          phone: "Téléphone de l'Administrateur"
+        },
+        organizationEmail: "Email de l'Organisation",
+        taxId: "Numéro Fiscal",
+        registrationNumber: "Numéro d'Enregistrement",
+        capacity: "Capacité",
+        services: "Services"
+      },
+      validation: {
+        required: "Ce champ est obligatoire",
+        email: "Veuillez entrer une adresse email valide",
+        phone: "Veuillez entrer un numéro de téléphone valide",
+        password: "Le mot de passe doit contenir au moins 8 caractères",
+        postalCode: "Veuillez entrer un code postal valide",
+        capacity: "La capacité doit être un nombre positif",
+        website: "Veuillez entrer une URL valide"
+      },
+      buttons: {
+        next: "Suivant",
+        previous: "Précédent",
+        review: "Revoir l'Inscription",
+        edit: "Modifier les Informations",
+        confirm: "Confirmer et Soumettre"
+      },
+      summary: {
+        title: "Résumé de l'Inscription",
+        basicInfo: "Informations de Base",
+        contactInfo: "Informations de Contact",
+        shelterDetails: "Détails du Refuge"
+      },
+      messages: {
+        autoSave: "Formulaire sauvegardé automatiquement",
+        fillRequired: "Veuillez remplir tous les champs obligatoires",
+        loading: "Traitement en cours...",
+        success: "Inscription réussie",
+        error: "Échec de l'inscription"
+      }
     }
   },
   about: {
@@ -637,26 +760,6 @@ export const fr: Translations = {
     }
   },
   admin: {
-    superAdmin: {
-      title: "Tableau de Bord Super Admin",
-      subtitle: "Analyses et gestion de la plateforme",
-      userDistribution: {
-        title: "Distribution des Utilisateurs",
-        subtitle: "Répartition des utilisateurs par rle"
-      },
-      servicePerformance: {
-        title: "Performance des Services",
-        subtitle: "Analyse de l'utilisation et de l'impact des services"
-      },
-      shelterPerformance: {
-        title: "Analyse de Performance des Refuges",
-        subtitle: "Analyse comparative des opérations des refuges"
-      },
-      fundAllocation: {
-        title: "Analyse de l'Attribution des Fonds",
-        subtitle: "Comparaison des fonds levés et attribués par type d'utilisateur"
-      }
-    },
     userTypes: {
       donor: "Donateurs",
       participant: "Participants",
@@ -664,102 +767,82 @@ export const fr: Translations = {
       superAdmin: "Super Administrateurs",
       guest: "Invités"
     },
-    stats: {
-      totalShelters: "Total des Refuges",
-      activeParticipants: "Participants Actifs",
-      totalDonations: "Total des Dons",
-      successRate: "Taux de Réussite",
-      verifiedShelters: "refuges vérifiés",
-      avgPerShelter: "moyenne par refuge",
-      perParticipant: "par participant",
-      aboveAverage: "Au-dessus de la moyenne du secteur"
-    },
-    dashboard: {
-      title: "Tableau de Bord Admin",
-      welcome: "Bienvenue sur votre tableau de bord"
-    },
-    shelter: {
-      title: "Tableau de Bord du Refuge",
-      subtitle: "Gérez votre refuge",
-      welcome: "Bienvenue, {{name}}",
-      donors: {
-        title: "Donateurs",
-        export: "Exporter",
-        name: "Nom",
-        totalDonated: "Total des Dons",
-        lastDonation: "Dernier Don",
-        frequency: "Fréquence",
-        status: "Statut"
+    superAdmin: {
+      title: "Bienvenue Admin - Développeur Système",
+      badges: {
+        systemAccess: "Accès Système",
+        pendingShelters: "Nouveaux Refuges en Attente",
+        systemHealth: "Santé du Système",
+        servicesActive: "Tous les Services Actifs"
       },
-      participants: {
-        title: "Participants",
-        add: "Ajouter un Participant",
-        name: "Nom",
-        status: "Statut",
-        joinDate: "Date d'inscription",
-        totalReceived: "Total Reçu",
-        qrCode: "Code QR",
-        loginToken: "Jeton de Connexion",
-        viewDetails: "Voir les Détails",
-        statuses: {
-          active: "Actif",
-          inactive: "Inactif",
-          pending: "En Attente"
-        }
+      metrics: {
+        totalUsers: "Utilisateurs Totaux",
+        activeShelters: "Refuges Actifs",
+        totalDonations: "Dons Totaux",
+        systemHealth: "Santé du Système",
+        networkActivity: "Activité du Réseau"
+      },
+      sections: {
+        quickStats: "Statistiques Rapides",
+        systemHealth: "Moniteur de Santé Système",
+        blockchainStats: "Statistiques Blockchain",
+        donationAnalytics: "Analytique des Dons",
+        networkOverview: "Aperçu du Réseau",
+        transactionList: "Transactions Récentes",
+        shelterList: "Refuges Enregistrés",
+        detailedAnalytics: "Analytique Détaillée"
       }
     },
-    participant: {
-      registration: {
-        title: 'Inscrire un Nouveau Participant',
-        steps: {
-          personal: 'Informations Personnelles',
-          contact: 'Contact',
-          needs: 'Évaluation des Besoins',
-          verification: 'Vérification'
+    shelterAdmin: {
+      title: "Tableau de Bord Admin Refuge",
+      badges: {
+        verifiedStatus: "Statut Vérifié",
+        activeParticipants: "Participants Actifs",
+        donations: "Dons",
+        pendingReviews: "Révisions en Attente"
+      },
+      metrics: {
+        activeParticipants: "Participants Actifs",
+        totalDonations: "Dons Totaux",
+        successfulDisbursements: "Décaissements Réussis"
+      },
+      sections: {
+        analytics: {
+          title: "Analytique des Dons",
+          allocation: "Allocation des Dons",
+          map: "Carte des Dons"
         },
-        form: {
-          firstName: 'Prénom',
-          lastName: 'Nom',
-          dateOfBirth: 'Date de Naissance',
-          gender: {
-            label: 'Genre',
-            options: {
-              male: 'Homme',
-              female: 'Femme',
-              other: 'Autre',
-              preferNotToSay: 'Préfère ne pas dire'
-            }
-          },
-          email: 'Adresse Email',
-          phone: 'Numéro de Téléphone',
-          emergency: {
-            title: 'Contact d\'Urgence',
-            name: 'Nom du Contact',
-            phone: 'Téléphone du Contact',
-            relationship: 'Relation'
-          },
-          housing: {
-            label: 'Situation de Logement',
-            options: {
-              emergency: 'Refuge d\'Urgence',
-              transitional: 'Logement de Transition',
-              atRisk: 'À Risque',
-              permanent: 'Logement Permanent',
-              street: 'Sans Abri'
-            }
-          },
-          employment: {
-            label: 'Situation Professionnelle',
-            options: {
-              unemployed: 'Sans Emploi',
-              partTime: 'Temps Partiel',
-              fullTime: 'Temps Plein',
-              selfEmployed: 'Travailleur Indépendant',
-              unableToWork: 'Incapable de Travailler',
-              retired: 'Retraité'
-            }
-          }
+        lists: {
+          participants: "Liste des Participants",
+          programs: "Liste des Programmes",
+          disbursements: "Suivi des Décaissements"
         }
+      },
+      trends: {
+        up: "Augmentation",
+        down: "Diminution",
+        noChange: "Pas de Changement"
+      }
+    },
+    shared: {
+      actions: {
+        signOut: "Déconnexion",
+        viewDetails: "Voir les Détails",
+        export: "Exporter les Données",
+        refresh: "Actualiser les Données"
+      },
+      status: {
+        active: "Actif",
+        inactive: "Inactif",
+        pending: "En Attente",
+        verified: "Vérifié",
+        unverified: "Non Vérifié"
+      },
+      metrics: {
+        daily: "Quotidien",
+        weekly: "Hebdomadaire",
+        monthly: "Mensuel",
+        yearly: "Annuel"
       }
     }
   },
@@ -803,6 +886,17 @@ export const fr: Translations = {
         monthly: "Mensuel",
         quarterly: "Trimestriel",
         annual: "Annuel"
+      },
+      filters: {
+        dateRange: "Plage de dates",
+        category: "Catégorie",
+        status: "Statut",
+        location: "Emplacement"
+      },
+      export: {
+        pdf: "Exporter en PDF",
+        csv: "Exporter en CSV",
+        excel: "Exporter en Excel"
       }
     }
   },
@@ -815,9 +909,159 @@ export const fr: Translations = {
       depot: "Dépôt Sans-Abri",
       depotDesc: "Accéder aux ressources des participants",
       documentation: {
+        title: "Documentation",
         whitepaper: "Livre Blanc",
+        whitepaperDesc: "Détails techniques et architecture de la plateforme",
         transactions: "Transactions",
-        resources: "Ressources"
+        transactionsDesc: "Historique des transactions blockchain",
+        resources: "Ressources",
+        resourcesDesc: "Guides de développement et d'intégration",
+        api: "Référence API",
+        apiDesc: "Documentation API et points d'accès",
+        support: "Support",
+        supportDesc: "Support technique et FAQ"
+      }
+    }
+  },
+  settings: {
+    general: {
+      title: "Paramètres Généraux",
+      language: "Langue",
+      timezone: "Fuseau horaire",
+      currency: "Devise",
+      dateFormat: "Format de date"
+    },
+    notifications: {
+      title: "Paramètres de Notification",
+      email: "Notifications par Email",
+      push: "Notifications Push",
+      sms: "Notifications SMS"
+    },
+    privacy: {
+      title: "Paramètres de Confidentialité",
+      visibility: "Visibilité du Profil",
+      dataSharing: "Partage de Données",
+      activityTracking: "Suivi d'Activité"
+    },
+    security: {
+      title: "Paramètres de Sécurité",
+      password: "Mot de passe",
+      twoFactor: "Authentification à Deux Facteurs",
+      sessions: "Sessions Actives",
+      devices: "Appareils Connectés"
+    }
+  },
+  services: {
+    common: {
+      title: "Services",
+      available: "Disponible",
+      unavailable: "Indisponible",
+      scheduled: "Programmé",
+      completed: "Terminé"
+    },
+    booking: {
+      title: "Réserver un Service",
+      date: "Sélectionner une Date",
+      time: "Sélectionner une Heure",
+      notes: "Notes Supplémentaires",
+      confirm: "Confirmer la Réservation",
+      success: "Réservation confirmée",
+      error: "Erreur de réservation",
+      status: {
+        pending: "En attente",
+        confirmed: "Confirmé",
+        inProgress: "En cours",
+        completed: "Terminé",
+        cancelled: "Annulé"
+      },
+      validation: {
+        dateRequired: "Veuillez sélectionner une date",
+        timeRequired: "Veuillez sélectionner une heure",
+        invalidDate: "Date invalide",
+        pastDate: "La date ne peut pas être dans le passé",
+        unavailableSlot: "Créneau horaire non disponible"
+      },
+      notifications: {
+        confirmation: "Votre réservation a été confirmée",
+        reminder: "Rappel: Vous avez un service prévu pour demain",
+        cancellation: "Votre réservation a été annulée"
+      }
+    }
+  },
+  donor: {
+    signup: {
+      title: "Créer un Compte Donateur",
+      subtitle: "Rejoignez notre communauté de donateurs qui font la différence",
+      steps: {
+        basic: "Informations de Base",
+        profile: "Détails du Profil",
+        security: "Sécurité"
+      },
+      fields: {
+        email: "Email",
+        password: "Mot de passe",
+        displayName: "Nom d'affichage",
+        phone: "Numéro de téléphone",
+        preferences: {
+          title: "Préférences de Don",
+          anonymous: "Rendre les dons anonymes par défaut",
+          notificationFreq: "Fréquence des Notifications",
+          frequencies: {
+            daily: "Quotidienne",
+            weekly: "Hebdomadaire",
+            monthly: "Mensuelle"
+          }
+        },
+        social: {
+          title: "Préférences Sociales",
+          visibility: {
+            label: "Visibilité du Cercle d'Impact",
+            public: "Public - Partager mon impact avec tous",
+            connections: "Connexions Uniquement - Partager avec mon réseau",
+            private: "Privé - Garder mon impact privé"
+          },
+          connections: {
+            allowDonors: "Autoriser les autres donateurs à se connecter avec moi",
+            allowShelters: "Autoriser le suivi des refuges et leurs mises à jour"
+          }
+        }
+      }
+    },
+    dashboard: {
+      title: "Tableau de Bord Donateur",
+      metrics: {
+        totalImpact: "Impact Total",
+        peopleHelped: "Personnes Aidées",
+        totalDonations: "Dons Totaux"
+      },
+      sections: {
+        donationHistory: "Historique des Dons",
+        impactDistribution: "Distribution de l'Impact",
+        categories: {
+          foodPrograms: "Programmes Alimentaires",
+          shelterOps: "Opérations des Refuges",
+          medicalAid: "Aide Médicale",
+          education: "Éducation"
+        }
+      },
+      badges: {
+        streak: "Jours Consécutifs",
+        topDonor: "Top 10% Donateur",
+        impactLevel: "Niveau d'Impact"
+      },
+      map: {
+        title: "Votre Carte d'Impact"
+      }
+    },
+    profile: {
+      donationHistory: "Historique des Dons",
+      totalDonated: "Total des Dons",
+      impactScore: "Score d'Impact",
+      settings: {
+        title: "Paramètres du Profil",
+        notifications: "Paramètres de Notification",
+        privacy: "Paramètres de Confidentialité",
+        connections: "Connexions Sociales"
       }
     }
   }

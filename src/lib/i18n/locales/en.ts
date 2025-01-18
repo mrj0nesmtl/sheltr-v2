@@ -122,45 +122,139 @@ export const en: Translations = {
       subtitle: "Please check your email for verification link",
       resend: "Resend verification email",
       success: "Verification email sent"
+    },
+    shelterRegistration: {
+      steps: {
+        basic: "Basic Information",
+        contact: "Contact Information",
+        details: "Shelter Details",
+        summary: "Registration Summary"
+      },
+      fields: {
+        email: "Email Address",
+        password: "Password",
+        shelterName: "Shelter Name",
+        website: "Website",
+        phone: "Shelter Phone",
+        streetAddress: "Street Address",
+        city: "City",
+        postalCode: "Postal Code",
+        administrator: {
+          name: "Administrator Name",
+          title: "Administrator Title",
+          phone: "Administrator Phone"
+        },
+        organizationEmail: "Organization Email",
+        taxId: "Tax ID",
+        registrationNumber: "Registration Number",
+        capacity: "Capacity",
+        services: "Services"
+      },
+      validation: {
+        required: "This field is required",
+        email: "Please enter a valid email address",
+        phone: "Please enter a valid phone number",
+        password: "Password must be at least 8 characters",
+        postalCode: "Please enter a valid postal code",
+        capacity: "Capacity must be a positive number",
+        website: "Please enter a valid website URL"
+      },
+      buttons: {
+        next: "Next",
+        previous: "Previous",
+        review: "Review Registration",
+        edit: "Edit Information",
+        confirm: "Confirm & Submit"
+      },
+      summary: {
+        title: "Registration Summary",
+        basicInfo: "Basic Information",
+        contactInfo: "Contact Information",
+        shelterDetails: "Shelter Details"
+      },
+      messages: {
+        autoSave: "Form auto-saved",
+        fillRequired: "Please fill in all required fields",
+        loading: "Processing...",
+        success: "Registration successful",
+        error: "Registration failed"
+      }
     }
   },
 
   nav: {
-    about: "About",
-    howItWorks: "How It Works",
-    solutions: "Solutions",
-    scanDonate: "Scan + Donate",
-    impact: "Impact",
-    login: "Login",
-    signUp: "Sign Up",
+    // Auth related
+    login: 'Login',
+    signUp: 'Sign Up',
+    profile: 'Profile',
+    
+    // Main navigation
+    howItWorks: 'How It Works',
+    solutions: 'Solutions',
+    scanDonate: 'Scan & Donate',
+    impact: 'Impact',
+    about: 'About',
+    
+    // Blockchain section
+    blockchain: 'Blockchain',
+    whitepaper: 'Whitepaper',
+    token: 'Token',
+    transactions: 'Transactions',
+    depot: 'Depot',
+
+    // Nested navigation structure (for mobile)
+    nav: {
+      howItWorks: 'How It Works',
+      solutions: 'Solutions',
+      scanDonate: 'Scan & Donate',
+      impact: 'Impact',
+      about: 'About',
+      whitepaper: 'Whitepaper',
+      token: 'Token',
+      transactions: 'Transactions',
+      depot: 'Depot'
+    },
+
     solutions_menu: {
       title: 'Solutions',
       howItWorks: 'How It Works',
       solutions: 'Solutions',
-      scanDonate: 'Scan + Donate'
+      scanDonate: 'Scan + Give',
+      impact: 'Impact',
+      impactDesc: 'Track and measure the real impact of your contributions'
     },
     company_menu: {
       title: 'Company',
       about: 'About',
       blog: 'Blog'
     },
-    blockchain: {
+    blockchain_menu: {
       title: 'Blockchain',
-      menu: {
-        whitepaper: 'Whitepaper',
-        transactions: 'Transactions'
+      whitepaper: 'Whitepaper',
+      token: 'Tokenomics',
+      transactions: 'Transactions',
+      depot: 'HomelessDepot',
+      whitepaperDesc: 'Technical details and platform architecture',
+      tokenDesc: 'SHELTR token economics and utility',
+      transactionsDesc: 'View and track blockchain transactions',
+      depotDesc: 'Access participant resources and services',
+      features: {
+        transparency: 'Transaction Transparency',
+        tracking: 'Impact Tracking',
+        verification: 'Identity Verification',
+        rewards: 'Donor Rewards'
       }
     },
     footer: {
-      copyright: '© {{year}} SHELTR. All rights reserved.',
-      tagline: 'We are hacking homelessness.',
+      copyright: '© {{year}} Arcana Concept. All rights reserved.',
+      tagline: '#BuildWithoutTake #MadeInCanada',
       quickLinks: 'Quick Links',
       resources: 'Resources',
       connect: 'Connect',
       links: {
         howItWorks: 'How It Works',
         solutions: 'Solutions',
-        scanDonate: 'Scan + Donate',
+        scanDonate: 'Scan + Give',
         about: 'About',
         blog: 'Blog',
         whitepaper: 'Whitepaper',
@@ -177,16 +271,63 @@ export const en: Translations = {
         spotify: 'Listen on Spotify'
       },
       podcast: {
-        latest: 'Latest Episode',
+        latest: 'Latest Spotify Episode',
         listen: 'Listen Now',
         duration: 'Duration',
         showName: 'Tomes of Arcana'
       }
     },
-    profile: "Profile",
     settings: "Settings",
     signOut: "Sign Out",
-    dashboard: "Dashboard"
+    dashboard: "Dashboard",
+    platform_menu: {
+      title: 'Platform',
+      dashboard: 'Dashboard',
+      dashboardDesc: 'View system analytics and metrics',
+      userManagement: 'User Management',
+      userManagementDesc: 'Manage users and permissions',
+      systemSettings: 'System Settings',
+      systemSettingsDesc: 'Configure platform settings',
+      shelterDashboard: 'Shelter Dashboard',
+      shelterDashboardDesc: 'Manage shelter operations',
+      residentManagement: 'Resident Management',
+      residentManagementDesc: 'Track and support shelter residents'
+    },
+    donor_menu: {
+      title: 'My Donations',
+      donationHistory: 'Donation History',
+      donationHistoryDesc: 'View your contributions and their impact',
+      personalImpact: 'Personal Impact',
+      personalImpactDesc: 'See how your donations are making a difference'
+    },
+    participant_menu: {
+      title: 'Services',
+      availableServices: 'Available Services',
+      availableServicesDesc: 'Browse service and support options',
+      serviceHistory: 'Service History',
+      serviceHistoryDesc: 'Track your service usage and progress'
+    },
+    main: {
+      about: "About",
+      howItWorks: "How It Works",
+      scanDonate: "Scan + Give",
+      impact: "Impact",
+      depot: "HomelessDepot",
+      depotDesc: "Access participant resources",
+      documentation: {
+        title: "Documentation",
+        whitepaper: "Whitepaper",
+        whitepaperDesc: "Technical details and platform architecture",
+        transactions: "Transactions",
+        transactionsDesc: "View blockchain transaction history",
+        resources: "Resources",
+        resourcesDesc: "Developer and integration guides",
+        api: "API Reference",
+        apiDesc: "API documentation and endpoints",
+        support: "Support",
+        supportDesc: "Technical support and FAQs"
+      }
+    }
   },
 
   hero: {
@@ -297,18 +438,192 @@ export const en: Translations = {
       }
     },
     admin: {
-      title: "Admin Dashboard",
-      metrics: {
-        totalUsers: "Total Users",
-        activeShelters: "Active Shelters",
-        totalDonations: "Total Donations",
-        activeParticipants: "Active Participants"
+      userTypes: {
+        donor: "Donors",
+        participant: "Participants",
+        shelterAdmin: "Shelter Administrators",
+        superAdmin: "Super Administrators",
+        guest: "Guests"
       },
-      actions: {
-        manageUsers: "Manage Users",
-        approveShelters: "Approve Shelters",
-        systemSettings: "System Settings",
-        viewReports: "View Reports"
+      stats: {
+        totalShelters: "Total Shelters",
+        activeParticipants: "Active Participants",
+        totalDonations: "Total Donations",
+        successRate: "Success Rate",
+        verifiedShelters: "verified shelters",
+        avgPerShelter: "average per shelter",
+        perParticipant: "per participant",
+        aboveAverage: "Above industry average"
+      },
+      dashboard: {
+        title: "Admin Dashboard",
+        welcome: "Welcome to your dashboard"
+      },
+      shelter: {
+        title: "Shelter Dashboard",
+        subtitle: "Manage your shelter",
+        welcome: "Welcome, {{name}}",
+        donors: {
+          title: "Donors",
+          export: "Export",
+          name: "Name",
+          totalDonated: "Total Donated",
+          lastDonation: "Last Donation",
+          frequency: "Frequency",
+          status: "Status"
+        },
+        participants: {
+          title: "Participants",
+          add: "Add Participant",
+          name: "Name",
+          status: "Status",
+          joinDate: "Join Date",
+          totalReceived: "Total Received",
+          qrCode: "QR Code",
+          loginToken: "Login Token",
+          viewDetails: "View Details",
+          statuses: {
+            active: "Active",
+            inactive: "Inactive",
+            pending: "Pending"
+          }
+        }
+      },
+      participant: {
+        registration: {
+          title: 'Register New Participant',
+          steps: {
+            personal: 'Personal Information',
+            contact: 'Contact',
+            needs: 'Needs Assessment',
+            verification: 'Verification'
+          },
+          form: {
+            firstName: 'First Name',
+            lastName: 'Last Name',
+            dateOfBirth: 'Date of Birth',
+            gender: {
+              label: 'Gender',
+              options: {
+                male: 'Male',
+                female: 'Female',
+                other: 'Other',
+                preferNotToSay: 'Prefer not to say'
+              }
+            },
+            email: 'Email Address',
+            phone: 'Phone Number',
+            emergency: {
+              title: 'Emergency Contact',
+              name: 'Contact Name',
+              phone: 'Contact Phone',
+              relationship: 'Relationship'
+            },
+            housing: {
+              label: 'Housing Situation',
+              options: {
+                emergency: 'Emergency Shelter',
+                transitional: 'Transitional Housing',
+                atRisk: 'At Risk',
+                permanent: 'Permanent Housing',
+                street: 'Street Homeless'
+              }
+            },
+            employment: {
+              label: 'Employment Status',
+              options: {
+                unemployed: 'Unemployed',
+                partTime: 'Part Time',
+                fullTime: 'Full Time',
+                selfEmployed: 'Self Employed',
+                unableToWork: 'Unable to Work',
+                retired: 'Retired'
+              }
+            }
+          }
+        }
+      },
+      superAdmin: {
+        title: "Welcome Admin - System Developer",
+        badges: {
+          systemAccess: "System Access",
+          pendingShelters: "New Shelters Pending",
+          systemHealth: "System Health",
+          servicesActive: "All Services Active"
+        },
+        metrics: {
+          totalUsers: "Total Users",
+          activeShelters: "Active Shelters",
+          totalDonations: "Total Donations",
+          systemHealth: "System Health",
+          networkActivity: "Network Activity"
+        },
+        sections: {
+          quickStats: "Quick Stats",
+          systemHealth: "System Health Monitor",
+          blockchainStats: "Blockchain Statistics",
+          donationAnalytics: "Donation Analytics",
+          networkOverview: "Network Overview",
+          transactionList: "Recent Transactions",
+          shelterList: "Registered Shelters",
+          detailedAnalytics: "Detailed Analytics"
+        }
+      },
+      shelterAdmin: {
+        title: "Shelter Admin Dashboard",
+        badges: {
+          verifiedStatus: "Verified Status",
+          activeParticipants: "Active Participants",
+          donations: "Donations",
+          pendingReviews: "Pending Reviews"
+        },
+        metrics: {
+          activeParticipants: "Active Participants",
+          totalDonations: "Total Donations",
+          successfulDisbursements: "Successful Disbursements"
+        },
+        sections: {
+          analytics: {
+            title: "Donation Analytics",
+            allocation: "Donation Allocation",
+            map: "Donation Map"
+          },
+          lists: {
+            participants: "Participant List",
+            programs: "Programs List",
+            disbursements: "Disbursement Tracker"
+          }
+        },
+        trends: {
+          up: "Increase",
+          down: "Decrease",
+          noChange: "No Change"
+        }
+      },
+      shared: {
+        actions: {
+          signOut: "Sign Out",
+          viewDetails: "View Details",
+          manageUsers: "Manage Users",
+          approveShelters: "Approve Shelters",
+          systemSettings: "System Settings",
+          viewReports: "View Reports",
+          export: "Export Data",
+          refresh: "Refresh Data"
+        },
+        status: {
+          active: "Active",
+          inactive: "Inactive",
+          pending: "Pending",
+          verified: "Verified",
+          unverified: "Unverified"
+        },
+        metrics: {
+          daily: "Daily",
+          weekly: "Weekly",
+          monthly: "Monthly",
+          yearly: "Yearly"
+        }
       }
     },
     shelter: {
@@ -651,5 +966,98 @@ export const en: Translations = {
     },
     instructionsDetail: "Position the QR code within the frame. The scanner will automatically detect and process it.",
     startButton: "Start Scanner"
+  },
+
+  donor: {
+    signup: {
+      title: "Create Donor Account",
+      subtitle: "Join our community of donors making a difference",
+      steps: {
+        basic: "Basic Info",
+        profile: "Profile Details",
+        security: "Security"
+      },
+      fields: {
+        email: "Email",
+        password: "Password",
+        displayName: "Display Name",
+        phone: "Phone Number",
+        preferences: {
+          title: "Donation Preferences",
+          anonymous: "Make donations anonymous by default",
+          notificationFreq: "Notification Frequency",
+          frequencies: {
+            daily: "Daily",
+            weekly: "Weekly",
+            monthly: "Monthly"
+          }
+        },
+        social: {
+          title: "Social Preferences",
+          visibility: {
+            label: "Impact Circle Visibility",
+            public: "Public - Share my impact with everyone",
+            connections: "Connections Only - Share with my network",
+            private: "Private - Keep my impact private"
+          },
+          connections: {
+            allowDonors: "Allow other donors to connect with me",
+            allowShelters: "Allow following shelters and their updates"
+          }
+        }
+      }
+    },
+    dashboard: {
+      title: "Donor Dashboard",
+      metrics: {
+        totalImpact: "Total Impact",
+        peopleHelped: "People Helped",
+        totalDonations: "Total Donations"
+      },
+      sections: {
+        donationHistory: "Donation History",
+        impactDistribution: "Impact Distribution",
+        categories: {
+          foodPrograms: "Food Programs",
+          shelterOps: "Shelter Operations",
+          medicalAid: "Medical Aid",
+          education: "Education"
+        }
+      },
+      badges: {
+        streak: "Day Streak",
+        topDonor: "Top 10% Donor",
+        impactLevel: "Impact Level"
+      },
+      map: {
+        title: "Your Impact Map"
+      }
+    },
+    profile: {
+      donationHistory: "Donation History",
+      totalDonated: "Total Donated",
+      impactScore: "Impact Score",
+      settings: {
+        title: "Profile Settings",
+        notifications: "Notification Settings",
+        privacy: "Privacy Settings",
+        connections: "Social Connections"
+      }
+    }
+  },
+
+  home: {
+    hero: {
+      title: "Transform Donations into Impact",
+      mainText: "Transform your daily donations into meaningful events. We use blockchain smart contracts and AI to directly support homeless individuals with transparency and accountability."
+    },
+    features: {
+      title: "Why Choose SHELTR",
+      summary: "Create meaningful actions using blockchain technology and smart contracts to directly support homeless individuals with transparency and accountability."
+    },
+    cta: {
+      title: "Ready to Make an Impact?",
+      tagline: "Join us in revolutionizing charitable giving through blockchain technology."
+    }
   }
 };

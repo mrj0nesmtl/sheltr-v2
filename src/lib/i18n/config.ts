@@ -17,7 +17,17 @@ if (!i18n.isInitialized) {
       interpolation: {
         escapeValue: false
       },
-      debug: process.env.NODE_ENV === 'development'
+      returnObjects: true,
+      returnEmptyString: false,
+      react: {
+        useSuspense: false,
+        bindI18n: 'languageChanged loaded',
+        bindI18nStore: 'added removed',
+        transEmptyNodeValue: '',
+        transSupportBasicHtmlNodes: true,
+        transKeepBasicHtmlNodesFor: ['br', 'strong', 'i', 'p'],
+      },
+      debug: process.env.NODE_ENV === 'development' && false
     });
 }
 
