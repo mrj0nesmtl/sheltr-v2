@@ -1,5 +1,40 @@
 # Changelog
 
+## [0.6.0] - 2025-01-17 22:15 EST
+### Added
+- Navigation system optimization
+- i18n framework implementation
+- Language switching capabilities
+- Performance monitoring system
+- Bundle size optimization
+- Translation key structure
+
+### Changed
+- Enhanced navigation mounting strategy
+- Improved i18n integration patterns
+- Optimized component lifecycle
+- Updated state management approach
+- Enhanced documentation structure
+- Refined success metrics
+
+### Fixed
+- Navigation mounting inefficiencies
+- i18n console warnings
+- Component re-render issues
+- State management patterns
+- Bundle loading performance
+- Translation key structure
+
+### Technical Debt Addressed
+- Navigation optimization completed
+- i18n implementation refined
+- Component mounting improved
+- Performance metrics added
+- Documentation updated
+- Success patterns documented
+
+[0.6.0]: https://github.com/mrj0nesmtl/sheltr-v2
+
 ## [0.5.10] - 2025-01-15 15:49 EST
 ### Added
 - Session management monitoring

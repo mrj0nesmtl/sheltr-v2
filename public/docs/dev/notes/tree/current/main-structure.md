@@ -1,5 +1,5 @@
 # 🌳 SHELTR Main Structure
-*Generated: 2025-01-15 21:48:36*
+*Generated: 2025-01-17 22:51:26*
 \n## Directory Structure
 .
 ├── public
@@ -22,6 +22,7 @@
 │   │   ├── icon-512.png
 │   │   ├── icon-blk.svg
 │   │   ├── icon.svg
+│   │   ├── logo-sheltr-white.png
 │   │   ├── logo.svg
 │   │   └── og-image.jpg
 │   ├── analyze.html
@@ -62,7 +63,6 @@
 │   │   ├── DonationForm
 │   │   ├── ErrorBoundary
 │   │   ├── Footer
-│   │   ├── Header
 │   │   ├── Hero
 │   │   ├── HowItWorks
 │   │   ├── Layout
@@ -115,6 +115,8 @@
 │   │   ├── useMarkdownContent.ts
 │   │   ├── useNavigation.ts
 │   │   └── useWhitepaper.ts
+│   ├── i18n
+│   │   └── config.ts
 │   ├── layouts
 │   │   ├── base
 │   │   ├── components
@@ -207,8 +209,12 @@
 │   ├── exports
 │   │   ├── User and Organization Metadata Check.csv
 │   │   ├── organizations_rows (1).csv
+│   │   ├── organizations_rows (2).csv
 │   │   ├── organizations_rows.csv
-│   │   └── profiles_rows.csv
+│   │   ├── profiles_rows (1).csv
+│   │   ├── profiles_rows (2).csv
+│   │   ├── profiles_rows.csv
+│   │   └── users_rows.csv
 │   ├── migrations
 │   │   ├── 20240304_create_tables.sql
 │   │   ├── 20240304_fix_search_path.sql
@@ -233,4 +239,4 @@
 ├── vercel.json
 └── vite.config.ts
 
-116 directories, 115 files
+116 directories, 121 files

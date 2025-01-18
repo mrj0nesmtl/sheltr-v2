@@ -1,5 +1,5 @@
 # 🌳 SHELTR Source Structure
-*Generated: 2025-01-15 21:48:36*
+*Generated: 2025-01-17 22:51:26*
 \n## Directory Structure
 ./src
 ├── auth
@@ -89,8 +89,6 @@
 │   ├── Footer
 │   │   ├── Footer.tsx
 │   │   └── index.ts
-│   ├── Header
-│   │   └── Navigation.tsx
 │   ├── Hero
 │   │   └── Hero.tsx
 │   ├── HowItWorks
@@ -278,6 +276,8 @@
 │   ├── useMarkdownContent.ts
 │   ├── useNavigation.ts
 │   └── useWhitepaper.ts
+├── i18n
+│   └── config.ts
 ├── layouts
 │   ├── base
 │   │   ├── Layout.tsx

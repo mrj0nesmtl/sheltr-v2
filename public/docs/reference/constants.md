@@ -1,10 +1,10 @@
 # 🔒 SHELTR Constants Reference
-*Last Updated: January 12, 2025 12:00 EST*
-*Version: 0.5.8*
+*Last Updated: January 17, 2025 22:15 EST*
+*Version: 0.6.0*
 *Status: STABLE* 🟢
 
 ## ⚠️ STATUS UPDATE
-Real-time features and offline capabilities in final implementation phase. Constants updated to support PWA functionality and enhanced analytics.
+Navigation optimization and i18n infrastructure complete. Constants updated to support optimized navigation mounting, language management, and enhanced performance monitoring.
 
 ## API Constants
 
@@ -32,6 +32,16 @@ export const API_ENDPOINTS = {
     METRICS: '/analytics/metrics', // ✅ New
     EVENTS: '/analytics/events',   // ✅ New
     REPORTS: '/analytics/reports'  // ✅ New
+  },
+  NAVIGATION: {
+    STATE: '/nav/state',        // ✅ New
+    METRICS: '/nav/metrics',    // ✅ New
+    OPTIMIZE: '/nav/optimize'   // ✅ New
+  },
+  I18N: {
+    LANGUAGES: '/i18n/langs',   // ✅ New
+    TRANSLATIONS: '/i18n/trans', // ✅ New
+    FALLBACKS: '/i18n/falls'    // ✅ New
   }
 } as const;
 ```
@@ -47,7 +57,17 @@ export const API_CONFIG = {
   CACHE_CONTROL: 'no-store',   // Implemented
   WEBSOCKET_RETRY: 5000,       // Implemented
   OFFLINE_SYNC: 300000,        // New: 5min sync
-  PWA_VERSION: '1.0.0'         // New
+  PWA_VERSION: '1.0.0',         // New
+  NAVIGATION: {
+    MOUNT_TIMEOUT: 5000,      // New
+    STATE_SYNC: 1000,         // New
+    METRICS_INTERVAL: 60000   // New
+  },
+  I18N: {
+    LOAD_TIMEOUT: 3000,       // New
+    CACHE_DURATION: 3600000,  // New
+    FALLBACK_LANG: 'en'      // New
+  }
 } as const;
 ```
 
@@ -193,6 +213,70 @@ export const STATUS = {
 } as const;
 ```
 
+## Navigation Constants (✅ NEW)
+```typescript
+export const NAVIGATION = {
+  MOUNTING: {
+    STRATEGY: 'optimized',
+    TIMEOUT: 5000,
+    RETRY_ATTEMPTS: 3
+  },
+  STATE: {
+    SYNC_INTERVAL: 1000,
+    BATCH_UPDATES: true,
+    PERSIST: true
+  },
+  METRICS: {
+    ENABLED: true,
+    INTERVAL: 60000,
+    THRESHOLD: 100
+  }
+} as const;
+```
+
+## i18n Constants (✅ NEW)
+```typescript
+export const I18N = {
+  LANGUAGES: {
+    DEFAULT: 'en',
+    SUPPORTED: ['en', 'fr'],
+    RTL: ['ar', 'he']
+  },
+  LOADING: {
+    STRATEGY: 'lazy',
+    TIMEOUT: 3000,
+    RETRY: 3
+  },
+  FALLBACKS: {
+    ENABLED: true,
+    CASCADE: true,
+    LOG_MISSING: true
+  }
+} as const;
+```
+
+## Performance Constants (✅ NEW)
+```typescript
+export const PERFORMANCE = {
+  THRESHOLDS: {
+    NAV_MOUNT: 50,        // ms
+    LANG_SWITCH: 100,     // ms
+    ROUTE_CHANGE: 100,    // ms
+    INITIAL_LOAD: 2000    // ms
+  },
+  MONITORING: {
+    ENABLED: true,
+    INTERVAL: 60000,
+    SAMPLE_RATE: 100
+  },
+  OPTIMIZATION: {
+    BATCH_UPDATES: true,
+    LAZY_LOADING: true,
+    PREFETCH: true
+  }
+} as const;
+```
+
 ## Status Overview
 
 ### ✅ Stable Areas
@@ -208,12 +292,27 @@ export const STATUS = {
    - Performance enhanced
    - Security hardened
 
-### 🟡 Areas In Progress
+3. Navigation System
+   - Optimized mounting
+   - State management
+   - Performance monitoring
+
+4. i18n Framework
+   - Language management
+   - Translation system
+   - Fallback handling
+
+### �� Areas In Progress
 1. Real-Time Features
    - WebSocket implementation
    - Event system
    - Connection management
    - Error handling
+
+2. Performance Monitoring
+   - Metrics collection
+   - Real-time tracking
+   - Optimization feedback
 
 ## Recent Changes
 1. Added badge constants
@@ -221,6 +320,12 @@ export const STATUS = {
 3. Added WebSocket config
 4. Enhanced security measures
 5. Optimized performance settings
+6. Added Navigation constants
+7. Added i18n constants
+8. Added Performance constants
+9. Enhanced API endpoints
+10. Updated configuration
+11. Added monitoring thresholds
 
 ## PWA Constants (✅ NEW)
 ```typescript

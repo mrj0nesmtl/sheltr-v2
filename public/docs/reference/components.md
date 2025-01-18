@@ -1,17 +1,36 @@
 # 🧩 SHELTR Component Reference
-*Last Updated: January 12, 2025 12:00 EST*
-*Version: 0.5.8*
+*Last Updated: January 17, 2025 22:15 EST*
+*Version: 0.6.0*
 *Status: STABLE* 🟢
 
 ## Situational Abstract
-Component architecture has been expanded to include comprehensive documentation, blog systems, QR functionality, and enhanced analytics. All components now implement consistent patterns for validation, error handling, and accessibility.
+Component architecture has been enhanced with optimized navigation mounting, i18n integration, and performance monitoring capabilities. All components now implement consistent patterns for internationalization, navigation state management, and accessibility, while maintaining existing validation and error handling standards.
 
 ## 🔄 STATUS UPDATE
-System-wide component implementation completed with full role integration. New additions include Blog, Documentation, QR Scanner, and Token systems with enhanced analytics capabilities.
+System-wide component optimization completed with enhanced navigation and i18n integration. Recent improvements include optimized mounting patterns, efficient state management, and comprehensive language support across all components.
 
 ### Core Components Library
 ```typescript
 interface CoreComponents {
+  navigation: {
+    path: 'src/components/Navigation',
+    components: {
+      OptimizedNav: '✅ IMPLEMENTED',
+      NavigationProvider: '✅ IMPLEMENTED',
+      NavState: '✅ IMPLEMENTED',
+      MobileNav: '✅ IMPLEMENTED',
+      DesktopNav: '✅ IMPLEMENTED'
+    }
+  },
+  i18n: {
+    path: 'src/components/i18n',
+    components: {
+      LanguageProvider: '✅ IMPLEMENTED',
+      LanguageSelector: '✅ IMPLEMENTED',
+      TranslatedContent: '✅ IMPLEMENTED',
+      LocaleSwitch: '✅ IMPLEMENTED'
+    }
+  },
   about: {
     path: 'src/components/About',
     components: {
@@ -244,6 +263,29 @@ interface UtilityComponents {
 }
 ```
 
+### Performance Components
+```typescript
+interface PerformanceComponents {
+  monitoring: {
+    path: 'src/components/Performance',
+    components: {
+      MetricsDisplay: '✅ IMPLEMENTED',
+      PerformanceMonitor: '✅ IMPLEMENTED',
+      NavigationMetrics: '✅ IMPLEMENTED',
+      LoadingMetrics: '✅ IMPLEMENTED'
+    }
+  },
+  optimization: {
+    path: 'src/components/Optimization',
+    components: {
+      LazyLoader: '✅ IMPLEMENTED',
+      PerformanceTracker: '✅ IMPLEMENTED',
+      MetricsLogger: '✅ IMPLEMENTED'
+    }
+  }
+}
+```
+
 ## Implementation Guidelines
 
 ### Component Development Standards
@@ -272,6 +314,20 @@ interface UtilityComponents {
    - User feedback
    - Error logging
 
+5. **Internationalization**
+   - Use translation hooks
+   - Implement fallbacks
+   - Support RTL layouts
+   - Handle pluralization
+   - Format numbers/dates
+
+6. **Navigation**
+   - Optimize mounting
+   - Manage state efficiently
+   - Handle transitions
+   - Support deep linking
+   - Track metrics
+
 ### Best Practices
 
 #### Form Components
@@ -295,21 +351,37 @@ interface UtilityComponents {
 - Real-time updates
 - Data visualization
 
-## Next Steps
-1. Complete PWA implementation
-2. Enhance offline capabilities
-3. Implement real-time features
-4. Optimize bundle sizes
-5. Add E2E testing
-6. Enhance documentation
-7. Implement CI/CD improvements
+#### Navigation Components
+- Implement lazy loading
+- Optimize state updates
+- Monitor performance
+- Handle transitions
+- Support accessibility
+
+#### i18n Integration
+- Use translation hooks
+- Implement fallbacks
+- Handle async loading
+- Support RTL
+- Format consistently
 
 ## Performance Metrics
+- Navigation Mount Time: < 50ms
+- Language Switch Time: < 100ms
 - Bundle Size: < 200KB initial load
 - Lighthouse Score: > 90
 - First Paint: < 1.5s
 - TTI: < 3.5s
 - Error Rate: < 0.1%
+
+## Next Steps
+1. Implement navigation animations
+2. Enhance accessibility features
+3. Add comprehensive monitoring
+4. Implement E2E testing
+5. Optimize bundle splitting
+6. Enhance documentation
+7. Implement CI/CD improvements
 
 ---
 *For detailed implementation guides, see [implementation-guides/](../implementation-guides/)*

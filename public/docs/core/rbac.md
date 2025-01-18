@@ -1,10 +1,10 @@
 # 🔐 Role-Based Access Control
-*Last Updated: January 15, 2025 15:49 EST*
-*Version: 0.5.9*
+*Last Updated: January 17, 2025 22:15 EST*
+*Version: 0.6.0*
 *Status: STABLE* 🟢
 
 ## Situational Abstract
-Following successful implementation of enhanced registration flows and organization verification processes, the RBAC system has been expanded to include automated registration number generation, improved shelter admin onboarding, and refined role-based navigation. The system maintains strict security policies while supporting new user verification processes and organization setup workflows.
+Following optimization of the navigation system and i18n infrastructure, the RBAC system has been enhanced to support multi-language role-based content, optimized navigation mounting, and refined access controls. The system maintains strict security policies while supporting internationalized content delivery and role-specific navigation patterns.
 
 ## Role Definitions
 ```typescript
@@ -21,24 +21,28 @@ interface RoleCapabilities {
     users: boolean;       // User management access
     analytics: boolean;   // Analytics access
     documents: boolean;   // Document management
+    i18n: boolean;       // Translation management
   };
   shelterAdmin: {
     shelter: boolean;     // Shelter management
     participants: boolean;// Participant management
     documents: boolean;   // Document upload/management
     analytics: boolean;   // Shelter analytics
+    localization: boolean;// Content localization
   };
   donor: {
     donations: boolean;   // Donation capabilities
     profile: boolean;     // Profile management
     history: boolean;     // Transaction history
     impact: boolean;      // Impact metrics
+    language: boolean;    // Language preferences
   };
   participant: {
     services: boolean;    // Service access
     profile: boolean;     // Profile management
     resources: boolean;   // Resource access
     progress: boolean;    // Progress tracking
+    language: boolean;    // Language preferences
   };
 }
 ```
@@ -54,31 +58,7 @@ interface RoleCapabilities {
 | Upload Documents     | ❌     | ❌    | ✅           | ✅         |
 | Manage Documents     | ❌     | ❌    | ✅           | ✅         |
 | System Configuration | ❌     | ❌    | ❌           | ✅         |
-
-## Organization Status Controls
-```typescript
-interface OrganizationStatus {
-  pending: {
-    allowedActions: ['complete_profile', 'upload_documents'],
-    restrictions: ['manage_participants', 'access_funds']
-  },
-  active: {
-    allowedActions: ['all'],
-    restrictions: []
-  },
-  suspended: {
-    allowedActions: ['view_profile'],
-    restrictions: ['all']
-  }
-}
-
-interface RegistrationControl {
-  format: 'SH-YYYYMMDD-XXX',
-  validation: boolean,
-  uniqueness: boolean,
-  required: true
-}
-```
+| Manage Translations  | ❌     | ❌    | 🔵           | ✅         |
 
 ## Feature Access Matrix
 | Feature              | Participant | Donor | Shelter Admin | Super Admin |
@@ -92,158 +72,60 @@ interface RegistrationControl {
 | Manage Users        | ❌         | ❌    | 🔵           | ✅         |
 | Document Upload     | ❌         | ❌    | ✅           | ✅         |
 | Form Management     | ❌         | ❌    | ✅           | ✅         |
+| Language Management | ❌         | ❌    | 🔵           | ✅         |
 
 *🔵 = Limited Access*
 
-## Document Access Controls
+## Navigation Access Controls
 ```typescript
-interface DocumentPermissions {
-  upload: {
-    shelterAdmin: {
-      allowed: true,
-      types: ['pdf', 'jpg', 'png'],
-      maxSize: '5MB',
-      validation: true
-    },
-    superAdmin: {
-      allowed: true,
-      types: ['pdf', 'jpg', 'png', 'doc'],
-      maxSize: '10MB',
-      validation: true
-    },
-    donor: {
-      allowed: false
-    },
-    participant: {
-      allowed: false
-    }
+interface NavigationPermissions {
+  public: {
+    routes: ['/', '/about', '/contact'],
+    features: ['languageSwitch', 'basicContent']
   },
-  management: {
-    view: ['super_admin', 'shelter_admin'],
-    edit: ['super_admin'],
-    delete: ['super_admin'],
-    download: ['super_admin', 'shelter_admin']
-  }
-}
-```
-
-## Form Access Controls
-```typescript
-interface FormPermissions {
-  registration: {
+  authenticated: {
     donor: {
-      create: true,
-      edit: true,
-      fields: ['email', 'password', 'profile']
-    },
-    shelter: {
-      create: true,
-      edit: true,
-      fields: ['organization', 'documents', 'verification']
-    }
-  },
-  management: {
-    superAdmin: {
-      access: 'FULL',
-      capabilities: ['create', 'edit', 'delete', 'manage']
+      routes: ['/dashboard', '/profile', '/donations'],
+      features: ['donationHistory', 'impactMetrics']
     },
     shelterAdmin: {
-      access: 'LIMITED',
-      capabilities: ['create', 'edit']
+      routes: ['/admin', '/shelter', '/participants'],
+      features: ['shelterManagement', 'documentUpload']
+    },
+    superAdmin: {
+      routes: ['*'],
+      features: ['all']
     }
-  }
-}
-```
-
-## Implementation Example
-```typescript
-interface AccessControl {
-  view: boolean;
-  edit: boolean;
-  delete: boolean;
-  manage: boolean;
-}
-
-interface RoleAuthControl extends AccessControl {
-  createAccount: boolean;
-  accessDashboard: boolean;
-  manageProfile: boolean;
-  uploadDocuments: boolean;
-  viewAnalytics: boolean;
-  manageForms: boolean;
-}
-
-const rolePermissions: Record<UserRole, RoleAuthControl> = {
-  super_admin: {
-    createAccount: true,
-    accessDashboard: true,
-    manageProfile: true,
-    uploadDocuments: true,
-    viewAnalytics: true,
-    manageForms: true,
-    view: true,
-    edit: true,
-    delete: true,
-    manage: true
-  },
-  shelter_admin: {
-    createAccount: true,
-    accessDashboard: true,
-    manageProfile: true,
-    uploadDocuments: true,
-    viewAnalytics: true,
-    manageForms: true,
-    view: true,
-    edit: true,
-    delete: false,
-    manage: true
-  },
-  donor: {
-    createAccount: true,
-    accessDashboard: true,
-    manageProfile: true,
-    uploadDocuments: false,
-    viewAnalytics: true,
-    manageForms: false,
-    view: true,
-    edit: false,
-    delete: false,
-    manage: false
-  },
-  participant: {
-    createAccount: true,
-    accessDashboard: true,
-    manageProfile: true,
-    uploadDocuments: false,
-    viewAnalytics: true,
-    manageForms: false,
-    view: true,
-    edit: false,
-    delete: false,
-    manage: false
   }
 }
 ```
 
 ## Recent Updates
-- [✅] Added organization status controls
-- [✅] Enhanced registration number generation
-- [✅] Updated role-based navigation
-- [✅] Added organization verification flow
-- [✅] Enhanced shelter admin onboarding
-- [✅] Updated implementation patterns
-- [✅] Added security controls
-- [✅] Enhanced audit logging
+- [✅] Enhanced i18n role-based content delivery
+- [✅] Optimized navigation mounting and access control
+- [✅] Added language management permissions
+- [✅] Updated role-based navigation patterns
+- [✅] Enhanced security controls
+- [✅] Improved audit logging
 
 ## Next Steps
-1. Implement real-time permission updates
-2. Add role-based notification system
+1. Implement role-based content caching
+2. Add granular translation permissions
 3. Enhance audit logging
 4. Implement permission caching
 5. Add role transition workflows
 6. Enhance security monitoring
-7. Add document versioning
-8. Enhance form controls
 
 ---
 *For implementation details, see [implementation.md](./implementation.md)*
+```
+
+Key updates:
+1. Added i18n capabilities to role definitions
+2. Updated feature matrix with language management
+3. Added navigation access controls
+4. Enhanced security considerations
+5. Updated version and timestamp
+6. Added new implementation priorities
+
+Would you like me to explain any of these changes in more detail?

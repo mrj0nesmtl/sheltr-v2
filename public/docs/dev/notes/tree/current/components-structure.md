@@ -1,5 +1,5 @@
 # 🌳 SHELTR Components Structure
-*Generated: 2025-01-15 21:48:37*
+*Generated: 2025-01-17 22:51:26*
 \n## Directory Structure
 ./src/components
 ├── About
@@ -73,8 +73,6 @@
 ├── Footer
 │   ├── Footer.tsx
 │   └── index.ts
-├── Header
-│   └── Navigation.tsx
 ├── Hero
 │   └── Hero.tsx
 ├── HowItWorks
@@ -177,4 +175,4 @@
 ├── ScrollToTop.tsx
 └── ThemeToggle.tsx
 
-45 directories, 130 files
+44 directories, 129 files

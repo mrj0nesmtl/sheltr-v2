@@ -1,20 +1,77 @@
 # 📝 SHELTR Type Definitions
-*Last Updated: January 12, 2025 12:00 EST*
-*Version: 0.5.8*
+*Last Updated: January 17, 2025 22:15 EST*
+*Version: 0.6.0*
 *Status: STABLE* 🟢
 
 ## Situational Abstract
-Following successful implementation of PWA features, real-time analytics, and enhanced dashboard visualizations, type definitions have been updated to support offline capabilities and progressive web functionality. Recent updates include WebSocket integration, PWA types, and enhanced analytics interfaces.
+Following successful optimization of navigation system and i18n infrastructure, type definitions have been updated to support optimized navigation mounting, language management, and enhanced performance monitoring. Recent updates include navigation state types, i18n interfaces, and performance tracking types.
 
 ## Recent Updates
 | Type System | Status | Details |
 |-------------|---------|---------|
-| Badge System | ✅ Complete | Role-based implementation |
-| Auth Types | ✅ Complete | Enhanced session management |
-| Dashboard Types | ✅ Complete | Role-specific implementations |
-| Real-Time Types | ✅ Complete | WebSocket integration |
-| PWA Types | ✅ Complete | Offline capabilities |
-| Analytics Types | ✅ Complete | Enhanced metrics |
+| Navigation Types | ✅ Complete | Optimized mounting patterns |
+| i18n Types | ✅ Complete | Language management system |
+| Performance Types | ✅ Complete | Metrics and monitoring |
+| Component Types | ✅ Complete | Enhanced mounting patterns |
+| State Types | ✅ Complete | Navigation management |
+| Monitoring Types | ✅ Complete | Performance tracking |
+
+### Navigation System (✅ NEW)
+```typescript
+interface NavigationSystem {
+  state: NavigationState;
+  metrics: NavigationMetrics;
+  mount: MountingStrategy;
+}
+
+interface NavigationState {
+  current: string;
+  previous: string;
+  history: string[];
+  timestamp: Date;
+}
+
+interface NavigationMetrics {
+  mountTime: number;
+  transitionTime: number;
+  renderCount: number;
+  performance: PerformanceMetrics;
+}
+
+interface MountingStrategy {
+  type: 'optimized' | 'lazy' | 'eager';
+  timeout: number;
+  retryAttempts: number;
+}
+```
+
+### i18n System (✅ NEW)
+```typescript
+interface I18nSystem {
+  language: LanguageConfig;
+  translations: TranslationMap;
+  fallbacks: FallbackConfig;
+}
+
+interface LanguageConfig {
+  current: string;
+  supported: string[];
+  fallback: string;
+  direction: 'ltr' | 'rtl';
+}
+
+interface TranslationMap {
+  [key: string]: {
+    [language: string]: string;
+  };
+}
+
+interface FallbackConfig {
+  enabled: boolean;
+  cascade: boolean;
+  logMissing: boolean;
+}
+```
 
 ### Badge System (✅ STABLE)
 ```typescript
@@ -425,6 +482,10 @@ type EventType =
 2. Analytics interfaces completed
 3. WebSocket integration finalized
 4. Notification system types added
+5. Navigation type system implemented
+6. i18n interfaces completed
+7. Performance tracking finalized
+8. Mount optimization types added
 
 ### In Progress 🟡
 1. Advanced metrics types
@@ -439,7 +500,7 @@ type EventType =
 4. Social features expansion
 
 ---
-*Next Update Focus: Advanced Analytics Types*
+*Next Update Focus: Advanced Performance Types*
 *For implementation details, see [implementation.md](../implementation/implementation.md)*
 
 ### Profile Management Types
@@ -453,5 +514,60 @@ interface ProfileUpdateResponse {
 type FeedbackMessage = {
   type: 'success' | 'error';
   content: string;
+}
+```
+
+### Performance Types (✅ NEW)
+```typescript
+interface PerformanceMetrics {
+  navigation: {
+    mountTime: number;
+    transitionTime: number;
+    renderCount: number;
+  };
+  i18n: {
+    loadTime: number;
+    switchTime: number;
+    cacheHitRate: number;
+  };
+  general: {
+    fcp: number;
+    lcp: number;
+    cls: number;
+  };
+}
+
+interface MonitoringConfig {
+  enabled: boolean;
+  sampleRate: number;
+  thresholds: PerformanceThresholds;
+}
+
+interface PerformanceThresholds {
+  navigation: {
+    mount: number;
+    transition: number;
+  };
+  i18n: {
+    load: number;
+    switch: number;
+  };
+}
+```
+
+### Component Mount Types (✅ NEW)
+```typescript
+interface MountingMetrics {
+  component: string;
+  mountTime: number;
+  renderCount: number;
+  unmountTime: number;
+  performance: ComponentPerformance;
+}
+
+interface ComponentPerformance {
+  firstRender: number;
+  rerender: number;
+  memoryUsage: number;
 }
 ```
