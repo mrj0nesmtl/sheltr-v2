@@ -1,19 +1,19 @@
 # 📚 SHELTR Development Best Practices
-*Last Updated: January 17, 2025 22:15 EST*
-*Version: 0.6.0*
+*Last Updated: January 19, 2025 23:45 EST*
+*Version: 0.6.1*
 *Status: STABLE* 🟢
 
 ## Situational Abstract
-Following optimization of the navigation system and internationalization infrastructure, these best practices have been updated to reflect our standardized approach to navigation mounting, i18n integration, and state management patterns. Key focus areas include navigation optimization, i18n implementation, component mounting efficiency, and performance monitoring.
+Following optimization of the role-based navigation system and component consolidation, these best practices have been updated to reflect our standardized approach to role-based routing, path validation, and component organization. Key focus areas include navigation security, path standardization, component mounting efficiency, and performance monitoring.
 
 ## Recent Updates
 | Category | Status | Details |
 |----------|---------|---------|
-| Navigation | ✅ Complete | Mount optimization, state management |
-| i18n System | ✅ Complete | Multi-language support, key structure |
-| Auth State | 🟢 Stable | Session optimization complete |
-| Component Lifecycle | 🟢 Stable | Mount optimization complete |
-| Performance | 🟢 Stable | Monitoring implemented |
+| Navigation | ✅ Complete | Role-based routing, path validation |
+| Component Structure | 🟡 In Progress | Super admin consolidation |
+| Auth State | 🟢 Stable | Role validation complete |
+| Path Management | ✅ Complete | Standardized routing patterns |
+| Performance | 🟢 Stable | Navigation optimization |
 
 ### Navigation Management
 ```typescript
@@ -29,6 +29,11 @@ interface NavigationGuidelines {
       updates: 'BATCHED',
       subscriptions: 'OPTIMIZED'
     },
+    roleBasedRouting: {
+      validation: 'REQUIRED',
+      pathStructure: 'STANDARDIZED',
+      stateHandling: 'SECURE'
+    },
     performance: {
       mounting: 'OPTIMIZED',
       rendering: 'EFFICIENT',
@@ -38,32 +43,14 @@ interface NavigationGuidelines {
 }
 ```
 
-### i18n Implementation
-```typescript
-interface I18nGuidelines {
-  implementation: {
-    keyStructure: 'HIERARCHICAL',
-    loading: 'LAZY',
-    fallbacks: 'REQUIRED'
-  },
-  bestPractices: {
-    keys: {
-      naming: 'SEMANTIC',
-      nesting: 'SHALLOW',
-      reuse: 'ENCOURAGED'
-    },
-    performance: {
-      bundling: 'OPTIMIZED',
-      caching: 'IMPLEMENTED',
-      loading: 'EFFICIENT'
-    }
-  }
-}
-```
-
-### Component Lifecycle
+### Component Organization
 ```typescript
 interface ComponentGuidelines {
+  structure: {
+    features: 'BY_ROLE',
+    pages: 'BY_FUNCTION',
+    shared: 'CENTRALIZED'
+  },
   mounting: {
     initialization: 'SINGLE_INSTANCE',
     cleanup: 'REQUIRED',
@@ -75,10 +62,31 @@ interface ComponentGuidelines {
     memoization: 'Use when needed',
     rendering: 'Prevent cascading updates'
   },
-  i18n: {
-    integration: 'USE_HOOKS',
-    fallbacks: 'IMPLEMENT',
-    updates: 'EFFICIENT'
+  roleAccess: {
+    validation: 'COMPONENT_LEVEL',
+    guards: 'IMPLEMENT',
+    errorHandling: 'GRACEFUL'
+  }
+}
+```
+
+### Path Management
+```typescript
+interface PathGuidelines {
+  structure: {
+    format: 'ROLE_BASED',
+    validation: 'REQUIRED',
+    organization: 'HIERARCHICAL'
+  },
+  security: {
+    roleChecks: 'MANDATORY',
+    validation: 'STRICT',
+    errorHandling: 'COMPREHENSIVE'
+  },
+  performance: {
+    resolution: 'OPTIMIZED',
+    caching: 'IMPLEMENTED',
+    monitoring: 'ACTIVE'
   }
 }
 ```
@@ -96,10 +104,10 @@ interface FormGuidelines {
     validation: true,
     generation: 'AUTO'
   },
-  i18n: {
-    messages: 'TRANSLATED',
-    validation: 'LOCALIZED',
-    errors: 'CONTEXTUAL'
+  security: {
+    roleValidation: 'REQUIRED',
+    pathChecks: 'IMPLEMENTED',
+    accessControl: 'STRICT'
   }
 }
 ```
@@ -113,19 +121,20 @@ interface FormGuidelines {
 - Handle offline scenarios
 - Test responsive breakpoints
 - Optimize component mounting
-- Manage navigation state efficiently
-- Implement i18n best practices
-- Monitor performance metrics
-- Use proper translation hooks
-- Implement language fallbacks
-- Optimize bundle splitting
+- Validate role-based access
+- Implement path validation
+- Organize components by role
+- Monitor navigation performance
+- Handle navigation errors
+- Maintain security standards
 
 ## Performance Guidelines
+- Role validation time < 10ms
+- Path resolution time < 20ms
 - Navigation mount time < 50ms
-- Language switch time < 100ms
 - Route transition < 100ms
+- Component load time < 100ms
 - Initial load time < 2s
-- Translation load time < 200ms
 - Bundle size < 500KB initial
 
 ---

@@ -1,5 +1,5 @@
 # 🌳 SHELTR Main Structure
-*Generated: 2025-01-17 22:51:26*
+*Generated: 2025-01-20 00:39:46*
 \n## Directory Structure
 .
 ├── public
@@ -13,7 +13,8 @@
 │   │   ├── guides
 │   │   ├── project
 │   │   ├── reference
-│   │   └── technical
+│   │   ├── technical
+│   │   └── wiki
 │   ├── images
 │   │   ├── backgrounds
 │   │   ├── apple-touch-icon.png
@@ -149,10 +150,13 @@
 │   │   ├── schema.sql
 │   │   ├── theme.ts
 │   │   └── utils.ts
+│   ├── mocks
+│   │   └── api
 │   ├── pages
 │   │   ├── About
 │   │   ├── Admin
 │   │   ├── Donor
+│   │   ├── Impact
 │   │   ├── ShelterAdmin
 │   │   ├── SuperAdmin
 │   │   ├── Wiki
@@ -160,7 +164,6 @@
 │   │   ├── shelter
 │   │   ├── HomePage.tsx
 │   │   ├── HowItWorks.tsx
-│   │   ├── Impact.tsx
 │   │   ├── LoginPage.tsx
 │   │   ├── NotFoundPage.tsx
 │   │   ├── RegistrationConfirmation.tsx
@@ -207,14 +210,13 @@
 │   └── vite-env.d.ts
 ├── supabase
 │   ├── exports
-│   │   ├── User and Organization Metadata Check.csv
+│   │   ├── donor_profiles_rows.csv
 │   │   ├── organizations_rows (1).csv
-│   │   ├── organizations_rows (2).csv
-│   │   ├── organizations_rows.csv
-│   │   ├── profiles_rows (1).csv
-│   │   ├── profiles_rows (2).csv
-│   │   ├── profiles_rows.csv
-│   │   └── users_rows.csv
+│   │   ├── participants_rows.csv
+│   │   ├── profiles_row_joelyaffeadmin.csv
+│   │   ├── profiles_rows jan 18.csv
+│   │   ├── supabase_logs (1).csv
+│   │   └── supabase_logs.csv
 │   ├── migrations
 │   │   ├── 20240304_create_tables.sql
 │   │   ├── 20240304_fix_search_path.sql
@@ -239,4 +241,4 @@
 ├── vercel.json
 └── vite.config.ts
 
-116 directories, 121 files
+120 directories, 119 files

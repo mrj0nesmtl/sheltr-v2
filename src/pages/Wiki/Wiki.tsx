@@ -1,204 +1,232 @@
-import { useEffect, useState } from 'react';
-import { loadMarkdown, loadProjectDocs, MarkdownData, parseFrontMatter } from '@/utils/markdown';
-import { Card } from '@/components/ui/Card';
-import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
-import remarkParse from 'remark-parse';
-import { unified } from 'unified';
-import remarkFrontmatter from 'remark-frontmatter';
-import remarkHtml from 'remark-html';
+import { useState } from 'react';
+import { Shield, Book, Activity, Clock, Github, FileText, GitBranch } from 'lucide-react';
+import { WikiHeader } from './components/WikiHeader';
+import { WikiSidebar } from './components/WikiSidebar';
+import { WikiMobileNav } from './components/WikiMobileNav';
+import { StatusOverview } from './components/StatusOverview';
+import { SprintProgress } from './components/SprintProgress';
 import { PlatformStatusSection } from './components/PlatformStatusSection';
+import { MetricsGrid } from './components/MetricsGrid';
+import { DocumentationGrid } from './components/DocumentationGrid';
+import { useWikiData } from './hooks/useWikiData';
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
+import { ChangelogSection } from './components/ChangelogSection';
+import { cn } from '@/lib/utils';
+import { 
+  LineChart,
+  PieChart,
+  BarChart,
+  AreaChart 
+} from '@/features/shared/analytics/charts';
+import { ChartDataPoint } from '@/features/shared/analytics/types';
 
-interface BuildProgress {
-  component: string;
-  status: string;
-  progress: number;
-}
+const StatusIndicator = ({ status, pulse = false }) => (
+  <span className={cn(
+    "inline-block w-2 h-2 rounded-full",
+    status === 'healthy' && "bg-green-400",
+    status === 'warning' && "bg-yellow-400",
+    status === 'error' && "bg-red-400",
+    pulse && "animate-pulse"
+  )} />
+);
 
-const BuildProgressTable = ({ data }: { data: BuildProgress[] }) => (
-  <div className="overflow-x-auto">
-    <table className="min-w-full divide-y divide-gray-700">
-      <thead>
-        <tr>
-          <th className="px-4 py-3 bg-gray-800 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
-            Component
-          </th>
-          <th className="px-4 py-3 bg-gray-800 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
-            Status
-          </th>
-          <th className="px-4 py-3 bg-gray-800 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
-            Progress
-          </th>
-        </tr>
-      </thead>
-      <tbody className="divide-y divide-gray-700">
-        {data.map((item, index) => (
-          <tr key={index} className="bg-gray-900">
-            <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-300">
-              {item.component}
-            </td>
-            <td className="px-4 py-3 whitespace-nowrap text-sm">
-              <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                item.status.includes('STABLE') ? 'bg-green-100 text-green-800' :
-                item.status.includes('IN PROGRESS') ? 'bg-yellow-100 text-yellow-800' :
-                'bg-blue-100 text-blue-800'
-              }`}>
-                {item.status}
-              </span>
-            </td>
-            <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-300">
-              <div className="w-full bg-gray-700 rounded-full h-2.5">
-                <div 
-                  className={`h-2.5 rounded-full ${
-                    item.progress >= 90 ? 'bg-green-500' :
-                    item.progress >= 70 ? 'bg-yellow-500' :
-                    'bg-blue-500'
-                  }`}
-                  style={{ width: `${item.progress}%` }}
-                ></div>
-              </div>
-              <span className="ml-2">{item.progress}%</span>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+const SearchBar = () => (
+  <div className="relative">
+    <input 
+      type="search"
+      placeholder="Search documentation..."
+      className="w-full bg-gray-700/50 rounded-lg px-4 py-2"
+    />
+    <kbd className="absolute right-3 top-2.5 text-xs text-gray-400">⌘K</kbd>
+  </div>
+);
+
+const MetricsVisualizer = ({ data }) => (
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-6">
+      <h3 className="text-lg font-semibold text-white mb-4">Network Activity</h3>
+      <LineChart 
+        data={data.network}
+        height={250}
+        showGrid={true}
+        curved={true}
+      />
+    </div>
+    <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-6">
+      <h3 className="text-lg font-semibold text-white mb-4">Resource Allocation</h3>
+      <PieChart 
+        data={data.allocation}
+        height={250}
+      />
+    </div>
   </div>
 );
 
 const Wiki = () => {
-  const [docs, setDocs] = useState<{
-    readme: MarkdownData & { buildProgress?: BuildProgress[] };
-    roadmap: MarkdownData;
-    status: MarkdownData;
-    checkpoint: MarkdownData;
-  }>({
-    readme: { content: '', data: {}, buildProgress: [] },
-    roadmap: { content: '', data: {} },
-    status: { content: '', data: {} },
-    checkpoint: { content: '', data: {} }
-  });
+  const { data, isLoading, error } = useWikiData();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const [loading, setLoading] = useState(true);
-
-  // Function to convert markdown to HTML using the existing parser
-  const markdownToHtml = async (markdown: string) => {
-    const result = await unified()
-      .use(remarkParse)
-      .use(remarkFrontmatter, ['yaml'])
-      .use(remarkHtml)
-      .process(markdown);
-    
-    return result.toString();
+  const currentVersion = {
+    number: "0.6.2",
+    date: "2025-01-19",
+    status: "stable",
+    changelog: {
+      added: [
+        "Role-based navigation system",
+        "Path validation framework",
+        "Navigation security measures",
+        "Component organization by role",
+        "Performance monitoring tools"
+      ],
+      changed: [
+        "Enhanced navigation architecture",
+        "Improved role validation patterns",
+        "Updated path structure",
+        "Optimized component mounting"
+      ]
+    }
   };
 
-  useEffect(() => {
-    const loadDocs = async () => {
-      try {
-        const [readme, roadmap, status, checkpoint] = await Promise.all([
-          loadMarkdown('readme'),
-          loadProjectDocs('roadmap'),
-          loadProjectDocs('statusReport'),
-          loadProjectDocs('checkpoint')
-        ]);
+  const versionHistory = [
+    {
+      number: "0.6.1",
+      date: "2025-01-18",
+      status: "stable" as const,
+      changelog: {
+        added: ["Navigation state management", "Security monitoring"],
+        changed: ["Enhanced documentation", "Refined security measures"],
+        fixed: ["Role validation issues", "Path resolution errors"]
+      },
+      notes: "Major security and navigation improvements"
+    },
+    {
+      number: "0.6.0",
+      date: "2025-01-17",
+      status: "stable" as const,
+      changelog: {
+        added: ["i18n framework", "Performance monitoring"],
+        changed: ["Navigation mounting", "State management"],
+        fixed: ["Component re-render issues", "Bundle loading"]
+      },
+      notes: "Internationalization and performance update"
+    },
+    // ... add more version history
+  ];
 
-        // Convert markdown content to HTML
-        const readmeHtml = await markdownToHtml(readme.content);
-        const roadmapHtml = await markdownToHtml(roadmap.content);
-        const statusHtml = await markdownToHtml(status.content);
-        const checkpointHtml = await markdownToHtml(checkpoint.content);
+  const sections = [
+    { id: 'status', label: 'Platform Status', icon: Shield },
+    { id: 'progress', label: 'Sprint Progress', icon: Activity },
+    { id: 'metrics', label: 'Metrics', icon: Clock },
+    { id: 'docs', label: 'Documentation', icon: FileText },
+    { id: 'changelog', label: 'Changelog', icon: GitBranch }
+  ];
 
-        setDocs({
-          readme: { ...readme, content: readmeHtml },
-          roadmap: { ...roadmap, content: roadmapHtml },
-          status: { ...status, content: statusHtml },
-          checkpoint: { ...checkpoint, content: checkpointHtml }
-        });
-      } catch (error) {
-        console.error('Error loading documentation:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const documentationLinks = {
+    core: [
+      { title: 'API Documentation', path: '/public/docs/core/api.md', icon: 'api' },
+      { title: 'System Architecture', path: '/public/docs/core/architecture.md', icon: 'architecture' },
+      { title: 'Security Framework', path: '/public/docs/core/security.md', icon: 'security' },
+      { title: 'Technical Specs', path: '/public/docs/core/technical.md', icon: 'technical' }
+    ],
+    guides: [
+      { title: 'Best Practices', path: '/public/docs/guides/best-practices.md', icon: 'practices' },
+      { title: 'Implementation Guide', path: '/public/docs/guides/buildout_implementation.md', icon: 'implementation' },
+      { title: 'Deployment Guide', path: '/public/docs/guides/deployment.md', icon: 'deployment' }
+    ],
+    wiki: [
+      { title: 'Wiki Overview', path: '/public/docs/wiki/overview.md', icon: 'overview' },
+      { title: 'Real-time Updates', path: '/public/docs/wiki/real-time.md', icon: 'realtime' },
+      { title: 'Component Architecture', path: '/public/docs/wiki/components.md', icon: 'components' }
+    ]
+  };
 
-    loadDocs();
-  }, []);
+  if (isLoading) return <LoadingSpinner size="lg" />;
 
-  if (loading) {
-    return <LoadingSpinner />;
-  }
+  if (error || !data) return (
+    <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+      <div className="text-red-400">Error loading Wiki data: {error?.message || 'No data available'}</div>
+    </div>
+  );
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-      <div className="container mx-auto px-4 py-6 sm:py-12 max-w-7xl">
-        <h1 className="text-3xl sm:text-4xl font-bold text-center mb-6 sm:mb-12 text-gray-800 dark:text-white">
-          Build in Public
-        </h1>
+    <div className="min-h-screen bg-gray-900">
+      {/* Mobile Navigation */}
+      <WikiMobileNav 
+        isOpen={sidebarOpen} 
+        onToggle={() => setSidebarOpen(!sidebarOpen)}
+        sections={sections}
+      />
 
-        {/* Platform Status Section */}
-        <div className="mb-8">
-          <PlatformStatusSection />
-        </div>
+      {/* Main Layout */}
+      <div className="flex">
+        {/* Sidebar */}
+        <WikiSidebar 
+          isOpen={sidebarOpen}
+          sections={sections}
+        />
 
-        {/* Switch to single column layout */}
-        <div className="flex flex-col gap-6">
-          {/* Platform Overview Card */}
-          <Card className="w-full p-4 sm:p-6">
-            <h2 className="text-xl sm:text-2xl font-semibold mb-4 text-gray-800 dark:text-white">
-              Platform Overview
-            </h2>
-            <div className="prose prose-sm md:prose-base dark:prose-invert max-w-none">
-              {/* Overview Section */}
-              <div dangerouslySetInnerHTML={{ 
-                __html: docs.readme.content.split('## 🎯 Recent Achievements')[0] 
-              }} />
-              
-              {/* Build Progress Table */}
-              <div className="my-4 sm:my-8">
-                <h3 className="text-lg sm:text-xl font-semibold mb-4 text-gray-800 dark:text-white">
-                  Build Progress (Late Alpha)
-                </h3>
-                <div className="overflow-x-auto">
-                  <BuildProgressTable data={docs.readme.buildProgress || []} />
-                </div>
+        {/* Main Content */}
+        <main className="flex-1 p-6 lg:p-8 ml-0 md:ml-64">
+          {/* Header */}
+          <WikiHeader 
+            title="SHELTR Documentation"
+            version={currentVersion.number}
+            lastUpdated={data.lastUpdated}
+            status={currentVersion.status}
+          />
+
+          {/* Content Grid */}
+          <div className="space-y-8 mt-8">
+            {/* Status Overview */}
+            <section id="status" className="scroll-mt-16">
+              <PlatformStatusSection 
+                systemStatus={data.systemStatus}
+                metrics={data.metrics}
+              />
+            </section>
+
+            {/* Sprint Progress */}
+            <section id="progress" className="scroll-mt-16">
+              <SprintProgress 
+                currentSprint={data.currentSprint}
+                tasks={data.sprintTasks}
+              />
+            </section>
+
+            {/* Metrics Grid */}
+            <section id="metrics" className="scroll-mt-16">
+              <MetricsGrid metrics={data.metrics} />
+            </section>
+
+            {/* Documentation Grid */}
+            <section id="docs" className="scroll-mt-16">
+              <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-6">
+                <h2 className="text-xl font-bold text-white mb-6 flex items-center">
+                  <FileText className="w-6 h-6 mr-2" />
+                  Documentation
+                </h2>
+                <DocumentationGrid 
+                  core={documentationLinks.core}
+                  guides={documentationLinks.guides}
+                  wiki={documentationLinks.wiki}
+                />
               </div>
-              
-              {/* Rest of the Content */}
-              <div dangerouslySetInnerHTML={{ 
-                __html: docs.readme.content.split('## 🎯 Recent Achievements')[1] 
-              }} />
-            </div>
-          </Card>
+            </section>
 
-          {/* Development Roadmap Card */}
-          <Card className="w-full p-4 sm:p-6">
-            <h2 className="text-xl sm:text-2xl font-semibold mb-4 text-gray-800 dark:text-white">
-              Development Roadmap
-            </h2>
-            <div className="prose prose-sm md:prose-base dark:prose-invert max-w-none">
-              <div dangerouslySetInnerHTML={{ __html: docs.roadmap.content }} />
-            </div>
-          </Card>
+            {/* Changelog Section */}
+            <section id="changelog" className="scroll-mt-16">
+              <ChangelogSection 
+                currentVersion={currentVersion}
+                versionHistory={versionHistory}
+              />
+            </section>
 
-          {/* Status Report Card */}
-          <Card className="w-full p-4 sm:p-6">
-            <h2 className="text-xl sm:text-2xl font-semibold mb-4 text-gray-800 dark:text-white">
-              Status Report
-            </h2>
-            <div className="prose prose-sm md:prose-base dark:prose-invert max-w-none">
-              <div dangerouslySetInnerHTML={{ __html: docs.status.content }} />
-            </div>
-          </Card>
-
-          {/* Checkpoint Card */}
-          <Card className="w-full p-4 sm:p-6">
-            <h2 className="text-xl sm:text-2xl font-semibold mb-4 text-gray-800 dark:text-white">
-              Development Checkpoint
-            </h2>
-            <div className="prose prose-sm md:prose-base dark:prose-invert max-w-none">
-              <div dangerouslySetInnerHTML={{ __html: docs.checkpoint.content }} />
-            </div>
-          </Card>
-        </div>
+            {/* Metrics Visualizer */}
+            <section id="metrics-visualizer" className="scroll-mt-16">
+              <MetricsVisualizer data={data.metrics} />
+            </section>
+          </div>
+        </main>
       </div>
     </div>
   );

@@ -72,6 +72,23 @@ const availableServices = [
   { id: 'education', label: 'Education & Training' }
 ];
 
+interface RegistrationError {
+  step: 'auth' | 'profile' | 'organization' | 'staff';
+  error: any;
+}
+
+const handleRegistrationError = (error: RegistrationError) => {
+  switch(error.step) {
+    case 'auth':
+      // Handle auth-specific errors
+      break;
+    case 'profile':
+      // Handle profile-specific errors
+      break;
+    // etc.
+  }
+};
+
 export const ShelterRegistrationForm: FC<Props> = ({ onBack }) => {
   console.log('Form Component Rendering');
 
@@ -234,66 +251,90 @@ export const ShelterRegistrationForm: FC<Props> = ({ onBack }) => {
         timestamp: new Date().toISOString()
       });
 
-      // First create the auth user
-      const { data: authData, error: authError } = await supabase.auth.signUp({
-        email: data.email,
-        password: data.password,
-        options: {
-          data: {
-            role: 'shelter_admin'
-          }
-        }
-      });
+      // At the start of handleFormSubmission
+      const { error: txError } = await supabase.rpc('begin_transaction');
+      if (txError) throw txError;
 
-      if (authError) throw authError;
-
-      // Sign in immediately after signup to establish session
-      const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
-        email: data.email,
-        password: data.password,
-      });
-
-      if (signInError) throw signInError;
-
-      // Now try to create the profile with established session
-      const { error: profileError } = await supabase
-        .from('profiles')
-        .insert({
-          id: authData.user?.id,
-          user_id: authData.user?.id,
+      try {
+        // First create the auth user
+        const { data: authData, error: authError } = await supabase.auth.signUp({
           email: data.email,
-          role: 'shelter_admin'
+          password: data.password,
+          options: {
+            data: {
+              role: 'shelter_admin'
+            }
+          }
         });
 
-      if (profileError) {
-        console.error('Profile creation error:', profileError);
-        throw profileError;
+        if (authError) throw authError;
+
+        // Sign in immediately after signup to establish session
+        const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+          email: data.email,
+          password: data.password,
+        });
+
+        if (signInError) throw signInError;
+
+        // Now try to create the profile with established session
+        const { error: profileError } = await supabase
+          .from('profiles')
+          .insert({
+            id: authData.user?.id,
+            user_id: authData.user?.id,
+            email: data.email,
+            role: 'shelter_admin'
+          });
+
+        if (profileError) {
+          console.error('Profile creation error:', profileError);
+          throw profileError;
+        }
+
+        // Then create organization
+        const { data: orgData, error: orgError } = await supabase
+          .from('organizations')
+          .insert({
+            name: data.shelterName,
+            registration_number: data.registrationNumber,
+            email: data.organizationEmail,
+            phone: data.phone,
+            website: data.website,
+            address: data.streetAddress,
+            city: data.city,
+            postal_code: data.postalCode,
+            user_id: authData.user?.id
+          });
+
+        if (orgError) throw orgError;
+
+        // After organization creation
+        const { error: staffError } = await supabase
+          .from('organization_staff')
+          .insert({
+            user_id: authData.user?.id,
+            organization_id: orgData[0].id, // Need to capture org ID from insert
+            role: 'shelter_admin',
+            status: 'active'
+          });
+
+        if (staffError) throw staffError;
+
+        setStatus({
+          type: 'success',
+          message: 'Registration successful! Please check your email to verify your account.'
+        });
+
+        navigate('/registration-confirmation');
+
+        // Commit the transaction
+        await supabase.rpc('commit_transaction');
+      } catch (error) {
+        // Rollback the transaction
+        await supabase.rpc('rollback_transaction');
+        throw error;
       }
-
-      // Then create organization
-      const { error: orgError } = await supabase
-        .from('organizations')
-        .insert({
-          name: data.shelterName,
-          registration_number: data.registrationNumber,
-          email: data.organizationEmail,
-          phone: data.phone,
-          website: data.website,
-          address: data.streetAddress,
-          city: data.city,
-          postal_code: data.postalCode,
-          user_id: authData.user?.id
-        });
-
-      if (orgError) throw orgError;
-
-      setStatus({
-        type: 'success',
-        message: 'Registration successful! Please check your email to verify your account.'
-      });
-
-      navigate('/registration-confirmation');
-
     } catch (error) {
       console.error('Registration error:', error);
       if (error?.message?.includes('security purposes')) {

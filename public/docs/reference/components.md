@@ -1,13 +1,13 @@
 # 🧩 SHELTR Component Reference
-*Last Updated: January 17, 2025 22:15 EST*
-*Version: 0.6.0*
+*Last Updated: January 19, 2025 23:45 EST*
+*Version: 0.6.2*
 *Status: STABLE* 🟢
 
 ## Situational Abstract
-Component architecture has been enhanced with optimized navigation mounting, i18n integration, and performance monitoring capabilities. All components now implement consistent patterns for internationalization, navigation state management, and accessibility, while maintaining existing validation and error handling standards.
+Component architecture has been enhanced with role-based navigation, path validation, and security measures. All components now implement consistent patterns for role management, path validation, and security controls, while maintaining existing component organization and performance standards.
 
 ## 🔄 STATUS UPDATE
-System-wide component optimization completed with enhanced navigation and i18n integration. Recent improvements include optimized mounting patterns, efficient state management, and comprehensive language support across all components.
+System-wide component enhancement completed with role-based navigation and path validation integration. Recent improvements include standardized path structures, role-based routing patterns, and enhanced navigation security across all components.
 
 ### Core Components Library
 ```typescript
@@ -15,57 +15,29 @@ interface CoreComponents {
   navigation: {
     path: 'src/components/Navigation',
     components: {
-      OptimizedNav: '✅ IMPLEMENTED',
-      NavigationProvider: '✅ IMPLEMENTED',
-      NavState: '✅ IMPLEMENTED',
-      MobileNav: '✅ IMPLEMENTED',
-      DesktopNav: '✅ IMPLEMENTED'
+      RoleBasedNav: '✅ IMPLEMENTED',
+      PathValidator: '✅ IMPLEMENTED',
+      SecurityProvider: '✅ IMPLEMENTED',
+      NavigationGuard: '✅ IMPLEMENTED',
+      RoleManager: '✅ IMPLEMENTED'
     }
   },
-  i18n: {
-    path: 'src/components/i18n',
+  security: {
+    path: 'src/components/Security',
     components: {
-      LanguageProvider: '✅ IMPLEMENTED',
-      LanguageSelector: '✅ IMPLEMENTED',
-      TranslatedContent: '✅ IMPLEMENTED',
-      LocaleSwitch: '✅ IMPLEMENTED'
+      RoleValidator: '✅ IMPLEMENTED',
+      PathChecker: '✅ IMPLEMENTED',
+      SecurityMonitor: '✅ IMPLEMENTED',
+      AccessControl: '✅ IMPLEMENTED'
     }
   },
-  about: {
-    path: 'src/components/About',
+  monitoring: {
+    path: 'src/components/Monitoring',
     components: {
-      Checkpoint: '✅ IMPLEMENTED',
-      Introduction: '✅ IMPLEMENTED',
-      Roadmap: '✅ IMPLEMENTED',
-      TechStack: '✅ IMPLEMENTED',
-      Whitepaper: '✅ IMPLEMENTED',
-      CallToAction: '✅ IMPLEMENTED',
-      Features: '✅ IMPLEMENTED',
-      ProjectStatus: '✅ IMPLEMENTED'
-    }
-  },
-  auth: {
-    path: 'src/components/Auth',
-    components: {
-      DonorSignUpForm: '✅ IMPLEMENTED',
-      ShelterRegistrationForm: '✅ IMPLEMENTED',
-      LoginForm: '✅ IMPLEMENTED',
-      AuthLayout: '✅ IMPLEMENTED',
-      RequireAuth: '✅ IMPLEMENTED',
-      SignUpSelector: '✅ IMPLEMENTED'
-    }
-  },
-  ui: {
-    path: 'src/components/ui',
-    components: {
-      Button: '✅ IMPLEMENTED',
-      Input: '✅ IMPLEMENTED',
-      Select: '✅ IMPLEMENTED',
-      Card: '✅ IMPLEMENTED',
-      Table: '✅ IMPLEMENTED',
-      FileUpload: '✅ IMPLEMENTED',
-      LoadingSpinner: '✅ IMPLEMENTED',
-      Toast: '✅ IMPLEMENTED'
+      NavigationMetrics: '✅ IMPLEMENTED',
+      RoleMetrics: '✅ IMPLEMENTED',
+      PathMetrics: '✅ IMPLEMENTED',
+      SecurityMetrics: '✅ IMPLEMENTED'
     }
   }
 }
@@ -159,7 +131,6 @@ interface ProfileComponents {
   }
 }
 ```
-[Previous sections remain unchanged...]
 
 ### Layout Components
 ```typescript
@@ -286,42 +257,79 @@ interface PerformanceComponents {
 }
 ```
 
+### Role-Based Components
+```typescript
+interface RoleComponents {
+  admin: {
+    path: 'src/components/Admin',
+    components: {
+      RoleManager: '✅ IMPLEMENTED',
+      SecurityDashboard: '✅ IMPLEMENTED',
+      PathValidator: '✅ IMPLEMENTED'
+    }
+  },
+  donor: {
+    path: 'src/components/Donor',
+    components: {
+      DonorNav: '✅ IMPLEMENTED',
+      DonorSecurity: '✅ IMPLEMENTED',
+      PathAccess: '✅ IMPLEMENTED'
+    }
+  },
+  shelter: {
+    path: 'src/components/Shelter',
+    components: {
+      ShelterNav: '✅ IMPLEMENTED',
+      ShelterSecurity: '✅ IMPLEMENTED',
+      PathControl: '✅ IMPLEMENTED'
+    }
+  }
+}
+```
+
 ## Implementation Guidelines
 
 ### Component Development Standards
-1. **Type Safety**
+1. **Role Management**
+   - Role-based access control
+   - Path validation
+   - Security measures
+   - Navigation guards
+   - Performance monitoring
+
+2. **Type Safety**
    - Strict TypeScript implementation
    - Proper interface definitions
    - Comprehensive prop typing
    - Enum usage for constants
 
-2. **Performance**
+3. **Performance**
    - Lazy loading where appropriate
    - Memoization for complex calculations
    - Optimized re-renders
    - Bundle size consideration
 
-3. **Accessibility**
+4. **Accessibility**
    - ARIA labels
    - Keyboard navigation
    - Screen reader support
    - Color contrast compliance
    - Focus management
 
-4. **Error Handling**
+5. **Error Handling**
    - Boundary implementation
    - Graceful degradation
    - User feedback
    - Error logging
 
-5. **Internationalization**
+6. **Internationalization**
    - Use translation hooks
    - Implement fallbacks
    - Support RTL layouts
    - Handle pluralization
    - Format numbers/dates
 
-6. **Navigation**
+7. **Navigation**
    - Optimize mounting
    - Manage state efficiently
    - Handle transitions
@@ -366,22 +374,22 @@ interface PerformanceComponents {
 - Format consistently
 
 ## Performance Metrics
-- Navigation Mount Time: < 50ms
-- Language Switch Time: < 100ms
-- Bundle Size: < 200KB initial load
-- Lighthouse Score: > 90
-- First Paint: < 1.5s
-- TTI: < 3.5s
+- Role Resolution: < 10ms
+- Path Validation: < 20ms
+- Navigation Mount: < 50ms
+- Route Transition: < 100ms
+- Bundle Size: < 200KB
+- Security Checks: < 5ms
 - Error Rate: < 0.1%
 
 ## Next Steps
-1. Implement navigation animations
-2. Enhance accessibility features
+1. Complete component organization
+2. Implement navigation animations
 3. Add comprehensive monitoring
-4. Implement E2E testing
-5. Optimize bundle splitting
+4. Enhance error boundaries
+5. Optimize performance metrics
 6. Enhance documentation
-7. Implement CI/CD improvements
+7. Implement security improvements
 
 ---
 *For detailed implementation guides, see [implementation-guides/](../implementation-guides/)*

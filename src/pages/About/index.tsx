@@ -3,7 +3,6 @@ import { useMarkdownContent } from '@/hooks/useMarkdownContent';
 import { MarkdownContent } from '@/components/About/MarkdownContent';
 import {
   Hero,
-  Technology,
   MediaSection,
   Newsletter
 } from './sections';
@@ -46,13 +45,11 @@ export default function About() {
         <Hero />
 
         <div className="container mx-auto px-4 space-y-24 relative z-10">
-          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-8 shadow-xl">
+          <div className="bg-gray-800/80 backdrop-blur-sm rounded-xl p-8 shadow-xl">
             <MarkdownContent content={content} />
           </div>
 
-          <Technology />
           <MediaSection />
-          <Metrics />
           <Newsletter />
         </div>
       </div>

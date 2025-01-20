@@ -26,6 +26,8 @@ Part 2: Dashboard & Analytics Integration
 3. SQL Query Optimization
 4. Performance Monitoring
 
+
+
 Key files to reference:
 
 Registration Flows:
@@ -149,6 +151,138 @@ interface DatabaseOptimizations {
 - [Analytics Implementation](/docs/technical/analytics.md)
 - [Database Optimization](/docs/technical/database.md)
 - [Email Integration](/docs/technical/email.md)
+
+@Claude Additional Context for this Session:
+
+Current Deployment Status:
+- Version: 0.5.9 deployed and stable
+- i18n system implemented
+- Navigation optimization complete
+- Database structure enhanced
+
+Critical Focus Areas:
+1. Shelter Registration Flow
+   - Email confirmation issue with Supabase
+   - Document upload verification
+   - Admin approval workflow
+   - Dashboard redirect logic
+
+2. Donor Registration
+   - Database verification steps
+   - Profile completion flow
+   - Payment integration verification
+   - Analytics tracking implementation
+
+3. Role-Based Access
+   - Current paths:
+     /src/auth/guards/RoleGuard.tsx
+     /src/components/Auth/RequireAuth.tsx
+     /src/features/dashboard/[role]/*
+   - Dashboard mounting optimization
+   - Role verification enhancement
+   - Navigation state persistence
+
+4. Database Queries
+   - Key files:
+     /src/services/supabase/queries/*
+     /src/features/analytics/*
+   - Analytics dashboard optimization
+     /src/components/Dashboard/Analytics/*
+   - Performance monitoring implementation
+
+5. Email System Debug
+   - Supabase email templates
+   - Confirmation flow
+   - Error handling
+   - Retry logic
+
+Current Test Coverage:
+- Unit Tests: 95%
+- Integration Tests: 90%
+- E2E Tests: 85%
+- Performance Tests: Pending
+
+Known Issues:
+1. Email confirmation delay
+2. Multiple dashboard mounting
+3. Analytics query optimization needed
+4. Role verification redundancy
+
+Recent Optimizations:
+1. Navigation system
+2. i18n framework
+3. Database schema
+4. Component mounting
+`;
+
+const analyticsContext = `
+Performance Monitoring URLs:
+- Analytics Dashboard: https://sheltr-ops.replit.app/analyze.html
+- Statistics Overview: https://sheltr-ops.replit.app/stats.html
+
+Key Metrics to Track:
+1. Registration Flows
+   - Form submission times
+   - Email confirmation latency
+   - Document upload performance
+   - Database verification speed
+
+2. Dashboard Performance
+   - Initial load time by role
+   - Component mounting metrics
+   - Navigation state updates
+   - Data fetching latency
+
+3. Analytics Queries
+   - Query execution time
+   - Data aggregation speed
+   - Real-time updates performance
+   - Cache hit rates
+
+Monitoring Endpoints:
+/analyze.html - Deep performance metrics
+/stats.html - System statistics overview
+
+These endpoints will help us optimize:
+- Registration flow performance
+- Role-based access efficiency
+- Analytics query optimization
+- Email system responsiveness
+`;
+
+const authIssueContext = `
+Priority Bug Fix:
+Location: App.tsx:125:38
+Error: ReferenceError: AUTH_ROLES is not defined
+
+Debug Flow:
+1. Login Process ✅ (successful)
+   - User ID: 407ccd2a-50af-467a-a6b1-0982d043750f
+   - Role: shelter_admin
+   - Email: verified
+
+2. Authentication Flow ✅ (successful)
+   - Supabase auth: successful
+   - Profile fetch: successful
+   - Auth store update: completed
+
+3. Error Points 🔴
+   - AUTH_ROLES reference missing
+   - Error occurs in AppContent component
+   - Affects role-based routing
+
+Fix Priority:
+1. Add AUTH_ROLES enum/constant definition
+2. Implement error boundary for auth flow
+3. Verify role-based navigation logic
+4. Test dashboard access paths
+
+Files to Check:
+- /src/App.tsx
+- /src/auth/types/auth.types.ts
+- /src/auth/constants.ts
+- /src/components/Auth/RequireAuth.tsx
+`;
 
 ---
 *Session Focus: Registration Flows & Role-Based Access*

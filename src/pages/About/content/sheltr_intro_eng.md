@@ -109,4 +109,4 @@ The time to act is now. With advances in technology and the commitment of Arcana
 
 Be part of the solution—whether as a donor, partner, or advocate, your involvement will help us redefine how we support those in need.
 
-For more information, visit: [SHELTR Overview](https://www.arcanaconcept.com/concepts/sheltr).
+For more information, visit: [Arcana Concept](https://www.arcanaconcept.com/concepts/sheltr).

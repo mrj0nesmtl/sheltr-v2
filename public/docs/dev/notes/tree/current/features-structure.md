@@ -1,5 +1,5 @@
 # 🌳 SHELTR Features Structure
-*Generated: 2025-01-17 22:51:26*
+*Generated: 2025-01-20 00:39:47*
 \n## Directory Structure
 ./src/features
 ├── auth
@@ -103,6 +103,7 @@
     │   │   ├── AreaChart.tsx
     │   │   ├── BarChart.tsx
     │   │   ├── LineChart.tsx
+    │   │   ├── PieChart.tsx
     │   │   ├── ProgressMetrics.tsx
     │   │   ├── ResourceUtilization.tsx
     │   │   └── index.ts
@@ -122,12 +123,15 @@
     │   ├── DonationHistory.tsx
     │   ├── DonorStats.tsx
     │   ├── index.ts
-    │   └── theme.ts
+    │   ├── theme.ts
+    │   └── types.ts
     ├── components
     │   └── index.ts
     ├── hooks
+    ├── maps
+    │   └── utils.ts
     ├── store
     ├── utils
     └── index.ts
 
-65 directories, 63 files
+66 directories, 66 files

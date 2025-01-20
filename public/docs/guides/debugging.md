@@ -1,68 +1,82 @@
 # 🔧 SHELTR Debugging Guide
-*Last Updated: December 25, 2024*
-*Version: 0.4.9*
+*Last Updated: January 19, 2025*
+*Version: 0.6.1*
+*Status: STABLE* 🟢
 
 ## Common Issues & Solutions
 
-### 1. Authentication System
+### 1. Navigation System
 ```typescript
-interface AuthDebugging {
-  loginPage: {
-    symptoms: ['Blank page', 'Loading state stuck', 'Form not rendering'],
+interface NavigationDebugging {
+  roleBasedRouting: {
+    symptoms: [
+      'Access denied errors',
+      'Invalid role state',
+      'Navigation loops'
+    ],
     checks: [
-      'Supabase connection',
-      'AuthProvider mounting',
-      'Route configuration'
+      'Role validation',
+      'Path structure',
+      'Navigation state'
     ],
     solutions: [
-      'Verify .env configuration',
-      'Check AuthProvider wrapper',
-      'Validate route guards'
+      'Verify role configuration',
+      'Check path validation',
+      'Debug navigation state'
     ]
   },
-  sessionManagement: {
-    symptoms: ['Session loss', 'Infinite redirects'],
+  pathValidation: {
+    symptoms: ['404 errors', 'Invalid paths', 'Guard failures'],
     locations: [
-      'src/auth/components/AuthProvider.tsx',
-      'src/auth/stores/authStore.ts'
+      'src/navigation/guards/',
+      'src/navigation/validators/'
     ],
     solutions: [
-      'Check token refresh logic',
-      'Verify session persistence',
-      'Debug auth state updates'
+      'Verify path structure',
+      'Check guard conditions',
+      'Validate role access'
     ]
   }
 }
 ```
 
-### 2. Layout System Issues
+### 2. Component Organization
 ```typescript
-interface LayoutDebugging {
-  sidebar: {
+interface ComponentDebugging {
+  mounting: {
     critical: [
-      'index.tsx',          // Core navigation
-      'DebugSidebar.tsx',   // Development testing
-      'DonorSidebar.tsx'    // Role-specific navigation
+      'RoleNav.tsx',        // Role-based navigation
+      'PathValidator.tsx',   // Path validation
+      'NavGuard.tsx'        // Navigation guards
     ],
-    location: 'src/layouts/specialized/dashboard/Sidebar/',
+    location: 'src/navigation/components/',
     symptoms: [
-      'White screen',
-      'Navigation missing',
-      'Role-based content not showing'
+      'Component mount failure',
+      'Role validation errors',
+      'Navigation state issues'
     ],
     solutions: [
-      'Check component mounting',
-      'Verify role-based rendering',
-      'Validate auth context'
+      'Check mounting order',
+      'Verify role state',
+      'Validate navigation'
     ]
-  },
-  dashboard: {
-    components: ['DashboardHeader.tsx', 'DashboardLayout.tsx'],
-    location: 'src/layouts/specialized/dashboard/components/',
-    checks: [
-      'Component hierarchy',
-      'Auth state integration',
-      'Route protection'
+  }
+}
+```
+
+### 3. Authentication System
+```typescript
+interface AuthDebugging {
+  roleValidation: {
+    symptoms: ['Invalid role state', 'Access denied', 'Guard failures'],
+    locations: [
+      'src/auth/guards/RoleGuard.tsx',
+      'src/auth/validators/PathValidator.tsx'
+    ],
+    solutions: [
+      'Check role configuration',
+      'Verify path validation',
+      'Debug guard conditions'
     ]
   }
 }
@@ -70,159 +84,73 @@ interface LayoutDebugging {
 
 ## Diagnostic Tools
 
-### 1. Development Environment
-```bash
-# Environment Verification
-npm run check-env     # Verify environment variables
-npm run type-check    # Run TypeScript checks
-npm run lint         # ESLint verification
-
-# Component Testing
-npm run test:components  # Run component tests
-npm run storybook       # Visual component testing
-
-# E2E Testing
-npm run cypress:open    # Interactive testing
-npm run cypress:run     # Headless testing
-```
-
-### 2. Runtime Debugging
+### 1. Navigation Debugging
 ```typescript
-interface DebugTools {
-  browser: {
-    react: 'React Developer Tools',
-    network: 'Chrome DevTools Network',
-    storage: ['Local Storage', 'Session Storage', 'IndexedDB']
-  },
-  logging: {
-    levels: ['error', 'warn', 'info', 'debug'],
-    locations: [
-      'src/utils/logger.ts',
-      'src/features/**/debug.ts'
+interface NavigationTools {
+  roleValidation: {
+    tools: ['Role Inspector', 'Path Validator', 'Guard Tester'],
+    commands: [
+      'npm run debug:roles',
+      'npm run validate:paths',
+      'npm run test:guards'
     ]
-  },
-  monitoring: {
-    performance: 'Lighthouse',
-    errors: 'Sentry',
-    analytics: 'Vercel Analytics'
   }
 }
 ```
 
-## Common Error Patterns
-
-### 1. Authentication Errors
+### 2. Performance Monitoring
 ```typescript
-interface AuthErrors {
-  login: {
-    E001: 'Supabase connection failed',
-    E002: 'Invalid credentials format',
-    E003: 'Session initialization failed'
-  },
-  session: {
-    E101: 'Token refresh failed',
-    E102: 'Role validation error',
-    E103: 'Permission denied'
-  }
-}
-```
-
-### 2. Layout Errors
-```typescript
-interface LayoutErrors {
-  rendering: {
-    L001: 'Component failed to mount',
-    L002: 'Role-based content error',
-    L003: 'Navigation state invalid'
-  },
-  routing: {
-    R001: 'Invalid route configuration',
-    R002: 'Guard condition failed',
-    R003: 'Role access denied'
+interface PerformanceTools {
+  navigation: {
+    metrics: {
+      roleResolution: '< 10ms',
+      pathValidation: '< 20ms',
+      navigationMount: '< 50ms'
+    },
+    monitoring: {
+      roles: 'Role Resolution Monitor',
+      paths: 'Path Validation Tracker',
+      navigation: 'Navigation Performance'
+    }
   }
 }
 ```
 
 ## Recovery Procedures
 
-### 1. Critical System Recovery
-```bash
-# Reset environment
-npm clean-install
-npm run build
-
-# Verify core systems
-npm run verify:auth
-npm run verify:layout
-npm run verify:routes
-
-# Test critical paths
-npm run test:critical
-```
-
-### 2. Component Recovery
+### 1. Navigation Recovery
 ```typescript
-interface RecoverySteps {
-  auth: [
-    'Verify Supabase connection',
-    'Check AuthProvider mounting',
-    'Test session management'
+interface NavigationRecovery {
+  steps: [
+    'Verify role configuration',
+    'Check path validation',
+    'Test navigation guards',
+    'Validate component mounting',
+    'Debug state management'
   ],
-  layout: [
-    'Validate component tree',
-    'Check role-based rendering',
-    'Test navigation state'
-  ],
-  routing: [
-    'Verify route configuration',
-    'Test guards and middleware',
-    'Check role permissions'
+  commands: [
+    'npm run verify:roles',
+    'npm run check:paths',
+    'npm run test:navigation'
   ]
-}
-```
-
-## Performance Debugging
-
-### 1. Bundle Analysis
-```bash
-# Analyze bundle size
-npm run analyze
-
-# Check performance metrics
-npm run lighthouse
-```
-
-### 2. Runtime Performance
-```typescript
-interface PerformanceChecks {
-  metrics: {
-    FCP: 'First Contentful Paint',
-    LCP: 'Largest Contentful Paint',
-    TTI: 'Time to Interactive'
-  },
-  tools: {
-    profiler: 'React Profiler',
-    network: 'Network Tab',
-    memory: 'Memory Usage'
-  }
 }
 ```
 
 ## Development Tips
 
 ### 1. Quick Fixes
-- Clear local storage and session data
-- Reset environment variables
-- Rebuild node modules
-- Clear build cache
-- Check component mounting order
+- Clear navigation state
+- Reset role configuration
+- Rebuild navigation cache
+- Check guard conditions
+- Verify path structure
 
 ### 2. Prevention
-- Use TypeScript strict mode
-- Implement proper error boundaries
-- Add comprehensive logging
-- Maintain test coverage
-- Document debug procedures
+- Implement role validation
+- Add path verification
+- Use navigation guards
+- Monitor performance
+- Document changes
 
 ---
 *For architecture details, see [architecture.md](../core/architecture.md)*

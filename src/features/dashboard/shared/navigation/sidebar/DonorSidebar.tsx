@@ -1,37 +1,47 @@
-import { useLocation } from 'react-router-dom';
-import { SidebarItem } from './SidebarItem';
+import { 
+  LayoutDashboard, 
+  Heart, 
+  Trophy 
+} from 'lucide-react';
+import { BaseSidebar } from './BaseSidebar';
+import { useAuth } from '@/hooks/useAuth';
+import { Logo } from '@/components/ui/Logo';
 
 export function DonorSidebar() {
-  const location = useLocation();
+  const { user } = useAuth();
 
   const menuItems = [
     {
-      icon: 'dashboard',
+      icon: LayoutDashboard,
       label: 'Dashboard',
-      path: '/donor/dashboard'
+      path: '/donor/dashboard',
+      iconColor: 'text-indigo-400'
     },
     {
-      icon: 'heart',
+      icon: Heart,
       label: 'My Donations',
-      path: '/donor/donations'
+      path: '/donor/donations',
+      iconColor: 'text-rose-400'
     },
     {
-      icon: 'trophy',
+      icon: Trophy,
       label: 'Impact',
-      path: '/donor/impact'
+      path: '/donor/impact',
+      iconColor: 'text-amber-400'
     }
   ];
 
   return (
-    <div className="flex flex-col w-64 bg-gray-900 p-4 border-r border-gray-800">
-      {menuItems.map((item) => (
-        <SidebarItem
-          key={item.path}
-          {...item}
-          isActive={location.pathname === item.path}
-        />
-      ))}
-    </div>
+    <BaseSidebar
+      title="Donor Dashboard"
+      menuItems={menuItems}
+      userInfo={user ? {
+        email: user.email,
+        role: 'Donor',
+        avatar: user.email?.[0]?.toUpperCase()
+      } : undefined}
+      logo={<Logo className="h-8 w-auto" />}
+    />
   );
 }
 

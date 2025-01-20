@@ -1,5 +1,5 @@
 // Main dashboard export
-export * from './SuperAdminDashboard'
+export { SuperAdminDashboard as default } from './SuperAdminDashboard'
 
 // Analytics exports
 export * from './analytics/GlobalAnalytics'

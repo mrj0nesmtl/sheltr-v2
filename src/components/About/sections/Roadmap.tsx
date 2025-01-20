@@ -26,6 +26,7 @@ export function Roadmap() {
             <li>✅ Basic user roles</li>
             <li>✅ Initial database schema</li>
             <li>✅ Project structure</li>
+            <li>✅ Security framework</li>
           </ul>
         </div>
 
@@ -41,6 +42,8 @@ export function Roadmap() {
             <li>✅ Multi-language support</li>
             <li>✅ Role-based dashboards</li>
             <li>✅ Blockchain integration</li>
+            <li>✅ Role-based navigation</li>
+            <li>✅ Path validation</li>
           </ul>
         </div>
 
@@ -52,9 +55,26 @@ export function Roadmap() {
           <h3 className="text-xl font-bold text-white mb-2">Phase 3: Enhancement</h3>
           <p className="text-gray-300">Current - Q2 2024</p>
           <ul className="mt-4 space-y-2 text-gray-300">
+            <li>🟡 Component organization</li>
+            <li>🟡 Security monitoring</li>
             <li>⏳ Analytics integration</li>
             <li>⏳ Payment processing</li>
             <li>⏳ Smart contract auditing</li>
+          </ul>
+        </div>
+
+        {/* Future Phase */}
+        <div className="relative pl-8 border-l-2 border-gray-500">
+          <div className="absolute -left-2.5 top-0">
+            <div className="w-5 h-5 rounded-full bg-gray-500" />
+          </div>
+          <h3 className="text-xl font-bold text-white mb-2">Phase 4: Optimization</h3>
+          <p className="text-gray-300">Planned - Q3 2024</p>
+          <ul className="mt-4 space-y-2 text-gray-300">
+            <li>⭕ Performance enhancement</li>
+            <li>⭕ Advanced analytics</li>
+            <li>⭕ AI integration</li>
+            <li>⭕ Mobile app development</li>
           </ul>
         </div>
       </div>

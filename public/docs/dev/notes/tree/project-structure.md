@@ -1,5 +1,5 @@
 # 🌳 SHELTR Project Structure
-*Generated: 2025-01-17 22:51:26*
+*Generated: 2025-01-20 00:39:47*
 *Version: 0.4.9*
 
 ## Table of Contents
@@ -11,7 +11,7 @@
 6. [Technical Structures](#technical-structures)
 
 \n---\n
-*Generated: 2025-01-17 22:51:26*
+*Generated: 2025-01-20 00:39:47*
 \n## Directory Structure
 ./src/auth
 ├── components
@@ -31,7 +31,7 @@
 
 6 directories, 9 files
 \n---\n
-*Generated: 2025-01-17 22:51:26*
+*Generated: 2025-01-20 00:39:47*
 \n## Directory Structure
 ./src/components
 ├── About
@@ -172,6 +172,8 @@
 │   │   ├── MapComponent.tsx
 │   │   ├── NetworkActivityChart.tsx
 │   │   └── index.ts
+│   ├── Maps
+│   │   └── BaseMap.tsx
 │   ├── Accordion.tsx
 │   ├── Avatar.tsx
 │   ├── Badge.tsx
@@ -207,9 +209,9 @@
 ├── ScrollToTop.tsx
 └── ThemeToggle.tsx
 
-44 directories, 129 files
+45 directories, 130 files
 \n---\n
-*Generated: 2025-01-17 22:51:26*
+*Generated: 2025-01-20 00:39:47*
 \n## Directory Structure
 ./public/docs
 ├── about
@@ -245,16 +247,18 @@
 │   ├── components.md
 │   ├── constants.md
 │   └── types.md
-└── technical
-    ├── authentication.md
-    ├── blockchain.md
-    ├── build_track.md
-    ├── database.md
-    └── qr-system.md
+├── technical
+│   ├── authentication.md
+│   ├── blockchain.md
+│   ├── build_track.md
+│   ├── database.md
+│   └── qr-system.md
+└── wiki
+    └── overview.md
 
-14 directories, 26 files
+15 directories, 27 files
 \n---\n
-*Generated: 2025-01-17 22:51:26*
+*Generated: 2025-01-20 00:39:47*
 \n## Directory Structure
 ./src/features
 ├── auth
@@ -358,6 +362,7 @@
     │   │   ├── AreaChart.tsx
     │   │   ├── BarChart.tsx
     │   │   ├── LineChart.tsx
+    │   │   ├── PieChart.tsx
     │   │   ├── ProgressMetrics.tsx
     │   │   ├── ResourceUtilization.tsx
     │   │   └── index.ts
@@ -377,17 +382,20 @@
     │   ├── DonationHistory.tsx
     │   ├── DonorStats.tsx
     │   ├── index.ts
-    │   └── theme.ts
+    │   ├── theme.ts
+    │   └── types.ts
     ├── components
     │   └── index.ts
     ├── hooks
+    ├── maps
+    │   └── utils.ts
     ├── store
     ├── utils
     └── index.ts
 
-65 directories, 63 files
+66 directories, 66 files
 \n---\n
-*Generated: 2025-01-17 22:51:26*
+*Generated: 2025-01-20 00:39:47*
 \n## Directory Structure
 ./src/layouts
 ├── base
@@ -411,7 +419,7 @@
 
 9 directories, 10 files
 \n---\n
-*Generated: 2025-01-17 22:51:26*
+*Generated: 2025-01-20 00:39:46*
 \n## Directory Structure
 .
 ├── public
@@ -425,7 +433,8 @@
 │   │   ├── guides
 │   │   ├── project
 │   │   ├── reference
-│   │   └── technical
+│   │   ├── technical
+│   │   └── wiki
 │   ├── images
 │   │   ├── backgrounds
 │   │   ├── apple-touch-icon.png
@@ -561,10 +570,13 @@
 │   │   ├── schema.sql
 │   │   ├── theme.ts
 │   │   └── utils.ts
+│   ├── mocks
+│   │   └── api
 │   ├── pages
 │   │   ├── About
 │   │   ├── Admin
 │   │   ├── Donor
+│   │   ├── Impact
 │   │   ├── ShelterAdmin
 │   │   ├── SuperAdmin
 │   │   ├── Wiki
@@ -572,7 +584,6 @@
 │   │   ├── shelter
 │   │   ├── HomePage.tsx
 │   │   ├── HowItWorks.tsx
-│   │   ├── Impact.tsx
 │   │   ├── LoginPage.tsx
 │   │   ├── NotFoundPage.tsx
 │   │   ├── RegistrationConfirmation.tsx
@@ -619,14 +630,13 @@
 │   └── vite-env.d.ts
 ├── supabase
 │   ├── exports
-│   │   ├── User and Organization Metadata Check.csv
+│   │   ├── donor_profiles_rows.csv
 │   │   ├── organizations_rows (1).csv
-│   │   ├── organizations_rows (2).csv
-│   │   ├── organizations_rows.csv
-│   │   ├── profiles_rows (1).csv
-│   │   ├── profiles_rows (2).csv
-│   │   ├── profiles_rows.csv
-│   │   └── users_rows.csv
+│   │   ├── participants_rows.csv
+│   │   ├── profiles_row_joelyaffeadmin.csv
+│   │   ├── profiles_rows jan 18.csv
+│   │   ├── supabase_logs (1).csv
+│   │   └── supabase_logs.csv
 │   ├── migrations
 │   │   ├── 20240304_create_tables.sql
 │   │   ├── 20240304_fix_search_path.sql
@@ -651,9 +661,9 @@
 ├── vercel.json
 └── vite.config.ts
 
-116 directories, 121 files
+120 directories, 119 files
 \n---\n
-*Generated: 2025-01-17 22:51:26*
+*Generated: 2025-01-20 00:39:47*
 \n## Directory Structure
 ./src/pages
 ├── About
@@ -690,6 +700,11 @@
 ├── Donor
 │   ├── DonorSignUp.tsx
 │   └── Settings.tsx
+├── Impact
+│   ├── components
+│   │   ├── ImpactMobileNav.tsx
+│   │   └── ImpactSidebar.tsx
+│   └── Impact.tsx
 ├── ShelterAdmin
 │   └── types
 │       └── index.ts
@@ -711,10 +726,23 @@
 │   └── index.ts
 ├── Wiki
 │   ├── components
+│   │   ├── ChangelogSection.tsx
+│   │   ├── DocumentationGrid.tsx
+│   │   ├── MetricsGrid.tsx
 │   │   ├── PlatformStatusSection.tsx
-│   │   └── WikiMobileNav.tsx
+│   │   ├── SprintProgress.tsx
+│   │   ├── StatusOverview.tsx
+│   │   ├── WikiHeader.tsx
+│   │   ├── WikiMobileNav.tsx
+│   │   ├── WikiSidebar.tsx
+│   │   └── index.tsx
+│   ├── hooks
+│   │   ├── index.ts
+│   │   └── useWikiData.ts
+│   ├── types
+│   │   └── index.ts
 │   ├── Wiki.tsx
-│   └── WikiSidebar.tsx
+│   └── index.tsx
 ├── blockchain
 │   ├── transactions.tsx
 │   └── whitepaper.tsx
@@ -722,7 +750,6 @@
 │   └── ShelterSetup.tsx
 ├── HomePage.tsx
 ├── HowItWorks.tsx
-├── Impact.tsx
 ├── LoginPage.tsx
 ├── NotFoundPage.tsx
 ├── RegistrationConfirmation.tsx
@@ -733,9 +760,9 @@
 ├── debug.tsx
 └── index.ts
 
-17 directories, 60 files
+21 directories, 73 files
 \n---\n
-*Generated: 2025-01-17 22:51:26*
+*Generated: 2025-01-20 00:39:46*
 \n## Directory Structure
 ./src
 ├── auth
@@ -892,6 +919,8 @@
 │   │   │   ├── MapComponent.tsx
 │   │   │   ├── NetworkActivityChart.tsx
 │   │   │   └── index.ts
+│   │   ├── Maps
+│   │   │   └── BaseMap.tsx
 │   │   ├── Accordion.tsx
 │   │   ├── Avatar.tsx
 │   │   ├── Badge.tsx
@@ -998,10 +1027,13 @@
 │       │   ├── DonationHistory.tsx
 │       │   ├── DonorStats.tsx
 │       │   ├── index.ts
-│       │   └── theme.ts
+│       │   ├── theme.ts
+│       │   └── types.ts
 │       ├── components
 │       │   └── index.ts
 │       ├── hooks
+│       ├── maps
+│       │   └── utils.ts
 │       ├── store
 │       ├── utils
 │       └── index.ts
@@ -1153,6 +1185,9 @@
 │   ├── schema.sql
 │   ├── theme.ts
 │   └── utils.ts
+├── mocks
+│   └── api
+│       └── wiki.ts
 ├── pages
 │   ├── About
 │   │   ├── components
@@ -1188,6 +1223,11 @@
 │   ├── Donor
 │   │   ├── DonorSignUp.tsx
 │   │   └── Settings.tsx
+│   ├── Impact
+│   │   ├── components
+│   │   │   ├── ImpactMobileNav.tsx
+│   │   │   └── ImpactSidebar.tsx
+│   │   └── Impact.tsx
 │   ├── ShelterAdmin
 │   │   └── types
 │   │       └── index.ts
@@ -1209,10 +1249,23 @@
 │   │   └── index.ts
 │   ├── Wiki
 │   │   ├── components
+│   │   │   ├── ChangelogSection.tsx
+│   │   │   ├── DocumentationGrid.tsx
+│   │   │   ├── MetricsGrid.tsx
 │   │   │   ├── PlatformStatusSection.tsx
-│   │   │   └── WikiMobileNav.tsx
+│   │   │   ├── SprintProgress.tsx
+│   │   │   ├── StatusOverview.tsx
+│   │   │   ├── WikiHeader.tsx
+│   │   │   ├── WikiMobileNav.tsx
+│   │   │   ├── WikiSidebar.tsx
+│   │   │   └── index.tsx
+│   │   ├── hooks
+│   │   │   ├── index.ts
+│   │   │   └── useWikiData.ts
+│   │   ├── types
+│   │   │   └── index.ts
 │   │   ├── Wiki.tsx
-│   │   └── WikiSidebar.tsx
+│   │   └── index.tsx
 │   ├── blockchain
 │   │   ├── transactions.tsx
 │   │   └── whitepaper.tsx
@@ -1220,7 +1273,6 @@
 │   │   └── ShelterSetup.tsx
 │   ├── HomePage.tsx
 │   ├── HowItWorks.tsx
-│   ├── Impact.tsx
 │   ├── LoginPage.tsx
 │   ├── NotFoundPage.tsx
 │   ├── RegistrationConfirmation.tsx
@@ -1282,4 +1334,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-167 directories, 377 files
+175 directories, 394 files

@@ -1,5 +1,5 @@
 # 🌳 SHELTR Source Structure
-*Generated: 2025-01-17 22:51:26*
+*Generated: 2025-01-20 00:39:46*
 \n## Directory Structure
 ./src
 ├── auth
@@ -156,6 +156,8 @@
 │   │   │   ├── MapComponent.tsx
 │   │   │   ├── NetworkActivityChart.tsx
 │   │   │   └── index.ts
+│   │   ├── Maps
+│   │   │   └── BaseMap.tsx
 │   │   ├── Accordion.tsx
 │   │   ├── Avatar.tsx
 │   │   ├── Badge.tsx
@@ -262,10 +264,13 @@
 │       │   ├── DonationHistory.tsx
 │       │   ├── DonorStats.tsx
 │       │   ├── index.ts
-│       │   └── theme.ts
+│       │   ├── theme.ts
+│       │   └── types.ts
 │       ├── components
 │       │   └── index.ts
 │       ├── hooks
+│       ├── maps
+│       │   └── utils.ts
 │       ├── store
 │       ├── utils
 │       └── index.ts
@@ -417,6 +422,9 @@
 │   ├── schema.sql
 │   ├── theme.ts
 │   └── utils.ts
+├── mocks
+│   └── api
+│       └── wiki.ts
 ├── pages
 │   ├── About
 │   │   ├── components
@@ -452,6 +460,11 @@
 │   ├── Donor
 │   │   ├── DonorSignUp.tsx
 │   │   └── Settings.tsx
+│   ├── Impact
+│   │   ├── components
+│   │   │   ├── ImpactMobileNav.tsx
+│   │   │   └── ImpactSidebar.tsx
+│   │   └── Impact.tsx
 │   ├── ShelterAdmin
 │   │   └── types
 │   │       └── index.ts
@@ -473,10 +486,23 @@
 │   │   └── index.ts
 │   ├── Wiki
 │   │   ├── components
+│   │   │   ├── ChangelogSection.tsx
+│   │   │   ├── DocumentationGrid.tsx
+│   │   │   ├── MetricsGrid.tsx
 │   │   │   ├── PlatformStatusSection.tsx
-│   │   │   └── WikiMobileNav.tsx
+│   │   │   ├── SprintProgress.tsx
+│   │   │   ├── StatusOverview.tsx
+│   │   │   ├── WikiHeader.tsx
+│   │   │   ├── WikiMobileNav.tsx
+│   │   │   ├── WikiSidebar.tsx
+│   │   │   └── index.tsx
+│   │   ├── hooks
+│   │   │   ├── index.ts
+│   │   │   └── useWikiData.ts
+│   │   ├── types
+│   │   │   └── index.ts
 │   │   ├── Wiki.tsx
-│   │   └── WikiSidebar.tsx
+│   │   └── index.tsx
 │   ├── blockchain
 │   │   ├── transactions.tsx
 │   │   └── whitepaper.tsx
@@ -484,7 +510,6 @@
 │   │   └── ShelterSetup.tsx
 │   ├── HomePage.tsx
 │   ├── HowItWorks.tsx
-│   ├── Impact.tsx
 │   ├── LoginPage.tsx
 │   ├── NotFoundPage.tsx
 │   ├── RegistrationConfirmation.tsx
@@ -546,4 +571,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-167 directories, 377 files
+175 directories, 394 files

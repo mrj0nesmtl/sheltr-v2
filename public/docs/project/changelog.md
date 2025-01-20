@@ -1,5 +1,41 @@
 # Changelog
 
+## [0.6.2] - 2025-01-19 23:45 EST
+### Added
+- Role-based navigation system
+- Path validation framework
+- Navigation security measures
+- Component organization by role
+- Performance monitoring tools
+- Navigation state management
+
+### Changed
+- Enhanced navigation architecture
+- Improved role validation patterns
+- Updated path structure
+- Optimized component mounting
+- Refined security measures
+- Enhanced documentation
+
+### Fixed
+- Role validation issues
+- Path resolution errors
+- Navigation mounting inefficiencies
+- Component organization
+- Security vulnerabilities
+- Documentation structure
+
+### Technical Debt Addressed
+- Navigation system optimization
+- Role-based routing implementation
+- Path validation standardization
+- Component mounting patterns
+- Security measures enhancement
+- Documentation updates
+
+[0.6.2]: https://github.com/mrj0nesmtl/sheltr-v2
+
+[Previous changelog entries remain unchanged...]
 ## [0.6.0] - 2025-01-17 22:15 EST
 ### Added
 - Navigation system optimization

@@ -1,6 +1,6 @@
 # 🗄️ SHELTR Database Documentation
-*Last Updated: January 17, 2025 22:15 EST*
-*Version: 0.6.0*
+*Last Updated: January 19, 2025 23:45 EST*
+*Version: 0.6.2*
 *Status: STABLE* 🟢
 
 ## Database Connection
@@ -15,14 +15,43 @@ psql
 ## Schema Overview
 
 ### Public Schema
-The `public` schema contains tables related to the core functionality of the SHELTR platform, including donations, users, transactions, navigation states, and internationalization data.
+The `public` schema contains tables related to core functionality, including role-based navigation, path validation, and security monitoring.
 
 ### Auth Schema
-The `auth` schema manages authentication-related data, such as user credentials and session information.
+The `auth` schema manages authentication and role-based access control.
 
 ## Table Definitions
 
 ### Public Schema Tables
+
+#### Role Management
+```sql
+CREATE TABLE public.role_permissions (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    role_id UUID REFERENCES auth.roles(id),
+    path VARCHAR NOT NULL,
+    access_level VARCHAR NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE public.path_validations (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    path VARCHAR NOT NULL,
+    required_role VARCHAR NOT NULL,
+    security_level INTEGER DEFAULT 1,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE public.security_logs (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    user_id UUID REFERENCES auth.users(id),
+    path VARCHAR NOT NULL,
+    access_type VARCHAR NOT NULL,
+    success BOOLEAN DEFAULT false,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+```
 
 #### Users
 - **id**: UUID, Primary Key
@@ -65,6 +94,16 @@ The `auth` schema manages authentication-related data, such as user credentials 
 - **created_at**: TIMESTAMP
 
 ### Auth Schema Tables
+
+#### Roles
+```sql
+CREATE TABLE auth.roles (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    name VARCHAR NOT NULL UNIQUE,
+    permissions JSONB,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+```
 
 #### Auth Users
 - **id**: UUID, Primary Key
@@ -130,43 +169,110 @@ INSERT INTO public.performance_metrics
 VALUES ('user-uuid', 45, 95, '/dashboard');
 ```
 
-## Performance Considerations
-- Implement caching for translations
-- Index frequently queried columns
-- Monitor query performance
-- Optimize navigation state queries
+## New Sample Queries
+
+### Role Validation
+```sql
+SELECT rp.access_level 
+FROM public.role_permissions rp
+JOIN auth.roles r ON r.id = rp.role_id
+WHERE r.name = $1 AND rp.path = $2;
+```
+
+### Path Security Check
+```sql
+SELECT required_role, security_level
+FROM public.path_validations
+WHERE path = $1;
+```
+
+### Security Monitoring
+```sql
+INSERT INTO public.security_logs 
+(user_id, path, access_type, success)
+VALUES ($1, $2, $3, $4);
+```
+
+### Access Analytics
+```sql
+SELECT 
+    path,
+    COUNT(*) as total_attempts,
+    SUM(CASE WHEN success THEN 1 ELSE 0 END) as successful_attempts,
+    AVG(CASE WHEN success THEN 1 ELSE 0 END)::DECIMAL(4,2) as success_rate
+FROM public.security_logs
+GROUP BY path
+ORDER BY total_attempts DESC;
+```
+
+## Performance Metrics
+
+### Role Resolution Time
+```sql
+SELECT 
+    path,
+    AVG(EXTRACT(EPOCH FROM (updated_at - created_at)) * 1000) as avg_resolution_ms
+FROM public.role_permissions
+GROUP BY path
+HAVING AVG(EXTRACT(EPOCH FROM (updated_at - created_at)) * 1000) > 10;
+```
+
+### Security Validation Performance
+```sql
+SELECT 
+    DATE_TRUNC('hour', created_at) as time_bucket,
+    COUNT(*) as validation_count,
+    AVG(CASE WHEN success THEN 1 ELSE 0 END)::DECIMAL(4,2) as success_rate
+FROM public.security_logs
+GROUP BY time_bucket
+ORDER BY time_bucket DESC;
+```
 
 ## Security Considerations
-- Ensure all sensitive data is encrypted.
-- Use role-based access control to restrict access to sensitive tables.
-- Implement row-level security for navigation states
-- Encrypt sensitive user preferences
-- Validate language codes
-- Sanitize translation content
+- Implement row-level security for role permissions
+- Encrypt sensitive path data
+- Log all access attempts
+- Monitor validation performance
+- Track security violations
+- Implement role hierarchy
+- Validate path patterns
+- Cache common validations
+
+## Indexes
+```sql
+CREATE INDEX idx_role_permissions_path ON public.role_permissions(path);
+CREATE INDEX idx_path_validations_path ON public.path_validations(path);
+CREATE INDEX idx_security_logs_user_path ON public.security_logs(user_id, path);
+CREATE INDEX idx_security_logs_created_at ON public.security_logs(created_at);
+```
 
 ## Monitoring Queries
 
-### Navigation Performance
+### Role Access Patterns
 ```sql
 SELECT 
-  route,
-  AVG(navigation_mount_time) as avg_mount_time,
-  AVG(language_switch_time) as avg_switch_time,
-  COUNT(*) as total_visits
-FROM public.performance_metrics
-GROUP BY route
-ORDER BY total_visits DESC;
+    r.name as role,
+    rp.path,
+    COUNT(*) as access_count
+FROM auth.roles r
+JOIN public.role_permissions rp ON r.id = rp.role_id
+JOIN public.security_logs sl ON rp.path = sl.path
+GROUP BY r.name, rp.path
+ORDER BY access_count DESC;
 ```
 
-### Language Usage
+### Security Violations
 ```sql
 SELECT 
-  preferred_language,
-  COUNT(*) as user_count
-FROM public.users
-GROUP BY preferred_language
-ORDER BY user_count DESC;
+    user_id,
+    path,
+    COUNT(*) as failed_attempts
+FROM public.security_logs
+WHERE NOT success
+GROUP BY user_id, path
+HAVING COUNT(*) > 5
+ORDER BY failed_attempts DESC;
 ```
 
 ---
-*For further details, see [implementation.md](./implementation.md)*
+*For implementation details, see [implementation.md](./implementation.md)*

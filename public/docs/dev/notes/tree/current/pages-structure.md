@@ -1,5 +1,5 @@
 # 🌳 SHELTR Pages Structure
-*Generated: 2025-01-17 22:51:26*
+*Generated: 2025-01-20 00:39:47*
 \n## Directory Structure
 ./src/pages
 ├── About
@@ -36,6 +36,11 @@
 ├── Donor
 │   ├── DonorSignUp.tsx
 │   └── Settings.tsx
+├── Impact
+│   ├── components
+│   │   ├── ImpactMobileNav.tsx
+│   │   └── ImpactSidebar.tsx
+│   └── Impact.tsx
 ├── ShelterAdmin
 │   └── types
 │       └── index.ts
@@ -57,10 +62,23 @@
 │   └── index.ts
 ├── Wiki
 │   ├── components
+│   │   ├── ChangelogSection.tsx
+│   │   ├── DocumentationGrid.tsx
+│   │   ├── MetricsGrid.tsx
 │   │   ├── PlatformStatusSection.tsx
-│   │   └── WikiMobileNav.tsx
+│   │   ├── SprintProgress.tsx
+│   │   ├── StatusOverview.tsx
+│   │   ├── WikiHeader.tsx
+│   │   ├── WikiMobileNav.tsx
+│   │   ├── WikiSidebar.tsx
+│   │   └── index.tsx
+│   ├── hooks
+│   │   ├── index.ts
+│   │   └── useWikiData.ts
+│   ├── types
+│   │   └── index.ts
 │   ├── Wiki.tsx
-│   └── WikiSidebar.tsx
+│   └── index.tsx
 ├── blockchain
 │   ├── transactions.tsx
 │   └── whitepaper.tsx
@@ -68,7 +86,6 @@
 │   └── ShelterSetup.tsx
 ├── HomePage.tsx
 ├── HowItWorks.tsx
-├── Impact.tsx
 ├── LoginPage.tsx
 ├── NotFoundPage.tsx
 ├── RegistrationConfirmation.tsx
@@ -79,4 +96,4 @@
 ├── debug.tsx
 └── index.ts
 
-17 directories, 60 files
+21 directories, 73 files

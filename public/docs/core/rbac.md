@@ -1,6 +1,6 @@
 # 🔐 Role-Based Access Control
-*Last Updated: January 17, 2025 22:15 EST*
-*Version: 0.6.0*
+*Last Updated: January 19, 2025 23:45 EST*
+*Version: 0.6.1*
 *Status: STABLE* 🟢
 
 ## Situational Abstract
@@ -22,6 +22,7 @@ interface RoleCapabilities {
     analytics: boolean;   // Analytics access
     documents: boolean;   // Document management
     i18n: boolean;       // Translation management
+    navigation: boolean;  // Navigation management (New)
   };
   shelterAdmin: {
     shelter: boolean;     // Shelter management
@@ -47,18 +48,29 @@ interface RoleCapabilities {
 }
 ```
 
-## Authentication Flow Matrix
-| Action                | Public | Donor | Shelter Admin | Super Admin |
-|----------------------|--------|-------|---------------|-------------|
-| View Landing         | ✅     | ✅    | ✅           | ✅         |
-| Create Account       | ✅     | ✅    | ✅           | ✅         |
-| Access Dashboard     | ❌     | ✅    | ✅           | ✅         |
-| Manage Profile       | ❌     | ✅    | ✅           | ✅         |
-| View Analytics       | ❌     | ✅    | ✅           | ✅         |
-| Upload Documents     | ❌     | ❌    | ✅           | ✅         |
-| Manage Documents     | ❌     | ❌    | ✅           | ✅         |
-| System Configuration | ❌     | ❌    | ❌           | ✅         |
-| Manage Translations  | ❌     | ❌    | 🔵           | ✅         |
+## Navigation Access Matrix
+```typescript
+interface NavigationPermissions {
+  public: {
+    routes: ['/', '/about', '/contact'],
+    features: ['languageSwitch', 'basicContent']
+  },
+  authenticated: {
+    donor: {
+      routes: ['/dashboard/donor/:userId', '/profile', '/donations'],
+      features: ['donationHistory', 'impactMetrics']
+    },
+    shelterAdmin: {
+      routes: ['/dashboard/shelter/:orgId', '/shelter', '/participants'],
+      features: ['shelterManagement', 'documentUpload']
+    },
+    superAdmin: {
+      routes: ['/dashboard/super-admin', '/system', '/analytics'],
+      features: ['all']
+    }
+  }
+}
+```
 
 ## Feature Access Matrix
 | Feature              | Participant | Donor | Shelter Admin | Super Admin |
@@ -73,38 +85,15 @@ interface RoleCapabilities {
 | Document Upload     | ❌         | ❌    | ✅           | ✅         |
 | Form Management     | ❌         | ❌    | ✅           | ✅         |
 | Language Management | ❌         | ❌    | 🔵           | ✅         |
+| Navigation Config   | ❌         | ❌    | ❌           | ✅         |
 
 *🔵 = Limited Access*
 
-## Navigation Access Controls
-```typescript
-interface NavigationPermissions {
-  public: {
-    routes: ['/', '/about', '/contact'],
-    features: ['languageSwitch', 'basicContent']
-  },
-  authenticated: {
-    donor: {
-      routes: ['/dashboard', '/profile', '/donations'],
-      features: ['donationHistory', 'impactMetrics']
-    },
-    shelterAdmin: {
-      routes: ['/admin', '/shelter', '/participants'],
-      features: ['shelterManagement', 'documentUpload']
-    },
-    superAdmin: {
-      routes: ['*'],
-      features: ['all']
-    }
-  }
-}
-```
-
 ## Recent Updates
-- [✅] Enhanced i18n role-based content delivery
-- [✅] Optimized navigation mounting and access control
-- [✅] Added language management permissions
-- [✅] Updated role-based navigation patterns
+- [✅] Enhanced role-based navigation system
+- [✅] Standardized path structure
+- [✅] Optimized navigation mounting
+- [✅] Added navigation management capabilities
 - [✅] Enhanced security controls
 - [✅] Improved audit logging
 
@@ -115,17 +104,29 @@ interface NavigationPermissions {
 4. Implement permission caching
 5. Add role transition workflows
 6. Enhance security monitoring
+7. Optimize navigation performance
+
+## Security Considerations
+```typescript
+interface RBACSecurityConfig {
+  validation: {
+    role: boolean;
+    path: boolean;
+    navigation: boolean;
+  };
+  caching: {
+    permissions: boolean;
+    navigation: boolean;
+    timeout: number;
+  };
+  monitoring: {
+    audit: boolean;
+    performance: boolean;
+    security: boolean;
+  }
+}
+```
 
 ---
 *For implementation details, see [implementation.md](./implementation.md)*
 ```
-
-Key updates:
-1. Added i18n capabilities to role definitions
-2. Updated feature matrix with language management
-3. Added navigation access controls
-4. Enhanced security considerations
-5. Updated version and timestamp
-6. Added new implementation priorities
-
-Would you like me to explain any of these changes in more detail?

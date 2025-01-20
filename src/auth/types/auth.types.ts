@@ -1,6 +1,9 @@
+import { User as SupabaseUser } from '@supabase/supabase-js';
+
 export enum AUTH_ROLES {
   SUPER_ADMIN = 'super_admin',
   SHELTER_ADMIN = 'shelter_admin',
+  STAFF = 'staff',
   DONOR = 'donor',
   PARTICIPANT = 'participant'
 }
@@ -89,19 +92,11 @@ export interface ParticipantProfile extends BaseProfile {
   progress_metrics: Record<string, number>;
 }
 
-export interface User {
-  id: string;
-  email: string;
-  role: AUTH_ROLES;
-  firstName?: string;
-  lastName?: string;
-  createdAt: Date;
-  updatedAt: Date;
-  lastLogin?: Date;
-  isActive: boolean;
-  profileComplete: boolean;
-  profile?: ShelterProfile | DonorProfile | ParticipantProfile;
+export interface User extends SupabaseUser {
+  role?: AUTH_ROLES;
 }
+
+export type AuthUser = User;
 
 export interface UserMetadata {
   last_updated: string;
@@ -173,10 +168,8 @@ export interface AuthResponse {
 }
 
 export interface AuthError {
-  code: string;
   message: string;
-  details?: Record<string, any>;
-  timestamp: number;
+  status?: number;
 }
 
 export type ErrorSeverity = 'info' | 'warning' | 'error' | 'fatal';
@@ -184,7 +177,7 @@ export type ErrorSeverity = 'info' | 'warning' | 'error' | 'fatal';
 export interface EnhancedAuthError extends AuthError {
   severity: ErrorSeverity;
   handled: boolean;
-  retryCount?: number;
+  timestamp: number;
 }
 
 export interface Session {

@@ -32,26 +32,25 @@ const convertUser = (user: User | null): AuthUser | null => {
   };
 };
 
-interface SessionState {
-  status: 'idle' | 'authenticating' | 'authenticated' | 'error';
-  expiresAt: number | null;
-  lastChecked: number | null;
-}
-
 interface AuthState {
   user: AuthUser | null;
   role: AUTH_ROLES | null;
   isLoading: boolean;
   isAuthenticated: boolean;
   error: EnhancedAuthError | null;
-  session: SessionState;
+  session: {
+    status: 'idle' | 'authenticating' | 'authenticated' | 'error';
+    expiresAt: number | null;
+    lastChecked: number | null;
+  };
   sessionError: EnhancedAuthError | null;
   lastError: EnhancedAuthError | null;
   hasInitialized: boolean;
   isInitializing: boolean;
 }
 
-interface AuthStore extends AuthState {
+// Separate actions from state
+interface AuthActions {
   setUser: (user: User | null) => void;
   setRole: (role: AUTH_ROLES) => void;
   clearAuth: () => void;
@@ -63,7 +62,11 @@ interface AuthStore extends AuthState {
   setInitializing: (isInitializing: boolean) => void;
   setInitialized: (hasInitialized: boolean) => void;
   batchUpdate: (updates: Partial<AuthState>) => void;
+  initialize: () => Promise<void>;
 }
+
+// Combine for store type
+type AuthStore = AuthState & AuthActions;
 
 // Add session management utilities
 const SESSION_CHECK_INTERVAL = 4 * 60 * 1000; // 4 minutes
@@ -82,7 +85,9 @@ const createAuthError = (
   timestamp: Date.now()
 });
 
-export const useAuthStore = create<AuthStore>(
+const DEBUG = false // Toggle this for development
+
+export const useAuthStore = create<AuthStore>()(
   persist(
     (set, get) => ({
       user: null,
@@ -181,43 +186,77 @@ export const useAuthStore = create<AuthStore>(
             session: { ...get().session, status: 'authenticating' }
           });
 
+          console.log('🚀 Starting auth process...');
           const { data, error } = await supabase.auth.signInWithPassword(credentials);
           
           if (error) {
+            console.error('❌ Auth Error:', error);
             get().handleError(error, 'error');
             throw error;
           }
           
-          if (data.user) {
-            const { data: staffData } = await supabase
-              .from('organization_staff')
-              .select('role')
-              .eq('user_id', data.user.id)
-              .maybeSingle();
-
-            const userRole = staffData?.role || 
-                           data.user.user_metadata?.role || 
-                           AUTH_ROLES.DONOR;
-
-            get().batchUpdate({
-              user: data.user as User,
-              role: userRole as AUTH_ROLES,
-              isAuthenticated: true,
-              isLoading: false,
-              isInitializing: false,
-              hasInitialized: true,
-              session: {
-                status: 'authenticated',
-                expiresAt: new Date(data.session!.expires_at!).getTime(),
-                lastChecked: Date.now()
-              },
-              error: null,
-              sessionError: null
-            });
+          if (!data.user || !data.session) {
+            throw new Error('No user data received from authentication');
           }
+
+          console.log('✅ Auth successful, fetching profile...');
+          
+          // Fetch profile data including role
+          const { data: profileData, error: profileError } = await supabase
+            .from('profiles')
+            .select('role, first_name, last_name')
+            .eq('id', data.user.id)
+            .single();
+
+          if (profileError) {
+            console.error('❌ Profile Error:', profileError);
+            get().handleError(profileError, 'error');
+            throw profileError;
+          }
+
+          // Determine user role with fallback chain
+          const userRole = profileData?.role || 
+                          data.user.user_metadata?.role || 
+                          AUTH_ROLES.DONOR;
+
+          console.log('✅ Profile fetched, updating store...', {
+            role: userRole,
+            userId: data.user.id
+          });
+
+          // Update store with all user data
+          get().batchUpdate({
+            user: {
+              ...data.user,
+              role: userRole,
+              firstName: profileData?.first_name,
+              lastName: profileData?.last_name
+            } as User,
+            role: userRole as AUTH_ROLES,
+            isAuthenticated: true,
+            isLoading: false,
+            isInitializing: false,
+            hasInitialized: true,
+            session: {
+              status: 'authenticated',
+              expiresAt: new Date(data.session.expires_at!).getTime(),
+              lastChecked: Date.now()
+            },
+            error: null,
+            sessionError: null
+          });
+
+          console.log('✅ Auth store updated successfully');
+
         } catch (error) {
-          console.error('Login error:', error);
+          console.error('❌ Login error:', error);
           get().handleError(error as Error, 'error');
+          throw error; // Re-throw for the form to handle
+        } finally {
+          get().batchUpdate({
+            isLoading: false,
+            isInitializing: false
+          });
         }
       },
 
@@ -373,6 +412,58 @@ export const useAuthStore = create<AuthStore>(
           set(updates);
         }
       },
+
+      initialize: async () => {
+        const store = get()
+        
+        if (store.isInitializing || store.hasInitialized) {
+          DEBUG && console.log('🔄 Auth already initialized or initializing')
+          return
+        }
+
+        set({ isInitializing: true })
+        DEBUG && console.log('🚀 Starting auth initialization...')
+
+        try {
+          const { data: { session } } = await supabase.auth.getSession()
+          
+          if (!session) {
+            DEBUG && console.log('ℹ️ No session found')
+            set({ 
+              hasInitialized: true,
+              isInitializing: false,
+              isAuthenticated: false,
+              user: null
+            })
+            return
+          }
+
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('role, user_id')
+            .eq('user_id', session.user.id)
+            .single()
+
+          set({
+            hasInitialized: true,
+            isInitializing: false,
+            isAuthenticated: true,
+            user: {
+              ...session.user,
+              role: profile?.role || null
+            }
+          })
+        } catch (error) {
+          console.error('❌ Auth initialization failed:', error)
+          set({ 
+            hasInitialized: true,
+            isInitializing: false,
+            error: error as Error,
+            isAuthenticated: false,
+            user: null
+          })
+        }
+      }
     }),
     {
       name: 'auth-storage',
@@ -380,12 +471,7 @@ export const useAuthStore = create<AuthStore>(
         user: state.user,
         role: state.role,
         isAuthenticated: state.isAuthenticated,
-        hasInitialized: state.hasInitialized,
-        session: {
-          status: state.session.status,
-          expiresAt: state.session.expiresAt,
-          lastChecked: state.session.lastChecked
-        }
+        hasInitialized: state.hasInitialized
       })
     }
   )

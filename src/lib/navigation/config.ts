@@ -10,7 +10,8 @@ import {
     Trophy,
     User,
     LayoutGrid,
-    BarChart
+    BarChart,
+    Home
 } from 'lucide-react';
 
 export interface NavigationItem {
@@ -23,32 +24,33 @@ export interface NavigationItem {
 }
 
 // Public navigation
-export const mainNavigation: NavigationItem[] = [
+export const mainNavigation = [
   {
-    path: '/how-it-works',
     label: 'nav.howItWorks',
-    icon: Info,
-    iconClassName: 'text-blue-400'
+    path: '/how-it-works',
+    icon: HelpCircle
   },
   {
-    path: '/solutions',
     label: 'nav.solutions',
-    icon: LayoutGrid,
-    iconClassName: 'text-purple-400'
+    path: '/solutions',
+    icon: Home
   },
   {
-    path: '/scan-donate',
     label: 'nav.scanDonate',
-    icon: QrCode,
-    iconClassName: 'text-green-400'
+    path: '/scan-donate',
+    icon: QrCode
   },
   {
-    path: '/impact',
     label: 'nav.impact',
-    icon: BarChart,
-    iconClassName: 'text-yellow-400'
+    path: '/impact',
+    icon: BarChart3
+  },
+  {
+    label: 'nav.about',
+    path: '/about',
+    icon: Info
   }
-];
+] as const;
 
 // Role-based dashboard navigation
 export const dashboardNavigation = {

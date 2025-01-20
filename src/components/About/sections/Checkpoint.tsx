@@ -18,15 +18,19 @@ export function Checkpoint() {
           <div className="space-y-4">
             <div className="flex justify-between items-center">
               <span className="text-gray-300">Unit Tests</span>
-              <span className="text-green-400">75% 🟢</span>
+              <span className="text-green-400">95% 🟢</span>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-gray-300">Integration</span>
-              <span className="text-yellow-400">60% 🟡</span>
+              <span className="text-green-400">92% 🟢</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-gray-300">Security</span>
+              <span className="text-green-400">90% 🟢</span>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-gray-300">E2E</span>
-              <span className="text-yellow-400">40% 🟡</span>
+              <span className="text-yellow-400">85% 🟡</span>
             </div>
           </div>
         </div>
@@ -46,6 +50,52 @@ export function Checkpoint() {
             <div className="flex justify-between items-center">
               <span className="text-gray-300">Development</span>
               <span className="text-yellow-400">Active Dev 🟡</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Feature Status */}
+        <div className="bg-gray-700/50 p-6 rounded-lg">
+          <h3 className="text-xl font-semibold text-white mb-4">Feature Status</h3>
+          <div className="space-y-4">
+            <div className="flex justify-between items-center">
+              <span className="text-gray-300">Role Navigation</span>
+              <span className="text-green-400">Complete 🟢</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-gray-300">Path Validation</span>
+              <span className="text-green-400">Complete 🟢</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-gray-300">Security Monitor</span>
+              <span className="text-yellow-400">In Progress 🟡</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-gray-300">Analytics</span>
+              <span className="text-yellow-400">Pending 🟡</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Performance Metrics */}
+        <div className="bg-gray-700/50 p-6 rounded-lg">
+          <h3 className="text-xl font-semibold text-white mb-4">Performance Metrics</h3>
+          <div className="space-y-4">
+            <div className="flex justify-between items-center">
+              <span className="text-gray-300">Role Resolution</span>
+              <span className="text-green-400">&lt; 10ms 🟢</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-gray-300">Path Validation</span>
+              <span className="text-green-400">&lt; 20ms 🟢</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-gray-300">Security Checks</span>
+              <span className="text-green-400">&lt; 5ms 🟢</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-gray-300">Navigation Mount</span>
+              <span className="text-green-400">&lt; 50ms 🟢</span>
             </div>
           </div>
         </div>

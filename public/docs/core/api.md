@@ -1,6 +1,6 @@
 # 🔌 SHELTR API Documentation
-*Last Updated: December 28, 2024 22:45 EST*
-*Version: 0.5.3*
+*Last Updated: January 19, 2025 23:45 EST*
+*Version: 0.6.1*
 *Status: Active Development* 🟢
 
 ## API Overview
@@ -10,12 +10,14 @@ SHELTR's API provides secure, role-based endpoints for donation management, user
 ```typescript
 interface APIConfig {
   endpoints: {
-   production: 'https://sheltr-ops.replit.app',
-   development: 'http://localhost:5173'
+    production: 'https://sheltr-ops.replit.app',
+    development: 'http://localhost:5173'
   },
   version: 'v1',
   timeout: 30000,
-  retryAttempts: 3
+  retryAttempts: 3,
+  roleValidation: true,
+  pathValidation: true
 }
 ```
 
@@ -26,6 +28,7 @@ interface AuthHeaders {
   'Content-Type': 'application/json';
   'X-Client-Version': string;
   'X-Role-Access': UserRole;
+  'X-Path-Validation': string;
 }
 
 type UserRole = 'super_admin' | 'shelter_admin' | 'donor' | 'participant';
@@ -42,7 +45,19 @@ interface AuthEndpoints {
   session: 'GET /auth/session',
   refresh: 'POST /auth/refresh',
   verify: 'POST /auth/verify',
-  resetPassword: 'POST /auth/reset-password'
+  resetPassword: 'POST /auth/reset-password',
+  validateRole: 'POST /auth/validate-role',
+  validatePath: 'POST /auth/validate-path'
+}
+```
+
+### Role-Based Navigation
+```typescript
+interface NavigationEndpoints {
+  getRoleRoutes: 'GET /navigation/routes/:role',
+  validateAccess: 'POST /navigation/validate',
+  getPathPermissions: 'GET /navigation/permissions/:path',
+  getUserNavigation: 'GET /navigation/user/:userId'
 }
 ```
 
@@ -52,7 +67,8 @@ interface DashboardEndpoints {
   analytics: 'GET /dashboard/analytics',
   metrics: 'GET /dashboard/metrics',
   performance: 'GET /dashboard/performance',
-  realtime: 'WS /dashboard/realtime'
+  realtime: 'WS /dashboard/realtime',
+  roleMetrics: 'GET /dashboard/:role/metrics'
 }
 ```
 
@@ -76,7 +92,8 @@ interface UserEndpoints {
   statistics: 'GET /users/statistics',
   preferences: 'PATCH /users/preferences',
   roles: 'GET /users/roles',
-  permissions: 'GET /users/permissions'
+  permissions: 'GET /users/permissions',
+  validateAccess: 'POST /users/validate-access'
 }
 ```
 
@@ -91,6 +108,8 @@ interface APIResponse<T> {
     version: string;
     requestId: string;
     processingTime: number;
+    roleValidated?: boolean;
+    pathValidated?: boolean
   };
 }
 
@@ -101,6 +120,8 @@ interface APIError {
   timestamp: string;
   path: string;
   requestId: string;
+  roleContext?: string;
+  pathContext?: string
 }
 ```
 
@@ -108,7 +129,7 @@ interface APIError {
 ```typescript
 interface SecurityConfig {
   rateLimit: {
-    window: 60000, // 1 minute
+    window: 60000,
     max: 100,
     burst: 200,
     cooldown: 60
@@ -120,7 +141,17 @@ interface SecurityConfig {
   },
   encryption: {
     algorithm: 'AES-256-GCM',
-    keyRotation: 7 * 24 * 60 * 60 // 7 days
+    keyRotation: 7 * 24 * 60 * 60
+  },
+  roleValidation: {
+    enabled: true,
+    caching: true,
+    timeout: 5000
+  },
+  pathValidation: {
+    enabled: true,
+    caching: true,
+    timeout: 3000
   }
 }
 ```
@@ -132,7 +163,9 @@ interface WebSocketEvents {
   DONATION_VERIFIED: 'donation:verified',
   METRICS_UPDATED: 'metrics:updated',
   USER_ACTIVITY: 'user:activity',
-  SYSTEM_ALERT: 'system:alert'
+  SYSTEM_ALERT: 'system:alert',
+  ROLE_UPDATED: 'role:updated',
+  PATH_VALIDATED: 'path:validated'
 }
 ```
 
@@ -156,7 +189,9 @@ interface HealthCheck {
     status: 'healthy' | 'degraded' | 'unhealthy',
     uptime: number,
     version: string,
-    services: Record<string, 'up' | 'down'>
+    services: Record<string, 'up' | 'down'>,
+    roleValidation: 'active' | 'inactive',
+    pathValidation: 'active' | 'inactive'
   }
 }
 ```

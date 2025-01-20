@@ -1,4 +1,4 @@
-import { memo, useState, useMemo, useCallback, useRef, useEffect } from 'react';
+import { memo, useState, useMemo, useCallback } from 'react';
 import { mainNavigation } from '@/lib/navigation/config';
 import { Menu, LogIn, UserPlus } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -13,19 +13,6 @@ export const Navigation = memo(() => {
   const { t } = useTranslation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { isAuthenticated, user } = useAuth();
-  const mountedRef = useRef(false);
-
-  // Single mount effect
-  useEffect(() => {
-    if (!mountedRef.current) {
-      mountedRef.current = true;
-      console.debug('Navigation mounted');
-    }
-
-    return () => {
-      mountedRef.current = false;
-    };
-  }, []);
 
   // Memoize dashboard path
   const dashboardPath = useMemo(() => 

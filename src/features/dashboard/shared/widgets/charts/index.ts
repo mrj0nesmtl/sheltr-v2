@@ -1,3 +1,7 @@
-export * from './AreaChart';
-export * from './BarChart';
-export * from './LineChart'; 
+// Re-export all chart components from analytics
+export {
+  LineChart,
+  PieChart,
+  BarChart,
+  AreaChart
+} from '@/features/shared/analytics/charts'; 

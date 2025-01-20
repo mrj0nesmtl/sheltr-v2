@@ -1,11 +1,24 @@
-import { Shield, Activity, Clock, Users, Database, RefreshCw, Server, Tag } from 'lucide-react';
-import { usePlatformStatus } from '@/services/platformStatus';
+import { Shield, Activity, Clock, Users, Database, RefreshCw, Server, Tag, Lock, Route } from 'lucide-react';
+import { cn } from '@/lib/utils';
+
+interface SystemStatus {
+  isOperational: boolean;
+  roleNavigation: boolean;
+  pathValidation: boolean;
+  responseTime: number;
+  securityHealth: number;
+  uptime: number;
+  lastUpdate: string;
+  activeUsers: number;
+  apiStatus: string;
+  version: string;
+}
 
 interface SystemStatusProps {
   title: string;
-  value: string;
+  value: string | number;
   icon: React.ElementType;
-  status: string;
+  status: 'success' | 'warning' | 'good' | 'stable';
   color: string;
 }
 
@@ -13,51 +26,82 @@ const SystemStatus = ({ title, value, icon: Icon, status, color }: SystemStatusP
   <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-4">
     <div className="flex items-center justify-between">
       <div className="flex items-center">
-        <Icon className={`w-5 h-5 ${color} mr-3`} />
+        <Icon className={cn("w-5 h-5 mr-3", color)} />
         <div>
           <p className="text-sm text-gray-400">{title}</p>
           <p className="text-lg font-semibold text-white">{value}</p>
         </div>
       </div>
-      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-        status === 'success' ? 'bg-green-500/20 text-green-400' :
-        status === 'warning' ? 'bg-yellow-500/20 text-yellow-400' :
-        'bg-blue-500/20 text-blue-400'
-      }`}>
+      <span className={cn(
+        "px-2 py-1 rounded-full text-xs font-medium",
+        status === 'success' && "bg-green-500/20 text-green-400",
+        status === 'warning' && "bg-yellow-500/20 text-yellow-400",
+        status === 'good' && "bg-blue-500/20 text-blue-400",
+        status === 'stable' && "bg-purple-500/20 text-purple-400"
+      )}>
         {status}
       </span>
     </div>
   </div>
 );
 
-export const PlatformStatusSection = () => {
-  const { version, systemStatus } = usePlatformStatus();
+interface PlatformStatusSectionProps {
+  systemStatus: Partial<SystemStatus>;
+}
+
+export const PlatformStatusSection = ({ systemStatus = {} }: PlatformStatusSectionProps) => {
+  const {
+    isOperational = true,
+    roleNavigation = true,
+    pathValidation = true,
+    responseTime = 0,
+    securityHealth = 100,
+    uptime = 100,
+    lastUpdate = new Date().toISOString(),
+    activeUsers = 0,
+    apiStatus = 'Healthy',
+    version = '1.0.0'
+  } = systemStatus;
 
   const statusItems = [
     {
       title: "System Status",
-      value: systemStatus.isOperational ? "Operational" : "Issues Detected",
+      value: isOperational ? "Operational" : "Issues Detected",
       icon: Server,
-      status: systemStatus.isOperational ? "success" : "warning",
+      status: isOperational ? "success" : "warning",
       color: "text-emerald-400"
     },
     {
+      title: "Role Navigation",
+      value: roleNavigation ? "Active" : "Issues",
+      icon: Route,
+      status: roleNavigation ? "success" : "warning",
+      color: "text-violet-400"
+    },
+    {
+      title: "Path Validation",
+      value: pathValidation ? "Secured" : "Issues",
+      icon: Lock,
+      status: pathValidation ? "success" : "warning",
+      color: "text-rose-400"
+    },
+    {
       title: "Response Time",
-      value: `${systemStatus.responseTime}ms`,
+      value: `${responseTime}ms`,
       icon: Activity,
-      status: systemStatus.responseTime < 200 ? "good" : "warning",
+      status: responseTime < 200 ? "good" : "warning",
       color: "text-blue-400"
     },
     {
-      title: "Network Health",
-      value: `${systemStatus.networkHealth}%`,
+      title: "Security Health",
+      value: `${securityHealth}%`,
       icon: Shield,
-      status: systemStatus.networkHealth > 99 ? "success" : "warning",
+      status: securityHealth > 95 ? "success" : "warning",
       color: "text-purple-400"
     },
     {
       title: "Uptime",
-      value: `${systemStatus.uptime}%`,
+      value: `${uptime}%`,
       icon: Clock,
       status: "success",
       color: "text-green-400"
@@ -71,26 +115,26 @@ export const PlatformStatusSection = () => {
     },
     {
       title: "Last Update",
-      value: new Date(systemStatus.lastUpdate).toLocaleTimeString(),
+      value: new Date(lastUpdate).toLocaleTimeString(),
       icon: RefreshCw,
       status: "good",
       color: "text-blue-400"
     },
     {
       title: "Active Users",
-      value: systemStatus.activeUsers.toLocaleString(),
+      value: activeUsers.toLocaleString(),
       icon: Users,
       status: "good",
       color: "text-indigo-400"
     },
     {
       title: "API Status",
-      value: systemStatus.apiStatus,
+      value: apiStatus,
       icon: Database,
-      status: systemStatus.apiStatus === 'Healthy' ? "success" : "warning",
+      status: apiStatus === 'Healthy' ? "success" : "warning",
       color: "text-teal-400"
     }
-  ];
+  ] as const;
 
   return (
     <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-6">
@@ -100,7 +144,7 @@ export const PlatformStatusSection = () => {
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {statusItems.map((item, index) => (
-          <SystemStatus key={index} {...item} />
+          <SystemStatus key={`status-${index}`} {...item} />
         ))}
       </div>
     </div>

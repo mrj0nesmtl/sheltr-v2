@@ -1,5 +1,5 @@
 # 🌳 SHELTR Documentation Structure
-*Generated: 2025-01-17 22:51:26*
+*Generated: 2025-01-20 00:39:47*
 \n## Directory Structure
 ./public/docs
 ├── about
@@ -35,11 +35,13 @@
 │   ├── components.md
 │   ├── constants.md
 │   └── types.md
-└── technical
-    ├── authentication.md
-    ├── blockchain.md
-    ├── build_track.md
-    ├── database.md
-    └── qr-system.md
+├── technical
+│   ├── authentication.md
+│   ├── blockchain.md
+│   ├── build_track.md
+│   ├── database.md
+│   └── qr-system.md
+└── wiki
+    └── overview.md
 
-14 directories, 26 files
+15 directories, 27 files

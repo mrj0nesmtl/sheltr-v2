@@ -47,51 +47,73 @@ import {
 } from 'lucide-react';
 
 export const Icons = {
-  fingerprint: Fingerprint,
-  home: Home,
-  user: User,
-  settings: Settings,
-  logout: LogOut,
-  login: LogIn,
+  // Analytics & Data
+  barChart: BarChart,
+  trendingUp: TrendingUp,
+  
+  // Navigation & Layout
   menu: Menu,
   close: X,
   chevronDown: ChevronDown,
   chevronRight: ChevronRight,
+  
+  // Authentication & Security
+  fingerprint: Fingerprint,
+  shield: Shield,
+  lock: Lock,
+  login: LogIn,
+  logout: LogOut,
+  
+  // Users & Profiles
+  user: User,
+  users: Users,
+  userCog: UserCog,
+  userPlus: UserPlus,
+  
+  // Social Media
   facebook: Facebook,
   twitter: Twitter,
   instagram: Instagram,
   linkedin: Linkedin,
-  qrCode: QrCode,
+  
+  // Status & Feedback
+  alertCircle: AlertCircle,
+  alertTriangle: AlertTriangle,
+  checkCircle: CheckCircle,
+  xCircle: XCircle,
   info: Info,
-  building: Building,
-  building2: Building2,
-  userPlus: UserPlus,
-  dashboard: LayoutDashboard,
-  barChart: BarChart,
-  shield: Shield,
+  
+  // Features & Actions
+  qrCode: QrCode,
   heart: Heart,
   wallet: Wallet,
   arrowRight: ArrowRight,
-  mail: Mail,
-  lock: Lock,
-  mapPin: MapPin,
-  dollarSign: DollarSign,
-  alertCircle: AlertCircle,
-  users: Users,
-  phone: Phone,
-  send: Send,
-  checkCircle: CheckCircle,
-  trophy: Trophy,
-  trendingUp: TrendingUp,
-  calendar: Calendar,
-  xCircle: XCircle,
-  tag: Tag,
   save: Save,
-  camera: Camera,
-  userCog: UserCog,
-  globe: Globe,
-  alertTriangle: AlertTriangle,
+  send: Send,
+  settings: Settings,
+  
+  // Communication & Contact
+  mail: Mail,
+  phone: Phone,
+  mapPin: MapPin,
+  
+  // Organization & Structure
+  building: Building,
+  building2: Building2,
+  dashboard: LayoutDashboard,
+  calendar: Calendar,
+  tag: Tag,
   link: Link,
+  globe: Globe,
+  dollarSign: DollarSign,
+  camera: Camera,
+  trophy: Trophy,
 } as const;
 
-export type IconName = keyof typeof Icons; 
+export type IconName = keyof typeof Icons;
+
+// Helper function to get icon component with type safety
+export const getIcon = (name: IconName) => Icons[name];
+
+// Helper function to check if an icon exists
+export const hasIcon = (name: string): name is IconName => name in Icons; 

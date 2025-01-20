@@ -24,14 +24,28 @@ import { DetailedAnalytics } from '@/components/shared/analytics/DetailedAnalyti
 
 // Charts
 import { 
-  DonationAllocationPieChart,
-  NetworkActivityChart 
-} from '@/components/ui/Charts';
+  LineChart,
+  PieChart 
+} from '@/features/shared/analytics/charts';
+import { ChartDataPoint } from '@/features/shared/analytics/types';
 
 // Feature Components
 import { BlockchainStats } from '@/components/Blockchain';
 import { TransactionList } from '@/components/Transactions/TransactionList';
 import { ShelterList } from '@/components/Admin/Shelters/ShelterList';
+
+// Mock data for charts (you'll want to replace this with real data)
+const networkActivityData: ChartDataPoint[] = [
+  { label: 'Jan', value: 30 },
+  { label: 'Feb', value: 45 },
+  // ... more data points
+];
+
+const donationAllocationData = [
+  { label: 'Housing', value: 45 },
+  { label: 'Services', value: 30 },
+  // ... more data points
+];
 
 export const SuperAdminDashboard = () => {
   const { user } = useAuthStore();
@@ -169,10 +183,18 @@ export const SuperAdminDashboard = () => {
 
             {/* Donation Analytics */}
             <Card className="lg:col-span-2">
-              <DonationAllocationPieChart />
+              <PieChart 
+                data={donationAllocationData}
+                height={300}
+              />
             </Card>
             <Card>
-              <NetworkActivityChart />
+              <LineChart 
+                data={networkActivityData}
+                height={250}
+                showGrid={true}
+                curved={true}
+              />
             </Card>
 
             {/* Transaction & Shelter Lists */}

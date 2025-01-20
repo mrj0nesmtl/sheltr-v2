@@ -1,8 +1,10 @@
-import { type FC, useState } from 'react';
+import { type FC, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/Button';
 import { Mail } from 'lucide-react';
 import { supabase } from '@/lib/supabase/client';
+import { useAuthStore } from '@/auth/stores/authStore';
+import { getDashboardPath } from "@/lib/navigation/roleNavigation";
 
 const RegistrationConfirmation: FC = () => {
   const navigate = useNavigate();
@@ -11,6 +13,7 @@ const RegistrationConfirmation: FC = () => {
     type: 'success' | 'error' | null;
     message: string;
   }>({ type: null, message: '' });
+  const { isAuthenticated, user, role } = useAuthStore();
 
   const handleResendConfirmation = async () => {
     try {
@@ -39,6 +42,14 @@ const RegistrationConfirmation: FC = () => {
       setIsResending(false);
     }
   };
+
+  useEffect(() => {
+    if (isAuthenticated && user?.email_confirmed_at) {
+      // User is already verified, redirect to appropriate dashboard
+      const dashboardPath = getDashboardPath(role);
+      navigate(dashboardPath, { replace: true });
+    }
+  }, [isAuthenticated, user, role, navigate]);
 
   return (
     <div className="max-w-lg mx-auto mt-20 p-6 text-center">

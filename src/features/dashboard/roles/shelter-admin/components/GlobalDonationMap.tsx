@@ -1,68 +1,65 @@
-import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet'
-import { motion } from 'framer-motion'
-import 'leaflet/dist/leaflet.css'
+import 'leaflet/dist/leaflet.css';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import L from 'leaflet';
+import iconUrl from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
-interface ShelterLocation {
+// Fix for default marker icons in React Leaflet
+const DefaultIcon = L.icon({
+  iconUrl,
+  shadowUrl: iconShadow,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
+
+L.Marker.prototype.options.icon = DefaultIcon;
+
+interface Location {
   id: string;
   name: string;
   lat: number;
   lng: number;
-  amount: number;
+  city: string;
+  state: string;
+  donations: number;
 }
 
 interface GlobalDonationMapProps {
-  shelterLocations: ShelterLocation[];
-  initialView?: {
-    center: [number, number];
-    zoom: number;
-  };
+  locations: Location[];
 }
 
-export const GlobalDonationMap = ({ 
-  shelterLocations,
-  initialView = {
-    center: [45.5017, -73.5673] as [number, number],
-    zoom: 13
-  }
-}: GlobalDonationMapProps) => {
+export function GlobalDonationMap({ locations }: GlobalDonationMapProps) {
+  // Calculate bounds from locations or use default US bounds
+  const bounds = locations.length > 0 
+    ? L.latLngBounds(locations.map(loc => [loc.lat, loc.lng]))
+    : L.latLngBounds([[25.7617, -124.6372], [49.3457, -66.9513]]); // US bounds
+
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.2 }}
-      className="h-[400px] w-full rounded-lg overflow-hidden"
+    <MapContainer
+      bounds={bounds}
+      className="h-[400px] rounded-lg"
+      scrollWheelZoom={false}
     >
-      <MapContainer
-        center={initialView.center}
-        zoom={initialView.zoom}
-        style={{ height: '100%', width: '100%' }}
-        className="rounded-lg"
-      >
-        <TileLayer
-          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-          maxZoom={19}
-        />
-        {shelterLocations.map((shelter) => (
-          <CircleMarker
-            key={shelter.id}
-            center={[shelter.lat, shelter.lng]}
-            radius={8}
-            fillColor="#EF4444"
-            color="#ffffff"
-            weight={1}
-            opacity={1}
-            fillOpacity={0.8}
-          >
-            <Popup>
-              <div className="bg-slate-800 p-3 rounded-lg shadow-lg">
-                <p className="text-white font-medium">{shelter.name}</p>
-                <p className="text-sm text-emerald-400">Monthly Donations: ${shelter.amount.toLocaleString()}</p>
-              </div>
-            </Popup>
-          </CircleMarker>
-        ))}
-      </MapContainer>
-    </motion.div>
-  )
+      <TileLayer
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      />
+      {locations.map((location) => (
+        <Marker
+          key={location.id}
+          position={[location.lat, location.lng]}
+        >
+          <Popup>
+            <div className="p-2">
+              <h3 className="font-bold">{location.name}</h3>
+              <p className="text-sm">{location.city}, {location.state}</p>
+              <p className="font-bold mt-1">${location.donations.toLocaleString()}</p>
+            </div>
+          </Popup>
+        </Marker>
+      ))}
+    </MapContainer>
+  );
 } 

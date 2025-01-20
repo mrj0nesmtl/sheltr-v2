@@ -1,6 +1,7 @@
 import { Home, RefreshCw, XCircle } from 'lucide-react';
 import { Component, ErrorInfo, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
+import { cn } from '@/lib/utils';
 
 interface Props {
   children: ReactNode;
@@ -27,7 +28,11 @@ export class BaseErrorBoundary extends Component<Props, State> {
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     this.setState({ errorInfo });
-    console.error(`Error in ${this.props.variant || 'default'} boundary:`, error, errorInfo);
+    console.error(`Error in ${this.props.variant || 'default'} boundary:`, {
+      error,
+      componentStack: errorInfo.componentStack,
+      variant: this.props.variant
+    });
   }
 
   private handleReset = () => {
@@ -38,7 +43,11 @@ export class BaseErrorBoundary extends Component<Props, State> {
   public render() {
     if (this.state.hasError) {
       return this.props.fallback || (
-        <div className={`flex flex-col items-center justify-center min-h-screen p-4 bg-gray-50 dark:bg-gray-900 ${this.props.className}`}>
+        <div className={cn(
+          "flex flex-col items-center justify-center min-h-screen p-4",
+          "bg-gray-50 dark:bg-gray-900",
+          this.props.className
+        )}>
           <div className="w-full max-w-md p-8 space-y-4 text-center bg-white dark:bg-gray-800 rounded-lg shadow-lg">
             <XCircle className="w-16 h-16 mx-auto text-red-500" />
             
@@ -51,15 +60,25 @@ export class BaseErrorBoundary extends Component<Props, State> {
             </p>
 
             {process.env.NODE_ENV === 'development' && this.state.errorInfo && (
-              <pre className="mt-4 p-4 text-left text-sm bg-gray-100 dark:bg-gray-700 rounded overflow-auto">
-                {this.state.errorInfo.componentStack}
-              </pre>
+              <details className="mt-4">
+                <summary className="cursor-pointer text-sm text-gray-500 dark:text-gray-400">
+                  Error Details
+                </summary>
+                <pre className="mt-2 p-4 text-left text-sm bg-gray-100 dark:bg-gray-700 rounded overflow-auto">
+                  {this.state.errorInfo.componentStack}
+                </pre>
+              </details>
             )}
 
             <div className="flex flex-col gap-2 sm:flex-row sm:justify-center mt-6">
               <button
                 onClick={this.handleReset}
-                className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className={cn(
+                  "inline-flex items-center justify-center px-4 py-2 text-sm font-medium",
+                  "text-white bg-indigo-600 rounded-md",
+                  "hover:bg-indigo-700 focus:outline-none focus:ring-2",
+                  "focus:ring-offset-2 focus:ring-indigo-500"
+                )}
               >
                 <RefreshCw className="w-4 h-4 mr-2" />
                 Try Again
@@ -67,7 +86,12 @@ export class BaseErrorBoundary extends Component<Props, State> {
 
               <Link
                 to="/"
-                className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className={cn(
+                  "inline-flex items-center justify-center px-4 py-2 text-sm font-medium",
+                  "text-gray-700 bg-white border border-gray-300 rounded-md",
+                  "hover:bg-gray-50 focus:outline-none focus:ring-2",
+                  "focus:ring-offset-2 focus:ring-indigo-500"
+                )}
               >
                 <Home className="w-4 h-4 mr-2" />
                 Back to Home

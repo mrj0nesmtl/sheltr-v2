@@ -2,11 +2,10 @@ import { AUTH_ROLES } from '@/auth/types/auth.types';
 import { getDashboardPath } from '@/lib/navigation/roleNavigation';
 import { useAuthStore } from '@/auth/stores/authStore';
 import { toast } from "@/components/ui/Toast";
-import { supabase } from '@/lib/supabase/client';
-import { useState } from 'react';
+import { useState, useEffect, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-// Add form validation schema
+// Move schema outside component
 const loginSchema = {
   email: (value: string) => {
     if (!value) return "Email is required";
@@ -20,13 +19,37 @@ const loginSchema = {
   }
 };
 
-export function LoginForm() {
-  const [isLoading, setIsLoading] = useState(false);
+export const LoginForm = memo(() => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<{[key: string]: string}>({});
   const navigate = useNavigate();
-  const { setUser, setRole } = useAuthStore();
+  const { 
+    login, 
+    isAuthenticated, 
+    user, 
+    role,
+    isLoading: storeLoading,
+    hasInitialized 
+  } = useAuthStore();
+
+  // Only log in development and when values actually change
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'development') {
+      console.log('LoginForm State:', {
+        isSubmitting,
+        storeLoading,
+        hasInitialized,
+        isAuthenticated,
+        role
+      });
+    }
+  }, [isSubmitting, storeLoading, hasInitialized, isAuthenticated, role]);
+
+  // Separate initialization from submission loading
+  const isInitializing = storeLoading || !hasInitialized;
+  const isLoading = isSubmitting || isInitializing;
 
   // Add validation function
   const validateForm = () => {
@@ -43,85 +66,18 @@ export function LoginForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validateForm() || isLoading) return;
     
-    if (!validateForm()) return;
-    setIsLoading(true);
-    
+    setIsSubmitting(true);
     try {
-      console.log('🚀 Starting login process...');
-
-      // 1. First authenticate with Supabase
-      console.log('📡 Authenticating with Supabase...');
-      const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
+      await login({
         email: email.trim().toLowerCase(),
         password,
       });
-
-      if (authError) {
-        console.error('❌ Auth Error:', authError);
-        throw authError;
-      }
       
-      console.log('✅ Auth successful:', {
-        userId: authData.user?.id,
-        email: authData.user?.email
-      });
-
-      if (!authData.user?.id) {
-        throw new Error('No user ID received from authentication');
-      }
-
-      // 2. Fetch profile data
-      console.log('📡 Fetching profile data...');
-      const { data: profileData, error: profileError } = await supabase
-        .from('profiles')
-        .select('role, id, first_name, last_name')
-        .eq('id', authData.user.id)
-        .single();
-
-      console.log('📥 Profile query response:', { profileData, profileError });
-
-      if (profileError) {
-        console.error('❌ Profile Error:', profileError);
-        throw profileError;
-      }
-
-      if (!profileData?.role) {
-        console.error('❌ No role found in profile');
-        throw new Error('User role not found in profile');
-      }
-
-      // 3. Update auth store
-      console.log('💾 Updating auth store...', {
-        role: profileData.role,
-        userId: authData.user.id
-      });
-
-      const userWithRole = {
-        ...authData.user,
-        role: profileData.role,
-        firstName: profileData.first_name,
-        lastName: profileData.last_name
-      };
-
-      await setUser(userWithRole);
-      await setRole(profileData.role as AUTH_ROLES);
-
-      // 4. Navigate to dashboard
-      const dashboardPath = getDashboardPath(profileData.role as AUTH_ROLES);
-      console.log('🧭 Navigating to dashboard:', { 
-        role: profileData.role,
-        path: dashboardPath 
-      });
-
-      navigate(dashboardPath, { replace: true });
+      // Remove all redirect logic from here
+      // Let LoginPage handle all redirects
       
-      toast({
-        title: "Welcome back!",
-        description: "Successfully logged in",
-        variant: "default"
-      });
-
     } catch (error) {
       console.error('❌ Login error:', error);
       toast({
@@ -130,7 +86,7 @@ export function LoginForm() {
         description: error instanceof Error ? error.message : "Authentication failed"
       });
     } finally {
-      setIsLoading(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -152,6 +108,9 @@ export function LoginForm() {
             className="appearance-none block w-full px-3 py-2 border border-gray-700 rounded-md shadow-sm bg-gray-700/50 text-gray-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             placeholder="you@example.com"
           />
+          {errors.email && (
+            <p className="mt-1 text-sm text-red-400">{errors.email}</p>
+          )}
         </div>
       </div>
 
@@ -171,6 +130,9 @@ export function LoginForm() {
             className="appearance-none block w-full px-3 py-2 border border-gray-700 rounded-md shadow-sm bg-gray-700/50 text-gray-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             placeholder="••••••••"
           />
+          {errors.password && (
+            <p className="mt-1 text-sm text-red-400">{errors.password}</p>
+          )}
         </div>
       </div>
 
@@ -180,9 +142,13 @@ export function LoginForm() {
           disabled={isLoading}
           className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {isLoading ? 'Signing in...' : 'Sign in'}
+          {isInitializing ? 'Initializing...' : 
+           isSubmitting ? 'Signing in...' : 
+           'Sign in'}
         </button>
       </div>
     </form>
   );
-} 
+});
+
+LoginForm.displayName = 'LoginForm'; 

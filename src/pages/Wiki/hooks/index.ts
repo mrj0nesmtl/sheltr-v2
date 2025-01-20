@@ -1,0 +1,1 @@
+export { useWikiData } from './useWikiData'; 

@@ -1,5 +1,5 @@
 # 🌳 SHELTR Components Structure
-*Generated: 2025-01-17 22:51:26*
+*Generated: 2025-01-20 00:39:47*
 \n## Directory Structure
 ./src/components
 ├── About
@@ -140,6 +140,8 @@
 │   │   ├── MapComponent.tsx
 │   │   ├── NetworkActivityChart.tsx
 │   │   └── index.ts
+│   ├── Maps
+│   │   └── BaseMap.tsx
 │   ├── Accordion.tsx
 │   ├── Avatar.tsx
 │   ├── Badge.tsx
@@ -175,4 +177,4 @@
 ├── ScrollToTop.tsx
 └── ThemeToggle.tsx
 
-44 directories, 129 files
+45 directories, 130 files
