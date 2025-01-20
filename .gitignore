@@ -64,3 +64,4 @@ stats.html
 public/docs/dev/notes/tree/archive/*.tar.gz
 .backups/
 src/backup/
+.env*
