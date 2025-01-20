@@ -35,7 +35,15 @@ export const Navigation = memo(() => {
       >
         {item.icon && (
           <item.icon 
-            className={cn("w-4 h-4", item.iconClassName)} 
+            className={cn(
+              "w-4 h-4",
+              item.path === '/how-it-works' && "text-blue-400 group-hover:text-blue-300",
+              item.path === '/solutions' && "text-purple-400 group-hover:text-purple-300",
+              item.path === '/scan-and-donate' && "text-emerald-400 group-hover:text-emerald-300",
+              item.path === '/impact' && "text-amber-400 group-hover:text-amber-300",
+              item.path === '/about' && "text-rose-400 group-hover:text-rose-300",
+              item.iconClassName
+            )} 
           />
         )}
         {t(item.label)}
@@ -83,7 +91,18 @@ export const Navigation = memo(() => {
               className="flex items-center gap-2 px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 rounded-md"
               onClick={toggleMobileMenu}
             >
-              {item.icon && <item.icon className="w-4 h-4" />}
+              {item.icon && (
+                <item.icon 
+                  className={cn(
+                    "w-4 h-4",
+                    item.path === '/how-it-works' && "text-blue-400",
+                    item.path === '/solutions' && "text-purple-400",
+                    item.path === '/scan-and-donate' && "text-emerald-400",
+                    item.path === '/impact' && "text-amber-400",
+                    item.path === '/about' && "text-rose-400"
+                  )}
+                />
+              )}
               {t(item.label)}
             </Link>
           ))}

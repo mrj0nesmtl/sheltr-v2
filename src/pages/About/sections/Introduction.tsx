@@ -1,58 +1,35 @@
-import { useTranslation } from 'react-i18next';
-import { useState, useEffect } from 'react';
-import ReactMarkdown from 'react-markdown';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Icon } from '@/components/ui/Icon';
+import ReactMarkdown from 'react-markdown';
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 
 export function Introduction() {
-  const { i18n } = useTranslation();
   const [content, setContent] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const loadContent = async () => {
-      setIsLoading(true);
-      try {
-        const response = await fetch('/src/pages/About/content/sheltr_intro_eng.md');
-        if (!response.ok) throw new Error('Failed to load content');
-        const text = await response.text();
+    fetch('/src/pages/About/content/sheltr_intro_eng.md')
+      .then(res => res.text())
+      .then(text => {
         setContent(text);
-      } catch (error) {
-        console.error('Error loading content:', error);
-        setError('Failed to load content');
-      } finally {
         setIsLoading(false);
-      }
-    };
+      })
+      .catch(err => {
+        console.error('Failed to load introduction:', err);
+        setIsLoading(false);
+      });
+  }, []);
 
-    loadContent();
-  }, [i18n.language]);
-
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center py-12">
-        <Icon name="loader" className="h-8 w-8 animate-spin text-indigo-400" />
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="text-red-400 text-center py-12">
-        <Icon name="alert-triangle" className="h-8 w-8 mx-auto mb-4" />
-        <p>{error}</p>
-      </div>
-    );
-  }
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <motion.section
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="py-12 px-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6 }}
+      className="max-w-4xl mx-auto px-4 py-12"
     >
-      <div className="prose prose-invert max-w-4xl mx-auto">
+      <div className="prose prose-invert prose-lg">
         <ReactMarkdown>{content}</ReactMarkdown>
       </div>
     </motion.section>

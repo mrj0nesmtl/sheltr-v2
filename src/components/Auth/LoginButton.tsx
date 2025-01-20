@@ -16,8 +16,8 @@ export function LoginButton() {
       <Link
         to={getDashboardPath(user.role)}
         className={cn(
-          "flex items-center gap-2 bg-indigo-600 text-white px-4 py-2",
-          "rounded-md hover:bg-indigo-700 transition-colors"
+          "flex items-center gap-2 bg-emerald-600 text-white px-4 py-2",
+          "rounded-md hover:bg-emerald-700 transition-colors"
         )}
       >
         <Icon name="user" className="h-4 w-4" />
@@ -30,8 +30,8 @@ export function LoginButton() {
     <Link
       to="/login"
       className={cn(
-        "flex items-center gap-2 text-gray-300 hover:text-white",
-        "px-3 py-2 rounded-md text-sm font-medium"
+        "flex items-center gap-2 text-emerald-400 hover:text-emerald-300",
+        "px-3 py-2 rounded-md text-sm font-medium transition-colors"
       )}
     >
       <Icon name="login" className="h-5 w-5" />

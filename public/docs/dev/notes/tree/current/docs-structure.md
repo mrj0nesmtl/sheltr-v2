@@ -1,5 +1,5 @@
 # 🌳 SHELTR Documentation Structure
-*Generated: 2025-01-20 00:39:47*
+*Generated: 2025-01-20 13:15:01*
 \n## Directory Structure
 ./public/docs
 ├── about

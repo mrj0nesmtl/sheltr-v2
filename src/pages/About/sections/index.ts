@@ -8,3 +8,4 @@ export { Metrics } from './Metrics';
 export { BuildProgress } from './BuildProgress';
 export { Documentation } from './Documentation';
 export { Contact } from './Contact';
+export { WhySection } from './WhySection';

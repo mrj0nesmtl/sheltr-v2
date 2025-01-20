@@ -1,5 +1,5 @@
 # 🌳 SHELTR Project Structure
-*Generated: 2025-01-20 00:39:47*
+*Generated: 2025-01-20 13:15:01*
 *Version: 0.4.9*
 
 ## Table of Contents
@@ -11,7 +11,7 @@
 6. [Technical Structures](#technical-structures)
 
 \n---\n
-*Generated: 2025-01-20 00:39:47*
+*Generated: 2025-01-20 13:15:01*
 \n## Directory Structure
 ./src/auth
 ├── components
@@ -31,7 +31,7 @@
 
 6 directories, 9 files
 \n---\n
-*Generated: 2025-01-20 00:39:47*
+*Generated: 2025-01-20 13:15:01*
 \n## Directory Structure
 ./src/components
 ├── About
@@ -211,7 +211,7 @@
 
 45 directories, 130 files
 \n---\n
-*Generated: 2025-01-20 00:39:47*
+*Generated: 2025-01-20 13:15:01*
 \n## Directory Structure
 ./public/docs
 ├── about
@@ -258,7 +258,7 @@
 
 15 directories, 27 files
 \n---\n
-*Generated: 2025-01-20 00:39:47*
+*Generated: 2025-01-20 13:15:01*
 \n## Directory Structure
 ./src/features
 ├── auth
@@ -395,7 +395,7 @@
 
 66 directories, 66 files
 \n---\n
-*Generated: 2025-01-20 00:39:47*
+*Generated: 2025-01-20 13:15:01*
 \n## Directory Structure
 ./src/layouts
 ├── base
@@ -419,7 +419,7 @@
 
 9 directories, 10 files
 \n---\n
-*Generated: 2025-01-20 00:39:46*
+*Generated: 2025-01-20 13:15:00*
 \n## Directory Structure
 .
 ├── public
@@ -663,7 +663,7 @@
 
 120 directories, 119 files
 \n---\n
-*Generated: 2025-01-20 00:39:47*
+*Generated: 2025-01-20 13:15:01*
 \n## Directory Structure
 ./src/pages
 ├── About
@@ -691,6 +691,7 @@
 │   │   ├── Newsletter.tsx
 │   │   ├── Overview.tsx
 │   │   ├── Technology.tsx
+│   │   ├── WhySection.tsx
 │   │   └── index.ts
 │   ├── styles
 │   │   └── Hero.styles.ts
@@ -760,9 +761,9 @@
 ├── debug.tsx
 └── index.ts
 
-21 directories, 73 files
+21 directories, 74 files
 \n---\n
-*Generated: 2025-01-20 00:39:46*
+*Generated: 2025-01-20 13:15:01*
 \n## Directory Structure
 ./src
 ├── auth
@@ -1214,6 +1215,7 @@
 │   │   │   ├── Newsletter.tsx
 │   │   │   ├── Overview.tsx
 │   │   │   ├── Technology.tsx
+│   │   │   ├── WhySection.tsx
 │   │   │   └── index.ts
 │   │   ├── styles
 │   │   │   └── Hero.styles.ts
@@ -1334,4 +1336,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-175 directories, 394 files
+175 directories, 395 files

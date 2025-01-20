@@ -1,5 +1,5 @@
 # 🌳 SHELTR Pages Structure
-*Generated: 2025-01-20 00:39:47*
+*Generated: 2025-01-20 13:15:01*
 \n## Directory Structure
 ./src/pages
 ├── About
@@ -27,6 +27,7 @@
 │   │   ├── Newsletter.tsx
 │   │   ├── Overview.tsx
 │   │   ├── Technology.tsx
+│   │   ├── WhySection.tsx
 │   │   └── index.ts
 │   ├── styles
 │   │   └── Hero.styles.ts
@@ -96,4 +97,4 @@
 ├── debug.tsx
 └── index.ts
 
-21 directories, 73 files
+21 directories, 74 files

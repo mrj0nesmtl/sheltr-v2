@@ -1,10 +1,10 @@
 export function Newsletter() {
   return (
-    <section className="py-16">
+    <section className="py-8">
       <div className="max-w-2xl mx-auto px-4">
-        <div className="relative bg-gradient-to-br from-purple-500/10 to-purple-500/5 rounded-xl p-8 border border-purple-500/20 backdrop-blur-sm">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold mb-4 text-white">
+        <div className="relative bg-gradient-to-br from-purple-500/10 to-purple-500/5 rounded-xl p-10 border border-purple-500/20 backdrop-blur-sm">
+          <div className="text-center mb-6">
+            <h2 className="text-3xl font-bold mb-3 text-white">
               Stay Updated
             </h2>
             <p className="text-gray-300">

@@ -1,8 +1,5 @@
 # SHELTR : HackingHomelessness avec Tech-4-Good
 
-## Introduction
-
-### Vision et Mission
 
 SHELTR vise à dynamiser les dons caritatifs quotidiens en utilisant des technologies avancées. Notre plateforme s'appuie sur des **dons par code QR**, la **transparence de la blockchain** et des **outils financiers alimentés par l'IA** pour créer une solution sécurisée, scalable et intelligente pour lutter contre l'itinérance. SHELTR se concentre sur la réponse aux besoins immédiats tout en équipant les individus avec des outils pour atteindre une indépendance financière à long terme. Nos valeurs fondamentales incluent **l'autonomisation**, **l'automatisation** et la **durabilité**.
 

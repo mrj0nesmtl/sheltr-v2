@@ -1,7 +1,5 @@
 # Revolutionizing Charitable Daily Giving
 
-*Building in Public | Tech-4-Good | Give Without Take*
-
 At SHELTR, we're not just building another donation platform – we're reimagining how technology can empower both givers and receivers in the fight against homelessness. By leveraging blockchain transparency, QR-powered direct giving, and AI-driven insights, we create a future where every dollar makes a measurable impact, and every participant gains tools for lasting change.
 
 Our commitment to **#BuildInPublic** ensures every decision and milestone is shared openly, fostering a spirit of collaboration and radical transparency. Join us in **hacking homelessness**—one verifiable transaction and one empowered individual at a time.
