@@ -1,11 +1,11 @@
 <div align="center">
 
 ![SHELTR](https://img.shields.io/badge/SHELTR-V2-4B32C3)
-![Version](https://img.shields.io/badge/Version-0.5.8-FF6B6B)
+![Version](https://img.shields.io/badge/Version-0.6.3-FF6B6B)
 ![Stage](https://img.shields.io/badge/Prototype-Beta-FED766)
 ![License](https://img.shields.io/badge/License-MIT-8A2BE2)
-[![Listen on Spotify](https://img.shields.io/badge/Listen_on-Spotify-1DB954?logo=spotify&logoColor=white)](https://open.spotify.com/show/3Q2RpnzF9sUv26yPMP9tWI)
-[![Arcana Ventures](https://img.shields.io/badge/Visit-Arcana_Ventures-4B32C3)](https://www.arcanaconcept.com/concepts/sheltr)
+[![Listen on Spotify](https://img.shields.io/badge/Listen_on-Spotify-1DB954?logo=spotify&logoColor=white)](https://open.spotify.com/episode/2TZquGVy7vT6yZMgDraMYe)
+[![Arcana Ventures](https://img.shields.io/badge/Visit-Arcana_Concept-4B32C3)](https://www.arcanaconcept.com/concepts/sheltr)
 [![SHELTR App](https://img.shields.io/badge/Access-SHELTR_App-FF6B6B)](https://sheltr-ops.replit.app)
 [![LinkedIn](https://img.shields.io/badge/Connect_on-LinkedIn-0A66C2?logo=linkedin&logoColor=white)](https://www.linkedin.com/company/arcana-concept)
 [![Substack](https://img.shields.io/badge/Read_on-Substack-FF6719?logo=substack&logoColor=white)](https://substack.com/home/post/p-153502903)
@@ -15,7 +15,7 @@
 
 **Revolutionizing Charitable Giving Through Technology**
 *Project Initialization: December 2024 - Beta Launch (V1.0.0) Mid-January 2025*
-*Version: 0.5.8*
+*Current Version: 0.6.3*
 
 </div>
 
@@ -24,7 +24,7 @@
 SHELTR is revolutionizing charitable giving through cutting-edge technology integration. Our platform seamlessly combines **QR code donations**, **blockchain verification**, and **AI-driven insights** to create a transparent, efficient, and impactful giving ecosystem.
 
 ### 🎯 Core Features
-- **Instant QR Donations**: Scan-and-give technology
+- **Instant QR Donations**: Secure scan-and-give technology
 - **Blockchain Verification**: 100% transparent tracking
 - **Smart Fund Allocation**: 80/15/5 distribution model
 - **AI-Powered Insights**: Data-driven impact optimization
@@ -46,18 +46,11 @@ graph LR
 | Core System | ✅ STABLE | ![98%](https://img.shields.io/badge/-98%25-success) |
 | Auth System | ✅ STABLE | ![100%](https://img.shields.io/badge/-100%25-success) |
 | QR System | ✅ STABLE | ![95%](https://img.shields.io/badge/-95%25-success) |
-| Blockchain | 🟡 IN PROGRESS | ![60%](https://img.shields.io/badge/-60%25-yellow) |
-| Analytics | 🟡 IN PROGRESS | ![40%](https://img.shields.io/badge/-40%25-yellow) |
-| AI Integration | 🔵 PLANNED | ![0%](https://img.shields.io/badge/-0%25-blue) |
+| Blockchain | 🟡 IN PROGRESS | ![65%](https://img.shields.io/badge/-65%25-yellow) |
+| Analytics | 🟡 IN PROGRESS | ![45%](https://img.shields.io/badge/-45%25-yellow) |
+| AI Integration | 🔵 PLANNED | ![10%](https://img.shields.io/badge/-10%25-blue) |
 
 ## 🛠️ Technology Stack
-
-- **QR Code Donations**: Simplified donation process using QR codes.
-- **Blockchain Verification**: Secure and transparent transaction tracking.
-- **AI-Driven Insights**: Personalized donor insights and recommendations.
-- **Gamified Engagement**: Interactive donor experiences to boost participation.
-- **Role-Based Access**: Tailored access for different user roles.
-- **Real-Time Analytics**: Comprehensive data visualization and impact tracking.
 
 ```typescript
 interface TechStack {
@@ -65,13 +58,19 @@ interface TechStack {
     framework: 'React 18',
     language: 'TypeScript 5.0',
     state: 'Zustand',
-    styling: 'Tailwind CSS'
+    styling: 'Tailwind CSS',
+    motion: 'Framer Motion'
   },
   backend: {
     database: 'Supabase',
     api: 'REST + WebSocket',
     blockchain: 'Polygon',
     analytics: 'Custom + Recharts'
+  },
+  deployment: {
+    hosting: 'Vercel',
+    ci_cd: 'GitHub Actions',
+    monitoring: 'Sentry'
   }
 }
 ```
@@ -80,10 +79,10 @@ interface TechStack {
 
 | Metric | Target (2025) | Current |
 |--------|---------------|---------|
-| Active Users | 100,000 | 10 |
-| Monthly Donations | $5M | $0M |
-| Housing Fund | $10M | $0M |
-| Success Rate | 75% | 0% |
+| Active Users | 100,000 | 25 |
+| Monthly Donations | $5M | $0.1K |
+| Housing Fund | $10M | $0.05M |
+| Success Rate | 75% | 2% |
 
 ## 🗺️ Roadmap
 
@@ -188,3 +187,46 @@ SHELTR's approach to "hacking homelessness" combines:
 [Website](https://arcanaconcept.com/concepts/sheltr) • [Documentation](https://github.com/mrj0nesmtl/sheltr-v2/tree/main/public/docs) • [Community](https://arcanaconcept.comv)
 
 </div>
+
+### 📚 Wiki System Documentation
+
+#### Overview
+The Wiki system provides real-time platform status, sprint tracking, and metrics visualization through an interactive dashboard interface.
+
+```typescript
+// Core Wiki Components Structure
+interface WikiSystem {
+  components: {
+    PlatformStatus: 'Real-time system monitoring',
+    SprintProgress: 'Current sprint tracking',
+    Metrics: 'Performance analytics',
+    Documentation: 'Technical guides'
+  },
+  features: {
+    realTime: 'Live updates',
+    responsive: 'Mobile-first design',
+    interactive: 'Dynamic navigation'
+  }
+}
+```
+
+#### Key Features
+- **Platform Status Monitoring**: Real-time system health tracking
+- **Sprint Progress Tracking**: Visual sprint and task management
+- **Metrics Dashboard**: Key performance indicators
+- **Responsive Design**: Mobile-first approach
+- **Interactive Navigation**: Smooth section scrolling
+
+#### Implementation Status
+| Component | Status | Progress |
+|-----------|---------|-----------|
+| Platform Status | ✅ COMPLETE | ![100%](https://img.shields.io/badge/-100%25-success) |
+| Sprint Progress | ✅ COMPLETE | ![100%](https://img.shields.io/badge/-100%25-success) |
+| Metrics Grid | ✅ COMPLETE | ![100%](https://img.shields.io/badge/-100%25-success) |
+| Documentation | ✅ COMPLETE | ![100%](https://img.shields.io/badge/-100%25-success) |
+
+#### Technical Documentation
+- [📊 Wiki System Overview](/public/docs/wiki/overview.md)
+- [🔄 Real-time Updates](/public/docs/wiki/real-time.md)
+- [📱 Responsive Design](/public/docs/wiki/responsive.md)
+- [🧩 Component Architecture](/public/docs/wiki/components.md)

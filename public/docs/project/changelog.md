@@ -1,5 +1,44 @@
 # Changelog
 
+## [0.6.3] - 2024-01-20 01:15 EST
+### Added
+- Enhanced About page with professional media cards
+- Spotify podcast integration with proper branding
+- Arcana Blog link integration
+- Newsletter subscription component with modern design
+- Motion animations for better UX
+- Consistent hero section styling
+- Improved typography system
+
+### Changed
+- Redesigned Featured Media section
+- Updated color schemes for better contrast
+- Enhanced component spacing and layout
+- Improved responsive design patterns
+- Optimized page structure
+- Standardized section padding
+- Updated link handling
+
+### Fixed
+- Text color contrast issues
+- Inconsistent spacing between sections
+- Card layout alignment
+- Typography hierarchy
+- Link accessibility
+- Mobile responsiveness
+- Component organization
+
+### Technical Debt Addressed
+- Component structure optimization
+- Style system standardization
+- Link handling patterns
+- Animation implementation
+- Responsive design system
+- Documentation updates
+- Code organization
+
+[0.6.3]: https://github.com/mrj0nesmtl/sheltr-v2
+
 ## [0.6.2] - 2025-01-19 23:45 EST
 ### Added
 - Role-based navigation system
@@ -35,7 +74,6 @@
 
 [0.6.2]: https://github.com/mrj0nesmtl/sheltr-v2
 
-[Previous changelog entries remain unchanged...]
 ## [0.6.0] - 2025-01-17 22:15 EST
 ### Added
 - Navigation system optimization
