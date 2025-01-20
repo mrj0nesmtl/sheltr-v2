@@ -1,7 +1,7 @@
 {
   "name": "sheltr-v2",
   "private": true,
-  "version": "0.5.3-beta",
+  "version": "0.6.4-beta",
   "type": "module",
   "engines": {
     "node": ">=18.12.1",

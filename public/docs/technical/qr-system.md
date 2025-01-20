@@ -1,20 +1,30 @@
 # 📱 SHELTR QR System
-*Version: 0.5.8 - January 12, 2025*
+*Version: 0.6.4 - January 20, 2024*
 *Status: STABLE* 🟢
 
 ## System Overview
-The SHELTR QR system enables direct participant-to-donor connections through secure, trackable QR codes. Each code is uniquely linked to a participant and their associated shelter, enabling immediate donations upon scanning.
+The SHELTR QR system enables secure, trackable connections between donors, shelters, and participants through dynamically generated QR codes. Each code is uniquely linked to either a shelter or participant, enabling immediate donations and tracking upon scanning.
+
+### Key Features
+- Automatic QR generation for new shelters
+- Participant-specific QR codes upon registration
+- Real-time tracking and analytics
+- Blockchain verification integration
+- Security monitoring and threat detection
+- AI-assisted verification
 
 ## QR Code Structure
 ```typescript
 interface QRCode {
   id: string;              // Unique identifier
-  participantId: string;   // Linked participant
-  shelterId: string;      // Associated shelter
-  status: QRStatus;       // Current code status
-  metadata: QRMetadata;   // Additional information
+  type: 'SHELTER' | 'PARTICIPANT'; // Code type
+  entityId: string;        // Linked shelter/participant
+  status: QRStatus;        // Current code status
+  metadata: QRMetadata;    // Additional information
   createdAt: Date;        // Generation timestamp
   expiresAt?: Date;       // Optional expiration
+  securityHash: string;   // Verification hash
+  aiVerified: boolean;    // AI verification status
 }
 
 type QRStatus = 
@@ -28,97 +38,73 @@ interface QRMetadata {
   device: string;             // Creating device
   scanCount: number;          // Times scanned
   lastScan?: Date;           // Last scan timestamp
-  participantInfo: {         // Embedded participant data
+  entityInfo: {              // Embedded entity data
     id: string;             // Anonymized ID
-    shelterId: string;      // Associated shelter
-    programIds: string[];   // Active programs
+    type: 'SHELTER' | 'PARTICIPANT';
+    name?: string;          // Optional display name
+    programIds?: string[];  // Active programs
+    securityLevel: number;  // Security clearance
+    aiRiskScore?: number;   // AI-calculated risk
   }
 }
 ```
 
-## QR Generation System
+## Generation System
 ```typescript
 interface QRGenerator {
-  generateForParticipant: (
-    participantId: string,
-    options?: GenerationOptions
-  ) => Promise<QRCode>;
-  
+  // Shelter QR Generation
   generateForShelter: (
     shelterId: string,
-    participantIds: string[],
+    options?: ShelterQROptions
+  ) => Promise<QRCode>;
+  
+  // Participant QR Generation
+  generateForParticipant: (
+    participantId: string,
+    shelterId: string,
+    options?: ParticipantQROptions
+  ) => Promise<QRCode>;
+  
+  // Batch Generation
+  generateBatch: (
+    type: 'SHELTER' | 'PARTICIPANT',
+    ids: string[],
     options?: BatchOptions
   ) => Promise<QRCode[]>;
 }
 
-interface GenerationOptions {
+interface ShelterQROptions {
   expiration?: Date;
-  metadata?: Record<string, unknown>;
-  format?: QRFormat;
-  security?: SecurityOptions;
+  securityLevel?: number;
+  customMetadata?: Record<string, unknown>;
+  aiVerification?: boolean;
 }
 
-interface BatchOptions extends GenerationOptions {
-  batchSize: number;
-  prefix?: string;
-  customization?: BatchCustomization;
-}
-```
-
-## Scanner Implementation
-```typescript
-interface QRScanner {
-  onScan: (result: ScanResult) => Promise<void>;
-  onError: (error: ScanError) => void;
-  config: ScannerConfig;
-}
-
-interface ScanResult {
-  qrData: string;           // Raw QR data
-  participantId: string;    // Decoded participant ID
-  shelterId: string;       // Associated shelter
-  timestamp: Date;         // Scan timestamp
-  location?: GeolocationData; // Scan location
-  scannerInfo: {
-    deviceId: string;
-    platform: string;
-    app_version: string;
-  }
-}
-
-interface ScannerConfig {
-  enabled: boolean;
-  facing: 'environment' | 'user';
-  constraints: MediaTrackConstraints;
-  validation: ValidationOptions;
+interface ParticipantQROptions extends ShelterQROptions {
+  programIds?: string[];
+  displayName?: string;
+  restrictions?: string[];
 }
 ```
 
-## Donation Flow
+## Automatic Generation Triggers
 ```typescript
-interface QRDonationFlow {
-  initiateDonation: (
-    scanResult: ScanResult,
-    donorId: string
-  ) => Promise<DonationSession>;
-  
-  validateParticipant: (
-    participantId: string
-  ) => Promise<ValidationResult>;
-  
-  processDonation: (
-    sessionId: string,
-    amount: number
-  ) => Promise<TransactionResult>;
-}
+interface QRTriggers {
+  // Shelter Creation Trigger
+  onShelterCreated: (
+    shelter: Shelter
+  ) => Promise<QRCode>;
 
-interface DonationSession {
-  id: string;
-  participantId: string;
-  shelterId: string;
-  donorId: string;
-  status: SessionStatus;
-  expiresAt: Date;
+  // Participant Registration Trigger
+  onParticipantRegistered: (
+    participant: Participant,
+    shelter: Shelter
+  ) => Promise<QRCode>;
+
+  // Renewal Triggers
+  onQRExpiring: (
+    qrCode: QRCode
+  ) => Promise<QRCode>;
 }
 ```
 
@@ -134,6 +120,7 @@ interface SecurityMeasures {
     checksums: boolean;
     timeBasedTokens: boolean;
     geoFencing?: boolean;
+    aiVerification: boolean;
   };
   rateLimit: {
     scanLimit: number;
@@ -149,72 +136,61 @@ interface QRDatabase {
   tables: {
     qr_codes: {
       id: string;
-      participant_id: string;
-      shelter_id: string;
+      type: 'SHELTER' | 'PARTICIPANT';
+      entity_id: string;
       status: QRStatus;
       metadata: JsonB;
+      security_hash: string;
+      ai_verified: boolean;
       created_at: Timestamp;
       expires_at?: Timestamp;
     };
     qr_scans: {
       id: string;
       qr_code_id: string;
-      donor_id?: string;
+      scanner_id?: string;
       timestamp: Timestamp;
       location?: GeolocationData;
       resulted_in_donation: boolean;
-    };
-    donations: {
-      id: string;
-      scan_id: string;
-      donor_id: string;
-      participant_id: string;
-      amount: number;
-      status: TransactionStatus;
+      security_check: boolean;
+      ai_risk_score: number;
     }
-  };
-  
-  indexes: [
-    'qr_codes_participant_id_idx',
-    'qr_codes_shelter_id_idx',
-    'qr_scans_qr_code_id_idx',
-    'donations_scan_id_idx'
-  ];
+  }
 }
 ```
 
 ## Implementation Status
-1. QR Generation (✅ IMPLEMENTED)
+1. Core QR Generation (✅ IMPLEMENTED)
+   - Shelter code generation
    - Participant code generation
-   - Shelter batch generation
-   - Metadata embedding
+   - Batch generation
    - Security features
 
-2. Scanner System (✅ IMPLEMENTED)
-   - Camera integration
-   - Code recognition
-   - Validation system
-   - Error handling
+2. Automatic Triggers (✅ IMPLEMENTED)
+   - Shelter creation hooks
+   - Participant registration
+   - Expiration handling
+   - Security monitoring
 
-3. Donation Flow (🟡 IN PROGRESS)
-   - Scan-to-donate pipeline
-   - Participant validation
-   - Transaction processing
-   - Receipt generation
+3. Security Features (✅ IMPLEMENTED)
+   - Encryption
+   - Validation
+   - Rate limiting
+   - AI verification
 
-4. Database Integration (🟡 IN PROGRESS)
+4. Database Integration (✅ IMPLEMENTED)
    - Schema implementation
-   - Index optimization
-   - Query performance
-   - Data consistency
+   - Trigger functions
+   - Security logging
+   - Performance tracking
 
 ## Next Steps
-1. Complete database integration
-2. Optimize scan performance
-3. Enhance error handling
-4. Add analytics tracking
-5. Implement batch operations
-6. Add monitoring system
+1. Enhance AI verification
+2. Implement predictive analytics
+3. Add real-time monitoring
+4. Expand security features
+5. Optimize performance
+6. Add blockchain verification
 
 ---
 *For implementation details, see [implementation-guide.md](../guides/implementation-guide.md)*

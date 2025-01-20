@@ -1,6 +1,6 @@
 # 📊 SHELTR Analytics Components
-*Last Updated: January 12, 2025 12:00 EST*
-*Version: 0.5.7*
+*Last Updated: January 20, 2024 22:45 EST*
+*Version: 0.6.4*
 *Status: STABLE* 🟢
 
 ## Component Directory Structure
@@ -9,11 +9,16 @@ src/components/
 ├── shared/
 │   ├── analytics/
 │   │   ├── DetailedAnalytics.tsx
+│   │   ├── SecurityMetrics.tsx
+│   │   ├── PerformanceMonitor.tsx
 │   │   ├── SystemHealthMonitor.tsx
+│   │   ├── AIMetricsDisplay.tsx
 │   │   └── index.ts
 └── ui/
     └── Charts/
         ├── DonationAllocationPieChart.tsx
+        ├── SecurityMetricsChart.tsx
+        ├── PerformanceChart.tsx
         ├── MapComponent.tsx
         ├── NetworkActivityChart.tsx
         └── index.ts
@@ -21,45 +26,7 @@ src/components/
 
 ## Available Components
 
-### Charts
-```typescript
-import { 
-  DonationAllocationPieChart, 
-  NetworkActivityChart 
-} from '@/components/ui/Charts'
-
-// Usage
-<DonationAllocationPieChart 
-  data={donationData}
-  height={300}
-  gradient={true}
-  isLoading={isLoading}
-/>
-
-// With loading state
-<NetworkActivityChart
-  data={networkData}
-  height={250}
-  isLoading={isLoading}
-  error={error}
-  onRetry={refetch}
-/>
-```
-
-### System Monitoring
-```typescript
-import { SystemHealthMonitor } from '@/components/shared/analytics'
-
-// Usage
-<SystemHealthMonitor
-  metrics={systemMetrics}
-  refreshInterval={5000}
-  showDetailedView={true}
-  onAlert={handleSystemAlert}
-/>
-```
-
-### Detailed Analytics
+### Analytics Dashboard
 ```typescript
 import { DetailedAnalytics } from '@/components/shared/analytics'
 
@@ -68,24 +35,94 @@ import { DetailedAnalytics } from '@/components/shared/analytics'
   timeframe="weekly"
   showBreakdown={true}
   includeHistorical={true}
+  showSecurityMetrics={true}
+  showPerformanceData={true}
   onTimeframeChange={handleTimeframeChange}
 />
 ```
 
-### Maps
+### Security Metrics
 ```typescript
-import { MapComponent } from '@/components/ui/Charts'
+import { SecurityMetrics } from '@/components/shared/analytics'
 
 // Usage
-<MapComponent
-  height={400}
-  initialView={{
-    center: [-96, 37.8],
-    zoom: 3
-  }}
-  markers={locationData}
-  onMarkerClick={handleMarkerClick}
-  clustering={true}
+<SecurityMetrics
+  data={securityData}
+  refreshInterval={5000}
+  showThreatDetection={true}
+  showAIInsights={true}
+  onAlert={handleSecurityAlert}
+/>
+```
+
+### Performance Monitoring
+```typescript
+import { PerformanceMonitor } from '@/components/shared/analytics'
+
+// Usage
+<PerformanceMonitor
+  metrics={performanceMetrics}
+  refreshInterval={3000}
+  showAIMetrics={true}
+  showDetailedView={true}
+  onThresholdAlert={handleAlert}
+/>
+```
+
+### System Health
+```typescript
+import { SystemHealthMonitor } from '@/components/shared/analytics'
+
+// Usage
+<SystemHealthMonitor
+  metrics={systemMetrics}
+  refreshInterval={5000}
+  showDetailedView={true}
+  includeAIHealth={true}
+  onAlert={handleSystemAlert}
+/>
+```
+
+### AI Metrics
+```typescript
+import { AIMetricsDisplay } from '@/components/shared/analytics'
+
+// New Component
+<AIMetricsDisplay
+  data={aiMetrics}
+  refreshInterval={3000}
+  showPredictions={true}
+  showAccuracy={true}
+  onModelUpdate={handleUpdate}
+/>
+```
+
+### Charts
+```typescript
+import { 
+  DonationAllocationPieChart,
+  SecurityMetricsChart,
+  PerformanceChart,
+  NetworkActivityChart 
+} from '@/components/ui/Charts'
+
+// Usage with security metrics
+<SecurityMetricsChart 
+  data={securityData}
+  height={300}
+  showThreats={true}
+  showPredictions={true}
+  isLoading={isLoading}
+/>
+
+// With performance data
+<PerformanceChart
+  data={performanceData}
+  height={250}
+  showAIMetrics={true}
+  isLoading={isLoading}
+  error={error}
+  onRetry={refetch}
 />
 ```
 
@@ -99,6 +136,7 @@ interface AnalyticsTheme {
     success: string[];
     warning: string[];
     error: string[];
+    ai: string[];
   };
   charts: {
     background: string;
@@ -107,11 +145,16 @@ interface AnalyticsTheme {
       bg: string;
       text: string;
     };
+    aiHighlight: string;
   };
   metrics: {
     card: {
       bg: string;
       border: string;
+    };
+    ai: {
+      bg: string;
+      accent: string;
     };
   };
 }
@@ -126,6 +169,8 @@ interface AnalyticsTheme {
 6. Follow responsive design
 7. Optimize performance
 8. Consider accessibility
+9. Implement AI metrics properly
+10. Handle real-time updates
 
 ## Performance Optimization
 1. Implement proper memoization
@@ -133,6 +178,8 @@ interface AnalyticsTheme {
 3. Optimize re-renders
 4. Cache API responses
 5. Virtual scroll for large datasets
+6. Optimize AI computations
+7. Batch real-time updates
 
 ## Error Management
 ```typescript
@@ -155,6 +202,8 @@ interface AnalyticsTheme {
 3. Color contrast
 4. Screen reader support
 5. Focus management
+6. Real-time announcements
+7. AI insights accessibility
 
 ---
 *For implementation details, see [implementation.md](../guides/implementation.md)*

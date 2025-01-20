@@ -1,23 +1,25 @@
 # 🔌 SHELTR API Documentation
-*Last Updated: January 19, 2025 23:45 EST*
-*Version: 0.6.1*
+*Last Updated: January 20, 2024 22:45 EST*
+*Version: 0.6.4*
 *Status: Active Development* 🟢
 
 ## API Overview
-SHELTR's API provides secure, role-based endpoints for donation management, user authentication, analytics, and blockchain integration.
+SHELTR's API provides secure, role-based endpoints for donation management, user authentication, analytics, and blockchain integration. Enhanced with real-time WebSocket support and improved security measures.
 
 ## Base Configuration
 ```typescript
 interface APIConfig {
   endpoints: {
     production: 'https://sheltr-ops.replit.app',
-    development: 'http://localhost:5173'
+    development: 'http://localhost:5173',
+    staging: 'https://staging.sheltr-ops.replit.app'
   },
   version: 'v1',
   timeout: 30000,
   retryAttempts: 3,
   roleValidation: true,
-  pathValidation: true
+  pathValidation: true,
+  wsConnection: true
 }
 ```
 
@@ -29,6 +31,7 @@ interface AuthHeaders {
   'X-Client-Version': string;
   'X-Role-Access': UserRole;
   'X-Path-Validation': string;
+  'X-Request-ID': string;
 }
 
 type UserRole = 'super_admin' | 'shelter_admin' | 'donor' | 'participant';
@@ -135,23 +138,35 @@ interface SecurityConfig {
     cooldown: 60
   },
   cors: {
-    origins: ['https://sheltr.org', 'https://admin.sheltr.org'],
+    origins: [
+      'https://sheltr.org', 
+      'https://admin.sheltr.org',
+      'https://staging.sheltr.org'
+    ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     credentials: true
   },
   encryption: {
     algorithm: 'AES-256-GCM',
-    keyRotation: 7 * 24 * 60 * 60
+    keyRotation: 7 * 24 * 60 * 60,
+    backupKey: true
   },
   roleValidation: {
     enabled: true,
     caching: true,
-    timeout: 5000
+    timeout: 5000,
+    fallbackRole: 'guest'
   },
   pathValidation: {
     enabled: true,
     caching: true,
-    timeout: 3000
+    timeout: 3000,
+    strictMode: true
+  },
+  monitoring: {
+    enabled: true,
+    metrics: true,
+    alerts: true
   }
 }
 ```
@@ -165,7 +180,9 @@ interface WebSocketEvents {
   USER_ACTIVITY: 'user:activity',
   SYSTEM_ALERT: 'system:alert',
   ROLE_UPDATED: 'role:updated',
-  PATH_VALIDATED: 'path:validated'
+  PATH_VALIDATED: 'path:validated',
+  PERFORMANCE_ALERT: 'performance:alert',
+  SECURITY_EVENT: 'security:event'
 }
 ```
 
@@ -191,7 +208,13 @@ interface HealthCheck {
     version: string,
     services: Record<string, 'up' | 'down'>,
     roleValidation: 'active' | 'inactive',
-    pathValidation: 'active' | 'inactive'
+    pathValidation: 'active' | 'inactive',
+    lastIncident: string | null,
+    performance: {
+      cpu: number,
+      memory: number,
+      responseTime: number
+    }
   }
 }
 ```

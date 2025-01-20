@@ -1,7 +1,7 @@
 <div align="center">
 
 ![SHELTR](https://img.shields.io/badge/SHELTR-V2-4B32C3)
-![Version](https://img.shields.io/badge/Version-0.6.3-FF6B6B)
+![Version](https://img.shields.io/badge/Version-0.6.4-FF6B6B)
 ![Stage](https://img.shields.io/badge/Prototype-Beta-FED766)
 ![License](https://img.shields.io/badge/License-MIT-8A2BE2)
 [![Listen on Spotify](https://img.shields.io/badge/Listen_on-Spotify-1DB954?logo=spotify&logoColor=white)](https://open.spotify.com/episode/2TZquGVy7vT6yZMgDraMYe)
@@ -15,7 +15,7 @@
 
 **Revolutionizing Charitable Giving Through Technology**
 *Project Initialization: December 2024 - Beta Launch (V1.0.0) Mid-January 2025*
-*Current Version: 0.6.3*
+*Current Version: 0.6.4*
 
 </div>
 
@@ -107,37 +107,42 @@ We welcome contributions! Here's how you get up to speed with the documentation:
 
 ## 📚 Documentation Index
 
-### 🎯 About SHELTR
-- [📋 Project Roadmap](/public/docs/about/roadmap.md)
-- [📄 Technical Whitepaper](/public/docs/about/whitepaper_final.md)
-
-### 🏗️ Core Architecture
-- [🔌 API Documentation](/public/docs/core/api.md)
+### 🎯 Core Documentation
+- [📋 Project Overview](/public/docs/core/overview.md)
 - [🏛️ System Architecture](/public/docs/core/architecture.md)
+- [🔌 API Documentation](/public/docs/core/api.md)
 - [🔐 Security Framework](/public/docs/core/security.md)
-- [👥 Role-Based Access Control](/public/docs/core/rbac.md)
-- [⚙️ Technical Specifications](/public/docs/core/technical.md)
+- [👥 Role-Based Access](/public/docs/core/rbac.md)
+- [⚙️ Technical Specs](/public/docs/core/technical.md)
 
 ### 🛠️ Technical Implementation
 - [🔑 Authentication System](/public/docs/technical/authentication.md)
 - [🗄️ Database Architecture](/public/docs/technical/database.md)
-- [📱 QR System Documentation](/public/docs/technical/qr-system.md)
+- [📱 QR System](/public/docs/technical/qr-system.md)
+- [⛓️ Blockchain Integration](/public/docs/technical/blockchain.md)
 - [🏗️ Build Tracking](/public/docs/technical/build_track.md)
+- [📊 Analytics System](/public/docs/technical/analytics.md)
+
+### 📋 Development Guides
+- [🚀 Getting Started](/public/docs/guides/getting-started.md)
+- [✨ Best Practices](/public/docs/guides/best-practices.md)
+- [🔨 Implementation Guide](/public/docs/guides/buildout_implementation.md)
+- [🚀 Deployment Guide](/public/docs/guides/deployment.md)
+- [🧪 Testing Guide](/public/docs/guides/testing.md)
+- [🔄 CI/CD Pipeline](/public/docs/guides/ci-cd.md)
+- [🌳 Project Structure](/public/docs/guides/project-structure.md)
 
 ### 📊 Analytics & Components
 - [📈 Analytics Components](/public/docs/reference/analytics-components.md)
 - [📦 Analytics Inventory](/public/docs/reference/analytics-inventory.md)
 - [🧩 Component Library](/public/docs/reference/components.md)
-
-### 🚀 Development Guides
-- [✨ Best Practices](/public/docs/guides/best-practices.md)
-- [🔨 Implementation Guide](/public/docs/guides/buildout_implementation.md)
-- [🚀 Deployment Guide](/public/docs/guides/deployment.md)
-- [🌳 Project Structure](/public/docs/dev/notes/tree/project-structure.md)
+- [🎨 UI/UX Guidelines](/public/docs/reference/ui-guidelines.md)
 
 ### 📋 Project Status
 - [📊 Status Report](/public/docs/project/status_report.md)
 - [📝 Changelog](/public/docs/project/changelog.md)
+- [🎯 Roadmap](/public/docs/project/roadmap.md)
+- [🐛 Known Issues](/public/docs/project/known-issues.md)
 
 ### Quick Links
 | Category | Documentation |
@@ -174,9 +179,9 @@ SHELTR's approach to "hacking homelessness" combines:
 
 ## 📬 Contact & Support
 
-- 📧 Email the developer: joel@arcanaconcept.com
+- 📧 Email: joel@arcanaconcept.com
 - 💬 BlueSky: [Join our community](https://sheltrops.bsky.social)
-- 📱 App: [SHELTR](https://sheltr-ops.replit.appv)
+- 📱 App: [SHELTR](https://sheltr-ops.replit.app)
 
 ---
 
@@ -184,7 +189,7 @@ SHELTR's approach to "hacking homelessness" combines:
 
 *"Innovation meets compassion at the intersection of technology and social change."*
 
-[Website](https://arcanaconcept.com/concepts/sheltr) • [Documentation](https://github.com/mrj0nesmtl/sheltr-v2/tree/main/public/docs) • [Community](https://arcanaconcept.comv)
+[Website](https://arcanaconcept.com/concepts/sheltr) • [Documentation](https://github.com/mrj0nesmtl/sheltr-v2/tree/main/public/docs) • [Community](https://arcanaconcept.com)
 
 </div>
 

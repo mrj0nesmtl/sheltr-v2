@@ -1,6 +1,6 @@
 # 🔐 Role-Based Access Control
-*Last Updated: January 19, 2025 23:45 EST*
-*Version: 0.6.1*
+*Last Updated: January 20, 2024 22:45 EST*
+*Version: 0.6.4*
 *Status: STABLE* 🟢
 
 ## Situational Abstract
@@ -22,7 +22,8 @@ interface RoleCapabilities {
     analytics: boolean;   // Analytics access
     documents: boolean;   // Document management
     i18n: boolean;       // Translation management
-    navigation: boolean;  // Navigation management (New)
+    navigation: boolean;  // Navigation management
+    security: boolean;    // Security monitoring
   };
   shelterAdmin: {
     shelter: boolean;     // Shelter management
@@ -30,6 +31,7 @@ interface RoleCapabilities {
     documents: boolean;   // Document upload/management
     analytics: boolean;   // Shelter analytics
     localization: boolean;// Content localization
+    resources: boolean;   // Resource management
   };
   donor: {
     donations: boolean;   // Donation capabilities
@@ -37,6 +39,7 @@ interface RoleCapabilities {
     history: boolean;     // Transaction history
     impact: boolean;      // Impact metrics
     language: boolean;    // Language preferences
+    tracking: boolean;    // Donation tracking
   };
   participant: {
     services: boolean;    // Service access
@@ -44,6 +47,7 @@ interface RoleCapabilities {
     resources: boolean;   // Resource access
     progress: boolean;    // Progress tracking
     language: boolean;    // Language preferences
+    documents: boolean;   // Document access
   };
 }
 ```
@@ -52,20 +56,20 @@ interface RoleCapabilities {
 ```typescript
 interface NavigationPermissions {
   public: {
-    routes: ['/', '/about', '/contact'],
-    features: ['languageSwitch', 'basicContent']
+    routes: ['/', '/about', '/contact', '/how-it-works'],
+    features: ['languageSwitch', 'basicContent', 'themeToggle']
   },
   authenticated: {
     donor: {
-      routes: ['/dashboard/donor/:userId', '/profile', '/donations'],
-      features: ['donationHistory', 'impactMetrics']
+      routes: ['/dashboard/donor/:userId', '/profile', '/donations', '/impact'],
+      features: ['donationHistory', 'impactMetrics', 'donationTracking']
     },
     shelterAdmin: {
-      routes: ['/dashboard/shelter/:orgId', '/shelter', '/participants'],
-      features: ['shelterManagement', 'documentUpload']
+      routes: ['/dashboard/shelter/:orgId', '/shelter', '/participants', '/resources'],
+      features: ['shelterManagement', 'documentUpload', 'resourceManagement']
     },
     superAdmin: {
-      routes: ['/dashboard/super-admin', '/system', '/analytics'],
+      routes: ['/dashboard/super-admin', '/system', '/analytics', '/security'],
       features: ['all']
     }
   }
@@ -86,6 +90,7 @@ interface NavigationPermissions {
 | Form Management     | ❌         | ❌    | ✅           | ✅         |
 | Language Management | ❌         | ❌    | 🔵           | ✅         |
 | Navigation Config   | ❌         | ❌    | ❌           | ✅         |
+| Security Monitoring | ❌         | ❌    | 🔵           | ✅         |
 
 *🔵 = Limited Access*
 
@@ -96,6 +101,9 @@ interface NavigationPermissions {
 - [✅] Added navigation management capabilities
 - [✅] Enhanced security controls
 - [✅] Improved audit logging
+- [✅] Added security monitoring
+- [✅] Enhanced document management
+- [✅] Improved resource access controls
 
 ## Next Steps
 1. Implement role-based content caching
@@ -105,6 +113,7 @@ interface NavigationPermissions {
 5. Add role transition workflows
 6. Enhance security monitoring
 7. Optimize navigation performance
+8. Add real-time permission updates
 
 ## Security Considerations
 ```typescript
@@ -113,16 +122,19 @@ interface RBACSecurityConfig {
     role: boolean;
     path: boolean;
     navigation: boolean;
+    content: boolean;
   };
   caching: {
     permissions: boolean;
     navigation: boolean;
     timeout: number;
+    revalidation: boolean;
   };
   monitoring: {
     audit: boolean;
     performance: boolean;
     security: boolean;
+    realtime: boolean;
   }
 }
 ```
@@ -130,3 +142,21 @@ interface RBACSecurityConfig {
 ---
 *For implementation details, see [implementation.md](./implementation.md)*
 ```
+
+Key updates include:
+1. Version bump to 0.6.4
+2. Added security monitoring capabilities
+3. Enhanced role capabilities
+4. Added new navigation routes
+5. Updated feature matrix
+6. Added real-time monitoring
+7. Enhanced security configuration
+8. Added document management controls
+9. Updated navigation permissions
+10. Added resource management features
+
+Would you like me to:
+1. Add more security details?
+2. Enhance any specific role capabilities?
+3. Add more implementation details?
+4. Update any specific section?

@@ -1,10 +1,10 @@
 # 🔒 SHELTR Constants Reference
-*Last Updated: January 17, 2025 22:15 EST*
-*Version: 0.6.0*
+*Last Updated: January 20, 2024 22:45 EST*
+*Version: 0.6.4*
 *Status: STABLE* 🟢
 
 ## ⚠️ STATUS UPDATE
-Navigation optimization and i18n infrastructure complete. Constants updated to support optimized navigation mounting, language management, and enhanced performance monitoring.
+Security monitoring and AI infrastructure integration complete. Constants updated to support enhanced security features, AI capabilities, and performance optimization.
 
 ## API Constants
 
@@ -18,6 +18,18 @@ export const API_ENDPOINTS = {
     VERIFY: '/auth/verify',     // ✅ Stable
     REFRESH: '/auth/refresh'    // ✅ Stable
   },
+  SECURITY: {                   // New section
+    MONITOR: '/security/monitor',    // ✅ New
+    THREATS: '/security/threats',    // ✅ New
+    ALERTS: '/security/alerts',      // ✅ New
+    METRICS: '/security/metrics'     // ✅ New
+  },
+  AI: {                        // New section
+    PREDICT: '/ai/predict',         // ✅ New
+    ANALYZE: '/ai/analyze',         // ✅ New
+    METRICS: '/ai/metrics',         // ✅ New
+    TRAIN: '/ai/train'             // ✅ New
+  },
   BADGES: {
     GET: '/badges/get',         // ✅ Implemented
     UPDATE: '/badges/update',   // ✅ Implemented
@@ -29,9 +41,11 @@ export const API_ENDPOINTS = {
     EVENTS: '/ws/events'        // ✅ Implemented
   },
   ANALYTICS: {
-    METRICS: '/analytics/metrics', // ✅ New
-    EVENTS: '/analytics/events',   // ✅ New
-    REPORTS: '/analytics/reports'  // ✅ New
+    METRICS: '/analytics/metrics',   // ✅ Enhanced
+    EVENTS: '/analytics/events',     // ✅ Enhanced
+    REPORTS: '/analytics/reports',   // ✅ Enhanced
+    SECURITY: '/analytics/security', // ✅ New
+    AI: '/analytics/ai'             // ✅ New
   },
   NAVIGATION: {
     STATE: '/nav/state',        // ✅ New
@@ -56,8 +70,20 @@ export const API_CONFIG = {
   AUTH_TIMEOUT: 20000,         // Optimized
   CACHE_CONTROL: 'no-store',   // Implemented
   WEBSOCKET_RETRY: 5000,       // Implemented
-  OFFLINE_SYNC: 300000,        // New: 5min sync
-  PWA_VERSION: '1.0.0',         // New
+  OFFLINE_SYNC: 300000,        // 5min sync
+  PWA_VERSION: '1.0.0',        // Updated
+  SECURITY: {                  // New section
+    MONITOR_INTERVAL: 5000,    // New
+    THREAT_CHECK: 10000,       // New
+    ALERT_TIMEOUT: 3000,       // New
+    LOG_RETENTION: 604800000   // 7 days
+  },
+  AI: {                        // New section
+    MODEL_VERSION: '1.0.0',    // New
+    UPDATE_INTERVAL: 3600000,  // 1 hour
+    BATCH_SIZE: 32,           // New
+    THRESHOLD: 0.85           // New
+  },
   NAVIGATION: {
     MOUNT_TIMEOUT: 5000,      // New
     STATE_SYNC: 1000,         // New
@@ -259,20 +285,70 @@ export const I18N = {
 ```typescript
 export const PERFORMANCE = {
   THRESHOLDS: {
-    NAV_MOUNT: 50,        // ms
-    LANG_SWITCH: 100,     // ms
-    ROUTE_CHANGE: 100,    // ms
-    INITIAL_LOAD: 2000    // ms
+    SECURITY_CHECK: 50,     // ms
+    AI_PROCESSING: 100,     // ms
+    ANALYTICS: 100,         // ms
+    RENDERING: 16          // ms
   },
   MONITORING: {
     ENABLED: true,
-    INTERVAL: 60000,
-    SAMPLE_RATE: 100
+    INTERVAL: 60000,       // 1 min
+    SAMPLE_RATE: 100,      // 100%
+    LOG_LEVEL: 'info'
   },
   OPTIMIZATION: {
     BATCH_UPDATES: true,
     LAZY_LOADING: true,
-    PREFETCH: true
+    PREFETCH: true,
+    CACHE_TTL: 3600       // 1 hour
+  }
+} as const;
+```
+
+## Security Constants (✅ NEW)
+```typescript
+export const SECURITY = {
+  MONITORING: {
+    ENABLED: true,
+    INTERVAL: 5000,        // 5 sec
+    LOG_LEVEL: 'warn',
+    RETENTION: 604800     // 7 days
+  },
+  THREATS: {
+    CHECK_INTERVAL: 10000, // 10 sec
+    THRESHOLD: 0.75,
+    AUTO_BLOCK: true,
+    ALERT_TIMEOUT: 3000
+  },
+  AI: {
+    ENABLED: true,
+    UPDATE_INTERVAL: 3600000,
+    CONFIDENCE_THRESHOLD: 0.85,
+    LOG_PREDICTIONS: true
+  }
+} as const;
+```
+
+## AI Constants (✅ NEW)
+```typescript
+export const AI = {
+  MODEL: {
+    VERSION: '1.0.0',
+    UPDATE_INTERVAL: 3600000,
+    BATCH_SIZE: 32,
+    THRESHOLD: 0.85
+  },
+  PROCESSING: {
+    MAX_BATCH: 64,
+    TIMEOUT: 5000,
+    RETRY_ATTEMPTS: 3,
+    CACHE_TTL: 3600
+  },
+  METRICS: {
+    ENABLED: true,
+    INTERVAL: 60000,
+    RETENTION: 604800,
+    LOG_LEVEL: 'info'
   }
 } as const;
 ```
@@ -280,39 +356,43 @@ export const PERFORMANCE = {
 ## Status Overview
 
 ### ✅ Stable Areas
-1. Auth System
-   - Enhanced session management
-   - Role verification complete
-   - Badge system integrated
-   - Real-time ready
+1. Core System
+   - Authentication complete
+   - Security monitoring active
+   - Performance optimized
+   - Analytics enhanced
 
-2. Configuration
-   - WebSocket support added
-   - Cache strategy optimized
-   - Performance enhanced
-   - Security hardened
+2. New Features
+   - Security monitoring
+   - AI integration
+   - Enhanced analytics
+   - Performance tracking
 
-3. Navigation System
-   - Optimized mounting
-   - State management
+3. Optimizations
+   - Security checks
+   - AI processing
+   - Analytics collection
    - Performance monitoring
 
-4. i18n Framework
-   - Language management
-   - Translation system
-   - Fallback handling
-
-### �� Areas In Progress
-1. Real-Time Features
-   - WebSocket implementation
-   - Event system
-   - Connection management
-   - Error handling
-
-2. Performance Monitoring
+### 🟡 In Progress
+1. AI Features
+   - Model training
+   - Prediction optimization
    - Metrics collection
-   - Real-time tracking
-   - Optimization feedback
+   - Performance tuning
+
+2. Security Enhancements
+   - Threat detection
+   - Alert system
+   - Monitoring tools
+   - AI integration
+
+## Next Steps
+1. Complete AI integration
+2. Enhance security monitoring
+3. Optimize performance metrics
+4. Expand analytics capabilities
+5. Implement predictive features
 
 ## Recent Changes
 1. Added badge constants
@@ -370,4 +450,4 @@ export const ANALYTICS = {
 ```
 
 ---
-*For implementation details, see [implementation.md](./implementation.md)*
+*For implementation details, see [implementation.md](../guides/implementation.md)*
