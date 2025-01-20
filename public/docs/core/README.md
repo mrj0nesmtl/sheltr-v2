@@ -1,4 +1,4 @@
-public/docs/guides# 🚀 SHELTR Core Documentation
+# 🚀 SHELTR Core Documentation
 *Last Updated: January 20, 2024 22:45 EST*
 *Version: 0.6.4*
 *Status: STABLE* 🟢
