@@ -15,6 +15,11 @@ interface Version {
     security?: string[];
   };
   notes?: string;
+  metrics?: {
+    performance?: number;
+    security?: number;
+    coverage?: number;
+  };
 }
 
 interface ChangelogSectionProps {
@@ -63,6 +68,39 @@ export const ChangelogSection: FC<ChangelogSectionProps> = ({
     );
   };
 
+  const renderMetrics = (metrics?: Version['metrics']) => {
+    if (!metrics) return null;
+    
+    return (
+      <div className="grid grid-cols-3 gap-4 my-4">
+        {metrics.performance && (
+          <div className="bg-blue-900/30 p-3 rounded-lg">
+            <div className="text-blue-300 text-sm font-semibold">Performance</div>
+            <div className="text-2xl font-bold text-blue-400">
+              {metrics.performance}%
+            </div>
+          </div>
+        )}
+        {metrics.security && (
+          <div className="bg-green-900/30 p-3 rounded-lg">
+            <div className="text-green-300 text-sm font-semibold">Security</div>
+            <div className="text-2xl font-bold text-green-400">
+              {metrics.security}%
+            </div>
+          </div>
+        )}
+        {metrics.coverage && (
+          <div className="bg-purple-900/30 p-3 rounded-lg">
+            <div className="text-purple-300 text-sm font-semibold">Coverage</div>
+            <div className="text-2xl font-bold text-purple-400">
+              {metrics.coverage}%
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  };
+
   return (
     <section id="changelog" className="scroll-mt-16">
       <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-6">
@@ -102,6 +140,9 @@ export const ChangelogSection: FC<ChangelogSectionProps> = ({
               <p className="text-gray-300 text-sm">{currentVersion.notes}</p>
             </div>
           )}
+
+          {/* Add metrics display */}
+          {renderMetrics(currentVersion.metrics)}
 
           {/* Changes Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
