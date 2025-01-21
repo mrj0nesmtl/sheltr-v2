@@ -39,7 +39,12 @@ export default defineConfig({
     },
     hmr: {
       overlay: false
-    }
+    },
+    allowedHosts: [
+      'sheltr-ops.replit.app',
+      '.replit.app',
+      'localhost'
+    ]
   },
   preview: {
     port: 5173,
