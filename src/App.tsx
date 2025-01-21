@@ -93,6 +93,22 @@ const AppContent = memo(() => {
     logNavigationState();
   }, [logNavigationState]);
 
+  // Add Replit-specific connection check
+  useEffect(() => {
+    const checkConnection = async () => {
+      try {
+        const response = await fetch(import.meta.env.VITE_PUBLIC_URL);
+        if (!response.ok) {
+          console.warn('Replit deployment might be sleeping...');
+        }
+      } catch (error) {
+        console.error('Connection check failed:', error);
+      }
+    };
+
+    checkConnection();
+  }, []);
+
   if (isLoading && !hasInitialized) {
     return (
       <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center p-4">
