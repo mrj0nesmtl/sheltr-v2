@@ -41,6 +41,9 @@
 
     /* Change these settings */
     "noEmitOnError": false,
+
+    /* Optional: specify a custom location for the .tsbuildinfo file */
+    "tsBuildInfoFile": "./node_modules/.cache/.tsbuildinfo",
   },
   "include": [
     "src/**/*.ts",

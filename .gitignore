@@ -66,3 +66,15 @@ public/docs/dev/notes/tree/archive/*.tar.gz
 src/backup/
 .env*
 !.env.example
+!.env.template
+
+# Environment files - strict rules
+.env
+.env.*
+!.env.example
+!.env.template
+
+# Keep replit specific configs
+!.env.replit
+!replit.nix
+!.replit
