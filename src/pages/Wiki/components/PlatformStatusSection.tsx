@@ -139,7 +139,7 @@ export const PlatformStatusSection = ({ systemStatus = {} }: PlatformStatusSecti
   return (
     <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-6">
       <h2 className="text-xl font-bold text-white mb-6 flex items-center">
-        <Shield className="w-6 h-6 mr-2" />
+        <Activity className="w-6 h-6 mr-2 text-emerald-500" />
         Platform Status
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">

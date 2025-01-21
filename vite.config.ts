@@ -77,5 +77,6 @@ export default defineConfig({
       'zustand',
       '@supabase/supabase-js'
     ]
-  }
+  },
+  assetsInclude: ['**/*.md'],
 });

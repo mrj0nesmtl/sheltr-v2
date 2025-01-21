@@ -1,19 +1,59 @@
 import { Link } from 'react-scroll';
 import type { LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Sparkles, Activity, Timer, LineChart, BookOpen, GitCommit } from 'lucide-react';
 
 interface SidebarSection {
   id: string;
   label: string;
   icon: LucideIcon;
+  color: string;
 }
+
+const sections: SidebarSection[] = [
+  {
+    id: 'platform-overview',
+    label: 'Platform Overview',
+    icon: Sparkles,
+    color: 'text-indigo-500'
+  },
+  {
+    id: 'platform-status',
+    label: 'Platform Status',
+    icon: Activity,
+    color: 'text-emerald-500'
+  },
+  {
+    id: 'sprint-progress',
+    label: 'Sprint Progress',
+    icon: Timer,
+    color: 'text-blue-500'
+  },
+  {
+    id: 'metrics',
+    label: 'Metrics',
+    icon: LineChart,
+    color: 'text-violet-500'
+  },
+  {
+    id: 'documentation',
+    label: 'Documentation',
+    icon: BookOpen,
+    color: 'text-amber-500'
+  },
+  {
+    id: 'changelog',
+    label: 'Changelog',
+    icon: GitCommit,
+    color: 'text-rose-500'
+  }
+];
 
 interface WikiSidebarProps {
   isOpen: boolean;
-  sections: SidebarSection[];
 }
 
-export const WikiSidebar = ({ isOpen, sections }: WikiSidebarProps) => (
+export const WikiSidebar = ({ isOpen }: WikiSidebarProps) => (
   <aside 
     className={cn(
       "fixed inset-y-0 left-0 w-64 bg-gray-800/95 backdrop-blur-sm",
@@ -35,7 +75,9 @@ export const WikiSidebar = ({ isOpen, sections }: WikiSidebarProps) => (
             to={section.id}
             spy={true}
             smooth={true}
-            offset={-64}
+            duration={500}
+            offset={-100}
+            isDynamic={true}
             className={cn(
               "flex items-center gap-3 px-4 py-3 text-gray-300",
               "hover:text-white hover:bg-gray-700/50 rounded-lg",
@@ -44,7 +86,13 @@ export const WikiSidebar = ({ isOpen, sections }: WikiSidebarProps) => (
             )}
             activeClass="bg-gray-700/70 text-white shadow-lg shadow-gray-900/20"
           >
-            <section.icon className="w-5 h-5 flex-shrink-0 transition-transform duration-200 group-hover:scale-110" />
+            <section.icon 
+              className={cn(
+                "w-5 h-5 flex-shrink-0 transition-transform duration-200",
+                "group-hover:scale-110",
+                section.color
+              )} 
+            />
             <span className="font-medium">{section.label}</span>
           </Link>
         ))}

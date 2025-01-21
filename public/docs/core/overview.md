@@ -34,6 +34,9 @@ graph TD
 ```
 
 ### 👥 User Flow
+
+The SHELTR user flow is designed to be intuitive and efficient, guiding donors through a seamless donation process while ensuring transparency and trust. The flow encompasses user authentication, donation processing, impact tracking, and blockchain verification.
+
 ```mermaid
 stateDiagram-v2
     [*] --> Landing
@@ -57,6 +60,9 @@ stateDiagram-v2
 ```
 
 ### 🔄 Data Flow Architecture
+
+Our data flow architecture is built on modern web standards, implementing real-time updates and secure data handling. The system utilizes WebSocket connections for live updates, RESTful APIs for data operations, and blockchain integration for transaction verification and transparency.
+
 ```mermaid
 flowchart TD
     subgraph Client
@@ -212,22 +218,22 @@ graph LR
 
 ### Documentation Structure
 - 📖 User Guides
-  - 🎯 Getting Started
-  - 👥 User Management
-  - 💰 Donation System
-  - 📊 Analytics Dashboard
+  - [🎯 Getting Started](/docs/guides/getting-started)
+  - [👥 User Management](/docs/guides/user-management)
+  - [💰 Donation System](/docs/guides/donation-system)
+  - [📊 Analytics Dashboard](/docs/guides/analytics)
 
 - 🛠️ Technical Docs
-  - 🏗️ Architecture
-  - 🔌 API Reference
-  - 🔐 Security
-  - 🧪 Testing
+  - [🏗️ Architecture](/docs/technical/architecture)
+  - [🔌 API Reference](/docs/technical/api)
+  - [🔐 Security](/docs/technical/security)
+  - [🧪 Testing](/docs/technical/testing)
 
 - 📋 Reference
-  - 🧩 Components
-  - 🎨 Style Guide
-  - 🔧 Configuration
-  - 📈 Metrics
+  - [🧩 Components](/docs/reference/components)
+  - [🎨 Style Guide](/docs/reference/style-guide)
+  - [🔧 Configuration](/docs/reference/configuration)
+  - [📈 Metrics](/docs/reference/metrics)
 
 ## 🔜 Strategic Roadmap
 

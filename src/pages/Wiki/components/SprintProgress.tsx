@@ -1,5 +1,6 @@
-import { Activity, CheckCircle, Clock, AlertCircle } from 'lucide-react';
+import { Timer, CheckCircle, Clock, AlertCircle } from 'lucide-react';
 import type { Sprint, Task } from '../types';
+import { ProgressIndicator } from './ProgressIndicator';
 
 interface SprintProgressProps {
   currentSprint: Sprint;
@@ -11,7 +12,7 @@ interface TaskCardProps {
 }
 
 const TaskCard = ({ task }: TaskCardProps) => (
-  <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-4">
+  <div className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-4">
     <div className="flex items-center justify-between">
       <div className="flex-1">
         <div className="flex items-center gap-2">
@@ -39,14 +40,19 @@ const TaskCard = ({ task }: TaskCardProps) => (
         }
       </div>
     </div>
+    <ProgressIndicator 
+      value={task.progress || 0} 
+      max={100}
+      className="mt-2"
+    />
   </div>
 );
 
 export const SprintProgress = ({ currentSprint, tasks }: SprintProgressProps) => {
   return (
-    <div className="bg-gray-800 rounded-xl p-6">
-      <h2 className="text-xl font-semibold text-white mb-6 flex items-center gap-2">
-        <Activity className="w-5 h-5" />
+    <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-6 mb-8">
+      <h2 className="text-xl font-bold text-white mb-6 flex items-center">
+        <Timer className="w-6 h-6 mr-2 text-blue-500" />
         Sprint Progress
       </h2>
       <div className="space-y-4">

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Shield, Book, Activity, Clock, Github, FileText, GitBranch } from 'lucide-react';
+import { Shield, Book, Activity, Clock, Github, FileText, GitBranch, Sparkles, Timer, LineChart, BookOpen, GitCommit } from 'lucide-react';
 import { WikiHeader } from './components/WikiHeader';
 import { WikiSidebar } from './components/WikiSidebar';
 import { WikiMobileNav } from './components/WikiMobileNav';
@@ -13,12 +13,13 @@ import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { ChangelogSection } from './components/ChangelogSection';
 import { cn } from '@/lib/utils';
 import { 
-  LineChart,
   PieChart,
   BarChart,
   AreaChart 
 } from '@/features/shared/analytics/charts';
 import { ChartDataPoint } from '@/features/shared/analytics/types';
+import { OverviewSection } from '@/pages/Wiki/components/OverviewSection';
+import overviewContent from '/docs/core/overview.md?raw';
 
 const StatusIndicator = ({ status, pulse = false }) => (
   <span className={cn(
@@ -41,26 +42,19 @@ const SearchBar = () => (
   </div>
 );
 
-const MetricsVisualizer = ({ data }) => (
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-6">
-      <h3 className="text-lg font-semibold text-white mb-4">Network Activity</h3>
-      <LineChart 
-        data={data.network}
-        height={250}
-        showGrid={true}
-        curved={true}
-      />
-    </div>
-    <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-6">
-      <h3 className="text-lg font-semibold text-white mb-4">Resource Allocation</h3>
-      <PieChart 
-        data={data.allocation}
-        height={250}
-      />
-    </div>
-  </div>
-);
+const MetricsVisualizer = () => {
+  return (
+    <section className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-6 mb-8">
+      <div className="flex items-center gap-3 mb-6">
+        <LineChart 
+          className="w-6 h-6 text-violet-500"
+        />
+        <h2 className="text-xl font-bold text-white">Metrics</h2>
+      </div>
+      {/* ... rest of the metrics content ... */}
+    </section>
+  );
+};
 
 const Wiki = () => {
   const { data, isLoading, error } = useWikiData();
@@ -156,12 +150,43 @@ const Wiki = () => {
     }
   ];
 
-  const sections = [
-    { id: 'status', label: 'Platform Status', icon: Shield },
-    { id: 'progress', label: 'Sprint Progress', icon: Activity },
-    { id: 'metrics', label: 'Metrics', icon: Clock },
-    { id: 'docs', label: 'Documentation', icon: FileText },
-    { id: 'changelog', label: 'Changelog', icon: GitBranch }
+  const wikiSections: SidebarSection[] = [
+    {
+      id: 'platform-overview',
+      label: 'Platform Overview',
+      icon: Sparkles,
+      color: 'text-indigo-500'
+    },
+    {
+      id: 'platform-status',
+      label: 'Platform Status',
+      icon: Activity,
+      color: 'text-emerald-500'
+    },
+    {
+      id: 'sprint-progress',
+      label: 'Sprint Progress',
+      icon: Timer,
+      color: 'text-blue-500'
+    },
+    {
+      id: 'metrics',
+      label: 'Metrics',
+      icon: LineChart,
+      color: 'text-violet-500'
+    },
+    {
+      id: 'documentation',
+      label: 'Documentation',
+      icon: BookOpen,
+      color: 'text-amber-500'
+    },
+    {
+      id: 'changelog',
+      label: 'Changelog',
+      icon: GitCommit,
+      color: 'text-rose-500'
+    }
   ];
 
   const documentationLinks = {
@@ -197,7 +222,7 @@ const Wiki = () => {
       <WikiMobileNav 
         isOpen={sidebarOpen} 
         onToggle={() => setSidebarOpen(!sidebarOpen)}
-        sections={sections}
+        sections={wikiSections}
       />
 
       {/* Main Layout */}
@@ -205,7 +230,7 @@ const Wiki = () => {
         {/* Sidebar */}
         <WikiSidebar 
           isOpen={sidebarOpen}
-          sections={sections}
+          sections={wikiSections}
         />
 
         {/* Main Content */}
@@ -218,10 +243,15 @@ const Wiki = () => {
             status={currentVersion.status}
           />
 
+          {/* Overview Section */}
+          <section id="platform-overview" className="scroll-mt-16">
+            <OverviewSection content={overviewContent} />
+          </section>
+
           {/* Content Grid */}
           <div className="space-y-8 mt-8">
             {/* Status Overview */}
-            <section id="status" className="scroll-mt-16">
+            <section id="platform-status" className="scroll-mt-16">
               <PlatformStatusSection 
                 systemStatus={data.systemStatus}
                 metrics={data.metrics}
@@ -229,7 +259,7 @@ const Wiki = () => {
             </section>
 
             {/* Sprint Progress */}
-            <section id="progress" className="scroll-mt-16">
+            <section id="sprint-progress" className="scroll-mt-16">
               <SprintProgress 
                 currentSprint={data.currentSprint}
                 tasks={data.sprintTasks}
@@ -242,7 +272,7 @@ const Wiki = () => {
             </section>
 
             {/* Documentation Grid */}
-            <section id="docs" className="scroll-mt-16">
+            <section id="documentation" className="scroll-mt-16">
               <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-6">
                 <h2 className="text-xl font-bold text-white mb-6 flex items-center">
                   <FileText className="w-6 h-6 mr-2" />
@@ -266,7 +296,7 @@ const Wiki = () => {
 
             {/* Metrics Visualizer */}
             <section id="metrics-visualizer" className="scroll-mt-16">
-              <MetricsVisualizer data={data.metrics} />
+              <MetricsVisualizer />
             </section>
           </div>
         </main>
