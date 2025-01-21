@@ -30,6 +30,7 @@ enabledForHosting = true
 
 [languages.typescript]
 pattern = "**/{*.ts,*.tsx}"
+
 [languages.typescript.languageServer]
 start = ["typescript-language-server", "--stdio"]
 

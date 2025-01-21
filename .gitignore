@@ -52,8 +52,9 @@ public/docs/technical/database.md
 .config
 .upm
 .breakpoints
-replit.nix
-.replit
+#replit.nix
+# .replit
+# replit.dev.nix
 
 # environment templates should be committed
 !.env.*.template
