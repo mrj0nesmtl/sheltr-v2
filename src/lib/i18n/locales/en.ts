@@ -331,20 +331,19 @@ export const en: Translations = {
   },
 
   hero: {
-    title: "Transform Donations into Impact",
-    subtitle: "Transform your daily donations into meaningful events. We use blockchain smart contracts and AI to directly support homeless individuals with transparency and accountability.",
-    description: "Transform your daily donations into meaningful events. We use blockchain smart contracts and AI to directly support homeless individuals with transparency and accountability.",
+    title: 'Hacking Homelessness',
+    subtitle: 'Transform donations into meaningful impact using blockchain technology and smart contracts to directly support homeless individuals with transparency and accountability.',
     backgroundAlt: 'Person sleeping on bench',
     cta: {
       scan: 'Scan & Donate',
       learnMore: 'Learn More',
-      title: "Join the Movement to Hack Homelessness",
-      description: "Make a direct impact through secure, transparent donations that create lasting change."
+      title: 'Join the Movement to End Homelessness',
+      description: 'Make a direct impact through secure, transparent donations that create lasting change.',
     },
     features: {
       impact: {
         title: 'Direct Impact',
-        description: 'Your donations directly support individuals in need through secure, transparent blockchain transactions.'
+        description: 'Your donations directly support those in need through secure, transparent blockchain transactions.'
       },
       allocation: {
         title: 'Smart Allocation',
@@ -366,9 +365,7 @@ export const en: Translations = {
         title: 'Impact Tracking',
         description: 'Monitor your contributions and see the real impact of your donations in real-time.'
       }
-    },
-    title: "Transform Donations into Impact",
-    description: "Create meaningful actions using blockchain technology and smart contracts to directly support homeless individuals with transparency and accountability."
+    }
   },
 
   howItWorks: {

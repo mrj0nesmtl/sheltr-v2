@@ -22,13 +22,32 @@ export const fr: Translations = {
     refresh: "Actualiser",
   },
   nav: {
+    // Primary navigation
+    home: "Page d'accueil",
     about: "À Propos",
     howItWorks: "Comment ça Marche",
     solutions: "Solutions",
     scanDonate: "Scanner + Donner",
     impact: "Impact",
+    
+    // Auth related
     login: "Connexion",
     signUp: "S'inscrire",
+    signOut: "Déconnexion",
+    
+    // Dashboard related
+    dashboard: "Tableau de Bord",
+    profile: "Profil",
+    settings: "Paramètres",
+    menu: "Menu",
+    
+    // Management sections
+    participants: "Participants",
+    shelters: "Refuges",
+    users: "Utilisateurs",
+    history: "Historique",
+
+    // Menus
     solutions_menu: {
       title: 'Solutions',
       howItWorks: 'Comment ça Marche',
@@ -46,8 +65,6 @@ export const fr: Translations = {
       whitepaper: 'Livre Blanc',
       whitepaperDesc: 'Détails techniques et architecture de la plateforme'
     },
-    signUp: 'Inscrire',
-    login: 'Connexion',
     platform_menu: {
       title: 'Plateforme',
       dashboard: 'Tableau de Bord',
@@ -140,17 +157,6 @@ export const fr: Translations = {
     },
     language: 'Langue',
     closeMenu: 'Fermer le menu',
-    profile: 'Profil',
-    dashboard: 'Tableau de Bord',
-    signOut: 'Déconnexion',
-    about: 'À Propos',
-    menu: 'Menu',
-    home: "Page d'accueil",
-    participants: "Participants",
-    settings: "Paramètres",
-    shelters: "Refuges",
-    users: "Utilisateurs",
-    history: "Historique",
     shelter_admin: {
       dashboard: "Tableau de bord du refuge",
       participants: "Gestion des participants",
