@@ -9,22 +9,22 @@ NODE_ENV = "production"
 VITE_APP_ENV = "production"
 VITE_ENABLE_MONITORING = "true"
 VITE_SECURITY_MONITORING = "true"
-PATH = "/home/runner/${REPL_SLUG}/node_modules/.bin:/home/runner/${REPL_SLUG}/node_modules/.bin:${PATH}"
+PATH = "${HOME}/.nix-profile/bin:/nix/var/nix/profiles/default/bin:${PATH}"
 
 [nix]
 channel = "stable-23_11"
 
 [deployment]
 run = [
-  "sh",
+  "bash",
   "-c",
-  "/nix/store/*/bin/npm ci --ignore-engines && npm run start:prod",
+  "export PATH=/nix/var/nix/profiles/default/bin:$PATH && npm ci --ignore-engines && npm run start:prod"
 ]
 deploymentTarget = "cloudrun"
 ignorePorts = false
 publicDir = "dist"
 build = [
-  "sh",
+  "bash",
   "-c",
-  "/nix/store/*/bin/npm ci --ignore-engines && npm run build",
+  "export PATH=/nix/var/nix/profiles/default/bin:$PATH && npm ci --ignore-engines && npm run build"
 ]
