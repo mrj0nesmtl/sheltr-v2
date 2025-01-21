@@ -9,16 +9,17 @@ NODE_ENV = "production"
 VITE_APP_ENV = "production"
 VITE_ENABLE_MONITORING = "true"
 VITE_SECURITY_MONITORING = "true"
+PATH = "/home/runner/workspace/node_modules/.bin:${PATH}"
 
 [nix]
 channel = "stable-22_11"
 
 [deployment]
-run = ["sh", "-c", "npm run start:prod"]
+run = ["sh", "-c", "npm ci && npm run start:prod"]
 deploymentTarget = "cloudrun"
 ignorePorts = false
 publicDir = "dist"
-build = ["sh", "-c", "npm run build"]
+build = ["sh", "-c", "npm ci && npm run build"]
 
 [packager]
 language = "nodejs"
