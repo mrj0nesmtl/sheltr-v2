@@ -4,7 +4,7 @@
   "version": "0.6.4-beta",
   "type": "module",
   "engines": {
-    "node": ">=18.16.0",
+    "node": ">=18.12.1",
     "npm": ">=8.19.2"
   },
   "scripts": {
@@ -27,7 +27,7 @@
     "update-docs": "node scripts/update-docs.js",
     "archive:docs": "ts-node scripts/archive-docs.ts",
     "archive:auto": "node scripts/auto-archive.js",
-    "start:prod": "vite preview --port ${PORT:-5173} --host",
+    "start:prod": "npm install && npm run build && npm exec vite preview --port ${PORT:-5173} --host",
     "build:analyze": "vite build --mode analyze",
     "postbuild": "npx serve dist -s -l ${PORT:-5173} &",
     "export-structure": "./scripts/export-structure.sh",

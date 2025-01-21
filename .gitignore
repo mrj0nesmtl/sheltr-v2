@@ -70,8 +70,8 @@ src/backup/
 !.env.template
 
 # Environment files - strict rules
-.env
-.env.*
+#.env            # Temporarily commented out
+#.env.*          # Temporarily commented out
 !.env.example
 !.env.template
 
