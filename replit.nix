@@ -14,6 +14,5 @@
     NODE_ENV = "production";
     NPM_CONFIG_PREFIX = "$HOME/.npm-global";
     NPM_CONFIG_ENGINE_STRICT = "false";
-    VITE_PORT = "5173";
   };
-} 
+}

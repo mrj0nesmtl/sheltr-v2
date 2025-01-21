@@ -15,18 +15,16 @@ PATH = "/home/runner/${REPL_SLUG}/node_modules/.bin:/home/runner/${REPL_SLUG}/no
 channel = "stable-23_11"
 
 [deployment]
-run = ["sh", "-c", "npm ci --ignore-engines && npm run start:prod"]
+run = [
+  "sh",
+  "-c",
+  "/nix/store/*/bin/npm ci --ignore-engines && npm run start:prod",
+]
 deploymentTarget = "cloudrun"
 ignorePorts = false
 publicDir = "dist"
-build = ["sh", "-c", "npm ci --ignore-engines && npm run build"]
-
-[languages.typescript]
-pattern = "**/{*.ts,*.tsx}"
-
-[languages.typescript.languageServer]
-start = ["typescript-language-server", "--stdio"]
-
-[[ports]]
-localPort = 5173
-externalPort = 80
+build = [
+  "sh",
+  "-c",
+  "/nix/store/*/bin/npm ci --ignore-engines && npm run build",
+]
