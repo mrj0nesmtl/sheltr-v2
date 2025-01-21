@@ -1,21 +1,28 @@
-run = "npm run dev"
+run = "npm run start:prod"
+build = "npm run build"
 entrypoint = "src/main.tsx"
 
 [env]
 VITE_PORT = "5173"
 VITE_PUBLIC_URL = "https://sheltr-ops.replit.app"
+NODE_ENV = "production"
+VITE_APP_ENV = "production"
+VITE_ENABLE_MONITORING = "true"
+VITE_SECURITY_MONITORING = "true"
 
 [nix]
 channel = "stable-22_11"
 
 [deployment]
-run = ["sh", "-c", "npm run dev"]
+run = ["sh", "-c", "npm run start:prod"]
 deploymentTarget = "cloudrun"
 ignorePorts = false
 publicDir = "dist"
+build = ["sh", "-c", "npm run build"]
 
 [packager]
 language = "nodejs"
+
 [packager.features]
 packageSearch = true
 guessImports = true
