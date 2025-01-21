@@ -27,7 +27,7 @@
     "update-docs": "node scripts/update-docs.js",
     "archive:docs": "ts-node scripts/archive-docs.ts",
     "archive:auto": "node scripts/auto-archive.js",
-    "start:prod": "vite preview --port ${PORT:-5173} --host",
+    "start:prod": "npx vite preview --port ${PORT:-5173} --host",
     "build:analyze": "vite build --mode analyze",
     "postbuild": "npx serve dist -s -l ${PORT:-5173} &",
     "export-structure": "./scripts/export-structure.sh",

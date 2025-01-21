@@ -3,6 +3,7 @@
 *Version: 0.6.4*
 *Status: STABLE* 🟢
 
+
 ## Development Environment
 ```bash
 # Build Command
@@ -145,7 +146,80 @@ npm run security-check
 *For detailed implementation logs, see [implementation.md](./implementation.md)*
 *For security guidelines, see [security.md](./security.md)*
 *For monitoring setup, see [monitoring.md](./monitoring.md)*
-```
+
+# SHELTR Replit Deployment Guide
+
+## Pre-Deployment Checklist
+1. Sync with GitHub
+   ```bash
+   git pull origin main
+   ```
+
+2. Clear Caches
+   ```bash
+   cd ~/workspace
+   rm -rf .config/npm .npm node_modules/.vite node_modules
+   npm cache clean --force
+   ```
+
+3. Fresh Install
+   ```bash
+   npm install --legacy-peer-deps
+   ```
+
+## Deployment Steps
+1. Verify Environment
+   - Check .replit configuration
+   - Verify environment variables
+   - Confirm Node version (>=18.16.0)
+
+2. Build Process
+   ```bash
+   npm run build
+   ```
+
+3. Start Production Server
+   ```bash
+   npm run start:prod
+   ```
+
+## Troubleshooting
+1. Dependency Issues
+   ```bash
+   npm ls # Check for errors
+   npm install --force # If needed
+   ```
+
+2. Build Failures
+   ```bash
+   npm run clean:all
+   npm install
+   npm run build:force
+   ```
+
+3. Cache Issues
+   ```bash
+   rm -rf .config/npm .npm
+   npm cache clean --force
+   ```
+
+## Monitoring
+1. Check Logs
+   - View Console output
+   - Check Network tab
+   - Monitor Error reporting
+
+2. Performance
+   - Verify build size
+   - Check load times
+   - Monitor memory usage
+
+## Best Practices
+1. Always pull from GitHub first
+2. Clear caches before major updates
+3. Use --legacy-peer-deps for installations
+4. Document any environment changes
+5. Monitor deployment logs
 
 Key updates include:
 1. Version bump to 0.6.4
