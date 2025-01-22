@@ -367,8 +367,6 @@ export const en: Translations = {
         description: 'Monitor your contributions and see the real impact of your donations in real-time.'
       }
     },
-    title: "Transform Donations into Impact",
-    description: "Create meaningful actions using blockchain technology and smart contracts to directly support homeless individuals with transparency and accountability."
   },
 
   howItWorks: {
@@ -1048,7 +1046,6 @@ export const en: Translations = {
 
   home: {
     hero: {
-      title: "Transform Donations into Impact",
       mainText: "Transform your daily donations into meaningful events. We use blockchain smart contracts and AI to directly support homeless individuals with transparency and accountability."
     },
     features: {

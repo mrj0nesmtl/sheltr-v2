@@ -46,8 +46,6 @@ export const fr: Translations = {
       whitepaper: 'Livre Blanc',
       whitepaperDesc: 'Détails techniques et architecture de la plateforme'
     },
-    signUp: 'Inscrire',
-    login: 'Connexion',
     platform_menu: {
       title: 'Plateforme',
       dashboard: 'Tableau de Bord',
@@ -143,7 +141,6 @@ export const fr: Translations = {
     profile: 'Profil',
     dashboard: 'Tableau de Bord',
     signOut: 'Déconnexion',
-    about: 'À Propos',
     menu: 'Menu',
     home: "Page d'accueil",
     participants: "Participants",
