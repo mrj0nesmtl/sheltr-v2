@@ -1,18 +1,18 @@
 run = "npm run dev"
-entrypoint = "src/main.tsx"
+modules = ["web", "nodejs-18"]
 
 [env]
 VITE_PORT = "5173"
-VITE_PUBLIC_URL = "https://sheltr-ops.replit.app"
+VITE_PUBLIC_URL = "https://sheltr-v1.replit.app"
 
 [nix]
-channel = "stable-22_11"
+channel = "stable-24_05"
 
 [deployment]
-run = ["sh", "-c", "npm run dev"]
+run = ["sh", "-c", "npx serve dist -s --listen 0.0.0.0:5173"]
 deploymentTarget = "cloudrun"
 ignorePorts = false
-publicDir = "dist"
+build = ["sh", "-c", "npm run build"]
 
 [packager]
 language = "nodejs"
@@ -33,3 +33,7 @@ serve = "/public"
 [[ports]]
 localPort = 5173
 externalPort = 80
+
+[[ports]]
+localPort = 34387
+externalPort = 3000
