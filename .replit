@@ -9,7 +9,11 @@ VITE_PUBLIC_URL = "https://sheltr-v1.replit.app"
 channel = "stable-24_05"
 
 [deployment]
-run = ["sh", "-c", "npx serve dist -s --listen tcp://0.0.0.0:80"]
+run = [
+  "sh",
+  "-c",
+  "cd dist && npx serve -s --listen tcp://0.0.0.0:80 | tee deployment.log",
+]
 deploymentTarget = "cloudrun"
 ignorePorts = false
 build = ["sh", "-c", "npm run build"]
