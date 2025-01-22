@@ -29,7 +29,7 @@
     "archive:auto": "node scripts/auto-archive.js",
     "start:prod": "npx serve dist -s -l ${PORT:-5173}",
     "build:analyze": "vite build --mode analyze",
-    "postbuild": "npx serve dist -s --listen 0.0.0.0:80",
+    "postbuild": "npx serve dist -s --listen tcp://0.0.0.0:80",
     "export-structure": "./scripts/export-structure.sh",
     "precommit": "npm run export-structure"
   },
