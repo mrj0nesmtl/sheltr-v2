@@ -14,6 +14,7 @@ import { DashboardNavigation } from '@/layouts/dashboard/navigation/DashboardNav
 import { AUTH_ROLES } from '@/auth/types/auth.types';
 import { BaseErrorBoundary } from '@/components/ErrorBoundary/BaseErrorBoundary';
 import Impact from '@/pages/Impact/Impact';
+import About from '@/pages/About';
 
 // Initialize QueryClient outside component to prevent recreation
 const queryClient = new QueryClient({
@@ -116,7 +117,10 @@ const AppContent = memo(() => {
         <ScrollToTop />
         <MetaTags />
         <Layout>
-          <AppRoutes />
+          <Routes>
+            <Route path="/about" element={<About />} />
+            <Route path="*" element={<AppRoutes />} />
+          </Routes>
         </Layout>
         <Toaster 
           position="top-right"
