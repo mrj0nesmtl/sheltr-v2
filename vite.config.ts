@@ -37,7 +37,12 @@ export default defineConfig({
       "localhost", 
       "*.replit.dev", 
       "*.repl.co", 
-      "*.repl.it"],
+      "*.repl.it",
+      "*.riker.replit.dev",
+      ".replit.dev",
+      ".repl.co",
+      ".repl.it"
+    ],
     watch: {
       usePolling: true,
       interval: 100,
@@ -50,11 +55,15 @@ export default defineConfig({
     port: 5173,
     host: true,
     allowedHosts: [
-        "localhost", 
-        "*.replit.dev", 
-        "*.repl.co", 
-        "*.repl.it"
-      ],
+      "localhost", 
+      "*.replit.dev", 
+      "*.repl.co", 
+      "*.repl.it",
+      "*.riker.replit.dev",
+      ".replit.dev",
+      ".repl.co",
+      ".repl.it"
+    ],
   },
   build: {
     outDir: "dist",
@@ -104,6 +113,8 @@ export default defineConfig({
       "lucide-react",
       "zustand",
       "@supabase/supabase-js",
+      "react-hot-toast",
+      "react-scroll",
     ],
   },
   assetsInclude: ["**/*.md"],
