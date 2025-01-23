@@ -1,26 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
+import engContent from '../content/sheltr_intro_eng.md?raw';
+import frContent from '../content/sheltr_intro_fr.md?raw';
 
 export function Introduction() {
-  const [content, setContent] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    fetch('/src/pages/About/content/sheltr_intro_eng.md')
-      .then(res => res.text())
-      .then(text => {
-        setContent(text);
-        setIsLoading(false);
-      })
-      .catch(err => {
-        console.error('Failed to load introduction:', err);
-        setIsLoading(false);
-      });
-  }, []);
-
-  if (isLoading) return <LoadingSpinner />;
+  const [content] = useState(engContent);
 
   return (
     <motion.section
