@@ -55,7 +55,6 @@ export default defineConfig({
         "*.repl.co", 
         "*.repl.it"
       ],
-    },
   },
   build: {
     outDir: "dist",
