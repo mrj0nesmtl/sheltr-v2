@@ -9,7 +9,11 @@ VITE_PUBLIC_URL = "https://sheltr-beta.replit.app"
 channel = "stable-24_05"
 
 [deployment]
-run = ["sh", "-c", "npx serve dist -s -l $PORT"]  # Use $PORT instead of 80
+run = [
+  "sh",
+  "-c",
+  "npx serve dist -s --single --cors -l $PORT",
+] # Add --cors flag
 deploymentTarget = "cloudrun"
 ignorePorts = false
 build = ["sh", "-c", "npm run build"]
