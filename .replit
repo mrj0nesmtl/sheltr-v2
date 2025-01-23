@@ -31,6 +31,5 @@ directory = "public"
 serve = "/public"
 
 [[ports]]
-localPort = 5173       # Vite's development port
-externalPort = 80      # Main HTTP port for public access
-exposeLocalhost = true # Allow localhost binding
+localPort = 5173
+externalPort = 80
