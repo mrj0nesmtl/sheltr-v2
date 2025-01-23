@@ -31,5 +31,9 @@ directory = "public"
 serve = "/public"
 
 [[ports]]
+localPort = 80
+externalPort = 3000
+
+[[ports]]
 localPort = 5173
 externalPort = 80

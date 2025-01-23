@@ -33,6 +33,11 @@ export default defineConfig({
     host: "0.0.0.0",
     port: 5173,
     strictPort: true,
+    allowedHosts: [
+      "localhost", 
+      "*.replit.dev", 
+      "*.repl.co", 
+      "*.repl.it"],
     watch: {
       usePolling: true,
       interval: 100,
@@ -44,6 +49,13 @@ export default defineConfig({
   preview: {
     port: 5173,
     host: true,
+    allowedHosts: [
+        "localhost", 
+        "*.replit.dev", 
+        "*.repl.co", 
+        "*.repl.it"
+      ],
+    },
   },
   build: {
     outDir: "dist",
