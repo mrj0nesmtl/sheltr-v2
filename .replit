@@ -3,13 +3,13 @@ modules = ["web", "nodejs-18"]
 
 [env]
 VITE_PORT = "5173"
-VITE_PUBLIC_URL = "https://sheltr-v1.replit.app"
+VITE_PUBLIC_URL = "https://sheltr-beta.replit.app"
 
 [nix]
 channel = "stable-24_05"
 
 [deployment]
-run = ["sh", "-c", "cd dist && npx serve -s -l 80"]
+run = ["sh", "-c", "npx serve dist -s -l $PORT"]  # Use $PORT instead of 80
 deploymentTarget = "cloudrun"
 ignorePorts = false
 build = ["sh", "-c", "npm run build"]
@@ -31,9 +31,6 @@ directory = "public"
 serve = "/public"
 
 [[ports]]
-localPort = 80
-externalPort = 3000
-
-[[ports]]
-localPort = 5173
-externalPort = 80
+localPort = 5173       # Vite's development port
+externalPort = 80      # Main HTTP port for public access
+exposeLocalhost = true # Allow localhost binding
