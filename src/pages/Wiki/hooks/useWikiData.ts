@@ -3,6 +3,7 @@ import type { WikiData } from '../types';
 import { mockWikiData } from '@/mocks/api/wiki';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
+const API_BASE = import.meta.env.VITE_API_URL || '';
 
 export const useWikiData = () => {
   return useQuery<WikiData>({
@@ -14,7 +15,7 @@ export const useWikiData = () => {
       }
 
       try {
-        const response = await fetch('/api/wiki/data', {
+        const response = await fetch(`${API_BASE}/api/wiki/data`, {
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -45,7 +46,7 @@ export const useWikiData = () => {
         console.error('Wiki data fetch error:', {
           error,
           timestamp: new Date().toISOString(),
-          endpoint: '/api/wiki/data',
+          endpoint: `${API_BASE}/api/wiki/data`,
           details: error instanceof Error ? error.message : 'Unknown error'
         });
         throw error;
