@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "start:prod": "npx serve dist -s -l $PORT",
+    "start:prod": "npx serve dist -s --single -l $PORT",
     "build": "vite build",
     "build:check": "tsc && vite build",
     "build:staging": "vite build --mode staging",
