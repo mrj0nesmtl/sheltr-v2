@@ -7,7 +7,6 @@ export default function AboutPage() {
       <div className="relative min-h-screen bg-gradient-to-b from-gray-900 to-gray-800">
         <Hero />
         <Introduction />
-        <WhySection />
         <MediaSection />
         <Newsletter />
       </div>

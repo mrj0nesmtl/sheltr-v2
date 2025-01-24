@@ -1,5 +1,5 @@
 # 🌳 SHELTR Pages Structure
-*Generated: 2025-01-20 13:21:41*
+*Generated: 2025-01-23 00:32:50*
 \n## Directory Structure
 ./src/pages
 ├── About
@@ -66,7 +66,9 @@
 │   │   ├── ChangelogSection.tsx
 │   │   ├── DocumentationGrid.tsx
 │   │   ├── MetricsGrid.tsx
+│   │   ├── OverviewSection.tsx
 │   │   ├── PlatformStatusSection.tsx
+│   │   ├── ProgressIndicator.tsx
 │   │   ├── SprintProgress.tsx
 │   │   ├── StatusOverview.tsx
 │   │   ├── WikiHeader.tsx
@@ -97,4 +99,4 @@
 ├── debug.tsx
 └── index.ts
 
-21 directories, 74 files
+21 directories, 76 files

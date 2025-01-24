@@ -1,6 +1,6 @@
-# Revolutionizing Charitable Daily Giving
+##  **Revolutionizing Charitable Daily Giving**
 
-At SHELTR, we're not just building another donation platform – we're reimagining how technology can empower both givers and receivers in the fight against homelessness. By leveraging blockchain transparency, QR-powered direct giving, and AI-driven insights, we create a future where every dollar makes a measurable impact, and every participant gains tools for lasting change.
+SHELTR is not just building another donation platform – we're reimagining how technology can empower both givers and receivers in the fight against homelessness. By leveraging blockchain transparency, QR-powered direct giving, and AI-driven insights, we create a future where every dollar makes a measurable impact, and every participant gains tools for lasting change.
 
 Our commitment to **#BuildInPublic** ensures every decision and milestone is shared openly, fostering a spirit of collaboration and radical transparency. Join us in **hacking homelessness**—one verifiable transaction and one empowered individual at a time.
 
@@ -30,7 +30,7 @@ Our platform uses personalized **QR codes** linked to digital wallets, enabling:
 
 ### **2. Blockchain Transparency and Smart Contracts**
 
-Using blockchain, we provide verifiable donation tracking and automated fund allocation:
+Using blockchain, we provide verifiable donation tracking and automated variable fund allocation:
 
 - **80%**: Directly supports participants' immediate needs.
 - **15%**: Allocated to a housing fund for stability.

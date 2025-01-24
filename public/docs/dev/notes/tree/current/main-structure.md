@@ -1,5 +1,5 @@
 # 🌳 SHELTR Main Structure
-*Generated: 2025-01-20 13:21:40*
+*Generated: 2025-01-23 00:32:49*
 \n## Directory Structure
 .
 ├── public
@@ -237,8 +237,8 @@
 ├── tsconfig.app.json
 ├── tsconfig.json
 ├── tsconfig.node.json
-├── tsconfig.tsbuildinfo
 ├── vercel.json
-└── vite.config.ts
+├── vite.config.ts
+└── vitest.config.ts
 
 120 directories, 119 files

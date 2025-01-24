@@ -1,5 +1,5 @@
 # 🌳 SHELTR Source Structure
-*Generated: 2025-01-20 13:21:41*
+*Generated: 2025-01-23 00:32:50*
 \n## Directory Structure
 ./src
 ├── auth
@@ -490,7 +490,9 @@
 │   │   │   ├── ChangelogSection.tsx
 │   │   │   ├── DocumentationGrid.tsx
 │   │   │   ├── MetricsGrid.tsx
+│   │   │   ├── OverviewSection.tsx
 │   │   │   ├── PlatformStatusSection.tsx
+│   │   │   ├── ProgressIndicator.tsx
 │   │   │   ├── SprintProgress.tsx
 │   │   │   ├── StatusOverview.tsx
 │   │   │   ├── WikiHeader.tsx
@@ -572,4 +574,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-175 directories, 395 files
+175 directories, 397 files

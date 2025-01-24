@@ -1,22 +1,38 @@
 # 🚀 SHELTR Deployment Configuration
-*Last Updated: January 20, 2024 22:45 EST*
-*Version: 0.6.4*
+*Last Updated: January 24, 2024 13:22 EST*
+*Version: 0.6.5*
 *Status: STABLE* 🟢
 
 ## Development Environment
 ```bash
 # Build Command
-npm run build:dev
+npm run dev
 
 # Run Command
-npm run dev
+npm run start
 
 # Environment Settings
 NODE_ENV=development
 VITE_APP_ENV=development
 VITE_ENABLE_MONITORING=true
 ```
+## Replit Configuration
 
+```bash
+.replit file
+run = ["sh", "-c", "npm run dev"]
+hidden = [".config", "package-lock.json"]
+entrypoint = "src/App.tsx"
+
+[nix]
+channel = "stable-22_11"
+
+[deployment]
+run = ["sh", "-c", "npm run build && npx serve dist"]
+deploymentTarget = "cloudrun"
+ignorePorts = false
+
+```
 ## Environment Variables Structure
 ```bash
 # Authentication
@@ -31,7 +47,7 @@ VITE_ENABLE_MONITORING=true
 VITE_ENABLE_ANALYTICS=true
 
 # API Configuration
-VITE_API_URL=https://sheltr.replit.app
+VITE_API_URL=https://sheltr-beta.replit.app
 VITE_API_VERSION=v1
 
 # Security Configuration
@@ -60,8 +76,12 @@ VITE_PERFORMANCE_TRACKING=true
 # Build Command
 npm install && npm run build
 
+npm run build
+
 # Run Command
 npm run start
+
+npx serve dist -s --single --no-request-logging -l $PORT
 
 # Environment Variables
 NODE_ENV=production
@@ -141,26 +161,92 @@ npm run security-check
    - Security settings
    - Monitoring config
 
+## Deployment Process
+1. Local Development
+   ```bash
+   npm run dev
+   ```
+
+2. Replit Development
+   ```bash
+   npm run dev
+   # Runs on port 5173
+   ```
+
+3. Production Build
+   ```bash
+   npm run build
+   npx serve dist
+   ```
+## Critical Files
+- `.replit`: Replit configuration
+- `replit.nix`: Nix environment setup
+- `.env.development`: Development variables
+- `.env.production`: Production variables
+- `vite.config.ts`: Build configuration
+
+## Performance Optimization
+- Direct content imports
+- Route-based code splitting
+- Markdown content optimization
+- Image optimization
+- CSS minification
+- Tree shaking
+- Lazy loading
+
+## Deployment Checklist
+1. Environment Verification
+   - Replit configuration
+   - Environment variables
+   - Build settings
+   - Content loading
+
+2. Build Validation
+   - npm run build
+   - Content rendering
+   - Route handling
+   - Static assets
+
+3. Content Verification
+   - Markdown loading
+   - Image loading
+   - Route access
+   - Navigation flow
+
+4. Mobile Testing
+   - Responsive layout
+   - Content display
+   - Navigation
+   - Performance
+
+## Troubleshooting
+1. Content Loading Issues
+   - Verify import paths
+   - Check raw imports
+   - Validate route config
+   - Clear build cache
+
+2. Build Failures
+   - Check Node version
+   - Verify dependencies
+   - Clear npm cache
+   - Review build logs
+
+3. Deployment Issues
+   - Verify Replit config
+   - Check environment
+   - Review logs
+   - Test locally
+
 ---
-*For detailed implementation logs, see [implementation.md](./implementation.md)*
-*For security guidelines, see [security.md](./security.md)*
-*For monitoring setup, see [monitoring.md](./monitoring.md)*
-```
+*For implementation details, see [implementation.md](./implementation.md)*
+*For content guidelines, see [content.md](./content.md)*
+*For mobile optimization, see [mobile.md](./mobile.md)*
 
 Key updates include:
-1. Version bump to 0.6.4
-2. Added security monitoring
-3. Enhanced environment variables
-4. Added deployment checklist
-5. Updated performance metrics
-6. Enhanced security implementation
-7. Added monitoring configuration
-8. Updated build process
-9. Added security checks
-10. Enhanced documentation references
-
-Would you like me to:
-1. Add more deployment configurations?
-2. Enhance security settings?
-3. Add more implementation details?
-4. Update any specific section?
+Added Replit-specific configuration
+Updated content loading strategy
+Enhanced troubleshooting section
+Added critical files section
+Updated deployment process
+Added Vite configuration details

@@ -4,9 +4,9 @@
 ![Version](https://img.shields.io/badge/Version-0.6.4-FF6B6B)
 ![Stage](https://img.shields.io/badge/Prototype-Beta-FED766)
 ![License](https://img.shields.io/badge/License-MIT-8A2BE2)
+[![SHELTR App](https://img.shields.io/badge/Access-SHELTR_App-FF6B6B)](https://sheltr-beta.replit.app)
 [![Listen on Spotify](https://img.shields.io/badge/Listen_on-Spotify-1DB954?logo=spotify&logoColor=white)](https://open.spotify.com/episode/2TZquGVy7vT6yZMgDraMYe)
 [![Arcana Ventures](https://img.shields.io/badge/Visit-Arcana_Concept-4B32C3)](https://www.arcanaconcept.com/concepts/sheltr)
-[![SHELTR App](https://img.shields.io/badge/Access-SHELTR_App-FF6B6B)](https://sheltr-ops.replit.app)
 [![LinkedIn](https://img.shields.io/badge/Connect_on-LinkedIn-0A66C2?logo=linkedin&logoColor=white)](https://www.linkedin.com/company/arcana-concept)
 [![Substack](https://img.shields.io/badge/Read_on-Substack-FF6719?logo=substack&logoColor=white)](https://substack.com/home/post/p-153502903)
 
@@ -15,11 +15,15 @@
 
 **Revolutionizing Charitable Giving Through Technology**
 *Project Initialization: December 2024 - Beta Launch (V1.0.0) Mid-January 2025*
-*Current Version: 0.6.4*
+*Current Version: 0.6.5*
 
 </div>
 
 ## 🌟 Overview
+
+At SHELTR, we're not just building another donation platform – we're reimagining how technology can empower both givers and receivers in the fight against homelessness. By leveraging blockchain transparency, QR-powered direct giving, and AI-driven insights, we create a future where every dollar makes a measurable impact, and every participant gains tools for lasting change.
+
+Our commitment to #BuildInPublic ensures every decision and milestone is shared openly, fostering a spirit of collaboration and radical transparency. Join us in hacking homelessness—one verifiable transaction and one empowered individual at a time.
 
 SHELTR is revolutionizing charitable giving through cutting-edge technology integration. Our platform seamlessly combines **QR code donations**, **blockchain verification**, and **AI-driven insights** to create a transparent, efficient, and impactful giving ecosystem.
 
@@ -29,6 +33,21 @@ SHELTR is revolutionizing charitable giving through cutting-edge technology inte
 - **Smart Fund Allocation**: 80/15/5 distribution model
 - **AI-Powered Insights**: Data-driven impact optimization
 - **Gamified Engagement**: Donor reward system
+
+## 🌟 Theory of Change
+
+SHELTR's approach to "hacking homelessness" combines:
+
+1. **Direct Impact**: Immediate assistance through QR donations
+2. **Sustainable Growth**: Smart contract-governed housing fund
+3. **Data-Driven**: AI-powered resource optimization
+4. **Community Engagement**: Gamified donor participation
+
+Our core values are:
+
+**Empowerment**: Providing tools for individuals to take control of their futures.
+**Automation**: Streamlining processes for maximum efficiency.
+**Sustainability**: Ensuring long-term impact through scalable solutions.
 
 ```mermaid
 graph LR
@@ -73,7 +92,23 @@ interface TechStack {
     monitoring: 'Sentry'
   }
 }
+
+## 🔒 Security & Compliance
+
+- 🛡️ **Blockchain Verification**: Every transaction
+- 🔐 **Data Protection**: GDPR & CCPA compliant
+- 📱 **Secure QR**: Dynamic & encrypted
+- 🏦 **Smart Contracts**: Audited & verified
+
 ```
+## 📊 Success Metrics
+
+### Fund Allocation Model
+| Category | Percentage |
+|----------|------------|
+| Direct Support | 80% |
+| Housing Fund | 15% |
+| Operations | 5% |
 
 ## 📈 Impact Metrics
 
@@ -102,8 +137,7 @@ interface TechStack {
 | V1 Release | 🎯 Milestone | 2025-03-31 |
 
 ## 🤝 Contributing + Documentation 📚
-
-We welcome contributions! Here's how you get up to speed with the documentation:
+We welcome contributions! Here's how you get up to speed with the project:
 
 ## 📚 Documentation Index
 
@@ -152,31 +186,6 @@ We welcome contributions! Here's how you get up to speed with the documentation:
 | Technical | [API](/public/docs/core/api.md) • [Security](/public/docs/core/security.md) |
 | Status | [Project Status](/public/docs/project/status_report.md) • [Changelog](/public/docs/project/changelog.md) |
 
-## 🌟 Theory of Change
-
-SHELTR's approach to "hacking homelessness" combines:
-
-1. **Direct Impact**: Immediate assistance through QR donations
-2. **Sustainable Growth**: Smart contract-governed housing fund
-3. **Data-Driven**: AI-powered resource optimization
-4. **Community Engagement**: Gamified donor participation
-
-## 📊 Success Metrics
-
-### Fund Allocation Model
-| Category | Percentage |
-|----------|------------|
-| Direct Support | 80% |
-| Housing Fund | 15% |
-| Operations | 5% |
-
-## 🔒 Security & Compliance
-
-- 🛡️ **Blockchain Verification**: Every transaction
-- 🔐 **Data Protection**: GDPR & CCPA compliant
-- 📱 **Secure QR**: Dynamic & encrypted
-- 🏦 **Smart Contracts**: Audited & verified
-
 ## 📬 Contact & Support
 
 - 📧 Email: joel@arcanaconcept.com
@@ -215,20 +224,8 @@ interface WikiSystem {
 }
 ```
 
-#### Key Features
-- **Platform Status Monitoring**: Real-time system health tracking
-- **Sprint Progress Tracking**: Visual sprint and task management
-- **Metrics Dashboard**: Key performance indicators
-- **Responsive Design**: Mobile-first approach
-- **Interactive Navigation**: Smooth section scrolling
 
-#### Implementation Status
-| Component | Status | Progress |
-|-----------|---------|-----------|
-| Platform Status | ✅ COMPLETE | ![100%](https://img.shields.io/badge/-100%25-success) |
-| Sprint Progress | ✅ COMPLETE | ![100%](https://img.shields.io/badge/-100%25-success) |
-| Metrics Grid | ✅ COMPLETE | ![100%](https://img.shields.io/badge/-100%25-success) |
-| Documentation | ✅ COMPLETE | ![100%](https://img.shields.io/badge/-100%25-success) |
+
 
 #### Technical Documentation
 - [📊 Wiki System Overview](/public/docs/wiki/overview.md)

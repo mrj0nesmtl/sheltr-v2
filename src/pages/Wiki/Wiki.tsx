@@ -293,11 +293,6 @@ const Wiki = () => {
                 versionHistory={versionHistory}
               />
             </section>
-
-            {/* Metrics Visualizer */}
-            <section id="metrics-visualizer" className="scroll-mt-16">
-              <MetricsVisualizer />
-            </section>
           </div>
         </main>
       </div>

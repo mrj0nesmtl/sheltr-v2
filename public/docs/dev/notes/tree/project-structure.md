@@ -1,5 +1,5 @@
 # 🌳 SHELTR Project Structure
-*Generated: 2025-01-20 13:21:41*
+*Generated: 2025-01-23 00:32:50*
 *Version: 0.4.9*
 
 ## Table of Contents
@@ -11,7 +11,7 @@
 6. [Technical Structures](#technical-structures)
 
 \n---\n
-*Generated: 2025-01-20 13:21:41*
+*Generated: 2025-01-23 00:32:50*
 \n## Directory Structure
 ./src/auth
 ├── components
@@ -31,7 +31,7 @@
 
 6 directories, 9 files
 \n---\n
-*Generated: 2025-01-20 13:21:41*
+*Generated: 2025-01-23 00:32:50*
 \n## Directory Structure
 ./src/components
 ├── About
@@ -211,7 +211,7 @@
 
 45 directories, 130 files
 \n---\n
-*Generated: 2025-01-20 13:21:41*
+*Generated: 2025-01-23 00:32:50*
 \n## Directory Structure
 ./public/docs
 ├── about
@@ -223,6 +223,7 @@
 │   ├── README.md
 │   ├── api.md
 │   ├── architecture.md
+│   ├── overview.md
 │   ├── rbac.md
 │   ├── security.md
 │   └── technical.md
@@ -235,8 +236,11 @@
 ├── guides
 │   ├── best-practices.md
 │   ├── buildout_implementation.md
+│   ├── contributing.md
 │   ├── debugging.md
-│   └── deployment.md
+│   ├── deployment.md
+│   ├── implementation.md
+│   └── monitoring.md
 ├── project
 │   ├── changelog.md
 │   ├── checkpoint.md
@@ -256,9 +260,9 @@
 └── wiki
     └── overview.md
 
-15 directories, 27 files
+15 directories, 31 files
 \n---\n
-*Generated: 2025-01-20 13:21:41*
+*Generated: 2025-01-23 00:32:50*
 \n## Directory Structure
 ./src/features
 ├── auth
@@ -395,7 +399,7 @@
 
 66 directories, 66 files
 \n---\n
-*Generated: 2025-01-20 13:21:41*
+*Generated: 2025-01-23 00:32:50*
 \n## Directory Structure
 ./src/layouts
 ├── base
@@ -419,7 +423,7 @@
 
 9 directories, 10 files
 \n---\n
-*Generated: 2025-01-20 13:21:40*
+*Generated: 2025-01-23 00:32:49*
 \n## Directory Structure
 .
 ├── public
@@ -657,13 +661,13 @@
 ├── tsconfig.app.json
 ├── tsconfig.json
 ├── tsconfig.node.json
-├── tsconfig.tsbuildinfo
 ├── vercel.json
-└── vite.config.ts
+├── vite.config.ts
+└── vitest.config.ts
 
 120 directories, 119 files
 \n---\n
-*Generated: 2025-01-20 13:21:41*
+*Generated: 2025-01-23 00:32:50*
 \n## Directory Structure
 ./src/pages
 ├── About
@@ -730,7 +734,9 @@
 │   │   ├── ChangelogSection.tsx
 │   │   ├── DocumentationGrid.tsx
 │   │   ├── MetricsGrid.tsx
+│   │   ├── OverviewSection.tsx
 │   │   ├── PlatformStatusSection.tsx
+│   │   ├── ProgressIndicator.tsx
 │   │   ├── SprintProgress.tsx
 │   │   ├── StatusOverview.tsx
 │   │   ├── WikiHeader.tsx
@@ -761,9 +767,9 @@
 ├── debug.tsx
 └── index.ts
 
-21 directories, 74 files
+21 directories, 76 files
 \n---\n
-*Generated: 2025-01-20 13:21:41*
+*Generated: 2025-01-23 00:32:50*
 \n## Directory Structure
 ./src
 ├── auth
@@ -1254,7 +1260,9 @@
 │   │   │   ├── ChangelogSection.tsx
 │   │   │   ├── DocumentationGrid.tsx
 │   │   │   ├── MetricsGrid.tsx
+│   │   │   ├── OverviewSection.tsx
 │   │   │   ├── PlatformStatusSection.tsx
+│   │   │   ├── ProgressIndicator.tsx
 │   │   │   ├── SprintProgress.tsx
 │   │   │   ├── StatusOverview.tsx
 │   │   │   ├── WikiHeader.tsx
@@ -1336,4 +1344,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-175 directories, 395 files
+175 directories, 397 files
