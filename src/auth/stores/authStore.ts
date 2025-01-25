@@ -87,7 +87,7 @@ const createAuthError = (
 
 const DEBUG = false // Toggle this for development
 
-export const useAuthStore = create<AuthStore>()(
+export const useAuthStore = create<AuthState>()(
   persist(
     (set, get) => ({
       user: null,

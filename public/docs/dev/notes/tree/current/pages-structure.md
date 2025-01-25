@@ -1,5 +1,5 @@
 # 🌳 SHELTR Pages Structure
-*Generated: 2025-01-23 00:32:50*
+*Generated: 2025-01-24 22:00:43*
 \n## Directory Structure
 ./src/pages
 ├── About
@@ -44,23 +44,11 @@
 │   └── Impact.tsx
 ├── ShelterAdmin
 │   └── types
-│       └── index.ts
 ├── SuperAdmin
 │   ├── components
-│   │   ├── GlobalAnalytics.tsx
-│   │   ├── GlobalDonationMap.tsx
-│   │   ├── NotificationCenter.tsx
-│   │   ├── RealTimeAlerts.tsx
-│   │   ├── ShelterManagementTable.tsx
-│   │   ├── SystemAlerts.tsx
-│   │   ├── SystemMonitoring.tsx
 │   │   └── index.ts
 │   ├── donors
-│   │   ├── DonorDetailAnalytics.tsx
-│   │   └── DonorManagement.tsx
-│   ├── Analytics.tsx
-│   ├── Settings.tsx
-│   └── index.ts
+│   └── Analytics.tsx
 ├── Wiki
 │   ├── components
 │   │   ├── ChangelogSection.tsx
@@ -99,4 +87,4 @@
 ├── debug.tsx
 └── index.ts
 
-21 directories, 76 files
+21 directories, 64 files

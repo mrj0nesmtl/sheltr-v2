@@ -1,5 +1,5 @@
 # 🌳 SHELTR Source Structure
-*Generated: 2025-01-23 00:32:50*
+*Generated: 2025-01-24 22:00:42*
 \n## Directory Structure
 ./src
 ├── auth
@@ -468,23 +468,11 @@
 │   │   └── Impact.tsx
 │   ├── ShelterAdmin
 │   │   └── types
-│   │       └── index.ts
 │   ├── SuperAdmin
 │   │   ├── components
-│   │   │   ├── GlobalAnalytics.tsx
-│   │   │   ├── GlobalDonationMap.tsx
-│   │   │   ├── NotificationCenter.tsx
-│   │   │   ├── RealTimeAlerts.tsx
-│   │   │   ├── ShelterManagementTable.tsx
-│   │   │   ├── SystemAlerts.tsx
-│   │   │   ├── SystemMonitoring.tsx
 │   │   │   └── index.ts
 │   │   ├── donors
-│   │   │   ├── DonorDetailAnalytics.tsx
-│   │   │   └── DonorManagement.tsx
-│   │   ├── Analytics.tsx
-│   │   ├── Settings.tsx
-│   │   └── index.ts
+│   │   └── Analytics.tsx
 │   ├── Wiki
 │   │   ├── components
 │   │   │   ├── ChangelogSection.tsx
@@ -574,4 +562,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-175 directories, 397 files
+175 directories, 385 files

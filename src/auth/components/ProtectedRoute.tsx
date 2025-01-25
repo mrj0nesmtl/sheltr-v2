@@ -1,43 +1,36 @@
-import { useAuth } from '@/hooks/useAuth';
-import { AUTH_ROLES } from '@/types/auth.types';
 import { Navigate, useLocation } from 'react-router-dom';
-import { getRoleBasedRedirect, isPathAllowedForRole } from '@/lib/navigation/roleNavigation';
-import { useEffect } from 'react';
+import { useAuthStore } from '../stores/authStore';
+import { memo } from 'react';
 
 interface ProtectedRouteProps {
-  allowedRoles?: AUTH_ROLES[];
   children: React.ReactNode;
+  allowedRoles?: string[];
 }
 
-export function ProtectedRoute({ allowedRoles = [], children }: ProtectedRouteProps) {
+// Change to named export to match AppRoutes import
+export const ProtectedRoute = memo(({ children, allowedRoles }: ProtectedRouteProps) => {
+  const { isAuthenticated, user, isLoading } = useAuthStore();
   const location = useLocation();
-  const { user, isLoading, organization } = useAuth();
 
-  useEffect(() => {
-    if (user?.role && !isPathAllowedForRole(location.pathname, user.role as AUTH_ROLES)) {
-      console.warn('User attempting to access unauthorized path:', {
-        role: user.role,
-        path: location.pathname
-      });
-    }
-  }, [user?.role, location.pathname]);
-
+  // Show loading state while auth is being checked
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-900">
+        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500" />
+      </div>
+    );
   }
 
-  if (!user?.role) {
+  // Not authenticated - redirect to login
+  if (!isAuthenticated || !user) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  if (allowedRoles.length > 0 && !allowedRoles.includes(user.role as AUTH_ROLES)) {
-    const correctPath = getRoleBasedRedirect(
-      user.role as AUTH_ROLES,
-      user.id,
-      organization?.id
-    );
-    return <Navigate to={correctPath} replace />;
+  // Check roles if specified
+  if (allowedRoles && !allowedRoles.includes(user.role)) {
+    return <Navigate to="/unauthorized" replace />;
   }
 
+  // All checks passed - render children
   return <>{children}</>;
-}
+});

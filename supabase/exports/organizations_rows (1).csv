@@ -1,2 +1,0 @@
-id,name,registration_number,status,verified,created_at,updated_at,address,city,postal_code,country,phone,email,website,total_capacity,current_capacity,tax_id,verification_date,verified_by,last_audit_date,services,metadata,wallet_address,token_balance,housing_fund_balance,location,operating_hours,emergency_contacts,documents,logo_url,user_id,created_by,administrator
-581248fe-d9e3-40ce-b3c7-0f622481cac9,Default Shelter,REG-239243,active,true,2024-12-09 21:26:15.653273+00,2024-12-09 21:26:15.653273+00,,,,Canada,,,,,0,,,,,[],{},,0,0,,{},[],[],,,,

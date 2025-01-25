@@ -2,8 +2,8 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuthStore } from '@/auth/stores/authStore';
 import { AUTH_ROLES } from '@/auth/types/auth.types';
 
-// Import the dashboard components
-import { SuperAdminDashboard } from '@/features/dashboard/roles/super-admin/SuperAdminDashboard';
+// Update import to use default import
+import SuperAdminDashboard from '@/features/dashboard/roles/super-admin/SuperAdminDashboard';
 import { ShelterAdminDashboard } from '@/features/dashboard/roles/shelter-admin/ShelterAdminDashboard';
 import { DonorDashboard } from '@/features/dashboard/roles/donor/DonorDashboard';
 import { ParticipantDashboard } from '@/features/dashboard/roles/participant/ParticipantDashboard';

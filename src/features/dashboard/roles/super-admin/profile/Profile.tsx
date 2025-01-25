@@ -1,5 +1,5 @@
 import { Card } from '@/components/ui/Card';
-import { useAuthStore } from '@/stores/authStore';
+import { useAuthStore } from '@/auth/stores/authStore';
 import { useTranslation } from 'react-i18next';
 
 export function SuperAdminProfile() {

@@ -43,13 +43,13 @@ export const getRoleBasedRedirect = async (role: AUTH_ROLES, userId?: string): P
 export const getDashboardPath = (role: AUTH_ROLES): string => {
   switch (role) {
     case AUTH_ROLES.SUPER_ADMIN:
-      return '/dashboard/roles/super-admin';
+      return '/dashboard/super-admin';
     case AUTH_ROLES.SHELTER_ADMIN:
-      return '/dashboard/roles/shelter-admin';
+      return '/dashboard/shelter';
     case AUTH_ROLES.DONOR:
-      return '/dashboard/roles/donor';
+      return '/dashboard/donor';
     case AUTH_ROLES.PARTICIPANT:
-      return '/dashboard/roles/participant';
+      return '/dashboard/participant';
     default:
       return '/';
   }

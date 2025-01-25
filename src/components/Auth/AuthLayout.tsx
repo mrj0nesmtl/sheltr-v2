@@ -2,15 +2,12 @@ import { Outlet } from 'react-router-dom';
 import { Footer } from '../Footer/Footer';
 import { Layout } from '../Layout/Layout';
 
-export function AuthLayout() {
+export const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <Layout>
-      <div className="flex min-h-screen flex-col bg-gray-900">
-        <main className="flex-1 flex items-center justify-center p-6">
-          <Outlet />
-        </main>
-        <Footer />
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="max-w-md w-full space-y-8 p-6">
+        {children}
       </div>
-    </Layout>
+    </div>
   );
-}
+};

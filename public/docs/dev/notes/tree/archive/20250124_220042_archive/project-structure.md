@@ -1,5 +1,5 @@
 # 🌳 SHELTR Project Structure
-*Generated: 2025-01-24 22:00:43*
+*Generated: 2025-01-24 22:00:09*
 *Version: 0.4.9*
 
 ## Table of Contents
@@ -11,7 +11,7 @@
 6. [Technical Structures](#technical-structures)
 
 \n---\n
-*Generated: 2025-01-24 22:00:43*
+*Generated: 2025-01-24 22:00:09*
 \n## Directory Structure
 ./src/auth
 ├── components
@@ -31,7 +31,7 @@
 
 6 directories, 9 files
 \n---\n
-*Generated: 2025-01-24 22:00:43*
+*Generated: 2025-01-24 22:00:09*
 \n## Directory Structure
 ./src/components
 ├── About
@@ -211,7 +211,7 @@
 
 45 directories, 130 files
 \n---\n
-*Generated: 2025-01-24 22:00:43*
+*Generated: 2025-01-24 22:00:09*
 \n## Directory Structure
 ./public/docs
 ├── about
@@ -260,7 +260,7 @@
 
 13 directories, 31 files
 \n---\n
-*Generated: 2025-01-24 22:00:43*
+*Generated: 2025-01-24 22:00:09*
 \n## Directory Structure
 ./src/features
 ├── auth
@@ -398,7 +398,7 @@
 
 67 directories, 66 files
 \n---\n
-*Generated: 2025-01-24 22:00:43*
+*Generated: 2025-01-24 22:00:09*
 \n## Directory Structure
 ./src/layouts
 ├── base
@@ -422,7 +422,7 @@
 
 9 directories, 10 files
 \n---\n
-*Generated: 2025-01-24 22:00:42*
+*Generated: 2025-01-24 22:00:09*
 \n## Directory Structure
 .
 ├── public
@@ -667,7 +667,7 @@
 
 119 directories, 121 files
 \n---\n
-*Generated: 2025-01-24 22:00:43*
+*Generated: 2025-01-24 22:00:09*
 \n## Directory Structure
 ./src/pages
 ├── About
@@ -757,7 +757,7 @@
 
 21 directories, 64 files
 \n---\n
-*Generated: 2025-01-24 22:00:42*
+*Generated: 2025-01-24 22:00:09*
 \n## Directory Structure
 ./src
 ├── auth

@@ -1,5 +1,5 @@
 # 🌳 SHELTR Main Structure
-*Generated: 2025-01-23 00:32:49*
+*Generated: 2025-01-24 22:00:42*
 \n## Directory Structure
 .
 ├── public
@@ -7,7 +7,6 @@
 │   │   └── whitepaper
 │   ├── docs
 │   │   ├── about
-│   │   ├── archives
 │   │   ├── core
 │   │   ├── dev
 │   │   ├── guides
@@ -210,13 +209,15 @@
 │   └── vite-env.d.ts
 ├── supabase
 │   ├── exports
+│   │   ├── Supabase Snippet Export Auth Configuration.csv
+│   │   ├── Supabase Snippet Export Auth Users Data.csv
+│   │   ├── Supabase Snippet Export User Activity Audit Logs.csv
+│   │   ├── Supabase Snippet Role Mapping Export.csv
 │   │   ├── donor_profiles_rows.csv
-│   │   ├── organizations_rows (1).csv
+│   │   ├── organization_staff_rows.csv
+│   │   ├── organizations_rows.csv
 │   │   ├── participants_rows.csv
-│   │   ├── profiles_row_joelyaffeadmin.csv
-│   │   ├── profiles_rows jan 18.csv
-│   │   ├── supabase_logs (1).csv
-│   │   └── supabase_logs.csv
+│   │   └── profiles_rows.csv
 │   ├── migrations
 │   │   ├── 20240304_create_tables.sql
 │   │   ├── 20240304_fix_search_path.sql
@@ -241,4 +242,4 @@
 ├── vite.config.ts
 └── vitest.config.ts
 
-120 directories, 119 files
+119 directories, 121 files

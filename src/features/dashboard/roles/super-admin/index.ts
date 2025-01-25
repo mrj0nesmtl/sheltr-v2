@@ -1,17 +1,25 @@
-// Main dashboard export
-export { SuperAdminDashboard as default } from './SuperAdminDashboard'
+// Main dashboard component
+import SuperAdminDashboard from './SuperAdminDashboard';
+export default SuperAdminDashboard;
 
 // Analytics exports
-export * from './analytics/GlobalAnalytics'
+export * from './analytics/GlobalAnalytics';
+export * from './analytics/DonorDetailAnalytics';
+export * from './analytics/components/DonationAnalytics';
+export * from './analytics/components/ShelterPerformanceChart';
 
-// Only export existing components
-// export * from "./components/SystemMonitoring"    // Comment out until created
-// export * from "./components/GlobalAnalytics"     // Comment out until created
-// export * from "./components/UserManagement"      // Comment out until created
+// Core components
+export * from './components/shared/QuickStatCard';
+export * from './components/GlobalDonationMap';
+export * from './components/NotificationCenter';
+export * from './components/ShelterManagementTable';
+export * from './components/RealTimeAlerts';
+export * from './components/SystemAlerts';
+export * from './components/SystemMonitoring';
 
-// Export existing components
-export * from './AlertsAndIncidents'
-export * from './DonationAnalytics'
-export * from './QuickStatCard'
-export * from './ShelterPerformanceChart'
-export * from './SystemHealthMonitor' 
+// Feature components
+export * from './monitoring/components/SystemHealthMonitor';
+export * from './alerts/components/AlertsAndIncidents';
+export * from './settings/Settings';
+export * from './profile/Profile';
+export * from './donor-management/DonorManagement'; 

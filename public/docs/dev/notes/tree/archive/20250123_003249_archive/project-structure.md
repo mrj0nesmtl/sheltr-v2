@@ -1,5 +1,5 @@
 # 🌳 SHELTR Project Structure
-*Generated: 2025-01-24 22:00:43*
+*Generated: 2025-01-20 13:21:41*
 *Version: 0.4.9*
 
 ## Table of Contents
@@ -11,7 +11,7 @@
 6. [Technical Structures](#technical-structures)
 
 \n---\n
-*Generated: 2025-01-24 22:00:43*
+*Generated: 2025-01-20 13:21:41*
 \n## Directory Structure
 ./src/auth
 ├── components
@@ -31,7 +31,7 @@
 
 6 directories, 9 files
 \n---\n
-*Generated: 2025-01-24 22:00:43*
+*Generated: 2025-01-20 13:21:41*
 \n## Directory Structure
 ./src/components
 ├── About
@@ -211,17 +211,18 @@
 
 45 directories, 130 files
 \n---\n
-*Generated: 2025-01-24 22:00:43*
+*Generated: 2025-01-20 13:21:41*
 \n## Directory Structure
 ./public/docs
 ├── about
 │   ├── roadmap.md
 │   └── whitepaper_final.md
+├── archives
+│   └── changelogs
 ├── core
 │   ├── README.md
 │   ├── api.md
 │   ├── architecture.md
-│   ├── overview.md
 │   ├── rbac.md
 │   ├── security.md
 │   └── technical.md
@@ -234,11 +235,8 @@
 ├── guides
 │   ├── best-practices.md
 │   ├── buildout_implementation.md
-│   ├── contributing.md
 │   ├── debugging.md
-│   ├── deployment.md
-│   ├── implementation.md
-│   └── monitoring.md
+│   └── deployment.md
 ├── project
 │   ├── changelog.md
 │   ├── checkpoint.md
@@ -258,9 +256,9 @@
 └── wiki
     └── overview.md
 
-13 directories, 31 files
+15 directories, 27 files
 \n---\n
-*Generated: 2025-01-24 22:00:43*
+*Generated: 2025-01-20 13:21:41*
 \n## Directory Structure
 ./src/features
 ├── auth
@@ -302,7 +300,6 @@
 │   │   └── super-admin
 │   │       ├── analytics
 │   │       ├── components
-│   │       ├── donor-management
 │   │       ├── profile
 │   │       ├── settings
 │   │       ├── AlertsAndIncidents.tsx
@@ -396,9 +393,9 @@
     ├── utils
     └── index.ts
 
-67 directories, 66 files
+66 directories, 66 files
 \n---\n
-*Generated: 2025-01-24 22:00:43*
+*Generated: 2025-01-20 13:21:41*
 \n## Directory Structure
 ./src/layouts
 ├── base
@@ -422,7 +419,7 @@
 
 9 directories, 10 files
 \n---\n
-*Generated: 2025-01-24 22:00:42*
+*Generated: 2025-01-20 13:21:40*
 \n## Directory Structure
 .
 ├── public
@@ -430,6 +427,7 @@
 │   │   └── whitepaper
 │   ├── docs
 │   │   ├── about
+│   │   ├── archives
 │   │   ├── core
 │   │   ├── dev
 │   │   ├── guides
@@ -632,15 +630,13 @@
 │   └── vite-env.d.ts
 ├── supabase
 │   ├── exports
-│   │   ├── Supabase Snippet Export Auth Configuration.csv
-│   │   ├── Supabase Snippet Export Auth Users Data.csv
-│   │   ├── Supabase Snippet Export User Activity Audit Logs.csv
-│   │   ├── Supabase Snippet Role Mapping Export.csv
 │   │   ├── donor_profiles_rows.csv
-│   │   ├── organization_staff_rows.csv
-│   │   ├── organizations_rows.csv
+│   │   ├── organizations_rows (1).csv
 │   │   ├── participants_rows.csv
-│   │   └── profiles_rows.csv
+│   │   ├── profiles_row_joelyaffeadmin.csv
+│   │   ├── profiles_rows jan 18.csv
+│   │   ├── supabase_logs (1).csv
+│   │   └── supabase_logs.csv
 │   ├── migrations
 │   │   ├── 20240304_create_tables.sql
 │   │   ├── 20240304_fix_search_path.sql
@@ -661,13 +657,13 @@
 ├── tsconfig.app.json
 ├── tsconfig.json
 ├── tsconfig.node.json
+├── tsconfig.tsbuildinfo
 ├── vercel.json
-├── vite.config.ts
-└── vitest.config.ts
+└── vite.config.ts
 
-119 directories, 121 files
+120 directories, 119 files
 \n---\n
-*Generated: 2025-01-24 22:00:43*
+*Generated: 2025-01-20 13:21:41*
 \n## Directory Structure
 ./src/pages
 ├── About
@@ -712,19 +708,29 @@
 │   └── Impact.tsx
 ├── ShelterAdmin
 │   └── types
+│       └── index.ts
 ├── SuperAdmin
 │   ├── components
+│   │   ├── GlobalAnalytics.tsx
+│   │   ├── GlobalDonationMap.tsx
+│   │   ├── NotificationCenter.tsx
+│   │   ├── RealTimeAlerts.tsx
+│   │   ├── ShelterManagementTable.tsx
+│   │   ├── SystemAlerts.tsx
+│   │   ├── SystemMonitoring.tsx
 │   │   └── index.ts
 │   ├── donors
-│   └── Analytics.tsx
+│   │   ├── DonorDetailAnalytics.tsx
+│   │   └── DonorManagement.tsx
+│   ├── Analytics.tsx
+│   ├── Settings.tsx
+│   └── index.ts
 ├── Wiki
 │   ├── components
 │   │   ├── ChangelogSection.tsx
 │   │   ├── DocumentationGrid.tsx
 │   │   ├── MetricsGrid.tsx
-│   │   ├── OverviewSection.tsx
 │   │   ├── PlatformStatusSection.tsx
-│   │   ├── ProgressIndicator.tsx
 │   │   ├── SprintProgress.tsx
 │   │   ├── StatusOverview.tsx
 │   │   ├── WikiHeader.tsx
@@ -755,9 +761,9 @@
 ├── debug.tsx
 └── index.ts
 
-21 directories, 64 files
+21 directories, 74 files
 \n---\n
-*Generated: 2025-01-24 22:00:42*
+*Generated: 2025-01-20 13:21:41*
 \n## Directory Structure
 ./src
 ├── auth
@@ -1226,19 +1232,29 @@
 │   │   └── Impact.tsx
 │   ├── ShelterAdmin
 │   │   └── types
+│   │       └── index.ts
 │   ├── SuperAdmin
 │   │   ├── components
+│   │   │   ├── GlobalAnalytics.tsx
+│   │   │   ├── GlobalDonationMap.tsx
+│   │   │   ├── NotificationCenter.tsx
+│   │   │   ├── RealTimeAlerts.tsx
+│   │   │   ├── ShelterManagementTable.tsx
+│   │   │   ├── SystemAlerts.tsx
+│   │   │   ├── SystemMonitoring.tsx
 │   │   │   └── index.ts
 │   │   ├── donors
-│   │   └── Analytics.tsx
+│   │   │   ├── DonorDetailAnalytics.tsx
+│   │   │   └── DonorManagement.tsx
+│   │   ├── Analytics.tsx
+│   │   ├── Settings.tsx
+│   │   └── index.ts
 │   ├── Wiki
 │   │   ├── components
 │   │   │   ├── ChangelogSection.tsx
 │   │   │   ├── DocumentationGrid.tsx
 │   │   │   ├── MetricsGrid.tsx
-│   │   │   ├── OverviewSection.tsx
 │   │   │   ├── PlatformStatusSection.tsx
-│   │   │   ├── ProgressIndicator.tsx
 │   │   │   ├── SprintProgress.tsx
 │   │   │   ├── StatusOverview.tsx
 │   │   │   ├── WikiHeader.tsx
@@ -1320,4 +1336,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-175 directories, 385 files
+175 directories, 395 files

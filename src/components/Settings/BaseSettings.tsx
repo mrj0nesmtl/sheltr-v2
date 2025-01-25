@@ -1,6 +1,6 @@
 import { Card } from '@/components/ui/Card';
 import { Icon } from '@/components/ui/Icon';
-import { useAuthStore } from '@/stores/authStore';
+import { useAuthStore } from '@/auth/stores/authStore';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 

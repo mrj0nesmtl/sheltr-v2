@@ -11,6 +11,7 @@ import { ShelterSetup } from '@/pages/shelter/ShelterSetup';
 import { BaseErrorBoundary } from '@/components/ErrorBoundary/BaseErrorBoundary';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import Impact from '@/pages/Impact/Impact';
+import SuperAdminDashboard from '@/features/dashboard/roles/super-admin';
 
 // Lazy loaded components
 const Wiki = lazy(() => import('../pages/Wiki'));
@@ -34,8 +35,15 @@ const withErrorBoundary = (Component: React.ComponentType, variant?: string) => 
   </BaseErrorBoundary>
 );
 
-const AppRoutes = () => {
-  const { role } = useAuthStore();
+export default function AppRoutes() {
+  const { user, isAuthenticated } = useAuthStore();
+  
+  // Add debug logging
+  console.debug('AppRoutes State:', {
+    isAuthenticated,
+    userRole: user?.role,
+    currentPath: window.location.pathname
+  });
 
   return (
     <Routes>
@@ -112,10 +120,22 @@ const AppRoutes = () => {
         }
       />
 
-      {/* Catch-all route */}
-      <Route path="*" element={withErrorBoundary(NotFoundPage)} />
+      {/* Protected Routes */}
+      <Route
+        path="/dashboard/super-admin/*"
+        element={
+          <ProtectedRoute allowedRoles={[AUTH_ROLES.SUPER_ADMIN]}>
+            <SuperAdminDashboard />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Add catch-all route for debugging */}
+      <Route path="*" element={
+        <div className="text-white p-4">
+          404 - Current auth state: {JSON.stringify({ isAuthenticated, role: user?.role })}
+        </div>
+      } />
     </Routes>
   );
-};
-
-export default AppRoutes;
+}

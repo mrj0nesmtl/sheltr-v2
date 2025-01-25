@@ -1,6 +1,24 @@
 import { ResponsiveContainer, LineChart as RechartsLine, Line, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
-import { analyticsTheme } from '../utils/theme';
 import { ChartDataPoint } from '../types';
+
+// Define theme constants directly to avoid undefined errors
+const CHART_THEME = {
+  text: {
+    secondary: '#9CA3AF'  // gray-400
+  },
+  charts: {
+    grid: {
+      stroke: '#374151'   // gray-700
+    },
+    tooltip: {
+      background: '#1F2937', // gray-800
+      border: '#374151'    // gray-700
+    },
+    colors: {
+      primary: ['#818CF8']  // indigo-400
+    }
+  }
+};
 
 interface LineChartProps {
   data: ChartDataPoint[];
@@ -34,26 +52,26 @@ export function LineChart({
       <RechartsLine data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
         <XAxis 
           dataKey="label"
-          stroke={analyticsTheme.text.secondary}
-          tick={{ fill: analyticsTheme.text.secondary }}
+          stroke={CHART_THEME.text.secondary}
+          tick={{ fill: CHART_THEME.text.secondary }}
         />
         <YAxis 
-          stroke={analyticsTheme.text.secondary}
-          tick={{ fill: analyticsTheme.text.secondary }}
+          stroke={CHART_THEME.text.secondary}
+          tick={{ fill: CHART_THEME.text.secondary }}
         />
-        {showGrid && <CartesianGrid stroke={analyticsTheme.charts.grid.stroke} />}
+        {showGrid && <CartesianGrid stroke={CHART_THEME.charts.grid.stroke} />}
         <Tooltip
           contentStyle={{ 
-            backgroundColor: analyticsTheme.charts.tooltip.background,
-            borderColor: analyticsTheme.charts.tooltip.border
+            backgroundColor: CHART_THEME.charts.tooltip.background,
+            borderColor: CHART_THEME.charts.tooltip.border
           }}
         />
         <Line
           type={curved ? "monotone" : "linear"}
           dataKey="value"
-          stroke={analyticsTheme.colors.primary[0]}
+          stroke={CHART_THEME.charts.colors.primary[0]}
           strokeWidth={2}
-          dot={{ fill: analyticsTheme.colors.primary[0] }}
+          dot={{ fill: CHART_THEME.charts.colors.primary[0] }}
           activeDot={{ r: 6 }}
         />
       </RechartsLine>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { useAuthStore } from '@/auth/stores/authStore';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { supabase } from '@/lib/supabase';
@@ -13,14 +13,20 @@ import { DashboardHeader } from '@/features/dashboard/shared/components/Dashboar
 import { UserBadge } from '@/components/UserBadge/UserBadge';
 import { Badge } from '@/components/ui/Badge';
 import { Icon } from '@/components/ui/Icon';
-import { QuickStatCard } from './QuickStatCard';
+import { QuickStatCard } from './components/shared/QuickStatCard';
 
 // Analytics Components
-import { SystemHealthMonitor } from '@/components/shared/analytics/SystemHealthMonitor';
 import { GlobalAnalytics } from './analytics/GlobalAnalytics';
-import { DonationFlowMetrics } from '@/components/shared/analytics/DonationFlowMetrics';
-import { NetworkOverview } from '@/components/shared/analytics/NetworkOverview';
-import { DetailedAnalytics } from '@/components/shared/analytics/DetailedAnalytics';
+import { DonorDetailAnalytics } from './analytics/DonorDetailAnalytics';
+import { DonationAnalytics } from './analytics/components/DonationAnalytics';
+import { ShelterPerformanceChart } from './analytics/components/ShelterPerformanceChart';
+
+// Monitoring Components
+import { SystemHealthMonitor } from './monitoring/components/SystemHealthMonitor';
+
+// Alerts Components
+import { AlertsAndIncidents } from './alerts/components/AlertsAndIncidents';
+import { RealTimeAlerts } from './components/RealTimeAlerts';
 
 // Charts
 import { 
@@ -33,6 +39,13 @@ import { ChartDataPoint } from '@/features/shared/analytics/types';
 import { BlockchainStats } from '@/components/Blockchain';
 import { TransactionList } from '@/components/Transactions/TransactionList';
 import { ShelterList } from '@/components/Admin/Shelters/ShelterList';
+
+// Dashboard Components
+import { GlobalDonationMap } from './components/GlobalDonationMap';
+import { NotificationCenter } from './components/NotificationCenter';
+import { ShelterManagementTable } from './components/ShelterManagementTable';
+import { SystemAlerts } from './components/SystemAlerts';
+import { DetailedAnalytics } from '@/components/shared/analytics/DetailedAnalytics';
 
 // Mock data for charts (you'll want to replace this with real data)
 const networkActivityData: ChartDataPoint[] = [
@@ -47,7 +60,7 @@ const donationAllocationData = [
   // ... more data points
 ];
 
-export const SuperAdminDashboard = () => {
+const SuperAdminDashboard = memo(() => {
   const { user } = useAuthStore();
 
   const [dashboardStats, setDashboardStats] = useState({
@@ -112,9 +125,9 @@ export const SuperAdminDashboard = () => {
 
   return (
     <ErrorBoundary>
-      <div className="min-h-screen bg-gray-900">
+      <div className="min-h-screen bg-gray-900 pt-16">
         {/* Header Section */}
-        <div className="bg-gray-800/50 backdrop-blur-lg p-6 rounded-lg mb-6">
+        <div className="bg-gray-800/50 backdrop-blur-lg p-6 rounded-lg mb-6 sticky top-16 z-10">
           <div className="flex justify-between items-center">
             <div className="space-y-4">
               <DashboardHeader title="Welcome Admin - System Developer" user={user} />
@@ -142,7 +155,7 @@ export const SuperAdminDashboard = () => {
           </div>
         </div>
 
-        <div className="container mx-auto px-4 space-y-6">
+        <div className="container mx-auto px-4 space-y-6 pb-8">
           {/* Quick Stats Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             <QuickStatCard 
@@ -208,12 +221,17 @@ export const SuperAdminDashboard = () => {
 
           {/* Detailed Analytics */}
           <Card className="mt-6">
-            <DetailedAnalytics />
+            {DetailedAnalytics ? (
+              <DetailedAnalytics />
+            ) : (
+              <div className="p-4 bg-gray-800 rounded-lg">
+                <h3 className="text-white">Analytics Loading...</h3>
+              </div>
+            )}
           </Card>
         </div>
       </div>
     </ErrorBoundary>
   );
-};
-
+});
 export default SuperAdminDashboard;
