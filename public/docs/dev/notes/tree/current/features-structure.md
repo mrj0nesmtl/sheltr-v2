@@ -1,5 +1,5 @@
 # 🌳 SHELTR Features Structure
-*Generated: 2025-01-24 22:00:43*
+*Generated: 2025-01-25 00:57:04*
 \n## Directory Structure
 ./src/features
 ├── auth
@@ -39,17 +39,14 @@
 │   │   │   ├── ShelterAdminDashboard.tsx
 │   │   │   └── index.ts
 │   │   └── super-admin
+│   │       ├── alerts
 │   │       ├── analytics
 │   │       ├── components
 │   │       ├── donor-management
+│   │       ├── monitoring
 │   │       ├── profile
 │   │       ├── settings
-│   │       ├── AlertsAndIncidents.tsx
-│   │       ├── DonationAnalytics.tsx
-│   │       ├── QuickStatCard.tsx
-│   │       ├── ShelterPerformanceChart.tsx
 │   │       ├── SuperAdminDashboard.tsx
-│   │       ├── SystemHealthMonitor.tsx
 │   │       └── index.ts
 │   ├── shared
 │   │   ├── analytics
@@ -135,4 +132,4 @@
     ├── utils
     └── index.ts
 
-67 directories, 66 files
+69 directories, 61 files
