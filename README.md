@@ -52,7 +52,7 @@ Our core values are:
 ```mermaid
 graph LR
     A[Donor] -->|QR Scan| B[Direct Donation]
-    B -->|Smart Contract| C[Fund Distribution]
+    B -->|Smart Contract| C[Fund Tracking & Verification]
     C -->|80%| D[Direct Support]
     C -->|15%| E[Housing Fund]
     C -->|5%| F[Operations]
@@ -72,38 +72,42 @@ graph LR
 
 ## 🛠️ Technology Stack
 
-```typescript
-interface TechStack {
-  frontend: {
-    framework: 'React 18',
-    language: 'TypeScript 5.0',
-    state: 'Zustand',
-    styling: 'Tailwind CSS',
-    motion: 'Framer Motion',
-    monitoring: 'Real-time Analytics'
-  },
-  backend: {
-    database: 'Supabase',
-    api: 'REST + WebSocket',
-    blockchain: 'Polygon',
-    analytics: 'Custom + Recharts',
-    ai: 'TensorFlow.js'
-  },
-  deployment: {
-    hosting: 'Vercel',
-    ci_cd: 'Github Actions',
-    monitoring: 'Sentry'
-  }
-}
+```mermaid
+graph TD
+    SHELTR[SHELTR Platform]
+    
+    SHELTR --> Frontend
+    SHELTR --> Backend
+    SHELTR --> Deploy[Deployment]
+    
+    Frontend --> React[React 18]
+    Frontend --> TS[TypeScript 5.0]
+    Frontend --> State[Zustand]
+    Frontend --> Style[Tailwind CSS]
+    Frontend --> Motion[Framer Motion]
+    Frontend --> Monitor1[Real-time Analytics]
+    
+    Backend --> DB[Supabase]
+    Backend --> API[REST + WebSocket]
+    Backend --> BC[Polygon Blockchain]
+    Backend --> Analytics[Custom + Recharts]
+    Backend --> AI[TensorFlow.js]
+    
+    Deploy --> Host[Vercel]
+    Deploy --> CICD[Github Actions]
+    Deploy --> Monitor2[Sentry]
 
-## 🔒 Security & Compliance
-
-- 🛡️ **Blockchain Verification**: Every transaction
-- 🔐 **Data Protection**: GDPR & CCPA compliant
-- 📱 **Secure QR**: Dynamic & encrypted
-- 🏦 **Smart Contracts**: Audited & verified
-
+    classDef default fill:#13151a,stroke:#3b82f6,stroke-width:2px,color:#fff;
+    classDef platform fill:#1e40af,stroke:#3b82f6,stroke-width:4px,color:#fff;
+    class SHELTR platform;
 ```
+
+### 🔒 Security & Compliance
+- 🔐 Blockchain Verification: Every transaction
+- 🛡️ Data Protection: GDPR & CCPA compliant
+- 🔑 Secure QR: Dynamic & encrypted
+- 📜 Smart Contracts: Audited & verified
+
 ## 📊 Success Metrics
 
 ### Fund Allocation Model
