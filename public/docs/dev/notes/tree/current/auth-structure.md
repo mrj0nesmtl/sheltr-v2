@@ -1,5 +1,5 @@
 # 🌳 SHELTR Auth Structure
-*Generated: 2025-01-25 00:57:04*
+*Generated: 2025-01-27 12:54:06*
 \n## Directory Structure
 ./src/auth
 ├── components

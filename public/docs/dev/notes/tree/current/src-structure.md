@@ -1,5 +1,5 @@
 # 🌳 SHELTR Source Structure
-*Generated: 2025-01-25 00:57:04*
+*Generated: 2025-01-27 12:54:06*
 \n## Directory Structure
 ./src
 ├── auth
@@ -466,12 +466,9 @@
 │   │   │   ├── ImpactMobileNav.tsx
 │   │   │   └── ImpactSidebar.tsx
 │   │   └── Impact.tsx
-│   ├── ShelterAdmin
-│   │   └── types
 │   ├── SuperAdmin
 │   │   ├── components
 │   │   │   └── index.ts
-│   │   ├── donors
 │   │   └── Analytics.tsx
 │   ├── Wiki
 │   │   ├── components
@@ -562,4 +559,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-175 directories, 385 files
+172 directories, 385 files

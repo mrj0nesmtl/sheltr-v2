@@ -1,7 +1,7 @@
 <div align="center">
 
 ![SHELTR](https://img.shields.io/badge/SHELTR-V2-4B32C3)
-![Version](https://img.shields.io/badge/Version-0.6.4-FF6B6B)
+![Version](https://img.shields.io/badge/Version-0.6.6-FF6B6B)
 ![Stage](https://img.shields.io/badge/Prototype-Beta-FED766)
 ![License](https://img.shields.io/badge/License-MIT-8A2BE2)
 [![SHELTR App](https://img.shields.io/badge/Access-SHELTR_App-FF6B6B)](https://sheltr-beta.replit.app)
@@ -62,12 +62,13 @@ graph LR
 
 | Component | Status | Progress |
 |-----------|---------|-----------|
-| Core System | ✅ STABLE | ![98%](https://img.shields.io/badge/-98%25-success) |
+| Core System | ✅ STABLE | ![100%](https://img.shields.io/badge/-100%25-success) |
 | Auth System | ✅ STABLE | ![100%](https://img.shields.io/badge/-100%25-success) |
-| QR System | ✅ STABLE | ![95%](https://img.shields.io/badge/-95%25-success) |
-| Blockchain | 🟡 IN PROGRESS | ![65%](https://img.shields.io/badge/-65%25-yellow) |
-| Analytics | 🟡 IN PROGRESS | ![45%](https://img.shields.io/badge/-45%25-yellow) |
-| AI Integration | 🔵 PLANNED | ![10%](https://img.shields.io/badge/-10%25-blue) |
+| QR System | ✅ STABLE | ![100%](https://img.shields.io/badge/-100%25-success) |
+| Super Admin | ✅ STABLE | ![100%](https://img.shields.io/badge/-100%25-success) |
+| Blockchain | 🟡 IN PROGRESS | ![75%](https://img.shields.io/badge/-75%25-yellow) |
+| Analytics | 🟡 IN PROGRESS | ![60%](https://img.shields.io/badge/-60%25-yellow) |
+| AI Integration | 🟡 IN PROGRESS | ![40%](https://img.shields.io/badge/-40%25-yellow) |
 
 ## 🛠️ Technology Stack
 
@@ -78,13 +79,15 @@ interface TechStack {
     language: 'TypeScript 5.0',
     state: 'Zustand',
     styling: 'Tailwind CSS',
-    motion: 'Framer Motion'
+    motion: 'Framer Motion',
+    monitoring: 'Real-time Analytics'
   },
   backend: {
     database: 'Supabase',
     api: 'REST + WebSocket',
     blockchain: 'Polygon',
-    analytics: 'Custom + Recharts'
+    analytics: 'Custom + Recharts',
+    ai: 'TensorFlow.js'
   },
   deployment: {
     hosting: 'Vercel',
@@ -132,6 +135,7 @@ interface TechStack {
 | Smart Contracts | 🟡 Active | 2025-01-01 to 2025-01-31 |
 | Blockchain Integration | 🟡 Active | 2025-01-15 to 2025-02-15 |
 | Testing & Audits | ⏳ Planned | 2025-02-01 to 2025-02-28 |
+| AI Analytics | 🟡 Active | 2025-01-25 to 2025-02-28 |
 | **Launch** |
 | Public Beta | 🎯 Milestone | 2025-02-01 |
 | V1 Release | 🎯 Milestone | 2025-03-31 |
@@ -162,21 +166,21 @@ We welcome contributions! Here's how you get up to speed with the project:
 - [✨ Best Practices](/public/docs/guides/best-practices.md)
 - [🔨 Implementation Guide](/public/docs/guides/buildout_implementation.md)
 - [🚀 Deployment Guide](/public/docs/guides/deployment.md)
-- [🧪 Testing Guide](/public/docs/guides/testing.md)
-- [🔄 CI/CD Pipeline](/public/docs/guides/ci-cd.md)
+// - [🧪 Testing Guide](/public/docs/guides/testing.md) 
+// - [🔄 CI/CD Pipeline](/public/docs/guides/ci-cd.md)
 - [🌳 Project Structure](/public/docs/guides/project-structure.md)
 
 ### 📊 Analytics & Components
 - [📈 Analytics Components](/public/docs/reference/analytics-components.md)
 - [📦 Analytics Inventory](/public/docs/reference/analytics-inventory.md)
 - [🧩 Component Library](/public/docs/reference/components.md)
-- [🎨 UI/UX Guidelines](/public/docs/reference/ui-guidelines.md)
+// - [🎨 UI/UX Guidelines](/public/docs/reference/ui-guidelines.md)
 
 ### 📋 Project Status
 - [📊 Status Report](/public/docs/project/status_report.md)
 - [📝 Changelog](/public/docs/project/changelog.md)
 - [🎯 Roadmap](/public/docs/project/roadmap.md)
-- [🐛 Known Issues](/public/docs/project/known-issues.md)
+// - [🐛 Known Issues](/public/docs/project/known-issues.md)
 
 ### Quick Links
 | Category | Documentation |
@@ -190,45 +194,14 @@ We welcome contributions! Here's how you get up to speed with the project:
 
 - 📧 Email: joel@arcanaconcept.com
 - 💬 BlueSky: [Join our community](https://sheltrops.bsky.social)
-- 📱 App: [SHELTR](https://sheltr-ops.replit.app)
+- 📱 App: [SHELTR](https://sheltr-beta.replit.app)
 
 ---
 
 <div align="center">
 
-*"Innovation meets compassion at the intersection of technology and social change."*
+*"BUILD WITHOUT TAKE"*
 
-[Website](https://arcanaconcept.com/concepts/sheltr) • [Documentation](https://github.com/mrj0nesmtl/sheltr-v2/tree/main/public/docs) • [Community](https://arcanaconcept.com)
+[Arcana Concepts Website](https://arcanaconcept.com) • [Wiki](https://sheltr-beta.replit.app/wiki) • [Community](https://sheltrops.bsky.social)
 
 </div>
-
-### 📚 Wiki System Documentation
-
-#### Overview
-The Wiki system provides real-time platform status, sprint tracking, and metrics visualization through an interactive dashboard interface.
-
-```typescript
-// Core Wiki Components Structure
-interface WikiSystem {
-  components: {
-    PlatformStatus: 'Real-time system monitoring',
-    SprintProgress: 'Current sprint tracking',
-    Metrics: 'Performance analytics',
-    Documentation: 'Technical guides'
-  },
-  features: {
-    realTime: 'Live updates',
-    responsive: 'Mobile-first design',
-    interactive: 'Dynamic navigation'
-  }
-}
-```
-
-
-
-
-#### Technical Documentation
-- [📊 Wiki System Overview](/public/docs/wiki/overview.md)
-- [🔄 Real-time Updates](/public/docs/wiki/real-time.md)
-- [📱 Responsive Design](/public/docs/wiki/responsive.md)
-- [🧩 Component Architecture](/public/docs/wiki/components.md)

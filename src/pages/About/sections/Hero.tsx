@@ -28,7 +28,7 @@ export function Hero() {
               About SHELTR
             </h1>
             <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">
-              Build in Public | Tech-4-Good | Give Without Take
+            Give Without Take
             </p>
           </motion.div>
         </div>

@@ -1,5 +1,5 @@
 # 🌳 SHELTR Main Structure
-*Generated: 2025-01-25 00:57:04*
+*Generated: 2025-01-27 12:54:06*
 \n## Directory Structure
 .
 ├── public
@@ -156,7 +156,6 @@
 │   │   ├── Admin
 │   │   ├── Donor
 │   │   ├── Impact
-│   │   ├── ShelterAdmin
 │   │   ├── SuperAdmin
 │   │   ├── Wiki
 │   │   ├── blockchain
@@ -242,4 +241,4 @@
 ├── vite.config.ts
 └── vitest.config.ts
 
-119 directories, 121 files
+118 directories, 121 files

@@ -1,5 +1,5 @@
 # 🌳 SHELTR Pages Structure
-*Generated: 2025-01-25 00:57:04*
+*Generated: 2025-01-27 12:54:06*
 \n## Directory Structure
 ./src/pages
 ├── About
@@ -42,12 +42,9 @@
 │   │   ├── ImpactMobileNav.tsx
 │   │   └── ImpactSidebar.tsx
 │   └── Impact.tsx
-├── ShelterAdmin
-│   └── types
 ├── SuperAdmin
 │   ├── components
 │   │   └── index.ts
-│   ├── donors
 │   └── Analytics.tsx
 ├── Wiki
 │   ├── components
@@ -87,4 +84,4 @@
 ├── debug.tsx
 └── index.ts
 
-21 directories, 64 files
+18 directories, 64 files

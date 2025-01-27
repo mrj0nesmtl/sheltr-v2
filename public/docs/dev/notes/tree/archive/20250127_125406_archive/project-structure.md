@@ -1,5 +1,5 @@
 # 🌳 SHELTR Project Structure
-*Generated: 2025-01-27 12:54:06*
+*Generated: 2025-01-25 00:57:04*
 *Version: 0.4.9*
 
 ## Table of Contents
@@ -11,7 +11,7 @@
 6. [Technical Structures](#technical-structures)
 
 \n---\n
-*Generated: 2025-01-27 12:54:06*
+*Generated: 2025-01-25 00:57:04*
 \n## Directory Structure
 ./src/auth
 ├── components
@@ -31,7 +31,7 @@
 
 6 directories, 9 files
 \n---\n
-*Generated: 2025-01-27 12:54:06*
+*Generated: 2025-01-25 00:57:04*
 \n## Directory Structure
 ./src/components
 ├── About
@@ -211,7 +211,7 @@
 
 45 directories, 130 files
 \n---\n
-*Generated: 2025-01-27 12:54:06*
+*Generated: 2025-01-25 00:57:04*
 \n## Directory Structure
 ./public/docs
 ├── about
@@ -260,7 +260,7 @@
 
 13 directories, 31 files
 \n---\n
-*Generated: 2025-01-27 12:54:06*
+*Generated: 2025-01-25 00:57:04*
 \n## Directory Structure
 ./src/features
 ├── auth
@@ -395,7 +395,7 @@
 
 69 directories, 61 files
 \n---\n
-*Generated: 2025-01-27 12:54:06*
+*Generated: 2025-01-25 00:57:04*
 \n## Directory Structure
 ./src/layouts
 ├── base
@@ -419,7 +419,7 @@
 
 9 directories, 10 files
 \n---\n
-*Generated: 2025-01-27 12:54:06*
+*Generated: 2025-01-25 00:57:04*
 \n## Directory Structure
 .
 ├── public
@@ -576,6 +576,7 @@
 │   │   ├── Admin
 │   │   ├── Donor
 │   │   ├── Impact
+│   │   ├── ShelterAdmin
 │   │   ├── SuperAdmin
 │   │   ├── Wiki
 │   │   ├── blockchain
@@ -661,9 +662,9 @@
 ├── vite.config.ts
 └── vitest.config.ts
 
-118 directories, 121 files
+119 directories, 121 files
 \n---\n
-*Generated: 2025-01-27 12:54:06*
+*Generated: 2025-01-25 00:57:04*
 \n## Directory Structure
 ./src/pages
 ├── About
@@ -706,9 +707,12 @@
 │   │   ├── ImpactMobileNav.tsx
 │   │   └── ImpactSidebar.tsx
 │   └── Impact.tsx
+├── ShelterAdmin
+│   └── types
 ├── SuperAdmin
 │   ├── components
 │   │   └── index.ts
+│   ├── donors
 │   └── Analytics.tsx
 ├── Wiki
 │   ├── components
@@ -748,9 +752,9 @@
 ├── debug.tsx
 └── index.ts
 
-18 directories, 64 files
+21 directories, 64 files
 \n---\n
-*Generated: 2025-01-27 12:54:06*
+*Generated: 2025-01-25 00:57:04*
 \n## Directory Structure
 ./src
 ├── auth
@@ -1217,9 +1221,12 @@
 │   │   │   ├── ImpactMobileNav.tsx
 │   │   │   └── ImpactSidebar.tsx
 │   │   └── Impact.tsx
+│   ├── ShelterAdmin
+│   │   └── types
 │   ├── SuperAdmin
 │   │   ├── components
 │   │   │   └── index.ts
+│   │   ├── donors
 │   │   └── Analytics.tsx
 │   ├── Wiki
 │   │   ├── components
@@ -1310,4 +1317,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-172 directories, 385 files
+175 directories, 385 files

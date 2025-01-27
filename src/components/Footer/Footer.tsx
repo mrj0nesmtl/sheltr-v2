@@ -111,7 +111,7 @@ export function Footer() {
             <ul className="space-y-2">
               <li>
                 <Link to="/about" className={linkStyles.operations}>
-                  Whois
+                  About
                 </Link>
               </li>
               <li>
@@ -123,11 +123,6 @@ export function Footer() {
                 >
                   Github <Github className="h-4 w-4" />
                 </a>
-              </li>
-              <li>
-                <Link to="/blog" className={linkStyles.operations}>
-                  Blog
-                </Link>
               </li>
               <li>
                 <Link to="/wiki" className={linkStyles.operations}>

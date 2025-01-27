@@ -1,6 +1,6 @@
 # 🗄️ SHELTR Database Documentation
-*Last Updated: January 19, 2025 23:45 EST*
-*Version: 0.6.2*
+*Last Updated: January 25, 2024 23:45 EST*
+*Version: 0.6.6*
 *Status: STABLE* 🟢
 
 ## Database Connection
@@ -18,11 +18,30 @@ psql
 The `public` schema contains tables related to core functionality, including role-based navigation, path validation, and security monitoring.
 
 ### Auth Schema
-The `auth` schema manages authentication and role-based access control.
+The `auth` schema manages authentication, role-based access control, and Super Admin privileges.
 
 ## Table Definitions
 
 ### Public Schema Tables
+
+#### Super Admin Analytics
+```sql
+CREATE TABLE public.admin_analytics (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    metric_type VARCHAR NOT NULL,
+    metric_value JSONB NOT NULL,
+    ai_insights JSONB,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE public.system_health (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    status VARCHAR NOT NULL,
+    metrics JSONB NOT NULL,
+    alerts JSONB,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+```
 
 #### Role Management
 ```sql
@@ -91,6 +110,21 @@ CREATE TABLE public.security_logs (
 - **navigation_mount_time**: INTEGER
 - **language_switch_time**: INTEGER
 - **route**: VARCHAR
+- **created_at**: TIMESTAMP
+
+#### AI Metrics
+- **id**: UUID, Primary Key
+- **metric_type**: VARCHAR
+- **data**: JSONB
+- **predictions**: JSONB
+- **confidence**: DECIMAL
+- **created_at**: TIMESTAMP
+
+#### Blockchain Tracking
+- **id**: UUID, Primary Key
+- **transaction_hash**: VARCHAR
+- **data**: JSONB
+- **verification**: JSONB
 - **created_at**: TIMESTAMP
 
 ### Auth Schema Tables
@@ -170,6 +204,43 @@ VALUES ('user-uuid', 45, 95, '/dashboard');
 ```
 
 ## New Sample Queries
+
+### Super Admin Analytics
+```sql
+SELECT 
+    metric_type,
+    metric_value,
+    ai_insights
+FROM public.admin_analytics
+WHERE created_at > NOW() - INTERVAL '24 hours'
+ORDER BY created_at DESC;
+```
+
+### System Health Monitoring
+```sql
+SELECT 
+    status,
+    metrics->>'performance' as performance,
+    metrics->>'security' as security,
+    alerts
+FROM public.system_health
+WHERE created_at > NOW() - INTERVAL '1 hour'
+ORDER BY created_at DESC
+LIMIT 1;
+```
+
+### AI Analytics
+```sql
+SELECT 
+    metric_type,
+    data,
+    predictions,
+    confidence
+FROM public.ai_metrics
+WHERE confidence > 0.85
+ORDER BY created_at DESC
+LIMIT 10;
+```
 
 ### Role Validation
 ```sql

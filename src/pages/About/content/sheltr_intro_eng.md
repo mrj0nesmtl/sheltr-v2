@@ -1,37 +1,37 @@
-## 🎯 Mission Statement
+### Mission
 SHELTR is not just building another donation platform – we're reimagining how technology can empower both givers and receivers in the fight against homelessness. By leveraging blockchain transparency, QR-powered direct giving, and AI-driven insights, we create a future where every dollar makes a measurable impact, and every participant gains tools for lasting change.
 
-**Core Values & Impact:**
+**Core Values**
 - **Transparency** | Blockchain Verification | 100% Traceable Donations
 - **Efficiency** | QR Direct Giving | Instant Support Delivery
 - **Empowerment** | AI-Driven Tools | Long-term Independence
 
-Our commitment to **#BuildInPublic** ensures every decision and milestone is shared openly, fostering a spirit of collaboration and radical transparency. Join us in **hacking homelessness**—one verifiable transaction and one empowered individual at a time.
+Our commitment to **#BuildInPublic** ensures every decision and milestone is shared openly, fostering a spirit of collaboration and radical transparency. Join us in **hacking homelessness** one empowered individual at a time.
 
 ---
 
-## 🚀 Vision & Mission
+### Vision
 
-SHELTR's mission is to revolutionize charitable giving through cutting-edge technology. Our integrated approach combines:
+SHELTR's vision is to revolutionize charitable giving through cutting-edge technology. Our integrated approach combines:
 
-### 📱 Direct Support
+#### 📱 Direct Support
 - **QR code-driven donations**
 - **Real-time fund distribution**
 - **Instant impact verification**
 
-### 🔗 Blockchain Transparency
+#### 🔗 Blockchain Transparency
 - **Smart contract automation**
 - **Verifiable transactions**
 - **Permanent record keeping**
 
-### 🤖 AI-Powered Tools
+#### 🤖 AI-Powered Tools
 - **Financial planning assistance**
 - **Resource optimization**
 - **Impact forecasting**
 
 > "Technology should empower both givers and receivers in the fight against homelessness."
 
-### 💫 Core Values
+### Core Values
 
 #### Our Foundation
 - 🌱 **Empowerment** → Technology Tools → User Control
@@ -43,13 +43,11 @@ SHELTR's mission is to revolutionize charitable giving through cutting-edge tech
 - ⚙️ Efficiency drives 📈 Impact
 - 🌱 Growth enables 🚀 Future Success
 
-Developed by **Arcana Concept**, a not-for-profit organization, SHELTR operates within a unique **Lab-Studio-Fund** model to create and launch transformative projects at **no cost** to shelters or participants.
-
 ---
 
-## 🛠️ Key Technologies and Features
+### Key Technologies and Features
 
-### 📱 QR Code-Driven Donations
+#### 📱 QR Code-Driven Donations
 
 Our platform uses personalized **QR codes** linked to digital wallets, enabling:
 
@@ -57,21 +55,19 @@ Our platform uses personalized **QR codes** linked to digital wallets, enabling:
 - **Multiple Payment Options** → Stripe | PayPal | Apple Pay | Cryptocurrency
 - **Real-Time Transparency** → Instant processing and verification of donations
 
-### 🔗 Blockchain Transparency and Smart Contracts
+#### 🔗 Blockchain Transparency and Smart Contracts
 
-Using blockchain, we provide verifiable donation tracking and automated fund allocation:
+SmartFund™️ contracts eliminate manual errors, fostering public trust,and over all efficiency. Using blockchain, we provide verifiable imutable donation and disbursement tracking.
 
 ```
-Fund Distribution Model:
+**Smart Contract Fund Distribution Model:**
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 █████████████████████████████████ 80% Direct Support
 ███████████ 15% Housing Fund
 ██ 5% Operations
 ```
 
-Smart contracts eliminate manual errors, fostering trust and efficiency.
-
-### 🤖 AI-Driven Financial Empowerment
+#### 🤖 AI-Driven Financial Empowerment
 
 Participants benefit from integrated **AI tools**:
 
@@ -83,21 +79,21 @@ Participants benefit from integrated **AI tools**:
 
 ---
 
-## 👥 User Experience and Onboarding
+###  User Experience and Onboarding
 
-### 🎁 For Donors
+#### 🎁 For Donors
 - **Personalized Experience** → Custom contribution preferences
 - **Tax Documentation** → Automated receipt generation
 - **Impact Tracking** → Real-time donation monitoring
 - **Social Sharing** → Community engagement tools
 
-### 🌟 For Participants
+#### 🌟 For Participants
 - **Verified Onboarding** → Partnership with trusted shelters
 - **Digital Identity** → Secure QR code generation
 - **Financial Tools** → AI-powered planning assistance
 - **Progress Tracking** → Goal achievement monitoring
 
-### 👔 For Shelter Administrators
+#### 👔 For Shelter Administrators
 - **Streamlined Management** → Bulk registration tools
 - **Real-Time Dashboard** → Comprehensive monitoring
 - **Resource Allocation** → Automated distribution
@@ -105,20 +101,18 @@ Participants benefit from integrated **AI tools**:
 
 ---
 
-## 🏪 The Homeless Depot: Marketing for Empowerment
+### The Homeless Depot: Emergency Drone Delivery 🚁
 
-Participants can enhance visibility with resources from our **Homeless Depot**:
+ **Coming Soon** - Participants will enjoy free Amazon Drone Delivery of materials and supplies.
 
-### 📦 Available Resources
-- 🎨 **Branded QR Code Cards**
+### 📦 Sheltr Resources
+- 🎨 **QR Code Material**
   - Professional design
   - Durable materials
-  - Custom branding
-  - Multiple sizes
+  - Personal participant Branding
 
-- 👕 **Custom Apparel**
-  - T-shirts with QR codes
-  - Hoodies with branding
+- 👕 **Sheltr Apparel**
+  - Custom QR code apparel
   - Weather-appropriate gear
   - Size-inclusive options
 
@@ -128,13 +122,13 @@ Participants can enhance visibility with resources from our **Homeless Depot**:
   - Email signatures
   - Shareable stories
 
-> All materials can be ordered through participants' dashboards, empowering them to take ownership of their outreach.
+> **Coming Soon** - Materials can be ordered through participants' dashboards, empowering them to take ownership of their outreach and fundraising
 
 ---
 
-## 🎮 Gamification and Community Engagement
+### Community Engagement
 
-### 🏆 Achievement System
+#### ⛑️ Achievement System
 | Level | Milestone | Reward |
 |-------|-----------|---------|
 | 🥉 Bronze | First donation received | Profile boost |
@@ -142,13 +136,13 @@ Participants can enhance visibility with resources from our **Homeless Depot**:
 | 🥇 Gold | Housing fund milestone | Premium tools |
 | 💎 Diamond | Community leader | Special recognition |
 
-### 🌟 Community Features
+#### 🌟 Community Features
 - **Social Sharing** → Instagram & TikTok integration
 - **Success Stories** → Milestone celebrations
 - **Community Badges** → Achievement recognition
 - **Impact Metrics** → Visual progress tracking
 
-### 🤝 Support Network
+#### 🤝 Support Network
 - **Peer Connections** → Community building
 - **Mentor Matching** → Guidance system
 - **Group Goals** → Collaborative achievements
@@ -156,15 +150,15 @@ Participants can enhance visibility with resources from our **Homeless Depot**:
 
 ---
 
-## ⭐ Why SHELTR is Different
+### Why SHELTR is Different
 
-### 💡 Core Differentiators
+#### 💡 Core Differentiators
 - **Zero Cost Model** → Fully funded by Arcana Concept
 - **Complete Transparency** → Blockchain-verified transactions
 - **Empowerment Focus** → Tools for independence
 - **Community First** → Built for real impact
 
-### 📊 Impact Model
+#### 📊 Impact Model
 ```
 Impact Distribution:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -174,7 +168,7 @@ Impact Distribution:
 ██ Operations
 ```
 
-### 🌱 Sustainable Growth
+#### 🌱 Sustainable Growth
 - **Lab-Studio-Fund Model** → Innovative funding approach
 - **Scalable Infrastructure** → Built for growth
 - **Community Driven** → User-focused development
@@ -182,16 +176,14 @@ Impact Distribution:
 
 ---
 
-## 🤝 Join the Movement
+### Join Us.
 
 The time to act is now. With advances in technology and the commitment of Arcana Concept, SHELTR is poised to transform charitable giving. Together, we can create a system where every donation is transparent, impactful, and empowering.
 
-### 🌟 Get Involved
+#### 🌟 Get Involved
 - **Donate** → Support individuals directly
 - **Partner** → Join our network
 - **Advocate** → Spread the word
-- **Contribute** → Share your skills
+- **Contribute Code** → Share your skills
 
-> Be part of the solution—whether as a donor, partner, or advocate, your involvement helps us redefine how we support those in need.
-
-*For more information, visit: [Arcana Concept](https://www.arcanaconcept.com/concepts/sheltr)*
+> SHELTR is a not-for-profit organization, and operates within a unique **Lab-Studio-Fund** model to create and launch at **no cost** to shelters or participants. Be part of the solution—whether as a donor, partner, or advocate, your involvement helps us redefine how we support those in need. **#buildwithouttake** *For more information, contact info@arcanaconcept.com or visit: [Arcana Concept](https://www.arcanaconcept.com/concepts/sheltr)*

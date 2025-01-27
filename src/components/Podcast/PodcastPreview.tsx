@@ -1,49 +1,30 @@
 import { Icon } from '@/components/ui/Icon';
 import { useTranslation } from 'react-i18next';
 import { PODCAST_LINKS } from '@/constants/podcast';
+import { Music } from 'lucide-react';
 
 export function PodcastPreview() {
   const { t } = useTranslation();
 
   return (
-    <div className="bg-gray-800 rounded-lg p-6 hover:bg-gray-700/50 transition-colors">
-      <div className="flex items-center justify-between mb-4">
-        <h4 className="text-lg font-semibold text-white">Latest Episode</h4>
-        <Icon name="spotify" className="h-6 w-6 text-green-500" />
-      </div>
-
-      <div className="space-y-3">
-        <div>
-          <h5 className="font-medium text-white mb-1">
-            {PODCAST_LINKS.EPISODE_INFO.title}
-          </h5>
-          <p className="text-sm text-gray-400">
-            {PODCAST_LINKS.EPISODE_INFO.show} • {PODCAST_LINKS.EPISODE_INFO.duration}
-          </p>
+    <div className="bg-gray-800 rounded-lg p-4 max-h-[160px]">
+      <div className="flex flex-col space-y-2">
+        <div className="flex items-center space-x-2">
+          <Music className="h-5 w-5 text-green-500" />
+          <h4 className="text-white text-sm font-medium">Latest Episode</h4>
         </div>
-
-        <p className="text-sm text-gray-400 line-clamp-2">
-          {PODCAST_LINKS.EPISODE_INFO.description}
-        </p>
-
-        <div className="flex items-center space-x-4">
+        
+        <h5 className="text-white font-medium">Hacking Homelessness</h5>
+        <p className="text-gray-400 text-sm">Tomes of Arcana • 14:04</p>
+        
+        <div className="flex space-x-4">
           <a
-            href={PODCAST_LINKS.LATEST_EPISODE_URL}
+            href="https://open.spotify.com/episode/2TZquGVy7vT6yZMgDraMYe"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center space-x-2 text-green-500 hover:text-green-400 text-sm font-medium"
+            className="text-green-500 hover:text-green-400 text-sm font-medium inline-flex items-center space-x-1"
           >
-            <Icon name="play" className="h-5 w-5" />
             <span>Listen to Episode</span>
-          </a>
-          
-          <a
-            href={PODCAST_LINKS.SPOTIFY_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm text-gray-400 hover:text-white"
-          >
-            View Show
           </a>
         </div>
       </div>
