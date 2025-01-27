@@ -1,6 +1,6 @@
 <div align="center">
 
-![SHELTR](https://img.shields.io/badge/SHELTR-V2-4B32C3)
+![SHELTR](https://img.shields.io/badge/SHELTR-V1_Build-4B32C3)
 ![Version](https://img.shields.io/badge/Version-0.6.6-FF6B6B)
 ![Stage](https://img.shields.io/badge/Prototype-Beta-FED766)
 ![License](https://img.shields.io/badge/License-MIT-8A2BE2)
@@ -10,12 +10,10 @@
 [![LinkedIn](https://img.shields.io/badge/Connect_on-LinkedIn-0A66C2?logo=linkedin&logoColor=white)](https://www.linkedin.com/company/arcana-concept)
 [![Substack](https://img.shields.io/badge/Read_on-Substack-FF6719?logo=substack&logoColor=white)](https://substack.com/home/post/p-153502903)
 
-# 🏠 SHELTR
+# SHELTR
 ### *Hacking Homelessness Through Direct-Impact Technology*
-
-**Revolutionizing Charitable Giving Through Technology**
-*Project Initialization: December 2024 - Beta Launch (V1.0.0) Mid-January 2025*
-*Current Version: 0.6.5*
+*Project Initialization: December 2024 - Beta Launch (V1.0.0) February 2025*
+*Current Version: 0.6.6*
 
 </div>
 
