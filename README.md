@@ -145,7 +145,11 @@ We welcome contributions! Here's how you get up to speed with the project:
 
 ## 📚 Documentation Index
 
-### 🎯 Core Documentation
+### 📋 Project Status
+- [📊 Status Report](/public/docs/project/status_report.md)
+- [📝 Changelog](/public/docs/project/changelog.md)
+- [🎯 Roadmap](/public/docs/project/roadmap.md)
+### 🎯 Core 
 - [📋 Project Overview](/public/docs/core/overview.md)
 - [🏛️ System Architecture](/public/docs/core/architecture.md)
 - [🔌 API Documentation](/public/docs/core/api.md)
@@ -166,21 +170,13 @@ We welcome contributions! Here's how you get up to speed with the project:
 - [✨ Best Practices](/public/docs/guides/best-practices.md)
 - [🔨 Implementation Guide](/public/docs/guides/buildout_implementation.md)
 - [🚀 Deployment Guide](/public/docs/guides/deployment.md)
-// - [🧪 Testing Guide](/public/docs/guides/testing.md) 
-// - [🔄 CI/CD Pipeline](/public/docs/guides/ci-cd.md)
 - [🌳 Project Structure](/public/docs/guides/project-structure.md)
 
 ### 📊 Analytics & Components
 - [📈 Analytics Components](/public/docs/reference/analytics-components.md)
 - [📦 Analytics Inventory](/public/docs/reference/analytics-inventory.md)
 - [🧩 Component Library](/public/docs/reference/components.md)
-// - [🎨 UI/UX Guidelines](/public/docs/reference/ui-guidelines.md)
 
-### 📋 Project Status
-- [📊 Status Report](/public/docs/project/status_report.md)
-- [📝 Changelog](/public/docs/project/changelog.md)
-- [🎯 Roadmap](/public/docs/project/roadmap.md)
-// - [🐛 Known Issues](/public/docs/project/known-issues.md)
 
 ### Quick Links
 | Category | Documentation |
