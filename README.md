@@ -91,7 +91,7 @@ interface TechStack {
   },
   deployment: {
     hosting: 'Vercel',
-    ci_cd: 'GitHub Actions',
+    ci_cd: 'Github Actions',
     monitoring: 'Sentry'
   }
 }
