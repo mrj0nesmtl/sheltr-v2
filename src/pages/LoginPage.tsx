@@ -12,125 +12,75 @@ const LoginPage = memo(() => {
   const redirectAttempted = useRef(false);
   const [redirectInProgress, setRedirectInProgress] = useState(false);
 
-  // Memoize the role-based redirect logic
-  const getRoleBasedPath = useCallback((role: string, userId: string, orgId?: string) => {
-    switch (role) {
-      case AUTH_ROLES.SUPER_ADMIN:
-        return '/dashboard/super-admin';
-      case AUTH_ROLES.SHELTER_ADMIN:
-        return `/dashboard/shelter/${orgId}/dashboard`;
-      case AUTH_ROLES.DONOR:
-        return `/dashboard/donor/${userId}`;
-      case AUTH_ROLES.PARTICIPANT:
-        return `/dashboard/participant/${userId}`;
-      default:
-        return '/';
-    }
-  }, []);
-
-  // Add debug logging
+  // Simplify the initial auth check
   useEffect(() => {
-    console.debug('LoginPage State:', {
+    console.debug('Auth State:', {
       isAuthenticated,
       userRole: user?.role,
       isLoading,
-      redirectAttempted: redirectAttempted.current
+      pathname: location.pathname
     });
-  }, [isAuthenticated, user, isLoading]);
 
-  // Break the loop if we're already authenticated and on login page
-  useEffect(() => {
-    if (isAuthenticated && user && location.pathname === '/login' && !redirectInProgress) {
-      console.debug('Breaking redirect loop - already authenticated on login page');
-      const path = user.role === AUTH_ROLES.SUPER_ADMIN 
-        ? '/dashboard/super-admin'
-        : '/';
-      setRedirectInProgress(true);
-      navigate(path, { replace: true });
-    }
-  }, [isAuthenticated, user, location.pathname]);
-
-  // Handle auth redirect once
-  useEffect(() => {
-    let mounted = true;
-    let timeoutId: NodeJS.Timeout;
-
-    const handleAuthRedirect = async () => {
-      // Guard against multiple redirects
-      if (!mounted || redirectInProgress || !isAuthenticated || !user?.id || redirectAttempted.current) {
-        console.debug('Skipping redirect:', {
-          mounted,
-          redirectInProgress,
-          isAuthenticated,
-          hasUser: !!user,
-          redirectAttempted: redirectAttempted.current
-        });
+    const handleInitialAuth = async () => {
+      // Skip if already processing or no auth
+      if (redirectInProgress || !isAuthenticated || !user || redirectAttempted.current) {
         return;
       }
 
       try {
         setRedirectInProgress(true);
         
-        // For super admin, redirect immediately
-        if (user.role === AUTH_ROLES.SUPER_ADMIN) {
-          console.debug('Redirecting super admin to dashboard');
-          redirectAttempted.current = true;
-          navigate('/dashboard/super-admin', { replace: true });
-          
-          // Reset redirect state after a delay
-          timeoutId = setTimeout(() => {
-            if (mounted) {
-              setRedirectInProgress(false);
-              redirectAttempted.current = false;
+        switch (user.role) {
+          case AUTH_ROLES.SUPER_ADMIN:
+            navigate('/dashboard/super-admin', { replace: true });
+            break;
+            
+          case AUTH_ROLES.SHELTER_ADMIN:
+            const { data: orgs } = await supabase
+              .from('organization_staff')
+              .select('organization_id')
+              .eq('user_id', user.id)
+              .eq('role', 'shelter_admin')
+              .eq('status', 'active');
+
+            if (!orgs?.length) {
+              console.debug('No active organizations found');
+              navigate('/dashboard/shelter');
+              break;
             }
-          }, 1000);
-          
-          return;
-        }
 
-        // For shelter admin, fetch org ID first
-        if (user.role === AUTH_ROLES.SHELTER_ADMIN) {
-          const { data: org } = await supabase
-            .from('organizations')
-            .select('id')
-            .eq('user_id', user.id)
-            .single();
+            if (orgs.length === 1) {
+              navigate(`/shelter/${orgs[0].organization_id}/dashboard`, { replace: true });
+            } else {
+              navigate('/dashboard/shelter');
+            }
+            break;
 
-          if (org?.id && mounted) {
-            navigate(`/dashboard/shelter/${org.id}/dashboard`, { replace: true });
-          }
-        } else {
-          // Other roles use userId in path
-          const path = getRoleBasedPath(user.role, user.id);
-          navigate(path, { replace: true });
+          default:
+            navigate(`/dashboard/${user.role.toLowerCase()}/${user.id}`, { replace: true });
         }
 
         redirectAttempted.current = true;
+
       } catch (error) {
-        console.error('Error during auth redirect:', error);
+        console.error('Redirect error:', error);
         setRedirectInProgress(false);
-        redirectAttempted.current = false;
       }
     };
 
-    handleAuthRedirect();
+    handleInitialAuth();
+  }, [isAuthenticated, user, isLoading]);
 
-    return () => {
-      mounted = false;
-      if (timeoutId) clearTimeout(timeoutId);
-    };
-  }, [isAuthenticated, user, navigate, getRoleBasedPath]);
-
-  // Prevent render if redirect is in progress
+  // Show loading state during redirect
   if (redirectInProgress) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-900">
-        <div className="text-white text-lg">Redirecting to dashboard...</div>
+        <div className="text-white text-lg">Redirecting...</div>
       </div>
     );
   }
 
-  // Already authenticated - show loading
+  // Already authenticated - wait for redirect
   if (isAuthenticated && user) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-900">
@@ -138,13 +88,6 @@ const LoginPage = memo(() => {
       </div>
     );
   }
-
-  // Add debug for render conditions
-  console.debug('Render conditions:', {
-    isLoading,
-    isAuthenticated,
-    hasUser: !!user
-  });
 
   // Login form
   return (

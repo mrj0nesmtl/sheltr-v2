@@ -15,16 +15,90 @@ import { MetricCard } from '@/components/ui/MetricCard'
 import { DonationAllocationPieChart } from './components/DonationAllocationPieChart'
 import { GlobalDonationMap } from './components/GlobalDonationMap'
 import { ShelterDonationMap } from './components/ShelterDonationMap'
+import { useParams, useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { supabase } from '@/lib/supabase'
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 
 export const ShelterAdminDashboard = () => {
-  const { user } = useAuthStore()
+  const { user, isAuthenticated } = useAuthStore()
+  const navigate = useNavigate()
+  const { orgId } = useParams()
+  const [shelterData, setShelterData] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
-  const shelterData = {
-    name: "Downtown Shelter",
-    lat: 45.5017,
-    lng: -73.5673,
-    totalDonations: 124500
-  };
+  useEffect(() => {
+    if (!isAuthenticated || !user) {
+      console.debug('Auth state lost, redirecting to login', { isAuthenticated, user });
+      navigate('/login', { replace: true });
+      return;
+    }
+  }, [isAuthenticated, user, navigate]);
+
+  useEffect(() => {
+    const loadShelterData = async () => {
+      if (!orgId || !user?.id) return;
+
+      try {
+        console.debug('Loading shelter data:', { orgId, userId: user?.id });
+        
+        const { data: accessData, error: accessError } = await supabase
+          .from('organization_staff')
+          .select('organization_id')
+          .eq('user_id', user.id)
+          .eq('organization_id', orgId)
+          .eq('role', 'shelter_admin')
+          .eq('status', 'active')
+          .single();
+
+        if (accessError || !accessData) {
+          throw new Error('Access verification failed');
+        }
+
+        const { data, error } = await supabase
+          .from('organizations')
+          .select(`
+            *,
+            organization_staff!inner (
+              user_id,
+              role,
+              status
+            )
+          `)
+          .eq('id', orgId)
+          .single();
+
+        if (error) throw error;
+
+        console.debug('Loaded shelter data:', data);
+        setShelterData(data);
+      } catch (err) {
+        console.error('Error loading shelter:', err);
+        setError('Failed to load shelter data');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadShelterData();
+  }, [orgId, user?.id]);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-slate-900">
+        <LoadingSpinner size="lg" />
+      </div>
+    )
+  }
+
+  if (error || !shelterData) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-slate-900">
+        <div className="text-red-500">{error || 'Failed to load shelter'}</div>
+      </div>
+    )
+  }
 
   const participantData = [
     {
@@ -41,12 +115,19 @@ export const ShelterAdminDashboard = () => {
   return (
     <ErrorBoundary>
       <div className="min-h-screen bg-slate-900">
+        <div className="fixed top-0 right-0 p-2 text-xs text-gray-500">
+          Auth: {isAuthenticated ? 'Yes' : 'No'} | User: {user?.id}
+        </div>
+        
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
           {/* Enhanced Header Section with Badges */}
           <div className="bg-gray-800/50 backdrop-blur-lg p-6 rounded-lg">
             <div className="flex justify-between items-start">
               <div className="space-y-4">
-                <DashboardHeader title="Shelter Admin Dashboard" user={user} />
+                <DashboardHeader 
+                  title={`${shelterData.name} Dashboard`} 
+                  user={user} 
+                />
                 {/* Badges Section */}
                 <div className="flex items-center gap-2 flex-wrap">
                   <UserBadge role="shelter_admin" verified={true} />
@@ -56,15 +137,11 @@ export const ShelterAdminDashboard = () => {
                   </Badge>
                   <Badge variant="info" size="sm" className="flex items-center gap-1">
                     <Icon name="users" className="w-3 h-3" />
-                    24 Active Participants
+                    {shelterData.current_capacity || 0} Active Participants
                   </Badge>
                   <Badge variant="warning" size="sm" className="flex items-center gap-1">
                     <Icon name="wallet" className="w-3 h-3" />
-                    $9,250 Donations
-                  </Badge>
-                  <Badge variant="error" size="sm" className="flex items-center gap-1">
-                    <Icon name="clock" className="w-3 h-3" />
-                    3 Pending Reviews
+                    ${shelterData.total_donations || 0} Donations
                   </Badge>
                 </div>
               </div>
@@ -74,8 +151,8 @@ export const ShelterAdminDashboard = () => {
 
           {/* Metrics Overview - 3 column grid on desktop, stack on mobile */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <MetricCard title="Active Participants" value="24" trend="+12%" trendUp={true} />
-            <MetricCard title="Total Donations" value="$9,250" trend="+23%" trendUp={true} />
+            <MetricCard title="Active Participants" value={shelterData.current_capacity || 0} trend="+12%" trendUp={true} />
+            <MetricCard title="Total Donations" value={`$${shelterData.total_donations || 0}`} trend="+23%" trendUp={true} />
             <MetricCard title="Successful Disbursements" value="18" trend="+8%" trendUp={true} />
           </div>
 

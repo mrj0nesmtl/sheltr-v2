@@ -179,58 +179,42 @@ export const useAuthStore = create<AuthState>()(
         if (get().isInitializing) return;
         
         try {
+          // Single batch update for initial state
           get().batchUpdate({ 
             isLoading: true,
             isInitializing: true,
             error: null,
-            session: { ...get().session, status: 'authenticating' }
+            session: { status: 'authenticating', expiresAt: null, lastChecked: null }
           });
 
-          console.log('🚀 Starting auth process...');
           const { data, error } = await supabase.auth.signInWithPassword(credentials);
           
-          if (error) {
-            console.error('❌ Auth Error:', error);
-            get().handleError(error, 'error');
-            throw error;
-          }
-          
+          if (error) throw error;
           if (!data.user || !data.session) {
-            throw new Error('No user data received from authentication');
+            throw new Error('No user data received');
           }
 
-          console.log('✅ Auth successful, fetching profile...');
-          
-          // Fetch profile data including role
-          const { data: profileData, error: profileError } = await supabase
-            .from('profiles')
-            .select('role, first_name, last_name')
-            .eq('id', data.user.id)
-            .single();
+          // Fetch profile in parallel with session check
+          const [profileResponse] = await Promise.all([
+            supabase
+              .from('profiles')
+              .select('role, first_name, last_name')
+              .eq('id', data.user.id)
+              .single(),
+            get().checkSession()
+          ]);
 
-          if (profileError) {
-            console.error('❌ Profile Error:', profileError);
-            get().handleError(profileError, 'error');
-            throw profileError;
-          }
-
-          // Determine user role with fallback chain
-          const userRole = profileData?.role || 
+          const userRole = profileResponse.data?.role || 
                           data.user.user_metadata?.role || 
                           AUTH_ROLES.DONOR;
 
-          console.log('✅ Profile fetched, updating store...', {
-            role: userRole,
-            userId: data.user.id
-          });
-
-          // Update store with all user data
+          // Single batch update for success state
           get().batchUpdate({
             user: {
               ...data.user,
               role: userRole,
-              firstName: profileData?.first_name,
-              lastName: profileData?.last_name
+              firstName: profileResponse.data?.first_name,
+              lastName: profileResponse.data?.last_name
             } as User,
             role: userRole as AUTH_ROLES,
             isAuthenticated: true,
@@ -246,17 +230,15 @@ export const useAuthStore = create<AuthState>()(
             sessionError: null
           });
 
-          console.log('✅ Auth store updated successfully');
-
         } catch (error) {
-          console.error('❌ Login error:', error);
-          get().handleError(error as Error, 'error');
-          throw error; // Re-throw for the form to handle
-        } finally {
+          // Single batch update for error state
           get().batchUpdate({
+            error: createAuthError(error as Error, 'error'),
             isLoading: false,
-            isInitializing: false
+            isInitializing: false,
+            session: { status: 'error', expiresAt: null, lastChecked: null }
           });
+          throw error;
         }
       },
 
