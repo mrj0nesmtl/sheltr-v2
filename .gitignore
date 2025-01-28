@@ -66,3 +66,6 @@ public/docs/dev/notes/tree/archive/*.tar.gz
 src/backup/
 .env*
 !.env.example
+
+# Add to .gitignore
+supabase/exports/*.csv
