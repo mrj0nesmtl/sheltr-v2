@@ -1,7 +1,0 @@
-./src/features/dashboard/shared/profile/ProfileLayout.tsx
-./src/features/dashboard/layouts/DashboardLayout.tsx
-./src/components/Auth/AuthLayout.tsx
-./src/components/Blockchain/Whitepaper/WhitepaperLayout.tsx
-./src/layouts/PageLayout.tsx
-./src/layouts/base/PageLayout.tsx
-./src/layouts/base/Layout.tsx
