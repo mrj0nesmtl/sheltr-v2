@@ -3,6 +3,9 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import { useEffect, useState } from 'react';
+import { supabase } from '@/lib/supabase';
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 
 // Fix for default marker icons in React Leaflet
 const DefaultIcon = L.icon({
@@ -27,11 +30,66 @@ interface Location {
 }
 
 interface GlobalDonationMapProps {
-  locations: Location[];
+  shelterId: string;
 }
 
-export function GlobalDonationMap({ locations }: GlobalDonationMapProps) {
-  // Calculate bounds from locations or use default US bounds
+export function GlobalDonationMap({ shelterId }: GlobalDonationMapProps) {
+  const [locations, setLocations] = useState<Location[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadDonationLocations = async () => {
+      try {
+        // Get organization location first
+        const { data: orgData, error: orgError } = await supabase
+          .from('organizations')
+          .select('id, name, city, state')
+          .eq('id', shelterId)
+          .single();
+
+        if (orgError) throw orgError;
+
+        // Get donation data
+        const { data: donationsData, error: donationsError } = await supabase
+          .from('donations')
+          .select('amount')
+          .eq('organization_id', shelterId);
+
+        if (donationsError) throw donationsError;
+
+        // For now, use a default location if we don't have real coordinates
+        const totalDonations = donationsData?.reduce((sum, d) => sum + (d.amount || 0), 0) || 0;
+
+        setLocations([{
+          id: orgData.id,
+          name: orgData.name,
+          lat: 40.7128, // Default to NYC coordinates for now
+          lng: -74.0060, // You should replace these with real coordinates
+          city: orgData.city || 'Unknown',
+          state: orgData.state || 'Unknown',
+          donations: totalDonations
+        }]);
+      } catch (err) {
+        console.error('Error loading donation locations:', err);
+        setError('Failed to load donation locations');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadDonationLocations();
+  }, [shelterId]);
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
+
+  if (error) {
+    return <div className="text-red-500">{error}</div>;
+  }
+
+  // Default to US bounds if no locations
   const bounds = locations.length > 0 
     ? L.latLngBounds(locations.map(loc => [loc.lat, loc.lng]))
     : L.latLngBounds([[25.7617, -124.6372], [49.3457, -66.9513]]); // US bounds

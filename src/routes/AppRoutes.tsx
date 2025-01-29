@@ -15,6 +15,7 @@ import SuperAdminDashboard from '@/features/dashboard/roles/super-admin';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { supabase } from '@/lib/supabase';
+import { ShelterSelector } from '@/features/dashboard/roles/shelter-admin/components/ShelterSelector';
 
 // Lazy loaded components
 const Wiki = lazy(() => import('../pages/Wiki'));
@@ -88,20 +89,21 @@ export default function AppRoutes() {
     const routeShelterAdmin = async () => {
       if (isAuthenticated && user?.role === AUTH_ROLES.SHELTER_ADMIN) {
         try {
-          const result = await getPrimaryOrganization(user.id);
-          
-          if (!result) {
-            console.error('No organizations found');
-            navigate('/login');
-            return;
-          }
+          // Only run this if we're on the root dashboard path
+          if (location.pathname === '/dashboard') {
+            const result = await getPrimaryOrganization(user.id);
+            
+            if (!result) {
+              console.error('No organizations found');
+              navigate('/login');
+              return;
+            }
 
-          if (result === 'selector') {
-            navigate('/dashboard/shelter');
-            return;
-          }
+            if (result === 'selector') {
+              navigate('/dashboard/shelter');
+              return;
+            }
 
-          if (location.pathname === '/dashboard/shelter') {
             navigate(`/shelter/${result}/dashboard`);
           }
         } catch (error) {
@@ -112,7 +114,7 @@ export default function AppRoutes() {
     };
 
     routeShelterAdmin();
-  }, [isAuthenticated, user?.role, location.pathname]);
+  }, [isAuthenticated, user?.role]);
 
   return (
     <Routes>
@@ -142,11 +144,18 @@ export default function AppRoutes() {
       />
 
       <Route
-        path="/shelter/:orgId/dashboard/*"
+        path="/shelter/:shelterId/dashboard"
         element={
-          <ProtectedRoute allowedRoles={[AUTH_ROLES.SHELTER_ADMIN]}>
-            <ShelterAdminDashboard />
-          </ProtectedRoute>
+          <BaseErrorBoundary variant="shelter-admin">
+            <ProtectedRoute 
+              allowedRoles={[AUTH_ROLES.SHELTER_ADMIN]}
+              fallback={<LoadingSpinner size="lg" />}
+            >
+              <Suspense fallback={<LoadingSpinner size="lg" />}>
+                <ShelterAdminDashboard />
+              </Suspense>
+            </ProtectedRoute>
+          </BaseErrorBoundary>
         }
       />
 
@@ -156,6 +165,15 @@ export default function AppRoutes() {
         element={
           <ProtectedRoute allowedRoles={[AUTH_ROLES.SHELTER_ADMIN]}>
             <ShelterSelector />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/dashboard/shelter/:shelterId"
+        element={
+          <ProtectedRoute allowedRoles={[AUTH_ROLES.SHELTER_ADMIN]}>
+            <ShelterAdminDashboard />
           </ProtectedRoute>
         }
       />
@@ -212,139 +230,5 @@ export default function AppRoutes() {
         </div>
       } />
     </Routes>
-  );
-}
-
-// Update ShelterSelector component with better styling and fixed navigation
-function ShelterSelector() {
-  const { user } = useAuthStore();
-  const navigate = useNavigate();
-  const [shelters, setShelters] = useState<Array<{id: string, name: string}>>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  const handleShelterSelect = async (shelterId: string) => {
-    try {
-      console.debug('Selecting shelter:', { shelterId, userId: user?.id });
-      setLoading(true);
-
-      // Verify access
-      const { data: accessData, error: accessError } = await supabase
-        .from('organization_staff')
-        .select('organization_id')
-        .eq('user_id', user?.id)
-        .eq('organization_id', shelterId)
-        .eq('role', 'shelter_admin')
-        .eq('status', 'active')
-        .single();
-
-      if (accessError || !accessData) {
-        throw new Error('Access verification failed');
-      }
-
-      // Use React Router navigation
-      const targetPath = `/shelter/${shelterId}/dashboard`;
-      console.debug('Access verified, navigating to:', targetPath);
-      navigate(targetPath);
-      
-    } catch (err) {
-      console.error('Error selecting shelter:', err);
-      setError('Failed to access shelter dashboard');
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    const loadShelters = async () => {
-      if (!user?.id) return;
-
-      try {
-        console.debug('Loading shelters for user:', user?.id);
-        const { data, error } = await supabase
-          .from('organization_staff')
-          .select(`
-            organizations!inner (
-              id,
-              name,
-              status
-            )
-          `)
-          .eq('user_id', user.id)
-          .eq('role', 'shelter_admin')
-          .eq('status', 'active');
-
-        if (error) throw error;
-
-        // Extract and transform the data
-        const shelterList = data?.map(item => ({
-          id: item.organizations.id,
-          name: item.organizations.name
-        })).filter(Boolean) || [];
-
-        console.debug('Loaded shelters:', shelterList);
-        setShelters(shelterList);
-
-        // Auto-redirect if only one shelter
-        if (shelterList.length === 1) {
-          console.debug('Single shelter found, auto-redirecting');
-          handleShelterSelect(shelterList[0].id);
-        }
-      } catch (err) {
-        console.error('Error loading shelters:', err);
-        setError('Failed to load shelters');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadShelters();
-  }, [user?.id]);
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-900">
-        <div className="text-white text-lg">Loading shelters...</div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-900">
-        <div className="text-red-500">{error}</div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="min-h-screen bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-white">
-            Select a Shelter
-          </h2>
-          <p className="mt-2 text-gray-400">
-            Choose the shelter you want to manage
-          </p>
-        </div>
-
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {shelters.map(shelter => (
-            <button
-              key={shelter.id}
-              onClick={() => handleShelterSelect(shelter.id)}
-              className="flex flex-col items-center p-6 bg-gray-800 rounded-lg shadow-md hover:bg-gray-700 transition-colors duration-200"
-            >
-              <div className="text-xl font-semibold text-white mb-2">
-                {shelter.name}
-              </div>
-              <div className="text-sm text-gray-400">
-                Click to manage
-              </div>
-            </button>
-          ))}
-        </div>
-      </div>
-    </div>
   );
 }
