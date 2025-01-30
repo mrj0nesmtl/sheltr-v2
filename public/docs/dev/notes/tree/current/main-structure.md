@@ -1,5 +1,5 @@
 # 🌳 SHELTR Main Structure
-*Generated: 2025-01-29 17:40:01*
+*Generated: 2025-01-30 11:04:40*
 \n## Directory Structure
 .
 ├── public
@@ -210,6 +210,7 @@
 │   │   ├── Supabase Snippet Export Auth Configuration.csv
 │   │   ├── Supabase Snippet Export Auth Users Data.csv
 │   │   ├── Supabase Snippet Export User Activity Audit Logs.csv
+│   │   ├── Supabase Snippet List of Public Tables.csv
 │   │   ├── Supabase Snippet Role Mapping Export.csv
 │   │   ├── donor_profiles_rows.csv
 │   │   ├── organization_staff_rows (1).csv
@@ -244,4 +245,4 @@
 ├── vite.config.ts
 └── vitest.config.ts
 
-118 directories, 124 files
+118 directories, 125 files

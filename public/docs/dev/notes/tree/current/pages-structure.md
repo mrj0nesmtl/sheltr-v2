@@ -1,5 +1,5 @@
 # 🌳 SHELTR Pages Structure
-*Generated: 2025-01-29 17:40:01*
+*Generated: 2025-01-30 11:04:41*
 \n## Directory Structure
 ./src/pages
 ├── About
@@ -39,9 +39,17 @@
 │   └── Settings.tsx
 ├── Impact
 │   ├── components
+│   │   ├── AnalyticsSection.tsx
+│   │   ├── GlobalImpactSection.tsx
 │   │   ├── ImpactMobileNav.tsx
-│   │   └── ImpactSidebar.tsx
-│   └── Impact.tsx
+│   │   ├── ImpactSidebar.tsx
+│   │   ├── PlatformStatusSection.tsx
+│   │   ├── TokenMetricsSection.tsx
+│   │   └── TransactionsSection.tsx
+│   ├── layout
+│   │   └── ImpactLayout.tsx
+│   ├── Impact.tsx
+│   └── index.ts
 ├── SuperAdmin
 │   ├── components
 │   │   └── index.ts
@@ -84,4 +92,4 @@
 ├── debug.tsx
 └── index.ts
 
-18 directories, 64 files
+19 directories, 71 files

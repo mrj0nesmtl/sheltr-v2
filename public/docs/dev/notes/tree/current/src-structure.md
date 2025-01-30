@@ -1,5 +1,5 @@
 # 🌳 SHELTR Source Structure
-*Generated: 2025-01-29 17:40:01*
+*Generated: 2025-01-30 11:04:40*
 \n## Directory Structure
 ./src
 ├── auth
@@ -138,6 +138,7 @@
 │   ├── Verify
 │   │   └── VerifyPage.tsx
 │   ├── charts
+│   │   ├── AreaChart.tsx
 │   │   └── LineChart.tsx
 │   ├── layouts
 │   │   └── index.ts
@@ -461,9 +462,17 @@
 │   │   └── Settings.tsx
 │   ├── Impact
 │   │   ├── components
+│   │   │   ├── AnalyticsSection.tsx
+│   │   │   ├── GlobalImpactSection.tsx
 │   │   │   ├── ImpactMobileNav.tsx
-│   │   │   └── ImpactSidebar.tsx
-│   │   └── Impact.tsx
+│   │   │   ├── ImpactSidebar.tsx
+│   │   │   ├── PlatformStatusSection.tsx
+│   │   │   ├── TokenMetricsSection.tsx
+│   │   │   └── TransactionsSection.tsx
+│   │   ├── layout
+│   │   │   └── ImpactLayout.tsx
+│   │   ├── Impact.tsx
+│   │   └── index.ts
 │   ├── SuperAdmin
 │   │   ├── components
 │   │   │   └── index.ts
@@ -557,4 +566,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-172 directories, 383 files
+173 directories, 391 files

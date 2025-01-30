@@ -1,5 +1,5 @@
 # 🌳 SHELTR Documentation Structure
-*Generated: 2025-01-29 17:40:01*
+*Generated: 2025-01-30 11:04:40*
 \n## Directory Structure
 ./public/docs
 ├── about
@@ -9,6 +9,8 @@
 │   ├── README.md
 │   ├── api.md
 │   ├── architecture.md
+│   ├── best-practices.md
+│   ├── components.md
 │   ├── overview.md
 │   ├── rbac.md
 │   ├── security.md
@@ -47,4 +49,4 @@
 └── wiki
     └── overview.md
 
-13 directories, 32 files
+13 directories, 34 files

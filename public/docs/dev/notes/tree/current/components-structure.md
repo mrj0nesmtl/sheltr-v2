@@ -1,5 +1,5 @@
 # 🌳 SHELTR Components Structure
-*Generated: 2025-01-29 17:40:01*
+*Generated: 2025-01-30 11:04:40*
 \n## Directory Structure
 ./src/components
 ├── About
@@ -122,6 +122,7 @@
 ├── Verify
 │   └── VerifyPage.tsx
 ├── charts
+│   ├── AreaChart.tsx
 │   └── LineChart.tsx
 ├── layouts
 │   └── index.ts
@@ -177,4 +178,4 @@
 ├── ScrollToTop.tsx
 └── ThemeToggle.tsx
 
-45 directories, 130 files
+45 directories, 131 files

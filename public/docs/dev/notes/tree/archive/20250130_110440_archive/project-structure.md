@@ -1,5 +1,5 @@
 # 🌳 SHELTR Project Structure
-*Generated: 2025-01-30 11:04:41*
+*Generated: 2025-01-29 17:40:01*
 *Version: 0.4.9*
 
 ## Table of Contents
@@ -11,7 +11,7 @@
 6. [Technical Structures](#technical-structures)
 
 \n---\n
-*Generated: 2025-01-30 11:04:41*
+*Generated: 2025-01-29 17:40:01*
 \n## Directory Structure
 ./src/auth
 ├── components
@@ -31,7 +31,7 @@
 
 6 directories, 9 files
 \n---\n
-*Generated: 2025-01-30 11:04:40*
+*Generated: 2025-01-29 17:40:01*
 \n## Directory Structure
 ./src/components
 ├── About
@@ -154,7 +154,6 @@
 ├── Verify
 │   └── VerifyPage.tsx
 ├── charts
-│   ├── AreaChart.tsx
 │   └── LineChart.tsx
 ├── layouts
 │   └── index.ts
@@ -210,9 +209,9 @@
 ├── ScrollToTop.tsx
 └── ThemeToggle.tsx
 
-45 directories, 131 files
+45 directories, 130 files
 \n---\n
-*Generated: 2025-01-30 11:04:40*
+*Generated: 2025-01-29 17:40:01*
 \n## Directory Structure
 ./public/docs
 ├── about
@@ -222,8 +221,6 @@
 │   ├── README.md
 │   ├── api.md
 │   ├── architecture.md
-│   ├── best-practices.md
-│   ├── components.md
 │   ├── overview.md
 │   ├── rbac.md
 │   ├── security.md
@@ -262,9 +259,9 @@
 └── wiki
     └── overview.md
 
-13 directories, 34 files
+13 directories, 32 files
 \n---\n
-*Generated: 2025-01-30 11:04:40*
+*Generated: 2025-01-29 17:40:01*
 \n## Directory Structure
 ./src/features
 ├── auth
@@ -399,7 +396,7 @@
 
 69 directories, 61 files
 \n---\n
-*Generated: 2025-01-30 11:04:41*
+*Generated: 2025-01-29 17:40:01*
 \n## Directory Structure
 ./src/layouts
 ├── base
@@ -423,7 +420,7 @@
 
 9 directories, 10 files
 \n---\n
-*Generated: 2025-01-30 11:04:40*
+*Generated: 2025-01-29 17:40:01*
 \n## Directory Structure
 .
 ├── public
@@ -634,7 +631,6 @@
 │   │   ├── Supabase Snippet Export Auth Configuration.csv
 │   │   ├── Supabase Snippet Export Auth Users Data.csv
 │   │   ├── Supabase Snippet Export User Activity Audit Logs.csv
-│   │   ├── Supabase Snippet List of Public Tables.csv
 │   │   ├── Supabase Snippet Role Mapping Export.csv
 │   │   ├── donor_profiles_rows.csv
 │   │   ├── organization_staff_rows (1).csv
@@ -669,9 +665,9 @@
 ├── vite.config.ts
 └── vitest.config.ts
 
-118 directories, 125 files
+118 directories, 124 files
 \n---\n
-*Generated: 2025-01-30 11:04:41*
+*Generated: 2025-01-29 17:40:01*
 \n## Directory Structure
 ./src/pages
 ├── About
@@ -711,17 +707,9 @@
 │   └── Settings.tsx
 ├── Impact
 │   ├── components
-│   │   ├── AnalyticsSection.tsx
-│   │   ├── GlobalImpactSection.tsx
 │   │   ├── ImpactMobileNav.tsx
-│   │   ├── ImpactSidebar.tsx
-│   │   ├── PlatformStatusSection.tsx
-│   │   ├── TokenMetricsSection.tsx
-│   │   └── TransactionsSection.tsx
-│   ├── layout
-│   │   └── ImpactLayout.tsx
-│   ├── Impact.tsx
-│   └── index.ts
+│   │   └── ImpactSidebar.tsx
+│   └── Impact.tsx
 ├── SuperAdmin
 │   ├── components
 │   │   └── index.ts
@@ -764,9 +752,9 @@
 ├── debug.tsx
 └── index.ts
 
-19 directories, 71 files
+18 directories, 64 files
 \n---\n
-*Generated: 2025-01-30 11:04:40*
+*Generated: 2025-01-29 17:40:01*
 \n## Directory Structure
 ./src
 ├── auth
@@ -905,7 +893,6 @@
 │   ├── Verify
 │   │   └── VerifyPage.tsx
 │   ├── charts
-│   │   ├── AreaChart.tsx
 │   │   └── LineChart.tsx
 │   ├── layouts
 │   │   └── index.ts
@@ -1229,17 +1216,9 @@
 │   │   └── Settings.tsx
 │   ├── Impact
 │   │   ├── components
-│   │   │   ├── AnalyticsSection.tsx
-│   │   │   ├── GlobalImpactSection.tsx
 │   │   │   ├── ImpactMobileNav.tsx
-│   │   │   ├── ImpactSidebar.tsx
-│   │   │   ├── PlatformStatusSection.tsx
-│   │   │   ├── TokenMetricsSection.tsx
-│   │   │   └── TransactionsSection.tsx
-│   │   ├── layout
-│   │   │   └── ImpactLayout.tsx
-│   │   ├── Impact.tsx
-│   │   └── index.ts
+│   │   │   └── ImpactSidebar.tsx
+│   │   └── Impact.tsx
 │   ├── SuperAdmin
 │   │   ├── components
 │   │   │   └── index.ts
@@ -1333,4 +1312,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-173 directories, 391 files
+172 directories, 383 files
