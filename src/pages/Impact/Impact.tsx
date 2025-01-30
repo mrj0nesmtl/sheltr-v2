@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ImpactHeader } from './components/ImpactHeader';
 import { ImpactSidebar } from './components/ImpactSidebar';
@@ -9,10 +9,16 @@ import { TransactionRow } from '@/components/Transactions/TransactionRow';
 import { GlobalDonationMap } from '@/features/dashboard/roles/shelter-admin/components/GlobalDonationMap';
 import { PieChart, LineChart } from '@/features/shared/analytics/charts';
 import { SystemStatus } from '@/components/metrics/SystemStatus';
-import { useEffect } from 'react';
-import { usePlatformStatus } from '@/services/platformStatus';
-import { Home, Building2, Users, TrendingUp, Server, Activity, Shield, Database, History } from 'lucide-react';
+import { Home, Building2, Users, TrendingUp, Server, Activity, Shield, Database, History, BarChart3, Globe2, Coins } from 'lucide-react';
 import { MetricCard } from '@/features/dashboard/shared/analytics/metrics/MetricCard';
+import impactBg from '/images/backgrounds/impact-bg.jpg';
+import { ImpactLayout } from './layout/ImpactLayout';
+import { TokenMetricsSection } from './components/TokenMetricsSection';
+import { GlobalImpactSection } from './components/GlobalImpactSection';
+import { TransactionsSection } from './components/TransactionsSection';
+import { PlatformStatusSection } from './components/PlatformStatusSection';
+import { usePlatformStatus } from '@/services/platformStatus';
+import { AnalyticsSection } from './components/AnalyticsSection';
 
 // Add shelter locations data
 const SHELTER_LOCATIONS = [
@@ -94,73 +100,105 @@ const recentTransactions = [
   }
 ];
 
+// Update the hero section styling
+const heroSection = (
+  <div 
+    className="relative overflow-hidden bg-cover bg-center bg-no-repeat h-[50vh]"
+    style={{
+      backgroundImage: 'url("/images/backgrounds/impact-bg.jpg")',
+    }}
+  >
+    {/* Dark gradient overlay */}
+    <div className="absolute inset-0 bg-gradient-to-b from-gray-900/70 via-gray-900/80 to-gray-900/95" />
+    
+    <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="max-w-3xl"
+      >
+        <h1 className="text-6xl font-bold text-white mb-6 tracking-tight">
+          Impact
+        </h1>
+        <p className="text-xl text-gray-300 max-w-2xl">
+          Tracking real change in our community through transparent data
+        </p>
+      </motion.div>
+    </div>
+  </div>
+);
+
+// Update platform stats styling
+const platformStats = [
+  {
+    title: 'System Status',
+    value: 'Operational',
+    status: 'success',
+    icon: Server,
+    gradient: 'from-emerald-500/20 to-teal-500/20'
+  },
+  {
+    title: 'Response Time',
+    value: '134ms',
+    status: 'good',
+    icon: Activity,
+    gradient: 'from-blue-500/20 to-cyan-500/20'
+  },
+  {
+    title: 'Network Health',
+    value: '99.9%',
+    status: 'good',
+    icon: Shield,
+    gradient: 'from-violet-500/20 to-purple-500/20'
+  },
+  {
+    title: 'API Status',
+    value: 'Healthy',
+    status: 'success',
+    icon: Database,
+    gradient: 'from-rose-500/20 to-pink-500/20'
+  }
+];
+
+// Enhanced metrics data with better styling
+const metrics = [
+  {
+    title: 'Participants Housed',
+    value: '1,234',
+    change: '+12.3%',
+    icon: Home,
+    gradient: 'from-blue-600/20 to-indigo-600/20',
+    trend: 'up'
+  },
+  {
+    title: 'Cities and Towns',
+    value: '48',
+    change: '+4 new',
+    icon: Building2,
+    gradient: 'from-emerald-600/20 to-teal-600/20',
+    trend: 'up'
+  },
+  {
+    title: 'Lives Impacted',
+    value: '5,678',
+    change: '+23.5%',
+    icon: Users,
+    gradient: 'from-violet-600/20 to-purple-600/20',
+    trend: 'up'
+  },
+  {
+    title: 'Donation Increase',
+    value: '$789K',
+    change: '+45.9%',
+    icon: TrendingUp,
+    gradient: 'from-rose-600/20 to-pink-600/20',
+    trend: 'up'
+  }
+];
+
 export default function Impact() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const { version, systemStatus, fetchStatus } = usePlatformStatus();
-
-  // Add platformStats data
-  const platformStats = [
-    {
-      title: 'System Status',
-      value: 'Operational',
-      status: 'success',
-      icon: Server
-    },
-    {
-      title: 'Response Time',
-      value: '134ms',
-      status: 'good',
-      icon: Activity
-    },
-    {
-      title: 'Network Health',
-      value: '99.9%',
-      status: 'success',
-      icon: Shield
-    },
-    {
-      title: 'API Status',
-      value: 'Healthy',
-      status: 'success',
-      icon: Database
-    }
-  ];
-
-  // Define metrics here
-  const metrics = [
-    {
-      title: 'Participants Housed',
-      value: '1,234',
-      change: '+12%',
-      icon: Home,
-      color: 'text-emerald-400',
-      bgColor: 'bg-emerald-400/10'
-    },
-    {
-      title: 'Cities and Towns',
-      value: '48',
-      change: '+8%',
-      icon: Building2,
-      color: 'text-blue-400',
-      bgColor: 'bg-blue-400/10'
-    },
-    {
-      title: 'Lives Impacted',
-      value: '5,678',
-      change: '+23%',
-      icon: Users,
-      color: 'text-purple-400',
-      bgColor: 'bg-purple-400/10'
-    },
-    {
-      title: 'Donation Increase',
-      value: '$789K',
-      change: '+15%',
-      icon: TrendingUp,
-      color: 'text-indigo-400',
-      bgColor: 'bg-indigo-400/10'
-    }
-  ];
+  const { fetchStatus } = usePlatformStatus();
 
   useEffect(() => {
     fetchStatus();
@@ -169,122 +207,28 @@ export default function Impact() {
   }, [fetchStatus]);
 
   return (
-    <div 
-      className="min-h-screen bg-gray-900 relative"
-      style={{
-        backgroundImage: `url('/images/backgrounds/impact-bg.jpg')`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-      }}
-    >
-      {/* Add a darker overlay for better readability */}
-      <div className="absolute inset-0 bg-gray-900/90 backdrop-blur-[2px]" />
-      
-      {/* Mobile Navigation */}
-      <ImpactMobileNav 
-        sidebarOpen={sidebarOpen} 
-        setSidebarOpen={setSidebarOpen} 
+    <div className="relative min-h-screen bg-gray-900">
+      <div 
+        className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url(${impactBg})`,
+          opacity: 0.2,
+        }}
       />
 
-      {/* Sidebar */}
-      <ImpactSidebar 
-        className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col" 
-      />
-
-      {/* Main Content */}
-      <div className="lg:pl-64">
-        {/* Hero Section */}
-        <div className="relative overflow-hidden">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-center"
-            >
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8">
-                Impact
-              </h1>
-              <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
-                Tracking real change in our community through transparent data
-              </p>
-            </motion.div>
-          </div>
-        </div>
-
-        <main className="relative z-10">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {/* Platform Status */}
-            <section id="platform-status" className="py-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {platformStats.map((stat, index) => (
-                  <div key={stat.title} className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-6">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        <stat.icon className="w-5 h-5 text-gray-400" />
-                        <h3 className="text-sm font-medium text-gray-400">{stat.title}</h3>
-                      </div>
-                      <span className={`px-2 py-1 text-xs rounded-full ${
-                        stat.status === 'success' ? 'bg-green-500/10 text-green-400' :
-                        stat.status === 'good' ? 'bg-blue-500/10 text-blue-400' :
-                        'bg-yellow-500/10 text-yellow-400'
-                      }`}>
-                        {stat.value}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* Metrics Overview */}
-            <section id="metrics" className="py-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {metrics.map((metric, index) => (
-                  <MetricCard 
-                    key={metric.title}
-                    {...metric}
-                    index={index}
-                  />
-                ))}
-              </div>
-            </section>
-
-            {/* Global Impact */}
-            <section id="global-impact" className="py-6">
-              <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-6">
-                <h2 className="text-xl font-bold text-white mb-6">Global Impact</h2>
-                <GlobalDonationMap locations={SHELTER_LOCATIONS} />
-              </div>
-            </section>
-
-            {/* Token Metrics */}
-            <section id="token" className="py-6">
-              <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-6">
-                <h2 className="text-xl font-bold text-white mb-6">Token Metrics</h2>
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                  {/* Keep existing token metrics */}
-                  {/* ... */}
-                </div>
-              </div>
-            </section>
-
-            {/* Transaction History */}
-            <section id="transactions" className="py-6">
-              <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-6">
-                <h2 className="text-xl font-bold text-white mb-6 flex items-center">
-                  <History className="w-6 h-6 mr-2" />
-                  Recent Transactions
-                </h2>
-                <div className="space-y-4">
-                  {recentTransactions.map((tx) => (
-                    <TransactionRow key={tx.id} {...tx} />
-                  ))}
-                </div>
-              </div>
-            </section>
-          </div>
-        </main>
+      <div className="relative z-10">
+        <ImpactLayout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+          {/* Main Content */}
+          <main className="relative">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <AnalyticsSection />
+              <GlobalImpactSection />
+              <TransactionsSection />
+              <TokenMetricsSection />
+              <PlatformStatusSection />
+            </div>
+          </main>
+        </ImpactLayout>
       </div>
     </div>
   );

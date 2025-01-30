@@ -1,14 +1,20 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+// General utility functions
+export { cn, formatDate } from '@/features/shared/maps/utils';
+
+// Add any additional general utilities here
+export function formatCurrency(amount: number) {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD'
+  }).format(amount);
 }
 
-export function formatDate(date: string) {
-  return new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  }).format(new Date(date));
+export function formatPercent(value: number) {
+  return new Intl.NumberFormat('en-US', {
+    style: 'percent',
+    minimumFractionDigits: 1
+  }).format(value / 100);
 }

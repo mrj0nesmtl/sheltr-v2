@@ -2,26 +2,26 @@ import { AnalyticsTheme } from '../types';
 
 export const analyticsTheme: AnalyticsTheme = {
   colors: {
-    primary: ['#818cf8', '#6366f1', '#4f46e5', '#4338ca', '#3730a3'],
-    secondary: ['#10b981', '#34d399', '#6ee7b7', '#34d399', '#059669'],
-    accent: ['#fcd34d', '#fbbf24', '#f59e0b', '#d97706', '#b45309'],
-    error: ['#ef4444', '#dc2626', '#b91c1c'],
-    warning: ['#f59e0b', '#d97706', '#b45309'],
+    primary: ['#6366f1', '#4f46e5', '#4338ca'],
+    secondary: ['#a855f7', '#9333ea', '#7e22ce'],
     success: ['#22c55e', '#16a34a', '#15803d'],
+    warning: ['#eab308', '#ca8a04', '#a16207'],
+    error: ['#ef4444', '#dc2626', '#b91c1c'],
+    accent: ['#fcd34d', '#fbbf24', '#f59e0b', '#d97706', '#b45309'],
     background: 'rgb(17 24 39)',
     text: {
-      primary: 'rgb(255 255 255)',
-      secondary: 'rgb(156 163 175)',
+      primary: '#f9fafb',
+      secondary: '#9ca3af',
       muted: 'rgb(107 114 128)'
     }
   },
   charts: {
     grid: {
-      stroke: 'rgba(255, 255, 255, 0.1)',
+      stroke: '#374151',
       strokeDasharray: '3 3'
     },
     tooltip: {
-      background: 'rgba(17, 24, 39, 0.9)',
+      background: '#1f2937',
       border: '#374151',
       boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
       borderRadius: '6px'

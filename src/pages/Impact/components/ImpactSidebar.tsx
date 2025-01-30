@@ -10,34 +10,34 @@ import { cn } from '@/lib/utils';
 
 const navigation = [
   { 
-    id: 'metrics',
+    id: 'analytics-section',
     label: 'Analytics',
     icon: BarChart3,
-    iconColor: 'text-indigo-400', // Analytics - Purple/Indigo
-  },
-  { 
-    id: 'platform-status',
-    label: 'Platform Status',
-    icon: Activity,
-    iconColor: 'text-emerald-400', // Status - Green
+    iconColor: 'text-indigo-400',
   },
   { 
     id: 'global-impact',
     label: 'Global Impact',
     icon: Globe2,
-    iconColor: 'text-sky-400', // Global - Blue
+    iconColor: 'text-sky-400',
   },
   { 
     id: 'transactions',
     label: 'Transactions',
     icon: History,
-    iconColor: 'text-violet-400', // Transactions - Purple
+    iconColor: 'text-violet-400',
   },
   { 
     id: 'token',
     label: 'Token Metrics',
     icon: Coins,
-    iconColor: 'text-amber-400', // Token - Gold/Yellow
+    iconColor: 'text-amber-400',
+  },
+  { 
+    id: 'platform-status',
+    label: 'Platform Status',
+    icon: Activity,
+    iconColor: 'text-emerald-400',
   },
 ];
 
