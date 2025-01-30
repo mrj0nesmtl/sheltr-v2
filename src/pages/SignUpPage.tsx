@@ -15,8 +15,8 @@ export default function SignUpPage() {
   const handleDonorSubmit = async (data: DonorFormType) => {
     setIsSubmitting(true);
     try {
-      // Handle donor signup
-      console.log('Donor signup:', data);
+      // The actual submission is now handled in DonorSignUpForm
+      console.log('Donor signup initiated:', data);
     } catch (error) {
       console.error('Signup error:', error);
     } finally {

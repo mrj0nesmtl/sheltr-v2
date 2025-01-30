@@ -71,15 +71,58 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         return;
       }
 
-      const { role, organizationId } = await getUserRole(session.user.id);
+      const user = session.user;
+      console.debug('Auth State Change - User:', user?.id, 'Metadata:', user?.user_metadata);
+
+      // Get role first
+      const { role, organizationId } = await getUserRole(user.id);
+      
+      // Handle donor profile creation specifically for new donors
+      if (role === 'donor') {
+        try {
+          // First check if donor profile exists
+          const { data: existingProfile, error: checkError } = await supabase
+            .from('donor_profiles')
+            .select('id')
+            .eq('user_id', user.id)
+            .single();
+
+          if (!existingProfile && !checkError) {
+            console.debug('Creating donor profile for:', user.id);
+            
+            // Create donor profile
+            const { error: createError } = await supabase
+              .from('donor_profiles')
+              .insert({
+                user_id: user.id,
+                display_name: user.user_metadata?.display_name || user.email?.split('@')[0],
+                email: user.email,
+                social_links: {},
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString()
+              });
+
+            if (createError) {
+              console.error('Failed to create donor profile:', createError);
+            } else {
+              console.debug('Donor profile created successfully');
+            }
+          }
+        } catch (profileError) {
+          console.error('Error handling donor profile:', profileError);
+        }
+      }
+
+      // Update auth state after profile handling
       batchAuthStateUpdates({
-        user: session.user,
+        user,
         role,
         organizationId,
         isAuthenticated: true,
         hasInitialized: true,
         isInitializing: false
       });
+
     } catch (error) {
       console.error('Auth state change error:', error);
       batchAuthStateUpdates({

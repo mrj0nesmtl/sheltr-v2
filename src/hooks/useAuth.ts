@@ -16,6 +16,15 @@ export const useAuth = () => {
 
   const getUserRole = useCallback(async (userId: string) => {
     try {
+      // First get the user's metadata to check their assigned role
+      const { data: { user } } = await supabase.auth.getUser();
+      const assignedRole = user?.user_metadata?.role;
+
+      if (!assignedRole) {
+        throw new Error('No role assigned in user metadata');
+      }
+
+      // Get or create profile with the correct role
       const { data: profileData, error: profileError } = await supabase
         .from('profiles')
         .select('role, id, organization_id')
@@ -23,11 +32,12 @@ export const useAuth = () => {
         .maybeSingle();
 
       if (!profileData && !profileError) {
+        // Create new profile with the assigned role
         const { data: newProfile, error: createError } = await supabase
           .from('profiles')
           .insert([{
             id: userId,
-            role: AUTH_ROLES.SHELTER_ADMIN,
+            role: assignedRole, // Use the explicitly assigned role
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString()
           }])
@@ -42,17 +52,18 @@ export const useAuth = () => {
         };
       }
 
+      // Verify role matches
+      if (profileData?.role !== assignedRole) {
+        console.error('Role mismatch between profile and metadata');
+      }
+
       return {
-        role: profileData?.role || AUTH_ROLES.SHELTER_ADMIN,
+        role: profileData?.role || assignedRole,
         organizationId: profileData?.organization_id
       };
     } catch (e) {
       console.error('❌ Role resolution error:', e);
-      return { 
-        role: AUTH_ROLES.SHELTER_ADMIN,
-        organizationId: null,
-        error: e instanceof Error ? e.message : 'Unknown error'
-      };
+      throw new Error('Unable to resolve user role');
     }
   }, []);
 

@@ -1,71 +1,77 @@
 # 📝 SHELTR Changelog
-*Last Updated: January 29, 2024 16:45 EST*
-*Version: 0.6.7*
-*Status: STABLE* 🟢
+*Last Updated: January 30, 2024 13:00 EST*
+*Version: 0.6.8*
+*Status: IN PROGRESS* 🟡
 
-## Current Version (0.6.7)
+## Current Version (0.6.8)
 
 ### Release Notes
-Enhanced Shelter Admin dashboard with improved UI components, map functionality, and dark theme optimizations. Fixed critical UI visibility issues and implemented proper header components.
+Implementing donor registration flow and dashboard access. Successfully completed email verification and base profile creation, working on resolving role-based dashboard access.
 
 ### Changelog
 #### Added
-- Shelter Admin dashboard header component
-- Shelter location maps with custom markers
-- Shelter selector component
-- Dark theme optimizations
-- Custom shelter marker icons
+- Donor registration flow
+- Email verification system
+- Base profile creation
+- Donor profile schema
+- Role-based routing logic
 
 #### Changed
-- Enhanced MetricCard dark theme contrast
-- Improved dashboard layout structure
-- Updated navigation components
-- Optimized map implementations
-- Refined UI component styling
+- Enhanced AuthProvider role handling
+- Updated useAuth hook for role resolution
+- Modified profile creation flow
+- Improved error handling
+- Enhanced debugging logs
 
 #### Fixed
-- Dark text visibility in MetricCards
-- Missing header components
-- Map marker implementations
-- Component mounting issues
-- Navigation routing
+- Email verification routing
+- Base profile creation
+- Auth state management
+- Session handling
+- Registration cooldown
 
 #### Security
 - Maintained role-based access control
+- Enhanced email verification
 - Protected route validation
 - Session management integrity
+- Profile access controls
 
 ## Version History
 
-### 0.6.6 (January 24, 2024) - STABLE
+### 0.6.7 (January 29, 2024) - STABLE 🟢
 #### Notes
-Successfully implemented role-based dashboard access with complete Super Admin authentication flow and component restructuring.
+Enhanced Shelter Admin dashboard with improved UI components, map functionality, and dark theme optimizations.
 
-### 0.6.5 (January 20, 2024) - STABLE
+### 0.6.6 (January 24, 2024) - STABLE 🟢
+#### Notes
+Successfully implemented role-based dashboard access with complete Super Admin authentication flow.
+
+### 0.6.5 (January 20, 2024) - STABLE 🟢
 #### Notes
 Documentation update and security enhancements.
 
-### 0.6.4 (January 15, 2024) - STABLE
+### 0.6.4 (January 15, 2024) - STABLE 🟢
 #### Notes
 Navigation system overhaul and component optimization.
 
-### 0.6.3 (January 10, 2024) - STABLE
+### 0.6.3 (January 10, 2024) - STABLE 🟢
 #### Notes
 Security implementation and performance optimization.
 
-### 0.6.2 (January 5, 2024) - STABLE
+### 0.6.2 (January 5, 2024) - STABLE 🟢
 #### Notes
 Initial security and monitoring setup.
 
-## Upcoming Features (0.6.8)
-1. Enhanced analytics dashboard
-2. Real-time blockchain monitoring
-3. Advanced user management
-4. Extended role capabilities
-5. Performance optimization
-6. Extended documentation
-7. Testing automation
-8. Deployment optimization
+## Upcoming Features (0.6.9)
+1. Complete donor dashboard access
+2. Enhanced donor profile management
+3. Donation tracking system
+4. Impact visualization
+5. Social connections
+6. Notification system
+7. Activity tracking
+8. Performance monitoring
 
 ---
 *For implementation details, see [implementation.md](./implementation.md)*

@@ -24,6 +24,7 @@ import {
   ImpactCircleInvite, 
   ShelterFollowNotification 
 } from '@/features/social/types';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   onBack: () => void;
@@ -192,10 +193,13 @@ const initializeSocialSystems = async (data: SocialInitializationData) => {
   }
 };
 
-export const DonorSignUpForm = ({ onBack, isSubmitting, onSubmit }: Props) => {
+export const DonorSignUpForm = ({ onBack, isSubmitting: formSubmitting, onSubmit }: Props) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
   const [isStepLoading, setIsStepLoading] = useState(false);
+  const [submitAttemptTime, setSubmitAttemptTime] = useState<number | null>(null);
+  const [cooldownRemaining, setCooldownRemaining] = useState(0);
+  const navigate = useNavigate();
 
   const { register, handleSubmit, formState: { errors }, watch, reset, getValues } = useForm<DonorSignUpFormData>({
     resolver: zodResolver(donorSignUpSchema),
@@ -442,89 +446,51 @@ export const DonorSignUpForm = ({ onBack, isSubmitting, onSubmit }: Props) => {
     }
   };
 
-  // Renamed from handleSubmit to onFormSubmit
-  const onFormSubmit = async (data: DonorSignUpFormData) => {
+  const processSubmit = async (data: DonorSignUpFormData) => {
+    const now = Date.now();
+    const cooldownPeriod = 16000;
+    
+    if (submitAttemptTime && (now - submitAttemptTime) < cooldownPeriod) {
+      const remaining = Math.ceil((cooldownPeriod - (now - submitAttemptTime)) / 1000);
+      toast.error(`Please wait ${remaining} seconds before trying again`);
+      setCooldownRemaining(remaining);
+      return;
+    }
+    
+    setSubmitAttemptTime(now);
+    
     try {
-      // 1. Create auth user
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email: data.email,
         password: data.password,
         options: {
           data: {
-            role: AUTH_ROLES.DONOR,
-            display_name: data.display_name
-          }
+            role: 'donor',
+            display_name: data.display_name,
+            user_metadata: {
+              role: 'donor',
+              display_name: data.display_name,
+              social_preferences: data.social_preferences
+            }
+          },
+          emailRedirectTo: `${window.location.origin}/auth/callback?role=donor`
         }
       });
 
       if (authError) throw authError;
 
-      const timestamp = new Date().toISOString();
-
-      // 2. Create donor profile
-      const { error: profileError } = await supabase
-        .from('donor_profiles')
-        .insert({
-          user_id: authData.user?.id,
-          display_name: data.display_name,
+      navigate('/registration-confirmation', { 
+        state: { 
           email: data.email,
-          social_links: {},
-          created_at: timestamp,
-          updated_at: timestamp
-        });
-
-      if (profileError) throw profileError;
-
-      // 3. Initialize donor stats
-      const { error: statsError } = await supabase
-        .from('donor_stats')
-        .insert({
-          donor_id: authData.user?.id,
-          anonymous_donations: data.donation_preferences?.anonymous_donations ?? false,
-          current_streak: 0,
-          longest_streak: 0,
-          last_donation_date: null,
-          total_donated: 0,
-          donation_count: 0,
-          impact_score: 0,
-          people_helped: 0,
-          notification_frequency: data.notification_preferences?.frequency ?? 'weekly',
-          preferred_causes: data.donation_preferences?.preferred_causes ?? [],
-          created_at: timestamp,
-          updated_at: timestamp
-        });
-
-      if (statsError) throw statsError;
-
-      // 4. Initialize social connections
-      const { error: socialError } = await supabase
-        .from('donor_social_connections')
-        .insert({
-          donor_id: authData.user?.id,
-          connected_donors: [],
-          followed_shelters: [],
-          impact_circle: [],
-          created_at: timestamp,
-          updated_at: timestamp
-        });
-
-      if (socialError) throw socialError;
-
-      // Initialize social systems
-      await initializeSocialSystems({
-        donor_id: authData.user?.id as string,
-        display_name: data.display_name,
-        email: data.email,
-        social_preferences: data.social_preferences
+          role: 'donor',
+          display_name: data.display_name
+        },
+        replace: true
       });
 
-      // Add social onboarding notification
-      toast.success('Account created! Check your notifications for next steps.');
-      
     } catch (error) {
       console.error('Signup error:', error);
-      toast.error('Failed to create account');
-      throw error;
+      toast.error(error.message || 'Failed to create account');
     }
   };
 
@@ -567,7 +533,7 @@ export const DonorSignUpForm = ({ onBack, isSubmitting, onSubmit }: Props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onFormSubmit)} className="space-y-8">
+    <form onSubmit={handleSubmit(processSubmit)} className="space-y-8">
       <button 
         type="button"
         onClick={onBack}
@@ -615,14 +581,16 @@ export const DonorSignUpForm = ({ onBack, isSubmitting, onSubmit }: Props) => {
         ) : (
           <Button
             type="submit"
-            disabled={isSubmitting || isStepLoading}
+            disabled={formSubmitting || cooldownRemaining > 0}
             className="bg-indigo-600 hover:bg-indigo-700"
           >
-            {isSubmitting ? (
-              <>
-                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                Creating Account...
-              </>
+            {formSubmitting ? (
+              <span className="flex items-center gap-2">
+                <Loader2 className="h-4 w-4 animate-spin" />
+                Processing...
+              </span>
+            ) : cooldownRemaining > 0 ? (
+              `Wait ${cooldownRemaining}s`
             ) : (
               'Complete Registration'
             )}
