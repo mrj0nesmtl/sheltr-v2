@@ -1,6 +1,6 @@
 # 🛠️ SHELTR Implementation Guide
-*Last Updated: January 20, 2024 22:45 EST*
-*Version: 0.6.4*
+*Last Updated: January 30, 2024 13:30 EST*
+*Version: 0.6.8*
 
 ## Technical Implementation
 
@@ -10,10 +10,16 @@ sheltr-v2/
 ├── src/
 │   ├── components/
 │   │   ├── Auth/
+│   │   │   ├── forms/
+│   │   │   └── providers/
 │   │   ├── Navigation/
 │   │   └── shared/
 │   ├── features/
 │   │   ├── dashboard/
+│   │   │   └── roles/
+│   │   │       ├── donor/
+│   │   │       ├── shelter/
+│   │   │       └── super/
 │   │   └── roles/
 │   ├── pages/
 │   └── utils/
@@ -32,7 +38,14 @@ interface AuthImplementation {
   security: {
     mfa: true,
     roleValidation: true,
-    sessionManagement: true
+    sessionManagement: true,
+    emailVerification: true,
+    profileCreation: true
+  },
+  roles: {
+    superAdmin: 'COMPLETE',
+    shelterAdmin: 'COMPLETE',
+    donor: 'IN_PROGRESS'
   }
 }
 ```
@@ -44,12 +57,15 @@ interface NavigationImplementation {
   features: [
     'path-validation',
     'state-management',
-    'performance-monitoring'
+    'performance-monitoring',
+    'role-resolution',
+    'dashboard-routing'
   ],
   security: {
     roleChecks: true,
     pathValidation: true,
-    stateProtection: true
+    stateProtection: true,
+    profileValidation: true
   }
 }
 ```
@@ -61,12 +77,14 @@ interface ComponentImplementation {
   patterns: [
     'atomic-design',
     'compound-components',
-    'render-props'
+    'render-props',
+    'role-based-components'
   ],
   security: {
     accessControl: true,
     inputValidation: true,
-    outputSanitization: true
+    outputSanitization: true,
+    roleValidation: true
   }
 }
 ```
@@ -78,18 +96,24 @@ interface ComponentImplementation {
 - Path-based security
 - Component-level access
 - Data access control
+- Profile validation
+- Dashboard access control
 
 #### 2. Data Protection
 - End-to-end encryption
 - Secure storage
 - Access logging
 - Audit trails
+- Profile security
+- Role integrity
 
 #### 3. Form Security
 - Input validation
 - Output sanitization
 - CSRF protection
 - Rate limiting
+- Role verification
+- Profile validation
 
 ### Performance Optimization
 
@@ -98,18 +122,24 @@ interface ComponentImplementation {
 - State management
 - Code splitting
 - Lazy loading
+- Role-based routing
+- Profile-aware navigation
 
 #### 2. Component Performance
 - Memoization
 - Virtual scrolling
 - Image optimization
 - Bundle optimization
+- Role-based rendering
+- Conditional loading
 
 #### 3. Security Performance
 - Caching strategies
 - Validation optimization
 - Session management
 - Access control
+- Role resolution
+- Profile verification
 
 ### Monitoring Implementation
 
@@ -118,12 +148,16 @@ interface ComponentImplementation {
 - Component metrics
 - API metrics
 - Resource usage
+- Role resolution timing
+- Profile creation tracking
 
 #### 2. Security Monitoring
 - Authentication tracking
 - Authorization checks
 - Threat detection
 - Error logging
+- Role validation monitoring
+- Profile security auditing
 
 ### Testing Implementation
 
@@ -132,18 +166,24 @@ interface ComponentImplementation {
 - Utility tests
 - Hook tests
 - Service tests
+- Role resolution tests
+- Profile creation tests
 
 #### 2. Integration Testing
 - Feature tests
 - Workflow tests
 - API tests
 - Security tests
+- Role-based tests
+- Profile management tests
 
 #### 3. E2E Testing
 - User flows
 - Critical paths
 - Security scenarios
 - Performance tests
+- Role validation flows
+- Profile creation flows
 
 ### Deployment Process
 
@@ -157,6 +197,12 @@ npm run build
 
 # Preview production
 npm run preview
+
+# Test role resolution
+npm run test:roles
+
+# Validate profiles
+npm run test:profiles
 ```
 
 #### 2. Deployment Checklist
@@ -165,6 +211,8 @@ npm run preview
 - Documentation update
 - Version bump
 - Changelog update
+- Role validation
+- Profile verification
 
 ### Maintenance Guidelines
 
@@ -173,12 +221,16 @@ npm run preview
 - Dependency management
 - Security patches
 - Performance optimization
+- Role system updates
+- Profile system maintenance
 
 #### 2. Documentation Maintenance
 - Keep docs updated
 - Version tracking
 - Change logging
 - Implementation examples
+- Role documentation
+- Profile documentation
 
 ## Best Practices
 
@@ -187,18 +239,24 @@ npm run preview
 - Clean code
 - Performance first
 - Security focus
+- Role-based architecture
+- Profile-aware design
 
 ### 2. Security
 - Input validation
 - Access control
 - Data protection
 - Monitoring
+- Role integrity
+- Profile security
 
 ### 3. Performance
 - Optimization
 - Monitoring
 - Testing
 - Documentation
+- Role resolution
+- Profile management
 
 ## Troubleshooting
 
@@ -207,15 +265,21 @@ npm run preview
 2. Navigation issues
 3. Performance problems
 4. Security alerts
+5. Role resolution errors
+6. Profile creation issues
 
 ### Resolution Steps
 1. Check logs
 2. Review metrics
 3. Test security
 4. Validate performance
+5. Verify role assignment
+6. Confirm profile creation
 
 ---
 *For specific guides, see:*
 - [Security Guidelines](./security.md)
 - [Contributing Guide](./contributing.md)
-- [Monitoring Guide](./monitoring.md) 
+- [Monitoring Guide](./monitoring.md)
+- [Role Management](./roles.md)
+- [Profile System](./profiles.md) 
