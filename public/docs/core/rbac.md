@@ -1,10 +1,10 @@
 # 🔐 Role-Based Access Control
-*Last Updated: January 25, 2024 23:45 EST*
-*Version: 0.6.6*
+*Last Updated: January 29, 2024 16:45 EST*
+*Version: 0.6.7*
 *Status: STABLE* 🟢
 
 ## Situational Abstract
-Following successful implementation of the Super Admin dashboard and comprehensive role-based access control, the RBAC system now delivers enterprise-grade security with AI-powered monitoring and real-time analytics. Enhanced security measures include automated threat detection and advanced audit logging.
+Following successful implementation of both Super Admin and Shelter Admin dashboards with comprehensive role-based access control, the RBAC system now delivers enterprise-grade security with location-based services and mobile optimization. Enhanced security measures include map-based access control, mobile authentication, and location verification.
 
 ## Role Definitions
 ```typescript
@@ -28,6 +28,9 @@ interface RoleCapabilities {
     aiInsights: boolean; // AI-powered analytics
     blockchain: boolean; // Blockchain management
     audit: boolean;      // Advanced audit logging
+    mapAccess: boolean;    // Map configuration access
+    locationAdmin: boolean;// Location management
+    mobileConfig: boolean; // Mobile settings
   };
   shelterAdmin: {
     shelter: boolean;     // Shelter management
@@ -36,6 +39,10 @@ interface RoleCapabilities {
     analytics: boolean;   // Shelter analytics
     localization: boolean;// Content localization
     resources: boolean;   // Resource management
+    mapView: boolean;      // Map visualization
+    locations: boolean;    // Location management
+    markers: boolean;      // Custom marker management
+    mobileAccess: boolean; // Mobile dashboard access
   };
   donor: {
     donations: boolean;   // Donation capabilities
@@ -44,6 +51,9 @@ interface RoleCapabilities {
     impact: boolean;      // Impact metrics
     language: boolean;    // Language preferences
     tracking: boolean;    // Donation tracking
+    nearbyView: boolean;   // Nearby shelter view
+    directions: boolean;   // Navigation access
+    mobileTracking: boolean; // Mobile donation tracking
   };
   participant: {
     services: boolean;    // Service access
@@ -52,6 +62,8 @@ interface RoleCapabilities {
     progress: boolean;    // Progress tracking
     language: boolean;    // Language preferences
     documents: boolean;   // Document access
+    locationAccess: boolean; // Location services
+    mobileServices: boolean; // Mobile service access
   };
 }
 ```
@@ -61,16 +73,28 @@ interface RoleCapabilities {
 interface NavigationPermissions {
   public: {
     routes: ['/', '/about', '/contact', '/how-it-works'],
-    features: ['languageSwitch', 'basicContent', 'themeToggle']
+    features: ['languageSwitch', 'basicContent', 'themeToggle', 'mapView']
   },
   authenticated: {
     donor: {
-      routes: ['/dashboard/donor/:userId', '/profile', '/donations', '/impact'],
-      features: ['donationHistory', 'impactMetrics', 'donationTracking']
+      routes: [
+        '/dashboard/donor/:userId',
+        '/profile',
+        '/donations',
+        '/impact',
+        '/map/nearby'
+      ],
+      features: ['donationHistory', 'impactMetrics', 'donationTracking', 'locationAccess']
     },
     shelterAdmin: {
-      routes: ['/dashboard/shelter/:orgId', '/shelter', '/participants', '/resources'],
-      features: ['shelterManagement', 'documentUpload', 'resourceManagement']
+      routes: [
+        '/dashboard/shelter/:orgId',
+        '/shelter',
+        '/participants',
+        '/resources',
+        '/map/manage'
+      ],
+      features: ['shelterManagement', 'documentUpload', 'resourceManagement', 'locationManagement']
     },
     superAdmin: {
       routes: [
@@ -104,6 +128,11 @@ interface NavigationPermissions {
 | Language Management | ❌         | ❌    | 🔵           | ✅         |
 | Navigation Config   | ❌         | ❌    | ❌           | ✅         |
 | Security Monitoring | ❌         | ❌    | 🔵           | ✅         |
+| Map Access          | ✅         | ✅    | ✅           | ✅         |
+| Location Management | ❌         | ❌    | ✅           | ✅         |
+| Custom Markers      | ❌         | ❌    | ✅           | ✅         |
+| Mobile Access       | ✅         | ✅    | ✅           | ✅         |
+| Offline Mode        | ✅         | ✅    | ✅           | ✅         |
 
 *🔵 = Limited Access*
 
@@ -116,6 +145,8 @@ interface RBACSecurityConfig {
     navigation: boolean;
     content: boolean;
     ai: boolean;
+    location: boolean;
+    mobile: boolean;
   };
   caching: {
     permissions: boolean;
@@ -123,6 +154,8 @@ interface RBACSecurityConfig {
     timeout: number;
     revalidation: boolean;
     aiValidation: boolean;
+    offlineAccess: boolean;
+    locationData: boolean;
   };
   monitoring: {
     audit: boolean;
@@ -131,6 +164,8 @@ interface RBACSecurityConfig {
     realtime: boolean;
     aiDetection: boolean;
     blockchain: boolean;
+    locationTracking: boolean;
+    mobileMetrics: boolean;
   }
 }
 ```
@@ -143,7 +178,12 @@ interface RBACPerformance {
   permissionCheck: '< 5ms',
   cacheHitRate: '99.9%',
   auditLogLatency: '< 10ms',
-  realtimeUpdates: '< 50ms'
+  realtimeUpdates: '< 50ms',
+  mapLoad: '< 100ms',
+  markerUpdate: '< 50ms',
+  locationCheck: '< 30ms',
+  mobileResponse: '< 50ms',
+  offlineSync: '< 2s'
 }
 ```
 
@@ -158,24 +198,29 @@ interface RBACPerformance {
 - [✅] Improved threat detection
 - [✅] Enhanced role validation
 - [✅] Added predictive security
+- [✅] Added map integration
+- [✅] Implemented location services
+- [✅] Enhanced mobile access
+- [✅] Added offline capabilities
+- [✅] Optimized responsive design
 
 ## Next Steps
-1. Implement AI-driven role optimization
-2. Add blockchain-based audit trails
-3. Enhance predictive security
-4. Implement real-time analytics
-5. Add performance optimization
-6. Enhance monitoring systems
-7. Add automated responses
-8. Implement AI insights
+1. Enhance mobile optimization
+2. Expand map features
+3. Implement social features
+4. Extend location services
+5. Optimize mobile performance
+6. Add offline analytics
+7. Enhance map security
+8. Implement location-based insights
 
 ---
-*Updated with Super Admin implementation and enhanced security measures*
+*Updated with map integration and mobile optimization*
 *For implementation details, see [implementation.md](./implementation.md)*
 ```
 
 Key updates include:
-1. Version bump to 0.6.6
+1. Version bump to 0.6.7
 2. Added AI-powered insights
 3. Enhanced security monitoring
 4. Improved audit logging
@@ -185,6 +230,11 @@ Key updates include:
 8. Improved threat detection
 9. Enhanced role validation
 10. Added predictive security
+11. Added map integration
+12. Implemented location services
+13. Enhanced mobile access
+14. Added offline capabilities
+15. Optimized responsive design
 
 Would you like me to:
 1. Add more security details?

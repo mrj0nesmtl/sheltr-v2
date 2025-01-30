@@ -1,10 +1,10 @@
 # 🔌 SHELTR API Documentation
-*Last Updated: January 25, 2024 23:45 EST*
-*Version: 0.6.6*
+*Last Updated: January 29, 2024 16:45 EST*
+*Version: 0.6.7*
 *Status: STABLE* 🟢
 
 ## API Overview
-SHELTR's API provides enterprise-grade, role-based endpoints with real-time WebSocket support, blockchain integration, and AI-ready infrastructure. Enhanced security measures include advanced monitoring and automated threat detection.
+SHELTR's API provides enterprise-grade, role-based endpoints with map integration, location services, and mobile optimization. Enhanced features include custom markers, offline support, and location-based security.
 
 ## Base Configuration
 ```typescript
@@ -19,11 +19,14 @@ interface APIConfig {
   roleValidation: true,
   pathValidation: true,
   wsConnection: true,
-  aiReady: true,
+  locationServices: true,
+  mobileOptimized: true,
   monitoring: {
     enabled: true,
     performance: true,
-    security: true
+    security: true,
+    location: true,
+    mobile: true
   }
 }
 ```
@@ -130,6 +133,42 @@ interface AnalyticsEndpoints {
 }
 ```
 
+### Map & Location Services
+```typescript
+interface MapEndpoints {
+  getLocations: 'GET /map/locations',
+  updateMarker: 'PUT /map/markers/:id',
+  getNearby: 'GET /map/nearby/:lat/:lng',
+  searchArea: 'GET /map/search/:bounds',
+  customMarkers: 'POST /map/markers/custom',
+  validateLocation: 'POST /map/validate',
+  getDirections: 'GET /map/directions/:from/:to'
+}
+```
+
+### Mobile Optimization
+```typescript
+interface MobileEndpoints {
+  offlineSync: 'POST /mobile/sync',
+  optimizedAssets: 'GET /mobile/assets/:type',
+  touchEvents: 'POST /mobile/events',
+  locationUpdates: 'POST /mobile/location',
+  pushNotifications: 'POST /mobile/notifications',
+  cacheManagement: 'POST /mobile/cache'
+}
+```
+
+### Shelter Admin Dashboard
+```typescript
+interface ShelterAdminEndpoints {
+  locationManagement: 'GET /shelter/locations',
+  markerCustomization: 'PUT /shelter/markers',
+  serviceArea: 'GET /shelter/area',
+  mobileMetrics: 'GET /shelter/mobile/stats',
+  offlineData: 'GET /shelter/offline/sync'
+}
+```
+
 ## Response Formats
 ```typescript
 interface APIResponse<T> {
@@ -200,6 +239,21 @@ interface PerformanceMetrics {
   concurrency: {
     max: 1000,
     sustained: 500
+  },
+  mapLoad: {
+    p50: '< 80ms',
+    p95: '< 150ms',
+    p99: '< 200ms'
+  },
+  mobileResponse: {
+    p50: '< 40ms',
+    p95: '< 80ms',
+    p99: '< 120ms'
+  },
+  locationUpdate: {
+    p50: '< 30ms',
+    p95: '< 60ms',
+    p99: '< 100ms'
   }
 }
 ```
@@ -215,7 +269,11 @@ interface WebSocketEvents {
   ROLE_UPDATED: 'role:updated',
   PATH_VALIDATED: 'path:validated',
   PERFORMANCE_ALERT: 'performance:alert',
-  SECURITY_EVENT: 'security:event'
+  SECURITY_EVENT: 'security:event',
+  LOCATION_UPDATED: 'location:updated',
+  MARKER_CHANGED: 'marker:changed',
+  MOBILE_SYNC: 'mobile:sync',
+  OFFLINE_UPDATE: 'offline:update'
 }
 ```
 
@@ -247,12 +305,19 @@ interface HealthCheck {
       cpu: number,
       memory: number,
       responseTime: number
-    }
+    },
+    mapServices: 'active' | 'inactive',
+    locationTracking: 'active' | 'inactive',
+    mobileOptimization: 'active' | 'inactive',
+    offlineSync: 'active' | 'inactive',
+    mapLoad: number,
+    locationUpdate: number,
+    mobileResponse: number
   }
 }
 ```
 
 ---
-*Updated with Super Admin dashboard endpoints and enhanced security measures*
+*Updated with map integration, location services, and mobile optimization*
 *For implementation details, see [implementation.md](./implementation.md)*
 *For architecture overview, see [architecture.md](./architecture.md)*

@@ -1,7 +1,7 @@
 <div align="center">
 
 ![SHELTR](https://img.shields.io/badge/SHELTR-V1_Build-4B32C3)
-![Version](https://img.shields.io/badge/Version-0.6.6-FF6B6B)
+![Version](https://img.shields.io/badge/Version-0.6.7-FF6B6B)
 ![Stage](https://img.shields.io/badge/Prototype-Beta-FED766)
 ![License](https://img.shields.io/badge/License-MIT-8A2BE2)
 [![SHELTR App](https://img.shields.io/badge/Access-SHELTR_App-FF6B6B)](https://sheltr-beta.replit.app)
@@ -13,7 +13,7 @@
 # SHELTR
 ### *Hacking Homelessness Through Direct-Impact Technology*
 *Project Initialization: December 2024 - Beta Launch (V1.0.0) February 2025*
-*Current Version: 0.6.6*
+*Current Version: 0.6.7*
 
 </div>
 
@@ -31,6 +31,9 @@ SHELTR is revolutionizing charitable giving through cutting-edge technology inte
 - **Smart Fund Allocation**: 80/15/5 distribution model
 - **AI-Powered Insights**: Data-driven impact optimization
 - **Gamified Engagement**: Donor reward system
+- **Location Services**: Map-based shelter discovery
+- **Mobile Optimization**: Cross-device accessibility
+- **Offline Support**: Continuous service availability
 
 ## 🌟 Theory of Change
 
@@ -64,6 +67,9 @@ graph LR
 | Auth System | ✅ STABLE | ![100%](https://img.shields.io/badge/-100%25-success) |
 | QR System | ✅ STABLE | ![100%](https://img.shields.io/badge/-100%25-success) |
 | Super Admin | ✅ STABLE | ![100%](https://img.shields.io/badge/-100%25-success) |
+| Shelter Admin | ✅ STABLE | ![100%](https://img.shields.io/badge/-100%25-success) |
+| Map Integration | ✅ STABLE | ![100%](https://img.shields.io/badge/-100%25-success) |
+| Mobile System | 🟡 IN PROGRESS | ![65%](https://img.shields.io/badge/-65%25-yellow) |
 | Blockchain | 🟡 IN PROGRESS | ![75%](https://img.shields.io/badge/-75%25-yellow) |
 | Analytics | 🟡 IN PROGRESS | ![60%](https://img.shields.io/badge/-60%25-yellow) |
 | AI Integration | 🟡 IN PROGRESS | ![40%](https://img.shields.io/badge/-40%25-yellow) |
@@ -84,6 +90,9 @@ graph TD
     Frontend --> Style[Tailwind CSS]
     Frontend --> Motion[Framer Motion]
     Frontend --> Monitor1[Real-time Analytics]
+    Frontend --> Map[Google Maps API]
+    Frontend --> Mobile[Mobile Optimization]
+    Frontend --> Offline[Offline Support]
     
     Backend --> DB[Supabase]
     Backend --> API[REST + WebSocket]
@@ -134,6 +143,9 @@ graph TD
 | QR System | ✅ Done | 2024-11-15 to 2024-12-31 |
 | Auth System | ✅ Done | 2024-12-01 to 2024-12-31 |
 | **Beta** |
+| Shelter Admin | ✅ Done | 2025-01-01 to 2025-01-15 |
+| Map Integration | ✅ Done | 2025-01-15 to 2025-01-31 |
+| Mobile System | 🟡 Active | 2025-01-15 to 2025-02-15 |
 | Smart Contracts | 🟡 Active | 2025-01-01 to 2025-01-31 |
 | Blockchain Integration | 🟡 Active | 2025-01-15 to 2025-02-15 |
 | Testing & Audits | ⏳ Planned | 2025-02-01 to 2025-02-28 |

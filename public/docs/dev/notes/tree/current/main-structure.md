@@ -1,5 +1,5 @@
 # 🌳 SHELTR Main Structure
-*Generated: 2025-01-27 12:54:06*
+*Generated: 2025-01-29 17:40:01*
 \n## Directory Structure
 .
 ├── public
@@ -24,7 +24,8 @@
 │   │   ├── icon.svg
 │   │   ├── logo-sheltr-white.png
 │   │   ├── logo.svg
-│   │   └── og-image.jpg
+│   │   ├── og-image.jpg
+│   │   └── shelter-marker.svg
 │   ├── analyze.html
 │   ├── index.html
 │   ├── manifest.json
@@ -90,9 +91,7 @@
 │   │   ├── ScrollToTop.tsx
 │   │   └── ThemeToggle.tsx
 │   ├── config
-│   │   ├── deployment.ts
-│   │   ├── docs.ts
-│   │   └── environment.ts
+│   │   └── deployment.ts
 │   ├── constants
 │   │   └── podcast.ts
 │   ├── content
@@ -213,10 +212,15 @@
 │   │   ├── Supabase Snippet Export User Activity Audit Logs.csv
 │   │   ├── Supabase Snippet Role Mapping Export.csv
 │   │   ├── donor_profiles_rows.csv
+│   │   ├── organization_staff_rows (1).csv
 │   │   ├── organization_staff_rows.csv
+│   │   ├── organizations_rows (1).csv
+│   │   ├── organizations_rows (2).csv
 │   │   ├── organizations_rows.csv
 │   │   ├── participants_rows.csv
-│   │   └── profiles_rows.csv
+│   │   ├── profiles_rows (1).csv
+│   │   ├── profiles_rows.csv
+│   │   └── shelter_admin_profiles_rows.csv
 │   ├── migrations
 │   │   ├── 20240304_create_tables.sql
 │   │   ├── 20240304_fix_search_path.sql
@@ -226,7 +230,6 @@
 ├── README.md
 ├── eslint.config.js
 ├── index.html
-├── layout_files.txt
 ├── package-lock.json
 ├── package.json
 ├── postcss.config.js
@@ -241,4 +244,4 @@
 ├── vite.config.ts
 └── vitest.config.ts
 
-118 directories, 121 files
+118 directories, 124 files

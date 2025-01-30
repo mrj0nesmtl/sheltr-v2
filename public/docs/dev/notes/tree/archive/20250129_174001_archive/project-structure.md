@@ -1,5 +1,5 @@
 # 🌳 SHELTR Project Structure
-*Generated: 2025-01-29 17:40:01*
+*Generated: 2025-01-27 12:54:06*
 *Version: 0.4.9*
 
 ## Table of Contents
@@ -11,7 +11,7 @@
 6. [Technical Structures](#technical-structures)
 
 \n---\n
-*Generated: 2025-01-29 17:40:01*
+*Generated: 2025-01-27 12:54:06*
 \n## Directory Structure
 ./src/auth
 ├── components
@@ -31,7 +31,7 @@
 
 6 directories, 9 files
 \n---\n
-*Generated: 2025-01-29 17:40:01*
+*Generated: 2025-01-27 12:54:06*
 \n## Directory Structure
 ./src/components
 ├── About
@@ -211,7 +211,7 @@
 
 45 directories, 130 files
 \n---\n
-*Generated: 2025-01-29 17:40:01*
+*Generated: 2025-01-27 12:54:06*
 \n## Directory Structure
 ./public/docs
 ├── about
@@ -230,8 +230,7 @@
 │   │   └── tree
 │   │       ├── archive
 │   │       └── current
-│   ├── prompt.md
-│   └── prompt_extended.md
+│   └── prompt.md
 ├── guides
 │   ├── best-practices.md
 │   ├── buildout_implementation.md
@@ -259,9 +258,9 @@
 └── wiki
     └── overview.md
 
-13 directories, 32 files
+13 directories, 31 files
 \n---\n
-*Generated: 2025-01-29 17:40:01*
+*Generated: 2025-01-27 12:54:06*
 \n## Directory Structure
 ./src/features
 ├── auth
@@ -396,7 +395,7 @@
 
 69 directories, 61 files
 \n---\n
-*Generated: 2025-01-29 17:40:01*
+*Generated: 2025-01-27 12:54:06*
 \n## Directory Structure
 ./src/layouts
 ├── base
@@ -420,7 +419,7 @@
 
 9 directories, 10 files
 \n---\n
-*Generated: 2025-01-29 17:40:01*
+*Generated: 2025-01-27 12:54:06*
 \n## Directory Structure
 .
 ├── public
@@ -445,8 +444,7 @@
 │   │   ├── icon.svg
 │   │   ├── logo-sheltr-white.png
 │   │   ├── logo.svg
-│   │   ├── og-image.jpg
-│   │   └── shelter-marker.svg
+│   │   └── og-image.jpg
 │   ├── analyze.html
 │   ├── index.html
 │   ├── manifest.json
@@ -512,7 +510,9 @@
 │   │   ├── ScrollToTop.tsx
 │   │   └── ThemeToggle.tsx
 │   ├── config
-│   │   └── deployment.ts
+│   │   ├── deployment.ts
+│   │   ├── docs.ts
+│   │   └── environment.ts
 │   ├── constants
 │   │   └── podcast.ts
 │   ├── content
@@ -633,15 +633,10 @@
 │   │   ├── Supabase Snippet Export User Activity Audit Logs.csv
 │   │   ├── Supabase Snippet Role Mapping Export.csv
 │   │   ├── donor_profiles_rows.csv
-│   │   ├── organization_staff_rows (1).csv
 │   │   ├── organization_staff_rows.csv
-│   │   ├── organizations_rows (1).csv
-│   │   ├── organizations_rows (2).csv
 │   │   ├── organizations_rows.csv
 │   │   ├── participants_rows.csv
-│   │   ├── profiles_rows (1).csv
-│   │   ├── profiles_rows.csv
-│   │   └── shelter_admin_profiles_rows.csv
+│   │   └── profiles_rows.csv
 │   ├── migrations
 │   │   ├── 20240304_create_tables.sql
 │   │   ├── 20240304_fix_search_path.sql
@@ -651,6 +646,7 @@
 ├── README.md
 ├── eslint.config.js
 ├── index.html
+├── layout_files.txt
 ├── package-lock.json
 ├── package.json
 ├── postcss.config.js
@@ -665,9 +661,9 @@
 ├── vite.config.ts
 └── vitest.config.ts
 
-118 directories, 124 files
+118 directories, 121 files
 \n---\n
-*Generated: 2025-01-29 17:40:01*
+*Generated: 2025-01-27 12:54:06*
 \n## Directory Structure
 ./src/pages
 ├── About
@@ -754,7 +750,7 @@
 
 18 directories, 64 files
 \n---\n
-*Generated: 2025-01-29 17:40:01*
+*Generated: 2025-01-27 12:54:06*
 \n## Directory Structure
 ./src
 ├── auth
@@ -948,7 +944,9 @@
 │   ├── ScrollToTop.tsx
 │   └── ThemeToggle.tsx
 ├── config
-│   └── deployment.ts
+│   ├── deployment.ts
+│   ├── docs.ts
+│   └── environment.ts
 ├── constants
 │   └── podcast.ts
 ├── content
@@ -1312,4 +1310,4 @@
 ├── types.d.ts
 └── vite-env.d.ts
 
-172 directories, 383 files
+172 directories, 385 files

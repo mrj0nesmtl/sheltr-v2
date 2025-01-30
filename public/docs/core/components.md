@@ -107,4 +107,4 @@ interface MobileComponents {
 ---
 *Updated with Shelter Admin dashboard, map integration, and mobile optimization*
 *For detailed implementation guides, see [implementation-guides/](../implementation-guides/)*
-*For component structure, see [components-structure.md](../dev/notes/tree/current/components-structure.md)*
+*For component structure, see [components-structure.md](../dev/notes/tree/current/components-structure.md)* 

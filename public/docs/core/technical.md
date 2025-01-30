@@ -1,135 +1,123 @@
 # 🔧 SHELTR Technical Specifications
-*Last Updated: January 25, 2024 23:45 EST*
-*Version: 0.6.6*
+*Last Updated: January 29, 2024 16:45 EST*
+*Version: 0.6.7*
 *Status: STABLE* 🟢
 
 ## Situational Abstract
-Following successful implementation of the Super Admin dashboard and comprehensive role-based access control, technical focus has shifted to AI-powered analytics and advanced monitoring systems. Key achievements include enhanced security measures, real-time performance tracking, and automated threat detection, while maintaining enterprise-grade security and accessibility standards.
+Following successful implementation of both Super Admin and Shelter Admin dashboards with comprehensive role-based access control and map integration, technical focus has shifted to mobile optimization and analytics integration. Key achievements include enhanced map functionality, dark theme optimization, and location-based services, while maintaining enterprise-grade security and accessibility standards.
 
 ## Recent Updates
 | System | Status | Details |
 |--------|---------|---------|
-| Super Admin Dashboard | ✅ Complete | Full system monitoring, user management |
-| Navigation System | ✅ Complete | Enhanced UI, performance optimization |
+| Shelter Admin Dashboard | ✅ Complete | Location mapping, custom markers |
+| Dark Theme System | ✅ Complete | Enhanced visibility, component contrast |
+| Map Integration | ✅ Complete | Location tracking, custom markers |
 | Component Structure | ✅ Complete | Improved styling, organization |
-| Security Layer | ✅ Complete | Advanced protection implemented |
 | Analytics Integration | 🟡 Active | Real-time metrics, AI insights |
-| Performance | ✅ Complete | Comprehensive monitoring |
+| Mobile Support | 🟡 Active | Responsive design, touch interfaces |
 
 ## System Status Overview
 | System | Status | Last Updated |
 |--------|---------|--------------|
-| Super Admin | ✅ Complete | Jan 25, 2024 |
-| Navigation | 🟢 Stable | Jan 25, 2024 |
-| Security | ✅ Complete | Jan 25, 2024 |
-| Analytics | 🟡 Active | Jan 25, 2024 |
-| Performance | 🟢 Stable | Jan 25, 2024 |
-| Monitoring | 🟢 Stable | Jan 25, 2024 |
+| Super Admin | ✅ Complete | Jan 29, 2024 |
+| Shelter Admin | ✅ Complete | Jan 29, 2024 |
+| Navigation | 🟢 Stable | Jan 29, 2024 |
+| Dark Theme | ✅ Complete | Jan 29, 2024 |
+| Map System | ✅ Complete | Jan 29, 2024 |
+| Analytics | 🟡 Active | Jan 29, 2024 |
+| Mobile | 🟡 Active | Jan 29, 2024 |
 
 ## Core Systems
 
-### Super Admin System
+### Shelter Admin System
 ```typescript
-interface SuperAdminSystem {
+interface ShelterAdminSystem {
   core: {
-    path: 'src/features/super-admin',
+    path: 'src/features/shelter-admin',
     features: [
-      'system_monitoring',
-      'user_management',
-      'security_tracking',
-      'performance_metrics',
-      'analytics_dashboard',
-      'audit_logs'
+      'location_mapping',
+      'custom_markers',
+      'shelter_metrics',
+      'participant_management',
+      'donation_tracking',
+      'custom_header'
     ],
     status: 'IMPLEMENTED'
   },
   monitoring: {
     realtime: true,
-    aiPowered: true,
-    blockchain: true,
-    predictive: true
+    locationTracking: true,
+    mapIntegration: true,
+    donationMetrics: true
   }
 }
 ```
 
-### Navigation System
+### Map Integration System
 ```typescript
-interface NavigationSystem {
+interface MapSystem {
   core: {
-    path: 'src/components/Navigation/Navigation.tsx',
+    path: 'src/features/maps',
     features: [
-      'role_based_routing',
-      'path_validation',
-      'state_management',
-      'performance_monitoring',
-      'security_tracking',
-      'ai_monitoring'
+      'location_tracking',
+      'custom_markers',
+      'real_time_updates',
+      'shelter_locations',
+      'donation_hotspots'
     ],
     status: 'IMPLEMENTED'
   },
   performance: {
-    mounting: 'OPTIMIZED',
-    stateManagement: 'ENHANCED',
-    roleValidation: 'IMPLEMENTED',
-    pathValidation: 'ACTIVE',
-    monitoring: 'IMPLEMENTED',
-    aiAnalysis: 'ACTIVE',
-    metrics: 'TRACKED',
-    priority: 'MAINTAIN'
+    loading: 'OPTIMIZED',
+    rendering: 'ENHANCED',
+    updates: 'REAL_TIME',
+    monitoring: 'IMPLEMENTED'
   }
 }
 ```
 
-### Component Structure
+### Theme System
 ```typescript
-interface ComponentSystem {
+interface ThemeSystem {
   core: {
-    features: {
-      path: 'src/features/dashboard/roles',
-      status: 'IMPLEMENTED',
-      styling: 'ENHANCED'
-    },
-    pages: {
-      path: 'src/pages',
-      status: 'OPTIMIZED',
-      performance: 'MONITORED'
-    },
-    shared: {
-      path: 'src/components/shared',
-      status: 'IMPLEMENTED',
-      styling: 'ENHANCED'
-    }
-  },
-  organization: {
-    status: 'OPTIMIZED',
-    performance: 'MONITORED',
-    priority: 'MAINTAIN'
-  }
-}
-```
-
-### Authentication System
-```typescript
-interface AuthSystem {
-  registration: {
-    path: 'src/components/Auth/forms/ShelterRegistrationForm.tsx',
+    path: 'src/styles/theme',
     features: [
-      'email_verification',
-      'org_creation',
-      'registration_number',
-      'security_monitoring',
-      'performance_tracking'
+      'dark_mode',
+      'component_contrast',
+      'accessibility',
+      'responsive_design'
     ],
     status: 'IMPLEMENTED'
   },
-  session: {
-    management: 'OPTIMIZED',
-    initialization: 'SINGLE_INSTANCE',
-    roleValidation: 'IMPLEMENTED',
-    pathValidation: 'ACTIVE',
-    monitoring: 'IMPLEMENTED',
-    metrics: 'TRACKED',
-    priority: 'MAINTAIN'
+  components: {
+    MetricCard: 'OPTIMIZED',
+    Navigation: 'ENHANCED',
+    Maps: 'IMPLEMENTED',
+    Charts: 'OPTIMIZED'
+  }
+}
+```
+
+### Mobile System
+```typescript
+interface MobileSystem {
+  core: {
+    features: {
+      path: 'src/styles/mobile',
+      status: 'IN_PROGRESS',
+      priority: 'HIGH'
+    },
+    components: {
+      path: 'src/components/mobile',
+      status: 'OPTIMIZING',
+      performance: 'MONITORED'
+    }
+  },
+  optimization: {
+    status: 'IN_PROGRESS',
+    responsive: true,
+    touch: true,
+    performance: true
   }
 }
 ```
@@ -143,26 +131,20 @@ interface TechnicalDependencies {
     vite: '^4.4.0',
     node: '>=18.12.1'
   },
-  backend: {
-    supabase: '^2.0.0',
-    database: 'PostgreSQL 15+'
+  maps: {
+    leaflet: '^1.9.4',
+    reactLeaflet: '^4.2.1'
   },
   styling: {
     tailwind: '^3.0.0',
     shadcn: '^0.4.0'
   },
-  routing: {
-    reactRouter: '^6.0.0'
-  },
-  stateManagement: {
-    zustand: '^4.0.0'
-  },
   monitoring: {
     performance: 'implemented',
     security: 'implemented',
     metrics: 'active',
-    ai: 'active',
-    blockchain: 'integrated'
+    location: 'implemented',
+    mobile: 'active'
   }
 }
 ```
@@ -172,34 +154,35 @@ interface TechnicalDependencies {
 - Path Resolution Time: < 15ms (⬇️ -5ms)
 - Navigation Mount Time: < 40ms (⬇️ -10ms)
 - Component Load Time: < 80ms (⬇️ -20ms)
+- Map Load Time: < 100ms (⬇️ -30ms)
+- Mobile Response Time: < 50ms (⬇️ -15ms)
 - Form Validation Rate: 99.99%
-- Session Management: Optimized
-- Component Mounting: Optimized
-- Navigation Performance: Optimized
-- Security Response Time: < 3ms (⬇️ -2ms)
-- UI Interaction Time: < 40ms (⬇️ -10ms)
-- Error Recovery Time: < 80ms (⬇️ -20ms)
+- Location Accuracy: < 5m
+- Theme Switch Time: < 20ms
+- Security Response Time: < 3ms
+- UI Interaction Time: < 40ms
+- Error Recovery Time: < 80ms
 - Monitoring Coverage: 100%
 
 ## Next Steps
-1. Enhance AI analytics integration
-2. Implement predictive analytics
-3. Add blockchain metrics
-4. Enhance real-time monitoring
-5. Implement impact tracking
-6. Add advanced visualizations
+1. Complete mobile optimization
+2. Enhance analytics integration
+3. Expand map features
+4. Implement social features
+5. Extend location services
+6. Optimize performance metrics
 7. Enhance AI insights
-8. Optimize performance further
+8. Scale infrastructure
 
 ---
-*Updated with Super Admin implementation and enhanced monitoring systems*
+*Updated with Shelter Admin implementation and map integration*
 *For implementation details, see [implementation.md](./implementation.md)*
 *For API specifications, see [api.md](./api.md)*
 *For security details, see [security.md](./security.md)*
 ```
 
 Key updates:
-1. Version bump to 0.6.6
+1. Version bump to 0.6.7
 2. Added comprehensive monitoring
 3. Enhanced security features
 4. Updated UI/UX improvements

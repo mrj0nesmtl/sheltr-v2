@@ -1,51 +1,45 @@
 # 📝 SHELTR Changelog
-*Last Updated: January 24, 2024 23:45 EST*
-*Version: 0.6.6*
+*Last Updated: January 29, 2024 16:45 EST*
+*Version: 0.6.7*
 *Status: STABLE* 🟢
 
-## Current Version (0.6.6)
+## Current Version (0.6.7)
 
 ### Release Notes
-Successfully implemented role-based dashboard access with complete Super Admin authentication flow and component restructuring. Established feature branch deployment workflow with verified production stability.
+Enhanced Shelter Admin dashboard with improved UI components, map functionality, and dark theme optimizations. Fixed critical UI visibility issues and implemented proper header components.
 
 ### Changelog
 #### Added
-- Role-based Super Admin dashboard access
-- Feature branch deployment workflow
-- Protected route architecture
-- Real-time system health monitoring
-- Blockchain statistics integration
-- Component-based architecture
-- Unified dashboard layout
+- Shelter Admin dashboard header component
+- Shelter location maps with custom markers
+- Shelter selector component
+- Dark theme optimizations
+- Custom shelter marker icons
 
 #### Changed
-- Refactored dashboard component structure
-- Enhanced authentication flow
-- Optimized routing system
-- Improved deployment process
-- Updated documentation structure
-- Enhanced error handling
-- Streamlined navigation
+- Enhanced MetricCard dark theme contrast
+- Improved dashboard layout structure
+- Updated navigation components
+- Optimized map implementations
+- Refined UI component styling
 
 #### Fixed
-- Navigation overlap issues
-- Authentication state management
-- Component mounting delays
-- Deployment configuration
-- Role validation
-- Route protection
-- Dashboard layout
+- Dark text visibility in MetricCards
+- Missing header components
+- Map marker implementations
+- Component mounting issues
+- Navigation routing
 
 #### Security
-- Enhanced role-based access control
-- Improved authentication flow
+- Maintained role-based access control
 - Protected route validation
-- Session management
-- Role verification
-- Access controls
-- State protection
+- Session management integrity
 
 ## Version History
+
+### 0.6.6 (January 24, 2024) - STABLE
+#### Notes
+Successfully implemented role-based dashboard access with complete Super Admin authentication flow and component restructuring.
 
 ### 0.6.5 (January 20, 2024) - STABLE
 #### Notes
@@ -63,7 +57,7 @@ Security implementation and performance optimization.
 #### Notes
 Initial security and monitoring setup.
 
-## Upcoming Features (0.6.7)
+## Upcoming Features (0.6.8)
 1. Enhanced analytics dashboard
 2. Real-time blockchain monitoring
 3. Advanced user management

@@ -1,5 +1,5 @@
 # 🌳 SHELTR Documentation Structure
-*Generated: 2025-01-27 12:54:06*
+*Generated: 2025-01-29 17:40:01*
 \n## Directory Structure
 ./public/docs
 ├── about
@@ -18,7 +18,8 @@
 │   │   └── tree
 │   │       ├── archive
 │   │       └── current
-│   └── prompt.md
+│   ├── prompt.md
+│   └── prompt_extended.md
 ├── guides
 │   ├── best-practices.md
 │   ├── buildout_implementation.md
@@ -46,4 +47,4 @@
 └── wiki
     └── overview.md
 
-13 directories, 31 files
+13 directories, 32 files
