@@ -4,6 +4,7 @@ modules = ["web", "nodejs-18"]
 [env]
 VITE_PORT = "5173"
 VITE_PUBLIC_URL = "https://sheltr-beta.replit.app"
+NODE_OPTIONS = "--max_old_space_size=4096"
 
 [nix]
 channel = "stable-24_05"
