@@ -24,6 +24,9 @@ import type {
   DonorStatistics,
   DonorSocialConnections 
 } from '@/features/donor/types';
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
+import { DetailedAnalytics } from '@/components/shared/analytics/DetailedAnalytics';
+import { DonorSidebar } from '@/features/dashboard/shared/navigation/sidebar/DonorSidebar';
 
 interface DonorDashboardProps {
   userId?: string;
@@ -221,247 +224,157 @@ const ProfileSettingsDialog: React.FC<{
   );
 };
 
-const DonorDashboard: React.FC<DonorDashboardProps> = ({ userId }) => {
-  const { user, updateProfile, isAuthenticated } = useAuthStore();
-  const dashboardUserId = userId || user?.id;
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [profile, setProfile] = useState<DonorProfileType | null>(null);
-  const [stats, setStats] = useState<DonorStatistics | null>(null);
-  const [socialConnections, setSocialConnections] = useState<DonorSocialConnections | null>(null);
+const DonorDashboard: React.FC = () => {
+  const { user } = useAuthStore();
+  const [donorProfile, setDonorProfile] = useState<DonorProfileType | null>(null);
 
-  // Add debug logging
-  console.log('DonorDashboard State:', { 
-    user, 
-    isAuthenticated 
-  });
+  // Generate donor badges based on profile
+  const getDonorBadges = () => {
+    const badges = [
+      {
+        label: 'Donor',
+        variant: 'default' as const
+      }
+    ];
 
-  const handleAvatarUpload = async (file: File) => {
-    try {
-      // Create a loading toast
-      toast.loading('Updating profile picture...');
-
-      // Create FormData and append file
-      const formData = new FormData();
-      formData.append('avatar', file);
-
-      // Upload to your API
-      const response = await fetch('/api/user/avatar', {
-        method: 'POST',
-        body: formData,
+    // Add conditional badges based on donor status
+    if (donorProfile?.total_donated && donorProfile.total_donated > 1000) {
+      badges.push({
+        label: 'Premium Donor',
+        variant: 'success' as const
       });
-
-      if (!response.ok) throw new Error('Failed to upload avatar');
-
-      const { avatarUrl } = await response.json();
-
-      // Update user profile in auth store
-      await updateProfile({ avatar_url: avatarUrl });
-
-      // Show success toast
-      toast.success('Profile picture updated!');
-    } catch (error) {
-      console.error('Avatar upload failed:', error);
-      toast.error('Failed to update profile picture');
     }
+
+    if (donorProfile?.impact_score && donorProfile.impact_score > 50) {
+      badges.push({
+        label: `Impact Score: ${donorProfile.impact_score}`,
+        variant: 'success' as const
+      });
+    }
+
+    return badges;
   };
 
-  // Fetch donor data
   useEffect(() => {
-    const fetchDonorData = async () => {
-      if (!dashboardUserId) return;
+    const loadDonorProfile = async () => {
+      try {
+        if (!user?.id) {
+          throw new Error('No user ID available');
+        }
 
-      const [profileData, statsData, socialData] = await Promise.all([
-        supabase
+        const { data, error: profileError } = await supabase
           .from('donor_profiles')
           .select('*')
-          .eq('user_id', dashboardUserId)
-          .single(),
-        supabase
-          .from('donor_stats')
-          .select('*')
-          .eq('donor_id', dashboardUserId)
-          .single(),
-        supabase
-          .from('donor_social_connections')
-          .select('*')
-          .eq('donor_id', dashboardUserId)
-          .single()
-      ]);
+          .eq('user_id', user.id)
+          .single();
 
-      setProfile(profileData.data);
-      setStats(statsData.data);
-      setSocialConnections(socialData.data);
+        if (profileError) throw profileError;
+        if (!data) throw new Error('No donor profile found');
+
+        setDonorProfile(data);
+      } catch (err) {
+        console.error('Failed to load donor profile:', err);
+      }
     };
 
-    fetchDonorData();
-  }, [dashboardUserId]);
+    loadDonorProfile();
+  }, [user?.id]);
 
-  return (
-    <div className="min-h-screen bg-gray-900">
-      {/* Enhanced Header Section with responsive design */}
-      <div className="bg-gray-800/50 backdrop-blur-lg p-6 rounded-lg mb-6">
-        <div className="flex justify-between items-center">
-          <div className="space-y-4">
-            <DashboardHeader title="Donor Dashboard" user={user} />
-            {/* Add Badges Section */}
-            <div className="flex items-center gap-2 flex-wrap">
-              <UserBadge role="donor" />
-              <Badge variant="success" size="sm" className="flex items-center gap-1">
-                <Award className="w-3 h-3" />
-                7 Day Streak
-              </Badge>
-              <Badge variant="info" size="sm" className="flex items-center gap-1">
-                <Star className="w-3 h-3" />
-                Top 10% Donor
-              </Badge>
-              <Badge variant="warning" size="sm" className="flex items-center gap-1">
-                <Heart className="w-3 h-3" />
-                Impact Level 3
-              </Badge>
-            </div>
-          </div>
-          <div className="flex items-center gap-4">
-            <Button
-              variant="ghost"
-              onClick={() => setIsSettingsOpen(true)}
-              className="text-gray-400 hover:text-white"
-            >
-              <Settings className="w-5 h-5" />
-            </Button>
-            <SignOutButton variant="header" />
-          </div>
+  // Show loading state
+  if (!donorProfile) {
+    return (
+      <DashboardShell sidebar={<DonorSidebar />}>
+        <div className="flex items-center justify-center min-h-screen">
+          <LoadingSpinner size="lg" />
         </div>
-      </div>
+      </DashboardShell>
+    );
+  }
 
-      <div className="p-8">
-        {/* Key Metrics */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <Card className="bg-white dark:bg-gray-800 shadow-sm">
-            <div className="p-6">
-              <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                Total Impact
-              </h3>
-              <p className="mt-2 text-3xl font-bold text-indigo-600 dark:text-indigo-400">
-                $0
-              </p>
-            </div>
+  // Main dashboard render
+  return (
+    <DashboardShell sidebar={<DonorSidebar />}>
+      <DashboardHeader 
+        title={`Welcome ${user?.name || 'Donor'} - Community Member`}
+        user={user}
+        badges={[
+          {
+            label: 'Donor',
+            variant: 'default'
+          },
+          ...(donorProfile.total_donated > 1000 ? [{
+            label: 'Premium Donor',
+            variant: 'success' as const
+          }] : []),
+          ...(donorProfile.impact_score > 50 ? [{
+            label: `Impact Score: ${donorProfile.impact_score}`,
+            variant: 'success' as const
+          }] : [])
+        ]}
+        actions={
+          donorProfile.shelters_helped ? (
+            <Badge variant="success">
+              {donorProfile.shelters_helped} Shelters Supported
+            </Badge>
+          ) : undefined
+        }
+      />
+      
+      <main className="flex-1 p-6 pt-20">
+        {/* Quick Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+          <Card className="p-6 bg-gradient-to-br from-indigo-500/10 to-purple-500/10">
+            <h3 className="text-sm font-medium text-gray-400">Total Donated</h3>
+            <p className="text-2xl font-bold text-white mt-2">
+              ${donorProfile.total_donated || '0'}
+            </p>
           </Card>
-          <Card className="bg-white dark:bg-gray-800 shadow-sm">
-            <div className="p-6">
-              <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                People Helped
-              </h3>
-              <p className="mt-2 text-3xl font-bold text-emerald-600 dark:text-emerald-400">
-                0
-              </p>
-            </div>
+          <Card className="p-6 bg-gradient-to-br from-emerald-500/10 to-teal-500/10">
+            <h3 className="text-sm font-medium text-gray-400">Impact Score</h3>
+            <p className="text-2xl font-bold text-white mt-2">
+              {donorProfile.impact_score || '0'}
+            </p>
           </Card>
-          <Card className="bg-white dark:bg-gray-800 shadow-sm">
-            <div className="p-6">
-              <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                Total Donations
-              </h3>
-              <p className="mt-2 text-3xl font-bold text-blue-600 dark:text-blue-400">
-                0
-              </p>
-            </div>
+          <Card className="p-6 bg-gradient-to-br from-amber-500/10 to-orange-500/10">
+            <h3 className="text-sm font-medium text-gray-400">Shelters Helped</h3>
+            <p className="text-2xl font-bold text-white mt-2">
+              {donorProfile.shelters_helped || '0'}
+            </p>
           </Card>
         </div>
 
         {/* Analytics Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-          <Card className="bg-white dark:bg-gray-800 shadow-sm p-6">
-            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
-              Donation History
-            </h3>
-            <DonationHistory userId={dashboardUserId} />
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-6">
+          <Card className="p-6">
+            <h2 className="text-lg font-semibold text-white mb-4">Your Impact</h2>
+            <DetailedAnalytics />
           </Card>
-          <Card className="bg-gray-800/50 backdrop-blur-lg p-6 relative overflow-hidden">
-            {/* Background Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-br from-gray-800/50 to-gray-900/50" />
-            
-            <div className="relative z-10">
-              {/* Header */}
-              <div className="flex items-center justify-between mb-8">
-                <h3 className="text-xl font-semibold text-white">
-                  Impact Distribution
-                </h3>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="text-gray-400 hover:text-white"
-                  onClick={() => {/* Add info modal handler */}}
-                >
-                  <Info className="h-5 w-5" />
-                </Button>
-              </div>
-
-              {/* Stats Grid - Clean Layout */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {/* Food Programs */}
-                <div className="bg-blue-950/40 rounded-xl p-4 flex flex-col justify-between border border-blue-500/20 hover:border-blue-500/40 transition-all duration-200">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-gray-300">Food Programs</span>
-                    <span className="text-blue-400 font-semibold text-lg">35%</span>
-                  </div>
-                  <p className="text-2xl font-bold text-white">$45,000</p>
-                </div>
-
-                {/* Shelter Operations */}
-                <div className="bg-orange-950/40 rounded-xl p-4 flex flex-col justify-between border border-orange-500/20 hover:border-orange-500/40 transition-all duration-200">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-gray-300">Shelter Operations</span>
-                    <span className="text-orange-400 font-semibold text-lg">30%</span>
-                  </div>
-                  <p className="text-2xl font-bold text-white">$38,000</p>
-                </div>
-
-                {/* Medical Aid */}
-                <div className="bg-green-950/40 rounded-xl p-4 flex flex-col justify-between border border-green-500/20 hover:border-green-500/40 transition-all duration-200">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-gray-300">Medical Aid</span>
-                    <span className="text-green-400 font-semibold text-lg">20%</span>
-                  </div>
-                  <p className="text-2xl font-bold text-white">$25,000</p>
-                </div>
-
-                {/* Education */}
-                <div className="bg-purple-950/40 rounded-xl p-4 flex flex-col justify-between border border-purple-500/20 hover:border-purple-500/40 transition-all duration-200">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-gray-300">Education</span>
-                    <span className="text-purple-400 font-semibold text-lg">15%</span>
-                  </div>
-                  <p className="text-2xl font-bold text-white">$15,000</p>
-                </div>
-              </div>
+          
+          <Card className="p-6">
+            <h2 className="text-lg font-semibold text-white mb-4">Recent Activity</h2>
+            <div className="space-y-4">
+              {/* Recent activity content */}
             </div>
           </Card>
         </div>
 
-        {/* Map View */}
-        <Card className="bg-white dark:bg-gray-800 shadow-sm p-6">
-          <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
-            Your Impact Map
-          </h3>
-          <div className="h-[400px]">
-            <MapComponent userId={dashboardUserId} />
-          </div>
-        </Card>
-      </div>
-
-      {/* Profile Settings Dialog */}
-      {profile && stats && socialConnections && (
-        <ProfileSettingsDialog
-          open={isSettingsOpen}
-          onClose={() => setIsSettingsOpen(false)}
-          profile={profile}
-          stats={stats}
-          socialConnections={socialConnections}
-        />
-      )}
-    </div>
+        {/* Additional Metrics */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card className="p-6">
+            <h2 className="text-lg font-semibold text-white mb-4">Donation History</h2>
+            {/* Donation history chart/list */}
+          </Card>
+          
+          <Card className="p-6">
+            <h2 className="text-lg font-semibold text-white mb-4">Impact Breakdown</h2>
+            {/* Impact metrics visualization */}
+          </Card>
+        </div>
+      </main>
+    </DashboardShell>
   );
 };
 
+// Make sure to export both as default and named
 export { DonorDashboard };
 export default DonorDashboard; 

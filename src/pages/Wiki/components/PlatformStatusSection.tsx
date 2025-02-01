@@ -1,5 +1,7 @@
-import { Shield, Activity, Clock, Users, Database, RefreshCw, Server, Tag, Lock, Route } from 'lucide-react';
+import { Shield, Activity, Clock, Users, Database, RefreshCw, Server, Tag, Lock, Route, Navigation } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Card } from '@/components/ui/Card';
+import { Badge } from '@/components/ui/Badge';
 
 interface SystemStatus {
   isOperational: boolean;
@@ -47,9 +49,10 @@ const SystemStatus = ({ title, value, icon: Icon, status, color }: SystemStatusP
 
 interface PlatformStatusSectionProps {
   systemStatus: Partial<SystemStatus>;
+  metrics: any; // Update with proper type
 }
 
-export const PlatformStatusSection = ({ systemStatus = {} }: PlatformStatusSectionProps) => {
+export function PlatformStatusSection({ systemStatus, metrics }: PlatformStatusSectionProps) {
   const {
     isOperational = true,
     roleNavigation = true,
@@ -65,88 +68,96 @@ export const PlatformStatusSection = ({ systemStatus = {} }: PlatformStatusSecti
 
   const statusItems = [
     {
-      title: "System Status",
-      value: isOperational ? "Operational" : "Issues Detected",
       icon: Server,
-      status: isOperational ? "success" : "warning",
-      color: "text-emerald-400"
+      label: 'System Status',
+      value: isOperational ? 'Operational' : 'Issues Detected',
+      status: isOperational ? 'success' : 'warning',
+      color: 'text-emerald-400'
     },
     {
-      title: "Role Navigation",
-      value: roleNavigation ? "Active" : "Issues",
-      icon: Route,
-      status: roleNavigation ? "success" : "warning",
-      color: "text-violet-400"
+      icon: Navigation,
+      label: 'Role Navigation',
+      value: roleNavigation ? 'Active' : 'Issues',
+      status: roleNavigation ? 'success' : 'warning',
+      color: 'text-violet-400'
     },
     {
-      title: "Path Validation",
-      value: pathValidation ? "Secured" : "Issues",
       icon: Lock,
-      status: pathValidation ? "success" : "warning",
-      color: "text-rose-400"
+      label: 'Path Validation',
+      value: pathValidation ? 'Secured' : 'Issues',
+      status: pathValidation ? 'success' : 'warning',
+      color: 'text-rose-400'
     },
     {
-      title: "Response Time",
-      value: `${responseTime}ms`,
       icon: Activity,
-      status: responseTime < 200 ? "good" : "warning",
-      color: "text-blue-400"
+      label: 'Response Time',
+      value: `${responseTime}ms`,
+      status: responseTime < 200 ? 'good' : 'warning',
+      color: 'text-blue-400'
     },
     {
-      title: "Security Health",
-      value: `${securityHealth}%`,
       icon: Shield,
-      status: securityHealth > 95 ? "success" : "warning",
-      color: "text-purple-400"
+      label: 'Security Health',
+      value: `${securityHealth}%`,
+      status: securityHealth > 95 ? 'success' : 'warning',
+      color: 'text-purple-400'
     },
     {
-      title: "Uptime",
-      value: `${uptime}%`,
       icon: Clock,
-      status: "success",
-      color: "text-green-400"
+      label: 'Uptime',
+      value: `${uptime}%`,
+      status: 'success',
+      color: 'text-green-400'
     },
     {
-      title: "Version",
-      value: `v${version}`,
       icon: Tag,
-      status: "stable",
-      color: "text-amber-400"
+      label: 'Version',
+      value: `v${version}`,
+      status: 'stable',
+      color: 'text-amber-400'
     },
     {
-      title: "Last Update",
-      value: new Date(lastUpdate).toLocaleTimeString(),
-      icon: RefreshCw,
-      status: "good",
-      color: "text-blue-400"
-    },
-    {
-      title: "Active Users",
-      value: activeUsers.toLocaleString(),
       icon: Users,
-      status: "good",
-      color: "text-indigo-400"
+      label: 'Active Users',
+      value: activeUsers.toLocaleString(),
+      status: 'good',
+      color: 'text-indigo-400'
     },
     {
-      title: "API Status",
-      value: apiStatus,
       icon: Database,
-      status: apiStatus === 'Healthy' ? "success" : "warning",
-      color: "text-teal-400"
+      label: 'API Status',
+      value: apiStatus,
+      status: apiStatus === 'Healthy' ? 'success' : 'warning',
+      color: 'text-teal-400'
     }
   ] as const;
 
   return (
-    <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-6">
-      <h2 className="text-xl font-bold text-white mb-6 flex items-center">
-        <Activity className="w-6 h-6 mr-2 text-emerald-500" />
-        Platform Status
-      </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {statusItems.map((item, index) => (
-          <SystemStatus key={`status-${index}`} {...item} />
-        ))}
-      </div>
+    <div className="flex flex-col space-y-3">
+      {statusItems.map((item, index) => (
+        <Card key={index} className="w-full">
+          <div className="p-4 flex items-center justify-between">
+            <div className="flex items-center gap-3 flex-1 min-w-0">
+              <item.icon className={`w-5 h-5 ${item.color} flex-shrink-0`} />
+              <div className="min-w-0 flex-1">
+                <p className="text-gray-400 text-sm truncate">{item.label}</p>
+                <p className="text-white font-semibold truncate">{item.value}</p>
+              </div>
+            </div>
+            <Badge 
+              variant={
+                item.status === 'success' ? 'success' :
+                item.status === 'good' ? 'info' :
+                item.status === 'stable' ? 'default' : 'warning'
+              }
+              size="sm"
+              className="flex-shrink-0"
+            >
+              {item.status}
+            </Badge>
+          </div>
+        </Card>
+      ))}
     </div>
   );
-}; 
+} 

@@ -14,33 +14,28 @@ export function DonorSidebar() {
     {
       icon: LayoutDashboard,
       label: 'Dashboard',
-      path: '/donor/dashboard',
+      path: `/dashboard/donor/${user?.id}`,
       iconColor: 'text-indigo-400'
     },
     {
       icon: Heart,
       label: 'My Donations',
-      path: '/donor/donations',
+      path: `/dashboard/donor/${user?.id}/donations`,
       iconColor: 'text-rose-400'
     },
     {
       icon: Trophy,
       label: 'Impact',
-      path: '/donor/impact',
+      path: `/dashboard/donor/${user?.id}/impact`,
       iconColor: 'text-amber-400'
     }
   ];
 
   return (
     <BaseSidebar
-      title="Donor Dashboard"
+      title={<Logo className="h-8 w-auto" />}
       menuItems={menuItems}
-      userInfo={user ? {
-        email: user.email,
-        role: 'Donor',
-        avatar: user.email?.[0]?.toUpperCase()
-      } : undefined}
-      logo={<Logo className="h-8 w-auto" />}
+      showUserInfo={false}
     />
   );
 }

@@ -60,8 +60,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     
     try {
       setInitializing(true);
+      console.debug('Auth State Change Handler - Session:', session?.user?.id);
       
-      if (!session) {
+      if (!session?.user) {
         batchAuthStateUpdates({
           user: null,
           isAuthenticated: false,
@@ -72,48 +73,67 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
 
       const user = session.user;
-      console.debug('Auth State Change - User:', user?.id, 'Metadata:', user?.user_metadata);
-
-      // Get role first
-      const { role, organizationId } = await getUserRole(user.id);
       
-      // Handle donor profile creation specifically for new donors
-      if (role === 'donor') {
-        try {
-          // First check if donor profile exists
-          const { data: existingProfile, error: checkError } = await supabase
-            .from('donor_profiles')
-            .select('id')
-            .eq('user_id', user.id)
-            .single();
+      // First ensure base profile is correct
+      const { data: existingProfile, error: profileError } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', user.id)
+        .single();
 
-          if (!existingProfile && !checkError) {
-            console.debug('Creating donor profile for:', user.id);
-            
-            // Create donor profile
-            const { error: createError } = await supabase
-              .from('donor_profiles')
-              .insert({
-                user_id: user.id,
-                display_name: user.user_metadata?.display_name || user.email?.split('@')[0],
-                email: user.email,
-                social_links: {},
-                created_at: new Date().toISOString(),
-                updated_at: new Date().toISOString()
-              });
-
-            if (createError) {
-              console.error('Failed to create donor profile:', createError);
-            } else {
-              console.debug('Donor profile created successfully');
-            }
-          }
-        } catch (profileError) {
-          console.error('Error handling donor profile:', profileError);
-        }
+      if (profileError || !existingProfile || !existingProfile.user_id) {
+        console.debug('Fixing base profile for:', user.id);
+        
+        // Upsert the base profile with correct user_id
+        await supabase
+          .from('profiles')
+          .upsert({
+            id: user.id,
+            user_id: user.id, // Ensure this is set
+            email: user.email,
+            role: 'donor',
+            verified: true,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+          }, {
+            onConflict: 'id',
+            ignoreDuplicates: false
+          });
       }
 
-      // Update auth state after profile handling
+      // Then ensure donor profile exists
+      const { data: donorProfile } = await supabase
+        .from('donor_profiles')
+        .select('*')
+        .eq('user_id', user.id)
+        .single();
+
+      if (!donorProfile) {
+        console.debug('Creating donor profile for:', user.id);
+        
+        await supabase
+          .from('donor_profiles')
+          .insert({
+            user_id: user.id,
+            email: user.email,
+            display_name: user.email?.split('@')[0],
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+          });
+      }
+
+      // Get role after ensuring profiles exist
+      const { role, organizationId } = await getUserRole(user.id);
+      
+      console.debug('Role resolved:', role);
+
+      // Add specific routing for donor role
+      if (role === 'donor') {
+        // Redirect to user-specific donor dashboard
+        window.location.href = `/dashboard/donor/${user.id}`;
+        return;
+      }
+
       batchAuthStateUpdates({
         user,
         role,
@@ -132,8 +152,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         isInitializing: false,
         error
       });
+      
+      // Force logout on critical errors
+      await logout();
     }
-  }, [batchAuthStateUpdates, setInitializing, isInitializing]);
+  }, [batchAuthStateUpdates, setInitializing, isInitializing, logout]);
 
   // Add initialization tracking
   useEffect(() => {

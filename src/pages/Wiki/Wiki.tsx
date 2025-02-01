@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Shield, Book, Activity, Clock, Github, FileText, GitBranch, Sparkles, Timer, LineChart, BookOpen, GitCommit } from 'lucide-react';
+import { Shield, Book, Activity, Clock, Github, FileText, GitBranch, Sparkles, Timer, LineChart, BookOpen, GitCommit, Server, Navigation, Lock, Star } from 'lucide-react';
 import { WikiHeader } from './components/WikiHeader';
 import { WikiSidebar } from './components/WikiSidebar';
 import { WikiMobileNav } from './components/WikiMobileNav';
@@ -20,6 +20,8 @@ import {
 import { ChartDataPoint } from '@/features/shared/analytics/types';
 import { OverviewSection } from '@/pages/Wiki/components/OverviewSection';
 import overviewContent from '/docs/core/overview.md?raw';
+import { Card } from '@/components/ui/Card';
+import { Badge } from '@/components/ui/Badge';
 
 const StatusIndicator = ({ status, pulse = false }) => (
   <span className={cn(
@@ -56,7 +58,7 @@ const MetricsVisualizer = () => {
   );
 };
 
-const Wiki = () => {
+export const Wiki = () => {
   const { data, isLoading, error } = useWikiData();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -218,65 +220,69 @@ const Wiki = () => {
 
   return (
     <div className="min-h-screen bg-gray-900">
-      {/* Mobile Navigation */}
       <WikiMobileNav 
         isOpen={sidebarOpen} 
         onToggle={() => setSidebarOpen(!sidebarOpen)}
         sections={wikiSections}
       />
 
-      {/* Main Layout */}
-      <div className="flex">
-        {/* Sidebar */}
+      {/* Main Layout - Update flex structure */}
+      <div className="flex flex-col md:flex-row">
         <WikiSidebar 
           isOpen={sidebarOpen}
           sections={wikiSections}
         />
 
-        {/* Main Content */}
-        <main className="flex-1 p-6 lg:p-8 ml-0 md:ml-64">
-          {/* Header */}
-          <WikiHeader 
-            title="SHELTR Documentation"
-            version={currentVersion.number}
-            lastUpdated={data.lastUpdated}
-            status={currentVersion.status}
-          />
+        {/* Main Content - Improve container structure */}
+        <main className="flex-1 min-w-0 p-4 sm:p-6 md:ml-64">
+          <div className="max-w-full mx-auto flex flex-col space-y-6">
+            {/* Header */}
+            <WikiHeader 
+              title="SHELTR Documentation"
+              version={currentVersion.number}
+              lastUpdated={data.lastUpdated}
+              status={currentVersion.status}
+            />
 
-          {/* Overview Section */}
-          <section id="platform-overview" className="scroll-mt-16">
-            <OverviewSection content={overviewContent} />
-          </section>
-
-          {/* Content Grid */}
-          <div className="space-y-8 mt-8">
-            {/* Status Overview */}
-            <section id="platform-status" className="scroll-mt-16">
-              <PlatformStatusSection 
-                systemStatus={data.systemStatus}
-                metrics={data.metrics}
-              />
+            {/* Overview Section */}
+            <section id="platform-overview" className="flex flex-col min-w-0">
+              <OverviewSection content={overviewContent} />
             </section>
 
-            {/* Sprint Progress */}
-            <section id="sprint-progress" className="scroll-mt-16">
+            {/* Status Section - Convert to flex-col */}
+            <section id="platform-status" className="flex flex-col min-w-0 space-y-4">
+              <div className="flex items-center gap-2">
+                <Activity className="w-5 h-5 text-emerald-400 flex-shrink-0" />
+                <h2 className="text-xl font-semibold text-white">Platform Status</h2>
+              </div>
+              
+              <div className="flex flex-col space-y-3">
+                <PlatformStatusSection 
+                  systemStatus={data.systemStatus}
+                  metrics={data.metrics}
+                />
+              </div>
+            </section>
+
+            {/* Sprint Progress - Convert to flex */}
+            <section id="sprint-progress" className="flex flex-col min-w-0">
               <SprintProgress 
                 currentSprint={data.currentSprint}
                 tasks={data.sprintTasks}
               />
             </section>
 
-            {/* Metrics Grid */}
-            <section id="metrics" className="scroll-mt-16">
+            {/* Metrics Section - Convert to flex */}
+            <section id="metrics" className="flex flex-col min-w-0">
               <MetricsGrid metrics={data.metrics} />
             </section>
 
-            {/* Documentation Grid */}
-            <section id="documentation" className="scroll-mt-16">
-              <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-6">
-                <h2 className="text-xl font-bold text-white mb-6 flex items-center">
-                  <FileText className="w-6 h-6 mr-2" />
-                  Documentation
+            {/* Documentation Section - Convert to flex */}
+            <section id="documentation" className="flex flex-col min-w-0">
+              <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-4 sm:p-6">
+                <h2 className="text-xl font-semibold text-white mb-4 flex items-center">
+                  <FileText className="w-5 h-5 mr-2 flex-shrink-0" />
+                  <span className="truncate">Documentation</span>
                 </h2>
                 <DocumentationGrid 
                   core={documentationLinks.core}
@@ -286,8 +292,8 @@ const Wiki = () => {
               </div>
             </section>
 
-            {/* Changelog Section */}
-            <section id="changelog" className="scroll-mt-16">
+            {/* Changelog Section - Convert to flex */}
+            <section id="changelog" className="flex flex-col min-w-0">
               <ChangelogSection 
                 currentVersion={currentVersion}
                 versionHistory={versionHistory}

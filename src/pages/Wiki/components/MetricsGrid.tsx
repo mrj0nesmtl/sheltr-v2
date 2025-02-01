@@ -1,5 +1,7 @@
 import { Activity, DollarSign, Users, Building2, Trophy, LineChart } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Card } from '@/components/ui/Card';
+import { Badge } from '@/components/ui/Badge';
 
 interface MetricCardProps {
   title: string;
@@ -9,19 +11,22 @@ interface MetricCardProps {
 }
 
 const MetricCard = ({ title, value, icon, trend }: MetricCardProps) => (
-  <div className="bg-gray-900/50 rounded-lg p-4">
-    <div className="flex items-center justify-between">
-      <div className="w-5 h-5 text-gray-400">{icon}</div>
-      <span className={cn(
-        "text-sm font-medium",
-        trend > 0 ? "text-green-500" : "text-red-400"
-      )}>
-        {trend > 0 ? "+" : ""}{trend}%
-      </span>
+  <Card className="w-full">
+    <div className="p-4 flex flex-col min-w-0">
+      <div className="flex items-center justify-between">
+        <div className="w-5 h-5 text-gray-400 flex-shrink-0">{icon}</div>
+        <Badge 
+          variant={trend > 0 ? 'success' : 'error'} 
+          size="sm"
+          className="flex-shrink-0"
+        >
+          {trend > 0 ? "+" : ""}{trend}%
+        </Badge>
+      </div>
+      <p className="text-2xl font-bold text-white mt-2 truncate">{value}</p>
+      <p className="text-sm text-gray-400 mt-1 truncate">{title}</p>
     </div>
-    <p className="text-3xl font-bold text-white mt-2">{value}</p>
-    <p className="text-sm text-gray-400 mt-1">{title}</p>
-  </div>
+  </Card>
 );
 
 export const MetricsGrid = () => {
@@ -53,17 +58,17 @@ export const MetricsGrid = () => {
   ];
 
   return (
-    <section className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-6 mb-8">
-      <div className="flex items-center gap-3 mb-6">
-        <LineChart className="w-6 h-6 text-violet-500" />
-        <h2 className="text-xl font-bold text-white">Metrics</h2>
+    <div className="flex flex-col space-y-4">
+      <div className="flex items-center gap-2">
+        <LineChart className="w-5 h-5 text-violet-500 flex-shrink-0" />
+        <h2 className="text-xl font-semibold text-white">Metrics</h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="flex flex-col space-y-3">
         {metrics.map((metric, index) => (
           <MetricCard key={index} {...metric} />
         ))}
       </div>
-    </section>
+    </div>
   );
 };

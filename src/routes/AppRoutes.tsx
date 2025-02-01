@@ -16,6 +16,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import { ShelterSelector } from '@/features/dashboard/roles/shelter-admin/components/ShelterSelector';
+import { DonorDashboard } from '@/features/dashboard/roles/donor/DonorDashboard';
 
 // Lazy loaded components
 const Wiki = lazy(() => import('../pages/Wiki'));
@@ -116,6 +117,25 @@ export default function AppRoutes() {
     routeShelterAdmin();
   }, [isAuthenticated, user?.role]);
 
+  // Add specific donor routing effect
+  useEffect(() => {
+    const routeDonor = async () => {
+      if (isAuthenticated && user?.role === AUTH_ROLES.DONOR) {
+        try {
+          // Only run this if we're on the base dashboard path
+          if (location.pathname === '/dashboard/donor') {
+            navigate(`/dashboard/donor/${user.id}`);
+          }
+        } catch (error) {
+          console.error('Error routing donor:', error);
+          navigate('/login');
+        }
+      }
+    };
+
+    routeDonor();
+  }, [isAuthenticated, user?.role, location.pathname]);
+
   return (
     <Routes>
       {/* Public routes */}
@@ -178,13 +198,29 @@ export default function AppRoutes() {
         }
       />
 
-      {/* Add Donor Routes */}
+      {/* Update Donor Routes */}
       <Route
-        path="/donor/*"
+        path="/dashboard/donor"
         element={
           <BaseErrorBoundary variant="donor">
             <ProtectedRoute allowedRoles={[AUTH_ROLES.DONOR]}>
-              <RoleRouter />
+              <Suspense fallback={<LoadingSpinner size="lg" />}>
+                <DonorDashboard />
+              </Suspense>
+            </ProtectedRoute>
+          </BaseErrorBoundary>
+        }
+      />
+
+      {/* Add specific donor profile route */}
+      <Route
+        path="/dashboard/donor/:userId"
+        element={
+          <BaseErrorBoundary variant="donor">
+            <ProtectedRoute allowedRoles={[AUTH_ROLES.DONOR]}>
+              <Suspense fallback={<LoadingSpinner size="lg" />}>
+                <DonorDashboard />
+              </Suspense>
             </ProtectedRoute>
           </BaseErrorBoundary>
         }

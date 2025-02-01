@@ -24,7 +24,51 @@ export const useAuth = () => {
         throw new Error('No role assigned in user metadata');
       }
 
-      // Get or create profile with the correct role
+      // Add specific donor role validation
+      if (assignedRole === AUTH_ROLES.DONOR) {
+        const { data: profileData, error: profileError } = await supabase
+          .from('profiles')
+          .select('role, id, organization_id, verified')
+          .eq('id', userId)
+          .maybeSingle();
+
+        if (!profileData && !profileError) {
+          // Create new donor profile with verified status
+          const { data: newProfile, error: createError } = await supabase
+            .from('profiles')
+            .insert([{
+              id: userId,
+              role: AUTH_ROLES.DONOR,
+              verified: true, // Set donor as verified by default
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString()
+            }])
+            .select()
+            .single();
+
+          if (createError) throw createError;
+          return {
+            role: newProfile.role,
+            organizationId: null,
+            isNewProfile: true
+          };
+        }
+
+        // Ensure existing donor profile is verified
+        if (profileData && !profileData.verified) {
+          await supabase
+            .from('profiles')
+            .update({ verified: true })
+            .eq('id', userId);
+        }
+
+        return {
+          role: profileData?.role || assignedRole,
+          organizationId: null
+        };
+      }
+
+      // Handle other roles as before...
       const { data: profileData, error: profileError } = await supabase
         .from('profiles')
         .select('role, id, organization_id')

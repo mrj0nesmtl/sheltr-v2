@@ -39,4 +39,6 @@ export function Badge({
       {children}
     </span>
   );
-} 
+}
+
+export default Badge; 

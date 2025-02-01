@@ -33,7 +33,7 @@
 
 **SHELTR V2** is a revolutionary platform aimed at transforming charitable giving for homelessness through the power of technology. Utilizing **blockchain transparency**, **AI-driven insights**, **QR code donations**, and an engaging **gamification model**, SHELTR provides a comprehensive and scalable solution to address the needs of homeless individuals while empowering participants. This white paper outlines the technology stack, feature set, and architectural design of the SHELTR platform.
 
-Built under the **Arcana Concept** model, SHELTR operates as a **SaaS** platform available as a **white-label solution**, making it adaptable for shelters, NGOs, and social organizations globally, at no cost to participating shelters or participants.
+Built under the **Arcana Concept** Lab, Studio, Fund model, SHELTR will operate as a **SaaS** & **BaaS** platforms targeting shelters, NGOs, and social impact organizations globally, at no cost to participating shelters or participants.
 
 ## Vision and Mission
 
@@ -50,7 +50,7 @@ A core feature of the SHELTR platform is the **QR Code Donation System**. Each p
 
 ### 2. Blockchain Transparency & Public Ledger
 
-All donations in SHELTR are processed through **traditional payment gateways** such as Stripe or PayPal. **Blockchain** is leveraged to serve as a **public ledger** that ensures transparency in fund allocation. This hybrid approach ensures compliance with existing financial systems while maintaining **public verifiability**.
+All donations in SHELTR are processed through **traditional payment gateways** such as Stripe or PayPal. **Blockchain** is leveraged to serve as a **public ledger** that ensures transparency in fund allocation. This hybrid approach ensures compliance with existing financial systems while maintaining **public verifiability**. The shelter utility tokenomics will be deployed on the Polygon blockchain.
 
 - **Blockchain Verification**: Each donation is recorded on the blockchain, allowing **donors** and **participants** to verify transactions and see the real impact of their contributions.
 - **Smart Contracts for Fund Allocation**: Fund distribution is managed via **smart contracts**, automatically allocating donations into three categories:
